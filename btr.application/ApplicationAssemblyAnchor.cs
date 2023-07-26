@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace btr.application
 {
-    public class ApplicationAnchor
+    public class ApplicationAssemblyAnchor
     {
     }
 }

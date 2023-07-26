@@ -54,6 +54,10 @@
     <Compile Include="Application\NunaCounterBL.cs" />
     <Compile Include="Application\NunaWorker.cs" />
     <Compile Include="Application\TransHelper.cs" />
+    <Compile Include="Domain\DateTimeConversion.cs" />
+    <Compile Include="Domain\DateTimeProvider.cs" />
+    <Compile Include="Domain\NunaModelHelper.cs" />
+    <Compile Include="Domain\Periode.cs" />
     <Compile Include="Infrastructure\DapperHelper.cs" />
     <Compile Include="Infrastructure\DataAccessInterface.cs" />
     <Compile Include="Infrastructure\SqlBulkCopyHelper.cs" />
@@ -63,9 +67,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Domain\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
