@@ -77,9 +77,22 @@
     <Compile Include="Helpers\DatabaseOptions.cs" />
     <Compile Include="Helpers\ParamNoDal.cs" />
     <Compile Include="InfrastructureAnchor.cs" />
+    <Compile Include="InventoryContext\BrgAgg\BrgDal.cs" />
+    <Compile Include="InventoryContext\BrgAgg\BrgSatuanHargaDal.cs" />
+    <Compile Include="InventoryContext\StokAgg\StokDal.cs" />
+    <Compile Include="InventoryContext\StokAgg\StokMutasiDal.cs" />
+    <Compile Include="InventoryContext\WarehouseAgg\WarehouseDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\btr.application\btr.application.csproj">
+      <Project>{ba660e24-397d-4d9b-9e71-729736588205}</Project>
+      <Name>btr.application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\btr.domain\btr.domain.csproj">
+      <Project>{1f2c4331-cc07-49c6-860e-e6ba55a66b12}</Project>
+      <Name>btr.domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\btr.nuna\btr.nuna.csproj">
       <Project>{EF0BE179-091D-4477-A5E5-7E39910057C3}</Project>
       <Name>btr.nuna</Name>
@@ -93,11 +106,8 @@
     <Folder Include="FinanceContext\CreditNoteAgg\" />
     <Folder Include="FinanceContext\HutangAgg\" />
     <Folder Include="FinanceContext\PiutangAgg\" />
-    <Folder Include="InventoryContext\BrgAgg\" />
     <Folder Include="InventoryContext\DeliveryAgg\" />
     <Folder Include="InventoryContext\GoodReceiptAgg\" />
-    <Folder Include="InventoryContext\StokAgg\" />
-    <Folder Include="InventoryContext\WarehouseAgg\" />
     <Folder Include="PurchaseContext\InvoiceAgg\" />
     <Folder Include="PurchaseContext\KlaimAgg\" />
     <Folder Include="PurchaseContext\PrincipalAgg\" />

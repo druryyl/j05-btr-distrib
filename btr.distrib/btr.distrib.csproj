@@ -250,6 +250,10 @@
       <Project>{BA660E24-397D-4D9B-9E71-729736588205}</Project>
       <Name>btr.application</Name>
     </ProjectReference>
+    <ProjectReference Include="..\btr.domain\btr.domain.csproj">
+      <Project>{1f2c4331-cc07-49c6-860e-e6ba55a66b12}</Project>
+      <Name>btr.domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\btr.infrastructure\btr.infrastructure.csproj">
       <Project>{bd420c25-6a06-47cb-b011-2e302f902335}</Project>
       <Name>btr.infrastructure</Name>
