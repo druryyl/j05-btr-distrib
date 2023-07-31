@@ -78,10 +78,11 @@
     <Compile Include="SalesContext\FakturAgg\IFakturStokHargaKey.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\ISalesPersonKey.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\SalesPersonModel.cs" />
+    <Compile Include="SupportContext\UserAgg\IUserKey.cs" />
+    <Compile Include="SupportContext\UserAgg\UserModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="FinanceContext\CreditNoteAgg\" />
-    <Folder Include="SupportContext\UserAgg\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
