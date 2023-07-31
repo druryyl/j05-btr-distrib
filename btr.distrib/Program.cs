@@ -1,4 +1,5 @@
 ﻿using btr.application;
+using btr.distrib.SharedForm;
 using btr.infrastructure;
 using btr.infrastructure.Helpers;
 using btr.nuna.Application;
@@ -31,7 +32,7 @@ namespace btr.distrib
                 .Build();
             ConfigureServices(services, configuration);
 
-            Application.Run(new Form1());
+            Application.Run(new MainForm());
         }
 
         private static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
