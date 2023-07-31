@@ -44,5 +44,23 @@
     <Compile Include="ApplicationAssemblyAnchor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="FinanceContext\CreditNoteAgg\" />
+    <Folder Include="FinanceContext\HutangAgg\" />
+    <Folder Include="FinanceContext\PiutangAgg\" />
+    <Folder Include="InventoryContext\BrgAgg\" />
+    <Folder Include="InventoryContext\DeliveryAgg\" />
+    <Folder Include="InventoryContext\GoodReceiptAgg\" />
+    <Folder Include="InventoryContext\StokAgg\" />
+    <Folder Include="InventoryContext\WarehouseAgg\" />
+    <Folder Include="PurchaseContext\InvoiceAgg\" />
+    <Folder Include="PurchaseContext\KlaimAgg\" />
+    <Folder Include="PurchaseContext\PrincipalAgg\" />
+    <Folder Include="PurchaseContext\PurchaseOrderAgg\" />
+    <Folder Include="SalesContext\CustomerAgg\" />
+    <Folder Include="SalesContext\FakturAgg\" />
+    <Folder Include="SalesContext\SalesPersonAgg\" />
+    <Folder Include="SupportContext\UserAgg\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

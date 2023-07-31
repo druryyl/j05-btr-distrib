@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>1f2c4331-cc07-49c6-860e-e6ba55a66b12</ProjectGuid>
+    <ProjectGuid>{1F2C4331-CC07-49C6-860E-E6BA55A66B12}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>btr.domain</RootNamespace>
@@ -31,24 +31,45 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System"/>
-    
-    <Reference Include="System.Core"/>
-    <Reference Include="System.Xml.Linq"/>
-    <Reference Include="System.Data.DataSetExtensions"/>
-    
-    
-    <Reference Include="Microsoft.CSharp"/>
-    
-    <Reference Include="System.Data"/>
-    
-    <Reference Include="System.Net.Http"/>
-    
-    <Reference Include="System.Xml"/>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="FinanceContext\HutangAgg\HutangModel.cs" />
+    <Compile Include="FinanceContext\HutangAgg\IHutangKey.cs" />
+    <Compile Include="FinanceContext\PiutangAgg\IPiutangKey.cs" />
+    <Compile Include="FinanceContext\PiutangAgg\PiutangModel.cs" />
+    <Compile Include="InventoryContext\BrgAgg\BrgModel.cs" />
+    <Compile Include="InventoryContext\BrgAgg\BrgSatuanHargaModel.cs" />
+    <Compile Include="InventoryContext\BrgAgg\IBrgKey.cs" />
+    <Compile Include="InventoryContext\DeliveryAgg\DeliveryModel.cs" />
+    <Compile Include="InventoryContext\DeliveryAgg\IDeliveryKey.cs" />
+    <Compile Include="InventoryContext\GoodReceiptAgg\GoodReceiptModel.cs" />
+    <Compile Include="InventoryContext\GoodReceiptAgg\IGoodReceiptKey.cs" />
+    <Compile Include="InventoryContext\StokAgg\IStokKey.cs" />
+    <Compile Include="InventoryContext\StokAgg\IStokMutasiKey.cs" />
+    <Compile Include="InventoryContext\StokAgg\StokModel.cs" />
+    <Compile Include="InventoryContext\StokAgg\StokMutasiModel.cs" />
+    <Compile Include="InventoryContext\WarehouseAgg\IWarehouseKey.cs" />
+    <Compile Include="InventoryContext\WarehouseAgg\WarehouseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="FinanceContext\CreditNoteAgg\" />
+    <Folder Include="PurchaseContext\InvoiceAgg\" />
+    <Folder Include="PurchaseContext\KlaimAgg\" />
+    <Folder Include="PurchaseContext\PrincipalAgg\" />
+    <Folder Include="PurchaseContext\PurchaseOrderAgg\" />
+    <Folder Include="SalesContext\CustomerAgg\" />
+    <Folder Include="SalesContext\FakturAgg\" />
+    <Folder Include="SalesContext\SalesPersonAgg\" />
+    <Folder Include="SupportContext\UserAgg\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
- </Project>
+</Project>
