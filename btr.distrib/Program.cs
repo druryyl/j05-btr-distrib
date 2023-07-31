@@ -1,7 +1,9 @@
 ﻿using btr.application;
+using btr.infrastructure;
 using btr.infrastructure.Helpers;
 using btr.nuna.Application;
 using btr.nuna.Domain;
+using btr.nuna.Infrastructure;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -55,6 +57,54 @@ namespace btr.distrib
 
             services.Configure<DatabaseOptions>(configuration.GetSection(DatabaseOptions.SECTION_NAME));
             services.AddScoped<INunaCounterDal, ParamNoDal>();
+
+            services
+                .Scan(selector => selector
+                    .FromAssemblyOf<InfrastructureAssemblyAnchor>()
+                        .AddClasses(c => c.AssignableTo(typeof(IInsert<>)))
+                        .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+                        .AsSelfWithInterfaces()
+                        .WithScopedLifetime()
+                    .FromAssemblyOf<InfrastructureAssemblyAnchor>()
+                        .AddClasses(c => c.AssignableTo(typeof(IUpdate<>)))
+                        .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+                        .AsSelfWithInterfaces()
+                        .WithScopedLifetime()
+                    .FromAssemblyOf<InfrastructureAssemblyAnchor>()
+                        .AddClasses(c => c.AssignableTo(typeof(IDelete<>)))
+                        .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+                        .AsSelfWithInterfaces()
+                        .WithScopedLifetime()
+                    .FromAssemblyOf<InfrastructureAssemblyAnchor>()
+                        .AddClasses(c => c.AssignableTo(typeof(IGetData<,>)))
+                        .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+                        .AsSelfWithInterfaces()
+                        .WithScopedLifetime()
+                    .FromAssemblyOf<InfrastructureAssemblyAnchor>()
+                        .AddClasses(c => c.AssignableTo(typeof(IListData<>)))
+                        .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+                        .AsSelfWithInterfaces()
+                        .WithScopedLifetime()
+                    .FromAssemblyOf<InfrastructureAssemblyAnchor>()
+                        .AddClasses(c => c.AssignableTo(typeof(IListData<,>)))
+                        .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+                        .AsSelfWithInterfaces()
+                        .WithScopedLifetime()
+                    .FromAssemblyOf<InfrastructureAssemblyAnchor>()
+                        .AddClasses(c => c.AssignableTo(typeof(IListData<,,>)))
+                        .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+                        .AsSelfWithInterfaces()
+                        .WithScopedLifetime()
+                    .FromAssemblyOf<InfrastructureAssemblyAnchor>()
+                        .AddClasses(c => c.AssignableTo(typeof(INunaService<,>)))
+                        .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+                        .AsSelfWithInterfaces()
+                        .WithScopedLifetime()
+                    .FromAssemblyOf<InfrastructureAssemblyAnchor>()
+                        .AddClasses(c => c.AssignableTo(typeof(INunaService<>)))
+                        .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+                        .AsSelfWithInterfaces()
+                        .WithScopedLifetime());
 
         }
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace btr.infrastructure
 {
-    public class InfrastructureAnchor
+    public class InfrastructureAssemblyAnchor
     {
     }
 }
