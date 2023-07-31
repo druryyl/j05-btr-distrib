@@ -42,24 +42,51 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationAssemblyAnchor.cs" />
+    <Compile Include="InventoryContext\BrgAgg\Contracts\IBrgDal.cs" />
+    <Compile Include="InventoryContext\BrgAgg\Contracts\IBrgSatuanHargaDal.cs" />
+    <Compile Include="InventoryContext\BrgAgg\UseCases\GetBrgQuery.cs" />
+    <Compile Include="InventoryContext\BrgAgg\Workers\BrgBuilder.cs" />
+    <Compile Include="InventoryContext\StokAgg\Contracts\IStokDal.cs" />
+    <Compile Include="InventoryContext\StokAgg\Contracts\IStokMutasiDal.cs" />
+    <Compile Include="InventoryContext\StokAgg\UseCases\ListBrgStokQuery.cs" />
+    <Compile Include="InventoryContext\WarehouseAgg\Contracts\IWarehouseDal.cs" />
+    <Compile Include="InventoryContext\WarehouseAgg\UseCases\GetWarehouseQuery.cs" />
+    <Compile Include="InventoryContext\WarehouseAgg\UseCases\ListWarehouseQuery.cs" />
+    <Compile Include="InventoryContext\WarehouseAgg\Workers\WarehouseBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SalesContext\CustomerAgg\Contracts\ICustomerDal.cs" />
+    <Compile Include="SalesContext\CustomerAgg\UseCases\GetCustomerQuery.cs" />
+    <Compile Include="SalesContext\CustomerAgg\UseCases\ListCustomerQuery.cs" />
+    <Compile Include="SalesContext\CustomerAgg\Workers\CustomerBuilder.cs" />
+    <Compile Include="SalesContext\FakturAgg\Contracts\IFakturDal.cs" />
+    <Compile Include="SalesContext\FakturAgg\Contracts\IFakturDiscountDal.cs" />
+    <Compile Include="SalesContext\FakturAgg\Contracts\IFakturItemDal.cs" />
+    <Compile Include="SalesContext\FakturAgg\Contracts\IFakturQtyHargaDal.cs" />
+    <Compile Include="SalesContext\FakturAgg\UseCases\CreateFakturCommand.cs" />
+    <Compile Include="SalesContext\FakturAgg\UseCases\GetFakturQuery.cs" />
+    <Compile Include="SalesContext\FakturAgg\UseCases\ListFakturQuery.cs" />
+    <Compile Include="SalesContext\FakturAgg\Workers\FakturBuilder.cs" />
+    <Compile Include="SalesContext\FakturAgg\Workers\FakturValidator.cs" />
+    <Compile Include="SalesContext\FakturAgg\Workers\FakturWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="FinanceContext\CreditNoteAgg\" />
     <Folder Include="FinanceContext\HutangAgg\" />
     <Folder Include="FinanceContext\PiutangAgg\" />
-    <Folder Include="InventoryContext\BrgAgg\" />
-    <Folder Include="InventoryContext\DeliveryAgg\" />
-    <Folder Include="InventoryContext\GoodReceiptAgg\" />
-    <Folder Include="InventoryContext\StokAgg\" />
-    <Folder Include="InventoryContext\WarehouseAgg\" />
+    <Folder Include="InventoryContext\DeliveryAgg\Contracts\" />
+    <Folder Include="InventoryContext\DeliveryAgg\UseCases\" />
+    <Folder Include="InventoryContext\DeliveryAgg\Workers\" />
+    <Folder Include="InventoryContext\GoodReceiptAgg\Contracts\" />
+    <Folder Include="InventoryContext\GoodReceiptAgg\UseCases\" />
+    <Folder Include="InventoryContext\GoodReceiptAgg\Workers\" />
+    <Folder Include="InventoryContext\StokAgg\Workers\" />
     <Folder Include="PurchaseContext\InvoiceAgg\" />
     <Folder Include="PurchaseContext\KlaimAgg\" />
     <Folder Include="PurchaseContext\PrincipalAgg\" />
     <Folder Include="PurchaseContext\PurchaseOrderAgg\" />
-    <Folder Include="SalesContext\CustomerAgg\" />
-    <Folder Include="SalesContext\FakturAgg\" />
-    <Folder Include="SalesContext\SalesPersonAgg\" />
+    <Folder Include="SalesContext\SalesPersonAgg\Contracts\" />
+    <Folder Include="SalesContext\SalesPersonAgg\UseCases\" />
+    <Folder Include="SalesContext\SalesPersonAgg\Workers\" />
     <Folder Include="SupportContext\UserAgg\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
