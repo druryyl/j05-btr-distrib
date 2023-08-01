@@ -32,7 +32,11 @@ namespace btr.distrib
                 .Build();
             ConfigureServices(services, configuration);
 
-            Application.Run(new MainForm());
+            using (var sp = services.BuildServiceProvider())
+            {
+                var form = sp.GetRequiredService<MainForm>();
+                Application.Run(form);
+            }
         }
 
         private static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
@@ -107,6 +111,13 @@ namespace btr.distrib
                         .AsSelfWithInterfaces()
                         .WithScopedLifetime());
 
+            services
+                .Scan(selector => selector
+                    .FromAssemblyOf<WinformAssemblyAnchor>()
+                        .AddClasses(c => c.AssignableTo(typeof(Form)))
+                        .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+                        .AsSelf()
+                        .WithScopedLifetime());
         }
     }
 }

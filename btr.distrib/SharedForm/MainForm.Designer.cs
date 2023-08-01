@@ -91,7 +91,7 @@
             this.SalesTab.Name = "SalesTab";
             this.SalesTab.Panels.Add(this.FakturPanel);
             this.SalesTab.Panels.Add(this.MasterSalesPanel);
-            this.SalesTab.Text = "Penjualan";
+            this.SalesTab.Text = "Sales";
             // 
             // FakturPanel
             // 
@@ -108,6 +108,7 @@
             this.FakturButton.Name = "FakturButton";
             this.FakturButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FakturButton.SmallImage")));
             this.FakturButton.Text = "Faktur";
+            this.FakturButton.Click += new System.EventHandler(this.FakturButton_Click);
             // 
             // ReturJualButton
             // 
@@ -177,7 +178,7 @@
             this.PurchaseTab.Panels.Add(this.PurchaseOrderRibbonPanel);
             this.PurchaseTab.Panels.Add(this.InvoiceRibbonPanel);
             this.PurchaseTab.Panels.Add(this.MasterPurchaseRibbonPanel);
-            this.PurchaseTab.Text = "Pembelian";
+            this.PurchaseTab.Text = "Purchase";
             // 
             // PurchaseOrderRibbonPanel
             // 

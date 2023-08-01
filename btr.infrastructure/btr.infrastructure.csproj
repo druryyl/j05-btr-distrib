@@ -83,6 +83,12 @@
     <Compile Include="InventoryContext\StokAgg\StokMutasiDal.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\WarehouseDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SalesContext\CustomerAgg\CustomerDal.cs" />
+    <Compile Include="SalesContext\FakturAgg\FakturDal.cs" />
+    <Compile Include="SalesContext\FakturAgg\FakturDiscountDal.cs" />
+    <Compile Include="SalesContext\FakturAgg\FakturItemDal.cs" />
+    <Compile Include="SalesContext\FakturAgg\FakturQtyHargaDal.cs" />
+    <Compile Include="SalesContext\SalesPersonAgg\SalesPersonDal.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\btr.application\btr.application.csproj">
@@ -112,9 +118,6 @@
     <Folder Include="PurchaseContext\KlaimAgg\" />
     <Folder Include="PurchaseContext\PrincipalAgg\" />
     <Folder Include="PurchaseContext\PurchaseOrderAgg\" />
-    <Folder Include="SalesContext\CustomerAgg\" />
-    <Folder Include="SalesContext\FakturAgg\" />
-    <Folder Include="SalesContext\SalesPersonAgg\" />
     <Folder Include="SupportContext\UserAgg\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
