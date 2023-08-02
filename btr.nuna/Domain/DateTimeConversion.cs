@@ -26,6 +26,9 @@ namespace btr.nuna.Domain
 
         public static DateTime ToDate(this string stringTgl)
         {
+            if (stringTgl.Length == 0)
+                stringTgl = "3000-01-01";
+
             DateTime dummyDate;
             //  coba parsing sebagai DMY
             bool isValid = DateTime.TryParseExact(stringTgl, DMY,

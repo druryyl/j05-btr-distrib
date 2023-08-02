@@ -209,8 +209,10 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ControlStyle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SalesContext\FakturAgg\FakturBrowser.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturForm.cs">
       <SubType>Form</SubType>
     </Compile>

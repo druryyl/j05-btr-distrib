@@ -106,6 +106,7 @@
             this.BrowserGrid.Size = new System.Drawing.Size(331, 388);
             this.BrowserGrid.TabIndex = 6;
             this.BrowserGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.BrowserGrid_CellDoubleClick);
+            this.BrowserGrid.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.BrowserGrid_DataBindingComplete);
             // 
             // BrowserForm
             // 

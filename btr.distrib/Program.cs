@@ -31,12 +31,14 @@ namespace btr.distrib
                 .AddJsonFile("appsettings.json", false, true)
                 .Build();
             ConfigureServices(services, configuration);
+            var form = new MainForm(services);
+            Application.Run(form);
 
-            using (var sp = services.BuildServiceProvider())
-            {
-                var form = sp.GetRequiredService<MainForm>();
-                Application.Run(form);
-            }
+            //using (var sp = services.BuildServiceProvider())
+            //{
+            //    var form = sp.GetRequiredService<MainForm>();
+            //    Application.Run(form);
+            //}
         }
 
         private static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
@@ -117,6 +119,16 @@ namespace btr.distrib
                         .AddClasses(c => c.AssignableTo(typeof(Form)))
                         .UsingRegistrationStrategy(RegistrationStrategy.Skip)
                         .AsSelf()
+                        .WithTransientLifetime()
+                    .FromAssemblyOf<WinformAssemblyAnchor>()
+                        .AddClasses(c => c.AssignableTo(typeof(IDateBrowser<>)))
+                        .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+                        .AsSelfWithInterfaces()
+                        .WithScopedLifetime()
+                    .FromAssemblyOf<WinformAssemblyAnchor>()
+                        .AddClasses(c => c.AssignableTo(typeof(IStringBrowser<>)))
+                        .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+                        .AsSelfWithInterfaces()
                         .WithScopedLifetime());
         }
     }

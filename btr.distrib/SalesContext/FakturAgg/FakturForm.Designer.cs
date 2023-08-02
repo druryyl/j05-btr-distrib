@@ -56,7 +56,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.FakturDateText = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.FakturButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.CustomerIdText = new System.Windows.Forms.TextBox();
@@ -65,16 +65,16 @@
             this.CreditBalanceLabel = new System.Windows.Forms.Label();
             this.PlafondLabel = new System.Windows.Forms.Label();
             this.CustomerNameTextBox = new System.Windows.Forms.TextBox();
-            this.button4 = new System.Windows.Forms.Button();
+            this.CustomerButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.WarehouseIdText = new System.Windows.Forms.TextBox();
             this.TermOfPaymentComboBox = new System.Windows.Forms.ComboBox();
             this.TermOfPaymentLabel = new System.Windows.Forms.Label();
             this.TglRencanaKirimTextBox = new System.Windows.Forms.DateTimePicker();
             this.TglRencanaKirimLabel = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.WarehouseNameText = new System.Windows.Forms.TextBox();
+            this.WarehouseButton = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.PanelAtas4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturItemGrid)).BeginInit();
@@ -349,7 +349,7 @@
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.FakturDateText);
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.FakturButton);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(6, 9);
             this.panel1.Name = "panel1";
@@ -362,6 +362,7 @@
             this.FakturIdText.Name = "FakturIdText";
             this.FakturIdText.Size = new System.Drawing.Size(147, 22);
             this.FakturIdText.TabIndex = 0;
+            this.FakturIdText.Validating += new System.ComponentModel.CancelEventHandler(this.FakturIdText_Validating);
             // 
             // SalesIdText
             // 
@@ -369,6 +370,7 @@
             this.SalesIdText.Name = "SalesIdText";
             this.SalesIdText.Size = new System.Drawing.Size(147, 22);
             this.SalesIdText.TabIndex = 3;
+            this.SalesIdText.Validating += new System.ComponentModel.CancelEventHandler(this.SalesIdText_Validating);
             // 
             // SalesPersonNameTextBox
             // 
@@ -415,14 +417,15 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Faktur Date";
             // 
-            // button1
+            // FakturButton
             // 
-            this.button1.Location = new System.Drawing.Point(164, 24);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(28, 20);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "...";
-            this.button1.UseVisualStyleBackColor = true;
+            this.FakturButton.Location = new System.Drawing.Point(164, 24);
+            this.FakturButton.Name = "FakturButton";
+            this.FakturButton.Size = new System.Drawing.Size(28, 20);
+            this.FakturButton.TabIndex = 1;
+            this.FakturButton.Text = "...";
+            this.FakturButton.UseVisualStyleBackColor = true;
+            this.FakturButton.Click += new System.EventHandler(this.FakturButton_Click);
             // 
             // label1
             // 
@@ -443,7 +446,7 @@
             this.panel2.Controls.Add(this.CreditBalanceLabel);
             this.panel2.Controls.Add(this.PlafondLabel);
             this.panel2.Controls.Add(this.CustomerNameTextBox);
-            this.panel2.Controls.Add(this.button4);
+            this.panel2.Controls.Add(this.CustomerButton);
             this.panel2.Controls.Add(this.label6);
             this.panel2.Location = new System.Drawing.Point(212, 9);
             this.panel2.Name = "panel2";
@@ -456,6 +459,7 @@
             this.CustomerIdText.Name = "CustomerIdText";
             this.CustomerIdText.Size = new System.Drawing.Size(147, 22);
             this.CustomerIdText.TabIndex = 6;
+            this.CustomerIdText.Validating += new System.ComponentModel.CancelEventHandler(this.CustomerIdText_Validating);
             // 
             // CreditBalanceTextBox
             // 
@@ -515,14 +519,15 @@
             this.CustomerNameTextBox.Size = new System.Drawing.Size(176, 22);
             this.CustomerNameTextBox.TabIndex = 8;
             // 
-            // button4
+            // CustomerButton
             // 
-            this.button4.Location = new System.Drawing.Point(164, 24);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(28, 20);
-            this.button4.TabIndex = 7;
-            this.button4.Text = "...";
-            this.button4.UseVisualStyleBackColor = true;
+            this.CustomerButton.Location = new System.Drawing.Point(164, 24);
+            this.CustomerButton.Name = "CustomerButton";
+            this.CustomerButton.Size = new System.Drawing.Size(28, 20);
+            this.CustomerButton.TabIndex = 7;
+            this.CustomerButton.Text = "...";
+            this.CustomerButton.UseVisualStyleBackColor = true;
+            this.CustomerButton.Click += new System.EventHandler(this.CustomerButton_Click);
             // 
             // label6
             // 
@@ -537,25 +542,26 @@
             // 
             this.panel3.BackColor = System.Drawing.Color.Cornsilk;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.textBox4);
+            this.panel3.Controls.Add(this.WarehouseIdText);
             this.panel3.Controls.Add(this.TermOfPaymentComboBox);
             this.panel3.Controls.Add(this.TermOfPaymentLabel);
             this.panel3.Controls.Add(this.TglRencanaKirimTextBox);
             this.panel3.Controls.Add(this.TglRencanaKirimLabel);
-            this.panel3.Controls.Add(this.textBox1);
-            this.panel3.Controls.Add(this.button3);
+            this.panel3.Controls.Add(this.WarehouseNameText);
+            this.panel3.Controls.Add(this.WarehouseButton);
             this.panel3.Controls.Add(this.label7);
             this.panel3.Location = new System.Drawing.Point(418, 9);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(200, 186);
             this.panel3.TabIndex = 38;
             // 
-            // textBox4
+            // WarehouseIdText
             // 
-            this.textBox4.Location = new System.Drawing.Point(11, 25);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(147, 22);
-            this.textBox4.TabIndex = 11;
+            this.WarehouseIdText.Location = new System.Drawing.Point(11, 25);
+            this.WarehouseIdText.Name = "WarehouseIdText";
+            this.WarehouseIdText.Size = new System.Drawing.Size(147, 22);
+            this.WarehouseIdText.TabIndex = 11;
+            this.WarehouseIdText.Validating += new System.ComponentModel.CancelEventHandler(this.WarehouseIdText_Validating);
             // 
             // TermOfPaymentComboBox
             // 
@@ -597,22 +603,23 @@
             this.TglRencanaKirimLabel.TabIndex = 17;
             this.TglRencanaKirimLabel.Text = "Tgl Rencana Kirim";
             // 
-            // textBox1
+            // WarehouseNameText
             // 
-            this.textBox1.Location = new System.Drawing.Point(11, 52);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(176, 22);
-            this.textBox1.TabIndex = 13;
+            this.WarehouseNameText.Location = new System.Drawing.Point(11, 52);
+            this.WarehouseNameText.Name = "WarehouseNameText";
+            this.WarehouseNameText.ReadOnly = true;
+            this.WarehouseNameText.Size = new System.Drawing.Size(176, 22);
+            this.WarehouseNameText.TabIndex = 13;
             // 
-            // button3
+            // WarehouseButton
             // 
-            this.button3.Location = new System.Drawing.Point(164, 24);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(28, 20);
-            this.button3.TabIndex = 12;
-            this.button3.Text = "...";
-            this.button3.UseVisualStyleBackColor = true;
+            this.WarehouseButton.Location = new System.Drawing.Point(164, 24);
+            this.WarehouseButton.Name = "WarehouseButton";
+            this.WarehouseButton.Size = new System.Drawing.Size(28, 20);
+            this.WarehouseButton.TabIndex = 12;
+            this.WarehouseButton.Text = "...";
+            this.WarehouseButton.UseVisualStyleBackColor = true;
+            this.WarehouseButton.Click += new System.EventHandler(this.WarehouseButton_Click);
             // 
             // label7
             // 
@@ -641,6 +648,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "FakturForm";
             this.Text = "FakturForm";
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.FakturForm_Paint);
             this.PanelAtas4.ResumeLayout(false);
             this.PanelAtas4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturItemGrid)).EndInit();
@@ -694,7 +702,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DateTimePicker FakturDateText;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button FakturButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox CustomerIdText;
@@ -703,16 +711,16 @@
         private System.Windows.Forms.Label CreditBalanceLabel;
         private System.Windows.Forms.Label PlafondLabel;
         private System.Windows.Forms.TextBox CustomerNameTextBox;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button CustomerButton;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox WarehouseIdText;
         private System.Windows.Forms.ComboBox TermOfPaymentComboBox;
         private System.Windows.Forms.Label TermOfPaymentLabel;
         private System.Windows.Forms.DateTimePicker TglRencanaKirimTextBox;
         private System.Windows.Forms.Label TglRencanaKirimLabel;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TextBox WarehouseNameText;
+        private System.Windows.Forms.Button WarehouseButton;
         private System.Windows.Forms.Label label7;
     }
 }

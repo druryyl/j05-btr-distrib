@@ -110,8 +110,8 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
         public Task<GetFakturResponse> Handle(GetFakturQuery request, CancellationToken cancellationToken)
         {
             //  GUARD
-            Guard.Argument(() => request)
-                .Member(x => x.FakturId, y => y.NotEmpty());
+            Guard.Argument(() => request).NotNull()
+                .Member(x => x.FakturId, y => y.NotNull());
 
             //  BUILD
             _aggRoot = _builder

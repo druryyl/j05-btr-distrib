@@ -1,4 +1,5 @@
 ﻿using btr.distrib.SalesContext.FakturAgg;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Drawing;
 using System.Linq;
@@ -9,20 +10,21 @@ namespace btr.distrib.SharedForm
     public partial class MainForm : Form
     {
         private readonly FakturForm _fakturForm;
+        private readonly ServiceProvider _servicesProvider;
 
-        public MainForm(FakturForm fakturForm)
+        public MainForm(ServiceCollection servicesCollection)
         {
             InitializeComponent();
             Controls.OfType<MdiClient>().FirstOrDefault().BackColor = Color.White;
-
-            _fakturForm = fakturForm;
+            _servicesProvider = servicesCollection.BuildServiceProvider();
         }
 
         private void FakturButton_Click(object sender, EventArgs e)
         {
-            _fakturForm.StartPosition = FormStartPosition.CenterScreen;
-            _fakturForm.MdiParent = this;
-            _fakturForm.Show();
+            var form = _servicesProvider.GetRequiredService<FakturForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
         }
     }
 }
