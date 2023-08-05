@@ -147,6 +147,7 @@
             this.FakturItemGrid.Name = "FakturItemGrid";
             this.FakturItemGrid.Size = new System.Drawing.Size(852, 322);
             this.FakturItemGrid.TabIndex = 40;
+            this.FakturItemGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.FakturItemGrid_CellContentClick);
             // 
             // PanelTengah
             // 

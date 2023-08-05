@@ -121,12 +121,7 @@ namespace btr.distrib
                         .AsSelf()
                         .WithTransientLifetime()
                     .FromAssemblyOf<WinformAssemblyAnchor>()
-                        .AddClasses(c => c.AssignableTo(typeof(IDateBrowser<>)))
-                        .UsingRegistrationStrategy(RegistrationStrategy.Skip)
-                        .AsSelfWithInterfaces()
-                        .WithScopedLifetime()
-                    .FromAssemblyOf<WinformAssemblyAnchor>()
-                        .AddClasses(c => c.AssignableTo(typeof(IStringBrowser<>)))
+                        .AddClasses(c => c.AssignableTo(typeof(IBrowser<>)))
                         .UsingRegistrationStrategy(RegistrationStrategy.Skip)
                         .AsSelfWithInterfaces()
                         .WithScopedLifetime());

@@ -55,9 +55,6 @@ namespace btr.distrib.SalesContext.FakturAgg
             var query = new GetBrgHargaQuery(value);
             Task<GetBrgHargaResponse> queryTask() => _mediator.Send(query);
             var result = await policy.ExecuteAsync(queryTask);
-
-            //var service = new GetBrgHargaService();
-            //var response = service.Execute(_brgId);
             _brgName = result.BrgName;
             ListStokHargaSatuan = result.ListSatuanHarga
                 .Select(x => new FakturItemStokHargaSatuan(x.Stok, x.HargaJual, x.Satuan))

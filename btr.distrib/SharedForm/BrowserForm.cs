@@ -18,12 +18,11 @@ namespace btr.distrib.SharedForm
 
         //  property selector untuk field yang akan di-filter
         private readonly Func<T, TKey> _propertySelector = null;
-        private readonly IDateBrowser<T> _dateBrowser = null;
-        private readonly IStringBrowser<T> _stringBrowser = null;
-        private readonly string _filter2nd;
+        private readonly IBrowser<T> _browser = null;
+        private string[] _args;
 
         //  constructor standard
-        public BrowserForm(IEnumerable<T> listData, string returnedValue, Func<T, TKey> propertySelector)
+        public BrowserForm(IEnumerable<T> listData, string defaultValue, Func<T, TKey> propertySelector)
         {
             InitializeComponent();
             HideDateInput();
@@ -31,47 +30,27 @@ namespace btr.distrib.SharedForm
             ListData = listData;
             _propertySelector = propertySelector;
             RefreshGrid();
-            ReturnedValue = returnedValue;
+            ReturnedValue = defaultValue;
         }
 
-        //  constructor dengan date filter
-        public BrowserForm(IDateBrowser<T> browseDate, string returnedValue, Func<T, TKey> propertySelector)
+        public BrowserForm(IBrowser<T> browser, string defaultValue, string[] args, Func<T, TKey> propertySelector)
         {
             InitializeComponent();
 
-            _dateBrowser = browseDate;
-            ListData = Task.Run(() => _dateBrowser.Browse(new Periode(DateTime.Now))).GetAwaiter().GetResult();
+            _browser = browser;
+            _args = args;
+            ListData = Task.Run(() => _browser.Browse(FilterTextBox.Text, new Periode(DateTime.Now), args)).GetAwaiter().GetResult();
             _propertySelector = propertySelector;
             RefreshGrid();
-            ReturnedValue = returnedValue;
-        }
-
-        public BrowserForm(IStringBrowser<T> browser, string returnedValue, string filter2nd, Func<T, TKey> propertySelector)
-        {
-            InitializeComponent();
-            HideDateInput();
-
-            _stringBrowser = browser;
-            _filter2nd = filter2nd;
-            ListData = new List<T>();
-            _propertySelector = propertySelector;
-            RefreshGrid();
-            ReturnedValue = returnedValue;
+            ReturnedValue = defaultValue;
         }
 
         private async Task RePopulateListData()
         {
-            if (_dateBrowser != null)
+            if (_browser != null)
             {
-                ListData = await _dateBrowser.Browse(new Periode(FilterDate1TextBox.Value, FilterDate2TextBox.Value));
-                return;
-            }
-            if (_stringBrowser != null)
-            {
-                if (FilterTextBox.Text.Length == 0)
-                    ListData = new List<T>();
-                else
-                    ListData = await _stringBrowser.Browse(FilterTextBox.Text, _filter2nd);
+                ListData = await _browser.Browse(FilterTextBox.Text, 
+                    new Periode(FilterDate1TextBox.Value, FilterDate2TextBox.Value), _args);
                 return;
             }
         }

@@ -1,4 +1,5 @@
-﻿using btr.application.InventoryContext.WarehouseAgg.UseCases;
+﻿using btr.application.InventoryContext.StokAgg.UseCases;
+using btr.application.InventoryContext.WarehouseAgg.UseCases;
 using btr.application.SalesContext.CustomerAgg.UseCases;
 using btr.application.SalesContext.FakturAgg.UseCases;
 using btr.application.SalesContext.SalesPersonAgg.UseCases;
@@ -24,14 +25,16 @@ namespace btr.distrib.SalesContext.FakturAgg
         private List<FakturItemDto> _listItem = new List<FakturItemDto>();
         private readonly IMediator _mediator;
         private readonly IFakturBrowser _fakturBrowser;
+        private readonly IBrgStokBrowser _brgStokBrowser;
 
-        public FakturForm(IMediator mediator, IFakturBrowser fakturBrowser)
+        public FakturForm(IMediator mediator, IFakturBrowser fakturBrowser, IBrgStokBrowser brgStokBrowser)
         {
             InitializeComponent();
             InitGrid();
 
             _mediator = mediator;
             _fakturBrowser = fakturBrowser;
+            _brgStokBrowser = brgStokBrowser;
         }
 
         private void HideNumericUpDownButton()
@@ -49,10 +52,12 @@ namespace btr.distrib.SalesContext.FakturAgg
                 if (col.ReadOnly)
                     col.DefaultCellStyle.BackColor = Color.Beige;
             }
-            DataGridViewButtonColumn buttonCol = new DataGridViewButtonColumn();
-            buttonCol.HeaderText = "Find"; // Set the column header text
-            buttonCol.Text = "..."; // Set the button text
-            buttonCol.Name = "Find"; // Set the button text
+            DataGridViewButtonColumn buttonCol = new DataGridViewButtonColumn
+            {
+                HeaderText = "Find", // Set the column header text
+                Text = "...", // Set the button text
+                Name = "Find" // Set the button text
+            };
             buttonCol.DefaultCellStyle.BackColor = Color.Brown;
             FakturItemGrid.Columns.Insert(1, buttonCol);
 
@@ -89,9 +94,14 @@ namespace btr.distrib.SalesContext.FakturAgg
         }
         private void RefreshGrid()
         {
+            if (!_listItem.Any())
+                _listItem.Add(new FakturItemDto(_mediator));
+            if (_listItem.Last().BrgId.Length != 0)
+                _listItem.Add(new FakturItemDto(_mediator));
+
             var binding = new BindingSource
             {
-                DataSource = _listItem
+                DataSource = _listItem,
             };
             FakturItemGrid.DataSource = binding;
         }
@@ -198,11 +208,12 @@ namespace btr.distrib.SalesContext.FakturAgg
         }
         #endregion
 
+        #region FAKTUR
         private async void FakturButton_Click(object sender, EventArgs e)
         {
             var now = DateTime.Now.ToString("yyyy-MM-dd");
             var query = new ListFakturQuery(now, now);
-            var form = new BrowserForm<ListFakturResponse, string>(_fakturBrowser, FakturIdText.Text, x => x.CustomerName);
+            var form = new BrowserForm<ListFakturResponse, string>(_fakturBrowser, FakturIdText.Text, new string[]{}, x => x.CustomerName);
             var resultDialog = form.ShowDialog();
             if (resultDialog == DialogResult.OK)
             {
@@ -265,10 +276,30 @@ namespace btr.distrib.SalesContext.FakturAgg
             }
             RefreshGrid();
         }
+        #endregion
 
         private void FakturForm_Paint(object sender, PaintEventArgs e)
         {
             HideNumericUpDownButton();
+        }
+
+        private void FakturItemGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            var grid = (DataGridView)sender;
+            if (e.ColumnIndex == grid.Columns["Find"].Index && e.RowIndex >= 0)
+            {
+                if (WarehouseIdText.Text.Length == 0)
+                    return;
+
+                var defaultBrgId = grid.CurrentCell.Value?.ToString() ?? string.Empty;
+                var warehouse = WarehouseIdText.Text;
+                var browserArgs = new string[] {warehouse};
+                var form = new BrowserForm<ListBrgStokResponse, string>(_brgStokBrowser, defaultBrgId, browserArgs, x => x.BrgName);
+                var resultDialog = form.ShowDialog();
+                if (resultDialog == DialogResult.OK)
+                    grid.CurrentRow.Cells["BrgId"].Value = form.ReturnedValue;
+            }
         }
     }
 }

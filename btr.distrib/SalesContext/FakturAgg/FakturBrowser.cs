@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace btr.distrib.SalesContext.FakturAgg
 {
-    public interface IFakturBrowser : IDateBrowser<ListFakturResponse>
+    public interface IFakturBrowser : IBrowser<ListFakturResponse>
     {
     }
 
@@ -24,10 +24,11 @@ namespace btr.distrib.SalesContext.FakturAgg
             _mediator = mediator;
         }
 
-        public async Task<IEnumerable<ListFakturResponse>> Browse(Periode periode)
+        public async Task<IEnumerable<ListFakturResponse>> Browse(string userSearch, Periode periode, string[] args)
         {
             var tgl1 = periode.Tgl1.ToString("yyyy-MM-dd");
             var tgl2 = periode.Tgl2.ToString("yyyy-MM-dd");
+
             var policy = Policy<IEnumerable<ListFakturResponse>>
                 .Handle<KeyNotFoundException>()
                 .FallbackAsync(new List<ListFakturResponse>());

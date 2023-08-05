@@ -212,6 +212,7 @@
     <Compile Include="Helpers\ControlStyle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SalesContext\FakturAgg\BrgStokBrowser.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturBrowser.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturForm.cs">
       <SubType>Form</SubType>
@@ -226,7 +227,7 @@
     <Compile Include="SharedForm\BrowserForm.Designer.cs">
       <DependentUpon>BrowserForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SharedForm\IDateBrowser.cs" />
+    <Compile Include="SharedForm\IBrowser.cs" />
     <Compile Include="SharedForm\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
