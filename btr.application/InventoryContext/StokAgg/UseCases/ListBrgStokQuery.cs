@@ -55,7 +55,7 @@ public class ListBrgStokHandler : IRequestHandler<ListBrgStokQuery, IEnumerable<
         var listBrgKey = ListBrgKey(request.BrgName);
         var listStok = ListStok(listBrgKey, warehouseKey);
         
-        //  RESPONSE
+        //  RESPONSES
         var result =
             from c in listStok
             group c by new { c.BrgId, c.BrgName }

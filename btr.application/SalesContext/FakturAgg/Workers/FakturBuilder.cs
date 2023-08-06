@@ -27,7 +27,9 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         IFakturBuilder SalesPerson(ISalesPersonKey salesPersonKey);
         IFakturBuilder Warehouse(IWarehouseKey warehouseKey);
         IFakturBuilder TglRencanaKirim(DateTime tglRencanaKirim);
-        IFakturBuilder AddItem(IBrgKey brgKey, string qtyString, string discountString, double ppnProsen);
+        IFakturBuilder AddItem(IBrgKey brgKey, string qtyString, string discountString, decimal ppnProsen);
+        IFakturBuilder CalcTotal();
+
     }
 
     public class FakturBuilder : IFakturBuilder
@@ -154,7 +156,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         }
 
         public IFakturBuilder AddItem(IBrgKey brgKey, string qtyString,
-            string discountString, double ppnProsen)
+            string discountString, decimal ppnProsen)
         {
             var noUrutMax = _aggRoot.ListItem
                 .DefaultIfEmpty(new FakturItemModel() { NoUrut = 0 })
@@ -244,6 +246,14 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             }
 
             return result;
+        }
+
+        public IFakturBuilder CalcTotal()
+        {
+            _aggRoot.Total = _aggRoot.ListItem.Sum(x => x.Total);
+            _aggRoot.GrandTotal = _aggRoot.Total - _aggRoot.DiscountLain + _aggRoot.BiayaLain;
+            _aggRoot.KurangBayar = _aggRoot.GrandTotal - _aggRoot.UangMuka;
+            return this;
         }
     }
 }

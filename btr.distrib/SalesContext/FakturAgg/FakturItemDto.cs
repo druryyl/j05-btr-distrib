@@ -15,15 +15,15 @@ namespace btr.distrib.SalesContext.FakturAgg
         private string _brgName = string.Empty;
         private string _disc = string.Empty;
         private string _discRp = string.Empty;
-        private double _discTotal = 0;
+        private decimal _discTotal = 0;
 
         private string _qty = string.Empty;
         private int[] _qtyInt = new int[3];
         private string _qtyDetil = string.Empty;
-        private double _subTotal = 0;
-        private double _ppn = 0;
-        private double _ppnRp = 0;
-        private double _total = 0;
+        private decimal _subTotal = 0;
+        private decimal _ppn = 0;
+        private decimal _ppnRp = 0;
+        private decimal _total = 0;
 
         private readonly IMediator _mediator;
 
@@ -59,6 +59,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             ListStokHargaSatuan = result.ListSatuanHarga
                 .Select(x => new FakturItemStokHargaSatuan(x.Stok, x.HargaJual, x.Satuan))
                 .ToList();
+            ReCalc();
         }
         public string BrgName { get => _brgName; }
 
@@ -82,7 +83,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         }
         public string QtyDetil { get => _qtyDetil; }
 
-        public double SubTotal { get => _subTotal; }
+        public decimal SubTotal { get => _subTotal; }
 
         public string Disc
         {
@@ -94,8 +95,8 @@ namespace btr.distrib.SalesContext.FakturAgg
             }
         }
         public string DiscRp { get => _discRp; }
-        public double DiscTotal { get => _discTotal; }
-        public double Ppn
+        public decimal DiscTotal { get => _discTotal; }
+        public decimal Ppn
         {
             get => _ppn;
             set
@@ -104,8 +105,8 @@ namespace btr.distrib.SalesContext.FakturAgg
                 ReCalc();
             }
         }
-        public double PpnRp { get => _ppnRp; }
-        public double Total { get => _total; }
+        public decimal PpnRp { get => _ppnRp; }
+        public decimal Total { get => _total; }
         public List<FakturItemStokHargaSatuan> ListStokHargaSatuan { get; set; }
         public void ReCalc()
         {
@@ -118,9 +119,9 @@ namespace btr.distrib.SalesContext.FakturAgg
         public void SetBrgName(string name) => _brgName = name;
 
         #region PRIVATE-HELPER
-        private List<double> ParseStringMultiNumber(string str, int size)
+        private List<decimal> ParseStringMultiNumber(string str, int size)
         {
-            var result = new List<double>();
+            var result = new List<decimal>();
             for (int i = 0; i < size; i++)
                 result.Add(0);
 
@@ -152,7 +153,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         {
             var discs = ParseStringMultiNumber(_disc, 4);
 
-            double[] discRp = new double[4];
+            decimal[] discRp = new decimal[4];
             discRp[0] = SubTotal * discs[0] / 100;
             var newSubTotal = SubTotal - discRp[0];
             discRp[1] = newSubTotal * discs[1] / 100;
@@ -183,14 +184,14 @@ namespace btr.distrib.SalesContext.FakturAgg
 
     public class FakturItemStokHargaSatuan
     {
-        public FakturItemStokHargaSatuan(int stok, double harga, string satuan)
+        public FakturItemStokHargaSatuan(int stok, decimal harga, string satuan)
         {
             Stok = stok;
             Harga = harga;
             Satuan = satuan;
         }
         public int Stok { get; set; }
-        public double Harga { get; set; }
+        public decimal Harga { get; set; }
         public string Satuan { get; set; }
     }
 

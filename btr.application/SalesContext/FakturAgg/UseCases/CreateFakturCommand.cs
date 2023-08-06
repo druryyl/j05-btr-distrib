@@ -19,22 +19,22 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
     public class CreateFakturCommand : IRequest<CreateFakturResponse>, ICustomerKey,
         ISalesPersonKey, IWarehouseKey, IUserKey
     {
-        public string FakturDate { get; }
-        public string CustomerId { get; }
-        public string SalesPersonId { get; }
-        public string WarehouseId { get; }
-        public string RencanaKirimDate { get; }
-        public int TermOfPayment { get; }
-        public string UserId { get; }
-        public IEnumerable<CreateFakturCommandItem> ListBrg { get; }
+        public string FakturDate { get; set; }
+        public string CustomerId { get; set; }
+        public string SalesPersonId { get; set; }
+        public string WarehouseId { get; set; }
+        public string RencanaKirimDate { get; set; }
+        public int TermOfPayment { get; set; }
+        public string UserId { get; set; }
+        public IEnumerable<CreateFakturCommandItem> ListBrg { get; set; }
     }
 
     public class CreateFakturCommandItem : IBrgKey
     {
-        public string BrgId { get; }
-        public string QtyString { get; }
-        public string DiscountString { get; }
-        public double PpnProsen { get; }
+        public string BrgId { get; set; }
+        public string QtyString { get; set; }
+        public string DiscountString { get; set; }
+        public decimal PpnProsen { get; set; }
     }
 
     public class CreateFakturResponse
@@ -84,6 +84,10 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
                     .AddItem(item, item.QtyString, item.DiscountString, item.PpnProsen)
                     .Build();
             }
+            _aggRoot = _builder
+                .Attach(_aggRoot)
+                .CalcTotal()
+                .Build();
 
             //  APPLY
             _writer.Save(ref _aggRoot);

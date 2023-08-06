@@ -32,6 +32,8 @@ namespace btr.infrastructure.Helpers
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
                 var dr = conn.ReadSingle<ParamNoDto>(sql, dp);
+                if (dr is null)
+                    return "1";
                 return dr.HexVal;
             }
         }

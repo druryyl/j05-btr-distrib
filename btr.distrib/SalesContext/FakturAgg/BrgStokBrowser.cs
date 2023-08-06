@@ -26,10 +26,14 @@ namespace btr.distrib.SalesContext.FakturAgg
             _mediator = mediator;
         }
 
-        public async Task<IEnumerable<ListBrgStokResponse>> Browse(string userSearch, Periode userPeriode, string[] args)
+        public bool IsShowDate { get; private set; }
+        public string[] BrowserQueryArgs { get; set; }
+
+        public async Task<IEnumerable<ListBrgStokResponse>> Browse(string userSearch, Periode userPeriode)
         {
             var brgName = userSearch;
-            var warehouseId = args[0];
+            var warehouseId = BrowserQueryArgs[0];
+            IsShowDate = false;
 
             var policy = Policy<IEnumerable<ListBrgStokResponse>>
                 .Handle<KeyNotFoundException>().Or<ArgumentException>()

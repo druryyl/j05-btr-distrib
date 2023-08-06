@@ -19,7 +19,6 @@ namespace btr.distrib.SharedForm
         //  property selector untuk field yang akan di-filter
         private readonly Func<T, TKey> _propertySelector = null;
         private readonly IBrowser<T> _browser = null;
-        private string[] _args;
 
         //  constructor standard
         public BrowserForm(IEnumerable<T> listData, string defaultValue, Func<T, TKey> propertySelector)
@@ -33,13 +32,15 @@ namespace btr.distrib.SharedForm
             ReturnedValue = defaultValue;
         }
 
-        public BrowserForm(IBrowser<T> browser, string defaultValue, string[] args, Func<T, TKey> propertySelector)
+        public BrowserForm(IBrowser<T> browser, string defaultValue, Func<T, TKey> propertySelector)
         {
             InitializeComponent();
 
             _browser = browser;
-            _args = args;
-            ListData = Task.Run(() => _browser.Browse(FilterTextBox.Text, new Periode(DateTime.Now), args)).GetAwaiter().GetResult();
+            if (!browser.IsShowDate)
+                HideDateInput() ;
+
+            ListData = Task.Run(() => _browser.Browse(FilterTextBox.Text, new Periode(DateTime.Now))).GetAwaiter().GetResult();
             _propertySelector = propertySelector;
             RefreshGrid();
             ReturnedValue = defaultValue;
@@ -50,7 +51,7 @@ namespace btr.distrib.SharedForm
             if (_browser != null)
             {
                 ListData = await _browser.Browse(FilterTextBox.Text, 
-                    new Periode(FilterDate1TextBox.Value, FilterDate2TextBox.Value), _args);
+                    new Periode(FilterDate1TextBox.Value, FilterDate2TextBox.Value));
                 return;
             }
         }

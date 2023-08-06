@@ -24,7 +24,10 @@ namespace btr.distrib.SalesContext.FakturAgg
             _mediator = mediator;
         }
 
-        public async Task<IEnumerable<ListFakturResponse>> Browse(string userSearch, Periode periode, string[] args)
+        public bool IsShowDate => true;
+        public string[] BrowserQueryArgs { get; set; }
+
+        public async Task<IEnumerable<ListFakturResponse>> Browse(string userSearch, Periode periode)
         {
             var tgl1 = periode.Tgl1.ToString("yyyy-MM-dd");
             var tgl2 = periode.Tgl2.ToString("yyyy-MM-dd");
@@ -37,5 +40,6 @@ namespace btr.distrib.SalesContext.FakturAgg
             var result = await policy.ExecuteAsync(queryTask);
             return result;
         }
+
     }
 }

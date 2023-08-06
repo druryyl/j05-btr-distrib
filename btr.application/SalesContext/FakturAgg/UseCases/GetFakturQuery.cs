@@ -34,13 +34,13 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
 
         public string TermOfPayment { get; set; }
 
-        public double Total { get; set; }
-        public double DiscountLain { get; set; }
-        public double BiayaLain { get; set; }
-        public double GrandTotal { get; set; }
+        public decimal Total { get; set; }
+        public decimal DiscountLain { get; set; }
+        public decimal BiayaLain { get; set; }
+        public decimal GrandTotal { get; set; }
 
-        public double UangMuka { get; set; }
-        public double KurangBayar { get; set; }
+        public decimal UangMuka { get; set; }
+        public decimal KurangBayar { get; set; }
 
         public string CreateTime { get; set; }
         public string LastUpdate { get; set; }
@@ -60,12 +60,12 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
 
         public int AvailableQty { get; set; }
         public int Qty { get; set; }
-        public double HargaJual { get; set; }
-        public double SubTotal { get; set; }
-        public double DiscountRp { get; set; }
-        public double PpnProsen { get; set; }
-        public double PpnRp { get; set; }
-        public double Total { get; set; }
+        public decimal HargaJual { get; set; }
+        public decimal SubTotal { get; set; }
+        public decimal DiscountRp { get; set; }
+        public decimal PpnProsen { get; set; }
+        public decimal PpnRp { get; set; }
+        public decimal Total { get; set; }
 
         public List<GetFakturResponseQtyHarga> ListQtyHarga { get; set; }
         public List<GetFakturResponseDiscount> ListDiscount { get; set; }
@@ -82,7 +82,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
         public string Satuan { get; set; }
         public int Conversion { get; set; }
         public int Qty { get; set; }
-        public double HargaJual { get; set; }
+        public decimal HargaJual { get; set; }
     }
 
     public class GetFakturResponseDiscount

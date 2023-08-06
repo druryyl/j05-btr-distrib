@@ -29,7 +29,7 @@ namespace btr.application.InventoryContext.BrgAgg.UseCases
         public string Satuan { get; set; }
         public int Conversion { get; set; }
         public int Stok { get; set; }
-        public double HargaJual { get; set; }
+        public decimal HargaJual { get; set; }
     }
 
     public class GetBrgHargaHandler : IRequestHandler<GetBrgHargaQuery, GetBrgHargaResponse>

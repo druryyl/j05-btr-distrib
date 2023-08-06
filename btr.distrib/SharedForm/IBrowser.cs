@@ -9,6 +9,8 @@ namespace btr.distrib.SharedForm
 {
     public interface IBrowser<TResult>
     {
-        Task<IEnumerable<TResult>> Browse(string userSearch, Periode userPeriode, string[] args);
+        bool IsShowDate { get; }
+        string[] BrowserQueryArgs { get; set; }
+        Task<IEnumerable<TResult>> Browse(string userSearch, Periode userPeriode);
     }
 }
