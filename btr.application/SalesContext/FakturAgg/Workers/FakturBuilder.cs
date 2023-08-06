@@ -28,8 +28,8 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         IFakturBuilder Warehouse(IWarehouseKey warehouseKey);
         IFakturBuilder TglRencanaKirim(DateTime tglRencanaKirim);
         IFakturBuilder AddItem(IBrgKey brgKey, string qtyString, string discountString, decimal ppnProsen);
+        IFakturBuilder ClearItem();
         IFakturBuilder CalcTotal();
-
     }
 
     public class FakturBuilder : IFakturBuilder
@@ -253,6 +253,12 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             _aggRoot.Total = _aggRoot.ListItem.Sum(x => x.Total);
             _aggRoot.GrandTotal = _aggRoot.Total - _aggRoot.DiscountLain + _aggRoot.BiayaLain;
             _aggRoot.KurangBayar = _aggRoot.GrandTotal - _aggRoot.UangMuka;
+            return this;
+        }
+
+        public IFakturBuilder ClearItem()
+        {
+            _aggRoot.ListItem.Clear();
             return this;
         }
     }

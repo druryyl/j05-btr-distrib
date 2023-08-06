@@ -33,7 +33,7 @@ namespace btr.infrastructure.Helpers
             {
                 var dr = conn.ReadSingle<ParamNoDto>(sql, dp);
                 if (dr is null)
-                    return "1";
+                    return null;
                 return dr.HexVal;
             }
         }

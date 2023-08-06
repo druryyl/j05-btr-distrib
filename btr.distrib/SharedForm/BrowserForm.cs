@@ -131,12 +131,19 @@ namespace btr.distrib.SharedForm
         {
             FilterDate1TextBox.Visible = false;
             FilterDate2TextBox.Visible = false;
-            SearchButton.Visible = false;
             const int shiftUp = 30;
             panel1.Size = new Size(panel1.Size.Width, panel1.Size.Height - shiftUp);
             BrowserGrid.Location = new Point(BrowserGrid.Location.X, BrowserGrid.Location.Y - shiftUp);
             BrowserGrid.Size = new Size(BrowserGrid.Width, BrowserGrid.Height + shiftUp);
         }
 
+        private void BrowserForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape )
+            { 
+                ReturnedValue = ReturnedValue;
+                DialogResult = DialogResult.Cancel;
+            }
+        }
     }
 }

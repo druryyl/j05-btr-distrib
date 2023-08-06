@@ -97,6 +97,7 @@
     <Compile Include="SalesContext\FakturAgg\UseCases\CreateFakturCommand.cs" />
     <Compile Include="SalesContext\FakturAgg\UseCases\GetFakturQuery.cs" />
     <Compile Include="SalesContext\FakturAgg\UseCases\ListFakturQuery.cs" />
+    <Compile Include="SalesContext\FakturAgg\UseCases\UpdateFakturCommand.cs" />
     <Compile Include="SalesContext\FakturAgg\Workers\FakturBuilder.cs" />
     <Compile Include="SalesContext\FakturAgg\Workers\FakturValidator.cs" />
     <Compile Include="SalesContext\FakturAgg\Workers\FakturWriter.cs" />

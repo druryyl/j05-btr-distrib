@@ -110,8 +110,10 @@ namespace btr.distrib.SalesContext.FakturAgg
             WarehouseIdText.Text = result.WarehouseId;
             WarehouseNameText.Text = result.WarehouseName;
             TglRencanaKirimTextBox.Value = result.TglRencanaKirim.ToDate();
-            TotalText.Value = (decimal)result.Total;
-            GrandTotalText.Value = (decimal)result.GrandTotal;
+            TotalText.Value = result.Total;
+            GrandTotalText.Value = result.GrandTotal;
+            UangMukaText.Value = result.UangMuka;
+            SisaText.Value = result.KurangBayar;
 
             ListItem.Clear();
 
@@ -361,11 +363,16 @@ namespace btr.distrib.SalesContext.FakturAgg
 
         private async void SaveButton_Click(object sender, EventArgs e)
         {
-            await CreateFakturAsync();
+            string result;
+            if (FakturIdText.Text.Length == 0)
+                result = await CreateFakturAsync();
+            else
+                result = await UpdateFakturAsync();
             ClearForm();
+            LastIdLabel.Text = result;
         }
 
-        private async Task CreateFakturAsync()
+        private async Task<string> CreateFakturAsync()
         {
             var cmd = new CreateFakturCommand
             {
@@ -391,6 +398,36 @@ namespace btr.distrib.SalesContext.FakturAgg
             cmd.ListBrg = listItem;
 
             var response = await _mediator.Send(cmd);
+            return response.FakturId;
+        }
+        private async Task<string> UpdateFakturAsync()
+        {
+            var cmd = new UpdateFakturCommand
+            {
+                FakturId = FakturIdText.Text,
+                FakturDate = FakturDateText.Value.ToString("yyyy-MM-dd"),
+                CustomerId = CustomerIdText.Text,
+                SalesPersonId = SalesIdText.Text,
+                WarehouseId = WarehouseIdText.Text,
+                RencanaKirimDate = TglRencanaKirimTextBox.Value.ToString("yyyy-MM-dd"),
+                TermOfPayment = TermOfPaymentComboBox.SelectedIndex,
+                UserId = string.Empty,
+            };
+
+            var listItem = (
+                from c in ListItem
+                where c.BrgName.Length > 0
+                select new UpdateFakturCommandItem
+                {
+                    BrgId = c.BrgId,
+                    QtyString = c.Qty,
+                    DiscountString = c.Disc,
+                    PpnProsen = c.Ppn,
+                }).ToList();
+            cmd.ListBrg = listItem;
+
+            var response = await _mediator.Send(cmd);
+            return response.FakturId;
         }
 
     }

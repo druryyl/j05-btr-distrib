@@ -76,6 +76,7 @@
             this.WarehouseNameText = new System.Windows.Forms.TextBox();
             this.WarehouseButton = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
+            this.LastIdLabel = new System.Windows.Forms.Label();
             this.PanelAtas4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturItemGrid)).BeginInit();
             this.PanelTengah.SuspendLayout();
@@ -348,6 +349,7 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.Cornsilk;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.LastIdLabel);
             this.panel1.Controls.Add(this.FakturIdText);
             this.panel1.Controls.Add(this.SalesIdText);
             this.panel1.Controls.Add(this.SalesPersonNameTextBox);
@@ -375,7 +377,7 @@
             // SalesIdText
             // 
             this.SalesIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SalesIdText.Location = new System.Drawing.Point(11, 102);
+            this.SalesIdText.Location = new System.Drawing.Point(11, 126);
             this.SalesIdText.Name = "SalesIdText";
             this.SalesIdText.Size = new System.Drawing.Size(147, 22);
             this.SalesIdText.TabIndex = 3;
@@ -383,7 +385,7 @@
             // 
             // SalesPersonNameTextBox
             // 
-            this.SalesPersonNameTextBox.Location = new System.Drawing.Point(11, 130);
+            this.SalesPersonNameTextBox.Location = new System.Drawing.Point(11, 154);
             this.SalesPersonNameTextBox.Name = "SalesPersonNameTextBox";
             this.SalesPersonNameTextBox.ReadOnly = true;
             this.SalesPersonNameTextBox.Size = new System.Drawing.Size(176, 22);
@@ -391,7 +393,7 @@
             // 
             // SalesPersonButton
             // 
-            this.SalesPersonButton.Location = new System.Drawing.Point(164, 104);
+            this.SalesPersonButton.Location = new System.Drawing.Point(164, 128);
             this.SalesPersonButton.Name = "SalesPersonButton";
             this.SalesPersonButton.Size = new System.Drawing.Size(28, 20);
             this.SalesPersonButton.TabIndex = 4;
@@ -402,7 +404,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 88);
+            this.label3.Location = new System.Drawing.Point(8, 112);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(71, 13);
             this.label3.TabIndex = 5;
@@ -412,7 +414,7 @@
             // 
             this.FakturDateText.CustomFormat = "ddd dd-MM-yyyy";
             this.FakturDateText.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.FakturDateText.Location = new System.Drawing.Point(11, 63);
+            this.FakturDateText.Location = new System.Drawing.Point(11, 87);
             this.FakturDateText.Name = "FakturDateText";
             this.FakturDateText.Size = new System.Drawing.Size(176, 22);
             this.FakturDateText.TabIndex = 2;
@@ -420,7 +422,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 47);
+            this.label2.Location = new System.Drawing.Point(8, 71);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(67, 13);
             this.label2.TabIndex = 3;
@@ -641,6 +643,16 @@
             this.label7.TabIndex = 0;
             this.label7.Text = "Warehouse";
             // 
+            // LastIdLabel
+            // 
+            this.LastIdLabel.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LastIdLabel.Location = new System.Drawing.Point(11, 47);
+            this.LastIdLabel.Name = "LastIdLabel";
+            this.LastIdLabel.Size = new System.Drawing.Size(181, 24);
+            this.LastIdLabel.TabIndex = 6;
+            this.LastIdLabel.Text = "-";
+            this.LastIdLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // FakturForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -732,5 +744,6 @@
         private System.Windows.Forms.TextBox WarehouseNameText;
         private System.Windows.Forms.Button WarehouseButton;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label LastIdLabel;
     }
 }
