@@ -22,10 +22,10 @@ namespace btr.infrastructure.InventoryContext
         public void Insert(BrgModel model)
         {
             const string sql = @"
-            INSERT INTO BTR_Brg(
-                BrgId, BrgName)
-            VALUES (
-                @BrgId, @BrgName)";
+                INSERT INTO BTR_Brg(
+                    BrgId, BrgName)
+                VALUES (
+                    @BrgId, @BrgName)";
 
             var dp = new DynamicParameters();
             dp.AddParam("@BrgId", model.BrgId, SqlDbType.VarChar);
@@ -40,12 +40,12 @@ namespace btr.infrastructure.InventoryContext
         public void Update(BrgModel model)
         {
             const string sql = @"
-            UPDATE 
-                BTR_Brg
-            SET
-                BrgName = @BrgName
-            WHERE
-                BrgId = @BrgId ";
+                UPDATE 
+                    BTR_Brg
+                SET
+                    BrgName = @BrgName
+                WHERE
+                    BrgId = @BrgId ";
 
             var dp = new DynamicParameters();
             dp.AddParam("@BrgId", model.BrgId, SqlDbType.VarChar);
@@ -60,10 +60,10 @@ namespace btr.infrastructure.InventoryContext
         public void Delete(IBrgKey key)
         {
             const string sql = @"
-            DELETE FROM 
-                BTR_Brg
-            WHERE
-                BrgId = @BrgId ";
+                DELETE FROM 
+                    BTR_Brg
+                WHERE
+                    BrgId = @BrgId ";
 
             var dp = new DynamicParameters();
             dp.AddParam("@BrgId", key.BrgId, SqlDbType.VarChar);
@@ -77,12 +77,12 @@ namespace btr.infrastructure.InventoryContext
         public BrgModel GetData(IBrgKey key)
         {
             const string sql = @"
-            SELECT
-                BrgId, BrgName
-            FROM
-                BTR_Brg
-            WHERE
-                BrgId = @BrgId ";
+                SELECT
+                    BrgId, BrgName
+                FROM
+                    BTR_Brg
+                WHERE
+                    BrgId = @BrgId ";
 
             var dp = new DynamicParameters();
             dp.AddParam("@BrgId", key.BrgId, SqlDbType.VarChar);
@@ -99,10 +99,10 @@ namespace btr.infrastructure.InventoryContext
         public IEnumerable<BrgModel> ListData()
         {
             const string sql = @"
-            SELECT
-                BrgId, BrgName
-            FROM
-                BTR_Brg";
+                SELECT
+                    BrgId, BrgName
+                FROM
+                    BTR_Brg";
 
             IEnumerable<BrgModel> result;
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))

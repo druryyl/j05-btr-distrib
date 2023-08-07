@@ -1,0 +1,24 @@
+﻿CREATE  TABLE BTR_FakturItem(
+    FakturId VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_FakturItem_FakturId DEFAULT(''),
+    FakturItemId VARCHAR(16) NOT NULL CONSTRAINT DF_BTR_FakturItem_FakturItemId DEFAULT(''),
+    NoUrut INT NOT NULL CONSTRAINT DF_BTR_FakturItem_ItemNo DEFAULT(''),
+    
+    BrgId VARCHAR(5) NOT NULL CONSTRAINT DF_BTR_FakturItem_BrgId DEFAULT(''),
+    AvailableQty INT NOT NULL CONSTRAINT DF_BTR_FakturItem_AvailableQty DEFAULT(0),
+    Qty INT NOT NULL CONSTRAINT DF_BTR_FakturItem_Qty DEFAULT(0),
+    
+    HargaJual DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_FakturItem_HargaJual DEFAULT(0),
+    SubTotal DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_FakturItem_SubTotal DEFAULT(0),
+    DiscountRp DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_FakturItem_DiscountRp DEFAULT(0),
+    PpnProsen DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_FakturItem_PpnProsen DEFAULT(0),
+    PpnRp DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_FakturItem_PpnRp DEFAULT(0),
+    Total DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_FakturItem_Total DEFAULT(0),
+    
+    CONSTRAINT PK_BTR_FakturItem PRIMARY KEY CLUSTERED(FakturItemId)
+)
+GO
+
+CREATE INDEX IX_BTR_Faktur_FakturId
+    ON BTR_FakturItem (FakturId, FakturItemId)
+GO
+

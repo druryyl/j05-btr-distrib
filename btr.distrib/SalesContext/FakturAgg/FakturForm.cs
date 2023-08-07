@@ -381,8 +381,8 @@ namespace btr.distrib.SalesContext.FakturAgg
             {
                 var response = _mediator.Send(new GetFakturQuery(result));
                 var faktur = response.Adapt<FakturModel>();
-                var doc = _fakturPrintDoc.CreateDoc(faktur);
-                _fakturPrintDoc.PrintDoc(doc);
+                //var doc = _fakturPrintDoc.CreateDoc(faktur);
+                //_fakturPrintDoc.PrintDoc(doc);
             }
 
             ClearForm();

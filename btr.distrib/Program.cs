@@ -1,4 +1,5 @@
 ﻿using btr.application;
+using btr.distrib.PrintDocs;
 using btr.distrib.SharedForm;
 using btr.infrastructure;
 using btr.infrastructure.Helpers;
@@ -121,6 +122,11 @@ namespace btr.distrib
                         .UsingRegistrationStrategy(RegistrationStrategy.Skip)
                         .AsSelf()
                         .WithTransientLifetime()
+                    .FromAssemblyOf<WinformAssemblyAnchor>()
+                        .AddClasses(c => c.AssignableTo(typeof(IPrintDoc<>)))
+                        .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+                        .AsSelfWithInterfaces()
+                        .WithScopedLifetime()
                     .FromAssemblyOf<WinformAssemblyAnchor>()
                         .AddClasses(c => c.AssignableTo(typeof(IBrowser<>)))
                         .UsingRegistrationStrategy(RegistrationStrategy.Skip)
