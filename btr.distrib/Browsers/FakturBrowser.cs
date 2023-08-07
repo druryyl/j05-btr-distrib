@@ -3,13 +3,10 @@ using btr.distrib.SharedForm;
 using btr.nuna.Domain;
 using MediatR;
 using Polly;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace btr.distrib.SalesContext.FakturAgg
+namespace btr.distrib.Browsers
 {
     public interface IFakturBrowser : IBrowser<ListFakturResponse>
     {

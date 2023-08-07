@@ -1,17 +1,13 @@
 ﻿using btr.application.InventoryContext.StokAgg.UseCases;
-using btr.application.SalesContext.FakturAgg.UseCases;
 using btr.distrib.SharedForm;
-using btr.domain.InventoryContext.WarehouseAgg;
 using btr.nuna.Domain;
 using MediatR;
 using Polly;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace btr.distrib.SalesContext.FakturAgg
+namespace btr.distrib.Browsers
 {
     public interface IBrgStokBrowser : IBrowser<ListBrgStokResponse>
     {

@@ -20,6 +20,8 @@ namespace btr.application.SalesContext.CustomerAgg.UseCases
         public string CustomerName { get; set; }
         public double Plafond { get; set; }
         public double CreditBalance { get; set; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
     }
 
     public class GetCustomerHandler : IRequestHandler<GetCustomerQuery, GetCustomerResponse>

@@ -76,6 +76,7 @@
     <Compile Include="Helpers\ConnStringHelper.cs" />
     <Compile Include="Helpers\DatabaseOptions.cs" />
     <Compile Include="Helpers\ParamNoDal.cs" />
+    <Compile Include="Helpers\PrinterOptions.cs" />
     <Compile Include="InfrastructureAssemblyAnchor.cs" />
     <Compile Include="InventoryContext\BrgAgg\BrgDal.cs" />
     <Compile Include="InventoryContext\BrgAgg\BrgSatuanHargaDal.cs" />

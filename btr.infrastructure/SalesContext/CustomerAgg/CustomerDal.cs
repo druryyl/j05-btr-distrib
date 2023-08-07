@@ -23,7 +23,7 @@ namespace btr.infrastructure.SalesContext
         {
             const string sql = @"
             INSERT INTO BTR_Customer(
-                CustomerId, CustomerName, Plafond, CreditBalance)
+                CustomerId, CustomerName, Plafond, CreditBalance, Address1, Address2)
             VALUES (
                 @CustomerId, @CustomerName, @Plafond, @CreditBalance)";
 

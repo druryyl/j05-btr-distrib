@@ -3,9 +3,12 @@ using btr.application.InventoryContext.WarehouseAgg.UseCases;
 using btr.application.SalesContext.CustomerAgg.UseCases;
 using btr.application.SalesContext.FakturAgg.UseCases;
 using btr.application.SalesContext.SalesPersonAgg.UseCases;
-using btr.distrib.Helpers;
+using btr.distrib.Browsers;
+using btr.distrib.PrintDocs;
 using btr.distrib.SharedForm;
+using btr.domain.SalesContext.FakturAgg;
 using btr.nuna.Domain;
+using Mapster;
 using MediatR;
 using Polly;
 using System;
@@ -14,7 +17,6 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -26,8 +28,12 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly IMediator _mediator;
         private readonly IFakturBrowser _fakturBrowser;
         private readonly IBrgStokBrowser _brgStokBrowser;
+        private readonly IFakturPrintDoc _fakturPrintDoc;
 
-        public FakturForm(IMediator mediator, IFakturBrowser fakturBrowser, IBrgStokBrowser brgStokBrowser)
+        public FakturForm(IMediator mediator, 
+            IFakturBrowser fakturBrowser, 
+            IBrgStokBrowser brgStokBrowser, 
+            IFakturPrintDoc fakturPrintDoc)
         {
             InitializeComponent();
             InitGrid();
@@ -36,6 +42,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             _mediator = mediator;
             _fakturBrowser = fakturBrowser;
             _brgStokBrowser = brgStokBrowser;
+            _fakturPrintDoc = fakturPrintDoc;
         }
 
         private void ClearForm()
@@ -105,8 +112,8 @@ namespace btr.distrib.SalesContext.FakturAgg
             SalesPersonNameTextBox.Text = result.SalesPersonName;
             CustomerIdText.Text = result.CustomerId;
             CustomerNameTextBox.Text = result.CustomerName;
-            PlafondTextBox.Value = (decimal)result.Plafond;
-            CreditBalanceTextBox.Value = (decimal)result.CreditBalance;
+            PlafondTextBox.Value = result.Plafond;
+            CreditBalanceTextBox.Value = result.CreditBalance;
             WarehouseIdText.Text = result.WarehouseId;
             WarehouseNameText.Text = result.WarehouseName;
             TglRencanaKirimTextBox.Value = result.TglRencanaKirim.ToDate();
@@ -361,6 +368,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         }
         #endregion
 
+        #region SAVE
         private async void SaveButton_Click(object sender, EventArgs e)
         {
             string result;
@@ -368,10 +376,18 @@ namespace btr.distrib.SalesContext.FakturAgg
                 result = await CreateFakturAsync();
             else
                 result = await UpdateFakturAsync();
+
+            if (MessageBox.Show("Cetak Faktur ?", "Faktur", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                var response = _mediator.Send(new GetFakturQuery(result));
+                var faktur = response.Adapt<FakturModel>();
+                var doc = _fakturPrintDoc.CreateDoc(faktur);
+                _fakturPrintDoc.PrintDoc(doc);
+            }
+
             ClearForm();
             LastIdLabel.Text = result;
         }
-
         private async Task<string> CreateFakturAsync()
         {
             var cmd = new CreateFakturCommand
@@ -429,6 +445,6 @@ namespace btr.distrib.SalesContext.FakturAgg
             var response = await _mediator.Send(cmd);
             return response.FakturId;
         }
-
+        #endregion
     }
 }

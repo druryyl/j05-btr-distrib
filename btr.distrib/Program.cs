@@ -63,6 +63,7 @@ namespace btr.distrib
                         .WithScopedLifetime());
 
             services.Configure<DatabaseOptions>(configuration.GetSection(DatabaseOptions.SECTION_NAME));
+            services.Configure<PrinterOptions>(configuration.GetSection(PrinterOptions.SECTION_NAME));
             services.AddScoped<INunaCounterDal, ParamNoDal>();
 
             services
