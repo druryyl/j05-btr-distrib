@@ -14,17 +14,19 @@ using Polly;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using btr.distrib.Helpers;
+using btr.domain.SalesContext.CustomerAgg;
 
 namespace btr.distrib.SalesContext.FakturAgg
 {
     public partial class FakturForm : Form
     {
-        private BindingList<FakturItemDto> ListItem = new BindingList<FakturItemDto>();
+        private readonly BindingList<FakturItemDto> _listItem = new BindingList<FakturItemDto>();
         private readonly IMediator _mediator;
         private readonly IFakturBrowser _fakturBrowser;
         private readonly IBrgStokBrowser _brgStokBrowser;
@@ -66,15 +68,13 @@ namespace btr.distrib.SalesContext.FakturAgg
             UangMukaText.Value = 0;
             SisaText.Value = 0;
 
-            ListItem.Clear();
-            ListItem.Add(new FakturItemDto(_mediator));
+            _listItem.Clear();
+            _listItem.Add(new FakturItemDto(_mediator));
         }
 
         #region FAKTUR
         private async void FakturButton_Click(object sender, EventArgs e)
         {
-            var now = DateTime.Now.ToString("yyyy-MM-dd");
-            var query = new ListFakturQuery(now, now);
             var form = new BrowserForm<ListFakturResponse, string>(_fakturBrowser, FakturIdText.Text, x => x.CustomerName);
             var resultDialog = form.ShowDialog();
             if (resultDialog == DialogResult.OK)
@@ -101,8 +101,8 @@ namespace btr.distrib.SalesContext.FakturAgg
                 .Handle<KeyNotFoundException>().Or<ArgumentException>()
                 .FallbackAsync(new GetFakturResponse { ListItem = new List<GetFakturResponseItem>() });
             var query = new GetFakturQuery(textbox.Text);
-            Task<GetFakturResponse> queryTask() => _mediator.Send(query);
-            var result = await policy.ExecuteAsync(queryTask);
+            Task<GetFakturResponse> QueryTask() => _mediator.Send(query);
+            var result = await policy.ExecuteAsync(QueryTask);
 
             result.RemoveNull();
             CustomerNameTextBox.Text = result.CustomerName;
@@ -122,12 +122,12 @@ namespace btr.distrib.SalesContext.FakturAgg
             UangMukaText.Value = result.UangMuka;
             SisaText.Value = result.KurangBayar;
 
-            ListItem.Clear();
+            _listItem.Clear();
 
             foreach (var item in result.ListItem)
             {
                 var qtyString = string.Join(";", item.ListQtyHarga.Select(x => x.Qty.ToString()));
-                var discString = string.Join(";", item.ListDiscount.Select(x => x.DiscountProsen.ToString()));
+                var discString = string.Join(";", item.ListDiscount.Select(x => x.DiscountProsen.ToString(CultureInfo.InvariantCulture)));
                 var listQtyHarga = item.ListQtyHarga
                     .Where(x => x.HargaJual != 0)
                     .Select(x => new FakturItemStokHargaSatuan(x.Qty, x.HargaJual, x.Satuan));
@@ -140,9 +140,9 @@ namespace btr.distrib.SalesContext.FakturAgg
                 };
                 newItem.SetBrgName(item.BrgName);
                 newItem.ReCalc();
-                ListItem.Add(newItem);
+                _listItem.Add(newItem);
             }
-            ListItem.Add(new FakturItemDto(_mediator));
+            _listItem.Add(new FakturItemDto(_mediator));
             RefreshGrid();
         }
         #endregion
@@ -174,9 +174,9 @@ namespace btr.distrib.SalesContext.FakturAgg
                 .Handle<KeyNotFoundException>().Or<ArgumentException>()
                 .FallbackAsync(new GetSalesPersonResponse());
             var query = new GetSalesPersonQuery(textbox.Text);
-            Task<GetSalesPersonResponse> queryFunc() => _mediator.Send(query);
+            Task<GetSalesPersonResponse> QueryFunc() => _mediator.Send(query);
 
-            var result = await policy.ExecuteAsync(queryFunc);
+            var result = await policy.ExecuteAsync(QueryFunc);
             result.RemoveNull();
             SalesPersonNameTextBox.Text = result.SalesPersonName;
         }
@@ -203,14 +203,14 @@ namespace btr.distrib.SalesContext.FakturAgg
         private async Task ValidateCustomer()
         {
             var textbox = CustomerIdText;
-            var policy = Policy<GetCustomerResponse>
+            var policy = Policy<CustomerModel>
                 .Handle<KeyNotFoundException>().Or<ArgumentException>()
-                .FallbackAsync(new GetCustomerResponse());
+                .FallbackAsync(new CustomerModel());
 
             var query = new GetCustomerQuery(textbox.Text);
-            Task<GetCustomerResponse> queryFunc() => _mediator.Send(query);
+            Task<CustomerModel> QueryFunc() => _mediator.Send(query);
 
-            var result = await policy.ExecuteAsync(queryFunc);
+            var result = await policy.ExecuteAsync(QueryFunc);
             result.RemoveNull();
             CustomerNameTextBox.Text = result.CustomerName;
         }
@@ -241,9 +241,9 @@ namespace btr.distrib.SalesContext.FakturAgg
                 .Handle<KeyNotFoundException>().Or<ArgumentException>()
                 .FallbackAsync(new GetWarehouseResponse());
             var query = new GetWarehouseQuery(textbox.Text);
-            Task<GetWarehouseResponse> queryFunc() => _mediator.Send(query);
+            Task<GetWarehouseResponse> QueryFunc() => _mediator.Send(query);
 
-            var result = await policy.ExecuteAsync(queryFunc);
+            var result = await policy.ExecuteAsync(QueryFunc);
             result.RemoveNull();
             WarehouseNameText.Text = result.WarehouseName;
         }
@@ -254,35 +254,36 @@ namespace btr.distrib.SalesContext.FakturAgg
         {
 
             var grid = (DataGridView)sender;
-            if (e.ColumnIndex == grid.Columns["Find"].Index && e.RowIndex >= 0)
+            if (e.ColumnIndex == grid.Columns["Find"]?.Index && e.RowIndex >= 0)
             {
                 if (WarehouseIdText.Text.Length == 0)
                     return;
 
                 var defaultBrgId = grid.CurrentCell.Value?.ToString() ?? string.Empty;
                 var warehouse = WarehouseIdText.Text;
-                _brgStokBrowser.BrowserQueryArgs = new string[] {warehouse };
+                _brgStokBrowser.BrowserQueryArgs = new[] {warehouse };
                 var form = new BrowserForm<ListBrgStokResponse, string>(_brgStokBrowser, defaultBrgId, x => x.BrgName);
                 var resultDialog = form.ShowDialog();
                 if (resultDialog == DialogResult.OK)
-                    grid.CurrentRow.Cells["BrgId"].Value = form.ReturnedValue;
+                    if (grid.CurrentRow != null)
+                        grid.CurrentRow.Cells["BrgId"].Value = form.ReturnedValue;
             }
-            if (ListItem.Last().BrgName.Length != 0)
-                ListItem.Add(new FakturItemDto(_mediator));
+            if (_listItem.Last().BrgName.Length != 0)
+                _listItem.Add(new FakturItemDto(_mediator));
         }
         private void FakturItemGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             var grid = (DataGridView)sender;
-            if (e.ColumnIndex == grid.Columns["BrgId"].Index)
+            if (e.ColumnIndex == grid.Columns.GetCol("BrgId").Index)
                 CalcTotal();
-            if (e.ColumnIndex == grid.Columns["Qty"].Index)
+            if (e.ColumnIndex == grid.Columns.GetCol("Qty").Index)
                 CalcTotal();
-            if (e.ColumnIndex == grid.Columns["Disc"].Index)
+            if (e.ColumnIndex == grid.Columns.GetCol("Disc").Index)
                 CalcTotal();
-            if (e.ColumnIndex == grid.Columns["Ppn"].Index)
+            if (e.ColumnIndex == grid.Columns.GetCol("Ppn").Index)
                 CalcTotal();
-
         }
+
         private void InitGrid()
         {
             RefreshGrid();
@@ -296,7 +297,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             }
             DataGridViewButtonColumn buttonCol = new DataGridViewButtonColumn
             {
-                HeaderText = "Find", // Set the column header text
+                HeaderText = @"Find", // Set the column header text
                 Text = "...", // Set the button text
                 Name = "Find" // Set the button text
             };
@@ -304,44 +305,44 @@ namespace btr.distrib.SalesContext.FakturAgg
             FakturItemGrid.Columns.Insert(1, buttonCol);
 
             //  hide
-            FakturItemGrid.Columns["DiscTotal"].Visible = false;
-            FakturItemGrid.Columns["PpnRp"].Visible = false;
+            FakturItemGrid.Columns.GetCol("DiscTotal").Visible = false;
+            FakturItemGrid.Columns.GetCol("PpnRp").Visible = false;
             //  width
-            FakturItemGrid.Columns["BrgId"].Width = 50;
-            FakturItemGrid.Columns["Find"].Width = 20;
-            FakturItemGrid.Columns["BrgName"].Width = 150;
-            FakturItemGrid.Columns["StokHarga"].Width = 100;
-            FakturItemGrid.Columns["Qty"].Width = 50;
-            FakturItemGrid.Columns["QtyDetil"].Width = 80;
-            FakturItemGrid.Columns["SubTotal"].Width = 80;
-            FakturItemGrid.Columns["Disc"].Width = 65;
-            FakturItemGrid.Columns["DiscRp"].Width = 100;
-            FakturItemGrid.Columns["Ppn"].Width = 25;
-            FakturItemGrid.Columns["Total"].Width = 80;
+            FakturItemGrid.Columns.GetCol("BrgId").Width = 50;
+            FakturItemGrid.Columns.GetCol("Find").Width = 20;
+            FakturItemGrid.Columns.GetCol("BrgName").Width = 150;
+            FakturItemGrid.Columns.GetCol("StokHarga").Width = 100;
+            FakturItemGrid.Columns.GetCol("Qty").Width = 50;
+            FakturItemGrid.Columns.GetCol("QtyDetil").Width = 80;
+            FakturItemGrid.Columns.GetCol("SubTotal").Width = 80;
+            FakturItemGrid.Columns.GetCol("Disc").Width = 65;
+            FakturItemGrid.Columns.GetCol("DiscRp").Width = 100;
+            FakturItemGrid.Columns.GetCol("Ppn").Width = 25;
+            FakturItemGrid.Columns.GetCol("Total").Width = 80;
             //  right align
-            FakturItemGrid.Columns["StokHarga"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
-            FakturItemGrid.Columns["QtyDetil"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
-            FakturItemGrid.Columns["SubTotal"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
-            FakturItemGrid.Columns["Total"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
+            FakturItemGrid.Columns.GetCol("StokHarga").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
+            FakturItemGrid.Columns.GetCol("QtyDetil").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
+            FakturItemGrid.Columns.GetCol("SubTotal").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
+            FakturItemGrid.Columns.GetCol("Total").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
             //  multi-line
-            FakturItemGrid.Columns["StokHarga"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            FakturItemGrid.Columns["QtyDetil"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            FakturItemGrid.Columns["DiscRp"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            FakturItemGrid.Columns.GetCol("StokHarga").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            FakturItemGrid.Columns.GetCol("QtyDetil").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            FakturItemGrid.Columns.GetCol("DiscRp").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             //  number-format
-            FakturItemGrid.Columns["SubTotal"].DefaultCellStyle.Format = "#,##0.00";
-            FakturItemGrid.Columns["Total"].DefaultCellStyle.Format = "#,##0.00";
+            FakturItemGrid.Columns.GetCol("SubTotal").DefaultCellStyle.Format = "#,##0.00";
+            FakturItemGrid.Columns.GetCol("Total").DefaultCellStyle.Format = "#,##0.00";
             //  auto-resize-rows
             FakturItemGrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             FakturItemGrid.AutoResizeRows();
         }
         private void RefreshGrid()
         {
-            if (!ListItem.Any())
-                ListItem.Add(new FakturItemDto(_mediator));
+            if (!_listItem.Any())
+                _listItem.Add(new FakturItemDto(_mediator));
 
             var binding = new BindingSource
             {
-                DataSource = ListItem,
+                DataSource = _listItem,
             };
             FakturItemGrid.DataSource = binding;
         }
@@ -350,7 +351,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         #region TOTAL
         private void CalcTotal()
         {
-            TotalText.Value = ListItem.Sum(x => x.Total);
+            TotalText.Value = _listItem.Sum(x => x.Total);
             GrandTotalText.Value = TotalText.Value - DiscountLainText.Value + BiayaLainText.Value;
             SisaText.Value = GrandTotalText.Value - UangMukaText.Value;
         }
@@ -377,12 +378,12 @@ namespace btr.distrib.SalesContext.FakturAgg
             else
                 result = await UpdateFakturAsync();
 
-            if (MessageBox.Show("Cetak Faktur ?", "Faktur", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show(@"Cetak Faktur ?", @"Faktur", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                var response = _mediator.Send(new GetFakturQuery(result));
+                var response = await _mediator.Send(new GetFakturQuery(result));
                 var faktur = response.Adapt<FakturModel>();
-                //var doc = _fakturPrintDoc.CreateDoc(faktur);
-                //_fakturPrintDoc.PrintDoc(doc);
+                _fakturPrintDoc.CreateDoc(faktur);
+                //_fakturPrintDoc.PrintDoc();
             }
 
             ClearForm();
@@ -402,7 +403,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             };
 
             var listItem = ( 
-                from c in ListItem
+                from c in _listItem
                 where c.BrgName.Length > 0
                 select new CreateFakturCommandItem
                 {
@@ -431,7 +432,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             };
 
             var listItem = (
-                from c in ListItem
+                from c in _listItem
                 where c.BrgName.Length > 0
                 select new UpdateFakturCommandItem
                 {

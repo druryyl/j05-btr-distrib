@@ -8,7 +8,7 @@ using btr.nuna.Infrastructure;
 using Dapper;
 using Microsoft.Extensions.Options;
 
-namespace btr.infrastructure.InventoryContext
+namespace btr.infrastructure.InventoryContext.WarehouseAgg
 {
     public class WarehouseDal : IWarehouseDal
     {

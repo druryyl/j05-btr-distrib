@@ -9,7 +9,7 @@ using btr.nuna.Infrastructure;
 using Dapper;
 using Microsoft.Extensions.Options;
 
-namespace btr.infrastructure.SalesContext
+namespace btr.infrastructure.SalesContext.FakturAgg
 {
     public class FakturItemDal : IFakturItemDal
     {

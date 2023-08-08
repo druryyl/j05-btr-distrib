@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace btr.domain.SalesContext.SalesPersonAgg
+﻿namespace btr.domain.SalesContext.SalesPersonAgg
 {
     public class SalesPersonModel : ISalesPersonKey
     {

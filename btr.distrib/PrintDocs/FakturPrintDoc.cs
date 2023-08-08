@@ -5,6 +5,8 @@ using MediatR;
 using Microsoft.Extensions.Options;
 using System;
 using System.IO;
+using System.Linq;
+using btr.nuna.Domain;
 
 namespace btr.distrib.PrintDocs
 {
@@ -33,25 +35,63 @@ namespace btr.distrib.PrintDocs
             var sw = new StreamWriter(_opt.TempFile);
             var cust = await _mediator.Send(new GetCustomerQuery(model.CustomerId));
 
-            var tgl___ = model.FakturDate.ToString("dd-MM-yyyy");
-            var custId____ = model.CustomerId.PadRight(12, ' ');
-            var custName______________________ = model.CustomerId.PadRight(32, ' ');
-            var custAddr______________________ = string.Empty;
+            async void PrintHeader()
+            {
+                var tgl = model.FakturDate.ToString("dd-MM-yyyy");
+                var custId = model.CustomerId.PadRight(12, ' ');
+                var noFakt = model.FakturId.FixWidth(8);
+                var jnsJl = model.TermOfPayment.FixWidth(7);
+                var salesNameeeee = model.SalesPersonName.FixWidth(13);
+                var jatuhTmpo = string.Empty; // jatuh temp
 
-            //  print area : 90 char x 29 baris Courier New 8
-            //           "123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 12345678 0"
-            var hdr1 = $"CV BINTANG TIMUR RAHAYU                                                           {tgl___}";
-            var hdr2 = $"Jl.Kaliurang Km 5.5 Gg Durmo No 18                        Kepada Yth Customer-{custId____}";
-            var hdr3 = $"0274-546079                                               {custName______________________}";
-            var hdr4 = $"Yogyakarta                                                {custAddr______________________}";
+                //  print area : 112 char x 29 baris Consolas 8
+                //          "123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789  2"
+                var hdr1 = $"CV BINTANG TIMUR RAHAYU                                   {tgl}";
+                var hdr2 = $"Jl.Kaliurang Km 5.5 Gg Durmo No 18                        Kepada Yth Customer-{custId}";
+                var hdr3 = $"0274-546079                                               {cust.CustomerName}";
+                var hdr4 = $"Yogyakarta                                                {cust.Address1}";
+                var hdr5 = $"FAKTUR PENJUALAN                                          {cust.Address2}";
+                var hdr7 = $"No.Faktur: {noFakt}   Jns Jual: {jnsJl}   Sales: {salesNameeeee}   Jth Tempo: {jatuhTmpo}";
+                var hdr6 = $" ";
+                var hdr8 = $"--+-------+-------------------------+--+-------------+-----------------+---------------+--------------";
+                var hdr9 = $"No|Kode   |Nama Barang              |  |  Kwantitas  |      @Harga     |    Discount   | Total Harga  ";
+                var hdrA = $"--+-------+-------------------------+--+------+------+--------+--------+---+---+---+---+--------------";
+                
+                await sw.WriteLineAsync(hdr1);
+                await sw.WriteLineAsync(hdr2);
+                await sw.WriteLineAsync(hdr3);
+                await sw.WriteLineAsync(hdr4);
+                await sw.WriteLineAsync(hdr5);
+                await sw.WriteLineAsync(hdr6);
+                await sw.WriteLineAsync(hdr7);
+                await sw.WriteLineAsync(hdr8);
+                await sw.WriteLineAsync(hdr9);
+                await sw.WriteLineAsync(hdrA);
+            }
 
-
-            //var kiri1 = "Jl.Kol.Sugiyono 65"; var kanan1 = " ";
-            //var kiri2 = "Yogyakarta 55153"; var kanan2 = "Kepada Yth,";
-            //var kiri3 = "No.Telp : (0274) 123-456"; var kanan3 = "Bp/Ibu. " + _penjualan.BuyerName;
-            //var kiri4 = ""; var kanan4 = _penjualan.Alamat;
-            //var kiri5 = "No.Nota : " + _penjualan.PenjualanID; var kanan5 = _penjualan.NoTelp;
-
+            var i = 1;
+            foreach(var item in model.ListItem)
+            {
+                if (i % 5 == 1)
+                    PrintHeader();
+                var no = i.ToString("D2");
+                var brgId = item.BrgId.FixWidth(7);
+                var brgName = item.BrgName.FixWidth(25);
+                var bonus = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 3)?.Qty.ToString() ?? "0";
+                var qty1 = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 1)?.Qty.ToString().FixWidth(6) ?? string.Empty;
+                var qty2 = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 2)?.Qty.ToString().FixWidth(6) ?? string.Empty;
+                var hrg1 = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 1)?.HargaJual.ToString().FixWidth(8) ?? string.Empty;
+                var hrg2 = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 2)?.HargaJual.ToString().FixWidth(8) ?? string.Empty;
+                var disc1 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 1)?.DiscountProsen.ToString().FixWidth(3) ?? string.Empty;
+                var disc2 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 2)?.DiscountProsen.ToString().FixWidth(3) ?? string.Empty;
+                var disc3 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 3)?.DiscountProsen.ToString().FixWidth(3) ?? string.Empty;
+                var disc4 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 4)?.DiscountProsen.ToString().FixWidth(3) ?? string.Empty;
+                var total = item.Total.ToString("N").FixWidth(14);
+                await sw.WriteLineAsync($"{no}|{brgId}|{brgName}|{bonus}|{qty1}|{qty2}|{hrg1}|{hrg2}|{disc1}|{disc2}|{disc3}|{disc4}|{total}|");
+                i++;
+            }
+            sw.Close();
+            
             //sw.WriteLine(kiri0.PadRight(51, ' ') + ' ' + kanan0);
             //sw.WriteLine(kiri1.PadRight(51, ' ') + ' ' + kanan1);
             //sw.WriteLine(kiri2.PadRight(51, ' ') + ' ' + kanan2);

@@ -58,6 +58,7 @@
     <Compile Include="Domain\DateTimeProvider.cs" />
     <Compile Include="Domain\NunaModelHelper.cs" />
     <Compile Include="Domain\Periode.cs" />
+    <Compile Include="Domain\StringExtensions.cs" />
     <Compile Include="Infrastructure\DapperHelper.cs" />
     <Compile Include="Infrastructure\DataAccessInterface.cs" />
     <Compile Include="Infrastructure\SqlBulkCopyHelper.cs" />

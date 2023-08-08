@@ -9,7 +9,7 @@ using btr.nuna.Infrastructure;
 using Dapper;
 using Microsoft.Extensions.Options;
 
-namespace btr.infrastructure.InventoryContext
+namespace btr.infrastructure.InventoryContext.StokAgg
 {
     public class StokMutasiDal : IStokMutasiDal
     {

@@ -3,28 +3,18 @@ using System.Threading.Tasks;
 using btr.application.SalesContext.CustomerAgg.Workers;
 using btr.domain.SalesContext.CustomerAgg;
 using Dawn;
-using Mapster;
 using MediatR;
 
 namespace btr.application.SalesContext.CustomerAgg.UseCases
 {
-    public class GetCustomerQuery : IRequest<GetCustomerResponse>, ICustomerKey
+    public class GetCustomerQuery : IRequest<CustomerModel>, ICustomerKey
     {
         public GetCustomerQuery(string id) => CustomerId = id;
         public string CustomerId { get; }
     }
 
-    public class GetCustomerResponse
-    {
-        public string CustomerId { get; set; }
-        public string CustomerName { get; set; }
-        public double Plafond { get; set; }
-        public double CreditBalance { get; set; }
-        public string Address1 { get; set; }
-        public string Address2 { get; set; }
-    }
 
-    public class GetCustomerHandler : IRequestHandler<GetCustomerQuery, GetCustomerResponse>
+    public class GetCustomerHandler : IRequestHandler<GetCustomerQuery, CustomerModel>
     {
         private CustomerModel _aggRoot = new CustomerModel();
         private readonly ICustomerBuilder _builder;
@@ -34,7 +24,7 @@ namespace btr.application.SalesContext.CustomerAgg.UseCases
             _builder = builder;
         }
 
-        public Task<GetCustomerResponse> Handle(GetCustomerQuery request, CancellationToken cancellationToken)
+        public Task<CustomerModel> Handle(GetCustomerQuery request, CancellationToken cancellationToken)
         {
             //  GUARD
             Guard.Argument(() => request).NotNull()
@@ -46,13 +36,7 @@ namespace btr.application.SalesContext.CustomerAgg.UseCases
                 .Build();
 
             //  APPLY
-            return Task.FromResult(GenResponse());
-        }
-
-        private GetCustomerResponse GenResponse()
-        {
-            var result = _aggRoot.Adapt<GetCustomerResponse>();
-            return result;
+            return Task.FromResult(_aggRoot);
         }
     }
 }

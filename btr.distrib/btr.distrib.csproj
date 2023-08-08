@@ -216,6 +216,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ControlStyle.cs" />
+    <Compile Include="Helpers\DataGridViewExtensions.cs" />
     <Compile Include="PrintDocs\FakturPrintDoc.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

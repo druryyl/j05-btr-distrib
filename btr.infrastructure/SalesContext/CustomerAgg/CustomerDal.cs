@@ -8,7 +8,7 @@ using btr.nuna.Infrastructure;
 using Dapper;
 using Microsoft.Extensions.Options;
 
-namespace btr.infrastructure.SalesContext
+namespace btr.infrastructure.SalesContext.CustomerAgg
 {
     public class CustomerDal : ICustomerDal
     {

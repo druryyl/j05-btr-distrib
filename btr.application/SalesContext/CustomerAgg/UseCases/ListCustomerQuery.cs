@@ -2,9 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using btr.application.SalesContext.CustomerAgg.Contracts;
-using btr.application.SalesContext.SalesPersonAgg.Contracts;
 using btr.domain.SalesContext.CustomerAgg;
-using btr.domain.SalesContext.SalesPersonAgg;
 using Mapster;
 using MediatR;
 

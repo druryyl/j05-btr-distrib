@@ -1,4 +1,4 @@
-﻿namespace btr.domain.PurchaseContext.PrinsipalAgg
+﻿namespace btr.domain.PurchaseContext.PrincipalAgg
 {
     public class PrinsipalModel : IPrinsipalKey
     {

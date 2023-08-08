@@ -1,5 +1,5 @@
 ﻿using System;
-using btr.domain.PurchaseContext.PrinsipalAgg;
+using btr.domain.PurchaseContext.PrincipalAgg;
 
 namespace btr.domain.PurchaseContext.KlaimAgg
 {

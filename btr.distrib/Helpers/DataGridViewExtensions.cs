@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace btr.distrib.SalesContext.FakturAgg
+namespace btr.distrib.Helpers
 {
     public static class DataGridViewExtensions
     {
