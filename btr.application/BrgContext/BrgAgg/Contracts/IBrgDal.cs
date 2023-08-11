@@ -1,4 +1,4 @@
-﻿using btr.domain.InventoryContext.BrgAgg;
+﻿using btr.domain.BrgContext.BrgAgg;
 using btr.nuna.Infrastructure;
 
 namespace btr.application.InventoryContext.BrgAgg.Contracts

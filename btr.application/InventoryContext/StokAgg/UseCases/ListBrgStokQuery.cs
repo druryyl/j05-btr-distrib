@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using btr.application.InventoryContext.BrgAgg.Contracts;
 using btr.application.InventoryContext.StokAgg.Contracts;
-using btr.domain.InventoryContext.BrgAgg;
+using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.StokAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using Dawn;

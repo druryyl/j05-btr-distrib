@@ -1,4 +1,4 @@
-﻿namespace btr.domain.InventoryContext.BrgAgg
+﻿namespace btr.domain.BrgContext.BrgAgg
 {
     public interface IBrgKey
     {

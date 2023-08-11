@@ -1,0 +1,9 @@
+﻿CREATE TABLE [dbo].[BTR_BrgHarga]
+(
+    BrgId VARCHAR(5) NOT NULL CONSTRAINT DF_BTR_BrgHarga_BrgId DEFAULT(''), 
+    HargaTypeId VARCHAR(5) NOT NULL CONSTRAINT DF_BTR_BrgHarga_HargaTypeId DEFAULT(''), 
+    Harga VARCHAR(5) NOT NULL CONSTRAINT DF_BTR_BrgHarga_Harga DEFAULT(''), 
+    HargaTimestamp VARCHAR(5) NOT NULL CONSTRAINT DF_BTR_BrgHarga_HargaTimestamp DEFAULT(''),
+    
+    CONSTRAINT PK_BTR_BrgHarga PRIMARY KEY CLUSTERED(BrgId, HargaTypeId)
+)

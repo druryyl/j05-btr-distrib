@@ -3,7 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using btr.application.InventoryContext.BrgAgg.Contracts;
-using btr.domain.InventoryContext.BrgAgg;
+using btr.domain.BrgContext.BrgAgg;
 using btr.infrastructure.Helpers;
 using btr.nuna.Infrastructure;
 using Dapper;
@@ -11,7 +11,7 @@ using Microsoft.Extensions.Options;
 
 namespace btr.infrastructure.InventoryContext.BrgAgg
 {
-    public class BrgSatuanHargaDal : IBrgSatuanHargaDal
+    public class BrgSatuanHargaDal : IBrgSatuanDal
     {
         private readonly DatabaseOptions _opt;
 
@@ -20,7 +20,7 @@ namespace btr.infrastructure.InventoryContext.BrgAgg
             _opt = opt.Value;
         }
 
-        public void Insert(IEnumerable<BrgSatuanHargaModel> listModel)
+        public void Insert(IEnumerable<BrgSatuanModel> listModel)
         {
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             using (var bcp = new SqlBulkCopy(conn))
@@ -55,7 +55,7 @@ namespace btr.infrastructure.InventoryContext.BrgAgg
             }
         }
 
-        public IEnumerable<BrgSatuanHargaModel> ListData(IBrgKey brgKey)
+        public IEnumerable<BrgSatuanModel> ListData(IBrgKey brgKey)
         {
             const string sql = @"
             SELECT
@@ -70,7 +70,7 @@ namespace btr.infrastructure.InventoryContext.BrgAgg
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
-                return conn.Read<BrgSatuanHargaModel>(sql, dp);
+                return conn.Read<BrgSatuanModel>(sql, dp);
             }
         }
     }

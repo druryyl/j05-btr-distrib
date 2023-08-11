@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using btr.application.InventoryContext.BrgAgg.Workers;
-using btr.domain.InventoryContext.BrgAgg;
+using btr.domain.BrgContext.BrgAgg;
 using Dawn;
 using Mapster;
 using MediatR;

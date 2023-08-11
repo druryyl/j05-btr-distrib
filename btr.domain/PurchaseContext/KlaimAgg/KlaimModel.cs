@@ -1,12 +1,12 @@
 ﻿using System;
-using btr.domain.PurchaseContext.PrincipalAgg;
+using btr.domain.PurchaseContext.SupplierAgg;
 
 namespace btr.domain.PurchaseContext.KlaimAgg
 {
-    public class KlaimModel : IKlaimKey, IPrinsipalKey
+    public class KlaimModel : IKlaimKey, ISupplierKey
     {
         public string KlaimId { get; set; }
         public DateTime KlaimDate { get; set; }
-        public string PrinsipalId { get; set; }
+        public string SupplierId { get; set; }
     }
 }

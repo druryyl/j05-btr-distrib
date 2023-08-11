@@ -2,7 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 using btr.application.InventoryContext.BrgAgg.Contracts;
-using btr.domain.InventoryContext.BrgAgg;
+using btr.domain.BrgContext.BrgAgg;
 using btr.infrastructure.Helpers;
 using btr.nuna.Infrastructure;
 using Dapper;

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using btr.domain.InventoryContext.BrgAgg;
+using btr.domain.BrgContext.BrgAgg;
 
 namespace btr.domain.SalesContext.FakturAgg
 {

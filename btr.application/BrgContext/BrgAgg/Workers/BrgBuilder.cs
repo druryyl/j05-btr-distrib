@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using btr.application.InventoryContext.BrgAgg.Contracts;
-using btr.domain.InventoryContext.BrgAgg;
+using btr.domain.BrgContext.BrgAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
 
@@ -16,10 +16,10 @@ namespace btr.application.InventoryContext.BrgAgg.Workers
     {
         private BrgModel _aggRoot = new BrgModel();
         private readonly IBrgDal _brgDal;
-        private readonly IBrgSatuanHargaDal _brgSatuanHargaDal;
+        private readonly IBrgSatuanDal _brgSatuanHargaDal;
 
         public BrgBuilder(IBrgDal brgDal,
-            IBrgSatuanHargaDal brgSatuanHargaDal)
+            IBrgSatuanDal brgSatuanHargaDal)
         {
             _brgDal = brgDal;
             _brgSatuanHargaDal = brgSatuanHargaDal;
@@ -36,7 +36,7 @@ namespace btr.application.InventoryContext.BrgAgg.Workers
             _aggRoot = _brgDal.GetData(brgKey)
                        ?? throw new KeyNotFoundException($"BrgId not found ({brgKey.BrgId})");
             _aggRoot.ListSatuanHarga = _brgSatuanHargaDal.ListData(brgKey)?.ToList()
-                                       ?? new List<BrgSatuanHargaModel>();
+                                       ?? new List<BrgSatuanModel>();
             return this;
         }
     }
