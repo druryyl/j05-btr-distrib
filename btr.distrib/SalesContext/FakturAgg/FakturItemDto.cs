@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using btr.application.BrgContext.BrgAgg.UseCases;
 using btr.domain.BrgContext.BrgAgg;
+using btr.domain.InventoryContext.StokAgg;
 using MediatR;
 using Polly;
 
@@ -12,7 +13,7 @@ namespace btr.distrib.SalesContext.FakturAgg
     public class FakturItemDto
     {
         private string _brgId = string.Empty;
-        private string _brgName = string.Empty;
+        private string _brgName = string.Empty; 
         private string _disc = string.Empty;
         private string _discRp = string.Empty;
         private decimal _discTotal = 0;
@@ -45,23 +46,40 @@ namespace btr.distrib.SalesContext.FakturAgg
 
             var defBrgHarga = new BrgModel()
             {
-                BrgId = value,
+                BrgId = _brgId,
                 BrgName = string.Empty,
                 ListSatuan = new List<BrgSatuanModel>(),
                 ListHarga = new List<BrgHargaModel>()
             };
-            var policy = Policy<BrgModel>
+            var fallbackBrg = Policy<BrgModel>
                 .Handle<KeyNotFoundException>()
                 .FallbackAsync(defBrgHarga);
-            var query = new GetBrgQuery(value);
-            Task<BrgModel> queryTask() => _mediator.Send(query);
-            var result = await policy.ExecuteAsync(queryTask);
-            _brgName = result.BrgName;
-            ListStokHargaSatuan = result.ListSatuan
-                .Select(x => new FakturItemDtoStokHargaSatuan(x.Stok, x.HargaJual, x.Satuan))
-                .ToList();
+            var queryBrg = new GetBrgQuery(_brgId);
+            Task<BrgModel> QueryBrg() => _mediator.Send(queryBrg);
+            var brg = await fallbackBrg.ExecuteAsync(QueryBrg);
+
+            // var defStok = new StokModel
+            // {
+            // };
+            // var fallbackStok = Policy<StokModel>
+            //     .Handle<KeyNotFoundException>()
+            //     .FallbackAsync(defStok);
+            // var queryStok = new GetStokQUery(_brgId, )
+            // Task<StokModel> QeuryStok() => _mediator
+            
+            _brgName = brg.BrgName;
+            ListStokHargaSatuan = GenListStokHargaSatuan();
             ReCalc();
         }
+
+        private List<FakturItemDtoStokHargaSatuan> GenListStokHargaSatuan()
+        {
+            // result.ListSatuan
+            //     .Select(x => new FakturItemDtoStokHargaSatuan(x.Stok, x.HargaJual, x.Satuan))
+            //     .ToList();
+            throw new NotImplementedException();
+        }
+        
         public string BrgName { get => _brgName; }
 
         public string StokHarga

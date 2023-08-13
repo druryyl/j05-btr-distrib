@@ -44,6 +44,7 @@
     <Compile Include="BrgContext\BrgAgg\BrgHargaModel.cs" />
     <Compile Include="BrgContext\BrgAgg\BrgModel.cs" />
     <Compile Include="BrgContext\BrgAgg\BrgSatuanModel.cs" />
+    <Compile Include="BrgContext\BrgAgg\BrgQtyModel.cs" />
     <Compile Include="BrgContext\BrgAgg\IBrgKey.cs" />
     <Compile Include="BrgContext\HargaTypeAgg\HargaTypeModel.cs" />
     <Compile Include="BrgContext\HargaTypeAgg\IHargaTypeKey.cs" />
@@ -55,8 +56,8 @@
     <Compile Include="FinanceContext\PiutangAgg\PiutangModel.cs" />
     <Compile Include="InventoryContext\DeliveryAgg\DeliveryModel.cs" />
     <Compile Include="InventoryContext\DeliveryAgg\IDeliveryKey.cs" />
-    <Compile Include="InventoryContext\GoodReceiptAgg\GoodReceiptModel.cs" />
-    <Compile Include="InventoryContext\GoodReceiptAgg\IGoodReceiptKey.cs" />
+    <Compile Include="InventoryContext\TerimaBrgAgg\TerimaBrgModel.cs" />
+    <Compile Include="InventoryContext\TerimaBrgAgg\ITerimaBrgKey.cs" />
     <Compile Include="InventoryContext\StokAgg\IStokKey.cs" />
     <Compile Include="InventoryContext\StokAgg\IStokMutasiKey.cs" />
     <Compile Include="InventoryContext\StokAgg\StokModel.cs" />

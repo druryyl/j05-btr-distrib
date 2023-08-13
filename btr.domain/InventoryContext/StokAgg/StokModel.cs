@@ -6,8 +6,9 @@ namespace btr.domain.InventoryContext.StokAgg
     public class StokModel : IStokKey
     {
         public string StokId { get; set; }
-        public string StokControlId { get; set; }
-        public DateTime StokControlDate { get; set; }
+        public DateTime StokDate { get; set; }
+        public string ReffId { get; set; }
+        
         public string BrgId { get; set; }
         public string BrgName { get; set; }
         public string WarehouseId { get; set; }

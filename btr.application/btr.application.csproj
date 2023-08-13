@@ -82,7 +82,9 @@
     <Compile Include="BrgContext\KategoriAgg\Contracts\IKategoriDal.cs" />
     <Compile Include="InventoryContext\StokAgg\Contracts\IStokDal.cs" />
     <Compile Include="InventoryContext\StokAgg\Contracts\IStokMutasiDal.cs" />
+    <Compile Include="InventoryContext\StokAgg\UseCases\AddStokCommand.cs" />
     <Compile Include="InventoryContext\StokAgg\UseCases\ListBrgStokQuery.cs" />
+    <Compile Include="InventoryContext\StokAgg\UseCases\RemoveStokCommand.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\Contracts\IWarehouseDal.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\UseCases\GetWarehouseQuery.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\UseCases\ListWarehouseQuery.cs" />
