@@ -75,10 +75,11 @@
   <ItemGroup>
     <Compile Include="ApplicationAssemblyAnchor.cs" />
     <Compile Include="BrgContext\BrgAgg\Contracts\IBrgDal.cs" />
-    <Compile Include="BrgContext\BrgAgg\Contracts\IBrgHarga.cs" />
+    <Compile Include="BrgContext\BrgAgg\Contracts\IBrgHargaDal.cs" />
     <Compile Include="BrgContext\BrgAgg\Contracts\IBrgSatuanDal.cs" />
     <Compile Include="BrgContext\BrgAgg\UseCases\GetBrgQuery.cs" />
     <Compile Include="BrgContext\BrgAgg\Workers\BrgBuilder.cs" />
+    <Compile Include="BrgContext\KategoriAgg\Contracts\IKategoriDal.cs" />
     <Compile Include="InventoryContext\StokAgg\Contracts\IStokDal.cs" />
     <Compile Include="InventoryContext\StokAgg\Contracts\IStokMutasiDal.cs" />
     <Compile Include="InventoryContext\StokAgg\UseCases\ListBrgStokQuery.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="InventoryContext\WarehouseAgg\UseCases\ListWarehouseQuery.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\Workers\WarehouseBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PurchaseContext\SupplierAgg\Contracts\ISupplierDal.cs" />
     <Compile Include="SalesContext\CustomerAgg\Contracts\ICustomerDal.cs" />
     <Compile Include="SalesContext\CustomerAgg\UseCases\GetCustomerQuery.cs" />
     <Compile Include="SalesContext\CustomerAgg\UseCases\ListCustomerQuery.cs" />
@@ -124,8 +126,8 @@
     <Folder Include="InventoryContext\StokAgg\Workers\" />
     <Folder Include="PurchaseContext\InvoiceAgg\" />
     <Folder Include="PurchaseContext\KlaimAgg\" />
-    <Folder Include="PurchaseContext\PrincipalAgg\" />
     <Folder Include="PurchaseContext\PurchaseOrderAgg\" />
+    <Folder Include="PurchaseContext\SupplierAgg\UseCases\" />
     <Folder Include="SupportContext\UserAgg\" />
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using btr.application.InventoryContext.BrgAgg.UseCases;
+using btr.application.BrgContext.BrgAgg.UseCases;
+using btr.domain.BrgContext.BrgAgg;
 using MediatR;
 using Polly;
 
@@ -28,7 +29,7 @@ namespace btr.distrib.SalesContext.FakturAgg
 
         public FakturItemDto(IMediator mediator)
         {
-            ListStokHargaSatuan = new List<FakturItemStokHargaSatuan>();
+            ListStokHargaSatuan = new List<FakturItemDtoStokHargaSatuan>();
             _mediator = mediator;
         }
 
@@ -42,21 +43,22 @@ namespace btr.distrib.SalesContext.FakturAgg
         {
             _brgId = value;
 
-            var defBrgHarga = new GetBrgHargaResponse
+            var defBrgHarga = new BrgModel()
             {
                 BrgId = value,
                 BrgName = string.Empty,
-                ListSatuanHarga = new List<GetBrgHargaResponseSatuanHrg>()
+                ListSatuan = new List<BrgSatuanModel>(),
+                ListHarga = new List<BrgHargaModel>()
             };
-            var policy = Policy<GetBrgHargaResponse>
+            var policy = Policy<BrgModel>
                 .Handle<KeyNotFoundException>()
                 .FallbackAsync(defBrgHarga);
-            var query = new GetBrgHargaQuery(value);
-            Task<GetBrgHargaResponse> queryTask() => _mediator.Send(query);
+            var query = new GetBrgQuery(value);
+            Task<BrgModel> queryTask() => _mediator.Send(query);
             var result = await policy.ExecuteAsync(queryTask);
             _brgName = result.BrgName;
-            ListStokHargaSatuan = result.ListSatuanHarga
-                .Select(x => new FakturItemStokHargaSatuan(x.Stok, x.HargaJual, x.Satuan))
+            ListStokHargaSatuan = result.ListSatuan
+                .Select(x => new FakturItemDtoStokHargaSatuan(x.Stok, x.HargaJual, x.Satuan))
                 .ToList();
             ReCalc();
         }
@@ -106,7 +108,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         }
         public decimal PpnRp { get => _ppnRp; }
         public decimal Total { get => _total; }
-        public List<FakturItemStokHargaSatuan> ListStokHargaSatuan { get; set; }
+        public List<FakturItemDtoStokHargaSatuan> ListStokHargaSatuan { get; set; }
         public void ReCalc()
         {
             ReCalcQty();
@@ -181,9 +183,9 @@ namespace btr.distrib.SalesContext.FakturAgg
         #endregion
     }
 
-    public class FakturItemStokHargaSatuan
+    public class FakturItemDtoStokHargaSatuan
     {
-        public FakturItemStokHargaSatuan(int stok, decimal harga, string satuan)
+        public FakturItemDtoStokHargaSatuan(int stok, decimal harga, string satuan)
         {
             Stok = stok;
             Harga = harga;

@@ -130,7 +130,7 @@ namespace btr.distrib.SalesContext.FakturAgg
                 var discString = string.Join(";", item.ListDiscount.Select(x => x.DiscountProsen.ToString(CultureInfo.InvariantCulture)));
                 var listQtyHarga = item.ListQtyHarga
                     .Where(x => x.HargaJual != 0)
-                    .Select(x => new FakturItemStokHargaSatuan(x.Qty, x.HargaJual, x.Satuan));
+                    .Select(x => new FakturItemDtoStokHargaSatuan(x.Qty, x.HargaJual, x.Satuan));
                 var newItem = new FakturItemDto(_mediator)
                 {
                     BrgId = item.BrgId,

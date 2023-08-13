@@ -1,48 +1,33 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using btr.application.InventoryContext.BrgAgg.Workers;
+using btr.application.BrgContext.BrgAgg.Workers;
 using btr.domain.BrgContext.BrgAgg;
 using Dawn;
 using Mapster;
 using MediatR;
 
-namespace btr.application.InventoryContext.BrgAgg.UseCases
+namespace btr.application.BrgContext.BrgAgg.UseCases
 {
 
-    public class GetBrgHargaQuery : IRequest<GetBrgHargaResponse>, IBrgKey
+    public class GetBrgQuery : IRequest<BrgModel>, IBrgKey
     {
-        public GetBrgHargaQuery(string brgId) => BrgId = brgId;
+        public GetBrgQuery(string brgId) => BrgId = brgId;
         public string BrgId { get; }
     }
 
-    public class GetBrgHargaResponse
-    {
-        public string BrgId { get; set; }
-        public string BrgName { get; set;}
-        public List<GetBrgHargaResponseSatuanHrg> ListSatuanHarga { get; set; }
-    }
 
-    public class GetBrgHargaResponseSatuanHrg
-    {
-        public string BrgId { get; set; }
-        public string Satuan { get; set; }
-        public int Conversion { get; set; }
-        public int Stok { get; set; }
-        public decimal HargaJual { get; set; }
-    }
-
-    public class GetBrgHargaHandler : IRequestHandler<GetBrgHargaQuery, GetBrgHargaResponse>
+    public class GetBrgHargaHandler : IRequestHandler<GetBrgQuery, BrgModel>
     {
         private BrgModel _aggRoot = new BrgModel();
-        private IBrgBuilder _builder;
+        private readonly IBrgBuilder _builder;
 
         public GetBrgHargaHandler(IBrgBuilder builder)
         {
             _builder = builder;
         }
 
-        public Task<GetBrgHargaResponse> Handle(GetBrgHargaQuery request, CancellationToken cancellationToken)
+        public Task<BrgModel> Handle(GetBrgQuery request, CancellationToken cancellationToken)
         {
             //  GUARD
             Guard.Argument(() => request)
@@ -54,13 +39,7 @@ namespace btr.application.InventoryContext.BrgAgg.UseCases
                 .Build();
             
             //  RESPONSE
-            return Task.FromResult(GenResponse());
-        }
-
-        private GetBrgHargaResponse GenResponse()
-        {
-            var result = _aggRoot.Adapt<GetBrgHargaResponse>();
-            return result;
+            return Task.FromResult(_aggRoot);
         }
     }
 }

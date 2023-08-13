@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using btr.application.InventoryContext.BrgAgg.Workers;
+using btr.application.BrgContext.BrgAgg.Workers;
 using btr.application.InventoryContext.WarehouseAgg.Contracts;
 using btr.application.SalesContext.CustomerAgg.Contracts;
 using btr.application.SalesContext.FakturAgg.Contracts;
@@ -186,20 +186,21 @@ namespace btr.application.SalesContext.FakturAgg.Workers
 
         private static IEnumerable<FakturQtyHargaModel> GenListStokHarga(BrgModel brg, string qtyString)
         {
+            //  TODO: Perbaiki GenList Stok-Harga di Faktur Builder
             var result = new List<FakturQtyHargaModel>();
-            var qtys = ParseStringMultiNumber(qtyString, 3);
-            var satuanBesar = brg.ListSatuanHarga.OrderBy(x => x.Conversion).Last();
-            var satuanKecil = brg.ListSatuanHarga.OrderBy(x => x.Conversion).First();
-            var hrgBesar = brg.ListSatuanHarga.FirstOrDefault(x => x.Satuan == satuanBesar.Satuan)?.HargaJual ?? 0;
-            var hrgKecil = brg.ListSatuanHarga.FirstOrDefault(x => x.Satuan == satuanKecil.Satuan)?.HargaJual ?? 0;
-
-            result.Add(new FakturQtyHargaModel(1, brg.BrgId, satuanBesar.Satuan,
-                satuanBesar.Conversion, (int)qtys[0], hrgBesar));
-            result.Add(new FakturQtyHargaModel(2, brg.BrgId, satuanKecil.Satuan,
-                satuanKecil.Conversion, (int)qtys[1], hrgKecil));
-            result.Add(new FakturQtyHargaModel(3, brg.BrgId, satuanKecil.Satuan,
-                satuanKecil.Conversion, (int)qtys[2], 0));
-            result.RemoveAll(x => x.Qty == 0);
+            // var qtys = ParseStringMultiNumber(qtyString, 3);
+            // var satuanBesar = brg.ListSatuanHarga.OrderBy(x => x.Conversion).Last();
+            // var satuanKecil = brg.ListSatuanHarga.OrderBy(x => x.Conversion).First();
+            // var hrgBesar = brg.ListSatuanHarga.FirstOrDefault(x => x.Satuan == satuanBesar.Satuan)?.HargaJual ?? 0;
+            // var hrgKecil = brg.ListSatuanHarga.FirstOrDefault(x => x.Satuan == satuanKecil.Satuan)?.HargaJual ?? 0;
+            //
+            // result.Add(new FakturQtyHargaModel(1, brg.BrgId, satuanBesar.Satuan,
+            //     satuanBesar.Conversion, (int)qtys[0], hrgBesar));
+            // result.Add(new FakturQtyHargaModel(2, brg.BrgId, satuanKecil.Satuan,
+            //     satuanKecil.Conversion, (int)qtys[1], hrgKecil));
+            // result.Add(new FakturQtyHargaModel(3, brg.BrgId, satuanKecil.Satuan,
+            //     satuanKecil.Conversion, (int)qtys[2], 0));
+            // result.RemoveAll(x => x.Qty == 0);
 
             return result;
         }

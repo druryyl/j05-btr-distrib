@@ -1,28 +1,58 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using btr.application.BrgContext.BrgAgg.Contracts;
+using btr.application.BrgContext.KategoriAgg.Contracts;
 using btr.application.InventoryContext.BrgAgg.Contracts;
+using btr.application.PurchaseContext.SupplierAgg.Contracts;
 using btr.domain.BrgContext.BrgAgg;
+using btr.domain.BrgContext.HargaTypeAgg;
+using btr.domain.BrgContext.KategoriAgg;
+using btr.domain.PurchaseContext.SupplierAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
 
-namespace btr.application.InventoryContext.BrgAgg.Workers
+namespace btr.application.BrgContext.BrgAgg.Workers
 {
     public interface IBrgBuilder : INunaBuilder<BrgModel>
     {
+        IBrgBuilder Create();
         IBrgBuilder Load(IBrgKey brgKey);
+        IBrgBuilder Activeate();
+        IBrgBuilder Deactivate();
+        IBrgBuilder Name(string name);
+        IBrgBuilder Supplier(ISupplierKey supplierKey);
+        IBrgBuilder Kategori(IKategoriKey kategoriKey);
+        IBrgBuilder Hpp(decimal hpp);
+        IBrgBuilder AddSatuan(string satuan, int conversion);
+        IBrgBuilder RemoveSatuan(string satuan);
+        IBrgBuilder AddHarga(IHargaTypeKey hargaTypeKey,decimal hpp);
+
     }
 
     public class BrgBuilder : IBrgBuilder
     {
         private BrgModel _aggRoot = new BrgModel();
         private readonly IBrgDal _brgDal;
-        private readonly IBrgSatuanDal _brgSatuanHargaDal;
+        private readonly IBrgSatuanDal _brgSatuanDal;
+        private readonly IBrgHargaDal _brgHargaDal;
+        private readonly ISupplierDal _supplierDal;
+        private readonly IKategoriDal _kategoriDal;
+        private readonly DateTimeProvider _datetTime;
 
         public BrgBuilder(IBrgDal brgDal,
-            IBrgSatuanDal brgSatuanHargaDal)
+            IBrgSatuanDal brgSatuanDal, 
+            IBrgHargaDal brgHargaDal, 
+            ISupplierDal supplierDal, 
+            IKategoriDal kategoriDal, 
+            DateTimeProvider datetTime)
         {
             _brgDal = brgDal;
-            _brgSatuanHargaDal = brgSatuanHargaDal;
+            _brgSatuanDal = brgSatuanDal;
+            _brgHargaDal = brgHargaDal;
+            _supplierDal = supplierDal;
+            _kategoriDal = kategoriDal;
+            _datetTime = datetTime;
         }
 
         public BrgModel Build()
@@ -31,12 +61,95 @@ namespace btr.application.InventoryContext.BrgAgg.Workers
             return _aggRoot;
         }
 
+        public IBrgBuilder Create()
+        {
+            _aggRoot = new BrgModel
+            {
+                ListSatuan = new List<BrgSatuanModel>(),
+                ListHarga = new List<BrgHargaModel>()
+            };
+            return this;
+        }
+
         public IBrgBuilder Load(IBrgKey brgKey)
         {
             _aggRoot = _brgDal.GetData(brgKey)
                        ?? throw new KeyNotFoundException($"BrgId not found ({brgKey.BrgId})");
-            _aggRoot.ListSatuanHarga = _brgSatuanHargaDal.ListData(brgKey)?.ToList()
-                                       ?? new List<BrgSatuanModel>();
+            _aggRoot.ListSatuan = _brgSatuanDal.ListData(brgKey)?.ToList()
+                        ?? new List<BrgSatuanModel>();
+            _aggRoot.ListHarga = _brgHargaDal.ListData(brgKey)?.ToList()
+                        ?? new List<BrgHargaModel>();
+            return this;
+        }
+
+        public IBrgBuilder Activeate()
+        {
+            _aggRoot.IsAktif = true;
+            return this;
+        }
+
+        public IBrgBuilder Deactivate()
+        {
+            _aggRoot.IsAktif = false;
+            return this;
+        }
+
+        public IBrgBuilder Name(string name)
+        {
+            _aggRoot.BrgName = name;
+            return this;
+        }
+
+        public IBrgBuilder Supplier(ISupplierKey supplierKey)
+        {
+            var supplier = _supplierDal.GetData(supplierKey)
+                           ?? throw new KeyNotFoundException($"SupplierID not found ({supplierKey.SupplierId})");
+            _aggRoot.SupplierId = supplier.SupplierId;
+            _aggRoot.SupplierName = supplier.SupplierName;
+            return this;
+        }
+
+        public IBrgBuilder Kategori(IKategoriKey kategoriKey)
+        {
+            var katogeri = _kategoriDal.GetData(kategoriKey)
+                           ?? throw new KeyNotFoundException($"SupplierID not found ({kategoriKey.KategoriId})");
+            _aggRoot.SupplierId = katogeri.KategoriId;
+            _aggRoot.SupplierName = katogeri.KategoriName;
+            return this;
+        }
+
+        public IBrgBuilder Hpp(decimal hpp)
+        {
+            if (hpp <= 0)
+                throw new ArgumentException("Hpp can not less than 0");
+            _aggRoot.Hpp = hpp;
+            _aggRoot.HppTimestamp = _datetTime.Now;
+            return this;
+        }
+
+        public IBrgBuilder AddSatuan(string satuan, int conversion)
+        {
+            if (_aggRoot.ListSatuan.Any(x => x.Satuan == satuan))
+                throw new ArgumentException($"Satuan already exist ({satuan})");
+            _aggRoot.ListSatuan.Add(new BrgSatuanModel(_aggRoot.BrgId, satuan, conversion));
+            return this;
+        }
+
+        public IBrgBuilder RemoveSatuan(string satuan)
+        {
+            _aggRoot.ListSatuan.RemoveAll(x => x.Satuan == satuan);
+            return this;
+        }
+
+        public IBrgBuilder AddHarga(IHargaTypeKey hargaTypeKey, decimal harga)
+        {
+            var newItem = new BrgHargaModel
+            {
+                HargaTypeId = hargaTypeKey.HargaTypeId,
+                Harga = harga,
+                HargaTimestamp = _datetTime.Now
+            };
+            _aggRoot.ListHarga.Add(newItem);
             return this;
         }
     }

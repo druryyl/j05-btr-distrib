@@ -25,6 +25,7 @@ namespace btr.domain.BrgContext.BrgAgg
         
         public decimal Hpp { get; set; }
         public DateTime HppTimestamp { get; set; }
-        public List<BrgSatuanModel> ListSatuanHarga { get; set; }
+        public List<BrgSatuanModel> ListSatuan { get; set; }
+        public List<BrgHargaModel> ListHarga { get; set; }
     }
 }

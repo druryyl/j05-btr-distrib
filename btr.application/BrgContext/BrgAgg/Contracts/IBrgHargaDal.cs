@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace btr.application.BrgContext.BrgAgg.Contracts
 {
-    public interface IBrgHarga :
+    public interface IBrgHargaDal :
         IInsertBulk<BrgHargaModel>,
         IDelete<IBrgKey>,
         IListData<BrgHargaModel, IBrgKey>
