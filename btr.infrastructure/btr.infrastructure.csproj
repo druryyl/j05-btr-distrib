@@ -79,11 +79,14 @@
     <Compile Include="Helpers\PrinterOptions.cs" />
     <Compile Include="InfrastructureAssemblyAnchor.cs" />
     <Compile Include="InventoryContext\BrgAgg\BrgDal.cs" />
-    <Compile Include="InventoryContext\BrgAgg\BrgSatuanHargaDal.cs" />
+    <Compile Include="InventoryContext\BrgAgg\BrgSatuanDal.cs" />
+    <Compile Include="InventoryContext\BrgAgg\BrgHargaDal.cs" />
+    <Compile Include="InventoryContext\KategoriAgg\KategoriDal.cs" />
     <Compile Include="InventoryContext\StokAgg\StokDal.cs" />
     <Compile Include="InventoryContext\StokAgg\StokMutasiDal.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\WarehouseDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PurchaseContext\SupplierAgg\SupplierDal.cs" />
     <Compile Include="SalesContext\CustomerAgg\CustomerDal.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturDal.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturDiscountDal.cs" />
@@ -117,7 +120,6 @@
     <Folder Include="InventoryContext\GoodReceiptAgg\" />
     <Folder Include="PurchaseContext\InvoiceAgg\" />
     <Folder Include="PurchaseContext\KlaimAgg\" />
-    <Folder Include="PurchaseContext\PrincipalAgg\" />
     <Folder Include="PurchaseContext\PurchaseOrderAgg\" />
     <Folder Include="SupportContext\UserAgg\" />
   </ItemGroup>

@@ -194,6 +194,7 @@
             this.PoButton.Name = "PoButton";
             this.PoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("PoButton.SmallImage")));
             this.PoButton.Text = "PO";
+            this.PoButton.Click += new System.EventHandler(this.PoButton_Click);
             // 
             // PoReportButton
             // 

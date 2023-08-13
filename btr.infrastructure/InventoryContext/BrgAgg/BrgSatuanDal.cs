@@ -11,11 +11,11 @@ using Microsoft.Extensions.Options;
 
 namespace btr.infrastructure.InventoryContext.BrgAgg
 {
-    public class BrgSatuanHargaDal : IBrgSatuanDal
+    public class BrgSatuanDal : IBrgSatuanDal
     {
         private readonly DatabaseOptions _opt;
 
-        public BrgSatuanHargaDal(IOptions<DatabaseOptions> opt)
+        public BrgSatuanDal(IOptions<DatabaseOptions> opt)
         {
             _opt = opt.Value;
         }
