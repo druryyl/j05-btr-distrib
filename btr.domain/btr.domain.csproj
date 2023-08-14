@@ -69,6 +69,7 @@
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceModel.cs" />
     <Compile Include="PurchaseContext\KlaimAgg\IKlaimKey.cs" />
     <Compile Include="PurchaseContext\KlaimAgg\KlaimModel.cs" />
+    <Compile Include="PurchaseContext\PurchaseOrderAgg\IPurchaseOrderKey.cs" />
     <Compile Include="PurchaseContext\SupplierAgg\ISupplierKey.cs" />
     <Compile Include="PurchaseContext\SupplierAgg\SupplierModel.cs" />
     <Compile Include="PurchaseContext\PurchaseOrderAgg\PurchaseOrderModel.cs" />

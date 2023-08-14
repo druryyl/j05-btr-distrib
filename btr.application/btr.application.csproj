@@ -90,6 +90,10 @@
     <Compile Include="InventoryContext\WarehouseAgg\UseCases\ListWarehouseQuery.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\Workers\WarehouseBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PurchaseContext\PurchaseOrderAgg\Contracts\IPurchaseOrderDal.cs" />
+    <Compile Include="PurchaseContext\PurchaseOrderAgg\Contracts\IPurchaseOrderItemDal.cs" />
+    <Compile Include="PurchaseContext\PurchaseOrderAgg\UseCases\CreatePurchaseOrderCommand.cs" />
+    <Compile Include="PurchaseContext\PurchaseOrderAgg\UseCases\GetPurchaseOrderQuery.cs" />
     <Compile Include="PurchaseContext\SupplierAgg\Contracts\ISupplierDal.cs" />
     <Compile Include="SalesContext\CustomerAgg\Contracts\ICustomerDal.cs" />
     <Compile Include="SalesContext\CustomerAgg\UseCases\GetCustomerQuery.cs" />
@@ -128,7 +132,6 @@
     <Folder Include="InventoryContext\StokAgg\Workers\" />
     <Folder Include="PurchaseContext\InvoiceAgg\" />
     <Folder Include="PurchaseContext\KlaimAgg\" />
-    <Folder Include="PurchaseContext\PurchaseOrderAgg\" />
     <Folder Include="PurchaseContext\SupplierAgg\UseCases\" />
     <Folder Include="SupportContext\UserAgg\" />
   </ItemGroup>
