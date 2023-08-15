@@ -94,6 +94,8 @@
     <Compile Include="PurchaseContext\PurchaseOrderAgg\Contracts\IPurchaseOrderItemDal.cs" />
     <Compile Include="PurchaseContext\PurchaseOrderAgg\UseCases\CreatePurchaseOrderCommand.cs" />
     <Compile Include="PurchaseContext\PurchaseOrderAgg\UseCases\GetPurchaseOrderQuery.cs" />
+    <Compile Include="PurchaseContext\PurchaseOrderAgg\Workers\PurchaseOrderBuilder.cs" />
+    <Compile Include="PurchaseContext\PurchaseOrderAgg\Workers\PurchaseOrderWriter.cs" />
     <Compile Include="PurchaseContext\SupplierAgg\Contracts\ISupplierDal.cs" />
     <Compile Include="SalesContext\CustomerAgg\Contracts\ICustomerDal.cs" />
     <Compile Include="SalesContext\CustomerAgg\UseCases\GetCustomerQuery.cs" />

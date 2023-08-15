@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "helpers", "helpers", "{A20F
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "btr.sql", "btr.sql\btr.sql.sqlproj", "{8247F424-A8E8-46E6-887D-6A3D1E27FE2D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "btr.test", "btr.test\btr.test.csproj", "{BC8848A7-BAD3-4294-BCE7-3D9D7DFB6CEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{8247F424-A8E8-46E6-887D-6A3D1E27FE2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8247F424-A8E8-46E6-887D-6A3D1E27FE2D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8247F424-A8E8-46E6-887D-6A3D1E27FE2D}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{BC8848A7-BAD3-4294-BCE7-3D9D7DFB6CEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC8848A7-BAD3-4294-BCE7-3D9D7DFB6CEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC8848A7-BAD3-4294-BCE7-3D9D7DFB6CEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC8848A7-BAD3-4294-BCE7-3D9D7DFB6CEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +67,7 @@ Global
 		{BD420C25-6A06-47CB-B011-2E302F902335} = {329BED80-7A24-471B-B39D-32CD97802804}
 		{EF0BE179-091D-4477-A5E5-7E39910057C3} = {A20FC3BA-048B-4F92-9158-4AB7E05EEF32}
 		{8247F424-A8E8-46E6-887D-6A3D1E27FE2D} = {A20FC3BA-048B-4F92-9158-4AB7E05EEF32}
+		{BC8848A7-BAD3-4294-BCE7-3D9D7DFB6CEE} = {A20FC3BA-048B-4F92-9158-4AB7E05EEF32}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {84D759D9-0CD1-4518-B32E-D5C72AAEE015}

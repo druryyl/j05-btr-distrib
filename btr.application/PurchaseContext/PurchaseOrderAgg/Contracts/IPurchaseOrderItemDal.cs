@@ -6,7 +6,7 @@ namespace btr.application.PurchaseContext.PurchaseOrderAgg.Contracts
     public interface IPurchaseOrderItemDal :
         IInsertBulk<PurchaseOrderItemModel>,
         IDelete<IPurchaseOrderKey>,
-        IListData<PurchaseOrderModel, IPurchaseOrderKey>
+        IListData<PurchaseOrderItemModel, IPurchaseOrderKey>
     {
     }
 }
