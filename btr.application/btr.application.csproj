@@ -97,6 +97,8 @@
     <Compile Include="PurchaseContext\PurchaseOrderAgg\Workers\PurchaseOrderBuilder.cs" />
     <Compile Include="PurchaseContext\PurchaseOrderAgg\Workers\PurchaseOrderWriter.cs" />
     <Compile Include="PurchaseContext\SupplierAgg\Contracts\ISupplierDal.cs" />
+    <Compile Include="PurchaseContext\SupplierAgg\UseCases\GetSupplierQuery.cs" />
+    <Compile Include="PurchaseContext\SupplierAgg\Workers\SupplierBuilder.cs" />
     <Compile Include="SalesContext\CustomerAgg\Contracts\ICustomerDal.cs" />
     <Compile Include="SalesContext\CustomerAgg\UseCases\GetCustomerQuery.cs" />
     <Compile Include="SalesContext\CustomerAgg\UseCases\ListCustomerQuery.cs" />
@@ -134,7 +136,6 @@
     <Folder Include="InventoryContext\StokAgg\Workers\" />
     <Folder Include="PurchaseContext\InvoiceAgg\" />
     <Folder Include="PurchaseContext\KlaimAgg\" />
-    <Folder Include="PurchaseContext\SupplierAgg\UseCases\" />
     <Folder Include="SupportContext\UserAgg\" />
   </ItemGroup>
   <ItemGroup>

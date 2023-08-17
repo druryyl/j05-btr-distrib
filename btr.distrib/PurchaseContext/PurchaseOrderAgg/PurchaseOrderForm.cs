@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MediatR;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,26 @@ namespace btr.distrib.PurchaseContext.PurchaseOrderAgg
 {
     public partial class PurchaseOrderForm : Form
     {
-        public PurchaseOrderForm()
+        private readonly IMediator _mediator;
+
+        public PurchaseOrderForm(IMediator mediator)
         {
             InitializeComponent();
+            _mediator = mediator;
+
+            SupplierIdText.Validated += SupplierIdText_Validated;
         }
+
+        #region SUPPLIER
+        private void SupplierIdText_Validated(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+        private void ValidateSupplier(string supplierId)
+        {
+            var query = new GetSupplierQ
+        }
+
+        #endregion
     }
 }
