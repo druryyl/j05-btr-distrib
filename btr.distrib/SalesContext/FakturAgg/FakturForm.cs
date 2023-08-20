@@ -31,14 +31,14 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly IMediator _mediator;
         private readonly IFakturBrowser _fakturBrowser;
         private readonly IBrgStokBrowser _brgStokBrowser;
-        private readonly IWarehouseBrowser _warehouseBrowser;
+        private readonly IBrowser<WarehouseBrowserView> _warehouseBrowser;
         private readonly IFakturPrintDoc _fakturPrintDoc;
 
         public FakturForm(IMediator mediator,
             IFakturBrowser fakturBrowser,
             IBrgStokBrowser brgStokBrowser,
             IFakturPrintDoc fakturPrintDoc,
-            IWarehouseBrowser warehouseBrowser)
+            IBrowser<WarehouseBrowserView> warehouseBrowser)
         {
             InitializeComponent();
             InitGrid();

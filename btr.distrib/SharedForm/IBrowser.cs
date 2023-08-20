@@ -14,4 +14,9 @@ namespace btr.distrib.SharedForm
     {
         string Browse(string defaultValue);
     }
+
+    public interface IBrowser<T>
+    {
+        string Browse(string defaultValue);
+    }
 }

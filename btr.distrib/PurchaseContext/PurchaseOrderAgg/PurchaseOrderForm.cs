@@ -19,22 +19,29 @@ using btr.application.InventoryContext.WarehouseAgg.UseCases;
 using btr.distrib.Helpers;
 using btr.application.InventoryContext.StokAgg.UseCases;
 using btr.distrib.SalesContext.FakturAgg;
+using btr.application.PurchaseContext.SupplierAgg.Contracts;
+using btr.application.InventoryContext.WarehouseAgg.Contracts;
 
 namespace btr.distrib.PurchaseContext.PurchaseOrderAgg
 {
     public partial class PurchaseOrderForm : Form
     {
         private readonly IMediator _mediator;
-        private readonly ISupplierBrowser _supplierBrowser;
-        private readonly IWarehouseBrowser _warehouseBrowser;
+        private readonly IBrowser<SupplierBrowserView> _supplierBrowser;
+        private readonly IBrowser<WarehouseBrowserView> _warehouseBrowser;
         private readonly IBrgStok2Browser _brgStok2Browser;
+
+        private readonly ISupplierDal _supplierDal;
+        private readonly IWarehouseDal _warehouseDal;
 
         private readonly BindingList<PurchaseOrderItemDto> _listItem = new BindingList<PurchaseOrderItemDto>();
 
         public PurchaseOrderForm(IMediator mediator,
-            ISupplierBrowser supplierBrowser,
-            IWarehouseBrowser warehouseBrowser,
-            IBrgStok2Browser brgSto2Browser)
+            IBrowser<SupplierBrowserView> supplierBrowser,
+            IBrowser<WarehouseBrowserView> warehouseBrowser,
+            IBrgStok2Browser brgSto2Browser,
+            ISupplierDal supplierDal,
+            IWarehouseDal warehouseDal)
         {
             InitializeComponent();
             RegisterEventHandler();
@@ -44,6 +51,8 @@ namespace btr.distrib.PurchaseContext.PurchaseOrderAgg
             _supplierBrowser = supplierBrowser;
             _warehouseBrowser = warehouseBrowser;
             _brgStok2Browser = brgSto2Browser;
+            _supplierDal = supplierDal;
+            _warehouseDal = warehouseDal;
         }
 
         private void RegisterEventHandler()
@@ -58,18 +67,14 @@ namespace btr.distrib.PurchaseContext.PurchaseOrderAgg
         }
 
         #region SUPPLIER
-        private async void SupplierIdText_Validated(object sender, EventArgs e)
+        private void SupplierIdText_Validated(object sender, EventArgs e)
         {
             var textbox = (TextBox)sender;
             if (textbox.Text.Length == 0)
                 return;
             
-            var fallback = Policy<SupplierModel>
-                .Handle<KeyNotFoundException>().Or<ArgumentException>()
-                .FallbackAsync(new SupplierModel());
-            var query = new GetSupplierQuery(textbox.Text);
-            var supplier = await fallback.ExecuteAsync(() => _mediator.Send(query));
-            SupplierNameTextBox.Text = supplier.SupplierName;
+            var supplier = _supplierDal.GetData(new SupplierModel(textbox.Text));
+            SupplierNameTextBox.Text = supplier?.SupplierName??string.Empty;
         }
         private void SupplierButtonOnClick(object sender, EventArgs e)
         {
@@ -79,18 +84,14 @@ namespace btr.distrib.PurchaseContext.PurchaseOrderAgg
         #endregion
 
         #region WAREHOUSE
-        private async void WarehouseIdText_Validated(object sender, EventArgs e)
+        private void WarehouseIdText_Validated(object sender, EventArgs e)
         {
             var textbox = (TextBox)sender;
             if (textbox.Text.Length == 0)
                 return;
 
-            var fallback = Policy<WarehouseModel>
-                .Handle<KeyNotFoundException>().Or<ArgumentException>()
-                .FallbackAsync(new WarehouseModel());
-            var query = new GetWarehouseQuery(textbox.Text);
-            var warehouse = await fallback.ExecuteAsync(() => _mediator.Send(query));
-            WarehouseNameText.Text = warehouse.WarehouseName;
+            var warehouse = _warehouseDal.GetData(new WarehouseModel(textbox.Text));
+            WarehouseNameText.Text = warehouse?.WarehouseName??string.Empty;
         }
         private void WarehouseButton_Click(object sender, EventArgs e)
         {

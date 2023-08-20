@@ -1,4 +1,5 @@
 ﻿using btr.application;
+using btr.distrib.Browsers;
 using btr.distrib.PrintDocs;
 using btr.distrib.SharedForm;
 using btr.infrastructure;
@@ -126,6 +127,16 @@ namespace btr.distrib
                         .WithScopedLifetime()
                     .FromAssemblyOf<WinformAssemblyAnchor>()
                         .AddClasses(c => c.AssignableTo(typeof(IBrowser)))
+                        .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+                        .AsSelfWithInterfaces()
+                        .WithScopedLifetime()
+                    .FromAssemblyOf<WinformAssemblyAnchor>()
+                        .AddClasses(c => c.AssignableTo(typeof(IBrowser<>)))
+                        .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+                        .AsSelfWithInterfaces()
+                        .WithScopedLifetime()
+                    .FromAssemblyOf<WinformAssemblyAnchor>()
+                        .AddClasses(c => c.AssignableTo(typeof(IBrowseEngine<>)))
                         .UsingRegistrationStrategy(RegistrationStrategy.Skip)
                         .AsSelfWithInterfaces()
                         .WithScopedLifetime()

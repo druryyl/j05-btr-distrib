@@ -1,57 +1,61 @@
-﻿using btr.application.InventoryContext.WarehouseAgg.UseCases;
+﻿using btr.application.InventoryContext.WarehouseAgg.Contracts;
 using btr.distrib.SharedForm;
 using btr.domain.InventoryContext.WarehouseAgg;
-using MediatR;
-using Polly;
-using System;
+using btr.nuna.Domain;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace btr.distrib.Browsers
 {
-    public interface IWarehouseBrowser : IBrowser
+    public class WarehouseBrowser :
+        IBrowser<WarehouseBrowserView>,
+        IBrowseEngine<WarehouseBrowserView>
     {
-    }
+        private readonly IWarehouseDal _warehouseDal;
 
-    public class WarehouseBrowser : IWarehouseBrowser
-    {
-        private readonly IMediator _mediator;
-
-        public WarehouseBrowser(IMediator mediator)
+        public WarehouseBrowser(IWarehouseDal warehouseDal)
         {
-            _mediator = mediator;
+            _warehouseDal = warehouseDal;
+            Filter = new BrowseFilter();
+            Filter.IsDate = false;
         }
 
         public string Browse(string defaultValue)
         {
-            var fallback = Policy<IEnumerable<WarehouseModel>>
-                .Handle<KeyNotFoundException>().Or<ArgumentException>()
-                .FallbackAsync(new List<WarehouseModel>());
-            var query = new ListWarehouseQuery();
-            var response = Task.Run(() => fallback.ExecuteAsync(() => _mediator.Send(query)))
-                .GetAwaiter()
-                .GetResult();
+            var form = new Browser2Form<WarehouseBrowserView>(this);
 
-            var listWarehouse = response
-                .Select(x => new WarehouseBrowseProjection
-                { 
-                    Id = x.WarehouseId, 
-                    WarehouseName = x.WarehouseName 
-                });
-
-            var form = new BrowserForm<WarehouseBrowseProjection, string>(listWarehouse, string.Empty, x => x.WarehouseName);
             var dialogResult = form.ShowDialog();
             if (dialogResult == System.Windows.Forms.DialogResult.OK)
-                return form.ReturnedValue;
+                return form.Result;
             else
                 return defaultValue;
         }
+
+        public BrowseFilter Filter { get; set; }
+
+        public IEnumerable<WarehouseBrowserView> GenDataSource()
+        {
+            var listData = _warehouseDal.ListData()?.ToList() ?? new List<WarehouseModel>();
+
+            var result = listData
+                .OrderBy(x => x.WarehouseName)
+                .Select(x => new WarehouseBrowserView
+                {
+                    Id = x.WarehouseId,
+                    WarehouseName = x.WarehouseName
+                }).ToList();
+
+            if (Filter.UserKeyword.Length > 0)
+                result = result
+                    .Where(x => x.WarehouseName.ContainMultiWord(Filter.UserKeyword)).ToList();
+
+            return result;
+        }
     }
-    public class WarehouseBrowseProjection
+
+    public class WarehouseBrowserView
     {
         public string Id { get; set; }
         public string WarehouseName { get; set; }
     }
-
 }

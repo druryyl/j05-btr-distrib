@@ -210,6 +210,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Browsers\BrgStok2Browser.cs" />
+    <Compile Include="Helpers\BrowseFilter.cs" />
+    <Compile Include="Helpers\IBrowseEngine.cs" />
     <Compile Include="Browsers\SupplierBrowser.cs" />
     <Compile Include="Browsers\WarehouseBrowser.cs" />
     <Compile Include="Form1.cs">
@@ -239,6 +241,12 @@
       <DependentUpon>FakturForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SalesContext\FakturAgg\FakturItemDto.cs" />
+    <Compile Include="SharedForm\Browser2Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SharedForm\Browser2Form.Designer.cs">
+      <DependentUpon>Browser2Form.cs</DependentUpon>
+    </Compile>
     <Compile Include="SharedForm\BrowserForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -284,6 +292,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SalesContext\FakturAgg\FakturForm.resx">
       <DependentUpon>FakturForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SharedForm\Browser2Form.resx">
+      <DependentUpon>Browser2Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SharedForm\BrowserForm.resx">
       <DependentUpon>BrowserForm.cs</DependentUpon>

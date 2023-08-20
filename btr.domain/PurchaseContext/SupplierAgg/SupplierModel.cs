@@ -2,6 +2,10 @@
 {
     public class SupplierModel : ISupplierKey
     {
+        public SupplierModel()
+        {
+        }
+        public SupplierModel(string id) => SupplierId = id;
         public string SupplierId { get; set; }
         public string SupplierName { get; set; }
         public string Address1 { get; set; }
