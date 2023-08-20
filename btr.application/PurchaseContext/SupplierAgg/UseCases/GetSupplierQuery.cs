@@ -14,6 +14,7 @@ namespace btr.application.PurchaseContext.SupplierAgg.UseCases
     public class GetSupplierQuery : IRequest<SupplierModel>,
         ISupplierKey
     {
+        public GetSupplierQuery(string supplierId) => SupplierId = supplierId;
         public string SupplierId { get; set; }
     }
 

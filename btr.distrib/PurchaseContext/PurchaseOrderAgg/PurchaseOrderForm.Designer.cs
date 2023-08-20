@@ -43,7 +43,7 @@
             this.PanelAtas4 = new System.Windows.Forms.Panel();
             this.NoteTextBox = new System.Windows.Forms.TextBox();
             this.NoteLabel = new System.Windows.Forms.Label();
-            this.FakturItemGrid = new System.Windows.Forms.DataGridView();
+            this.PurchaseOrderItemGrid = new System.Windows.Forms.DataGridView();
             this.PanelTengah = new System.Windows.Forms.Panel();
             this.BiayaLainText = new System.Windows.Forms.NumericUpDown();
             this.BiayaLainLabel = new System.Windows.Forms.Label();
@@ -54,17 +54,17 @@
             this.TotalText = new System.Windows.Forms.NumericUpDown();
             this.TotalLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.LastIdLabel = new System.Windows.Forms.Label();
             this.PurchaseOrderDateText = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.PurchaseOrderButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.SaveButton = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
-            this.LastIdLabel = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.PanelAtas4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.FakturItemGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PurchaseOrderItemGrid)).BeginInit();
             this.PanelTengah.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BiayaLainText)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GrandTotalText)).BeginInit();
@@ -220,16 +220,16 @@
             this.NoteLabel.TabIndex = 0;
             this.NoteLabel.Text = "Note";
             // 
-            // FakturItemGrid
+            // PurchaseOrderItemGrid
             // 
-            this.FakturItemGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.PurchaseOrderItemGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.FakturItemGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.FakturItemGrid.Location = new System.Drawing.Point(6, 148);
-            this.FakturItemGrid.Name = "FakturItemGrid";
-            this.FakturItemGrid.Size = new System.Drawing.Size(852, 375);
-            this.FakturItemGrid.TabIndex = 49;
+            this.PurchaseOrderItemGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.PurchaseOrderItemGrid.Location = new System.Drawing.Point(6, 148);
+            this.PurchaseOrderItemGrid.Name = "PurchaseOrderItemGrid";
+            this.PurchaseOrderItemGrid.Size = new System.Drawing.Size(852, 375);
+            this.PurchaseOrderItemGrid.TabIndex = 49;
             // 
             // PanelTengah
             // 
@@ -363,6 +363,16 @@
             this.panel1.Size = new System.Drawing.Size(200, 133);
             this.panel1.TabIndex = 45;
             // 
+            // LastIdLabel
+            // 
+            this.LastIdLabel.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LastIdLabel.Location = new System.Drawing.Point(11, 47);
+            this.LastIdLabel.Name = "LastIdLabel";
+            this.LastIdLabel.Size = new System.Drawing.Size(181, 24);
+            this.LastIdLabel.TabIndex = 6;
+            this.LastIdLabel.Text = "[Last PO]";
+            this.LastIdLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // PurchaseOrderDateText
             // 
             this.PurchaseOrderDateText.CustomFormat = "ddd dd-MM-yyyy";
@@ -419,16 +429,6 @@
             this.DeleteButton.Text = "Delete";
             this.DeleteButton.UseVisualStyleBackColor = true;
             // 
-            // LastIdLabel
-            // 
-            this.LastIdLabel.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LastIdLabel.Location = new System.Drawing.Point(11, 47);
-            this.LastIdLabel.Name = "LastIdLabel";
-            this.LastIdLabel.Size = new System.Drawing.Size(181, 24);
-            this.LastIdLabel.TabIndex = 6;
-            this.LastIdLabel.Text = "[Last PO]";
-            this.LastIdLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
             // PurchaseOrderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -439,7 +439,7 @@
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.PrintButton);
             this.Controls.Add(this.PanelAtas4);
-            this.Controls.Add(this.FakturItemGrid);
+            this.Controls.Add(this.PurchaseOrderItemGrid);
             this.Controls.Add(this.PanelTengah);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.SaveButton);
@@ -453,7 +453,7 @@
             this.panel3.PerformLayout();
             this.PanelAtas4.ResumeLayout(false);
             this.PanelAtas4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.FakturItemGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PurchaseOrderItemGrid)).EndInit();
             this.PanelTengah.ResumeLayout(false);
             this.PanelTengah.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BiayaLainText)).EndInit();
@@ -482,7 +482,7 @@
         private System.Windows.Forms.Panel PanelAtas4;
         private System.Windows.Forms.TextBox NoteTextBox;
         private System.Windows.Forms.Label NoteLabel;
-        private System.Windows.Forms.DataGridView FakturItemGrid;
+        private System.Windows.Forms.DataGridView PurchaseOrderItemGrid;
         private System.Windows.Forms.Panel PanelTengah;
         private System.Windows.Forms.NumericUpDown BiayaLainText;
         private System.Windows.Forms.Label BiayaLainLabel;

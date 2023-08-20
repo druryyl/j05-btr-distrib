@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace btr.distrib.Browsers
 {
-    public interface IFakturBrowser : IBrowser<ListFakturResponse>
+    public interface IFakturBrowser : IQueryBrowser<ListFakturResponse>
     {
     }
 

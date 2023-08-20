@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using btr.distrib.Helpers;
 using btr.domain.SalesContext.CustomerAgg;
+using btr.domain.InventoryContext.WarehouseAgg;
 
 namespace btr.distrib.SalesContext.FakturAgg
 {
@@ -30,22 +31,32 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly IMediator _mediator;
         private readonly IFakturBrowser _fakturBrowser;
         private readonly IBrgStokBrowser _brgStokBrowser;
+        private readonly IWarehouseBrowser _warehouseBrowser;
         private readonly IFakturPrintDoc _fakturPrintDoc;
 
-        public FakturForm(IMediator mediator, 
-            IFakturBrowser fakturBrowser, 
-            IBrgStokBrowser brgStokBrowser, 
-            IFakturPrintDoc fakturPrintDoc)
+        public FakturForm(IMediator mediator,
+            IFakturBrowser fakturBrowser,
+            IBrgStokBrowser brgStokBrowser,
+            IFakturPrintDoc fakturPrintDoc,
+            IWarehouseBrowser warehouseBrowser)
         {
             InitializeComponent();
             InitGrid();
             ClearForm();
+            RegisterEventHandler();
 
             _mediator = mediator;
             _fakturBrowser = fakturBrowser;
             _brgStokBrowser = brgStokBrowser;
             _fakturPrintDoc = fakturPrintDoc;
+            _warehouseBrowser = warehouseBrowser;
         }
+
+        private void RegisterEventHandler()
+        {
+            WarehouseIdText.Validated += WarehouseIdText_Validated;
+        }
+
 
         private void ClearForm()
         {
@@ -217,35 +228,23 @@ namespace btr.distrib.SalesContext.FakturAgg
         #endregion
 
         #region WAREHOUSE
-        private async void WarehouseButton_Click(object sender, EventArgs e)
+        private void WarehouseButton_Click(object sender, EventArgs e)
         {
-            var query = new ListWarehouseQuery();
-            var list = await _mediator.Send(query);
-            var form = new BrowserForm<ListWarehouseResponse, string>(list, WarehouseIdText.Text, x => x.WarehouseName);
-            var resultDialog = form.ShowDialog();
-            if (resultDialog == DialogResult.OK)
-            {
-                WarehouseIdText.Text = form.ReturnedValue;
-                await ValidateWarehouse();
-            }
-            TglRencanaKirimTextBox.Focus();
+            WarehouseIdText.Text = _warehouseBrowser.Browse(WarehouseIdText.Text);
+            WarehouseIdText_Validated(WarehouseIdText, null);
         }
-        private async void WarehouseIdText_Validating(object sender, CancelEventArgs e)
+        private async void WarehouseIdText_Validated(object sender, EventArgs e)
         {
-            await ValidateWarehouse();
-        }
-        private async Task ValidateWarehouse()
-        {
-            var textbox = WarehouseIdText;
-            var policy = Policy<GetWarehouseResponse>
-                .Handle<KeyNotFoundException>().Or<ArgumentException>()
-                .FallbackAsync(new GetWarehouseResponse());
-            var query = new GetWarehouseQuery(textbox.Text);
-            Task<GetWarehouseResponse> QueryFunc() => _mediator.Send(query);
+            var textbox = (TextBox)sender;
+            if (textbox.Text.Length == 0)
+                return;
 
-            var result = await policy.ExecuteAsync(QueryFunc);
-            result.RemoveNull();
-            WarehouseNameText.Text = result.WarehouseName;
+            var fallback = Policy<WarehouseModel>
+                .Handle<KeyNotFoundException>().Or<ArgumentException>()
+                .FallbackAsync(new WarehouseModel());
+            var query = new GetWarehouseQuery(textbox.Text);
+            var warehouse = await fallback.ExecuteAsync(() => _mediator.Send(query));
+            WarehouseNameText.Text = warehouse.WarehouseName;
         }
         #endregion
 

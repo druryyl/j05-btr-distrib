@@ -209,6 +209,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Browsers\BrgStok2Browser.cs" />
+    <Compile Include="Browsers\SupplierBrowser.cs" />
+    <Compile Include="Browsers\WarehouseBrowser.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -228,6 +231,7 @@
     <Compile Include="PurchaseContext\PurchaseOrderAgg\PurchaseOrderForm.Designer.cs">
       <DependentUpon>PurchaseOrderForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PurchaseContext\PurchaseOrderAgg\PurchaseOrderItemDto.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturForm.cs">
       <SubType>Form</SubType>
     </Compile>

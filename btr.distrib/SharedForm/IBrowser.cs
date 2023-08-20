@@ -4,10 +4,14 @@ using System.Threading.Tasks;
 
 namespace btr.distrib.SharedForm
 {
-    public interface IBrowser<TResult>
+    public interface IQueryBrowser<TResult>
     {
         bool IsShowDate { get; }
         string[] BrowserQueryArgs { get; set; }
         Task<IEnumerable<TResult>> Browse(string userSearch, Periode userPeriode);
+    }
+    public interface IBrowser
+    {
+        string Browse(string defaultValue);
     }
 }

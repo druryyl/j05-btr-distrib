@@ -574,7 +574,6 @@
             this.WarehouseIdText.Name = "WarehouseIdText";
             this.WarehouseIdText.Size = new System.Drawing.Size(147, 22);
             this.WarehouseIdText.TabIndex = 11;
-            this.WarehouseIdText.Validating += new System.ComponentModel.CancelEventHandler(this.WarehouseIdText_Validating);
             // 
             // TermOfPaymentComboBox
             // 

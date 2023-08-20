@@ -18,8 +18,8 @@ namespace btr.application.PurchaseContext.SupplierAgg.Workers
         ISupplierBuilder Address(string addr1, string addr2, string kota);
         ISupplierBuilder Telp(string noTelp, string noFax);
         ISupplierBuilder ContactPerson(string contactPerson);
-        ISupplierBuilder INpwp(string nnpwp);
-        ISupplierBuilder INoPkp(string noPkp);
+        ISupplierBuilder Npwp(string nnpwp);
+        ISupplierBuilder NoPkp(string noPkp);
     }
 
     public class SupplierBuilder : ISupplierBuilder
@@ -78,13 +78,13 @@ namespace btr.application.PurchaseContext.SupplierAgg.Workers
             return this;
         }
 
-        public ISupplierBuilder INpwp(string nnpwp)
+        public ISupplierBuilder Npwp(string nnpwp)
         {
             _agg.Npwp = nnpwp;
             return this;
         }
 
-        public ISupplierBuilder INoPkp(string noPkp)
+        public ISupplierBuilder NoPkp(string noPkp)
         {
             _agg.NoPkp = noPkp;
             return this;
