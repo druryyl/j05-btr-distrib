@@ -25,6 +25,8 @@ namespace btr.application.PurchaseContext.PurchaseOrderAgg.Workers
         //  builder
         IPurchaseOrderBuilder Supplier(ISupplierKey supplierKey);
         IPurchaseOrderBuilder Warehouse(IWarehouseKey warehouseKey);
+        IPurchaseOrderBuilder DiscountLain(decimal  discount);
+        IPurchaseOrderBuilder BiayaLain(decimal biayaLain);
 
         IPurchaseOrderBuilder AddItem(IBrgKey brgKey, int qty, string satuan, 
             decimal harga, decimal diskon, decimal tax);
@@ -152,6 +154,18 @@ namespace btr.application.PurchaseContext.PurchaseOrderAgg.Workers
         public IPurchaseOrderBuilder RemoveItem(IBrgKey brgKey)
         {
             _aggRoot.ListItem.RemoveAll(x => x.BrgId == brgKey.BrgId);
+            return this;
+        }
+
+        public IPurchaseOrderBuilder DiscountLain(decimal nilai)
+        {
+            _aggRoot.DiscountLain = nilai;
+            return this;
+        }
+
+        public IPurchaseOrderBuilder BiayaLain(decimal nilai)
+        {
+            _aggRoot.BiayaLain= nilai;
             return this;
         }
     }

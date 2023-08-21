@@ -20,6 +20,9 @@ using btr.domain.InventoryContext.StokBalanceAgg;
 using System.Collections.Generic;
 using btr.domain.BrgContext.BrgAgg;
 using btr.nuna.Domain;
+using btr.application.PurchaseContext.PurchaseOrderAgg.Workers;
+using btr.domain.PurchaseContext.PurchaseOrderAgg;
+using Mapster;
 
 namespace btr.distrib.PurchaseContext.PurchaseOrderAgg
 {
@@ -34,6 +37,9 @@ namespace btr.distrib.PurchaseContext.PurchaseOrderAgg
         private readonly IWarehouseDal _warehouseDal;
         private readonly IStokBalanceBuilder _stokBalanceBuilder;
         private readonly IBrgBuilder _brgBuilder;
+        
+        private readonly IPurchaseOrderBuilder _purchaseOrderBuilder;
+        private readonly IPurchaseOrderWriter _purchaseOrderWriter;
 
         private readonly BindingList<PurchaseOrderItemDto> _listItem = new BindingList<PurchaseOrderItemDto>();
 
@@ -44,7 +50,9 @@ namespace btr.distrib.PurchaseContext.PurchaseOrderAgg
             ISupplierDal supplierDal,
             IWarehouseDal warehouseDal,
             IBrgBuilder brgBuilder,
-            IStokBalanceBuilder stokBalanceBuilder)
+            IStokBalanceBuilder stokBalanceBuilder,
+            IPurchaseOrderBuilder purchaseOrderBuilder,
+            IPurchaseOrderWriter purchaseOrderWriter)
         {
             InitializeComponent();
             RegisterEventHandler();
@@ -58,6 +66,8 @@ namespace btr.distrib.PurchaseContext.PurchaseOrderAgg
             _warehouseDal = warehouseDal;
             _brgBuilder = brgBuilder;
             _stokBalanceBuilder = stokBalanceBuilder;
+            _purchaseOrderBuilder = purchaseOrderBuilder;
+            _purchaseOrderWriter = purchaseOrderWriter;
         }
 
         private void RegisterEventHandler()
@@ -70,6 +80,11 @@ namespace btr.distrib.PurchaseContext.PurchaseOrderAgg
 
             Grid.CellContentClick += PurchaseOrderItemGrid_CellContentClick;
             Grid.CellValidated += Grid_CellValidated;
+
+            DiscountLainText.Validated += DiscountLainText_Validated;
+            BiayaLainText.Validated += BiayaLainText_Validated;
+
+            SaveButton.Click += SaveButton_Click;
         }
 
         #region SUPPLIER
@@ -125,7 +140,8 @@ namespace btr.distrib.PurchaseContext.PurchaseOrderAgg
         private void Grid_CellValidated(object sender, DataGridViewCellEventArgs e)
         {
             var grid = (DataGridView)sender;
-            if (e.ColumnIndex != grid.Columns["BrgId"].Index)
+            CalculateTotal();
+            if (e.ColumnIndex == grid.Columns["BrgId"].Index)
                 return;
 
             ValidateRow(e.RowIndex);
@@ -205,14 +221,54 @@ namespace btr.distrib.PurchaseContext.PurchaseOrderAgg
             var brg = fallbackBrg.Execute(() => _brgBuilder.Load(key).Build());
 
             _listItem[row].SetBrgName(brg.BrgName ?? string.Empty);
-            _listItem[row].Qty = stok.ListWarehouse?
-                .FirstOrDefault(x => x.WarehouseId == WarehouseIdText.Text)?
-                .Qty ?? 0;
             _listItem[row].SetSatuan(brg.ListSatuan?
                 .FirstOrDefault(x => x.Conversion == 1)?
                 .Satuan ?? string.Empty);
+            CalculateTotal();
             Grid.Refresh();
         }
+
+        private void CalculateTotal()
+        {
+            TotalText.Value = _listItem.Sum(x => x.Total);
+            GrandTotalText.Value = TotalText.Value - DiscountLainText.Value + BiayaLainText.Value;
+        }
         #endregion
+
+        #region TOTAL SUMMARY
+        private void BiayaLainText_Validated(object sender, EventArgs e)
+        {
+            CalculateTotal();
+        }
+
+        private void DiscountLainText_Validated(object sender, EventArgs e)
+        {
+            CalculateTotal();
+        }
+        #endregion
+
+        #region SAVE
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            var agg = _purchaseOrderBuilder
+                .Create()
+                .Warehouse(new WarehouseModel(WarehouseIdText.Text))
+                .Supplier(new SupplierModel(SupplierIdText.Text))
+                .DiscountLain(DiscountLainText.Value)
+                .BiayaLain(BiayaLainText.Value)
+                .Build();
+            foreach(var item in _listItem)
+            {
+                var newItem = item.Adapt<PurchaseOrderItemModel>();
+                agg = _purchaseOrderBuilder
+                    .Attach(agg)
+                    .AddItem(item, item.Qty, item.Satuan, item.Harga, item.Disc, item.Tax)
+                    .Build();
+            }
+
+            _purchaseOrderWriter.Save(ref agg);
+        }
+        #endregion
+
     }
 }

@@ -15,6 +15,9 @@ namespace btr.domain.PurchaseContext.PurchaseOrderAgg
         public string SupplierName { get; set; }
         public string WarehouseId { get; set; }
         public string WarehouseName { get; set; }
+        
+        public decimal DiscountLain { get; set; }
+        public decimal BiayaLain { get; set; }
         public List<PurchaseOrderItemModel> ListItem { get; set; }
     }
 

@@ -26,10 +26,10 @@ namespace btr.infrastructure.PurchaseContext.PurchaseOrderAgg
             const string sql = @"
                 INSERT INTO BTR_PurchaseOrder(
                     PurchaseOrderId, PurchaseOrderDate, UserId,
-                    SupplierId,  WarehouseId)
+                    SupplierId,  WarehouseId, DiscountLain, BiayaLain)
                 VALUES(
                     @PurchaseOrderId, @PurchaseOrderDate, @UserId,
-                    @SupplierId,  @WarehouseId)";
+                    @SupplierId,  @WarehouseId, @DiscountLain, @BiayaLain)";
 
             var dp = new DynamicParameters();
             dp.AddParam("@PurchaseOrderId", model.PurchaseOrderId, SqlDbType.VarChar);
@@ -37,6 +37,8 @@ namespace btr.infrastructure.PurchaseContext.PurchaseOrderAgg
             dp.AddParam("@UserId", model.UserId, SqlDbType.VarChar);
             dp.AddParam("@SupplierId", model.SupplierId, SqlDbType.VarChar);
             dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
+            dp.AddParam("@DiscountLain", model.DiscountLain, SqlDbType.Decimal);
+            dp.AddParam("@BiayaLain", model.BiayaLain, SqlDbType.Decimal);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -50,10 +52,12 @@ namespace btr.infrastructure.PurchaseContext.PurchaseOrderAgg
                 UPDATE 
                     BTR_PurchaseOrder
                 SET
-                   PurchaseOrderDate = @PurchaseOrderDate, 
-                   UserId = @UserId,
-                   SupplierId = @SupplierId,  
-                   WarehouseId = @WarehouseId
+                    PurchaseOrderDate = @PurchaseOrderDate, 
+                    UserId = @UserId,
+                    SupplierId = @SupplierId,  
+                    WarehouseId = @WarehouseId,
+                    DiscountLain = @DiscountLain,
+                    BiayaLain = @BiayaLain
                 WHERE
                     PurchaseOrderId = @PurchaseOrderId";
 
@@ -63,6 +67,8 @@ namespace btr.infrastructure.PurchaseContext.PurchaseOrderAgg
             dp.AddParam("@UserId", model.UserId, SqlDbType.VarChar);
             dp.AddParam("@SupplierId", model.SupplierId, SqlDbType.VarChar);
             dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
+            dp.AddParam("@DiscountLain", model.DiscountLain, SqlDbType.Decimal);
+            dp.AddParam("@BiayaLain", model.BiayaLain, SqlDbType.Decimal);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -92,7 +98,7 @@ namespace btr.infrastructure.PurchaseContext.PurchaseOrderAgg
             const string sql = @"
                 SELECT
                     aa.PurchaseOrderId, aa.PurchaseOrderDate, aa.UserId, 
-                    aa.SupplierId, aa.WarehouseId,
+                    aa.SupplierId, aa.WarehouseId, aa.DiscountLain, aa.BiayaLain,
                     ISNULL(bb.SupplierId, '') AS SupplierName,
                     ISNULL(cc.WarehouseId, '') AS WarehouseName
                 FROM
@@ -116,7 +122,7 @@ namespace btr.infrastructure.PurchaseContext.PurchaseOrderAgg
             const string sql = @"
                 SELECT
                     aa.PurchaseOrderId, aa.PurchaseOrderDate, aa.UserId, 
-                    aa.SupplierId, aa.WarehouseId,
+                    aa.SupplierId, aa.WarehouseId, aa.DiscountLain, aa.BiayaLain,
                     ISNULL(bb.SupplierId, '') AS SupplierName,
                     ISNULL(cc.WarehouseId, '') AS WarehouseName
                 FROM
@@ -141,7 +147,7 @@ namespace btr.infrastructure.PurchaseContext.PurchaseOrderAgg
             const string sql = @"
                 SELECT
                     aa.PurchaseOrderId, aa.PurchaseOrderDate, aa.UserId, 
-                    aa.SupplierId, aa.WarehouseId,
+                    aa.SupplierId, aa.WarehouseId, aa.DiscountLain, aa.BiayaLain,
                     ISNULL(bb.SupplierId, '') AS SupplierName,
                     ISNULL(cc.WarehouseId, '') AS WarehouseName
                 FROM

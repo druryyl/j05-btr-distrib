@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using btr.application.PurchaseContext.PurchaseOrderAgg.Contracts;
 using btr.domain.PurchaseContext.PurchaseOrderAgg;
 using btr.infrastructure.Helpers;
 using btr.nuna.Infrastructure;
@@ -9,7 +10,7 @@ using Microsoft.Extensions.Options;
 
 namespace btr.infrastructure.PurchaseContext.PurchaseOrderAgg
 {
-    public class PurchaseOrderItemDal
+    public class PurchaseOrderItemDal : IPurchaseOrderItemDal
     {
         private readonly DatabaseOptions _opt;
 
@@ -84,5 +85,6 @@ namespace btr.infrastructure.PurchaseContext.PurchaseOrderAgg
             {
                 return conn.Read<PurchaseOrderItemModel>(sql, dp);
             }
-        }    }
+        }    
+    }
 }

@@ -4,7 +4,9 @@
     UserId VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_PurchaseOrder_UserId DEFAULT(''),
     SupplierId VARCHAR(5) NOT NULL CONSTRAINT DF_BTR_PurchaseOrder_SupplierId DEFAULT(''),
     WarehouseId VARCHAR(3) NOT NULL CONSTRAINT DF_BTR_PurchaseOrder_WarehouseId DEFAULT(''),
-
+    DiscountLain DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_PurchaseOrder_DiscountLain DEFAULT(0),
+    BiayaLain DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_PurchaseOrder_BiayaLain DEFAULT(0),
+    
     CONSTRAINT PK_BTR_PurchaseOrder PRIMARY KEY CLUSTERED(PurchaseOrderId) 
 )
 GO
