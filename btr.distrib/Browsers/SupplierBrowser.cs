@@ -7,9 +7,7 @@ using System.Linq;
 
 namespace btr.distrib.Browsers
 {
-    public class SupplierBrowser : 
-        IBrowser<SupplierBrowserView>,
-        IBrowseEngine<SupplierBrowserView>
+    public class SupplierBrowser : IBrowser<SupplierBrowserView>
     {
         private readonly ISupplierDal _supplierDal;
 

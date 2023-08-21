@@ -81,6 +81,7 @@
     <Compile Include="InventoryContext\BrgAgg\BrgDal.cs" />
     <Compile Include="InventoryContext\BrgAgg\BrgSatuanDal.cs" />
     <Compile Include="InventoryContext\BrgAgg\BrgHargaDal.cs" />
+    <Compile Include="InventoryContext\BrgAgg\BrgStokViewDal.cs" />
     <Compile Include="InventoryContext\KategoriAgg\KategoriDal.cs" />
     <Compile Include="InventoryContext\StokAgg\StokDal.cs" />
     <Compile Include="InventoryContext\StokAgg\StokMutasiDal.cs" />

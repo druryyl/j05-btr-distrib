@@ -29,7 +29,7 @@ namespace btr.distrib.PurchaseContext.PurchaseOrderAgg
         private readonly IMediator _mediator;
         private readonly IBrowser<SupplierBrowserView> _supplierBrowser;
         private readonly IBrowser<WarehouseBrowserView> _warehouseBrowser;
-        private readonly IBrgStok2Browser _brgStok2Browser;
+        private readonly IBrowser<BrgStokBrowserView> _brgStok2Browser;
 
         private readonly ISupplierDal _supplierDal;
         private readonly IWarehouseDal _warehouseDal;
@@ -39,7 +39,7 @@ namespace btr.distrib.PurchaseContext.PurchaseOrderAgg
         public PurchaseOrderForm(IMediator mediator,
             IBrowser<SupplierBrowserView> supplierBrowser,
             IBrowser<WarehouseBrowserView> warehouseBrowser,
-            IBrgStok2Browser brgSto2Browser,
+            IBrowser<BrgStokBrowserView> brgSto2Browser,
             ISupplierDal supplierDal,
             IWarehouseDal warehouseDal)
         {
@@ -105,10 +105,8 @@ namespace btr.distrib.PurchaseContext.PurchaseOrderAgg
         {
             var grid = (DataGridView)sender;
             var brgId = _listItem[grid.CurrentRow.Index].BrgId;
-            var warehouseId = WarehouseIdText.Text;
-            brgId =  _brgStok2Browser
-                .Warehouse(warehouseId)
-                .Browse(brgId);
+            _brgStok2Browser.Filter.StaticFilter1 = WarehouseIdText.Text;
+            brgId =  _brgStok2Browser .Browse(brgId);
             _listItem[grid.CurrentRow.Index].BrgId = brgId;
 
             //if (e.ColumnIndex == grid.Columns["Find"]?.Index && e.RowIndex >= 0)

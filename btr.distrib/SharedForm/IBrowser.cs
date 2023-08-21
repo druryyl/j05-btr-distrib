@@ -1,4 +1,5 @@
-﻿using btr.nuna.Domain;
+﻿using btr.distrib.Browsers;
+using btr.nuna.Domain;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -15,7 +16,7 @@ namespace btr.distrib.SharedForm
         string Browse(string defaultValue);
     }
 
-    public interface IBrowser<T>
+    public interface IBrowser<T> : IBrowseEngine<T>
     {
         string Browse(string defaultValue);
     }
