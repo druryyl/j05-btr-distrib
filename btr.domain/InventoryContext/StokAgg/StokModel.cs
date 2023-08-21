@@ -1,9 +1,11 @@
-﻿using System;
+﻿using btr.domain.BrgContext.BrgAgg;
+using btr.domain.InventoryContext.WarehouseAgg;
+using System;
 using System.Collections.Generic;
 
 namespace btr.domain.InventoryContext.StokAgg
 {
-    public class StokModel : IStokKey
+    public class StokModel : IStokKey, IBrgKey, IWarehouseKey
     {
         public string StokId { get; set; }
         public DateTime StokDate { get; set; }

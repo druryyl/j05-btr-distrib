@@ -1,26 +1,25 @@
 ﻿using MediatR;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using btr.application.PurchaseContext.SupplierAgg.UseCases;
 using btr.distrib.SharedForm;
 using btr.domain.PurchaseContext.SupplierAgg;
-using Polly;
 using btr.distrib.Browsers;
 using btr.domain.InventoryContext.WarehouseAgg;
-using btr.application.InventoryContext.WarehouseAgg.UseCases;
 using btr.distrib.Helpers;
-using btr.application.InventoryContext.StokAgg.UseCases;
-using btr.distrib.SalesContext.FakturAgg;
 using btr.application.PurchaseContext.SupplierAgg.Contracts;
 using btr.application.InventoryContext.WarehouseAgg.Contracts;
+using btr.application.BrgContext.BrgStokViewAgg.Contracts;
+using btr.domain.InventoryContext.StokAgg;
+using btr.application.BrgContext.BrgAgg.Workers;
+using btr.application.InventoryContext.StokBalanceAgg;
+using Polly;
+using btr.domain.InventoryContext.StokBalanceAgg;
+using System.Collections.Generic;
+using btr.domain.BrgContext.BrgAgg;
+using btr.nuna.Domain;
 
 namespace btr.distrib.PurchaseContext.PurchaseOrderAgg
 {
@@ -33,6 +32,8 @@ namespace btr.distrib.PurchaseContext.PurchaseOrderAgg
 
         private readonly ISupplierDal _supplierDal;
         private readonly IWarehouseDal _warehouseDal;
+        private readonly IStokBalanceBuilder _stokBalanceBuilder;
+        private readonly IBrgBuilder _brgBuilder;
 
         private readonly BindingList<PurchaseOrderItemDto> _listItem = new BindingList<PurchaseOrderItemDto>();
 
@@ -41,7 +42,9 @@ namespace btr.distrib.PurchaseContext.PurchaseOrderAgg
             IBrowser<WarehouseBrowserView> warehouseBrowser,
             IBrowser<BrgStokBrowserView> brgSto2Browser,
             ISupplierDal supplierDal,
-            IWarehouseDal warehouseDal)
+            IWarehouseDal warehouseDal,
+            IBrgBuilder brgBuilder,
+            IStokBalanceBuilder stokBalanceBuilder)
         {
             InitializeComponent();
             RegisterEventHandler();
@@ -53,17 +56,20 @@ namespace btr.distrib.PurchaseContext.PurchaseOrderAgg
             _brgStok2Browser = brgSto2Browser;
             _supplierDal = supplierDal;
             _warehouseDal = warehouseDal;
+            _brgBuilder = brgBuilder;
+            _stokBalanceBuilder = stokBalanceBuilder;
         }
 
         private void RegisterEventHandler()
         {
             SupplierIdText.Validated += SupplierIdText_Validated;
-            SupplierButton.Click += SupplierButtonOnClick;
+            SupplierButton.Click += SupplierButton_Click;
 
             WarehouseIdText.Validated += WarehouseIdText_Validated;
             WarehouseButton.Click += WarehouseButton_Click;
 
-            PurchaseOrderItemGrid.CellContentClick += PurchaseOrderItemGrid_CellContentClick;
+            Grid.CellContentClick += PurchaseOrderItemGrid_CellContentClick;
+            Grid.CellValidated += Grid_CellValidated;
         }
 
         #region SUPPLIER
@@ -76,7 +82,8 @@ namespace btr.distrib.PurchaseContext.PurchaseOrderAgg
             var supplier = _supplierDal.GetData(new SupplierModel(textbox.Text));
             SupplierNameTextBox.Text = supplier?.SupplierName??string.Empty;
         }
-        private void SupplierButtonOnClick(object sender, EventArgs e)
+
+        private void SupplierButton_Click(object sender, EventArgs e)
         {
             SupplierIdText.Text = _supplierBrowser.Browse(SupplierIdText.Text);
             SupplierIdText_Validated(SupplierIdText, null);
@@ -93,6 +100,7 @@ namespace btr.distrib.PurchaseContext.PurchaseOrderAgg
             var warehouse = _warehouseDal.GetData(new WarehouseModel(textbox.Text));
             WarehouseNameText.Text = warehouse?.WarehouseName??string.Empty;
         }
+
         private void WarehouseButton_Click(object sender, EventArgs e)
         {
             WarehouseIdText.Text = _warehouseBrowser.Browse(WarehouseIdText.Text);
@@ -104,32 +112,37 @@ namespace btr.distrib.PurchaseContext.PurchaseOrderAgg
         private void PurchaseOrderItemGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var grid = (DataGridView)sender;
+            if (e.ColumnIndex != grid.Columns["Find"].Index)
+                return;
+
             var brgId = _listItem[grid.CurrentRow.Index].BrgId;
             _brgStok2Browser.Filter.StaticFilter1 = WarehouseIdText.Text;
-            brgId =  _brgStok2Browser .Browse(brgId);
+            brgId = _brgStok2Browser.Browse(brgId);
             _listItem[grid.CurrentRow.Index].BrgId = brgId;
-
-            //if (e.ColumnIndex == grid.Columns["Find"]?.Index && e.RowIndex >= 0)
-            //{
-            //    if (WarehouseIdText.Text.Length == 0)
-            //        return;
-
-            //    var defaultBrgId = grid.CurrentCell.Value?.ToString() ?? string.Empty;
-            //    var warehouse = WarehouseIdText.Text;
-            //    _brgStokBrowser.BrowserQueryArgs = new[] { warehouse };
-            //    var form = new BrowserForm<ListBrgStokResponse, string>(_brgStokBrowser, defaultBrgId, x => x.BrgName);
-            //    var resultDialog = form.ShowDialog();
-            //    if (resultDialog == DialogResult.OK)
-            //        if (grid.CurrentRow != null)
-            //            grid.CurrentRow.Cells["BrgId"].Value = form.ReturnedValue;
-            //}
-            //if (_listItem.Last().BrgName.Length != 0)
-            //    _listItem.Add(new FakturItemDto(_mediator));
+            ValidateRow(e.RowIndex);
         }
+
+        private void Grid_CellValidated(object sender, DataGridViewCellEventArgs e)
+        {
+            var grid = (DataGridView)sender;
+            if (e.ColumnIndex != grid.Columns["BrgId"].Index)
+                return;
+
+            ValidateRow(e.RowIndex);
+        }
+
         private void InitGrid()
         {
-            RefreshGrid();
-            foreach (DataGridViewColumn col in PurchaseOrderItemGrid.Columns)
+            if (!_listItem.Any())
+                _listItem.Add(new PurchaseOrderItemDto());
+
+            var binding = new BindingSource
+            {
+                DataSource = _listItem
+            };
+            Grid.DataSource = binding;
+
+            foreach (DataGridViewColumn col in Grid.Columns)
             {
                 col.DefaultCellStyle.Font = new Font("Consolas", 8.25f);
                 col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft;
@@ -140,53 +153,65 @@ namespace btr.distrib.PurchaseContext.PurchaseOrderAgg
             {
                 HeaderText = @"Find", // Set the column header text
                 Text = "...", // Set the button text
-                Name = "Find" // Set the button text
+                Name = "Find" // Set the button name
             };
             buttonCol.DefaultCellStyle.BackColor = Color.Brown;
-            PurchaseOrderItemGrid.Columns.Insert(1, buttonCol);
+            Grid.Columns.Insert(1, buttonCol);
 
             //  width
-            PurchaseOrderItemGrid.Columns.GetCol("BrgId").Width = 50;
-            PurchaseOrderItemGrid.Columns.GetCol("Find").Width = 20;
-            PurchaseOrderItemGrid.Columns.GetCol("BrgName").Width = 150;
-            PurchaseOrderItemGrid.Columns.GetCol("Qty").Width = 50;
-            PurchaseOrderItemGrid.Columns.GetCol("Satuan").Width = 50;
-            PurchaseOrderItemGrid.Columns.GetCol("Harga").Width = 80;
-            PurchaseOrderItemGrid.Columns.GetCol("SubTotal").Width = 80;
-            PurchaseOrderItemGrid.Columns.GetCol("Disc").Width = 35;
-            PurchaseOrderItemGrid.Columns.GetCol("DiscRp").Width = 100;
-            PurchaseOrderItemGrid.Columns.GetCol("Tax").Width = 30;
-            PurchaseOrderItemGrid.Columns.GetCol("TaxRp").Width = 80;
-            PurchaseOrderItemGrid.Columns.GetCol("Total").Width = 80;
+            Grid.Columns.GetCol("BrgId").Width = 50;
+            Grid.Columns.GetCol("Find").Width = 20;
+            Grid.Columns.GetCol("BrgName").Width = 150;
+            Grid.Columns.GetCol("Qty").Width = 50;
+            Grid.Columns.GetCol("Satuan").Width = 50;
+            Grid.Columns.GetCol("Harga").Width = 80;
+            Grid.Columns.GetCol("SubTotal").Width = 80;
+            Grid.Columns.GetCol("Disc").Width = 35;
+            Grid.Columns.GetCol("DiscRp").Width = 100;
+            Grid.Columns.GetCol("Tax").Width = 30;
+            Grid.Columns.GetCol("TaxRp").Width = 80;
+            Grid.Columns.GetCol("Total").Width = 80;
             //  right align
-            PurchaseOrderItemGrid.Columns.GetCol("Qty").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
-            PurchaseOrderItemGrid.Columns.GetCol("Harga").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
-            PurchaseOrderItemGrid.Columns.GetCol("SubTotal").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
-            PurchaseOrderItemGrid.Columns.GetCol("Disc").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
-            PurchaseOrderItemGrid.Columns.GetCol("DiscRp").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
-            PurchaseOrderItemGrid.Columns.GetCol("Tax").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
-            PurchaseOrderItemGrid.Columns.GetCol("TaxRp").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
-            PurchaseOrderItemGrid.Columns.GetCol("Total").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
+            Grid.Columns.GetCol("Qty").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
+            Grid.Columns.GetCol("Harga").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
+            Grid.Columns.GetCol("SubTotal").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
+            Grid.Columns.GetCol("Disc").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
+            Grid.Columns.GetCol("DiscRp").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
+            Grid.Columns.GetCol("Tax").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
+            Grid.Columns.GetCol("TaxRp").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
+            Grid.Columns.GetCol("Total").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
             //  number-format
-            PurchaseOrderItemGrid.Columns.GetCol("Harga").DefaultCellStyle.Format = "#,##0.00";
-            PurchaseOrderItemGrid.Columns.GetCol("DiscRp").DefaultCellStyle.Format = "#,##0.00";
-            PurchaseOrderItemGrid.Columns.GetCol("TaxRp").DefaultCellStyle.Format = "#,##0.00";
-            PurchaseOrderItemGrid.Columns.GetCol("SubTotal").DefaultCellStyle.Format = "#,##0.00";
-            PurchaseOrderItemGrid.Columns.GetCol("Total").DefaultCellStyle.Format = "#,##0.00";
+            Grid.Columns.GetCol("Harga").DefaultCellStyle.Format = "#,##0.00";
+            Grid.Columns.GetCol("DiscRp").DefaultCellStyle.Format = "#,##0.00";
+            Grid.Columns.GetCol("TaxRp").DefaultCellStyle.Format = "#,##0.00";
+            Grid.Columns.GetCol("SubTotal").DefaultCellStyle.Format = "#,##0.00";
+            Grid.Columns.GetCol("Total").DefaultCellStyle.Format = "#,##0.00";
             //  auto-resize-rows
-            PurchaseOrderItemGrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            PurchaseOrderItemGrid.AutoResizeRows();
+            Grid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            Grid.AutoResizeRows();
         }
-        private void RefreshGrid()
-        {
-            if (!_listItem.Any())
-                _listItem.Add(new PurchaseOrderItemDto());
 
-            var binding = new BindingSource
-            {
-                DataSource = _listItem
-            };
-            PurchaseOrderItemGrid.DataSource = binding;
+        private void ValidateRow(int row)
+        {
+            var key = new BrgModel(_listItem[row].BrgId ?? string.Empty);
+            var fallbackStok = Policy<StokBalanceModel>
+                .Handle<KeyNotFoundException>().Or<ArgumentException>()
+                .Fallback(new StokBalanceModel());
+            var fallbackBrg = Policy<BrgModel>
+                .Handle<KeyNotFoundException>().Or<ArgumentException>()
+                .Fallback(new BrgModel());
+
+            var stok = fallbackStok.Execute(() => _stokBalanceBuilder.Load(key).Build());
+            var brg = fallbackBrg.Execute(() => _brgBuilder.Load(key).Build());
+
+            _listItem[row].SetBrgName(brg.BrgName ?? string.Empty);
+            _listItem[row].Qty = stok.ListWarehouse?
+                .FirstOrDefault(x => x.WarehouseId == WarehouseIdText.Text)?
+                .Qty ?? 0;
+            _listItem[row].SetSatuan(brg.ListSatuan?
+                .FirstOrDefault(x => x.Conversion == 1)?
+                .Satuan ?? string.Empty);
+            Grid.Refresh();
         }
         #endregion
     }

@@ -79,6 +79,7 @@ namespace btr.application.BrgContext.BrgAgg.Workers
                         ?? new List<BrgSatuanModel>();
             _aggRoot.ListHarga = _brgHargaDal.ListData(brgKey)?.ToList()
                         ?? new List<BrgHargaModel>();
+
             return this;
         }
 

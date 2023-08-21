@@ -19,5 +19,9 @@ namespace btr.distrib.PurchaseContext.PurchaseOrderAgg
         public decimal Tax { get; set; }
         public decimal TaxRp { get; private set; }
         public decimal Total { get; private set; }
+
+        public void SetBrgName(string name) => BrgName = name;
+        public void SetSatuan(string satuan) => Satuan = satuan;
+        
     }
 }

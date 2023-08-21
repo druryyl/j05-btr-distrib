@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using btr.domain.BrgContext.BrgStokViewAgg;
 using btr.domain.BrgContext.KategoriAgg;
 using btr.domain.PurchaseContext.SupplierAgg;
 

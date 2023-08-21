@@ -43,7 +43,7 @@
             this.PanelAtas4 = new System.Windows.Forms.Panel();
             this.NoteTextBox = new System.Windows.Forms.TextBox();
             this.NoteLabel = new System.Windows.Forms.Label();
-            this.PurchaseOrderItemGrid = new System.Windows.Forms.DataGridView();
+            this.Grid = new System.Windows.Forms.DataGridView();
             this.PanelTengah = new System.Windows.Forms.Panel();
             this.BiayaLainText = new System.Windows.Forms.NumericUpDown();
             this.BiayaLainLabel = new System.Windows.Forms.Label();
@@ -64,7 +64,7 @@
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.PanelAtas4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PurchaseOrderItemGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Grid)).BeginInit();
             this.PanelTengah.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BiayaLainText)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GrandTotalText)).BeginInit();
@@ -220,16 +220,16 @@
             this.NoteLabel.TabIndex = 0;
             this.NoteLabel.Text = "Note";
             // 
-            // PurchaseOrderItemGrid
+            // Grid
             // 
-            this.PurchaseOrderItemGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.Grid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.PurchaseOrderItemGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.PurchaseOrderItemGrid.Location = new System.Drawing.Point(6, 148);
-            this.PurchaseOrderItemGrid.Name = "PurchaseOrderItemGrid";
-            this.PurchaseOrderItemGrid.Size = new System.Drawing.Size(852, 375);
-            this.PurchaseOrderItemGrid.TabIndex = 49;
+            this.Grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Grid.Location = new System.Drawing.Point(6, 148);
+            this.Grid.Name = "Grid";
+            this.Grid.Size = new System.Drawing.Size(852, 375);
+            this.Grid.TabIndex = 49;
             // 
             // PanelTengah
             // 
@@ -439,7 +439,7 @@
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.PrintButton);
             this.Controls.Add(this.PanelAtas4);
-            this.Controls.Add(this.PurchaseOrderItemGrid);
+            this.Controls.Add(this.Grid);
             this.Controls.Add(this.PanelTengah);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.SaveButton);
@@ -453,7 +453,7 @@
             this.panel3.PerformLayout();
             this.PanelAtas4.ResumeLayout(false);
             this.PanelAtas4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PurchaseOrderItemGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Grid)).EndInit();
             this.PanelTengah.ResumeLayout(false);
             this.PanelTengah.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BiayaLainText)).EndInit();
@@ -482,7 +482,7 @@
         private System.Windows.Forms.Panel PanelAtas4;
         private System.Windows.Forms.TextBox NoteTextBox;
         private System.Windows.Forms.Label NoteLabel;
-        private System.Windows.Forms.DataGridView PurchaseOrderItemGrid;
+        private System.Windows.Forms.DataGridView Grid;
         private System.Windows.Forms.Panel PanelTengah;
         private System.Windows.Forms.NumericUpDown BiayaLainText;
         private System.Windows.Forms.Label BiayaLainLabel;

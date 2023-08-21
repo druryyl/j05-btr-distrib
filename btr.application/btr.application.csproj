@@ -86,6 +86,8 @@
     <Compile Include="InventoryContext\StokAgg\UseCases\AddStokCommand.cs" />
     <Compile Include="InventoryContext\StokAgg\UseCases\ListBrgStokQuery.cs" />
     <Compile Include="InventoryContext\StokAgg\UseCases\RemoveStokCommand.cs" />
+    <Compile Include="InventoryContext\StokBalanceAgg\IStokBalanceDal.cs" />
+    <Compile Include="InventoryContext\StokBalanceAgg\StokBalanceBuilder.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\Contracts\IWarehouseDal.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\UseCases\GetWarehouseQuery.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\UseCases\ListWarehouseQuery.cs" />

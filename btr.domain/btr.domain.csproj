@@ -57,6 +57,7 @@
     <Compile Include="FinanceContext\PiutangAgg\PiutangModel.cs" />
     <Compile Include="InventoryContext\DeliveryAgg\DeliveryModel.cs" />
     <Compile Include="InventoryContext\DeliveryAgg\IDeliveryKey.cs" />
+    <Compile Include="InventoryContext\StokBalanceAgg\StokBalanceModel.cs" />
     <Compile Include="InventoryContext\TerimaBrgAgg\TerimaBrgModel.cs" />
     <Compile Include="InventoryContext\TerimaBrgAgg\ITerimaBrgKey.cs" />
     <Compile Include="InventoryContext\StokAgg\IStokKey.cs" />

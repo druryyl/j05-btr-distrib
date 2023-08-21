@@ -1,5 +1,6 @@
-﻿using btr.application.BrgContext.BrgAgg.Contracts;
+﻿using btr.application.InventoryContext.StokBalanceAgg;
 using btr.domain.BrgContext.BrgAgg;
+using btr.domain.InventoryContext.StokBalanceAgg;
 using btr.infrastructure.Helpers;
 using btr.nuna.Infrastructure;
 using Dapper;
@@ -9,31 +10,30 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 
-namespace btr.infrastructure.InventoryContext.BrgAgg
+namespace btr.infrastructure.InventoryContext.StokBalanceAgg
 {
-    public class BrgHargaDal : IBrgHargaDal
+    public class StokBalanceWarehouseDal : IStokBalanceWarehouseDal
     {
         private readonly DatabaseOptions _opt;
 
-        public BrgHargaDal(IOptions<DatabaseOptions> opt)
+        public StokBalanceWarehouseDal(IOptions<DatabaseOptions> opt)
         {
             _opt = opt.Value;
         }
 
-        public void Insert(IEnumerable<BrgHargaModel> listModel)
+        public void Insert(IEnumerable<StokBalanceWarehouseModel> listModel)
         {
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             using (var bcp = new SqlBulkCopy(conn))
             {
                 conn.Open();
                 bcp.AddMap("BrgId", "BrgId");
-                bcp.AddMap("HargaTypeId", "HargaTypeId");
-                bcp.AddMap("Harga", "Harga");
-                bcp.AddMap("HargaTimestamp", "HargaTimestamp");
+                bcp.AddMap("WarehouseId", "WarehouseId");
+                bcp.AddMap("Qty", "Qty");
 
                 var fetched = listModel.ToList();
                 bcp.BatchSize = fetched.Count;
-                bcp.DestinationTableName = "dbo.BTR_BrgHarga";
+                bcp.DestinationTableName = "dbo.BTR_StokBalanceWarehouse";
                 bcp.WriteToServer(fetched.AsDataTable());
             }
         }
@@ -42,12 +42,12 @@ namespace btr.infrastructure.InventoryContext.BrgAgg
         {
             const string sql = @"
                 DELETE FROM 
-                    BTR_BrgHarga
+                    BTR_StokBalanceWarehouse
                 WHERE
                     BrgId = @BrgId ";
 
             var dp = new DynamicParameters();
-            dp.AddParam("@BrgID", key.BrgId, SqlDbType.VarChar);
+            dp.AddParam("@BrgId", key.BrgId, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -55,22 +55,26 @@ namespace btr.infrastructure.InventoryContext.BrgAgg
             }
         }
 
-        public IEnumerable<BrgHargaModel> ListData(IBrgKey filter)
+        public IEnumerable<StokBalanceWarehouseModel> ListData(IBrgKey filter)
         {
             const string sql = @"
                 SELECT
-                    BrgId, HargaTypeId,  Harga, HargaTimestamp
-                FROM
-                    BTR_BrgHarga
+                    aa.BrgId, aa.WarehouseId, aa.Qty,
+                    ISNULL(bb.BrgName, '') AS BrgName,
+                    ISNULL(cc.WarehouseName, '') AS WarehouseName
+                FROM 
+                    BTR_StokBalanceWarehouse aa
+                    LEFT JOIN BTR_Brg bb ON aa.BrgId = bb.BrgId
+                    LEFT JOIN BTR_Warehouse cc ON aa.WarehouseId = cc.WarehouseId
                 WHERE
-                    BrgId = @BrgId ";
+                    aa.BrgId = @BrgId ";
 
             var dp = new DynamicParameters();
-            dp.AddParam("@BrgID", filter.BrgId, SqlDbType.VarChar);
+            dp.AddParam("@BrgId", filter.BrgId, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
-                return conn.Read<BrgHargaModel>(sql, dp);
+                return conn.Read<StokBalanceWarehouseModel>(sql, dp);
             }
         }
     }

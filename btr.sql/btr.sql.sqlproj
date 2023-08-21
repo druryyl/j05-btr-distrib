@@ -61,6 +61,7 @@
     <Folder Include="Tables\SalesContext" />
     <Folder Include="Tables\" />
     <Folder Include="Tables\BrgContext\" />
+    <Folder Include="Tables\PurchaseContext\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\BrgContext\BTR_Brg.sql" />
@@ -81,5 +82,6 @@
     <Build Include="Tables\BrgContext\BTR_BrgHarga.sql" />
     <Build Include="Tables\BrgContext\BTR_Kategori.sql" />
     <Build Include="Tables\BrgContext\BTR_HargaType.sql" />
+    <Build Include="Tables\InventoryContext\BTR_StokBalanceWarehouse.sql" />
   </ItemGroup>
 </Project>
