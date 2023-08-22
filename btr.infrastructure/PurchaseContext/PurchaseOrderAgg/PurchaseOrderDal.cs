@@ -39,7 +39,8 @@ namespace btr.infrastructure.PurchaseContext.PurchaseOrderAgg
             dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
             dp.AddParam("@DiscountLain", model.DiscountLain, SqlDbType.Decimal);
             dp.AddParam("@BiayaLain", model.BiayaLain, SqlDbType.Decimal);
-
+            
+            //  TODO: Cek Length field2 ID
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
                 conn.Execute(sql, dp);
