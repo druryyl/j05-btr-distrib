@@ -74,12 +74,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationAssemblyAnchor.cs" />
-    <Compile Include="BrgContext\BrgAgg\Contracts\IBrgDal.cs" />
-    <Compile Include="BrgContext\BrgAgg\Contracts\IBrgHargaDal.cs" />
-    <Compile Include="BrgContext\BrgAgg\Contracts\IBrgSatuanDal.cs" />
-    <Compile Include="BrgContext\BrgAgg\UseCases\GetBrgQuery.cs" />
-    <Compile Include="BrgContext\BrgAgg\Workers\BrgBuilder.cs" />
+    <Compile Include="BrgContext\BrgAgg\IBrgDal.cs" />
+    <Compile Include="BrgContext\BrgAgg\IBrgHargaDal.cs" />
+    <Compile Include="BrgContext\BrgAgg\IBrgSatuanDal.cs" />
+    <Compile Include="BrgContext\BrgAgg\GetBrgQuery.cs" />
+    <Compile Include="BrgContext\BrgAgg\BrgBuilder.cs" />
     <Compile Include="BrgContext\BrgStokViewAgg\Contracts\IBrgStokViewDal.cs" />
+    <Compile Include="BrgContext\JenisBrgAgg\IJenisBrgDal.cs" />
     <Compile Include="BrgContext\KategoriAgg\Contracts\IKategoriDal.cs" />
     <Compile Include="InventoryContext\StokAgg\Contracts\IStokDal.cs" />
     <Compile Include="InventoryContext\StokAgg\Contracts\IStokMutasiDal.cs" />

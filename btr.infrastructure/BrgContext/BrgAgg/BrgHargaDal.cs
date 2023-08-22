@@ -1,39 +1,39 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using btr.application.InventoryContext.BrgAgg.Contracts;
+﻿using btr.application.BrgContext.BrgAgg;
 using btr.domain.BrgContext.BrgAgg;
 using btr.infrastructure.Helpers;
 using btr.nuna.Infrastructure;
 using Dapper;
 using Microsoft.Extensions.Options;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
 
 namespace btr.infrastructure.InventoryContext.BrgAgg
 {
-    public class BrgSatuanDal : IBrgSatuanDal
+    public class BrgHargaDal : IBrgHargaDal
     {
         private readonly DatabaseOptions _opt;
 
-        public BrgSatuanDal(IOptions<DatabaseOptions> opt)
+        public BrgHargaDal(IOptions<DatabaseOptions> opt)
         {
             _opt = opt.Value;
         }
 
-        public void Insert(IEnumerable<BrgSatuanModel> listModel)
+        public void Insert(IEnumerable<BrgHargaModel> listModel)
         {
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             using (var bcp = new SqlBulkCopy(conn))
             {
                 conn.Open();
                 bcp.AddMap("BrgId", "BrgId");
-                bcp.AddMap("Satuan", "Satuan");
-                bcp.AddMap("Conversion", "Conversion");
-                bcp.AddMap("HargaJual", "HargaJual");
+                bcp.AddMap("HargaTypeId", "HargaTypeId");
+                bcp.AddMap("Harga", "Harga");
+                bcp.AddMap("HargaTimestamp", "HargaTimestamp");
 
                 var fetched = listModel.ToList();
                 bcp.BatchSize = fetched.Count;
-                bcp.DestinationTableName = "dbo.BTR_BrgSatuanHarga";
+                bcp.DestinationTableName = "dbo.BTR_BrgHarga";
                 bcp.WriteToServer(fetched.AsDataTable());
             }
         }
@@ -41,13 +41,13 @@ namespace btr.infrastructure.InventoryContext.BrgAgg
         public void Delete(IBrgKey key)
         {
             const string sql = @"
-            DELETE FROM 
-                BTR_BrgSatuanHarga
-            WHERE
-                BrgId = @BrgId ";
+                DELETE FROM 
+                    BTR_BrgHarga
+                WHERE
+                    BrgId = @BrgId ";
 
             var dp = new DynamicParameters();
-            dp.AddParam("@BrgId", key.BrgId, SqlDbType.VarChar);
+            dp.AddParam("@BrgID", key.BrgId, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -55,22 +55,22 @@ namespace btr.infrastructure.InventoryContext.BrgAgg
             }
         }
 
-        public IEnumerable<BrgSatuanModel> ListData(IBrgKey brgKey)
+        public IEnumerable<BrgHargaModel> ListData(IBrgKey filter)
         {
             const string sql = @"
-            SELECT
-                aa.BrgId, aa.Satuan, aa.Conversion,
-                aa.HargaJual
-            FROM 
-                BTR_BrgSatuanHarga aa
-            WHERE
-                aa.BrgId = @BrgId ";
+                SELECT
+                    BrgId, HargaTypeId,  Harga, HargaTimestamp
+                FROM
+                    BTR_BrgHarga
+                WHERE
+                    BrgId = @BrgId ";
+
             var dp = new DynamicParameters();
-            dp.AddParam("@BrgId", brgKey.BrgId, SqlDbType.VarChar);
+            dp.AddParam("@BrgID", filter.BrgId, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
-                return conn.Read<BrgSatuanModel>(sql, dp);
+                return conn.Read<BrgHargaModel>(sql, dp);
             }
         }
     }

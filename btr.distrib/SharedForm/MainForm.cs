@@ -1,4 +1,5 @@
-﻿using btr.distrib.PurchaseContext.PurchaseOrderAgg;
+﻿using btr.distrib.InventoryContext.BrgAgg;
+using btr.distrib.PurchaseContext.PurchaseOrderAgg;
 using btr.distrib.SalesContext.FakturAgg;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -31,6 +32,14 @@ namespace btr.distrib.SharedForm
         private void PoButton_Click(object sender, EventArgs e)
         {
             var form = _servicesProvider.GetRequiredService<PurchaseOrderForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void BrgButton_Click(object sender, EventArgs e)
+        {
+            var form = _servicesProvider.GetRequiredService<BrgForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

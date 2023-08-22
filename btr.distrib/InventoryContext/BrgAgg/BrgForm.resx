@@ -117,44 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="import_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\import_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="documents_48px1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\documents_48px1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="day_view_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\day_view_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="3d_farm_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\3d_farm_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="real_estate_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\real_estate_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="caretaker_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\caretaker_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="purchase_order_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\purchase_order_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="map_marker_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\map_marker_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="app-wallpaper-3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\app-wallpaper-3.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="documents_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\documents_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="factory_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\factory_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="flag_of_bremen_with_lesser_arms_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\flag_of_bremen_with_lesser_arms_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ingredients_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ingredients_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
 </root>

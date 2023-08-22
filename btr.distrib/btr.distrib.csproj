@@ -210,6 +210,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Browsers\BrgStok2Browser.cs" />
+    <Compile Include="Browsers\KategoriBrowser.cs" />
     <Compile Include="Helpers\BrowseFilter.cs" />
     <Compile Include="Helpers\IBrowseEngine.cs" />
     <Compile Include="Browsers\SupplierBrowser.cs" />
@@ -222,6 +223,14 @@
     </Compile>
     <Compile Include="Helpers\ControlStyle.cs" />
     <Compile Include="Helpers\DataGridViewExtensions.cs" />
+    <Compile Include="InventoryContext\BrgAgg\BrgForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryContext\BrgAgg\BrgForm.Designer.cs">
+      <DependentUpon>BrgForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryContext\BrgAgg\BrgFormHargaDto.cs" />
+    <Compile Include="InventoryContext\BrgAgg\BrgFormSatuanDto.cs" />
     <Compile Include="PrintDocs\FakturPrintDoc.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -262,6 +271,7 @@
     </Compile>
     <Compile Include="WinformAssemblyAnchor.cs" />
     <Content Include="icons8_truck.ico" />
+    <None Include="Resources\ingredients_48px.png" />
     <None Include="Resources\app-wallpaper-3.jpg" />
     <None Include="Resources\factory_48px.png" />
     <None Include="Resources\flag_of_bremen_with_lesser_arms_48px.png" />
@@ -274,6 +284,9 @@
     <None Include="Resources\documents_48px.png" />
     <None Include="Resources\import_48px.png" />
     <None Include="Resources\day_view_48px.png" />
+    <EmbeddedResource Include="InventoryContext\BrgAgg\BrgForm.resx">
+      <DependentUpon>BrgForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

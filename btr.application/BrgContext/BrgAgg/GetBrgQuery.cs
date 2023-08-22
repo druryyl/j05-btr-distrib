@@ -1,13 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using btr.application.BrgContext.BrgAgg.Workers;
 using btr.domain.BrgContext.BrgAgg;
 using Dawn;
-using Mapster;
 using MediatR;
 
-namespace btr.application.BrgContext.BrgAgg.UseCases
+namespace btr.application.BrgContext.BrgAgg
 {
 
     public class GetBrgQuery : IRequest<BrgModel>, IBrgKey
@@ -32,12 +29,12 @@ namespace btr.application.BrgContext.BrgAgg.UseCases
             //  GUARD
             Guard.Argument(() => request)
                 .Member(x => x.BrgId, y => y.NotEmpty());
-            
+
             //  QUERY
             _aggRoot = _builder
                 .Load(request)
                 .Build();
-            
+
             //  RESPONSE
             return Task.FromResult(_aggRoot);
         }

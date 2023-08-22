@@ -83,5 +83,6 @@
     <Build Include="Tables\BrgContext\BTR_Kategori.sql" />
     <Build Include="Tables\BrgContext\BTR_HargaType.sql" />
     <Build Include="Tables\InventoryContext\BTR_StokBalanceWarehouse.sql" />
+    <Build Include="Tables\BrgContext\BTR_JenisBrg.sql" />
   </ItemGroup>
 </Project>

@@ -2,6 +2,11 @@
 {
     public class KategoriModel : IKategoriKey
     {
+        public KategoriModel()
+        {
+        }
+        public KategoriModel(string id) => KategoriId = id;
+
         public string KategoriId { get; set; }
         public string KategoriName { get; set; }
     }

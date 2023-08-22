@@ -21,8 +21,12 @@ namespace btr.domain.BrgContext.BrgAgg
         
         public string SupplierId { get; set; }
         public string SupplierName { get; set; }
+        
         public string KategoriId { get; set; }
         public string KategoriName { get; set; }
+
+        public string JenisBrgId { get; set; }
+        public string JenisBrgName { get; set; }
         
         public decimal Hpp { get; set; }
         public DateTime HppTimestamp { get; set; }

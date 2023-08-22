@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using btr.application.BrgContext.BrgAgg.Contracts;
 using btr.application.BrgContext.KategoriAgg.Contracts;
-using btr.application.InventoryContext.BrgAgg.Contracts;
 using btr.application.PurchaseContext.SupplierAgg.Contracts;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.BrgContext.HargaTypeAgg;
@@ -12,7 +10,7 @@ using btr.domain.PurchaseContext.SupplierAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
 
-namespace btr.application.BrgContext.BrgAgg.Workers
+namespace btr.application.BrgContext.BrgAgg
 {
     public interface IBrgBuilder : INunaBuilder<BrgModel>
     {
@@ -26,7 +24,7 @@ namespace btr.application.BrgContext.BrgAgg.Workers
         IBrgBuilder Hpp(decimal hpp);
         IBrgBuilder AddSatuan(string satuan, int conversion);
         IBrgBuilder RemoveSatuan(string satuan);
-        IBrgBuilder AddHarga(IHargaTypeKey hargaTypeKey,decimal hpp);
+        IBrgBuilder AddHarga(IHargaTypeKey hargaTypeKey, decimal hpp);
 
     }
 
@@ -41,10 +39,10 @@ namespace btr.application.BrgContext.BrgAgg.Workers
         private readonly DateTimeProvider _datetTime;
 
         public BrgBuilder(IBrgDal brgDal,
-            IBrgSatuanDal brgSatuanDal, 
-            IBrgHargaDal brgHargaDal, 
-            ISupplierDal supplierDal, 
-            IKategoriDal kategoriDal, 
+            IBrgSatuanDal brgSatuanDal,
+            IBrgHargaDal brgHargaDal,
+            ISupplierDal supplierDal,
+            IKategoriDal kategoriDal,
             DateTimeProvider datetTime)
         {
             _brgDal = brgDal;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using btr.application.BrgContext.BrgAgg.Workers;
+using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.WarehouseAgg.Contracts;
 using btr.application.PurchaseContext.PurchaseOrderAgg.Contracts;
 using btr.application.PurchaseContext.SupplierAgg.Contracts;

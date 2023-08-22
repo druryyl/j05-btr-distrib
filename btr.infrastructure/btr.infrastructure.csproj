@@ -73,16 +73,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BrgContext\JenisBrgAgg\JenisBrgDal.cs" />
     <Compile Include="Helpers\ConnStringHelper.cs" />
     <Compile Include="Helpers\DatabaseOptions.cs" />
     <Compile Include="Helpers\ParamNoDal.cs" />
     <Compile Include="Helpers\PrinterOptions.cs" />
     <Compile Include="InfrastructureAssemblyAnchor.cs" />
-    <Compile Include="InventoryContext\BrgAgg\BrgDal.cs" />
-    <Compile Include="InventoryContext\BrgAgg\BrgSatuanDal.cs" />
-    <Compile Include="InventoryContext\BrgAgg\BrgHargaDal.cs" />
-    <Compile Include="InventoryContext\BrgAgg\BrgStokViewDal.cs" />
-    <Compile Include="InventoryContext\KategoriAgg\KategoriDal.cs" />
+    <Compile Include="BrgContext\BrgAgg\BrgDal.cs" />
+    <Compile Include="BrgContext\BrgAgg\BrgSatuanDal.cs" />
+    <Compile Include="BrgContext\BrgAgg\BrgHargaDal.cs" />
+    <Compile Include="BrgContext\BrgAgg\BrgStokViewDal.cs" />
+    <Compile Include="BrgContext\KategoriAgg\KategoriDal.cs" />
     <Compile Include="InventoryContext\StokAgg\StokDal.cs" />
     <Compile Include="InventoryContext\StokAgg\StokMutasiDal.cs" />
     <Compile Include="InventoryContext\StokBalanceAgg\StokBalanceWarehouseDal.cs" />

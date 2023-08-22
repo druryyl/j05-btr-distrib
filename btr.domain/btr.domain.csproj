@@ -49,6 +49,8 @@
     <Compile Include="BrgContext\BrgStokViewAgg\BrgStokViewModel.cs" />
     <Compile Include="BrgContext\HargaTypeAgg\HargaTypeModel.cs" />
     <Compile Include="BrgContext\HargaTypeAgg\IHargaTypeKey.cs" />
+    <Compile Include="BrgContext\JenisBrgAgg\IJenisBrgKey.cs" />
+    <Compile Include="BrgContext\JenisBrgAgg\JenisBrgModel.cs" />
     <Compile Include="BrgContext\KategoriAgg\IKategoryKey.cs" />
     <Compile Include="BrgContext\KategoriAgg\KategoriModel.cs" />
     <Compile Include="FinanceContext\HutangAgg\HutangModel.cs" />

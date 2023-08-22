@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using btr.application.BrgContext.BrgAgg.UseCases;
+using btr.application.BrgContext.BrgAgg;
 using btr.domain.BrgContext.BrgAgg;
-using btr.domain.InventoryContext.StokAgg;
 using MediatR;
 using Polly;
 
