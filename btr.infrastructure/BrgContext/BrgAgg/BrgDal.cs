@@ -38,8 +38,7 @@ namespace btr.infrastructure.BrgContext.BrgAgg
             dp.AddParam("@KategoriId", model.KategoriId, SqlDbType.VarChar);  
             dp.AddParam("@Hpp", model.Hpp, SqlDbType.Decimal);  
             dp.AddParam("@HppTimestamp", model.HppTimestamp, SqlDbType.DateTime); 
-            
-            
+
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
                 conn.Execute(sql, dp);
@@ -52,13 +51,25 @@ namespace btr.infrastructure.BrgContext.BrgAgg
                 UPDATE 
                     BTR_Brg
                 SET
-                    BrgName = @BrgName
+                    BrgName = @BrgName,
+                    BrgCode = @BrgCode, 
+                    IsAktif = @IsAktif, 
+                    SupplierId = @SupplierId, 
+                    KategoriId = @KategoriId, 
+                    Hpp = @Hpp, 
+                    HppTimestamp = @HppTimestamp
                 WHERE
                     BrgId = @BrgId ";
 
             var dp = new DynamicParameters();
             dp.AddParam("@BrgId", model.BrgId, SqlDbType.VarChar);
             dp.AddParam("@BrgName", model.BrgName, SqlDbType.VarChar);
+            dp.AddParam("@BrgCode", model.BrgCode, SqlDbType.VarChar);
+            dp.AddParam("@IsAktif", model.IsAktif, SqlDbType.Bit);
+            dp.AddParam("@SupplierId", model.SupplierId, SqlDbType.VarChar);
+            dp.AddParam("@KategoriId", model.KategoriId, SqlDbType.VarChar);
+            dp.AddParam("@Hpp", model.Hpp, SqlDbType.Decimal);
+            dp.AddParam("@HppTimestamp", model.HppTimestamp, SqlDbType.DateTime);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -87,9 +98,16 @@ namespace btr.infrastructure.BrgContext.BrgAgg
         {
             const string sql = @"
                 SELECT
-                    BrgId, BrgName
+                    aa.BrgId, aa.BrgName, aa.BrgCode, aa.IsAktif, 
+                    aa.SupplierId, aa.KategoriId, aa.Hpp, aa.HppTimestamp,
+                    ISNULL(bb.SupplierName, '') SupplierName,
+                    ISNULL(cc.JenisBrgName, '') JenisBrgName,
+                    ISNULL(dd.KategoriName, '') KategoriName
                 FROM
-                    BTR_Brg
+                    BTR_Brg aa
+                    LEFT JOIN BTR_Supplier bb ON aa.SupplierId = bb.SupplierId
+                    LEFT JOIN BTR_JenisBrg cc ON aa.JenisBrgId = cc.JenisBrgId
+                    LEFT JOIN BTR_Kategori dd ON aa.KategoriId = dd.KategoriId
                 WHERE
                     BrgId = @BrgId ";
 
@@ -109,9 +127,16 @@ namespace btr.infrastructure.BrgContext.BrgAgg
         {
             const string sql = @"
                 SELECT
-                    BrgId, BrgName
+                    aa.BrgId, aa.BrgName, aa.BrgCode, aa.IsAktif, 
+                    aa.SupplierId, aa.KategoriId, aa.Hpp, aa.HppTimestamp,
+                    ISNULL(bb.SupplierName, '') SupplierName,
+                    ISNULL(cc.JenisBrgName, '') JenisBrgName,
+                    ISNULL(dd.KategoriName, '') KategoriName
                 FROM
-                    BTR_Brg";
+                    BTR_Brg aa
+                    LEFT JOIN BTR_Supplier bb ON aa.SupplierId = bb.SupplierId
+                    LEFT JOIN BTR_JenisBrg cc ON aa.JenisBrgId = cc.JenisBrgId
+                    LEFT JOIN BTR_Kategori dd ON aa.KategoriId = dd.KategoriId ";
 
             IEnumerable<BrgModel> result;
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))

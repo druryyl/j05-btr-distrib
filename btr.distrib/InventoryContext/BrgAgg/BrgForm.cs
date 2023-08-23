@@ -21,6 +21,7 @@ using btr.domain.BrgContext.HargaTypeAgg;
 using btr.domain.InventoryContext.StokBalanceAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using Polly;
+using btr.nuna.Domain;
 
 namespace btr.distrib.InventoryContext.BrgAgg
 {
@@ -97,20 +98,16 @@ namespace btr.distrib.InventoryContext.BrgAgg
             BrgIdText.Validated += BrgIdText_Validated;
             
             SaveButton.Click += SaveButton_Click;
-            
-            BrgGrid.RowEnter += BrgGrid_RowEnter;
+            NewButton.Click += NewButton_Click;
+            SearchButton.Click += SearchButton_Click;
+            SearchText.KeyDown += SearchText_KeyDown;
+            BrgGrid.CellDoubleClick += BrgGrid_CellDoubleClick;
 
-        }
-
-        private void BrgGrid_RowEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            var grid = (DataGridView)sender;
-            var brgId = grid.Rows[e.RowIndex].Cells[0].Value.ToString();
-            ShowData(brgId);
         }
 
         private void ClearForm()
         {
+            BrgIdText.Clear();
             BrgNameText.Clear();
             BrgCodeText.Clear();
             SupplierIdText.Clear();
@@ -118,11 +115,99 @@ namespace btr.distrib.InventoryContext.BrgAgg
             JenisBrgCombo.SelectedIndex = 0;
             KategoriIdText.Clear();
             KategoriNameText.Clear();
+            HppText.Value = 0;
+            HppTimestampText.Value = new DateTime(3000, 1, 1);
             
             _listSatuan.Clear();
             ResetGridHarga();
             ResetGridStok();
         }
+
+        private void ShowData(string brgId)
+        {
+            var fallback = Policy<BrgModel>
+                .Handle<KeyNotFoundException>()
+                .Fallback(new BrgModel());
+            var brg = fallback.Execute(()
+                => _brgBuilder.Load(new BrgModel(brgId)).Build());
+
+            BrgIdText.Text = brgId;
+            BrgNameText.Text = brg.BrgName;
+            BrgCodeText.Text = brg.BrgCode;
+            HppText.Value = brg.Hpp;
+            HppTimestampText.Value = brg.HppTimestamp;
+            SupplierIdText.Text = brg.SupplierId;
+            SupplierNameText.Text = brg.SupplierName;
+            JenisBrgCombo.SelectedItem = brg.JenisBrgId;
+            KategoriIdText.Text = brg.KategoriId;
+            KategoriNameText.Text = brg.KategoriName;
+
+            //  satuan
+            _listSatuan.Clear();
+            brg.ListSatuan
+                .OrderBy(x => x.Conversion).ToList()
+                .ForEach(x => _listSatuan
+                    .Add(new BrgFormSatuanDto(x.Satuan, x.Conversion)));
+            SatuanGrid.Refresh();
+
+            //  harga
+            foreach (var item in _listHarga)
+            {
+                item.Clear();
+                var harga = brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == item.TypeId);
+                if (harga is null)
+                    continue;
+
+                item.SetHpp(brg.Hpp);
+                var marginRp = harga.Harga - harga.Hpp;
+                item.Harga = harga.Harga;
+            }
+            HargaGrid.Refresh();
+
+            //  stok
+            var fallbackStok = Policy<StokBalanceModel>
+                .Handle<KeyNotFoundException>()
+                .Fallback(new StokBalanceModel
+                {
+                    ListWarehouse = new List<StokBalanceWarehouseModel>()
+                });
+            var stokBalance = fallbackStok.Execute(()
+                => _stokBalanceBuilder.Load(new BrgModel(brgId)).Build());
+            foreach (var item in _listStok)
+            {
+                item.SetQty(0);
+                var stok = stokBalance.ListWarehouse
+                    .FirstOrDefault(x => x.WarehouseId == item.Id);
+                if (stok is null)
+                    continue;
+                item.SetQty(stok.Qty);
+            }
+            StokGrid.Refresh();
+        }
+
+        #region SEARCH-TEXT
+        private void SearchText_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                SearchBrg();
+        }
+        private void SearchBrg()
+        {
+            var keyword = SearchText.Text;
+            if (keyword.Length == 0)
+            {
+                InitGridBrg();
+                return;
+            }
+            var result = _listBrg.Where(x => x.BrgName.ContainMultiWord(keyword)).ToList();
+            BrgGrid.DataSource = result;
+            BrgGrid.Refresh();
+        }
+        private void SearchButton_Click(object sender, EventArgs e)
+        {
+            SearchBrg();
+        }
+        #endregion
 
         #region BRG
         private void BrgButton_Click(object sender, EventArgs e)
@@ -142,62 +227,6 @@ namespace btr.distrib.InventoryContext.BrgAgg
             ShowData(textbox.Text);
         }
 
-        private void ShowData(string brgId)
-        {
-            var fallback = Policy<BrgModel>
-                .Handle<KeyNotFoundException>()
-                .Fallback(new BrgModel());
-            var brg = fallback.Execute(() 
-                => _brgBuilder.Load(new BrgModel(brgId)).Build());
-            
-            BrgNameText.Text = brg.BrgName;
-            BrgCodeText.Text = brg.BrgCode;
-            SupplierIdText.Text = brg.SupplierId;
-            SupplierNameText.Text = brg.SupplierName;
-            JenisBrgCombo.SelectedItem = brg.JenisBrgId;
-            KategoriIdText.Text = brg.KategoriId;
-            KategoriNameText.Text = brg.KategoriName;
-            
-            //  satuan
-            _listSatuan.Clear();
-            brg.ListSatuan.ForEach(x => _listSatuan.Add(new BrgFormSatuanDto(x.Satuan, x.Conversion)));
-            SatuanGrid.Refresh();
-
-            //  harga
-            foreach (var item in _listHarga)
-            {
-                item.Clear();
-                var harga = brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == item.TypeId);
-                if (harga is null)
-                    continue;
-                
-                item.SetHpp(harga.Hpp);
-                var marginRp = harga.Harga - harga.Hpp;
-                item.Margin = harga.Hpp != 0 ? (double)(marginRp / harga.Hpp) * 100 : 0;
-                item.Harga = harga.Harga;
-            }
-            HargaGrid.Refresh();
-            
-            //  stok
-            var fallbackStok = Policy<StokBalanceModel>
-                .Handle<KeyNotFoundException>()
-                .Fallback(new StokBalanceModel
-                {
-                    ListWarehouse = new List<StokBalanceWarehouseModel>()
-                });
-            var stokBalance = fallbackStok.Execute(() 
-                => _stokBalanceBuilder.Load(new BrgModel(brgId)).Build());
-            foreach (var item in _listStok)
-            {
-                item.SetQty(0);
-                var stok = stokBalance.ListWarehouse
-                    .FirstOrDefault(x => x.WarehouseId == item.Id);
-                if (stok is null)
-                    continue;
-                item.SetQty(stok.Qty);
-            }
-            StokGrid.Refresh();
-        }
         #endregion
         
         #region SUPPLIER
@@ -274,11 +303,12 @@ namespace btr.distrib.InventoryContext.BrgAgg
             
             HargaGrid.Columns.SetDefaultCellStyle();
             HargaGrid.Columns.GetCol("TypeId").Width = 50;
-            HargaGrid.Columns.GetCol("Name").Width = 80;
-            HargaGrid.Columns.GetCol("Hpp").Width = 60;
+            HargaGrid.Columns.GetCol("Name").Width = 100;
             HargaGrid.Columns.GetCol("Margin").Width = 60;
             HargaGrid.Columns.GetCol("Harga").Width = 60;
             HargaGrid.Columns.GetCol("Keterangan").Width = 120;
+            HargaGrid.Columns.GetCol("Hpp").Visible= false;
+
         }
 
         private void ResetGridHarga()
@@ -328,8 +358,20 @@ namespace btr.distrib.InventoryContext.BrgAgg
             StokGrid.Refresh();
         }
         #endregion
-        
+
         #region GRID-BRG
+        private void BrgGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var grid = (DataGridView)sender;
+            if (e.RowIndex < 0)
+                ClearForm();
+            else
+            {
+                var brgId = grid.Rows[e.RowIndex].Cells[0].Value.ToString();
+                ShowData(brgId);
+            }
+        }
+
         private void InitGridBrg()
         {
             _listBrg.Clear();
@@ -353,26 +395,38 @@ namespace btr.distrib.InventoryContext.BrgAgg
             BrgGrid.Columns.GetCol("Id").Width = 50;
             BrgGrid.Columns.GetCol("BrgName").Width = 200;
             BrgGrid.Columns.GetCol("Kategori").Width = 100;
+
+            BrgGrid.FirstDisplayedScrollingRowIndex = BrgGrid.Rows.Count - 1;
         }
         #endregion
         
         #region SAVE
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            var brg = _brgBuilder
-                .Create()
+            BrgModel brg;
+            if (BrgIdText.Text.IsNullOrEmpty())
+                brg = _brgBuilder.Create().Build();
+            else
+                brg = _brgBuilder.Load(new BrgModel(BrgIdText.Text)).Build();
+
+            brg = _brgBuilder
+                .Attach(brg)
                 .BrgId(BrgIdText.Text)
                 .Name(BrgNameText.Text)
+                .Code(BrgCodeText.Text)
                 .Supplier(new SupplierModel(SupplierIdText.Text))
                 .JenisBrg(new JenisBrgModel(JenisBrgCombo.SelectedValue.ToString()))
                 .Kategori(new KategoriModel(KategoriIdText.Text))
                 .Build();
+
+            brg.ListSatuan.Clear();
             foreach (var item in _listSatuan)
                 brg = _brgBuilder
                     .Attach(brg)
                     .AddSatuan(item.Satuan, item.Conversion)
                     .Build();
 
+            brg.ListHarga.Clear();
             foreach (var item in _listHarga)
                 brg = _brgBuilder
                     .Attach(brg)
@@ -384,7 +438,15 @@ namespace btr.distrib.InventoryContext.BrgAgg
             InitGridBrg();
         }
         #endregion
-        
+
+        #region NEW
+        private void NewButton_Click(object sender, EventArgs e)
+        {
+            ClearForm();
+        }
+        #endregion
+
+
     }
 }
     

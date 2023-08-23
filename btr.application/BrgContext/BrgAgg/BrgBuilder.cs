@@ -23,6 +23,7 @@ namespace btr.application.BrgContext.BrgAgg
         IBrgBuilder Deactivate();
         IBrgBuilder BrgId(string id);
         IBrgBuilder Name(string name);
+        IBrgBuilder Code(string code);
         IBrgBuilder Supplier(ISupplierKey supplierKey);
         IBrgBuilder Kategori(IKategoriKey kategoriKey);
         IBrgBuilder JenisBrg(IJenisBrgKey jenisBrgKey);
@@ -64,6 +65,8 @@ namespace btr.application.BrgContext.BrgAgg
         public BrgModel Build()
         {
             _aggRoot.RemoveNull();
+            if (_aggRoot.Hpp == 0)
+                _aggRoot.HppTimestamp = new DateTime(3000, 1, 1);
             return _aggRoot;
         }
 
@@ -132,8 +135,8 @@ namespace btr.application.BrgContext.BrgAgg
         {
             var katogeri = _kategoriDal.GetData(kategoriKey)
                            ?? throw new KeyNotFoundException($"SupplierID not found ({kategoriKey.KategoriId})");
-            _aggRoot.SupplierId = katogeri.KategoriId;
-            _aggRoot.SupplierName = katogeri.KategoriName;
+            _aggRoot.KategoriId = katogeri.KategoriId;
+            _aggRoot.KategoriName = katogeri.KategoriName;
             return this;
         }
 
@@ -178,6 +181,12 @@ namespace btr.application.BrgContext.BrgAgg
                 HargaTimestamp = _datetTime.Now
             };
             _aggRoot.ListHarga.Add(newItem);
+            return this;
+        }
+
+        public IBrgBuilder Code(string code)
+        {
+            _aggRoot.BrgCode = code;
             return this;
         }
     }

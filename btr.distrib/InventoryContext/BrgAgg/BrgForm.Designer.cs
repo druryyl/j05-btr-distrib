@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.SearchText = new System.Windows.Forms.TextBox();
             this.SearchButton = new System.Windows.Forms.Button();
             this.BrgGrid = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -59,6 +59,10 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.StokGrid = new System.Windows.Forms.DataGridView();
             this.SaveButton = new System.Windows.Forms.Button();
+            this.HppText = new System.Windows.Forms.NumericUpDown();
+            this.TotalLabel = new System.Windows.Forms.Label();
+            this.HppTimestampText = new System.Windows.Forms.DateTimePicker();
+            this.NewButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.BrgGrid)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -69,15 +73,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.HargaGrid)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.StokGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HppText)).BeginInit();
             this.SuspendLayout();
             // 
-            // textBox1
+            // SearchText
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(7, 395);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(219, 22);
-            this.textBox1.TabIndex = 0;
+            this.SearchText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.SearchText.Location = new System.Drawing.Point(7, 395);
+            this.SearchText.Name = "SearchText";
+            this.SearchText.Size = new System.Drawing.Size(219, 22);
+            this.SearchText.TabIndex = 0;
             // 
             // SearchButton
             // 
@@ -91,7 +97,9 @@
             // 
             // BrgGrid
             // 
-            this.BrgGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.BrgGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.BrgGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.BrgGrid.Location = new System.Drawing.Point(6, 8);
             this.BrgGrid.Name = "BrgGrid";
@@ -103,6 +111,9 @@
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.Cornsilk;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.HppTimestampText);
+            this.panel2.Controls.Add(this.HppText);
+            this.panel2.Controls.Add(this.TotalLabel);
             this.panel2.Controls.Add(this.checkBox1);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.BrgCodeText);
@@ -119,7 +130,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(173, 138);
+            this.checkBox1.Location = new System.Drawing.Point(173, 5);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(50, 17);
             this.checkBox1.TabIndex = 12;
@@ -145,7 +156,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 50);
+            this.label2.Location = new System.Drawing.Point(12, 50);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(56, 13);
             this.label2.TabIndex = 9;
@@ -178,7 +189,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(8, 8);
+            this.label6.Location = new System.Drawing.Point(12, 9);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(38, 13);
             this.label6.TabIndex = 0;
@@ -291,7 +302,8 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
@@ -371,19 +383,67 @@
             this.SaveButton.Text = "Save";
             this.SaveButton.UseVisualStyleBackColor = true;
             // 
+            // HppText
+            // 
+            this.HppText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.HppText.Location = new System.Drawing.Point(12, 148);
+            this.HppText.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.HppText.Name = "HppText";
+            this.HppText.ReadOnly = true;
+            this.HppText.Size = new System.Drawing.Size(205, 20);
+            this.HppText.TabIndex = 20;
+            this.HppText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.HppText.ThousandsSeparator = true;
+            // 
+            // TotalLabel
+            // 
+            this.TotalLabel.AutoSize = true;
+            this.TotalLabel.Location = new System.Drawing.Point(9, 132);
+            this.TotalLabel.Name = "TotalLabel";
+            this.TotalLabel.Size = new System.Drawing.Size(27, 13);
+            this.TotalLabel.TabIndex = 19;
+            this.TotalLabel.Text = "HPP";
+            // 
+            // HppTimestampText
+            // 
+            this.HppTimestampText.CalendarMonthBackground = System.Drawing.SystemColors.InactiveCaption;
+            this.HppTimestampText.CustomFormat = "ddd, dd-MMM-yyyy";
+            this.HppTimestampText.Enabled = false;
+            this.HppTimestampText.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.HppTimestampText.Location = new System.Drawing.Point(12, 174);
+            this.HppTimestampText.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
+            this.HppTimestampText.Name = "HppTimestampText";
+            this.HppTimestampText.Size = new System.Drawing.Size(205, 22);
+            this.HppTimestampText.TabIndex = 21;
+            // 
+            // NewButton
+            // 
+            this.NewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.NewButton.Location = new System.Drawing.Point(312, 423);
+            this.NewButton.Name = "NewButton";
+            this.NewButton.Size = new System.Drawing.Size(75, 23);
+            this.NewButton.TabIndex = 52;
+            this.NewButton.Text = "New";
+            this.NewButton.UseVisualStyleBackColor = true;
+            // 
             // BrgForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Khaki;
             this.ClientSize = new System.Drawing.Size(782, 450);
+            this.Controls.Add(this.NewButton);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.BrgGrid);
             this.Controls.Add(this.SearchButton);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.SearchText);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "BrgForm";
             this.Text = "Barang";
@@ -399,13 +459,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.HargaGrid)).EndInit();
             this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.StokGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HppText)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox SearchText;
         private System.Windows.Forms.Button SearchButton;
         private System.Windows.Forms.DataGridView BrgGrid;
         private System.Windows.Forms.Panel panel2;
@@ -436,5 +498,9 @@
         private System.Windows.Forms.TextBox KategoriNameText;
         private System.Windows.Forms.Button KategoriButton;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown HppText;
+        private System.Windows.Forms.Label TotalLabel;
+        private System.Windows.Forms.DateTimePicker HppTimestampText;
+        private System.Windows.Forms.Button NewButton;
     }
 }

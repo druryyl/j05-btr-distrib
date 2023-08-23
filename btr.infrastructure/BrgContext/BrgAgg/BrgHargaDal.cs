@@ -29,7 +29,6 @@ namespace btr.infrastructure.BrgContext.BrgAgg
                 bcp.AddMap("BrgId", "BrgId");
                 bcp.AddMap("HargaTypeId", "HargaTypeId");
                 bcp.AddMap("Harga", "Harga");
-                bcp.AddMap("Hpp", "Hpp");
                 bcp.AddMap("HargaTimestamp", "HargaTimestamp");
 
                 var fetched = listModel.ToList();
@@ -60,7 +59,7 @@ namespace btr.infrastructure.BrgContext.BrgAgg
         {
             const string sql = @"
                 SELECT
-                    BrgId, HargaTypeId,  Harga, Hpp, HargaTimestamp
+                    BrgId, HargaTypeId,  Harga, HargaTimestamp
                 FROM
                     BTR_BrgHarga
                 WHERE
