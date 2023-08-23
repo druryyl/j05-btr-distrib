@@ -9,7 +9,7 @@ using btr.nuna.Infrastructure;
 using Dapper;
 using Microsoft.Extensions.Options;
 
-namespace btr.infrastructure.InventoryContext.BrgAgg
+namespace btr.infrastructure.BrgContext.BrgAgg
 {
     public class BrgSatuanDal : IBrgSatuanDal
     {

@@ -1,17 +1,12 @@
-﻿using btr.application.BrgContext.JenisBrgAgg.Contracts;
-using btr.domain.BrgContext.JenisBrgAgg;
+﻿using btr.domain.BrgContext.JenisBrgAgg;
 using btr.infrastructure.Helpers;
 using Dapper;
 using Microsoft.Extensions.Options;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using btr.nuna.Infrastructure;
 using System.Data;
 using System.Data.SqlClient;
-using System.Reflection;
+using btr.application.BrgContext.JenisBrgAgg;
 
 namespace btr.infrastructure.BrgContext.JenisBrgAgg
 {

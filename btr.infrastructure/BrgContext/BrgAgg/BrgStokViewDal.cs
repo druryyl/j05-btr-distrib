@@ -1,4 +1,6 @@
-﻿using btr.application.BrgContext.BrgStokViewAgg.Contracts;
+﻿using System.Collections.Generic;
+using System.Data.SqlClient;
+using btr.application.BrgContext.BrgStokViewAgg.Contracts;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.BrgContext.BrgStokViewAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
@@ -6,10 +8,8 @@ using btr.infrastructure.Helpers;
 using btr.nuna.Infrastructure;
 using Dapper;
 using Microsoft.Extensions.Options;
-using System.Collections.Generic;
-using System.Data.SqlClient;
 
-namespace btr.infrastructure.InventoryContext.BrgAgg
+namespace btr.infrastructure.BrgContext.BrgAgg
 {
     public class BrgStokViewDal : IBrgStokViewDal
     {

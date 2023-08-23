@@ -14,6 +14,7 @@ using Scrutor;
 using System;
 using System.Reflection;
 using System.Windows.Forms;
+using btr.distrib.Helpers;
 
 namespace btr.distrib
 {

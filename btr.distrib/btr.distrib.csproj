@@ -231,6 +231,7 @@
     </Compile>
     <Compile Include="InventoryContext\BrgAgg\BrgFormHargaDto.cs" />
     <Compile Include="InventoryContext\BrgAgg\BrgFormSatuanDto.cs" />
+    <Compile Include="InventoryContext\BrgAgg\BrgFormStokDto.cs" />
     <Compile Include="PrintDocs\FakturPrintDoc.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

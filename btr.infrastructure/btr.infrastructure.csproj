@@ -73,6 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BrgContext\HargaTypeAgg\HargaTypeDal.cs" />
     <Compile Include="BrgContext\JenisBrgAgg\JenisBrgDal.cs" />
     <Compile Include="Helpers\ConnStringHelper.cs" />
     <Compile Include="Helpers\DatabaseOptions.cs" />

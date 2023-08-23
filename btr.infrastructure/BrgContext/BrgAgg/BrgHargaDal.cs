@@ -1,15 +1,15 @@
-﻿using btr.application.BrgContext.BrgAgg;
+﻿using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using btr.application.BrgContext.BrgAgg;
 using btr.domain.BrgContext.BrgAgg;
 using btr.infrastructure.Helpers;
 using btr.nuna.Infrastructure;
 using Dapper;
 using Microsoft.Extensions.Options;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
 
-namespace btr.infrastructure.InventoryContext.BrgAgg
+namespace btr.infrastructure.BrgContext.BrgAgg
 {
     public class BrgHargaDal : IBrgHargaDal
     {

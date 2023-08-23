@@ -1,7 +1,7 @@
-﻿using btr.nuna.Domain;
-using System;
+﻿using System;
+using btr.nuna.Domain;
 
-namespace btr.distrib.Browsers
+namespace btr.distrib.Helpers
 {
     public class BrowseFilter
     {

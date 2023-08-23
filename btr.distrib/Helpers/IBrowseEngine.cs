@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace btr.distrib.Browsers
+namespace btr.distrib.Helpers
 {
     public interface IBrowseEngine<T>
     {
