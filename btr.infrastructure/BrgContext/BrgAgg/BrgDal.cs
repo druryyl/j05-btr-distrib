@@ -23,14 +23,23 @@ namespace btr.infrastructure.BrgContext.BrgAgg
         {
             const string sql = @"
                 INSERT INTO BTR_Brg(
-                    BrgId, BrgName)
+                    BrgId, BrgName, BrgCode, IsAktif, 
+                    SupplierId, KategoriId, Hpp, HppTimestamp)
                 VALUES (
-                    @BrgId, @BrgName)";
+                    @BrgId, @BrgName, @BrgCode, @IsAktif, 
+                    @SupplierId, @KategoriId, @Hpp, @HppTimestamp)";
 
             var dp = new DynamicParameters();
             dp.AddParam("@BrgId", model.BrgId, SqlDbType.VarChar);
             dp.AddParam("@BrgName", model.BrgName, SqlDbType.VarChar);
-
+            dp.AddParam("@BrgCode", model.BrgCode, SqlDbType.VarChar);
+            dp.AddParam("@IsAktif", model.IsAktif, SqlDbType.Bit);
+            dp.AddParam("@SupplierId", model.SupplierId, SqlDbType.VarChar);  
+            dp.AddParam("@KategoriId", model.KategoriId, SqlDbType.VarChar);  
+            dp.AddParam("@Hpp", model.Hpp, SqlDbType.Decimal);  
+            dp.AddParam("@HppTimestamp", model.HppTimestamp, SqlDbType.DateTime); 
+            
+            
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
                 conn.Execute(sql, dp);

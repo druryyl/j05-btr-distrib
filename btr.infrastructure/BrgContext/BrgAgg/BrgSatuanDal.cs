@@ -29,11 +29,10 @@ namespace btr.infrastructure.BrgContext.BrgAgg
                 bcp.AddMap("BrgId", "BrgId");
                 bcp.AddMap("Satuan", "Satuan");
                 bcp.AddMap("Conversion", "Conversion");
-                bcp.AddMap("HargaJual", "HargaJual");
 
                 var fetched = listModel.ToList();
                 bcp.BatchSize = fetched.Count;
-                bcp.DestinationTableName = "dbo.BTR_BrgSatuanHarga";
+                bcp.DestinationTableName = "dbo.BTR_BrgSatuan";
                 bcp.WriteToServer(fetched.AsDataTable());
             }
         }
@@ -42,7 +41,7 @@ namespace btr.infrastructure.BrgContext.BrgAgg
         {
             const string sql = @"
             DELETE FROM 
-                BTR_BrgSatuanHarga
+                BTR_BrgSatuan
             WHERE
                 BrgId = @BrgId ";
 
@@ -59,10 +58,9 @@ namespace btr.infrastructure.BrgContext.BrgAgg
         {
             const string sql = @"
             SELECT
-                aa.BrgId, aa.Satuan, aa.Conversion,
-                aa.HargaJual
+                aa.BrgId, aa.Satuan, aa.Conversion
             FROM 
-                BTR_BrgSatuanHarga aa
+                BTR_BrgSatuan aa
             WHERE
                 aa.BrgId = @BrgId ";
             var dp = new DynamicParameters();

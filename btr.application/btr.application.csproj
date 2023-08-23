@@ -74,6 +74,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationAssemblyAnchor.cs" />
+    <Compile Include="BrgContext\BrgAgg\BrgValidator.cs" />
+    <Compile Include="BrgContext\BrgAgg\BrgWriter.cs" />
     <Compile Include="BrgContext\BrgAgg\IBrgDal.cs" />
     <Compile Include="BrgContext\BrgAgg\IBrgHargaDal.cs" />
     <Compile Include="BrgContext\BrgAgg\IBrgSatuanDal.cs" />

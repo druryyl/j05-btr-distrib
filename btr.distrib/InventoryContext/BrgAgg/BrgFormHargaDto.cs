@@ -18,6 +18,13 @@ namespace btr.distrib.InventoryContext.BrgAgg
 
         public void SetName(string name) => Name = name;
         public void SetKeterangan(string keterangan) => Keterangan = keterangan;
+        public void SetHpp(decimal hpp) => Hpp = hpp;
 
+        public void Clear()
+        {
+            Hpp = 0;
+            Harga = 0;
+            Keterangan = string.Empty;
+        }
     }
 }

@@ -11,12 +11,16 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
+using btr.application.BrgContext.BrgAgg;
 using btr.application.BrgContext.HargaTypeAgg;
 using btr.application.BrgContext.JenisBrgAgg;
 using btr.application.InventoryContext.StokBalanceAgg;
 using btr.application.InventoryContext.WarehouseAgg.Contracts;
+using btr.domain.BrgContext.BrgAgg;
 using btr.domain.BrgContext.HargaTypeAgg;
+using btr.domain.InventoryContext.StokBalanceAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
+using Polly;
 
 namespace btr.distrib.InventoryContext.BrgAgg
 {
@@ -24,28 +28,38 @@ namespace btr.distrib.InventoryContext.BrgAgg
     {
         private readonly IBrowser<SupplierBrowserView> _supplierBrowser;
         private readonly IBrowser<KategoriBrowserView> _kategoriBrowser;
+        private readonly IBrowser<BrgBrowserView> _brgBrowser;
 
         private readonly ISupplierDal _supplierDal;
         private readonly IJenisBrgDal _jenisBrgDal;
         private readonly IKategoriDal _kategoriDal;
         private readonly IHargaTypeDal _hargaTypeDal;
         private readonly IWarehouseDal _warehouseDal;
+        private readonly IBrgDal _brgDal;
+
+        private readonly IBrgBuilder _brgBuilder;
         private readonly IStokBalanceBuilder _stokBalanceBuilder;
+
+        private readonly IBrgWriter _writer;
 
         private readonly BindingList<BrgFormSatuanDto> _listSatuan = new BindingList<BrgFormSatuanDto>();
         private readonly BindingList<BrgFormHargaDto> _listHarga = new BindingList<BrgFormHargaDto>();
         private readonly BindingList<BrgFormStokDto> _listStok = new BindingList<BrgFormStokDto>();
-
+        private readonly BindingList<BrgFormBrgDto> _listBrg = new BindingList<BrgFormBrgDto>();
 
         public BrgForm(
             IBrowser<SupplierBrowserView> supplierBrowser,
             IBrowser<KategoriBrowserView> kategoriBrowser,
+            IBrowser<BrgBrowserView> brgBrowser,
             ISupplierDal supplierDal,
-            IJenisBrgDal jenisBrgDal,
+            IJenisBrgDal jenisBrgDal, 
             IKategoriDal kategoriDal, 
             IHargaTypeDal hargaTypeDal, 
             IWarehouseDal warehouseDal, 
-            IStokBalanceBuilder stokBalanceBuilder)
+            IBrgDal brgDal, 
+            IBrgBuilder brgBuilder, 
+            IStokBalanceBuilder stokBalanceBuilder, 
+            IBrgWriter writer)
         {
             InitializeComponent();
             RegisterEventHandler();
@@ -58,12 +72,17 @@ namespace btr.distrib.InventoryContext.BrgAgg
             _kategoriDal = kategoriDal;
             _hargaTypeDal = hargaTypeDal;
             _warehouseDal = warehouseDal;
+            _brgDal = brgDal;
+            _brgBuilder = brgBuilder;
             _stokBalanceBuilder = stokBalanceBuilder;
+            _writer = writer;
+            _brgBrowser = brgBrowser;
 
             InitJenisBrg();
             InitGridSatuan();
             InitGridHarga();
             InitGridStok();
+            InitGridBrg();
         }
 
         private void RegisterEventHandler()
@@ -73,8 +92,114 @@ namespace btr.distrib.InventoryContext.BrgAgg
 
             KategoriButton.Click += KategoriButton_Click;
             KategoriIdText.Validated += KategoriIdText_Validated;
+
+            BrgButton.Click += BrgButton_Click;
+            BrgIdText.Validated += BrgIdText_Validated;
+            
+            SaveButton.Click += SaveButton_Click;
+            
+            BrgGrid.RowEnter += BrgGrid_RowEnter;
+
         }
 
+        private void BrgGrid_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            var grid = (DataGridView)sender;
+            var brgId = grid.Rows[e.RowIndex].Cells[0].Value.ToString();
+            ShowData(brgId);
+        }
+
+        private void ClearForm()
+        {
+            BrgNameText.Clear();
+            BrgCodeText.Clear();
+            SupplierIdText.Clear();
+            SupplierNameText.Clear();
+            JenisBrgCombo.SelectedIndex = 0;
+            KategoriIdText.Clear();
+            KategoriNameText.Clear();
+            
+            _listSatuan.Clear();
+            ResetGridHarga();
+            ResetGridStok();
+        }
+
+        #region BRG
+        private void BrgButton_Click(object sender, EventArgs e)
+        {
+            BrgIdText.Text = _brgBrowser.Browse(SupplierIdText.Text);
+            BrgIdText_Validated(BrgIdText, null);
+        }
+
+        private void BrgIdText_Validated(object sender, EventArgs e)
+        {
+            var textbox = (TextBox)sender;
+            if (textbox.Text.Length == 0)
+            {
+                ClearForm();
+                return;
+            }
+            ShowData(textbox.Text);
+        }
+
+        private void ShowData(string brgId)
+        {
+            var fallback = Policy<BrgModel>
+                .Handle<KeyNotFoundException>()
+                .Fallback(new BrgModel());
+            var brg = fallback.Execute(() 
+                => _brgBuilder.Load(new BrgModel(brgId)).Build());
+            
+            BrgNameText.Text = brg.BrgName;
+            BrgCodeText.Text = brg.BrgCode;
+            SupplierIdText.Text = brg.SupplierId;
+            SupplierNameText.Text = brg.SupplierName;
+            JenisBrgCombo.SelectedItem = brg.JenisBrgId;
+            KategoriIdText.Text = brg.KategoriId;
+            KategoriNameText.Text = brg.KategoriName;
+            
+            //  satuan
+            _listSatuan.Clear();
+            brg.ListSatuan.ForEach(x => _listSatuan.Add(new BrgFormSatuanDto(x.Satuan, x.Conversion)));
+            SatuanGrid.Refresh();
+
+            //  harga
+            foreach (var item in _listHarga)
+            {
+                item.Clear();
+                var harga = brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == item.TypeId);
+                if (harga is null)
+                    continue;
+                
+                item.SetHpp(harga.Hpp);
+                var marginRp = harga.Harga - harga.Hpp;
+                item.Margin = harga.Hpp != 0 ? (double)(marginRp / harga.Hpp) * 100 : 0;
+                item.Harga = harga.Harga;
+            }
+            HargaGrid.Refresh();
+            
+            //  stok
+            var fallbackStok = Policy<StokBalanceModel>
+                .Handle<KeyNotFoundException>()
+                .Fallback(new StokBalanceModel
+                {
+                    ListWarehouse = new List<StokBalanceWarehouseModel>()
+                });
+            var stokBalance = fallbackStok.Execute(() 
+                => _stokBalanceBuilder.Load(new BrgModel(brgId)).Build());
+            foreach (var item in _listStok)
+            {
+                item.SetQty(0);
+                var stok = stokBalance.ListWarehouse
+                    .FirstOrDefault(x => x.WarehouseId == item.Id);
+                if (stok is null)
+                    continue;
+                item.SetQty(stok.Qty);
+            }
+            StokGrid.Refresh();
+        }
+        #endregion
+        
         #region SUPPLIER
         private void SupplierButton_Click(object sender, EventArgs e)
         {
@@ -110,6 +235,7 @@ namespace btr.distrib.InventoryContext.BrgAgg
             KategoriIdText.Text = _kategoriBrowser.Browse(KategoriIdText.Text);
             KategoriIdText_Validated(KategoriIdText, null);
         }
+
         private void KategoriIdText_Validated(object sender, EventArgs e)
         {
             var textbox = (TextBox)sender;
@@ -119,9 +245,6 @@ namespace btr.distrib.InventoryContext.BrgAgg
             var kategori = _kategoriDal.GetData(new KategoriModel(textbox.Text));
             KategoriNameText.Text = kategori?.KategoriName ?? string.Empty;
         }
-
-
-
         #endregion
 
         #region GRID-SATUAN
@@ -140,15 +263,7 @@ namespace btr.distrib.InventoryContext.BrgAgg
         #region GRID-HARGA
         private void InitGridHarga()
         {
-            var listHargaType = _hargaTypeDal.ListData()?.ToList() ?? new List<HargaTypeModel>();
-            foreach (var item in listHargaType)
-            {
-                var harga = new BrgFormHargaDto();
-                harga.TypeId = item.HargaTypeId;
-                harga.SetName(item.HargaTypeName);
-                _listHarga.Add(harga);
-            }
-
+            ResetGridHarga();
             HargaGrid.AllowUserToAddRows = false;
             HargaGrid.AllowUserToDeleteRows = false;
             
@@ -165,19 +280,27 @@ namespace btr.distrib.InventoryContext.BrgAgg
             HargaGrid.Columns.GetCol("Harga").Width = 60;
             HargaGrid.Columns.GetCol("Keterangan").Width = 120;
         }
+
+        private void ResetGridHarga()
+        {
+            _listHarga.Clear();
+            var listHargaType = _hargaTypeDal.ListData()?.ToList() ?? new List<HargaTypeModel>();
+            foreach (var item in listHargaType)
+            {
+                var harga = new BrgFormHargaDto();
+                harga.TypeId = item.HargaTypeId;
+                harga.SetName(item.HargaTypeName);
+                _listHarga.Add(harga);
+            }
+            HargaGrid.Refresh();
+        }
         #endregion
         
         #region GRID-STOK
         private void InitGridStok()
         {
-            var listWarehouse = _warehouseDal.ListData()?.ToList() ?? new List<WarehouseModel>();
-            foreach (var item in listWarehouse)
-            {
-                var brgStok = new BrgFormStokDto(
-                    item.WarehouseId, item.WarehouseName, 0);
-                _listStok.Add(brgStok);
-            }
-
+            ResetGridStok();
+            
             StokGrid.AllowUserToAddRows = false;
             StokGrid.AllowUserToDeleteRows = false;
             
@@ -191,8 +314,77 @@ namespace btr.distrib.InventoryContext.BrgAgg
             StokGrid.Columns.GetCol("WarehouseName").Width = 200;
             StokGrid.Columns.GetCol("Qty").Width = 60;
         }
-        #endregion
 
+        private void ResetGridStok()
+        {
+            _listStok.Clear();
+            var listWarehouse = _warehouseDal.ListData()?.ToList() ?? new List<WarehouseModel>();
+            foreach (var item in listWarehouse)
+            {
+                var brgStok = new BrgFormStokDto(
+                    item.WarehouseId, item.WarehouseName, 0);
+                _listStok.Add(brgStok);
+            }
+            StokGrid.Refresh();
+        }
+        #endregion
+        
+        #region GRID-BRG
+        private void InitGridBrg()
+        {
+            _listBrg.Clear();
+            var listBrg = _brgDal.ListData()?.ToList() ?? new List<BrgModel>();
+            foreach (var item in listBrg)
+            {
+                var brg = new BrgFormBrgDto(
+                    item.BrgId, item.BrgName, item.KategoriName);
+                _listBrg.Add(brg);
+            }
+
+            BrgGrid.AllowUserToAddRows = false;
+            BrgGrid.AllowUserToDeleteRows = false;
+            
+            var binding = new BindingSource();
+            binding.DataSource = _listBrg;
+            BrgGrid.DataSource = binding;
+            BrgGrid.Refresh();
+            
+            BrgGrid.Columns.SetDefaultCellStyle();
+            BrgGrid.Columns.GetCol("Id").Width = 50;
+            BrgGrid.Columns.GetCol("BrgName").Width = 200;
+            BrgGrid.Columns.GetCol("Kategori").Width = 100;
+        }
+        #endregion
+        
+        #region SAVE
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            var brg = _brgBuilder
+                .Create()
+                .BrgId(BrgIdText.Text)
+                .Name(BrgNameText.Text)
+                .Supplier(new SupplierModel(SupplierIdText.Text))
+                .JenisBrg(new JenisBrgModel(JenisBrgCombo.SelectedValue.ToString()))
+                .Kategori(new KategoriModel(KategoriIdText.Text))
+                .Build();
+            foreach (var item in _listSatuan)
+                brg = _brgBuilder
+                    .Attach(brg)
+                    .AddSatuan(item.Satuan, item.Conversion)
+                    .Build();
+
+            foreach (var item in _listHarga)
+                brg = _brgBuilder
+                    .Attach(brg)
+                    .AddHarga(new HargaTypeModel(item.TypeId), item.Harga)
+                    .Build();
+
+            _writer.Save(ref brg);
+            ClearForm();
+            InitGridBrg();
+        }
+        #endregion
+        
     }
 }
     

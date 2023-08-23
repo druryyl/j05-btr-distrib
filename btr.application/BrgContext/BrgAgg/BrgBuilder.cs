@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using btr.application.BrgContext.JenisBrgAgg;
 using btr.application.BrgContext.KategoriAgg.Contracts;
 using btr.application.PurchaseContext.SupplierAgg.Contracts;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.BrgContext.HargaTypeAgg;
+using btr.domain.BrgContext.JenisBrgAgg;
 using btr.domain.BrgContext.KategoriAgg;
 using btr.domain.PurchaseContext.SupplierAgg;
 using btr.nuna.Application;
@@ -16,15 +18,19 @@ namespace btr.application.BrgContext.BrgAgg
     {
         IBrgBuilder Create();
         IBrgBuilder Load(IBrgKey brgKey);
-        IBrgBuilder Activeate();
+        IBrgBuilder Attach(BrgModel brg);
+        IBrgBuilder Activate();
         IBrgBuilder Deactivate();
+        IBrgBuilder BrgId(string id);
         IBrgBuilder Name(string name);
         IBrgBuilder Supplier(ISupplierKey supplierKey);
         IBrgBuilder Kategori(IKategoriKey kategoriKey);
+        IBrgBuilder JenisBrg(IJenisBrgKey jenisBrgKey);
+        
         IBrgBuilder Hpp(decimal hpp);
         IBrgBuilder AddSatuan(string satuan, int conversion);
         IBrgBuilder RemoveSatuan(string satuan);
-        IBrgBuilder AddHarga(IHargaTypeKey hargaTypeKey, decimal hpp);
+        IBrgBuilder AddHarga(IHargaTypeKey hargaTypeKey, decimal harga);
 
     }
 
@@ -36,6 +42,7 @@ namespace btr.application.BrgContext.BrgAgg
         private readonly IBrgHargaDal _brgHargaDal;
         private readonly ISupplierDal _supplierDal;
         private readonly IKategoriDal _kategoriDal;
+        private readonly IJenisBrgDal _jenisBrgDal;
         private readonly DateTimeProvider _datetTime;
 
         public BrgBuilder(IBrgDal brgDal,
@@ -43,7 +50,7 @@ namespace btr.application.BrgContext.BrgAgg
             IBrgHargaDal brgHargaDal,
             ISupplierDal supplierDal,
             IKategoriDal kategoriDal,
-            DateTimeProvider datetTime)
+            DateTimeProvider datetTime, IJenisBrgDal jenisBrgDal)
         {
             _brgDal = brgDal;
             _brgSatuanDal = brgSatuanDal;
@@ -51,6 +58,7 @@ namespace btr.application.BrgContext.BrgAgg
             _supplierDal = supplierDal;
             _kategoriDal = kategoriDal;
             _datetTime = datetTime;
+            _jenisBrgDal = jenisBrgDal;
         }
 
         public BrgModel Build()
@@ -81,7 +89,13 @@ namespace btr.application.BrgContext.BrgAgg
             return this;
         }
 
-        public IBrgBuilder Activeate()
+        public IBrgBuilder Attach(BrgModel brg)
+        {
+            _aggRoot = brg;
+            return this;
+        }
+
+        public IBrgBuilder Activate()
         {
             _aggRoot.IsAktif = true;
             return this;
@@ -90,6 +104,12 @@ namespace btr.application.BrgContext.BrgAgg
         public IBrgBuilder Deactivate()
         {
             _aggRoot.IsAktif = false;
+            return this;
+        }
+
+        public IBrgBuilder BrgId(string id)
+        {
+            _aggRoot.BrgId = id;
             return this;
         }
 
@@ -114,6 +134,15 @@ namespace btr.application.BrgContext.BrgAgg
                            ?? throw new KeyNotFoundException($"SupplierID not found ({kategoriKey.KategoriId})");
             _aggRoot.SupplierId = katogeri.KategoriId;
             _aggRoot.SupplierName = katogeri.KategoriName;
+            return this;
+        }
+
+        public IBrgBuilder JenisBrg(IJenisBrgKey jenisBrgKey)
+        {
+            var jenisBrg = _jenisBrgDal.GetData(jenisBrgKey)
+                           ?? throw new KeyNotFoundException("JenisBrg invalid");
+            _aggRoot.JenisBrgId = jenisBrg.JenisBrgId;
+            _aggRoot.JenisBrgName = jenisBrg.JenisBrgName;
             return this;
         }
 

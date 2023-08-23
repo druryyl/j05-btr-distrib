@@ -30,7 +30,7 @@
         {
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.SearchButton = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.BrgGrid = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -41,6 +41,10 @@
             this.BrgButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.KategoriIdText = new System.Windows.Forms.TextBox();
+            this.KategoriNameText = new System.Windows.Forms.TextBox();
+            this.KategoriButton = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             this.JenisBrgCombo = new System.Windows.Forms.ComboBox();
             this.SupplierIdText = new System.Windows.Forms.TextBox();
             this.SupplierNameText = new System.Windows.Forms.TextBox();
@@ -55,11 +59,7 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.StokGrid = new System.Windows.Forms.DataGridView();
             this.SaveButton = new System.Windows.Forms.Button();
-            this.KategoriIdText = new System.Windows.Forms.TextBox();
-            this.KategoriNameText = new System.Windows.Forms.TextBox();
-            this.KategoriButton = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BrgGrid)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -73,6 +73,7 @@
             // 
             // textBox1
             // 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.Location = new System.Drawing.Point(7, 395);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(219, 22);
@@ -80,6 +81,7 @@
             // 
             // SearchButton
             // 
+            this.SearchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.SearchButton.Location = new System.Drawing.Point(231, 394);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(75, 23);
@@ -87,16 +89,18 @@
             this.SearchButton.Text = "Search";
             this.SearchButton.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // BrgGrid
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(6, 8);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(300, 380);
-            this.dataGridView1.TabIndex = 2;
+            this.BrgGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.BrgGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.BrgGrid.Location = new System.Drawing.Point(6, 8);
+            this.BrgGrid.Name = "BrgGrid";
+            this.BrgGrid.Size = new System.Drawing.Size(300, 380);
+            this.BrgGrid.TabIndex = 2;
             // 
             // panel2
             // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.Cornsilk;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.checkBox1);
@@ -182,6 +186,7 @@
             // 
             // panel3
             // 
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BackColor = System.Drawing.Color.Cornsilk;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.KategoriIdText);
@@ -198,6 +203,40 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(228, 211);
             this.panel3.TabIndex = 49;
+            // 
+            // KategoriIdText
+            // 
+            this.KategoriIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.KategoriIdText.Location = new System.Drawing.Point(12, 134);
+            this.KategoriIdText.Name = "KategoriIdText";
+            this.KategoriIdText.Size = new System.Drawing.Size(169, 22);
+            this.KategoriIdText.TabIndex = 23;
+            // 
+            // KategoriNameText
+            // 
+            this.KategoriNameText.Location = new System.Drawing.Point(11, 162);
+            this.KategoriNameText.Name = "KategoriNameText";
+            this.KategoriNameText.ReadOnly = true;
+            this.KategoriNameText.Size = new System.Drawing.Size(205, 22);
+            this.KategoriNameText.TabIndex = 25;
+            // 
+            // KategoriButton
+            // 
+            this.KategoriButton.Location = new System.Drawing.Point(187, 134);
+            this.KategoriButton.Name = "KategoriButton";
+            this.KategoriButton.Size = new System.Drawing.Size(28, 23);
+            this.KategoriButton.TabIndex = 24;
+            this.KategoriButton.Text = "...";
+            this.KategoriButton.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(9, 118);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(50, 13);
+            this.label4.TabIndex = 22;
+            this.label4.Text = "Kategori";
             // 
             // JenisBrgCombo
             // 
@@ -252,6 +291,7 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
@@ -323,46 +363,13 @@
             // 
             // SaveButton
             // 
+            this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.SaveButton.Location = new System.Drawing.Point(699, 423);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
             this.SaveButton.TabIndex = 51;
             this.SaveButton.Text = "Save";
             this.SaveButton.UseVisualStyleBackColor = true;
-            // 
-            // KategoriIdText
-            // 
-            this.KategoriIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.KategoriIdText.Location = new System.Drawing.Point(12, 134);
-            this.KategoriIdText.Name = "KategoriIdText";
-            this.KategoriIdText.Size = new System.Drawing.Size(169, 22);
-            this.KategoriIdText.TabIndex = 23;
-            // 
-            // KategoriNameText
-            // 
-            this.KategoriNameText.Location = new System.Drawing.Point(11, 162);
-            this.KategoriNameText.Name = "KategoriNameText";
-            this.KategoriNameText.ReadOnly = true;
-            this.KategoriNameText.Size = new System.Drawing.Size(205, 22);
-            this.KategoriNameText.TabIndex = 25;
-            // 
-            // KategoriButton
-            // 
-            this.KategoriButton.Location = new System.Drawing.Point(187, 134);
-            this.KategoriButton.Name = "KategoriButton";
-            this.KategoriButton.Size = new System.Drawing.Size(28, 23);
-            this.KategoriButton.TabIndex = 24;
-            this.KategoriButton.Text = "...";
-            this.KategoriButton.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 118);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(50, 13);
-            this.label4.TabIndex = 22;
-            this.label4.Text = "Kategori";
             // 
             // BrgForm
             // 
@@ -374,13 +381,13 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.BrgGrid);
             this.Controls.Add(this.SearchButton);
             this.Controls.Add(this.textBox1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "BrgForm";
             this.Text = "Barang";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BrgGrid)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
@@ -394,14 +401,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.StokGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
 
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button SearchButton;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView BrgGrid;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox BrgIdText;
         private System.Windows.Forms.TextBox BrgNameText;

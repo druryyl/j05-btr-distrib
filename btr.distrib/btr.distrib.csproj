@@ -209,6 +209,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Browsers\BrgBrowser.cs" />
     <Compile Include="Browsers\BrgStok2Browser.cs" />
     <Compile Include="Browsers\KategoriBrowser.cs" />
     <Compile Include="Helpers\BrowseFilter.cs" />
@@ -229,6 +230,7 @@
     <Compile Include="InventoryContext\BrgAgg\BrgForm.Designer.cs">
       <DependentUpon>BrgForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InventoryContext\BrgAgg\BrgFormBrgDto.cs" />
     <Compile Include="InventoryContext\BrgAgg\BrgFormHargaDto.cs" />
     <Compile Include="InventoryContext\BrgAgg\BrgFormSatuanDto.cs" />
     <Compile Include="InventoryContext\BrgAgg\BrgFormStokDto.cs" />
