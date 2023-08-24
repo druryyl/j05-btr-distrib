@@ -25,61 +25,44 @@ namespace btr.distrib.SalesContext.FakturAgg
         private decimal _ppnRp = 0;
         private decimal _total = 0;
 
-        private readonly IMediator _mediator;
-
-        public FakturItemDto(IMediator mediator)
+        public FakturItemDto()
         {
             ListStokHargaSatuan = new List<FakturItemDtoStokHargaSatuan>();
-            _mediator = mediator;
         }
 
-        public string BrgId
-        {
-            get => _brgId;
-            set => BrgIdSetterAsync(value).Wait();
-        }
+        public string BrgId { get; set; }
+        public string BrgName { get; private set; }
 
-        private async Task BrgIdSetterAsync(string value)
-        {
-            _brgId = value;
+        //private async Task BrgIdSetterAsync(string value)
+        //{
+        //    _brgId = value;
 
-            var defBrgHarga = new BrgModel()
-            {
-                BrgId = _brgId,
-                BrgName = string.Empty,
-                ListSatuan = new List<BrgSatuanModel>(),
-                ListHarga = new List<BrgHargaModel>()
-            };
-            var fallbackBrg = Policy<BrgModel>
-                .Handle<KeyNotFoundException>()
-                .FallbackAsync(defBrgHarga);
-            var queryBrg = new GetBrgQuery(_brgId);
-            Task<BrgModel> QueryBrg() => _mediator.Send(queryBrg);
-            var brg = await fallbackBrg.ExecuteAsync(QueryBrg);
+        //    var defBrgHarga = new BrgModel()
+        //    {
+        //        BrgId = _brgId,
+        //        BrgName = string.Empty,
+        //        ListSatuan = new List<BrgSatuanModel>(),
+        //        ListHarga = new List<BrgHargaModel>()
+        //    };
+        //    var fallbackBrg = Policy<BrgModel>
+        //        .Handle<KeyNotFoundException>()
+        //        .FallbackAsync(defBrgHarga);
+        //    var queryBrg = new GetBrgQuery(_brgId);
+        //    Task<BrgModel> QueryBrg() => _mediator.Send(queryBrg);
+        //    var brg = await fallbackBrg.ExecuteAsync(QueryBrg);
 
-            // var defStok = new StokModel
-            // {
-            // };
-            // var fallbackStok = Policy<StokModel>
-            //     .Handle<KeyNotFoundException>()
-            //     .FallbackAsync(defStok);
-            // var queryStok = new GetStokQUery(_brgId, )
-            // Task<StokModel> QeuryStok() => _mediator
-            
-            _brgName = brg.BrgName;
-            ListStokHargaSatuan = GenListStokHargaSatuan();
-            ReCalc();
-        }
+        //    _brgName = brg.BrgName;
+        //    ListStokHargaSatuan = GenListStokHargaSatuan();
+        //    ReCalc();
+        //}
 
         private List<FakturItemDtoStokHargaSatuan> GenListStokHargaSatuan()
         {
-            // result.ListSatuan
-            //     .Select(x => new FakturItemDtoStokHargaSatuan(x.Stok, x.HargaJual, x.Satuan))
-            //     .ToList();
+            //result.ListSatuan
+            //    .Select(x => new FakturItemDtoStokHargaSatuan(x.Stok, x.HargaJual, x.Satuan))
+            //    .ToList();
             throw new NotImplementedException();
         }
-        
-        public string BrgName { get => _brgName; }
 
         public string StokHarga
         {

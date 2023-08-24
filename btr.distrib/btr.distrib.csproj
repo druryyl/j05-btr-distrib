@@ -211,7 +211,9 @@
   <ItemGroup>
     <Compile Include="Browsers\BrgBrowser.cs" />
     <Compile Include="Browsers\BrgStok2Browser.cs" />
+    <Compile Include="Browsers\CustomerBrowser.cs" />
     <Compile Include="Browsers\KategoriBrowser.cs" />
+    <Compile Include="Browsers\SalesBrowser.cs" />
     <Compile Include="Helpers\BrowseFilter.cs" />
     <Compile Include="Helpers\IBrowseEngine.cs" />
     <Compile Include="Browsers\SupplierBrowser.cs" />
@@ -253,6 +255,7 @@
       <DependentUpon>FakturForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SalesContext\FakturAgg\FakturItemDto.cs" />
+    <Compile Include="SalesContext\FakturItem2Dto.cs" />
     <Compile Include="SharedForm\Browser2Form.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -308,7 +308,6 @@ namespace btr.distrib.InventoryContext.BrgAgg
             HargaGrid.Columns.GetCol("Harga").Width = 60;
             HargaGrid.Columns.GetCol("Keterangan").Width = 120;
             HargaGrid.Columns.GetCol("Hpp").Visible= false;
-
         }
 
         private void ResetGridHarga()
