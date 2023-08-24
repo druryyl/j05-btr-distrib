@@ -95,6 +95,9 @@ namespace btr.distrib.SalesContext.FakturAgg
             CustomerIdText.Validated += CustomerIdText_Validated;
 
             WarehouseIdText.Validated += WarehouseIdText_Validated;
+
+            FakturItemGrid.CellContentClick += FakturItemGrid_CellContentClick;
+            FakturItemGrid.CellValueChanged += FakturItemGrid_CellValueChanged;
         }
 
 
@@ -262,9 +265,10 @@ namespace btr.distrib.SalesContext.FakturAgg
             _listItem[grid.CurrentRow.Index].BrgId = brgId;
             ValidateRow(e.RowIndex);
 
-            //if (_listItem.Last().BrgName.Length != 0)
-            //    _listItem.Add(new FakturItem2Dto());
+            // if (_listItem.Last().BrgName.Length != 0)
+            //     _listItem.Add(new FakturItem2Dto());
         }
+        
         private void FakturItemGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             var grid = (DataGridView)sender;
@@ -281,30 +285,36 @@ namespace btr.distrib.SalesContext.FakturAgg
         private void ValidateRow(int rowIndex)
         {
             var brg = BuildBrg(rowIndex);
-            var stok = BuildStok(rowIndex);
             if (brg == null)
             {
                 CleanRow(rowIndex);
                 return;
             }
+            var stok = BuildStok(rowIndex);
+            var hrg = brg.ListHarga.FirstOrDefault()?.Harga ?? 0;            
 
             _listItem[rowIndex].SetBrgName(brg.BrgName);
-            //_listItem[rowIndex].ListStokHargaSatuan = brg.ListSatuan
-            //    .Select(x => new FakturItem2DtoStokHargaSatuan(x.Stok, x.HargaJual, x.Satuan))
-            //    .ToList(); ;
+            _listItem[rowIndex].ListStokHargaSatuan = BuildStokHrgSatuan(stok.Qty, hrg, brg.ListSatuan).ToList();
             FakturItemGrid.Refresh();
+            CalcTotal();
         }
-        //private IEnumerable<FakturItem2DtoStokHargaSatuan> BuildStokHrgSatuan(
-        //    int qty, decimal harga, IEnumerable<BrgSatuanModel> listSatuan)
-        //{
-        //    var result = new List<FakturItem2DtoStokHargaSatuan>();
-        //    var sisa = qty;
-        //    foreach(var item in listSatuan.OrderByDescending(x => x.Conversion))
-        //    {
-        //        var thisQty = sisa / item.Conversion;
-        //    }
-            
-        //}
+
+        private static IEnumerable<FakturItem2DtoStokHargaSatuan> BuildStokHrgSatuan(
+            int qty, decimal harga, IEnumerable<BrgSatuanModel> listSatuan)
+        {
+            var result = new List<FakturItem2DtoStokHargaSatuan>();
+            var sisa = qty;
+            foreach(var item in listSatuan.OrderByDescending(x => x.Conversion))
+            {
+                var thisQty = (int)(sisa / item.Conversion);
+                var thisHrg = harga * item.Conversion;
+                var newItem = new FakturItem2DtoStokHargaSatuan(thisQty, thisHrg, item.Satuan);
+                result.Add(newItem);
+                sisa = sisa - (thisQty * item.Conversion);
+            }
+            return result;
+        }
+
         private BrgModel BuildBrg(int rowIndex)
         {
             var brgKey = new BrgModel(_listItem[rowIndex].BrgId);
@@ -314,6 +324,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             var brg = fbk.Execute(_brgBuilder.Load(brgKey).Build);
             return brg;
         }
+
         private StokBalanceWarehouseModel BuildStok(int rowIndex)
         {
             var brgKey = new BrgModel(_listItem[rowIndex].BrgId);
@@ -331,6 +342,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             _listItem[rowIndex].SetBrgName(string.Empty);
             FakturItemGrid.Refresh();
         }
+        
         private void InitGrid()
         {
             var binding = new BindingSource();

@@ -33,12 +33,6 @@ namespace btr.distrib
             ConfigureServices(services, configuration);
             var form = new MainForm(services);
             Application.Run(form);
-
-            //using (var sp = services.BuildServiceProvider())
-            //{
-            //    var form = sp.GetRequiredService<MainForm>();
-            //    Application.Run(form);
-            //}
         }
 
         private static void ConfigureServices(IServiceCollection services, IConfiguration configuration)

@@ -92,6 +92,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
                        ?? throw new KeyNotFoundException($"Faktur nof found ({fakturKey.FakturId})");
             _aggRoot.ListItem = _fakturItemDal.ListData(fakturKey)?.ToList()
                                 ?? new List<FakturItemModel>();
+            
 
             var allQtyHarga = _fakturQtyHargaDal.ListData(fakturKey)?.ToList()
                               ?? new List<FakturQtyHargaModel>();
