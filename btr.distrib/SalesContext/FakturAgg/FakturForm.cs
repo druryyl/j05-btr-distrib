@@ -184,16 +184,16 @@ namespace btr.distrib.SalesContext.FakturAgg
                 var discString = string.Join(";", item.ListDiscount.Select(x => x.DiscountProsen.ToString(CultureInfo.InvariantCulture)));
                 var listQtyHarga = item.ListQtyHarga
                     .Where(x => x.HargaJual != 0)
-                    .Select(x => new FakturItemDtoStokHargaSatuan(x.Qty, x.HargaJual, x.Satuan));
+                    .Select(x => new FakturItem2DtoStokHargaSatuan(x.Qty, x.HargaJual, x.Satuan));
                 var newItem = new FakturItem2Dto()
                 {
                     BrgId = item.BrgId,
                     Qty = qtyString,
                     Disc = discString,
-                    //ListStokHargaSatuan = listQtyHarga.ToList(),
+                    ListStokHargaSatuan = listQtyHarga.ToList(),
                 };
-                //newItem.SetBrgName(item.BrgName);
-                //newItem.ReCalc();
+                newItem.SetBrgName(item.BrgName);
+                newItem.ReCalc();
                 _listItem.Add(newItem);
             }
             _listItem.Add(new FakturItem2Dto());
@@ -492,7 +492,7 @@ namespace btr.distrib.SalesContext.FakturAgg
 
             var listItem = (
                 from c in _listItem
-                where c.BrgName.Length > 0
+                where c.BrgName?.Length > 0
                 select new UpdateFakturCommandItem
                 {
                     BrgId = c.BrgId,
