@@ -1,8 +1,4 @@
-﻿using btr.application.InventoryContext.StokAgg.UseCases;
-using btr.application.InventoryContext.WarehouseAgg.UseCases;
-using btr.application.SalesContext.CustomerAgg.UseCases;
-using btr.application.SalesContext.FakturAgg.UseCases;
-using btr.application.SalesContext.SalesPersonAgg.UseCases;
+﻿using btr.application.SalesContext.FakturAgg.UseCases;
 using btr.distrib.Browsers;
 using btr.distrib.PrintDocs;
 using btr.distrib.SharedForm;
@@ -21,31 +17,89 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using btr.distrib.Helpers;
 using btr.domain.SalesContext.CustomerAgg;
+using btr.domain.InventoryContext.WarehouseAgg;
+using btr.application.SalesContext.SalesPersonAgg.Contracts;
+using btr.domain.SalesContext.SalesPersonAgg;
+using btr.application.SalesContext.CustomerAgg.Contracts;
+using btr.application.InventoryContext.WarehouseAgg.Contracts;
+using btr.domain.BrgContext.BrgAgg;
+using btr.application.BrgContext.BrgAgg;
+using btr.application.InventoryContext.StokBalanceAgg;
+using btr.domain.InventoryContext.StokBalanceAgg;
 
 namespace btr.distrib.SalesContext.FakturAgg
 {
     public partial class FakturForm : Form
     {
-        private readonly BindingList<FakturItemDto> _listItem = new BindingList<FakturItemDto>();
+        private readonly BindingList<FakturItem2Dto> _listItem = new BindingList<FakturItem2Dto>();
         private readonly IMediator _mediator;
+
+        private readonly IBrowser<SalesBrowserView> _salesBrowser;
+        private readonly IBrowser<CustomerBrowserView> _customerBrowser;
+        private readonly IBrowser<WarehouseBrowserView> _warehouseBrowser;
+        private readonly IBrowser<BrgStokBrowserView> _brgStokBrowser;
+
+        private readonly ISalesPersonDal _salesPersonDal;
+        private readonly ICustomerDal _customerDal;
+        private readonly IWarehouseDal _warehouseDal;
+        private readonly IBrgBuilder _brgBuilder;
+        private readonly IStokBalanceBuilder _stokBalanceBuilder;
+
         private readonly IFakturBrowser _fakturBrowser;
-        private readonly IBrgStokBrowser _brgStokBrowser;
+
         private readonly IFakturPrintDoc _fakturPrintDoc;
 
-        public FakturForm(IMediator mediator, 
-            IFakturBrowser fakturBrowser, 
-            IBrgStokBrowser brgStokBrowser, 
-            IFakturPrintDoc fakturPrintDoc)
+        public FakturForm(IMediator mediator,
+            IBrowser<WarehouseBrowserView> warehouseBrowser,
+            IBrowser<SalesBrowserView> salesBrowser,
+            IBrowser<CustomerBrowserView> customerBrowser,
+            IBrowser<BrgStokBrowserView> brgStokBrowser,
+            IFakturBrowser fakturBrowser,
+            ISalesPersonDal salesPersonDal,
+            ICustomerDal customerDal,
+            IWarehouseDal warehouseDal,
+            IBrgBuilder brgBuilder,
+            IStokBalanceBuilder stokBalanceBuilder, 
+            IFakturPrintDoc fakturPrintDoc
+            )
         {
             InitializeComponent();
             InitGrid();
             ClearForm();
+            RegisterEventHandler();
 
             _mediator = mediator;
-            _fakturBrowser = fakturBrowser;
+
+            _warehouseBrowser = warehouseBrowser;
+            _salesBrowser = salesBrowser;
+            _customerBrowser = customerBrowser;
             _brgStokBrowser = brgStokBrowser;
+            _fakturBrowser = fakturBrowser;
+
+            _salesPersonDal = salesPersonDal;
+            _customerDal = customerDal;
+            _warehouseDal = warehouseDal;
+
+            _brgBuilder = brgBuilder;
+            _stokBalanceBuilder = stokBalanceBuilder;
+
             _fakturPrintDoc = fakturPrintDoc;
         }
+
+        private void RegisterEventHandler()
+        {
+            SalesPersonButton.Click += SalesPersonButton_Click;
+            SalesIdText.Validated += SalesIdText_Validated;
+
+            CustomerButton.Click += CustomerButton_Click;
+            CustomerIdText.Validated += CustomerIdText_Validated;
+
+            WarehouseIdText.Validated += WarehouseIdText_Validated;
+
+            FakturItemGrid.CellContentClick += FakturItemGrid_CellContentClick;
+            FakturItemGrid.CellValueChanged += FakturItemGrid_CellValueChanged;
+        }
+
 
         private void ClearForm()
         {
@@ -69,7 +123,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             SisaText.Value = 0;
 
             _listItem.Clear();
-            _listItem.Add(new FakturItemDto(_mediator));
+            _listItem.Add(new FakturItem2Dto());
         }
 
         #region FAKTUR
@@ -130,8 +184,8 @@ namespace btr.distrib.SalesContext.FakturAgg
                 var discString = string.Join(";", item.ListDiscount.Select(x => x.DiscountProsen.ToString(CultureInfo.InvariantCulture)));
                 var listQtyHarga = item.ListQtyHarga
                     .Where(x => x.HargaJual != 0)
-                    .Select(x => new FakturItemStokHargaSatuan(x.Qty, x.HargaJual, x.Satuan));
-                var newItem = new FakturItemDto(_mediator)
+                    .Select(x => new FakturItem2DtoStokHargaSatuan(x.Qty, x.HargaJual, x.Satuan));
+                var newItem = new FakturItem2Dto()
                 {
                     BrgId = item.BrgId,
                     Qty = qtyString,
@@ -142,135 +196,79 @@ namespace btr.distrib.SalesContext.FakturAgg
                 newItem.ReCalc();
                 _listItem.Add(newItem);
             }
-            _listItem.Add(new FakturItemDto(_mediator));
+            _listItem.Add(new FakturItem2Dto());
             RefreshGrid();
         }
         #endregion
 
         #region SALES-PERSON
-        private async void SalesPersonButton_ClickAsync(object sender, EventArgs e)
+        private void SalesPersonButton_Click(object sender, EventArgs e)
         {
-            var query = new ListDataSalesPersonQuery();
-            var list = await _mediator.Send(query);
-            var form = new BrowserForm<ListDataSalesPersonResponse, string>(list, SalesIdText.Text, x => x.SalesPersonName);
-            var resultDialog = form.ShowDialog();
-            if (resultDialog == DialogResult.OK)
-            {
-                SalesIdText.Text = form.ReturnedValue;
-                await ValidateSalesPerson();
-            }
-            CustomerIdText.Focus();
+            SalesIdText.Text = _salesBrowser.Browse(SalesIdText.Text);
+            SalesIdText_Validated(SalesIdText, null);
         }
-
-        private async void SalesIdText_Validating(object sender, CancelEventArgs e)
+        private void SalesIdText_Validated(object sender, EventArgs e)
         {
-            await ValidateSalesPerson();
-        }
+            var textbox = (TextBox)sender;
+            if (textbox.Text.Length == 0)
+                return;
 
-        private async Task ValidateSalesPerson()
-        {
-            var textbox = SalesIdText;
-            var policy = Policy<GetSalesPersonResponse>
-                .Handle<KeyNotFoundException>().Or<ArgumentException>()
-                .FallbackAsync(new GetSalesPersonResponse());
-            var query = new GetSalesPersonQuery(textbox.Text);
-            Task<GetSalesPersonResponse> QueryFunc() => _mediator.Send(query);
-
-            var result = await policy.ExecuteAsync(QueryFunc);
-            result.RemoveNull();
-            SalesPersonNameTextBox.Text = result.SalesPersonName;
+            var sales = _salesPersonDal.GetData(new SalesPersonModel(textbox.Text));
+            SalesPersonNameTextBox.Text = sales?.SalesPersonName ?? string.Empty;
         }
         #endregion
 
         #region CUSTOMER
-        private async void CustomerButton_Click(object sender, EventArgs e)
+        private void CustomerButton_Click(object sender, EventArgs e)
         {
-            var query = new ListCustomerQuery();
-            var list = await _mediator.Send(query);
-            var form = new BrowserForm<ListCustomerResponse, string>(list, CustomerIdText.Text, x => x.CustomerName);
-            var resultDialog = form.ShowDialog();
-            if (resultDialog == DialogResult.OK)
-            {
-                CustomerIdText.Text = form.ReturnedValue;
-                await ValidateCustomer();
-            }
-            WarehouseIdText.Focus();
+            CustomerIdText.Text = _customerBrowser.Browse(CustomerIdText.Text);
+            CustomerIdText_Validated(CustomerIdText, null);
         }
-        private async void CustomerIdText_Validating(object sender, CancelEventArgs e)
+        private void CustomerIdText_Validated(object sender, EventArgs e)
         {
-            await ValidateCustomer();
-        }
-        private async Task ValidateCustomer()
-        {
-            var textbox = CustomerIdText;
-            var policy = Policy<CustomerModel>
-                .Handle<KeyNotFoundException>().Or<ArgumentException>()
-                .FallbackAsync(new CustomerModel());
+            var textbox = (TextBox)sender;
+            if (textbox.Text.Length == 0)
+                return;
 
-            var query = new GetCustomerQuery(textbox.Text);
-            Task<CustomerModel> QueryFunc() => _mediator.Send(query);
-
-            var result = await policy.ExecuteAsync(QueryFunc);
-            result.RemoveNull();
-            CustomerNameTextBox.Text = result.CustomerName;
+            var customer = _customerDal.GetData(new CustomerModel(textbox.Text));
+            CustomerNameTextBox.Text = customer?.CustomerName ?? string.Empty;
         }
         #endregion
 
         #region WAREHOUSE
-        private async void WarehouseButton_Click(object sender, EventArgs e)
+        private void WarehouseButton_Click(object sender, EventArgs e)
         {
-            var query = new ListWarehouseQuery();
-            var list = await _mediator.Send(query);
-            var form = new BrowserForm<ListWarehouseResponse, string>(list, WarehouseIdText.Text, x => x.WarehouseName);
-            var resultDialog = form.ShowDialog();
-            if (resultDialog == DialogResult.OK)
-            {
-                WarehouseIdText.Text = form.ReturnedValue;
-                await ValidateWarehouse();
-            }
-            TglRencanaKirimTextBox.Focus();
+            WarehouseIdText.Text = _warehouseBrowser.Browse(WarehouseIdText.Text);
+            WarehouseIdText_Validated(WarehouseIdText, null);
         }
-        private async void WarehouseIdText_Validating(object sender, CancelEventArgs e)
+        private void WarehouseIdText_Validated(object sender, EventArgs e)
         {
-            await ValidateWarehouse();
-        }
-        private async Task ValidateWarehouse()
-        {
-            var textbox = WarehouseIdText;
-            var policy = Policy<GetWarehouseResponse>
-                .Handle<KeyNotFoundException>().Or<ArgumentException>()
-                .FallbackAsync(new GetWarehouseResponse());
-            var query = new GetWarehouseQuery(textbox.Text);
-            Task<GetWarehouseResponse> QueryFunc() => _mediator.Send(query);
+            var textbox = (TextBox)sender;
+            if (textbox.Text.Length == 0)
+                return;
 
-            var result = await policy.ExecuteAsync(QueryFunc);
-            result.RemoveNull();
-            WarehouseNameText.Text = result.WarehouseName;
+            var warehouse = _warehouseDal.GetData(new WarehouseModel(textbox.Text));
+            WarehouseNameText.Text = warehouse?.WarehouseName ?? string.Empty;
         }
         #endregion
 
         #region GRID
         private void FakturItemGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
             var grid = (DataGridView)sender;
-            if (e.ColumnIndex == grid.Columns["Find"]?.Index && e.RowIndex >= 0)
-            {
-                if (WarehouseIdText.Text.Length == 0)
-                    return;
+            if (e.ColumnIndex != grid.Columns["Find"].Index)
+                return;
 
-                var defaultBrgId = grid.CurrentCell.Value?.ToString() ?? string.Empty;
-                var warehouse = WarehouseIdText.Text;
-                _brgStokBrowser.BrowserQueryArgs = new[] {warehouse };
-                var form = new BrowserForm<ListBrgStokResponse, string>(_brgStokBrowser, defaultBrgId, x => x.BrgName);
-                var resultDialog = form.ShowDialog();
-                if (resultDialog == DialogResult.OK)
-                    if (grid.CurrentRow != null)
-                        grid.CurrentRow.Cells["BrgId"].Value = form.ReturnedValue;
-            }
-            if (_listItem.Last().BrgName.Length != 0)
-                _listItem.Add(new FakturItemDto(_mediator));
+            var brgId = _listItem[grid.CurrentRow.Index].BrgId;
+            _brgStokBrowser.Filter.StaticFilter1 = WarehouseIdText.Text;
+            brgId = _brgStokBrowser.Browse(brgId);
+            _listItem[grid.CurrentRow.Index].BrgId = brgId;
+            ValidateRow(e.RowIndex);
+
+            // if (_listItem.Last().BrgName.Length != 0)
+            //     _listItem.Add(new FakturItem2Dto());
         }
+        
         private void FakturItemGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             var grid = (DataGridView)sender;
@@ -284,17 +282,75 @@ namespace btr.distrib.SalesContext.FakturAgg
                 CalcTotal();
         }
 
+        private void ValidateRow(int rowIndex)
+        {
+            var brg = BuildBrg(rowIndex);
+            if (brg == null)
+            {
+                CleanRow(rowIndex);
+                return;
+            }
+            var stok = BuildStok(rowIndex);
+            var hrg = brg.ListHarga.FirstOrDefault()?.Harga ?? 0;            
+
+            _listItem[rowIndex].SetBrgName(brg.BrgName);
+            _listItem[rowIndex].ListStokHargaSatuan = BuildStokHrgSatuan(stok.Qty, hrg, brg.ListSatuan).ToList();
+            FakturItemGrid.Refresh();
+            CalcTotal();
+        }
+
+        private static IEnumerable<FakturItem2DtoStokHargaSatuan> BuildStokHrgSatuan(
+            int qty, decimal harga, IEnumerable<BrgSatuanModel> listSatuan)
+        {
+            var result = new List<FakturItem2DtoStokHargaSatuan>();
+            var sisa = qty;
+            foreach(var item in listSatuan.OrderByDescending(x => x.Conversion))
+            {
+                var thisQty = (int)(sisa / item.Conversion);
+                var thisHrg = harga * item.Conversion;
+                var newItem = new FakturItem2DtoStokHargaSatuan(thisQty, thisHrg, item.Satuan);
+                result.Add(newItem);
+                sisa -= (thisQty * item.Conversion);
+            }
+            return result;
+        }
+
+        private BrgModel BuildBrg(int rowIndex)
+        {
+            var brgKey = new BrgModel(_listItem[rowIndex].BrgId);
+            var fbk = Policy<BrgModel>
+                .Handle<KeyNotFoundException>()
+                .Fallback(null as BrgModel);
+            var brg = fbk.Execute(_brgBuilder.Load(brgKey).Build);
+            return brg;
+        }
+
+        private StokBalanceWarehouseModel BuildStok(int rowIndex)
+        {
+            var brgKey = new BrgModel(_listItem[rowIndex].BrgId);
+            var fbk = Policy<StokBalanceModel>
+                .Handle<KeyNotFoundException>()
+                .Fallback(new StokBalanceModel());
+            var stok = fbk.Execute(_stokBalanceBuilder.Load(brgKey).Build);
+            var result = stok.ListWarehouse.FirstOrDefault(x => x.WarehouseId == WarehouseIdText.Text)
+                ?? new StokBalanceWarehouseModel { Qty = 0, }; 
+            return result;
+        }
+
+        private void CleanRow(int rowIndex)
+        {
+            _listItem[rowIndex].SetBrgName(string.Empty);
+            FakturItemGrid.Refresh();
+        }
+        
         private void InitGrid()
         {
-            RefreshGrid();
+            var binding = new BindingSource();
+            binding.DataSource = _listItem;
+            FakturItemGrid.DataSource = binding;
+            FakturItemGrid.Refresh();
+            FakturItemGrid.Columns.SetDefaultCellStyle();
 
-            foreach (DataGridViewColumn col in FakturItemGrid.Columns)
-            {
-                col.DefaultCellStyle.Font = new Font("Consolas", 8.25f);
-                col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft;
-                if (col.ReadOnly)
-                    col.DefaultCellStyle.BackColor = Color.Beige;
-            }
             DataGridViewButtonColumn buttonCol = new DataGridViewButtonColumn
             {
                 HeaderText = @"Find", // Set the column header text
@@ -303,6 +359,8 @@ namespace btr.distrib.SalesContext.FakturAgg
             };
             buttonCol.DefaultCellStyle.BackColor = Color.Brown;
             FakturItemGrid.Columns.Insert(1, buttonCol);
+
+            RefreshGrid();
 
             //  hide
             FakturItemGrid.Columns.GetCol("DiscTotal").Visible = false;
@@ -335,16 +393,17 @@ namespace btr.distrib.SalesContext.FakturAgg
             FakturItemGrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             FakturItemGrid.AutoResizeRows();
         }
+
         private void RefreshGrid()
         {
             if (!_listItem.Any())
-                _listItem.Add(new FakturItemDto(_mediator));
+                _listItem.Add(new FakturItem2Dto());
 
-            var binding = new BindingSource
-            {
-                DataSource = _listItem,
-            };
-            FakturItemGrid.DataSource = binding;
+            //var binding = new BindingSource
+            //{
+            //    DataSource = _listItem,
+            //};
+            //FakturItemGrid.DataSource = binding;
         }
         #endregion
 
@@ -433,7 +492,7 @@ namespace btr.distrib.SalesContext.FakturAgg
 
             var listItem = (
                 from c in _listItem
-                where c.BrgName.Length > 0
+                where c.BrgName?.Length > 0
                 select new UpdateFakturCommandItem
                 {
                     BrgId = c.BrgId,

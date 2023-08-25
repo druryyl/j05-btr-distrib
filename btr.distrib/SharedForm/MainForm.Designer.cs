@@ -56,6 +56,7 @@
             this.InventoryTab = new System.Windows.Forms.RibbonTab();
             this.ribbonPanel1 = new System.Windows.Forms.RibbonPanel();
             this.ribbonPanel2 = new System.Windows.Forms.RibbonPanel();
+            this.BrgButton = new System.Windows.Forms.RibbonButton();
             this.ribbonPanel3 = new System.Windows.Forms.RibbonPanel();
             this.FinanceTab = new System.Windows.Forms.RibbonTab();
             this.SuspendLayout();
@@ -194,6 +195,7 @@
             this.PoButton.Name = "PoButton";
             this.PoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("PoButton.SmallImage")));
             this.PoButton.Text = "PO";
+            this.PoButton.Click += new System.EventHandler(this.PoButton_Click);
             // 
             // PoReportButton
             // 
@@ -272,8 +274,18 @@
             // 
             // ribbonPanel2
             // 
+            this.ribbonPanel2.Items.Add(this.BrgButton);
             this.ribbonPanel2.Name = "ribbonPanel2";
             this.ribbonPanel2.Text = "Product";
+            // 
+            // BrgButton
+            // 
+            this.BrgButton.Image = global::btr.distrib.Properties.Resources.ingredients_48px;
+            this.BrgButton.LargeImage = global::btr.distrib.Properties.Resources.ingredients_48px;
+            this.BrgButton.Name = "BrgButton";
+            this.BrgButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("BrgButton.SmallImage")));
+            this.BrgButton.Text = "Barang";
+            this.BrgButton.Click += new System.EventHandler(this.BrgButton_Click);
             // 
             // ribbonPanel3
             // 
@@ -334,5 +346,6 @@
         private System.Windows.Forms.RibbonButton InvoiceButton;
         private System.Windows.Forms.RibbonButton InvoiceReportButton;
         private System.Windows.Forms.RibbonButton SupplierButton;
+        private System.Windows.Forms.RibbonButton BrgButton;
     }
 }

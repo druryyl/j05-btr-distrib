@@ -7,7 +7,7 @@
         {
         }
 
-        public FakturDiscountModel(int discountNo, string brgId, double discountProsen, double discountRp)
+        public FakturDiscountModel(int discountNo, string brgId, decimal discountProsen, decimal discountRp)
         {
             NoUrut = discountNo;
             BrgId = brgId;
@@ -20,7 +20,7 @@
         public int NoUrut { get; set; }
 
         public string BrgId { get; set; }
-        public double DiscountProsen { get; set; }
-        public double DiscountRp { get; set; }
+        public decimal DiscountProsen { get; set; }
+        public decimal DiscountRp { get; set; }
     }
 }

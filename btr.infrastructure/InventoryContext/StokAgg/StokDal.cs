@@ -2,7 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 using btr.application.InventoryContext.StokAgg.Contracts;
-using btr.domain.InventoryContext.BrgAgg;
+using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.StokAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.infrastructure.Helpers;
@@ -34,8 +34,8 @@ namespace btr.infrastructure.InventoryContext.StokAgg
                 @NilaiPersediaan)";
             var @dp = new DynamicParameters();
             dp.AddParam("@StokId", model.StokId, SqlDbType.VarChar);
-            dp.AddParam("@StokControlId", model.StokControlId, SqlDbType.VarChar);
-            dp.AddParam("@StokControlDate", model.StokControlDate, SqlDbType.VarChar);
+            dp.AddParam("@StokControlId", model.ReffId, SqlDbType.VarChar);
+            dp.AddParam("@StokControlDate", model.StokDate, SqlDbType.DateTime);
             dp.AddParam("@BrgId", model.BrgId, SqlDbType.VarChar);
             dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
             dp.AddParam("@QtyIn", model.QtyIn, SqlDbType.Int);
@@ -67,8 +67,8 @@ namespace btr.infrastructure.InventoryContext.StokAgg
 
             var @dp = new DynamicParameters();
             dp.AddParam("@StokId", model.StokId, SqlDbType.VarChar);
-            dp.AddParam("@StokControlId", model.StokControlId, SqlDbType.VarChar);
-            dp.AddParam("@StokControlDate", model.StokControlDate, SqlDbType.VarChar);
+            dp.AddParam("@StokControlId", model.ReffId, SqlDbType.VarChar);
+            dp.AddParam("@StokControlDate", model.StokDate, SqlDbType.DateTime);
             dp.AddParam("@BrgId", model.BrgId, SqlDbType.VarChar);
             dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
             dp.AddParam("@QtyIn", model.QtyIn, SqlDbType.Int);

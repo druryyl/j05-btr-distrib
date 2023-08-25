@@ -1,4 +1,5 @@
 ﻿using btr.application;
+using btr.distrib.Browsers;
 using btr.distrib.PrintDocs;
 using btr.distrib.SharedForm;
 using btr.infrastructure;
@@ -13,6 +14,7 @@ using Scrutor;
 using System;
 using System.Reflection;
 using System.Windows.Forms;
+using btr.distrib.Helpers;
 
 namespace btr.distrib
 {
@@ -31,12 +33,6 @@ namespace btr.distrib
             ConfigureServices(services, configuration);
             var form = new MainForm(services);
             Application.Run(form);
-
-            //using (var sp = services.BuildServiceProvider())
-            //{
-            //    var form = sp.GetRequiredService<MainForm>();
-            //    Application.Run(form);
-            //}
         }
 
         private static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
@@ -125,7 +121,22 @@ namespace btr.distrib
                         .AsSelfWithInterfaces()
                         .WithScopedLifetime()
                     .FromAssemblyOf<WinformAssemblyAnchor>()
+                        .AddClasses(c => c.AssignableTo(typeof(IBrowser)))
+                        .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+                        .AsSelfWithInterfaces()
+                        .WithScopedLifetime()
+                    .FromAssemblyOf<WinformAssemblyAnchor>()
                         .AddClasses(c => c.AssignableTo(typeof(IBrowser<>)))
+                        .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+                        .AsSelfWithInterfaces()
+                        .WithScopedLifetime()
+                    .FromAssemblyOf<WinformAssemblyAnchor>()
+                        .AddClasses(c => c.AssignableTo(typeof(IBrowseEngine<>)))
+                        .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+                        .AsSelfWithInterfaces()
+                        .WithScopedLifetime()
+                    .FromAssemblyOf<WinformAssemblyAnchor>()
+                        .AddClasses(c => c.AssignableTo(typeof(IQueryBrowser<>)))
                         .UsingRegistrationStrategy(RegistrationStrategy.Skip)
                         .AsSelfWithInterfaces()
                         .WithScopedLifetime());

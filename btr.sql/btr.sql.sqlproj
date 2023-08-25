@@ -56,24 +56,33 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
-    <Folder Include="Tables" />
     <Folder Include="Tables\Helper" />
     <Folder Include="Tables\InventoryContext" />
-    <Folder Include="Tables\PurchaseContext" />
     <Folder Include="Tables\SalesContext" />
+    <Folder Include="Tables\" />
+    <Folder Include="Tables\BrgContext\" />
+    <Folder Include="Tables\PurchaseContext\" />
   </ItemGroup>
   <ItemGroup>
+    <Build Include="Tables\BrgContext\BTR_Brg.sql" />
+    <Build Include="Tables\BrgContext\BTR_BrgSatuan.sql" />
     <Build Include="Tables\Helper\BTR_ParamNo.sql" />
-    <Build Include="Tables\InventoryContext\BTR_Brg.sql" />
-    <Build Include="Tables\InventoryContext\BTR_BrgSatuan.sql" />
     <Build Include="Tables\InventoryContext\BTR_Stok.sql" />
     <Build Include="Tables\InventoryContext\BTR_StokMutasi.sql" />
     <Build Include="Tables\InventoryContext\BTR_Warehouse.sql" />
+    <Build Include="Tables\PurchaseContext\BTR_PurchaseOrder.sql" />
+    <Build Include="Tables\PurchaseContext\BTR_PurchaseOrderItem.sql" />
+    <Build Include="Tables\PurchaseContext\BTR_Supplier.sql" />
     <Build Include="Tables\SalesContext\BTR_Customer.sql" />
     <Build Include="Tables\SalesContext\BTR_Faktur.sql" />
     <Build Include="Tables\SalesContext\BTR_FakturDiscount.sql" />
     <Build Include="Tables\SalesContext\BTR_FakturItem.sql" />
     <Build Include="Tables\SalesContext\BTR_FakturQtyHarga.sql" />
     <Build Include="Tables\SalesContext\BTR_SalesPerson.sql" />
+    <Build Include="Tables\BrgContext\BTR_BrgHarga.sql" />
+    <Build Include="Tables\BrgContext\BTR_Kategori.sql" />
+    <Build Include="Tables\BrgContext\BTR_HargaType.sql" />
+    <Build Include="Tables\InventoryContext\BTR_StokBalanceWarehouse.sql" />
+    <Build Include="Tables\BrgContext\BTR_JenisBrg.sql" />
   </ItemGroup>
 </Project>

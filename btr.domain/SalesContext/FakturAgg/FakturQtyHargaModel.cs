@@ -1,4 +1,4 @@
-﻿using btr.domain.InventoryContext.BrgAgg;
+﻿using btr.domain.BrgContext.BrgAgg;
 
 namespace btr.domain.SalesContext.FakturAgg
 {
@@ -10,7 +10,7 @@ namespace btr.domain.SalesContext.FakturAgg
         }
 
         public FakturQtyHargaModel(int qtyHargaNo, string brgId, string satuan, 
-            int conversion, int qty, double hargaJual)
+            int conversion, int qty, decimal hargaJual)
         {
             NoUrut = qtyHargaNo;
             BrgId = brgId;
@@ -28,7 +28,7 @@ namespace btr.domain.SalesContext.FakturAgg
         public string Satuan { get; set; }
         public int Conversion { get; set; } 
         public int Qty { get; set; }
-        public double HargaJual { get; set; }
+        public decimal HargaJual { get; set; }
     }
 }
 

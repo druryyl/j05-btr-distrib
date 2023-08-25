@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace btr.distrib.Browsers
 {
-    public interface IBrgStokBrowser : IBrowser<ListBrgStokResponse>
+    public interface IBrgStokBrowser : IQueryBrowser<ListBrgStokResponse>
     {
     }
 

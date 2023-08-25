@@ -10,14 +10,14 @@ namespace btr.distrib.SharedForm
 {
     public partial class BrowserForm<T, TKey> : Form
     {
-        public IEnumerable<T> ListData { get; set; }
+        private IEnumerable<T> ListData { get; set; }
         public string ReturnedValue { get; set; }
 
         private IEnumerable<T> ListDataFiltered { get; set; }
 
         //  property selector untuk field yang akan di-filter
         private readonly Func<T, TKey> _propertySelector = null;
-        private readonly IBrowser<T> _browser = null;
+        private readonly IQueryBrowser<T> _browser = null;
 
         //  constructor standard
         public BrowserForm(IEnumerable<T> listData, string defaultValue, Func<T, TKey> propertySelector)
@@ -31,7 +31,7 @@ namespace btr.distrib.SharedForm
             ReturnedValue = defaultValue;
         }
 
-        public BrowserForm(IBrowser<T> browser, string defaultValue, Func<T, TKey> propertySelector)
+        public BrowserForm(IQueryBrowser<T> browser, string defaultValue, Func<T, TKey> propertySelector)
         {
             InitializeComponent();
 

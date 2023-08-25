@@ -3,7 +3,7 @@
     FakturItemId VARCHAR(16) NOT NULL CONSTRAINT DF_BTR_FakturItem_FakturItemId DEFAULT(''),
     NoUrut INT NOT NULL CONSTRAINT DF_BTR_FakturItem_ItemNo DEFAULT(''),
     
-    BrgId VARCHAR(5) NOT NULL CONSTRAINT DF_BTR_FakturItem_BrgId DEFAULT(''),
+    BrgId VARCHAR(6) NOT NULL CONSTRAINT DF_BTR_FakturItem_BrgId DEFAULT(''),
     AvailableQty INT NOT NULL CONSTRAINT DF_BTR_FakturItem_AvailableQty DEFAULT(0),
     Qty INT NOT NULL CONSTRAINT DF_BTR_FakturItem_Qty DEFAULT(0),
     

@@ -8,19 +8,13 @@ using MediatR;
 
 namespace btr.application.InventoryContext.WarehouseAgg.UseCases
 {
-    public class GetWarehouseQuery : IRequest<GetWarehouseResponse>, IWarehouseKey
+    public class GetWarehouseQuery : IRequest<WarehouseModel>, IWarehouseKey
     {
         public GetWarehouseQuery(string id) => WarehouseId = id;
         public string WarehouseId { get; }
     }
 
-    public class GetWarehouseResponse
-    {
-        public string WarehouseId { get; set; }
-        public string WarehouseName { get; set; }
-    }
-
-    public class GetWarehouseHandler : IRequestHandler<GetWarehouseQuery, GetWarehouseResponse>
+    public class GetWarehouseHandler : IRequestHandler<GetWarehouseQuery, WarehouseModel>
     {
         private WarehouseModel _aggRoot = new WarehouseModel();
         private readonly IWarehouseBuilder _builder;
@@ -30,7 +24,7 @@ namespace btr.application.InventoryContext.WarehouseAgg.UseCases
             _builder = builder;
         }
 
-        public Task<GetWarehouseResponse> Handle(GetWarehouseQuery request, CancellationToken cancellationToken)
+        public Task<WarehouseModel> Handle(GetWarehouseQuery request, CancellationToken cancellationToken)
         {
             //  GUARD
             Guard.Argument(() => request).NotNull()
@@ -42,13 +36,7 @@ namespace btr.application.InventoryContext.WarehouseAgg.UseCases
                 .Build();
 
             //  APPLY
-            return Task.FromResult(GenResponse());
-        }
-
-        private GetWarehouseResponse GenResponse()
-        {
-            var result = _aggRoot.Adapt<GetWarehouseResponse>();
-            return result;
+            return Task.FromResult(_aggRoot);
         }
     }
 }

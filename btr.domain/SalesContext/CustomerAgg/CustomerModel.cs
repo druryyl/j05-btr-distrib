@@ -2,6 +2,11 @@
 {
     public class CustomerModel : ICustomerKey
     {
+        public CustomerModel()
+        {
+        }
+        public CustomerModel(string id) => CustomerId = id;
+
         public string CustomerId { get; set; }
         public string CustomerName { get; set; }
         public double Plafond { get; set; }
