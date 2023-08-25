@@ -25,13 +25,13 @@ namespace btr.domain.SalesContext.FakturAgg
 
         public string TermOfPayment { get; set; }
 
-        public double Total { get; set; }
-        public double DiscountLain { get; set; }
-        public double BiayaLain { get; set; }
-        public double GrandTotal { get; set; }
+        public decimal Total { get; set; }
+        public decimal DiscountLain { get; set; }
+        public decimal BiayaLain { get; set; }
+        public decimal GrandTotal { get; set; }
     
-        public double UangMuka { get; set; }
-        public double KurangBayar { get; set; }
+        public decimal UangMuka { get; set; }
+        public decimal KurangBayar { get; set; }
     
         public DateTime CreateTime { get; set; }
         public DateTime LastUpdate { get; set; }

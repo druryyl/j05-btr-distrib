@@ -8,17 +8,11 @@ using MediatR;
 
 namespace btr.application.InventoryContext.WarehouseAgg.UseCases
 {
-    public class ListWarehouseQuery : IRequest<IEnumerable<ListWarehouseResponse>>
+    public class ListWarehouseQuery : IRequest<IEnumerable<WarehouseModel>>
     {
     }
 
-    public class ListWarehouseResponse
-    {
-        public string WarehouseId { get; set; }
-        public string WarehouseName { get; set; }
-    }
-
-    public class ListWarehouseHandler : IRequestHandler<ListWarehouseQuery, IEnumerable<ListWarehouseResponse>>
+    public class ListWarehouseHandler : IRequestHandler<ListWarehouseQuery, IEnumerable<WarehouseModel>>
     {
         private readonly IWarehouseDal _warehouseDal;
 
@@ -27,7 +21,7 @@ namespace btr.application.InventoryContext.WarehouseAgg.UseCases
             _warehouseDal = warehouseDal;
         }
 
-        public Task<IEnumerable<ListWarehouseResponse>> Handle(ListWarehouseQuery request,
+        public Task<IEnumerable<WarehouseModel>> Handle(ListWarehouseQuery request,
             CancellationToken cancellationToken)
         {
             //  BUILD
@@ -38,9 +32,9 @@ namespace btr.application.InventoryContext.WarehouseAgg.UseCases
             return Task.FromResult(GenResponse(result));
         }
 
-        private IEnumerable<ListWarehouseResponse> GenResponse(IEnumerable<WarehouseModel> listWarehouse)
+        private IEnumerable<WarehouseModel> GenResponse(IEnumerable<WarehouseModel> listWarehouse)
         {
-            var result = listWarehouse.Adapt<IEnumerable<ListWarehouseResponse>>();
+            var result = listWarehouse.Adapt<IEnumerable<WarehouseModel>>();
             return result;
         }
     }

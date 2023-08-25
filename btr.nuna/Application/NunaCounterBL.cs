@@ -15,8 +15,8 @@ namespace btr.nuna.Application
     {
         PF_YYM_nnnnnC, //  format-A1 (13 digit) : PF-21A-00001F => Max 1jt per bulan
         PF_YYM_nnnC,   //  format-A2 (11 digit) : PF-21A-002C   => Max 4k per bulan
-        PFnnnn,         // format-B1 ( 6 digit) : PFF21         => Max 65k global
-        PFnnn,         //  format-B1 ( 5 digit) : PFF21         => Max 4k global
+        PFnnnn,         // format-B1 ( 6 digit) : PF4321         => Max 65k global
+        PFnnn,         //  format-B1 ( 5 digit) : PF321         => Max 4k global
         Pnn,           //  format-B2 ( 3 digit) : P7A           => Max 255 global
         PREFYYMnnnnnC  //  format-A3 (13 digit) : PFFF21A00001F => Max 1jt per bulan 
     }

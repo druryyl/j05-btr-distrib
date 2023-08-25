@@ -74,18 +74,42 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationAssemblyAnchor.cs" />
-    <Compile Include="InventoryContext\BrgAgg\Contracts\IBrgDal.cs" />
-    <Compile Include="InventoryContext\BrgAgg\Contracts\IBrgSatuanHargaDal.cs" />
-    <Compile Include="InventoryContext\BrgAgg\UseCases\GetBrgQuery.cs" />
-    <Compile Include="InventoryContext\BrgAgg\Workers\BrgBuilder.cs" />
+    <Compile Include="BrgContext\BrgAgg\BrgValidator.cs" />
+    <Compile Include="BrgContext\BrgAgg\BrgWriter.cs" />
+    <Compile Include="BrgContext\BrgAgg\IBrgDal.cs" />
+    <Compile Include="BrgContext\BrgAgg\IBrgHargaDal.cs" />
+    <Compile Include="BrgContext\BrgAgg\IBrgSatuanDal.cs" />
+    <Compile Include="BrgContext\BrgAgg\GetBrgQuery.cs" />
+    <Compile Include="BrgContext\BrgAgg\BrgBuilder.cs" />
+    <Compile Include="BrgContext\BrgStokViewAgg\Contracts\IBrgStokViewDal.cs" />
+    <Compile Include="BrgContext\HargaTypeAgg\IHargaTypeDal.cs" />
+    <Compile Include="BrgContext\JenisBrgAgg\IJenisBrgDal.cs" />
+    <Compile Include="BrgContext\KategoriAgg\Contracts\IKategoriDal.cs" />
     <Compile Include="InventoryContext\StokAgg\Contracts\IStokDal.cs" />
     <Compile Include="InventoryContext\StokAgg\Contracts\IStokMutasiDal.cs" />
+    <Compile Include="InventoryContext\StokAgg\UseCases\AddStokCommand.cs" />
     <Compile Include="InventoryContext\StokAgg\UseCases\ListBrgStokQuery.cs" />
+    <Compile Include="InventoryContext\StokAgg\UseCases\RemoveStokCommand.cs" />
+    <Compile Include="InventoryContext\StokBalanceAgg\IStokBalanceDal.cs" />
+    <Compile Include="InventoryContext\StokBalanceAgg\StokBalanceBuilder.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\Contracts\IWarehouseDal.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\UseCases\GetWarehouseQuery.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\UseCases\ListWarehouseQuery.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\Workers\WarehouseBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PurchaseContext\PurchaseOrderAgg\Contracts\IPurchaseOrderDal.cs" />
+    <Compile Include="PurchaseContext\PurchaseOrderAgg\Contracts\IPurchaseOrderItemDal.cs" />
+    <Compile Include="PurchaseContext\PurchaseOrderAgg\UseCases\CreatePurchaseOrderCommand.cs" />
+    <Compile Include="PurchaseContext\PurchaseOrderAgg\UseCases\GetPurchaseOrderQuery.cs" />
+    <Compile Include="PurchaseContext\PurchaseOrderAgg\Workers\PurchaseOrderBuilder.cs" />
+    <Compile Include="PurchaseContext\PurchaseOrderAgg\Workers\PurchaseOrderValidator.cs" />
+    <Compile Include="PurchaseContext\PurchaseOrderAgg\Workers\PurchaseOrderWriter.cs" />
+    <Compile Include="PurchaseContext\SupplierAgg\Contracts\ISupplierDal.cs" />
+    <Compile Include="PurchaseContext\SupplierAgg\UseCases\GetSupplierQuery.cs" />
+    <Compile Include="PurchaseContext\SupplierAgg\UseCases\ListSupplierQuery.cs" />
+    <Compile Include="PurchaseContext\SupplierAgg\Workers\SupplierBuilder.cs" />
+    <Compile Include="PurchaseContext\SupplierAgg\Workers\SupplierValidator.cs" />
+    <Compile Include="PurchaseContext\SupplierAgg\Workers\SupplierWriter.cs" />
     <Compile Include="SalesContext\CustomerAgg\Contracts\ICustomerDal.cs" />
     <Compile Include="SalesContext\CustomerAgg\UseCases\GetCustomerQuery.cs" />
     <Compile Include="SalesContext\CustomerAgg\UseCases\ListCustomerQuery.cs" />
@@ -123,8 +147,6 @@
     <Folder Include="InventoryContext\StokAgg\Workers\" />
     <Folder Include="PurchaseContext\InvoiceAgg\" />
     <Folder Include="PurchaseContext\KlaimAgg\" />
-    <Folder Include="PurchaseContext\PrincipalAgg\" />
-    <Folder Include="PurchaseContext\PurchaseOrderAgg\" />
     <Folder Include="SupportContext\UserAgg\" />
   </ItemGroup>
   <ItemGroup>

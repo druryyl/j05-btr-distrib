@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using btr.application.SalesContext.FakturAgg.Workers;
-using btr.domain.InventoryContext.BrgAgg;
+using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.FakturAgg;

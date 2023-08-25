@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using btr.application.InventoryContext.BrgAgg.UseCases;
+using btr.application.BrgContext.BrgAgg;
+using btr.domain.BrgContext.BrgAgg;
 using MediatR;
 using Polly;
 
@@ -11,7 +12,7 @@ namespace btr.distrib.SalesContext.FakturAgg
     public class FakturItemDto
     {
         private string _brgId = string.Empty;
-        private string _brgName = string.Empty;
+        private string _brgName = string.Empty; 
         private string _disc = string.Empty;
         private string _discRp = string.Empty;
         private decimal _discTotal = 0;
@@ -24,43 +25,44 @@ namespace btr.distrib.SalesContext.FakturAgg
         private decimal _ppnRp = 0;
         private decimal _total = 0;
 
-        private readonly IMediator _mediator;
-
-        public FakturItemDto(IMediator mediator)
+        public FakturItemDto()
         {
-            ListStokHargaSatuan = new List<FakturItemStokHargaSatuan>();
-            _mediator = mediator;
+            ListStokHargaSatuan = new List<FakturItemDtoStokHargaSatuan>();
         }
 
-        public string BrgId
-        {
-            get => _brgId;
-            set => BrgIdSetterAsync(value).Wait();
-        }
+        public string BrgId { get; set; }
+        public string BrgName { get; private set; }
 
-        private async Task BrgIdSetterAsync(string value)
-        {
-            _brgId = value;
+        //private async Task BrgIdSetterAsync(string value)
+        //{
+        //    _brgId = value;
 
-            var defBrgHarga = new GetBrgHargaResponse
-            {
-                BrgId = value,
-                BrgName = string.Empty,
-                ListSatuanHarga = new List<GetBrgHargaResponseSatuanHrg>()
-            };
-            var policy = Policy<GetBrgHargaResponse>
-                .Handle<KeyNotFoundException>()
-                .FallbackAsync(defBrgHarga);
-            var query = new GetBrgHargaQuery(value);
-            Task<GetBrgHargaResponse> queryTask() => _mediator.Send(query);
-            var result = await policy.ExecuteAsync(queryTask);
-            _brgName = result.BrgName;
-            ListStokHargaSatuan = result.ListSatuanHarga
-                .Select(x => new FakturItemStokHargaSatuan(x.Stok, x.HargaJual, x.Satuan))
-                .ToList();
-            ReCalc();
+        //    var defBrgHarga = new BrgModel()
+        //    {
+        //        BrgId = _brgId,
+        //        BrgName = string.Empty,
+        //        ListSatuan = new List<BrgSatuanModel>(),
+        //        ListHarga = new List<BrgHargaModel>()
+        //    };
+        //    var fallbackBrg = Policy<BrgModel>
+        //        .Handle<KeyNotFoundException>()
+        //        .FallbackAsync(defBrgHarga);
+        //    var queryBrg = new GetBrgQuery(_brgId);
+        //    Task<BrgModel> QueryBrg() => _mediator.Send(queryBrg);
+        //    var brg = await fallbackBrg.ExecuteAsync(QueryBrg);
+
+        //    _brgName = brg.BrgName;
+        //    ListStokHargaSatuan = GenListStokHargaSatuan();
+        //    ReCalc();
+        //}
+
+        private List<FakturItemDtoStokHargaSatuan> GenListStokHargaSatuan()
+        {
+            //result.ListSatuan
+            //    .Select(x => new FakturItemDtoStokHargaSatuan(x.Stok, x.HargaJual, x.Satuan))
+            //    .ToList();
+            throw new NotImplementedException();
         }
-        public string BrgName { get => _brgName; }
 
         public string StokHarga
         {
@@ -106,7 +108,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         }
         public decimal PpnRp { get => _ppnRp; }
         public decimal Total { get => _total; }
-        public List<FakturItemStokHargaSatuan> ListStokHargaSatuan { get; set; }
+        public List<FakturItemDtoStokHargaSatuan> ListStokHargaSatuan { get; set; }
         public void ReCalc()
         {
             ReCalcQty();
@@ -181,9 +183,9 @@ namespace btr.distrib.SalesContext.FakturAgg
         #endregion
     }
 
-    public class FakturItemStokHargaSatuan
+    public class FakturItemDtoStokHargaSatuan
     {
-        public FakturItemStokHargaSatuan(int stok, decimal harga, string satuan)
+        public FakturItemDtoStokHargaSatuan(int stok, decimal harga, string satuan)
         {
             Stok = stok;
             Harga = harga;

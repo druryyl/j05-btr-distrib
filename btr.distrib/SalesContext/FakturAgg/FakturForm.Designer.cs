@@ -148,8 +148,6 @@
             this.FakturItemGrid.Name = "FakturItemGrid";
             this.FakturItemGrid.Size = new System.Drawing.Size(852, 322);
             this.FakturItemGrid.TabIndex = 40;
-            this.FakturItemGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.FakturItemGrid_CellContentClick);
-            this.FakturItemGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.FakturItemGrid_CellValueChanged);
             // 
             // PanelTengah
             // 
@@ -381,7 +379,6 @@
             this.SalesIdText.Name = "SalesIdText";
             this.SalesIdText.Size = new System.Drawing.Size(147, 22);
             this.SalesIdText.TabIndex = 3;
-            this.SalesIdText.Validating += new System.ComponentModel.CancelEventHandler(this.SalesIdText_Validating);
             // 
             // SalesPersonNameTextBox
             // 
@@ -399,7 +396,6 @@
             this.SalesPersonButton.TabIndex = 4;
             this.SalesPersonButton.Text = "...";
             this.SalesPersonButton.UseVisualStyleBackColor = true;
-            this.SalesPersonButton.Click += new System.EventHandler(this.SalesPersonButton_ClickAsync);
             // 
             // label3
             // 
@@ -471,7 +467,6 @@
             this.CustomerIdText.Name = "CustomerIdText";
             this.CustomerIdText.Size = new System.Drawing.Size(147, 22);
             this.CustomerIdText.TabIndex = 6;
-            this.CustomerIdText.Validating += new System.ComponentModel.CancelEventHandler(this.CustomerIdText_Validating);
             // 
             // CreditBalanceTextBox
             // 
@@ -539,7 +534,6 @@
             this.CustomerButton.TabIndex = 7;
             this.CustomerButton.Text = "...";
             this.CustomerButton.UseVisualStyleBackColor = true;
-            this.CustomerButton.Click += new System.EventHandler(this.CustomerButton_Click);
             // 
             // label6
             // 
@@ -574,7 +568,6 @@
             this.WarehouseIdText.Name = "WarehouseIdText";
             this.WarehouseIdText.Size = new System.Drawing.Size(147, 22);
             this.WarehouseIdText.TabIndex = 11;
-            this.WarehouseIdText.Validating += new System.ComponentModel.CancelEventHandler(this.WarehouseIdText_Validating);
             // 
             // TermOfPaymentComboBox
             // 

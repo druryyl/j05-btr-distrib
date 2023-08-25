@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using btr.domain.InventoryContext.BrgAgg;
+using btr.domain.BrgContext.BrgAgg;
 
 namespace btr.domain.SalesContext.FakturAgg
 {
@@ -14,12 +14,12 @@ namespace btr.domain.SalesContext.FakturAgg
     
         public int AvailableQty { get; set; }
         public int Qty { get; set; }
-        public double HargaJual { get; set; }
-        public double SubTotal { get; set; }
-        public double DiscountRp { get; set; }
-        public double PpnProsen { get; set; }
-        public double PpnRp { get; set; }
-        public double Total { get; set; }
+        public decimal HargaJual { get; set; }
+        public decimal SubTotal { get; set; }
+        public decimal DiscountRp { get; set; }
+        public decimal PpnProsen { get; set; }
+        public decimal PpnRp { get; set; }
+        public decimal Total { get; set; }
     
         public List<FakturQtyHargaModel> ListQtyHarga { get; set; }
         public List<FakturDiscountModel> ListDiscount { get; set; }

@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[BTR_Kategori]
+(
+	KategoriId VARCHAR(5) NOT NULL CONSTRAINT DF_BTR_Kategori_KategoriId DEFAULT(''),
+	KategoriName VARCHAR(30) NOT NULL CONSTRAINT DF_BTR_Kategori_KategoriName DEFAULT(''),
+
+	CONSTRAINT PK_BTR_Kategori PRIMARY KEY CLUSTERED(KategoriId)
+)

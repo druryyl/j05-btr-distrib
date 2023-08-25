@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using btr.application.InventoryContext.BrgAgg.Workers;
+using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.WarehouseAgg.Contracts;
 using btr.application.SalesContext.CustomerAgg.Contracts;
 using btr.application.SalesContext.FakturAgg.Contracts;
 using btr.application.SalesContext.SalesPersonAgg.Contracts;
-using btr.domain.InventoryContext.BrgAgg;
+using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.FakturAgg;
@@ -92,6 +92,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
                        ?? throw new KeyNotFoundException($"Faktur nof found ({fakturKey.FakturId})");
             _aggRoot.ListItem = _fakturItemDal.ListData(fakturKey)?.ToList()
                                 ?? new List<FakturItemModel>();
+            
 
             var allQtyHarga = _fakturQtyHargaDal.ListData(fakturKey)?.ToList()
                               ?? new List<FakturQtyHargaModel>();
@@ -177,7 +178,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             newItem.ListDiscount = GenListDiscount(brgKey.BrgId, newItem.SubTotal, discountString).ToList();
             newItem.DiscountRp = newItem.ListDiscount.Sum(x => x.DiscountRp);
             newItem.PpnProsen = 11;
-            newItem.PpnRp = (newItem.SubTotal - newItem.DiscountRp) * 0.11;
+            newItem.PpnRp = (newItem.SubTotal - newItem.DiscountRp) * 0.11M;
             newItem.Total = newItem.SubTotal - newItem.DiscountRp + newItem.PpnRp;
 
             _aggRoot.ListItem.Add(newItem);
@@ -186,12 +187,18 @@ namespace btr.application.SalesContext.FakturAgg.Workers
 
         private static IEnumerable<FakturQtyHargaModel> GenListStokHarga(BrgModel brg, string qtyString)
         {
+            //  TODO: Perbaiki GenList Stok-Harga di Faktur Builder
+            
             var result = new List<FakturQtyHargaModel>();
             var qtys = ParseStringMultiNumber(qtyString, 3);
-            var satuanBesar = brg.ListSatuanHarga.OrderBy(x => x.Conversion).Last();
-            var satuanKecil = brg.ListSatuanHarga.OrderBy(x => x.Conversion).First();
-            var hrgBesar = brg.ListSatuanHarga.FirstOrDefault(x => x.Satuan == satuanBesar.Satuan)?.HargaJual ?? 0;
-            var hrgKecil = brg.ListSatuanHarga.FirstOrDefault(x => x.Satuan == satuanKecil.Satuan)?.HargaJual ?? 0;
+            var satuanBesar = brg.ListSatuan.OrderBy(x => x.Conversion).Last();
+            var satuanKecil = brg.ListSatuan.OrderBy(x => x.Conversion).First();
+
+            //  TODO: Harga Jual seharusnya ambil dari jenis customer
+            //  sementara di-bypass, konfirmasi ke mas harjo/mba pargi
+            var hrg = brg.ListHarga.FirstOrDefault()?.Harga ?? 0;
+            var hrgBesar = hrg * (decimal)qtys[0];
+            var hrgKecil = hrg * (decimal)qtys[1];
 
             result.Add(new FakturQtyHargaModel(1, brg.BrgId, satuanBesar.Satuan,
                 satuanBesar.Conversion, (int)qtys[0], hrgBesar));
@@ -204,12 +211,12 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             return result;
         }
 
-        private static IEnumerable<FakturDiscountModel> GenListDiscount(string brgId, double subTotal,
+        private static IEnumerable<FakturDiscountModel> GenListDiscount(string brgId, decimal subTotal,
             string disccountString)
         {
             var discs = ParseStringMultiNumber(disccountString, 4);
 
-            var discRp = new double[4];
+            var discRp = new decimal[4];
             discRp[0] = subTotal * discs[0] / 100;
             var newSubTotal = subTotal - discRp[0];
             discRp[1] = newSubTotal * discs[1] / 100;
@@ -229,9 +236,9 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             return result;
         }
 
-        private static List<double> ParseStringMultiNumber(string str, int size)
+        private static List<decimal> ParseStringMultiNumber(string str, int size)
         {
-            var result = new List<double>();
+            var result = new List<decimal>();
             for (var i = 0; i < size; i++)
                 result.Add(0);
 
@@ -240,7 +247,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             var x = 0;
             foreach (var item in resultStr.TakeWhile(item => x < result.Count))
             {
-                if (double.TryParse(item, out var temp))
+                if (decimal.TryParse(item, out var temp))
                     result[x] = temp;
                 x++;
             }
