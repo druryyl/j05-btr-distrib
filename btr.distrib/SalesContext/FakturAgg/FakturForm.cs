@@ -310,7 +310,7 @@ namespace btr.distrib.SalesContext.FakturAgg
                 var thisHrg = harga * item.Conversion;
                 var newItem = new FakturItem2DtoStokHargaSatuan(thisQty, thisHrg, item.Satuan);
                 result.Add(newItem);
-                sisa = sisa - (thisQty * item.Conversion);
+                sisa -= (thisQty * item.Conversion);
             }
             return result;
         }

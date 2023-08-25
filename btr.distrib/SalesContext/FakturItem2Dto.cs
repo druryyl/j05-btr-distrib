@@ -33,7 +33,9 @@ namespace btr.distrib.SalesContext.FakturAgg
                 _qty = value;
                 ReCalc();
             }
-        }        public string QtyDetil { get; private set;}
+        }        
+        
+        public string QtyDetil { get; private set;}
         public decimal SubTotal { get; private set; }
 
         public string Disc
