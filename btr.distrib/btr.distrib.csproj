@@ -302,6 +302,16 @@
     </Compile>
     <Compile Include="WinformAssemblyAnchor.cs" />
     <Content Include="icons8_truck.ico" />
+    <None Include="Resources\icons8_factory.ico" />
+    <None Include="Resources\icons8_bill.ico" />
+    <None Include="Resources\icons8_purchase_order.ico" />
+    <None Include="Resources\icons8_map_marker.ico" />
+    <None Include="Resources\icons8_caretaker.ico" />
+    <None Include="Resources\icons8_real_estate.ico" />
+    <None Include="Resources\icons8_3d_farm_32.png" />
+    <None Include="Resources\icons8_documents.ico" />
+    <None Include="Resources\icons8_import.ico" />
+    <None Include="Resources\icons8_day_view.ico" />
     <None Include="Readme.md" />
     <None Include="Resources\icons8_graph_32.png" />
     <None Include="Resources\ingredients_48px.png" />

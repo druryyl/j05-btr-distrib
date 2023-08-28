@@ -77,7 +77,7 @@
             this.ribbon1.OrbDropDown.Size = new System.Drawing.Size(527, 72);
             this.ribbon1.OrbDropDown.TabIndex = 0;
             this.ribbon1.RibbonTabFont = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ribbon1.Size = new System.Drawing.Size(876, 138);
+            this.ribbon1.Size = new System.Drawing.Size(876, 113);
             this.ribbon1.TabIndex = 2;
             this.ribbon1.Tabs.Add(this.SalesTab);
             this.ribbon1.Tabs.Add(this.PurchaseTab);
@@ -104,8 +104,8 @@
             // 
             // FakturButton
             // 
-            this.FakturButton.Image = global::btr.distrib.Properties.Resources.day_view_48px;
-            this.FakturButton.LargeImage = global::btr.distrib.Properties.Resources.day_view_48px;
+            this.FakturButton.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.FakturButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
             this.FakturButton.Name = "FakturButton";
             this.FakturButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FakturButton.SmallImage")));
             this.FakturButton.Text = "Faktur";
@@ -113,16 +113,16 @@
             // 
             // ReturJualButton
             // 
-            this.ReturJualButton.Image = global::btr.distrib.Properties.Resources.import_48px;
-            this.ReturJualButton.LargeImage = global::btr.distrib.Properties.Resources.import_48px;
+            this.ReturJualButton.Image = global::btr.distrib.Properties.Resources.icons8_import;
+            this.ReturJualButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_import;
             this.ReturJualButton.Name = "ReturJualButton";
             this.ReturJualButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ReturJualButton.SmallImage")));
             this.ReturJualButton.Text = "Retur";
             // 
             // ReportFakturButton
             // 
-            this.ReportFakturButton.Image = global::btr.distrib.Properties.Resources.documents_48px;
-            this.ReportFakturButton.LargeImage = global::btr.distrib.Properties.Resources.documents_48px;
+            this.ReportFakturButton.Image = global::btr.distrib.Properties.Resources.icons8_documents;
+            this.ReportFakturButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents;
             this.ReportFakturButton.Name = "ReportFakturButton";
             this.ReportFakturButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ReportFakturButton.SmallImage")));
             this.ReportFakturButton.Text = "Reporting";
@@ -139,8 +139,8 @@
             // 
             // OutletButton
             // 
-            this.OutletButton.Image = global::btr.distrib.Properties.Resources._3d_farm_48px;
-            this.OutletButton.LargeImage = global::btr.distrib.Properties.Resources._3d_farm_48px;
+            this.OutletButton.Image = global::btr.distrib.Properties.Resources.icons8_3d_farm_32;
+            this.OutletButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_3d_farm_32;
             this.OutletButton.Name = "OutletButton";
             this.OutletButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("OutletButton.SmallImage")));
             this.OutletButton.Text = "Outlet";
@@ -148,8 +148,8 @@
             // 
             // KategoriButton
             // 
-            this.KategoriButton.Image = global::btr.distrib.Properties.Resources.real_estate_48px;
-            this.KategoriButton.LargeImage = global::btr.distrib.Properties.Resources.real_estate_48px;
+            this.KategoriButton.Image = global::btr.distrib.Properties.Resources.icons8_real_estate;
+            this.KategoriButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_real_estate;
             this.KategoriButton.Name = "KategoriButton";
             this.KategoriButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("KategoriButton.SmallImage")));
             this.KategoriButton.Text = "Kategori";
@@ -160,17 +160,17 @@
             // 
             // SalesPersonButton
             // 
-            this.SalesPersonButton.Image = global::btr.distrib.Properties.Resources.caretaker_48px;
-            this.SalesPersonButton.LargeImage = global::btr.distrib.Properties.Resources.caretaker_48px;
+            this.SalesPersonButton.Image = global::btr.distrib.Properties.Resources.icons8_caretaker;
+            this.SalesPersonButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_caretaker;
             this.SalesPersonButton.Name = "SalesPersonButton";
             this.SalesPersonButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("SalesPersonButton.SmallImage")));
-            this.SalesPersonButton.Text = "Sales Person";
+            this.SalesPersonButton.Text = "Sales";
             this.SalesPersonButton.Click += new System.EventHandler(this.SalesPersonButton_Click);
             // 
             // WilayahButton
             // 
-            this.WilayahButton.Image = global::btr.distrib.Properties.Resources.map_marker_48px;
-            this.WilayahButton.LargeImage = global::btr.distrib.Properties.Resources.map_marker_48px;
+            this.WilayahButton.Image = global::btr.distrib.Properties.Resources.icons8_map_marker;
+            this.WilayahButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_map_marker;
             this.WilayahButton.Name = "WilayahButton";
             this.WilayahButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("WilayahButton.SmallImage")));
             this.WilayahButton.Text = "Wilayah";
@@ -193,8 +193,8 @@
             // 
             // PoButton
             // 
-            this.PoButton.Image = global::btr.distrib.Properties.Resources.purchase_order_48px;
-            this.PoButton.LargeImage = global::btr.distrib.Properties.Resources.purchase_order_48px;
+            this.PoButton.Image = global::btr.distrib.Properties.Resources.icons8_purchase_order;
+            this.PoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_purchase_order;
             this.PoButton.Name = "PoButton";
             this.PoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("PoButton.SmallImage")));
             this.PoButton.Text = "PO";
@@ -202,8 +202,8 @@
             // 
             // PoReportButton
             // 
-            this.PoReportButton.Image = global::btr.distrib.Properties.Resources.documents_48px1;
-            this.PoReportButton.LargeImage = global::btr.distrib.Properties.Resources.documents_48px1;
+            this.PoReportButton.Image = global::btr.distrib.Properties.Resources.icons8_documents;
+            this.PoReportButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents;
             this.PoReportButton.Name = "PoReportButton";
             this.PoReportButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("PoReportButton.SmallImage")));
             this.PoReportButton.Text = "Reporting";
@@ -217,8 +217,8 @@
             // 
             // InvoiceButton
             // 
-            this.InvoiceButton.Image = global::btr.distrib.Properties.Resources.flag_of_bremen_with_lesser_arms_48px;
-            this.InvoiceButton.LargeImage = global::btr.distrib.Properties.Resources.flag_of_bremen_with_lesser_arms_48px;
+            this.InvoiceButton.Image = global::btr.distrib.Properties.Resources.icons8_bill;
+            this.InvoiceButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_bill;
             this.InvoiceButton.Name = "InvoiceButton";
             this.InvoiceButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("InvoiceButton.SmallImage")));
             this.InvoiceButton.Text = "Invoice";
@@ -239,8 +239,8 @@
             // 
             // SupplierButton
             // 
-            this.SupplierButton.Image = global::btr.distrib.Properties.Resources.factory_48px;
-            this.SupplierButton.LargeImage = global::btr.distrib.Properties.Resources.factory_48px;
+            this.SupplierButton.Image = global::btr.distrib.Properties.Resources.icons8_factory;
+            this.SupplierButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_factory;
             this.SupplierButton.Name = "SupplierButton";
             this.SupplierButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("SupplierButton.SmallImage")));
             this.SupplierButton.Text = "Supplier";
