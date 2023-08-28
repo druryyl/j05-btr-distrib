@@ -23,13 +23,14 @@ namespace btr.infrastructure.SalesContext.SalesPersonAgg
         {
             const string sql = @"
             INSERT INTO BTR_SalesPerson(
-                SalesPersonId, SalesPersonName)
+                SalesPersonId, SalesPersonName, WilayahId)
             VALUES (
-                @SalesPersonId, @SalesPersonName)";
+                @SalesPersonId, @SalesPersonName, @WilayahId)";
 
             var dp = new DynamicParameters();
             dp.AddParam("@SalesPersonId", model.SalesPersonId, SqlDbType.VarChar);
             dp.AddParam("@SalesPersonName", model.SalesPersonName, SqlDbType.VarChar);
+            dp.AddParam("@WilayahId", model.WilayahId, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -43,13 +44,15 @@ namespace btr.infrastructure.SalesContext.SalesPersonAgg
             UPDATE 
                 BTR_SalesPerson
             SET
-                SalesPersonName = @SalesPersonName
+                SalesPersonName = @SalesPersonName,
+                WilayahId = @WilayahId
             WHERE
                 SalesPersonId = @SalesPersonId ";
 
             var dp = new DynamicParameters();
             dp.AddParam("@SalesPersonId", model.SalesPersonId, SqlDbType.VarChar);
             dp.AddParam("@SalesPersonName", model.SalesPersonName, SqlDbType.VarChar);
+            dp.AddParam("@WilayahId", model.WilayahId, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -78,9 +81,11 @@ namespace btr.infrastructure.SalesContext.SalesPersonAgg
         {
             const string sql = @"
             SELECT
-                SalesPersonId, SalesPersonName
+                aa.SalesPersonId, aa.SalesPersonName, aa.WilayahId,
+                ISNULL(bb.WilayahName, '') AS WilayahName
             FROM
-                BTR_SalesPerson
+                BTR_SalesPerson aa
+                LEFT JOIN BTR_Wilayah bb ON aa.WilayahId = bb.WilayahId
             WHERE
                 SalesPersonId = @SalesPersonId ";
 
@@ -97,9 +102,11 @@ namespace btr.infrastructure.SalesContext.SalesPersonAgg
         {
             const string sql = @"
             SELECT
-                SalesPersonId, SalesPersonName
+                aa.SalesPersonId, aa.SalesPersonName, aa.WilayahId,
+                ISNULL(bb.WilayahName, '') AS WilayahName
             FROM
-                BTR_SalesPerson";
+                BTR_SalesPerson aa
+                LEFT JOIN BTR_Wilayah bb ON aa.WilayahId = bb.WilayahId ";
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {

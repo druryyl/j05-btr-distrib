@@ -34,7 +34,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly BindingList<FakturItem2Dto> _listItem = new BindingList<FakturItem2Dto>();
         private readonly IMediator _mediator;
 
-        private readonly IBrowser<SalesBrowserView> _salesBrowser;
+        private readonly IBrowser<SalesPersonBrowserView> _salesBrowser;
         private readonly IBrowser<CustomerBrowserView> _customerBrowser;
         private readonly IBrowser<WarehouseBrowserView> _warehouseBrowser;
         private readonly IBrowser<BrgStokBrowserView> _brgStokBrowser;
@@ -51,7 +51,7 @@ namespace btr.distrib.SalesContext.FakturAgg
 
         public FakturForm(IMediator mediator,
             IBrowser<WarehouseBrowserView> warehouseBrowser,
-            IBrowser<SalesBrowserView> salesBrowser,
+            IBrowser<SalesPersonBrowserView> salesBrowser,
             IBrowser<CustomerBrowserView> customerBrowser,
             IBrowser<BrgStokBrowserView> brgStokBrowser,
             IFakturBrowser fakturBrowser,

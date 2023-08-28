@@ -103,7 +103,10 @@ namespace btr.distrib.PurchaseContext.SupplierAgg
         private void FilterListGrid(string keyword)
         {
             if (keyword.Length == 0)
+            {
                 ListGrid.DataSource = _listSupplier;
+                return;
+            }
             var listFilter = _listSupplier.Where(x => x.Name.ContainMultiWord(keyword)).ToList();
             var listByAlamat = _listSupplier.Where(x => x.Alamat.ContainMultiWord(keyword)).ToList();
             listFilter.AddRange(listByAlamat);

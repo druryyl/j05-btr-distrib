@@ -128,7 +128,10 @@ namespace btr.distrib.SalesContext.CustomerAgg
         private void FilterCustGrid(string keyword)
         {
             if (keyword.Length == 0)
+            {
                 CustGrid.DataSource = _listCust;
+                return;
+            }
             var listFilter = _listCust.Where(x => x.Name.ContainMultiWord(keyword)).ToList();
             var listByAlamat = _listCust.Where(x => x.Alamat.ContainMultiWord(keyword)).ToList();
             listFilter.AddRange(listByAlamat);
@@ -229,8 +232,8 @@ namespace btr.distrib.SalesContext.CustomerAgg
         #region WILAYAH
         private void WilayahButton_Click(object sender, EventArgs e)
         {
-            WilayahIdText.Text = _wilayahBrowser.Browse(CustIdText.Text);
-            CustIdText_Validated(CustIdText, null);
+            WilayahIdText.Text = _wilayahBrowser.Browse(WilayahIdText.Text);
+            CustIdText_Validated(WilayahIdText, null);
         }
 
         private void WilayahIdText_Validated(object sender, EventArgs e)

@@ -8,13 +8,13 @@ using btr.domain.SalesContext.SalesPersonAgg;
 
 namespace btr.distrib.Browsers
 {
-    public class SalesBrowser : IBrowser<SalesBrowserView>
+    public class SalesPersonBrowser : IBrowser<SalesPersonBrowserView>
     {
-        private readonly ISalesPersonDal _salesDal;
+        private readonly ISalesPersonDal _salesPersonDal;
 
-        public SalesBrowser(ISalesPersonDal salesDal)
+        public SalesPersonBrowser(ISalesPersonDal salesPersonDal)
         {
-            _salesDal = salesDal;
+            _salesPersonDal = salesPersonDal;
             Filter = new BrowseFilter();
             Filter.IsDate = false;
             Filter.HideAllRows = false;
@@ -22,7 +22,7 @@ namespace btr.distrib.Browsers
 
         public string Browse(string defaultValue)
         {
-            var form = new Browser2Form<SalesBrowserView>(this);
+            var form = new Browser2Form<SalesPersonBrowserView>(this);
 
             var dialogResult = form.ShowDialog();
             if (dialogResult == System.Windows.Forms.DialogResult.OK)
@@ -33,29 +33,29 @@ namespace btr.distrib.Browsers
 
         public BrowseFilter Filter { get; set; }
 
-        public IEnumerable<SalesBrowserView> GenDataSource()
+        public IEnumerable<SalesPersonBrowserView> GenDataSource()
         {
-            var listData = _salesDal.ListData()?.ToList() ?? new List<SalesPersonModel>();
+            var listData = _salesPersonDal.ListData()?.ToList() ?? new List<SalesPersonModel>();
 
             var result = listData
                 .OrderBy(x => x.SalesPersonName)
-                .Select(x => new SalesBrowserView
+                .Select(x => new SalesPersonBrowserView
                 {
                     Id = x.SalesPersonId,
-                    SalesName = x.SalesPersonName
+                    SalesPersonName = x.SalesPersonName
                 }).ToList();
 
             if (Filter.UserKeyword.Length > 0)
                 result = result
-                    .Where(x => x.SalesName.ContainMultiWord(Filter.UserKeyword)).ToList();
+                    .Where(x => x.SalesPersonName.ContainMultiWord(Filter.UserKeyword)).ToList();
 
             return result;
         }
     }
 
-    public class SalesBrowserView
+    public class SalesPersonBrowserView
     {
         public string Id { get; set; }
-        public string SalesName { get; set; }
+        public string SalesPersonName { get; set; }
     }
 }

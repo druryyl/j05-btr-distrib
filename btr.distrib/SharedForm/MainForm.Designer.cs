@@ -165,6 +165,7 @@
             this.SalesPersonButton.Name = "SalesPersonButton";
             this.SalesPersonButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("SalesPersonButton.SmallImage")));
             this.SalesPersonButton.Text = "Sales Person";
+            this.SalesPersonButton.Click += new System.EventHandler(this.SalesPersonButton_Click);
             // 
             // WilayahButton
             // 

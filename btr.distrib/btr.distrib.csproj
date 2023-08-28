@@ -213,7 +213,7 @@
     <Compile Include="Browsers\BrgStok2Browser.cs" />
     <Compile Include="Browsers\CustomerBrowser.cs" />
     <Compile Include="Browsers\KategoriBrowser.cs" />
-    <Compile Include="Browsers\SalesBrowser.cs" />
+    <Compile Include="Browsers\SalesPersonBrowser.cs" />
     <Compile Include="Browsers\WilayahBrowser.cs" />
     <Compile Include="Helpers\BrowseFilter.cs" />
     <Compile Include="Helpers\IBrowseEngine.cs" />
@@ -268,7 +268,13 @@
       <DependentUpon>FakturForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SalesContext\FakturAgg\FakturItemDto.cs" />
-    <Compile Include="SalesContext\FakturItem2Dto.cs" />
+    <Compile Include="SalesContext\FakturAgg\FakturItem2Dto.cs" />
+    <Compile Include="SalesContext\SalesPersonAgg\SalesPersonForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SalesContext\SalesPersonAgg\SalesPersonForm.Designer.cs">
+      <DependentUpon>SalesPersonForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SharedForm\Browser2Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -333,6 +339,9 @@
     <EmbeddedResource Include="SalesContext\FakturAgg\FakturForm.resx">
       <DependentUpon>FakturForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SalesContext\SalesPersonAgg\SalesPersonForm.resx">
+      <DependentUpon>SalesPersonForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SharedForm\Browser2Form.resx">
       <DependentUpon>Browser2Form.cs</DependentUpon>
     </EmbeddedResource>
@@ -387,6 +396,8 @@
       <Name>btr.nuna</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="SalesContext\WilayahAgg\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

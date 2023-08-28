@@ -3,6 +3,7 @@ using btr.distrib.PurchaseContext.PurchaseOrderAgg;
 using btr.distrib.PurchaseContext.SupplierAgg;
 using btr.distrib.SalesContext.CustomerAgg;
 using btr.distrib.SalesContext.FakturAgg;
+using btr.distrib.SalesContext.SalesPersonAgg;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Drawing;
@@ -58,6 +59,14 @@ namespace btr.distrib.SharedForm
         private void SupplierButton_Click(object sender, EventArgs e)
         {
             var form = _servicesProvider.GetRequiredService<SupplierForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void SalesPersonButton_Click(object sender, EventArgs e)
+        {
+            var form = _servicesProvider.GetRequiredService<SalesPersonForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
