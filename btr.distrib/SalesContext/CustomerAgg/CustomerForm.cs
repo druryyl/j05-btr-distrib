@@ -25,6 +25,7 @@ namespace btr.distrib.SalesContext.CustomerAgg
         private readonly IBrowser<CustomerBrowserView> _customerBrowser;
         private readonly IKlasifikasiDal _klasifikasiDal;
         private readonly IHargaTypeDal _hargaTypeDal;
+        private readonly ICustomerWriter _customerWriter;
 
         public CustomerForm(ICustomerDal customerDal,
             ICustomerBuilder customerBuilder,
@@ -52,8 +53,64 @@ namespace btr.distrib.SalesContext.CustomerAgg
 
             CustIdText.Validated += CustIdText_Validated;
             CustButton.Click += CustButton_Click;
+
+            SaveButton.Click += SaveButton_Click;
         }
 
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            var customer = new CustomerModel(CustIdText.Text);
+            if (CustIdText.Text.Length == 0)
+                customer = _customerBuilder.CreateNew().Build();
+            else
+                customer = _customerBuilder.Load(customer).Build();
+
+            customer = _customerBuilder
+                .Attach(customer)
+                .Name(CustNameText.Text)
+                .Code(CustCodeText.Text)
+                .Klasifikasi(new KlasifikasiModel(KlasifikasiCombo.SelectedValue.ToString()))
+                .HargaType(new HargaTypeModel(TipeHargaCombo.SelectedValue.ToString()))
+                .Plafond(PlafondText.Value)
+                .CreditBalance(CreditBalanceText.Value)
+                .Wilayah(new WilayahModel(WilayahIdText.Text))
+                .Address(Alamat1Text.Text, Alamat2Text.Text, KotaText.Text)
+                .KodePos(KodePosText.Text)
+                .NoTelp(NoTelponText.Text)
+                .NoFax(NoFaxText.Text)
+                .IsKenaPajak(IsKenaPajakCheck.Checked)
+                .Npwp(NpwpText.Text)
+                .Nppkp(NppkpText.Text)
+                .AddressWp(Alamat1WpText.Text, Alamat2WpText.Text)
+                .Build();
+
+            _customerWriter.Save(ref customer);
+            ClearForm();
+        }
+
+        private void ClearForm()
+        {
+            CustIdText.Clear();;
+            CustNameText.Clear();;
+            CustCodeText.Clear();;
+            KlasifikasiCombo.SelectedValue = null;
+            TipeHargaCombo.SelectedValue = null;
+            PlafondText.Value = 0;
+            CreditBalanceText.Value = 0;
+            WilayahIdText.Clear();
+            WilayahNameText.Clear();
+            Alamat1Text.Clear();
+            Alamat2Text.Clear();
+            KotaText.Clear();
+            KodePosText.Clear();
+            NoTelponText.Clear();
+            NoFaxText.Clear();
+            IsKenaPajakCheck.Checked = true;
+            NpwpText.Clear();
+            NppkpText.Clear();
+            Alamat1WpText.Clear();
+            Alamat2WpText.Clear();
+        }
         private void InitKlasifikasi()
         {
             var listAll = _klasifikasiDal.ListData()?.ToList() ?? new List<KlasifikasiModel>();

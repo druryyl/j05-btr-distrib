@@ -34,6 +34,7 @@
             this.SearchText = new System.Windows.Forms.TextBox();
             this.CustGrid = new System.Windows.Forms.DataGridView();
             this.DetilPage = new System.Windows.Forms.TabPage();
+            this.SaveButton = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.CreditBalanceText = new System.Windows.Forms.NumericUpDown();
             this.label16 = new System.Windows.Forms.Label();
@@ -77,7 +78,6 @@
             this.CustNameText = new System.Windows.Forms.TextBox();
             this.CustButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.SaveButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.ListPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CustGrid)).BeginInit();
@@ -108,7 +108,7 @@
             this.ListPage.Location = new System.Drawing.Point(4, 22);
             this.ListPage.Name = "ListPage";
             this.ListPage.Padding = new System.Windows.Forms.Padding(3);
-            this.ListPage.Size = new System.Drawing.Size(710, 411);
+            this.ListPage.Size = new System.Drawing.Size(710, 437);
             this.ListPage.TabIndex = 1;
             this.ListPage.Text = "List";
             this.ListPage.UseVisualStyleBackColor = true;
@@ -116,7 +116,7 @@
             // SearchButton
             // 
             this.SearchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SearchButton.Location = new System.Drawing.Point(629, 381);
+            this.SearchButton.Location = new System.Drawing.Point(629, 407);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(75, 23);
             this.SearchButton.TabIndex = 8;
@@ -127,7 +127,7 @@
             // 
             this.SearchText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.SearchText.Location = new System.Drawing.Point(6, 383);
+            this.SearchText.Location = new System.Drawing.Point(6, 409);
             this.SearchText.Name = "SearchText";
             this.SearchText.Size = new System.Drawing.Size(617, 22);
             this.SearchText.TabIndex = 7;
@@ -140,7 +140,7 @@
             this.CustGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.CustGrid.Location = new System.Drawing.Point(6, 9);
             this.CustGrid.Name = "CustGrid";
-            this.CustGrid.Size = new System.Drawing.Size(698, 366);
+            this.CustGrid.Size = new System.Drawing.Size(698, 392);
             this.CustGrid.TabIndex = 6;
             // 
             // DetilPage
@@ -156,6 +156,15 @@
             this.DetilPage.Size = new System.Drawing.Size(710, 437);
             this.DetilPage.TabIndex = 0;
             this.DetilPage.Text = "Detail";
+            // 
+            // SaveButton
+            // 
+            this.SaveButton.Location = new System.Drawing.Point(629, 408);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.Size = new System.Drawing.Size(75, 23);
+            this.SaveButton.TabIndex = 55;
+            this.SaveButton.Text = "Save";
+            this.SaveButton.UseVisualStyleBackColor = true;
             // 
             // panel4
             // 
@@ -569,15 +578,6 @@
             this.label6.Size = new System.Drawing.Size(70, 13);
             this.label6.TabIndex = 0;
             this.label6.Text = "Customer ID";
-            // 
-            // SaveButton
-            // 
-            this.SaveButton.Location = new System.Drawing.Point(629, 408);
-            this.SaveButton.Name = "SaveButton";
-            this.SaveButton.Size = new System.Drawing.Size(75, 23);
-            this.SaveButton.TabIndex = 55;
-            this.SaveButton.Text = "Save";
-            this.SaveButton.UseVisualStyleBackColor = true;
             // 
             // CustomerForm
             // 
