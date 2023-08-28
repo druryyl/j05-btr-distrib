@@ -17,6 +17,7 @@ namespace btr.distrib.Browsers
             _customerDal = customerDal;
             Filter = new BrowseFilter();
             Filter.IsDate = false;
+            Filter.HideAllRows = true;
         }
 
         public string Browse(string defaultValue)
@@ -35,13 +36,13 @@ namespace btr.distrib.Browsers
         public IEnumerable<CustomerBrowserView> GenDataSource()
         {
             var listData = _customerDal.ListData()?.ToList() ?? new List<CustomerModel>();
-
             var result = listData
                 .OrderBy(x => x.CustomerName)
                 .Select(x => new CustomerBrowserView
                 {
                     Id = x.CustomerId,
-                    CustomerName = x.CustomerName
+                    CustomerName = x.CustomerName,
+                    Code = x.CustomerCode
                 }).ToList();
 
             if (Filter.UserKeyword.Length > 0)
@@ -56,5 +57,6 @@ namespace btr.distrib.Browsers
     {
         public string Id { get; set; }
         public string CustomerName { get; set; }
+        public string Code { get; set; }
     }
 }

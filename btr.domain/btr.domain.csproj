@@ -87,8 +87,12 @@
     <Compile Include="SalesContext\FakturAgg\IFakturItemKey.cs" />
     <Compile Include="SalesContext\FakturAgg\IFakturKey.cs" />
     <Compile Include="SalesContext\FakturAgg\IFakturStokHargaKey.cs" />
+    <Compile Include="SalesContext\KlasifikasiAgg\IKlasifikasiKey.cs" />
+    <Compile Include="SalesContext\KlasifikasiAgg\KlasifikasiModel.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\ISalesPersonKey.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\SalesPersonModel.cs" />
+    <Compile Include="SalesContext\WilayahAgg\IWilayahKey.cs" />
+    <Compile Include="SalesContext\WilayahAgg\WilayahModel.cs" />
     <Compile Include="SupportContext\UserAgg\IUserKey.cs" />
     <Compile Include="SupportContext\UserAgg\UserModel.cs" />
   </ItemGroup>

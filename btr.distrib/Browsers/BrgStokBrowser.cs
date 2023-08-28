@@ -21,6 +21,7 @@ namespace btr.distrib.Browsers
         {
             _mediator = mediator;
         }
+        public bool HideAllRow { get => true; }
 
         public bool IsShowDate { get; private set; }
         public string[] BrowserQueryArgs { get; set; }
@@ -40,5 +41,6 @@ namespace btr.distrib.Browsers
             var result = await policy.ExecuteAsync(queryTask);
             return result;
         }
+
     }
 }

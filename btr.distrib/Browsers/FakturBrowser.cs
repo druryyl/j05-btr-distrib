@@ -38,5 +38,6 @@ namespace btr.distrib.Browsers
             return result;
         }
 
+        public bool HideAllRow { get; }
     }
 }

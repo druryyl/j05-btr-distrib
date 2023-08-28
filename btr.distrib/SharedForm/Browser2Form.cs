@@ -60,9 +60,16 @@ namespace btr.distrib.SharedForm
         {
             _engine.Filter.UserKeyword = FilterTextBox.Text;
             _engine.Filter.Date = new Periode(FilterDate1TextBox.Value, FilterDate2TextBox.Value);
-            _binder.DataSource = _engine.GenDataSource();
 
-            BrowserGrid.DataSource = _binder;
+            if (_engine.Filter.HideAllRows)
+                if (_engine.Filter.UserKeyword.Length == 0)
+                {
+                    _binder.DataSource = null;
+                    BrowserGrid.DataSource = _binder;
+                    return;
+                }
+
+            _binder.DataSource = _engine.GenDataSource();
         }
 
         private void BrowserGrid_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)

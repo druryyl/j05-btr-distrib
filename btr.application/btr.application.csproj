@@ -125,6 +125,7 @@
     <Compile Include="SalesContext\FakturAgg\Workers\FakturBuilder.cs" />
     <Compile Include="SalesContext\FakturAgg\Workers\FakturValidator.cs" />
     <Compile Include="SalesContext\FakturAgg\Workers\FakturWriter.cs" />
+    <Compile Include="SalesContext\KlasifikasiAgg\IKlasifikasiDal.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\Contracts\ISalesPersonDal.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\UseCases\CreateSalesPersonCommand.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\UseCases\GetDataSalesPersonQuery.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="SalesContext\SalesPersonAgg\Workers\SalesPersonBuilder.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\Workers\SalesPersonValidator.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\Workers\SalesPersonWriter.cs" />
+    <Compile Include="SalesContext\WilayahAgg\IWilayahDal.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="FinanceContext\CreditNoteAgg\" />

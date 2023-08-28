@@ -98,7 +98,9 @@
     <Compile Include="SalesContext\FakturAgg\FakturDiscountDal.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturItemDal.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturQtyHargaDal.cs" />
+    <Compile Include="SalesContext\KlasifikasiAgg\KlasifikasiDal.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\SalesPersonDal.cs" />
+    <Compile Include="SalesContext\WilayahAgg\WilayahDal.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\btr.application\btr.application.csproj">

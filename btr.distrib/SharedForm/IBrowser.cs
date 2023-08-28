@@ -8,15 +8,12 @@ namespace btr.distrib.SharedForm
 {
     public interface IQueryBrowser<TResult>
     {
+        //  TODO: Browser tidak load all data       
+        bool HideAllRow { get; }
         bool IsShowDate { get; }
         string[] BrowserQueryArgs { get; set; }
         Task<IEnumerable<TResult>> Browse(string userSearch, Periode userPeriode);
     }
-    public interface IBrowser
-    {
-        string Browse(string defaultValue);
-    }
-
     public interface IBrowser<T> : IBrowseEngine<T>
     {
         string Browse(string defaultValue);

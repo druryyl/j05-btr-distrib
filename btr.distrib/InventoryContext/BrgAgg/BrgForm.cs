@@ -394,7 +394,8 @@ namespace btr.distrib.InventoryContext.BrgAgg
             BrgGrid.Columns.GetCol("Id").Width = 50;
             BrgGrid.Columns.GetCol("BrgName").Width = 200;
             BrgGrid.Columns.GetCol("Kategori").Width = 100;
-
+            if (BrgGrid.Rows.Count == 0)
+                return;
             BrgGrid.FirstDisplayedScrollingRowIndex = BrgGrid.Rows.Count - 1;
         }
         #endregion
