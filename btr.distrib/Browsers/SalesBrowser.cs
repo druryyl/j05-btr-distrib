@@ -17,6 +17,7 @@ namespace btr.distrib.Browsers
             _salesDal = salesDal;
             Filter = new BrowseFilter();
             Filter.IsDate = false;
+            Filter.HideAllRows = false;
         }
 
         public string Browse(string defaultValue)

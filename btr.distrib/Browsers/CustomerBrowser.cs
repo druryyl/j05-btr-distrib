@@ -41,8 +41,7 @@ namespace btr.distrib.Browsers
                 .Select(x => new CustomerBrowserView
                 {
                     Id = x.CustomerId,
-                    CustomerName = x.CustomerName,
-                    Code = x.CustomerCode
+                    CustomerName = $"{x.CustomerName} - {x.Address1} {x.Kota}",
                 }).ToList();
 
             if (Filter.UserKeyword.Length > 0)
@@ -57,6 +56,5 @@ namespace btr.distrib.Browsers
     {
         public string Id { get; set; }
         public string CustomerName { get; set; }
-        public string Code { get; set; }
     }
 }

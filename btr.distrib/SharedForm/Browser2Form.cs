@@ -70,6 +70,7 @@ namespace btr.distrib.SharedForm
                 }
 
             _binder.DataSource = _engine.GenDataSource();
+            BrowserGrid.DataSource = _binder;
         }
 
         private void BrowserGrid_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)

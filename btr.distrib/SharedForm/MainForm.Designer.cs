@@ -144,6 +144,7 @@
             this.OutletButton.Name = "OutletButton";
             this.OutletButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("OutletButton.SmallImage")));
             this.OutletButton.Text = "Outlet";
+            this.OutletButton.Click += new System.EventHandler(this.OutletButton_Click);
             // 
             // KategoriButton
             // 
