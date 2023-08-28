@@ -275,6 +275,12 @@
     <Compile Include="SalesContext\SalesPersonAgg\SalesPersonForm.Designer.cs">
       <DependentUpon>SalesPersonForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SalesContext\WilayahAgg\WilayahForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SalesContext\WilayahAgg\WilayahForm.Designer.cs">
+      <DependentUpon>WilayahForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SharedForm\Browser2Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -342,6 +348,9 @@
     <EmbeddedResource Include="SalesContext\SalesPersonAgg\SalesPersonForm.resx">
       <DependentUpon>SalesPersonForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SalesContext\WilayahAgg\WilayahForm.resx">
+      <DependentUpon>WilayahForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SharedForm\Browser2Form.resx">
       <DependentUpon>Browser2Form.cs</DependentUpon>
     </EmbeddedResource>
@@ -396,8 +405,6 @@
       <Name>btr.nuna</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SalesContext\WilayahAgg\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

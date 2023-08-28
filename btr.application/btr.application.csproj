@@ -136,6 +136,8 @@
     <Compile Include="SalesContext\SalesPersonAgg\Workers\SalesPersonValidator.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\Workers\SalesPersonWriter.cs" />
     <Compile Include="SalesContext\WilayahAgg\IWilayahDal.cs" />
+    <Compile Include="SalesContext\WilayahAgg\WilayahBuilder.cs" />
+    <Compile Include="SalesContext\WilayahAgg\WilayahWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="FinanceContext\CreditNoteAgg\" />

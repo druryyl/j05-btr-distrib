@@ -174,6 +174,7 @@
             this.WilayahButton.Name = "WilayahButton";
             this.WilayahButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("WilayahButton.SmallImage")));
             this.WilayahButton.Text = "Wilayah";
+            this.WilayahButton.Click += new System.EventHandler(this.WilayahButton_Click);
             // 
             // PurchaseTab
             // 
