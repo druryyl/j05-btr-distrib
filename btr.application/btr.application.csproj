@@ -84,7 +84,9 @@
     <Compile Include="BrgContext\BrgStokViewAgg\Contracts\IBrgStokViewDal.cs" />
     <Compile Include="BrgContext\HargaTypeAgg\IHargaTypeDal.cs" />
     <Compile Include="BrgContext\JenisBrgAgg\IJenisBrgDal.cs" />
-    <Compile Include="BrgContext\KategoriAgg\Contracts\IKategoriDal.cs" />
+    <Compile Include="BrgContext\KategoriAgg\IKategoriDal.cs" />
+    <Compile Include="BrgContext\KategoriAgg\KategoriBuilder.cs" />
+    <Compile Include="BrgContext\KategoriAgg\KategoriWriter.cs" />
     <Compile Include="InventoryContext\StokAgg\Contracts\IStokDal.cs" />
     <Compile Include="InventoryContext\StokAgg\Contracts\IStokMutasiDal.cs" />
     <Compile Include="InventoryContext\StokAgg\UseCases\AddStokCommand.cs" />

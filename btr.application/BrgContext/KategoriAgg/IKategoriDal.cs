@@ -1,8 +1,7 @@
 ﻿using btr.domain.BrgContext.KategoriAgg;
 using btr.nuna.Infrastructure;
-using FluentValidation.Resources;
 
-namespace btr.application.BrgContext.KategoriAgg.Contracts
+namespace btr.application.BrgContext.KategoriAgg
 {
     public interface IKategoriDal :
         IInsert<KategoriModel>,

@@ -1,5 +1,4 @@
-﻿using btr.application.BrgContext.KategoriAgg.Contracts;
-using btr.domain.BrgContext.KategoriAgg;
+﻿using btr.domain.BrgContext.KategoriAgg;
 using btr.infrastructure.Helpers;
 using Dapper;
 using Microsoft.Extensions.Options;
@@ -7,6 +6,7 @@ using System.Collections.Generic;
 using btr.nuna.Infrastructure;
 using System.Data;
 using System.Data.SqlClient;
+using btr.application.BrgContext.KategoriAgg;
 
 namespace btr.infrastructure.BrgContext.KategoriAgg
 {

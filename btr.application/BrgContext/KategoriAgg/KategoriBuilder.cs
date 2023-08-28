@@ -1,0 +1,61 @@
+﻿using btr.domain.BrgContext.KategoriAgg;
+using btr.nuna.Application;
+using btr.nuna.Domain;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace btr.application.BrgContext.KategoriAgg
+{
+    public interface IKategoriBuilder : INunaBuilder<KategoriModel>
+    {
+        IKategoriBuilder Create();
+        IKategoriBuilder Load(IKategoriKey kategoriKey);
+        IKategoriBuilder Attach(KategoriModel model);
+        IKategoriBuilder Name(string name);
+    }
+
+    public class KategoriBuilder : IKategoriBuilder
+    {
+        private KategoriModel _agg;
+        private readonly IKategoriDal _kategoriDal;
+
+        public KategoriBuilder(IKategoriDal kategoriDal)
+        {
+            _kategoriDal = kategoriDal;
+        }
+
+        public KategoriModel Build()
+        {
+            _agg.RemoveNull();
+            return _agg;
+        }
+
+        public IKategoriBuilder Create()
+        {
+            _agg = new KategoriModel();
+            return this;
+        }
+
+        public IKategoriBuilder Load(IKategoriKey kategoriKey)
+        {
+            _agg = _kategoriDal.GetData(kategoriKey)
+                ?? throw new KeyNotFoundException("KategoriId invalid");
+            return this;
+        }
+
+        public IKategoriBuilder Attach(KategoriModel model)
+        {
+            _agg = model;
+            return this;
+        }
+
+        public IKategoriBuilder Name(string name)
+        {
+            _agg.KategoriName = name;
+            return this;
+        }
+    }
+}

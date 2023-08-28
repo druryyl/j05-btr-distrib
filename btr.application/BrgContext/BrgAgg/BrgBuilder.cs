@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using btr.application.BrgContext.JenisBrgAgg;
-using btr.application.BrgContext.KategoriAgg.Contracts;
+using btr.application.BrgContext.KategoriAgg;
 using btr.application.PurchaseContext.SupplierAgg.Contracts;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.BrgContext.HargaTypeAgg;

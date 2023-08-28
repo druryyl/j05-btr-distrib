@@ -153,6 +153,7 @@
             this.KategoriButton.Name = "KategoriButton";
             this.KategoriButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("KategoriButton.SmallImage")));
             this.KategoriButton.Text = "Kategori";
+            this.KategoriButton.Click += new System.EventHandler(this.KategoriButton_Click);
             // 
             // ribbonSeparator1
             // 

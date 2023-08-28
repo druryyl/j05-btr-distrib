@@ -1,4 +1,5 @@
 ﻿using btr.distrib.InventoryContext.BrgAgg;
+using btr.distrib.InventoryContext.KategoriAgg;
 using btr.distrib.PurchaseContext.PurchaseOrderAgg;
 using btr.distrib.PurchaseContext.SupplierAgg;
 using btr.distrib.SalesContext.CustomerAgg;
@@ -76,6 +77,14 @@ namespace btr.distrib.SharedForm
         private void WilayahButton_Click(object sender, EventArgs e)
         {
             var form = _servicesProvider.GetRequiredService<WilayahForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void KategoriButton_Click(object sender, EventArgs e)
+        {
+            var form = _servicesProvider.GetRequiredService<KategoriForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
