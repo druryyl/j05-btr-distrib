@@ -249,6 +249,12 @@
       <DependentUpon>PurchaseOrderForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PurchaseContext\PurchaseOrderAgg\PurchaseOrderItemDto.cs" />
+    <Compile Include="PurchaseContext\SupplierAgg\SupplierForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PurchaseContext\SupplierAgg\SupplierForm.Designer.cs">
+      <DependentUpon>SupplierForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SalesContext\CustomerAgg\CustomerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -317,6 +323,9 @@
     </Content>
     <EmbeddedResource Include="PurchaseContext\PurchaseOrderAgg\PurchaseOrderForm.resx">
       <DependentUpon>PurchaseOrderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PurchaseContext\SupplierAgg\SupplierForm.resx">
+      <DependentUpon>SupplierForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SalesContext\CustomerAgg\CustomerForm.resx">
       <DependentUpon>CustomerForm.cs</DependentUpon>

@@ -14,6 +14,7 @@ using btr.application.SalesContext.WilayahAgg;
 using btr.domain.SalesContext.SalesPersonAgg;
 using btr.application.BrgContext.HargaTypeAgg;
 using btr.domain.BrgContext.HargaTypeAgg;
+using System.Drawing;
 
 namespace btr.distrib.SalesContext.CustomerAgg
 {
@@ -116,7 +117,7 @@ namespace btr.distrib.SalesContext.CustomerAgg
                     x.CreditBalance)).ToList();
             CustGrid.DataSource = _listCust;
 
-            CustGrid.Columns.SetDefaultCellStyle();
+            CustGrid.Columns.SetDefaultCellStyle(Color.Beige);
             CustGrid.Columns.GetCol("Id").Width = 50;
             CustGrid.Columns.GetCol("Name").Width = 150;
             CustGrid.Columns.GetCol("Alamat").Width = 220;
@@ -161,7 +162,7 @@ namespace btr.distrib.SalesContext.CustomerAgg
             CustNameText.Text = customer.CustomerName;
             CustCodeText.Text = customer.CustomerCode;
             KlasifikasiCombo.SelectedValue = customer.KlasifikasiId;
-            
+
             TipeHargaCombo.SelectedValue = customer.HargaTypeId;
             PlafondText.Value = customer.Plafond;
             CreditBalanceText.Value = customer.CreditBalance;

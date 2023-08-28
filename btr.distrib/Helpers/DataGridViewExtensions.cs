@@ -15,13 +15,14 @@ namespace btr.distrib.Helpers
             throw new KeyNotFoundException($"Column not found ({caption})");
         }
 
-        public static void SetDefaultCellStyle(this DataGridViewColumnCollection cols)
+        public static void SetDefaultCellStyle(this DataGridViewColumnCollection cols,
+            Color readOnlyColor)
         {
             foreach (DataGridViewColumn col in cols)
             {
                 col.DefaultCellStyle.Font = new Font("Consolas", 8.25f);
                 if (col.ReadOnly)
-                    col.DefaultCellStyle.BackColor = Color.Beige;
+                    col.DefaultCellStyle.BackColor = readOnlyColor;
 
 
                 if (col.ValueType.Name == "String")

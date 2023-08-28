@@ -24,8 +24,8 @@ namespace btr.infrastructure.PurchaseContext.SupplierAgg
         {
             const string sql = @"
                 INSERT INTO BTR_Supplier (
-                    SupplierId, SupplierName, Address1,
-                    Address2, Kota, KodePos, NoTelp,
+                    SupplierId, SupplierName, SupplierCode,
+                    Address1, Address2, Kota, KodePos, NoTelp,
                     NoFax, ContactPerson, Npwp, NoPkp)
                 VALUES(
                     @SupplierId, @SupplierName, @Address1,
@@ -35,6 +35,8 @@ namespace btr.infrastructure.PurchaseContext.SupplierAgg
             var dp = new DynamicParameters();
             dp.AddParam("@SupplierId", model.SupplierId, SqlDbType.VarChar);
             dp.AddParam("@SupplierName", model.SupplierName, SqlDbType.VarChar);
+            dp.AddParam("@SupplierCode", model.SupplierCode, SqlDbType.VarChar);
+
             dp.AddParam("@Address1", model.Address1, SqlDbType.VarChar);
             dp.AddParam("@Address2", model.Address2, SqlDbType.VarChar);
             dp.AddParam("@Kota", model.Kota, SqlDbType.VarChar);
@@ -42,6 +44,7 @@ namespace btr.infrastructure.PurchaseContext.SupplierAgg
             dp.AddParam("@NoTelp", model.NoTelp, SqlDbType.VarChar);
             dp.AddParam("@NoFax", model.NoFax, SqlDbType.VarChar);
             dp.AddParam("@ContactPerson", model.ContactPerson, SqlDbType.VarChar);
+
             dp.AddParam("@Npwp", model.Npwp, SqlDbType.VarChar);
             dp.AddParam("@NoPkp", model.NoPkp, SqlDbType.VarChar);
 
@@ -59,6 +62,7 @@ namespace btr.infrastructure.PurchaseContext.SupplierAgg
                 SET
                     SupplierId = @SupplierId, 
                     SupplierName = @SupplierName, 
+                    SupplierCode = @SupplierCode,
                     Address1 = @Address1,
                     Address2 = @Address2, 
                     Kota = @Kota, 
@@ -74,6 +78,8 @@ namespace btr.infrastructure.PurchaseContext.SupplierAgg
             var dp = new DynamicParameters();
             dp.AddParam("@SupplierId", model.SupplierId, SqlDbType.VarChar);
             dp.AddParam("@SupplierName", model.SupplierName, SqlDbType.VarChar);
+            dp.AddParam("@SupplierCode", model.SupplierCode, SqlDbType.VarChar);
+
             dp.AddParam("@Address1", model.Address1, SqlDbType.VarChar);
             dp.AddParam("@Address2", model.Address2, SqlDbType.VarChar);
             dp.AddParam("@Kota", model.Kota, SqlDbType.VarChar);
@@ -81,6 +87,7 @@ namespace btr.infrastructure.PurchaseContext.SupplierAgg
             dp.AddParam("@NoTelp", model.NoTelp, SqlDbType.VarChar);
             dp.AddParam("@NoFax", model.NoFax, SqlDbType.VarChar);
             dp.AddParam("@ContactPerson", model.ContactPerson, SqlDbType.VarChar);
+
             dp.AddParam("@Npwp", model.Npwp, SqlDbType.VarChar);
             dp.AddParam("@NoPkp", model.NoPkp, SqlDbType.VarChar);
 
@@ -111,8 +118,8 @@ namespace btr.infrastructure.PurchaseContext.SupplierAgg
         {
             const string sql = @"
                 SELECT
-                    SupplierId, SupplierName, Address1,
-                    Address2, Kota, KodePos, NoTelp,
+                    SupplierId, SupplierName, SupplierCode,
+                    Address1, Address2, Kota, KodePos, NoTelp,
                     NoFax, ContactPerson, Npwp, NoPkp
                 FROM
                      BTR_Supplier
@@ -132,8 +139,8 @@ namespace btr.infrastructure.PurchaseContext.SupplierAgg
         {
             const string sql = @"
                 SELECT
-                    SupplierId, SupplierName, Address1,
-                    Address2, Kota, KodePos, NoTelp,
+                    SupplierId, SupplierName, SupplierCode,
+                    Address1, Address2, Kota, KodePos, NoTelp,
                     NoFax, ContactPerson, Npwp, NoPkp
                 FROM
                      BTR_Supplier  ";

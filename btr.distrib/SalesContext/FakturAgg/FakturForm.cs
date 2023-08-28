@@ -349,7 +349,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             binding.DataSource = _listItem;
             FakturItemGrid.DataSource = binding;
             FakturItemGrid.Refresh();
-            FakturItemGrid.Columns.SetDefaultCellStyle();
+            FakturItemGrid.Columns.SetDefaultCellStyle(Color.Beige);
 
             DataGridViewButtonColumn buttonCol = new DataGridViewButtonColumn
             {

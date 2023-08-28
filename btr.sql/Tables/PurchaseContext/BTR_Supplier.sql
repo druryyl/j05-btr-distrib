@@ -1,6 +1,8 @@
 ﻿CREATE TABLE BTR_Supplier(
     SupplierId VARCHAR(5) NOT NULL CONSTRAINT DF_BTR_Supplier_SupplierId DEFAULT(''),
     SupplierName VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_Supplier_SupplierName DEFAULT(''),
+    SupplierCode VARCHAR(10) NOT NULL CONSTRAINT DF_BTR_Supplier_SupplierCode DEFAULT(''),
+
     Address1 VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_Supplier_Address1 DEFAULT(''),
     Address2 VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_Supplier_Address2 DEFAULT(''),
     Kota VARCHAR(30) NOT NULL CONSTRAINT DF_BTR_Supplier_Kota DEFAULT(''),

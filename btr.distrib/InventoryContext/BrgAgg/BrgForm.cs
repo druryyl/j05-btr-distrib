@@ -22,6 +22,7 @@ using btr.domain.InventoryContext.StokBalanceAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using Polly;
 using btr.nuna.Domain;
+using System.Drawing;
 
 namespace btr.distrib.InventoryContext.BrgAgg
 {
@@ -283,7 +284,7 @@ namespace btr.distrib.InventoryContext.BrgAgg
             binding.DataSource = _listSatuan;
             SatuanGrid.DataSource = binding;
             SatuanGrid.Refresh();
-            SatuanGrid.Columns.SetDefaultCellStyle();
+            SatuanGrid.Columns.SetDefaultCellStyle(Color.Beige);
             SatuanGrid.Columns.GetCol("Satuan").Width = 80;
             SatuanGrid.Columns.GetCol("Conversion").Width = 80;
         }
@@ -301,7 +302,7 @@ namespace btr.distrib.InventoryContext.BrgAgg
             HargaGrid.DataSource = binding;
             HargaGrid.Refresh();
             
-            HargaGrid.Columns.SetDefaultCellStyle();
+            HargaGrid.Columns.SetDefaultCellStyle(Color.Beige);
             HargaGrid.Columns.GetCol("TypeId").Width = 50;
             HargaGrid.Columns.GetCol("Name").Width = 100;
             HargaGrid.Columns.GetCol("Margin").Width = 60;
@@ -338,7 +339,7 @@ namespace btr.distrib.InventoryContext.BrgAgg
             StokGrid.DataSource = binding;
             StokGrid.Refresh();
             
-            StokGrid.Columns.SetDefaultCellStyle();
+            StokGrid.Columns.SetDefaultCellStyle(Color.Beige);
             StokGrid.Columns.GetCol("Id").Width = 50;
             StokGrid.Columns.GetCol("WarehouseName").Width = 200;
             StokGrid.Columns.GetCol("Qty").Width = 60;
@@ -390,7 +391,7 @@ namespace btr.distrib.InventoryContext.BrgAgg
             BrgGrid.DataSource = binding;
             BrgGrid.Refresh();
             
-            BrgGrid.Columns.SetDefaultCellStyle();
+            BrgGrid.Columns.SetDefaultCellStyle(Color.Beige);
             BrgGrid.Columns.GetCol("Id").Width = 50;
             BrgGrid.Columns.GetCol("BrgName").Width = 200;
             BrgGrid.Columns.GetCol("Kategori").Width = 100;

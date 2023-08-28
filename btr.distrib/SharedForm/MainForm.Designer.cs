@@ -242,6 +242,7 @@
             this.SupplierButton.Name = "SupplierButton";
             this.SupplierButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("SupplierButton.SmallImage")));
             this.SupplierButton.Text = "Supplier";
+            this.SupplierButton.Click += new System.EventHandler(this.SupplierButton_Click);
             // 
             // DistributionTab
             // 

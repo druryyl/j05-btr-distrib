@@ -1,5 +1,6 @@
 ﻿using btr.distrib.InventoryContext.BrgAgg;
 using btr.distrib.PurchaseContext.PurchaseOrderAgg;
+using btr.distrib.PurchaseContext.SupplierAgg;
 using btr.distrib.SalesContext.CustomerAgg;
 using btr.distrib.SalesContext.FakturAgg;
 using Microsoft.Extensions.DependencyInjection;
@@ -49,6 +50,14 @@ namespace btr.distrib.SharedForm
         private void OutletButton_Click(object sender, EventArgs e)
         {
             var form = _servicesProvider.GetRequiredService<CustomerForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void SupplierButton_Click(object sender, EventArgs e)
+        {
+            var form = _servicesProvider.GetRequiredService<SupplierForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

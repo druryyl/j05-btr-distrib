@@ -14,9 +14,13 @@ namespace btr.application.PurchaseContext.SupplierAgg.Workers
     {
         ISupplierBuilder Create();
         ISupplierBuilder Load(ISupplierKey key);
+        ISupplierBuilder Attach(SupplierModel model);
+        ISupplierBuilder Code(string code);
         ISupplierBuilder Name(string name);
         ISupplierBuilder Address(string addr1, string addr2, string kota);
-        ISupplierBuilder Telp(string noTelp, string noFax);
+        ISupplierBuilder KodePos(string kodePos);
+        ISupplierBuilder NoTelp(string noTelp);
+        ISupplierBuilder NoFax(string noFax);
         ISupplierBuilder ContactPerson(string contactPerson);
         ISupplierBuilder Npwp(string nnpwp);
         ISupplierBuilder NoPkp(string noPkp);
@@ -65,13 +69,17 @@ namespace btr.application.PurchaseContext.SupplierAgg.Workers
             return this;
         }
 
-        public ISupplierBuilder Telp(string noTelp, string noFax)
+        public ISupplierBuilder NoTelp(string noTelp)
         {
             _agg.NoTelp = noTelp;
-            _agg.NoFax = noFax;
             return this;
         }
 
+        public ISupplierBuilder NoFax(string noFax)
+        {
+            _agg.NoFax = noFax;
+            return this;
+        }
         public ISupplierBuilder ContactPerson(string contactPerson)
         {
             _agg.ContactPerson = contactPerson;
@@ -87,6 +95,24 @@ namespace btr.application.PurchaseContext.SupplierAgg.Workers
         public ISupplierBuilder NoPkp(string noPkp)
         {
             _agg.NoPkp = noPkp;
+            return this;
+        }
+
+        public ISupplierBuilder Attach(SupplierModel model)
+        {
+            _agg = model;
+            return this;
+        }
+
+        public ISupplierBuilder Code(string code)
+        {
+            _agg.SupplierCode = code;
+            return this;
+        }
+
+        public ISupplierBuilder KodePos(string kodePos)
+        {
+            _agg.KodePos = kodePos;
             return this;
         }
     }
