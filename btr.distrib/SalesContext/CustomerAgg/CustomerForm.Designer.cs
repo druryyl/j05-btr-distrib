@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.CustomerTab = new System.Windows.Forms.TabControl();
             this.ListPage = new System.Windows.Forms.TabPage();
             this.SearchButton = new System.Windows.Forms.Button();
             this.SearchText = new System.Windows.Forms.TextBox();
@@ -59,7 +59,7 @@
             this.NoTelponText = new System.Windows.Forms.TextBox();
             this.WilayahIdText = new System.Windows.Forms.TextBox();
             this.WilayahNameText = new System.Windows.Forms.TextBox();
-            this.SupplierButton = new System.Windows.Forms.Button();
+            this.WilayahButton = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.KodePosText = new System.Windows.Forms.TextBox();
@@ -78,7 +78,8 @@
             this.CustNameText = new System.Windows.Forms.TextBox();
             this.CustButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.tabControl1.SuspendLayout();
+            this.NewButton = new System.Windows.Forms.Button();
+            this.CustomerTab.SuspendLayout();
             this.ListPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CustGrid)).BeginInit();
             this.DetilPage.SuspendLayout();
@@ -90,15 +91,15 @@
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tabControl1
+            // CustomerTab
             // 
-            this.tabControl1.Controls.Add(this.ListPage);
-            this.tabControl1.Controls.Add(this.DetilPage);
-            this.tabControl1.Location = new System.Drawing.Point(6, 6);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(718, 463);
-            this.tabControl1.TabIndex = 51;
+            this.CustomerTab.Controls.Add(this.ListPage);
+            this.CustomerTab.Controls.Add(this.DetilPage);
+            this.CustomerTab.Location = new System.Drawing.Point(6, 6);
+            this.CustomerTab.Name = "CustomerTab";
+            this.CustomerTab.SelectedIndex = 0;
+            this.CustomerTab.Size = new System.Drawing.Size(718, 463);
+            this.CustomerTab.TabIndex = 51;
             // 
             // ListPage
             // 
@@ -145,6 +146,7 @@
             // 
             // DetilPage
             // 
+            this.DetilPage.Controls.Add(this.NewButton);
             this.DetilPage.Controls.Add(this.SaveButton);
             this.DetilPage.Controls.Add(this.panel4);
             this.DetilPage.Controls.Add(this.panel3);
@@ -350,7 +352,7 @@
             this.panel1.Controls.Add(this.NoTelponText);
             this.panel1.Controls.Add(this.WilayahIdText);
             this.panel1.Controls.Add(this.WilayahNameText);
-            this.panel1.Controls.Add(this.SupplierButton);
+            this.panel1.Controls.Add(this.WilayahButton);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.KodePosText);
@@ -412,14 +414,14 @@
             this.WilayahNameText.Size = new System.Drawing.Size(205, 22);
             this.WilayahNameText.TabIndex = 16;
             // 
-            // SupplierButton
+            // WilayahButton
             // 
-            this.SupplierButton.Location = new System.Drawing.Point(195, 24);
-            this.SupplierButton.Name = "SupplierButton";
-            this.SupplierButton.Size = new System.Drawing.Size(28, 23);
-            this.SupplierButton.TabIndex = 15;
-            this.SupplierButton.Text = "...";
-            this.SupplierButton.UseVisualStyleBackColor = true;
+            this.WilayahButton.Location = new System.Drawing.Point(195, 24);
+            this.WilayahButton.Name = "WilayahButton";
+            this.WilayahButton.Size = new System.Drawing.Size(28, 23);
+            this.WilayahButton.TabIndex = 15;
+            this.WilayahButton.Text = "...";
+            this.WilayahButton.UseVisualStyleBackColor = true;
             // 
             // label7
             // 
@@ -579,17 +581,26 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Customer ID";
             // 
+            // NewButton
+            // 
+            this.NewButton.Location = new System.Drawing.Point(6, 408);
+            this.NewButton.Name = "NewButton";
+            this.NewButton.Size = new System.Drawing.Size(75, 23);
+            this.NewButton.TabIndex = 56;
+            this.NewButton.Text = "New";
+            this.NewButton.UseVisualStyleBackColor = true;
+            // 
             // CustomerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Khaki;
             this.ClientSize = new System.Drawing.Size(731, 481);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.CustomerTab);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "CustomerForm";
             this.Text = "Customer";
-            this.tabControl1.ResumeLayout(false);
+            this.CustomerTab.ResumeLayout(false);
             this.ListPage.ResumeLayout(false);
             this.ListPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CustGrid)).EndInit();
@@ -609,7 +620,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl CustomerTab;
         private System.Windows.Forms.TabPage DetilPage;
         private System.Windows.Forms.TabPage ListPage;
         private System.Windows.Forms.Button SearchButton;
@@ -625,7 +636,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox WilayahIdText;
         private System.Windows.Forms.TextBox WilayahNameText;
-        private System.Windows.Forms.Button SupplierButton;
+        private System.Windows.Forms.Button WilayahButton;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox KodePosText;
@@ -659,5 +670,6 @@
         private System.Windows.Forms.CheckBox IsKenaPajakCheck;
         private System.Windows.Forms.TextBox Alamat2WpText;
         private System.Windows.Forms.Button SaveButton;
+        private System.Windows.Forms.Button NewButton;
     }
 }

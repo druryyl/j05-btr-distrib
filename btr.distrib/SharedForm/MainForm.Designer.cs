@@ -223,8 +223,8 @@
             // 
             // InvoiceReportButton
             // 
-            this.InvoiceReportButton.Image = global::btr.distrib.Properties.Resources.documents_48px;
-            this.InvoiceReportButton.LargeImage = global::btr.distrib.Properties.Resources.documents_48px;
+            this.InvoiceReportButton.Image = global::btr.distrib.Properties.Resources.icons8_graph_32;
+            this.InvoiceReportButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_graph_32;
             this.InvoiceReportButton.Name = "InvoiceReportButton";
             this.InvoiceReportButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("InvoiceReportButton.SmallImage")));
             this.InvoiceReportButton.Text = "Reporting";

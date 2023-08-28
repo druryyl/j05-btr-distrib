@@ -214,6 +214,7 @@
     <Compile Include="Browsers\CustomerBrowser.cs" />
     <Compile Include="Browsers\KategoriBrowser.cs" />
     <Compile Include="Browsers\SalesBrowser.cs" />
+    <Compile Include="Browsers\WilayahBrowser.cs" />
     <Compile Include="Helpers\BrowseFilter.cs" />
     <Compile Include="Helpers\IBrowseEngine.cs" />
     <Compile Include="Browsers\SupplierBrowser.cs" />
@@ -283,6 +284,8 @@
     </Compile>
     <Compile Include="WinformAssemblyAnchor.cs" />
     <Content Include="icons8_truck.ico" />
+    <None Include="Readme.md" />
+    <None Include="Resources\icons8_graph_32.png" />
     <None Include="Resources\ingredients_48px.png" />
     <None Include="Resources\app-wallpaper-3.jpg" />
     <None Include="Resources\factory_48px.png" />
