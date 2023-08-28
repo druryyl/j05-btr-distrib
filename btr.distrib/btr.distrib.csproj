@@ -243,6 +243,12 @@
     <Compile Include="InventoryContext\KategoriAgg\KategoriForm.Designer.cs">
       <DependentUpon>KategoriForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InventoryContext\WarehouseAgg\WarehouseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryContext\WarehouseAgg\WarehouseForm.Designer.cs">
+      <DependentUpon>WarehouseForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="PrintDocs\FakturPrintDoc.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -308,6 +314,10 @@
     </Compile>
     <Compile Include="WinformAssemblyAnchor.cs" />
     <Content Include="icons8_truck.ico" />
+    <None Include="Resources\app-wallpaper-4.jpg" />
+    <None Include="Resources\icons8_print.ico" />
+    <None Include="Resources\icons8_warehouse.ico" />
+    <None Include="Resources\icons8_ingredients.ico" />
     <None Include="Resources\icons8_factory.ico" />
     <None Include="Resources\icons8_bill.ico" />
     <None Include="Resources\icons8_purchase_order.ico" />
@@ -338,6 +348,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\KategoriAgg\KategoriForm.resx">
       <DependentUpon>KategoriForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InventoryContext\WarehouseAgg\WarehouseForm.resx">
+      <DependentUpon>WarehouseForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

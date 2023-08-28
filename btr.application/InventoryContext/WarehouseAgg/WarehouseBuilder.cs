@@ -8,8 +8,9 @@ namespace btr.application.InventoryContext.WarehouseAgg.Workers
 {
     public interface IWarehouseBuilder : INunaBuilder<WarehouseModel>
     {
-        IWarehouseBuilder CreateNew();
+        IWarehouseBuilder Create();
         IWarehouseBuilder Load(IWarehouseKey warehouseKey);
+        IWarehouseBuilder Attach(WarehouseModel model);
         IWarehouseBuilder Name(string name);
     }
 
@@ -29,7 +30,7 @@ namespace btr.application.InventoryContext.WarehouseAgg.Workers
             return _aggRoot;
         }
 
-        public IWarehouseBuilder CreateNew()
+        public IWarehouseBuilder Create()
         {
             _aggRoot = new WarehouseModel
             {
@@ -49,6 +50,12 @@ namespace btr.application.InventoryContext.WarehouseAgg.Workers
         public IWarehouseBuilder Name(string name)
         {
             _aggRoot.WarehouseName = name;
+            return this;
+        }
+
+        public IWarehouseBuilder Attach(WarehouseModel model)
+        {
+            _aggRoot = model;
             return this;
         }
     }

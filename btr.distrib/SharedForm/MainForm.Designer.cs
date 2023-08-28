@@ -50,15 +50,16 @@
             this.InvoiceReportButton = new System.Windows.Forms.RibbonButton();
             this.MasterPurchaseRibbonPanel = new System.Windows.Forms.RibbonPanel();
             this.SupplierButton = new System.Windows.Forms.RibbonButton();
+            this.InventoryTab = new System.Windows.Forms.RibbonTab();
+            this.ribbonPanel2 = new System.Windows.Forms.RibbonPanel();
+            this.BrgButton = new System.Windows.Forms.RibbonButton();
+            this.WarehouseButton = new System.Windows.Forms.RibbonButton();
+            this.ribbonPanel1 = new System.Windows.Forms.RibbonPanel();
+            this.ribbonButton1 = new System.Windows.Forms.RibbonButton();
+            this.FinanceTab = new System.Windows.Forms.RibbonTab();
             this.DistributionTab = new System.Windows.Forms.RibbonTab();
             this.ReceivingPanel = new System.Windows.Forms.RibbonPanel();
             this.DeliveryPanel = new System.Windows.Forms.RibbonPanel();
-            this.InventoryTab = new System.Windows.Forms.RibbonTab();
-            this.ribbonPanel1 = new System.Windows.Forms.RibbonPanel();
-            this.ribbonPanel2 = new System.Windows.Forms.RibbonPanel();
-            this.BrgButton = new System.Windows.Forms.RibbonButton();
-            this.ribbonPanel3 = new System.Windows.Forms.RibbonPanel();
-            this.FinanceTab = new System.Windows.Forms.RibbonTab();
             this.SuspendLayout();
             // 
             // ribbon1
@@ -77,13 +78,13 @@
             this.ribbon1.OrbDropDown.Size = new System.Drawing.Size(527, 72);
             this.ribbon1.OrbDropDown.TabIndex = 0;
             this.ribbon1.RibbonTabFont = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ribbon1.Size = new System.Drawing.Size(876, 113);
+            this.ribbon1.Size = new System.Drawing.Size(876, 122);
             this.ribbon1.TabIndex = 2;
             this.ribbon1.Tabs.Add(this.SalesTab);
             this.ribbon1.Tabs.Add(this.PurchaseTab);
-            this.ribbon1.Tabs.Add(this.DistributionTab);
             this.ribbon1.Tabs.Add(this.InventoryTab);
             this.ribbon1.Tabs.Add(this.FinanceTab);
+            this.ribbon1.Tabs.Add(this.DistributionTab);
             this.ribbon1.Text = "ribbon1";
             this.ribbon1.ThemeColor = System.Windows.Forms.RibbonTheme.Blue_2010;
             // 
@@ -247,12 +248,64 @@
             this.SupplierButton.Text = "Supplier";
             this.SupplierButton.Click += new System.EventHandler(this.SupplierButton_Click);
             // 
+            // InventoryTab
+            // 
+            this.InventoryTab.Name = "InventoryTab";
+            this.InventoryTab.Panels.Add(this.ribbonPanel2);
+            this.InventoryTab.Panels.Add(this.ribbonPanel1);
+            this.InventoryTab.Text = "Inventory";
+            // 
+            // ribbonPanel2
+            // 
+            this.ribbonPanel2.Items.Add(this.BrgButton);
+            this.ribbonPanel2.Items.Add(this.WarehouseButton);
+            this.ribbonPanel2.Name = "ribbonPanel2";
+            this.ribbonPanel2.Text = "Product";
+            // 
+            // BrgButton
+            // 
+            this.BrgButton.Image = global::btr.distrib.Properties.Resources.icons8_ingredients;
+            this.BrgButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_ingredients;
+            this.BrgButton.Name = "BrgButton";
+            this.BrgButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("BrgButton.SmallImage")));
+            this.BrgButton.Text = "Barang";
+            this.BrgButton.Click += new System.EventHandler(this.BrgButton_Click);
+            // 
+            // WarehouseButton
+            // 
+            this.WarehouseButton.Image = global::btr.distrib.Properties.Resources.icons8_warehouse;
+            this.WarehouseButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_warehouse;
+            this.WarehouseButton.Name = "WarehouseButton";
+            this.WarehouseButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("WarehouseButton.SmallImage")));
+            this.WarehouseButton.Text = "Warehouse";
+            this.WarehouseButton.Click += new System.EventHandler(this.WarehouseButton_Click);
+            // 
+            // ribbonPanel1
+            // 
+            this.ribbonPanel1.Items.Add(this.ribbonButton1);
+            this.ribbonPanel1.Name = "ribbonPanel1";
+            this.ribbonPanel1.Text = "Stock Control";
+            // 
+            // ribbonButton1
+            // 
+            this.ribbonButton1.Image = global::btr.distrib.Properties.Resources.icons8_print;
+            this.ribbonButton1.LargeImage = global::btr.distrib.Properties.Resources.icons8_print;
+            this.ribbonButton1.Name = "ribbonButton1";
+            this.ribbonButton1.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton1.SmallImage")));
+            this.ribbonButton1.Text = "Print Faktur";
+            // 
+            // FinanceTab
+            // 
+            this.FinanceTab.Name = "FinanceTab";
+            this.FinanceTab.Text = "Finance";
+            // 
             // DistributionTab
             // 
             this.DistributionTab.Name = "DistributionTab";
             this.DistributionTab.Panels.Add(this.ReceivingPanel);
             this.DistributionTab.Panels.Add(this.DeliveryPanel);
             this.DistributionTab.Text = "Distribusi";
+            this.DistributionTab.Visible = false;
             // 
             // ReceivingPanel
             // 
@@ -264,49 +317,11 @@
             this.DeliveryPanel.Name = "DeliveryPanel";
             this.DeliveryPanel.Text = "Delivery";
             // 
-            // InventoryTab
-            // 
-            this.InventoryTab.Name = "InventoryTab";
-            this.InventoryTab.Panels.Add(this.ribbonPanel1);
-            this.InventoryTab.Panels.Add(this.ribbonPanel2);
-            this.InventoryTab.Panels.Add(this.ribbonPanel3);
-            this.InventoryTab.Text = "Inventory";
-            // 
-            // ribbonPanel1
-            // 
-            this.ribbonPanel1.Name = "ribbonPanel1";
-            this.ribbonPanel1.Text = "Stock Control";
-            // 
-            // ribbonPanel2
-            // 
-            this.ribbonPanel2.Items.Add(this.BrgButton);
-            this.ribbonPanel2.Name = "ribbonPanel2";
-            this.ribbonPanel2.Text = "Product";
-            // 
-            // BrgButton
-            // 
-            this.BrgButton.Image = global::btr.distrib.Properties.Resources.ingredients_48px;
-            this.BrgButton.LargeImage = global::btr.distrib.Properties.Resources.ingredients_48px;
-            this.BrgButton.Name = "BrgButton";
-            this.BrgButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("BrgButton.SmallImage")));
-            this.BrgButton.Text = "Barang";
-            this.BrgButton.Click += new System.EventHandler(this.BrgButton_Click);
-            // 
-            // ribbonPanel3
-            // 
-            this.ribbonPanel3.Name = "ribbonPanel3";
-            this.ribbonPanel3.Text = "Location";
-            // 
-            // FinanceTab
-            // 
-            this.FinanceTab.Name = "FinanceTab";
-            this.FinanceTab.Text = "Finance";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::btr.distrib.Properties.Resources.app_wallpaper_3;
+            this.BackgroundImage = global::btr.distrib.Properties.Resources.app_wallpaper_4;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(876, 450);
             this.Controls.Add(this.ribbon1);
@@ -352,5 +367,7 @@
         private System.Windows.Forms.RibbonButton InvoiceReportButton;
         private System.Windows.Forms.RibbonButton SupplierButton;
         private System.Windows.Forms.RibbonButton BrgButton;
+        private System.Windows.Forms.RibbonButton WarehouseButton;
+        private System.Windows.Forms.RibbonButton ribbonButton1;
     }
 }
