@@ -31,7 +31,8 @@ namespace btr.distrib.SalesContext.CustomerAgg
             ICustomerBuilder customerBuilder,
             IBrowser<CustomerBrowserView> customerBrowser,
             IKlasifikasiDal klasifikasiDal,
-            IHargaTypeDal hargaTypeDal)
+            IHargaTypeDal hargaTypeDal,
+            ICustomerWriter customerWriter)
         {
             InitializeComponent();
             _customerDal = customerDal;
@@ -44,6 +45,7 @@ namespace btr.distrib.SalesContext.CustomerAgg
             InitGrid();
             InitKlasifikasi();
             InitTipeHarga();
+            _customerWriter = customerWriter;
         }
 
         private void RegisterEventHandler()
@@ -93,8 +95,8 @@ namespace btr.distrib.SalesContext.CustomerAgg
             CustIdText.Clear();;
             CustNameText.Clear();;
             CustCodeText.Clear();;
-            KlasifikasiCombo.SelectedValue = null;
-            TipeHargaCombo.SelectedValue = null;
+            //KlasifikasiCombo.SelectedValue = string.Empty;
+            //TipeHargaCombo.SelectedValue = null;
             PlafondText.Value = 0;
             CreditBalanceText.Value = 0;
             WilayahIdText.Clear();
