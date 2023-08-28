@@ -29,12 +29,22 @@
         private void InitializeComponent()
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.DetilPage = new System.Windows.Forms.TabPage();
             this.ListPage = new System.Windows.Forms.TabPage();
             this.SearchButton = new System.Windows.Forms.Button();
             this.SearchText = new System.Windows.Forms.TextBox();
             this.CustGrid = new System.Windows.Forms.DataGridView();
+            this.DetilPage = new System.Windows.Forms.TabPage();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.CreditBalanceText = new System.Windows.Forms.NumericUpDown();
+            this.label16 = new System.Windows.Forms.Label();
+            this.IsSuspendCheck = new System.Windows.Forms.CheckBox();
+            this.PlafondText = new System.Windows.Forms.NumericUpDown();
+            this.DisconutLainLabel = new System.Windows.Forms.Label();
+            this.TipeHargaCombo = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.IsKenaPajakCheck = new System.Windows.Forms.CheckBox();
+            this.Alamat2WpText = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.Alamat1WpText = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -42,6 +52,10 @@
             this.NpwpText = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label13 = new System.Windows.Forms.Label();
+            this.NoFaxText = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.NoTelponText = new System.Windows.Forms.TextBox();
             this.WilayahIdText = new System.Windows.Forms.TextBox();
             this.WilayahNameText = new System.Windows.Forms.TextBox();
             this.SupplierButton = new System.Windows.Forms.Button();
@@ -54,7 +68,8 @@
             this.Alamat2Text = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.IsSuspendCheck = new System.Windows.Forms.CheckBox();
+            this.KlasifikasiCombo = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.CustCodeText = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -62,31 +77,17 @@
             this.CustNameText = new System.Windows.Forms.TextBox();
             this.CustButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.NoTelponText = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.NoFaxText = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.KlasifikasiCombo = new System.Windows.Forms.ComboBox();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.PlafondText = new System.Windows.Forms.NumericUpDown();
-            this.DisconutLainLabel = new System.Windows.Forms.Label();
-            this.TipeHargaCombo = new System.Windows.Forms.ComboBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.CreditBalanceText = new System.Windows.Forms.NumericUpDown();
-            this.label16 = new System.Windows.Forms.Label();
-            this.Alamat2WpText = new System.Windows.Forms.TextBox();
-            this.IsKenaPajakCheck = new System.Windows.Forms.CheckBox();
+            this.SaveButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
-            this.DetilPage.SuspendLayout();
             this.ListPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CustGrid)).BeginInit();
+            this.DetilPage.SuspendLayout();
+            this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CreditBalanceText)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlafondText)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PlafondText)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CreditBalanceText)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -96,21 +97,8 @@
             this.tabControl1.Location = new System.Drawing.Point(6, 6);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(718, 437);
+            this.tabControl1.Size = new System.Drawing.Size(718, 463);
             this.tabControl1.TabIndex = 51;
-            // 
-            // DetilPage
-            // 
-            this.DetilPage.Controls.Add(this.panel4);
-            this.DetilPage.Controls.Add(this.panel3);
-            this.DetilPage.Controls.Add(this.panel1);
-            this.DetilPage.Controls.Add(this.panel2);
-            this.DetilPage.Location = new System.Drawing.Point(4, 22);
-            this.DetilPage.Name = "DetilPage";
-            this.DetilPage.Padding = new System.Windows.Forms.Padding(3);
-            this.DetilPage.Size = new System.Drawing.Size(710, 411);
-            this.DetilPage.TabIndex = 0;
-            this.DetilPage.Text = "Detail";
             // 
             // ListPage
             // 
@@ -155,6 +143,111 @@
             this.CustGrid.Size = new System.Drawing.Size(698, 366);
             this.CustGrid.TabIndex = 6;
             // 
+            // DetilPage
+            // 
+            this.DetilPage.Controls.Add(this.SaveButton);
+            this.DetilPage.Controls.Add(this.panel4);
+            this.DetilPage.Controls.Add(this.panel3);
+            this.DetilPage.Controls.Add(this.panel1);
+            this.DetilPage.Controls.Add(this.panel2);
+            this.DetilPage.Location = new System.Drawing.Point(4, 22);
+            this.DetilPage.Name = "DetilPage";
+            this.DetilPage.Padding = new System.Windows.Forms.Padding(3);
+            this.DetilPage.Size = new System.Drawing.Size(710, 437);
+            this.DetilPage.TabIndex = 0;
+            this.DetilPage.Text = "Detail";
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.Cornsilk;
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.CreditBalanceText);
+            this.panel4.Controls.Add(this.label16);
+            this.panel4.Controls.Add(this.IsSuspendCheck);
+            this.panel4.Controls.Add(this.PlafondText);
+            this.panel4.Controls.Add(this.DisconutLainLabel);
+            this.panel4.Controls.Add(this.TipeHargaCombo);
+            this.panel4.Controls.Add(this.label15);
+            this.panel4.Location = new System.Drawing.Point(6, 211);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(228, 191);
+            this.panel4.TabIndex = 52;
+            // 
+            // CreditBalanceText
+            // 
+            this.CreditBalanceText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CreditBalanceText.Location = new System.Drawing.Point(12, 113);
+            this.CreditBalanceText.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.CreditBalanceText.Name = "CreditBalanceText";
+            this.CreditBalanceText.Size = new System.Drawing.Size(205, 20);
+            this.CreditBalanceText.TabIndex = 12;
+            this.CreditBalanceText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.CreditBalanceText.ThousandsSeparator = true;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(10, 95);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(80, 13);
+            this.label16.TabIndex = 35;
+            this.label16.Text = "Credit Balance";
+            // 
+            // IsSuspendCheck
+            // 
+            this.IsSuspendCheck.AutoSize = true;
+            this.IsSuspendCheck.Location = new System.Drawing.Point(146, 160);
+            this.IsSuspendCheck.Name = "IsSuspendCheck";
+            this.IsSuspendCheck.Size = new System.Drawing.Size(71, 17);
+            this.IsSuspendCheck.TabIndex = 13;
+            this.IsSuspendCheck.Text = "Suspend";
+            this.IsSuspendCheck.UseVisualStyleBackColor = true;
+            // 
+            // PlafondText
+            // 
+            this.PlafondText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlafondText.Location = new System.Drawing.Point(13, 72);
+            this.PlafondText.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.PlafondText.Name = "PlafondText";
+            this.PlafondText.Size = new System.Drawing.Size(205, 20);
+            this.PlafondText.TabIndex = 12;
+            this.PlafondText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.PlafondText.ThousandsSeparator = true;
+            // 
+            // DisconutLainLabel
+            // 
+            this.DisconutLainLabel.AutoSize = true;
+            this.DisconutLainLabel.Location = new System.Drawing.Point(11, 54);
+            this.DisconutLainLabel.Name = "DisconutLainLabel";
+            this.DisconutLainLabel.Size = new System.Drawing.Size(49, 13);
+            this.DisconutLainLabel.TabIndex = 33;
+            this.DisconutLainLabel.Text = "PLafond";
+            // 
+            // TipeHargaCombo
+            // 
+            this.TipeHargaCombo.FormattingEnabled = true;
+            this.TipeHargaCombo.Location = new System.Drawing.Point(13, 29);
+            this.TipeHargaCombo.Name = "TipeHargaCombo";
+            this.TipeHargaCombo.Size = new System.Drawing.Size(205, 21);
+            this.TipeHargaCombo.TabIndex = 11;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(10, 13);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(63, 13);
+            this.label15.TabIndex = 31;
+            this.label15.Text = "Tipe Harga";
+            // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.Cornsilk;
@@ -169,8 +262,25 @@
             this.panel3.Controls.Add(this.label11);
             this.panel3.Location = new System.Drawing.Point(474, 6);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(228, 399);
+            this.panel3.Size = new System.Drawing.Size(228, 396);
             this.panel3.TabIndex = 54;
+            // 
+            // IsKenaPajakCheck
+            // 
+            this.IsKenaPajakCheck.AutoSize = true;
+            this.IsKenaPajakCheck.Location = new System.Drawing.Point(14, 24);
+            this.IsKenaPajakCheck.Name = "IsKenaPajakCheck";
+            this.IsKenaPajakCheck.Size = new System.Drawing.Size(81, 17);
+            this.IsKenaPajakCheck.TabIndex = 23;
+            this.IsKenaPajakCheck.Text = "Kena Pajak";
+            this.IsKenaPajakCheck.UseVisualStyleBackColor = true;
+            // 
+            // Alamat2WpText
+            // 
+            this.Alamat2WpText.Location = new System.Drawing.Point(14, 176);
+            this.Alamat2WpText.Name = "Alamat2WpText";
+            this.Alamat2WpText.Size = new System.Drawing.Size(205, 22);
+            this.Alamat2WpText.TabIndex = 27;
             // 
             // label9
             // 
@@ -242,8 +352,40 @@
             this.panel1.Controls.Add(this.label5);
             this.panel1.Location = new System.Drawing.Point(240, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(228, 399);
+            this.panel1.Size = new System.Drawing.Size(228, 396);
             this.panel1.TabIndex = 52;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(8, 286);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(42, 13);
+            this.label13.TabIndex = 28;
+            this.label13.Text = "No.Fax";
+            // 
+            // NoFaxText
+            // 
+            this.NoFaxText.Location = new System.Drawing.Point(12, 302);
+            this.NoFaxText.Name = "NoFaxText";
+            this.NoFaxText.Size = new System.Drawing.Size(205, 22);
+            this.NoFaxText.TabIndex = 22;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(9, 245);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(60, 13);
+            this.label12.TabIndex = 26;
+            this.label12.Text = "No.Telpon";
+            // 
+            // NoTelponText
+            // 
+            this.NoTelponText.Location = new System.Drawing.Point(12, 261);
+            this.NoTelponText.Name = "NoTelponText";
+            this.NoTelponText.Size = new System.Drawing.Size(205, 22);
+            this.NoTelponText.TabIndex = 21;
             // 
             // WilayahIdText
             // 
@@ -353,15 +495,22 @@
             this.panel2.Size = new System.Drawing.Size(228, 200);
             this.panel2.TabIndex = 51;
             // 
-            // IsSuspendCheck
+            // KlasifikasiCombo
             // 
-            this.IsSuspendCheck.AutoSize = true;
-            this.IsSuspendCheck.Location = new System.Drawing.Point(146, 160);
-            this.IsSuspendCheck.Name = "IsSuspendCheck";
-            this.IsSuspendCheck.Size = new System.Drawing.Size(71, 17);
-            this.IsSuspendCheck.TabIndex = 13;
-            this.IsSuspendCheck.Text = "Suspend";
-            this.IsSuspendCheck.UseVisualStyleBackColor = true;
+            this.KlasifikasiCombo.FormattingEnabled = true;
+            this.KlasifikasiCombo.Location = new System.Drawing.Point(12, 151);
+            this.KlasifikasiCombo.Name = "KlasifikasiCombo";
+            this.KlasifikasiCombo.Size = new System.Drawing.Size(205, 21);
+            this.KlasifikasiCombo.TabIndex = 10;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(9, 135);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(57, 13);
+            this.label14.TabIndex = 25;
+            this.label14.Text = "Klasifikasi";
             // 
             // label3
             // 
@@ -421,178 +570,40 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Customer ID";
             // 
-            // label12
+            // SaveButton
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(9, 245);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(60, 13);
-            this.label12.TabIndex = 26;
-            this.label12.Text = "No.Telpon";
-            // 
-            // NoTelponText
-            // 
-            this.NoTelponText.Location = new System.Drawing.Point(12, 261);
-            this.NoTelponText.Name = "NoTelponText";
-            this.NoTelponText.Size = new System.Drawing.Size(205, 22);
-            this.NoTelponText.TabIndex = 21;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(8, 286);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(42, 13);
-            this.label13.TabIndex = 28;
-            this.label13.Text = "No.Fax";
-            // 
-            // NoFaxText
-            // 
-            this.NoFaxText.Location = new System.Drawing.Point(12, 302);
-            this.NoFaxText.Name = "NoFaxText";
-            this.NoFaxText.Size = new System.Drawing.Size(205, 22);
-            this.NoFaxText.TabIndex = 22;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(9, 135);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(57, 13);
-            this.label14.TabIndex = 25;
-            this.label14.Text = "Klasifikasi";
-            // 
-            // KlasifikasiCombo
-            // 
-            this.KlasifikasiCombo.FormattingEnabled = true;
-            this.KlasifikasiCombo.Location = new System.Drawing.Point(12, 151);
-            this.KlasifikasiCombo.Name = "KlasifikasiCombo";
-            this.KlasifikasiCombo.Size = new System.Drawing.Size(205, 21);
-            this.KlasifikasiCombo.TabIndex = 10;
-            // 
-            // panel4
-            // 
-            this.panel4.BackColor = System.Drawing.Color.Cornsilk;
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.CreditBalanceText);
-            this.panel4.Controls.Add(this.label16);
-            this.panel4.Controls.Add(this.IsSuspendCheck);
-            this.panel4.Controls.Add(this.PlafondText);
-            this.panel4.Controls.Add(this.DisconutLainLabel);
-            this.panel4.Controls.Add(this.TipeHargaCombo);
-            this.panel4.Controls.Add(this.label15);
-            this.panel4.Location = new System.Drawing.Point(6, 211);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(228, 194);
-            this.panel4.TabIndex = 52;
-            // 
-            // PlafondText
-            // 
-            this.PlafondText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PlafondText.Location = new System.Drawing.Point(13, 72);
-            this.PlafondText.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
-            this.PlafondText.Name = "PlafondText";
-            this.PlafondText.Size = new System.Drawing.Size(205, 20);
-            this.PlafondText.TabIndex = 12;
-            this.PlafondText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.PlafondText.ThousandsSeparator = true;
-            // 
-            // DisconutLainLabel
-            // 
-            this.DisconutLainLabel.AutoSize = true;
-            this.DisconutLainLabel.Location = new System.Drawing.Point(11, 54);
-            this.DisconutLainLabel.Name = "DisconutLainLabel";
-            this.DisconutLainLabel.Size = new System.Drawing.Size(49, 13);
-            this.DisconutLainLabel.TabIndex = 33;
-            this.DisconutLainLabel.Text = "PLafond";
-            // 
-            // TipeHargaCombo
-            // 
-            this.TipeHargaCombo.FormattingEnabled = true;
-            this.TipeHargaCombo.Location = new System.Drawing.Point(13, 29);
-            this.TipeHargaCombo.Name = "TipeHargaCombo";
-            this.TipeHargaCombo.Size = new System.Drawing.Size(205, 21);
-            this.TipeHargaCombo.TabIndex = 11;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(10, 13);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(63, 13);
-            this.label15.TabIndex = 31;
-            this.label15.Text = "Tipe Harga";
-            // 
-            // CreditBalanceText
-            // 
-            this.CreditBalanceText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CreditBalanceText.Location = new System.Drawing.Point(12, 113);
-            this.CreditBalanceText.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
-            this.CreditBalanceText.Name = "CreditBalanceText";
-            this.CreditBalanceText.Size = new System.Drawing.Size(205, 20);
-            this.CreditBalanceText.TabIndex = 12;
-            this.CreditBalanceText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.CreditBalanceText.ThousandsSeparator = true;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(10, 95);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(80, 13);
-            this.label16.TabIndex = 35;
-            this.label16.Text = "Credit Balance";
-            // 
-            // Alamat2WpText
-            // 
-            this.Alamat2WpText.Location = new System.Drawing.Point(14, 176);
-            this.Alamat2WpText.Name = "Alamat2WpText";
-            this.Alamat2WpText.Size = new System.Drawing.Size(205, 22);
-            this.Alamat2WpText.TabIndex = 27;
-            // 
-            // IsKenaPajakCheck
-            // 
-            this.IsKenaPajakCheck.AutoSize = true;
-            this.IsKenaPajakCheck.Location = new System.Drawing.Point(14, 24);
-            this.IsKenaPajakCheck.Name = "IsKenaPajakCheck";
-            this.IsKenaPajakCheck.Size = new System.Drawing.Size(81, 17);
-            this.IsKenaPajakCheck.TabIndex = 23;
-            this.IsKenaPajakCheck.Text = "Kena Pajak";
-            this.IsKenaPajakCheck.UseVisualStyleBackColor = true;
+            this.SaveButton.Location = new System.Drawing.Point(629, 408);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.Size = new System.Drawing.Size(75, 23);
+            this.SaveButton.TabIndex = 55;
+            this.SaveButton.Text = "Save";
+            this.SaveButton.UseVisualStyleBackColor = true;
             // 
             // CustomerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Khaki;
-            this.ClientSize = new System.Drawing.Size(731, 450);
+            this.ClientSize = new System.Drawing.Size(731, 481);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "CustomerForm";
             this.Text = "Customer";
             this.tabControl1.ResumeLayout(false);
-            this.DetilPage.ResumeLayout(false);
             this.ListPage.ResumeLayout(false);
             this.ListPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CustGrid)).EndInit();
+            this.DetilPage.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CreditBalanceText)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlafondText)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PlafondText)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CreditBalanceText)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -647,5 +658,6 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.CheckBox IsKenaPajakCheck;
         private System.Windows.Forms.TextBox Alamat2WpText;
+        private System.Windows.Forms.Button SaveButton;
     }
 }
