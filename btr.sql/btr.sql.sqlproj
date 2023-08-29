@@ -86,5 +86,7 @@
     <Build Include="Tables\BrgContext\BTR_JenisBrg.sql" />
     <Build Include="Tables\SalesContext\BTR_Wilayah.sql" />
     <Build Include="Tables\SalesContext\BTR_Klasifikasi.sql" />
+    <Build Include="Tables\Helper\BTR_Doc.sql" />
+    <Build Include="Tables\Helper\BTR_DocAction.sql" />
   </ItemGroup>
 </Project>

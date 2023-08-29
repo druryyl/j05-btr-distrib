@@ -53,7 +53,7 @@ namespace btr.infrastructure.InventoryContext.DocAgg
                     DocType = @DocType,
                     DocDate = @DocDate,
                     WarehouseId = @WarehouseId,
-                    DocPrintStatus = @DocPrintStatus,
+                    DocPrintStatus = @DocPrintStatus
                 WHERE
                     DocId = @DocId ";
 

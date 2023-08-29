@@ -21,6 +21,7 @@ namespace btr.application.SupportContext.DocAgg
         IDocBuilder Warehouse(IWarehouseKey warehouseKey);
         IDocBuilder Cancel();
         IDocBuilder Print();
+        IDocBuilder Queue();
     }
 
     public class DocBuilder : IDocBuilder
@@ -125,6 +126,17 @@ namespace btr.application.SupportContext.DocAgg
             };
             _agg.ListAction.Add(newAction);
             _agg.DocPrintStatus = DocPrintStatusEnum.Printed;
+            return this;
+        }
+        public IDocBuilder Queue()
+        {
+            var newAction = new DocActionModel
+            {
+                Action = "Queue",
+                ActionDate = _dateTime.Now,
+            };
+            _agg.ListAction.Add(newAction);
+            _agg.DocPrintStatus = DocPrintStatusEnum.Queued;
             return this;
         }
     }

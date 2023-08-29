@@ -7,6 +7,11 @@ namespace btr.domain.SupportContext.PrintManagerAgg
 
     public class DocModel : IDocKey
     {
+        public DocModel()
+        {
+        }
+        public DocModel(string id) => DocId = id;
+
         public string DocId { get; set; }
         public string DocType { get; set; }
         public DateTime DocDate { get; set; }

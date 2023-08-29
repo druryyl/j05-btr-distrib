@@ -53,11 +53,15 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
         private FakturModel _aggRoot = new FakturModel();
         private readonly IFakturBuilder _builder;
         private readonly IFakturWriter _writer;
+        private readonly IMediator _mediator;
 
-        public UpdateFakturHandler(IFakturBuilder builder, IFakturWriter writer)
+        public UpdateFakturHandler(IFakturBuilder builder, 
+            IFakturWriter writer, 
+            IMediator mediator)
         {
             _builder = builder;
             _writer = writer;
+            _mediator = mediator;
         }
 
         public Task<UpdateFakturResponse> Handle(UpdateFakturCommand request, CancellationToken cancellationToken)
@@ -93,6 +97,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
 
             //  APPLY
             _writer.Save(ref _aggRoot);
+            _mediator.Publish(new UpdatedFakturEvent(request, _aggRoot), cancellationToken);
             return Task.FromResult(GenResponse());
         }
 
@@ -101,5 +106,16 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
             var result = _aggRoot.Adapt<UpdateFakturResponse>();
             return result;
         }
+    }
+
+    public class UpdatedFakturEvent : INotification
+    {
+        public UpdatedFakturEvent(UpdateFakturCommand command, FakturModel aggregate)
+        {
+            Command = command;
+            Aggregate = aggregate;
+        }
+        public UpdateFakturCommand Command { get; set; }
+        public FakturModel Aggregate { get; set; }
     }
 }
