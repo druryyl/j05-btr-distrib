@@ -141,6 +141,9 @@
     <Compile Include="SalesContext\WilayahAgg\IWilayahDal.cs" />
     <Compile Include="SalesContext\WilayahAgg\WilayahBuilder.cs" />
     <Compile Include="SalesContext\WilayahAgg\WilayahWriter.cs" />
+    <Compile Include="SupportContext\DocAgg\DocBuilder.cs" />
+    <Compile Include="SupportContext\DocAgg\IDocActionDal.cs" />
+    <Compile Include="SupportContext\DocAgg\IDocDal.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="FinanceContext\CreditNoteAgg\" />

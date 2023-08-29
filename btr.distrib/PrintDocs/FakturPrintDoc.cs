@@ -4,17 +4,18 @@ using btr.infrastructure.Helpers;
 using MediatR;
 using Microsoft.Extensions.Options;
 using System;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using btr.nuna.Domain;
+using System.Drawing.Printing;
+using System.Drawing;
 
 namespace btr.distrib.PrintDocs
 {
     public interface IPrintDoc<T>
     {
         void CreateDoc(T model);
-        void PrintDoc(string  doc);
+        void PrintDoc();
     }
     public interface IFakturPrintDoc : IPrintDoc<FakturModel> 
     { 
@@ -75,28 +76,80 @@ namespace btr.distrib.PrintDocs
             {
                 if (i % 5 == 1)
                     PrintHeader();
+                
                 var no = i.ToString("D2");
                 var brgId = item.BrgId.FixWidth(7);
                 var brgName = item.BrgName.FixWidth(25);
-                var bonus = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 3)?.Qty.ToString().FixWidth(2) ?? string.Empty.FixWidth(2);
-                var qty1 = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 1)?.Qty.ToString().FixWidth(6) ?? string.Empty.FixWidth(6);
-                var qty2 = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 2)?.Qty.ToString().FixWidth(6) ?? string.Empty.FixWidth(6);
-                var hrg1 = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 1)?.HargaJual.ToString(CultureInfo.InvariantCulture).FixWidth(8) ?? string.Empty.FixWidth(8);
-                var hrg2 = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 2)?.HargaJual.ToString(CultureInfo.InvariantCulture).FixWidth(8) ?? string.Empty.FixWidth(8);
-                var disc1 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 1)?.DiscountProsen.ToString(CultureInfo.InvariantCulture).FixWidth(3) ?? string.Empty.FixWidth(3);
-                var disc2 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 2)?.DiscountProsen.ToString(CultureInfo.InvariantCulture).FixWidth(3) ?? string.Empty.FixWidth(3);
-                var disc3 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 3)?.DiscountProsen.ToString(CultureInfo.InvariantCulture).FixWidth(3) ?? string.Empty.FixWidth(3);
-                var disc4 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 4)?.DiscountProsen.ToString(CultureInfo.InvariantCulture).FixWidth(3) ?? string.Empty.FixWidth(3);
-                var total = item.Total.ToString("N").FixWidth(14);
-                await sw.WriteLineAsync($"{no}|{brgId}|{brgName}|{bonus}|{qty1}|{qty2}|{hrg1}|{hrg2}|{disc1}|{disc2}|{disc3}|{disc4}|{total}|");
+                var bonus = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 3)?.Qty.ToString().FixWidthRight(2) ?? string.Empty.FixWidth(2);
+                var qty1 = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 1)?.Qty.ToString().FixWidthRight(6) ?? string.Empty.FixWidth(6);
+                var qty2 = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 2)?.Qty.ToString().FixWidthRight(6) ?? string.Empty.FixWidth(6);
+                var hrg1 = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 1)?.HargaJual.ToString("N0").FixWidthRight(8) ?? string.Empty.FixWidth(8);
+                var hrg2 = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 2)?.HargaJual.ToString("N0").FixWidthRight(8) ?? string.Empty.FixWidth(8);
+                var disc1 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 1)?.DiscountProsen.ToString("N0").FixWidthRight(3) ?? string.Empty.FixWidth(3);
+                var disc2 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 2)?.DiscountProsen.ToString("N0").FixWidthRight(3) ?? string.Empty.FixWidth(3);
+                var disc3 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 3)?.DiscountProsen.ToString("N0").FixWidthRight(3) ?? string.Empty.FixWidth(3);
+                var disc4 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 4)?.DiscountProsen.ToString("N0").FixWidthRight(3) ?? string.Empty.FixWidth(3);
+                var total = item.Total.ToString("N0").FixWidthRight(14);
+                
+                await sw.WriteLineAsync($"{no}|{brgId}|{brgName}|{bonus}|{qty1}|{qty2}|{hrg1}|{hrg2}|{disc1}|{disc2}|{disc3}|{disc4}|{total}");
                 i++;
             }
+
+            for(var j = 1; j <= i % 5; j++)
+                await sw.WriteLineAsync($"  |       |                         |  |      |      |        |        |   |   |   |   |              ");
+            await sw.WriteLineAsync($"--+-------+-------------------------+--+------+------+--------+--------+---+---+---+---+--------------");
+            var subTotal = model.ListItem.Sum(x => x.SubTotal);
+            var discount = model.ListItem.Sum(x => x.DiscountRp) + model.DiscountLain;
+            var total2 = subTotal + discount;
+            var ppn = model.ListItem.Sum(x => x.PpnRp);
+            var grandTotal = model.ListItem.Sum(x => x.Total);
+            await sw.WriteLineAsync($"                                                                            SUBTOTAL   :{subTotal.ToString("N0").FixWidthRight(14)}");
+            await sw.WriteLineAsync($"                                                                            DISCOUNT   :{discount.ToString("N0").FixWidthRight(14)}");
+            await sw.WriteLineAsync($"                                                                            TOTAL      :{total2.ToString("N0").FixWidthRight(14)}");
+            await sw.WriteLineAsync($"                                                                            PPN 11%    :{ppn.ToString("N0").FixWidthRight(14)}");
+            await sw.WriteLineAsync($"                                                                            GRAND TOTAL:{grandTotal.ToString("N0").FixWidthRight(14)}");
+            await sw.WriteLineAsync($"");
+            await sw.WriteLineAsync($"Tanda Terima,                             Pengirim,                             Yogyakarta, {model.FakturDate.ToString("dd-MM-yyyy")}");
+            await sw.WriteLineAsync($"");
+            await sw.WriteLineAsync($"");
+            await sw.WriteLineAsync($"___________________                       ___________________                   Mayang");
+            await sw.WriteLineAsync($"(Nama Terang/Cap)");
+
             sw.Close();
         }
 
-        public void PrintDoc(string doc)
+        public void PrintDoc()
         {
-            throw new NotImplementedException();
+            try
+            {
+                // Create a PrintDocument object
+                PrintDocument pd = new PrintDocument();
+
+                // Set the PrintPage event handler
+                pd.PrintPage += new PrintPageEventHandler((sender, e) =>
+                {
+                    // Read the text file
+                    string fileContent = System.IO.File.ReadAllText(_opt.TempFile);
+
+                    // Set the font and print the content
+                    Font font = new Font("Consolas", 8, FontStyle.Regular);
+                    e.Graphics.DrawString(fileContent, font, Brushes.Black, e.MarginBounds);
+                });
+
+                // Set the printer settings, e.g., draft mode
+                PrinterSettings printerSettings = new PrinterSettings
+                {
+                    PrinterName = _opt.Faktur
+                };
+                pd.PrinterSettings = printerSettings;
+
+                // Start printing
+                pd.Print();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred: " + ex.Message);
+            }
         }
     }
 }

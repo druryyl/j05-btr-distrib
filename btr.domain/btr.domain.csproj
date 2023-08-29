@@ -93,6 +93,10 @@
     <Compile Include="SalesContext\SalesPersonAgg\SalesPersonModel.cs" />
     <Compile Include="SalesContext\WilayahAgg\IWilayahKey.cs" />
     <Compile Include="SalesContext\WilayahAgg\WilayahModel.cs" />
+    <Compile Include="SupportContext\DocAgg\DocActionModel.cs" />
+    <Compile Include="SupportContext\DocAgg\DocModel.cs" />
+    <Compile Include="SupportContext\DocAgg\DocPrintStatusEnum.cs" />
+    <Compile Include="SupportContext\DocAgg\IDocKey.cs" />
     <Compile Include="SupportContext\UserAgg\IUserKey.cs" />
     <Compile Include="SupportContext\UserAgg\UserModel.cs" />
   </ItemGroup>

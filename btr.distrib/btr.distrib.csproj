@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationRevision>5</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -212,6 +212,7 @@
     <Compile Include="Browsers\BrgBrowser.cs" />
     <Compile Include="Browsers\BrgStok2Browser.cs" />
     <Compile Include="Browsers\CustomerBrowser.cs" />
+    <Compile Include="Browsers\Faktur2Browser.cs" />
     <Compile Include="Browsers\KategoriBrowser.cs" />
     <Compile Include="Browsers\SalesPersonBrowser.cs" />
     <Compile Include="Browsers\WilayahBrowser.cs" />
@@ -250,6 +251,12 @@
       <DependentUpon>WarehouseForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PrintDocs\FakturPrintDoc.cs" />
+    <Compile Include="PrintDocs\PrintManagerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PrintDocs\PrintManagerForm.Designer.cs">
+      <DependentUpon>PrintManagerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Browsers\BrgStokBrowser.cs" />
@@ -351,6 +358,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\WarehouseAgg\WarehouseForm.resx">
       <DependentUpon>WarehouseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrintDocs\PrintManagerForm.resx">
+      <DependentUpon>PrintManagerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

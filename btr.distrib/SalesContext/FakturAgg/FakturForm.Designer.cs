@@ -369,8 +369,6 @@
             this.FakturIdText.Name = "FakturIdText";
             this.FakturIdText.Size = new System.Drawing.Size(147, 22);
             this.FakturIdText.TabIndex = 0;
-            this.FakturIdText.Validating += new System.ComponentModel.CancelEventHandler(this.FakturIdText_Validating);
-            this.FakturIdText.Validated += new System.EventHandler(this.FakturIdText_Validated);
             // 
             // SalesIdText
             // 

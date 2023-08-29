@@ -71,6 +71,7 @@ namespace btr.distrib.SharedForm
 
             _binder.DataSource = _engine.GenDataSource();
             BrowserGrid.DataSource = _binder;
+            BrowserGrid.Columns.SetDefaultCellStyle(Color.MintCream);
         }
 
         private void BrowserGrid_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)

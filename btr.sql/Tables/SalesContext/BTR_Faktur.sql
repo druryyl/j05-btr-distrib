@@ -3,7 +3,7 @@
     FakturId VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_Faktur_FakturId DEFAULT(''),
     FakturDate DATETIME NOT NULL CONSTRAINT DF_BTR_Faktur_FakturDate DEFAULT('3000-01-01'),
     SalesPersonId VARCHAR(5) NOT NULL CONSTRAINT DF_BTR_Faktur_SalesPersonId DEFAULT(''),
-    CustomerId VARCHAR(5) NOT NULL CONSTRAINT DF_BTR_Faktur_CustomerId DEFAULT(''),
+    CustomerId VARCHAR(6) NOT NULL CONSTRAINT DF_BTR_Faktur_CustomerId DEFAULT(''),
     WarehouseId VARCHAR(5) NOT NULL CONSTRAINT DF_BTR_Faktur_WarehouseId DEFAULT(''),
     TglRencanaKirim DATETIME NOT NULL CONSTRAINT DF_BTR_Faktur_TglRencanaKirim DEFAULT('3000-01-01'),
     TermOfPayment VARCHAR(3) NOT NULL CONSTRAINT DF_BTR_Faktur_TermOfPayment DEFAULT(''),

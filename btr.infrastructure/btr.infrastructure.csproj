@@ -101,6 +101,8 @@
     <Compile Include="SalesContext\KlasifikasiAgg\KlasifikasiDal.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\SalesPersonDal.cs" />
     <Compile Include="SalesContext\WilayahAgg\WilayahDal.cs" />
+    <Compile Include="SupportContext\DocAgg\DocActionDal.cs" />
+    <Compile Include="SupportContext\DocAgg\DocDal.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\btr.application\btr.application.csproj">

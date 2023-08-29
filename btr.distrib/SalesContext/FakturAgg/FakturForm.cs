@@ -38,6 +38,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly IBrowser<CustomerBrowserView> _customerBrowser;
         private readonly IBrowser<WarehouseBrowserView> _warehouseBrowser;
         private readonly IBrowser<BrgStokBrowserView> _brgStokBrowser;
+        private readonly IBrowser<Faktur2BrowserView> _fakturBrowser;
 
         private readonly ISalesPersonDal _salesPersonDal;
         private readonly ICustomerDal _customerDal;
@@ -45,7 +46,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly IBrgBuilder _brgBuilder;
         private readonly IStokBalanceBuilder _stokBalanceBuilder;
 
-        private readonly IFakturBrowser _fakturBrowser;
+        //private readonly IFakturBrowser _fakturBrowser;
 
         private readonly IFakturPrintDoc _fakturPrintDoc;
 
@@ -54,7 +55,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             IBrowser<SalesPersonBrowserView> salesBrowser,
             IBrowser<CustomerBrowserView> customerBrowser,
             IBrowser<BrgStokBrowserView> brgStokBrowser,
-            IFakturBrowser fakturBrowser,
+            IBrowser<Faktur2BrowserView> fakturBrowser,
             ISalesPersonDal salesPersonDal,
             ICustomerDal customerDal,
             IWarehouseDal warehouseDal,
@@ -129,24 +130,18 @@ namespace btr.distrib.SalesContext.FakturAgg
         #region FAKTUR
         private async void FakturButton_Click(object sender, EventArgs e)
         {
-            var form = new BrowserForm<ListFakturResponse, string>(_fakturBrowser, FakturIdText.Text, x => x.CustomerName);
-            var resultDialog = form.ShowDialog();
-            if (resultDialog == DialogResult.OK)
-            {
-                FakturIdText.Text = form.ReturnedValue;
-                await ValidateFaktur();
-            }
-            SalesIdText.Focus();
+            _fakturBrowser.Filter.Date = new Periode(DateTime.Now);
+
+            FakturIdText.Text = _fakturBrowser.Browse(FakturIdText.Text);
+            await FakturIdText_ValidatedAsync(FakturIdText, null);
         }
-        private async void FakturIdText_Validating(object sender, CancelEventArgs e)
-        {
-            await ValidateFaktur();
-        }
-        private void FakturIdText_Validated(object sender, EventArgs e)
+        private async Task FakturIdText_ValidatedAsync(object sender, EventArgs e)
         {
             var textbox = (TextBox)sender;
             if (textbox.Text.Length == 0)
                 ClearForm();
+
+            await ValidateFaktur();
         }
         private async Task ValidateFaktur()
         {
@@ -442,7 +437,7 @@ namespace btr.distrib.SalesContext.FakturAgg
                 var response = await _mediator.Send(new GetFakturQuery(result));
                 var faktur = response.Adapt<FakturModel>();
                 _fakturPrintDoc.CreateDoc(faktur);
-                //_fakturPrintDoc.PrintDoc();
+                _fakturPrintDoc.PrintDoc();
             }
 
             ClearForm();

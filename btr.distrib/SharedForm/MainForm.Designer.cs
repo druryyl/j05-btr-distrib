@@ -55,7 +55,7 @@
             this.BrgButton = new System.Windows.Forms.RibbonButton();
             this.WarehouseButton = new System.Windows.Forms.RibbonButton();
             this.ribbonPanel1 = new System.Windows.Forms.RibbonPanel();
-            this.ribbonButton1 = new System.Windows.Forms.RibbonButton();
+            this.PrintButton = new System.Windows.Forms.RibbonButton();
             this.FinanceTab = new System.Windows.Forms.RibbonTab();
             this.DistributionTab = new System.Windows.Forms.RibbonTab();
             this.ReceivingPanel = new System.Windows.Forms.RibbonPanel();
@@ -78,7 +78,7 @@
             this.ribbon1.OrbDropDown.Size = new System.Drawing.Size(527, 72);
             this.ribbon1.OrbDropDown.TabIndex = 0;
             this.ribbon1.RibbonTabFont = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ribbon1.Size = new System.Drawing.Size(876, 122);
+            this.ribbon1.Size = new System.Drawing.Size(876, 106);
             this.ribbon1.TabIndex = 2;
             this.ribbon1.Tabs.Add(this.SalesTab);
             this.ribbon1.Tabs.Add(this.PurchaseTab);
@@ -101,7 +101,7 @@
             this.FakturPanel.Items.Add(this.ReturJualButton);
             this.FakturPanel.Items.Add(this.ReportFakturButton);
             this.FakturPanel.Name = "FakturPanel";
-            this.FakturPanel.Text = "Faktur";
+            this.FakturPanel.Text = "";
             // 
             // FakturButton
             // 
@@ -136,7 +136,7 @@
             this.MasterSalesPanel.Items.Add(this.SalesPersonButton);
             this.MasterSalesPanel.Items.Add(this.WilayahButton);
             this.MasterSalesPanel.Name = "MasterSalesPanel";
-            this.MasterSalesPanel.Text = "Master Data";
+            this.MasterSalesPanel.Text = "";
             // 
             // OutletButton
             // 
@@ -191,7 +191,7 @@
             this.PurchaseOrderRibbonPanel.Items.Add(this.PoButton);
             this.PurchaseOrderRibbonPanel.Items.Add(this.PoReportButton);
             this.PurchaseOrderRibbonPanel.Name = "PurchaseOrderRibbonPanel";
-            this.PurchaseOrderRibbonPanel.Text = "Purchase Order";
+            this.PurchaseOrderRibbonPanel.Text = "";
             // 
             // PoButton
             // 
@@ -215,7 +215,7 @@
             this.InvoiceRibbonPanel.Items.Add(this.InvoiceButton);
             this.InvoiceRibbonPanel.Items.Add(this.InvoiceReportButton);
             this.InvoiceRibbonPanel.Name = "InvoiceRibbonPanel";
-            this.InvoiceRibbonPanel.Text = "Invoice";
+            this.InvoiceRibbonPanel.Text = "";
             // 
             // InvoiceButton
             // 
@@ -237,7 +237,7 @@
             // 
             this.MasterPurchaseRibbonPanel.Items.Add(this.SupplierButton);
             this.MasterPurchaseRibbonPanel.Name = "MasterPurchaseRibbonPanel";
-            this.MasterPurchaseRibbonPanel.Text = "Master Data";
+            this.MasterPurchaseRibbonPanel.Text = "";
             // 
             // SupplierButton
             // 
@@ -260,7 +260,7 @@
             this.ribbonPanel2.Items.Add(this.BrgButton);
             this.ribbonPanel2.Items.Add(this.WarehouseButton);
             this.ribbonPanel2.Name = "ribbonPanel2";
-            this.ribbonPanel2.Text = "Product";
+            this.ribbonPanel2.Text = "";
             // 
             // BrgButton
             // 
@@ -282,17 +282,18 @@
             // 
             // ribbonPanel1
             // 
-            this.ribbonPanel1.Items.Add(this.ribbonButton1);
+            this.ribbonPanel1.Items.Add(this.PrintButton);
             this.ribbonPanel1.Name = "ribbonPanel1";
-            this.ribbonPanel1.Text = "Stock Control";
+            this.ribbonPanel1.Text = "";
             // 
-            // ribbonButton1
+            // PrintButton
             // 
-            this.ribbonButton1.Image = global::btr.distrib.Properties.Resources.icons8_print;
-            this.ribbonButton1.LargeImage = global::btr.distrib.Properties.Resources.icons8_print;
-            this.ribbonButton1.Name = "ribbonButton1";
-            this.ribbonButton1.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton1.SmallImage")));
-            this.ribbonButton1.Text = "Print Faktur";
+            this.PrintButton.Image = global::btr.distrib.Properties.Resources.icons8_print;
+            this.PrintButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_print;
+            this.PrintButton.Name = "PrintButton";
+            this.PrintButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("PrintButton.SmallImage")));
+            this.PrintButton.Text = "Print";
+            this.PrintButton.Click += new System.EventHandler(this.PrintButton_Click);
             // 
             // FinanceTab
             // 
@@ -368,6 +369,6 @@
         private System.Windows.Forms.RibbonButton SupplierButton;
         private System.Windows.Forms.RibbonButton BrgButton;
         private System.Windows.Forms.RibbonButton WarehouseButton;
-        private System.Windows.Forms.RibbonButton ribbonButton1;
+        private System.Windows.Forms.RibbonButton PrintButton;
     }
 }

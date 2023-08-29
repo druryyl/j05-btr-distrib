@@ -20,6 +20,7 @@ namespace btr.distrib.Browsers
             _brgStokViewDal = brgStokViewDal;
             Filter = new BrowseFilter();
             Filter.IsDate = false;
+            Filter.HideAllRows = true;
         }
 
         public string Browse(string defaultValue)

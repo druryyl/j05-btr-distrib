@@ -6,6 +6,10 @@
         {
             return str.Length > length ? str.Substring(0, length) : str.PadRight(length, ' ');
         }
+        public static string FixWidthRight(this string str, int length)
+        {
+            return str.Length > length ? str.Substring(0, length) : str.PadLeft(length, ' ');
+        }
         public static bool ContainMultiWord(this string source, string words)
         {
             bool result = true;

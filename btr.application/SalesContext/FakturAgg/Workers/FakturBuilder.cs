@@ -116,7 +116,11 @@ namespace btr.application.SalesContext.FakturAgg.Workers
 
         public IFakturBuilder FakturDate(DateTime fakturDate)
         {
-            _aggRoot.FakturDate = fakturDate;
+            TimeSpan timespan = DateTime.Now - DateTime.Now.Date;
+            _aggRoot.FakturDate = fakturDate
+                .AddHours(timespan.Hours)
+                .AddMinutes(timespan.Minutes)
+                .AddSeconds(timespan.Seconds);
             return this;
         }
 
