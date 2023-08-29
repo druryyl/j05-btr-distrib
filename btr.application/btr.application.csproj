@@ -142,7 +142,7 @@
     <Compile Include="SalesContext\WilayahAgg\WilayahBuilder.cs" />
     <Compile Include="SalesContext\WilayahAgg\WilayahWriter.cs" />
     <Compile Include="SupportContext\DocAgg\CreateDocOnCreatedFakturEventHandler.cs" />
-    <Compile Include="SupportContext\DocAgg\CreateUpdateDocOnUpdatedFakturEvent.cs" />
+    <Compile Include="SupportContext\DocAgg\CreateUpdateDocOnUpdatedFakturEventHandler.cs" />
     <Compile Include="SupportContext\DocAgg\DocBuilder.cs" />
     <Compile Include="SupportContext\DocAgg\DocValidator.cs" />
     <Compile Include="SupportContext\DocAgg\DocWriter.cs" />

@@ -28,50 +28,58 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.components = new System.ComponentModel.Container();
+            this.GridAtas = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.AutoPrintCheck = new System.Windows.Forms.CheckBox();
             this.RefreshNowButton = new System.Windows.Forms.Button();
             this.WarehouseCombo = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.PrintTimer = new System.Windows.Forms.Timer(this.components);
+            this.GridBawah = new System.Windows.Forms.DataGridView();
+            this.RefreshPrgBar = new System.Windows.Forms.ProgressBar();
+            ((System.ComponentModel.ISupportInitialize)(this.GridAtas)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GridBawah)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // GridAtas
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 48);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(561, 390);
-            this.dataGridView1.TabIndex = 0;
+            this.GridAtas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.GridAtas.Location = new System.Drawing.Point(12, 63);
+            this.GridAtas.Name = "GridAtas";
+            this.GridAtas.Size = new System.Drawing.Size(561, 130);
+            this.GridAtas.TabIndex = 0;
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.LightBlue;
+            this.panel1.BackColor = System.Drawing.Color.Cornsilk;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.checkBox1);
+            this.panel1.Controls.Add(this.RefreshPrgBar);
+            this.panel1.Controls.Add(this.AutoPrintCheck);
             this.panel1.Controls.Add(this.RefreshNowButton);
             this.panel1.Controls.Add(this.WarehouseCombo);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(561, 30);
+            this.panel1.Size = new System.Drawing.Size(561, 45);
             this.panel1.TabIndex = 1;
             // 
-            // checkBox1
+            // AutoPrintCheck
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(478, 7);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(78, 17);
-            this.checkBox1.TabIndex = 4;
-            this.checkBox1.Text = "Auto Print";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.AutoPrintCheck.AutoSize = true;
+            this.AutoPrintCheck.Checked = true;
+            this.AutoPrintCheck.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.AutoPrintCheck.Location = new System.Drawing.Point(478, 7);
+            this.AutoPrintCheck.Name = "AutoPrintCheck";
+            this.AutoPrintCheck.Size = new System.Drawing.Size(78, 17);
+            this.AutoPrintCheck.TabIndex = 4;
+            this.AutoPrintCheck.Text = "Auto Print";
+            this.AutoPrintCheck.UseVisualStyleBackColor = true;
             // 
             // RefreshNowButton
             // 
             this.RefreshNowButton.Location = new System.Drawing.Point(195, 3);
             this.RefreshNowButton.Name = "RefreshNowButton";
-            this.RefreshNowButton.Size = new System.Drawing.Size(110, 23);
+            this.RefreshNowButton.Size = new System.Drawing.Size(119, 23);
             this.RefreshNowButton.TabIndex = 2;
             this.RefreshNowButton.Text = "Refresh Now";
             this.RefreshNowButton.UseVisualStyleBackColor = true;
@@ -84,30 +92,55 @@
             this.WarehouseCombo.Size = new System.Drawing.Size(186, 21);
             this.WarehouseCombo.TabIndex = 0;
             // 
+            // PrintTimer
+            // 
+            this.PrintTimer.Enabled = true;
+            this.PrintTimer.Interval = 1000;
+            // 
+            // GridBawah
+            // 
+            this.GridBawah.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.GridBawah.Location = new System.Drawing.Point(12, 199);
+            this.GridBawah.Name = "GridBawah";
+            this.GridBawah.Size = new System.Drawing.Size(561, 239);
+            this.GridBawah.TabIndex = 3;
+            // 
+            // RefreshPrgBar
+            // 
+            this.RefreshPrgBar.Location = new System.Drawing.Point(3, 30);
+            this.RefreshPrgBar.Name = "RefreshPrgBar";
+            this.RefreshPrgBar.Size = new System.Drawing.Size(551, 10);
+            this.RefreshPrgBar.TabIndex = 5;
+            // 
             // PrintManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.SteelBlue;
+            this.BackColor = System.Drawing.Color.Khaki;
             this.ClientSize = new System.Drawing.Size(585, 450);
+            this.Controls.Add(this.GridBawah);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.GridAtas);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "PrintManagerForm";
             this.Text = "Print Manager";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GridAtas)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GridBawah)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView GridAtas;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ComboBox WarehouseCombo;
         private System.Windows.Forms.Button RefreshNowButton;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox AutoPrintCheck;
+        private System.Windows.Forms.Timer PrintTimer;
+        private System.Windows.Forms.DataGridView GridBawah;
+        private System.Windows.Forms.ProgressBar RefreshPrgBar;
     }
 }

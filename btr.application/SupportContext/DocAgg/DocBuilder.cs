@@ -19,9 +19,11 @@ namespace btr.application.SupportContext.DocAgg
         IDocBuilder Attach(DocModel doc);
 
         IDocBuilder Warehouse(IWarehouseKey warehouseKey);
+        IDocBuilder Description(string description);
         IDocBuilder Cancel();
         IDocBuilder Print();
         IDocBuilder Queue();
+        IDocBuilder ErrorPrint(string errMsg);
     }
 
     public class DocBuilder : IDocBuilder
@@ -137,6 +139,24 @@ namespace btr.application.SupportContext.DocAgg
             };
             _agg.ListAction.Add(newAction);
             _agg.DocPrintStatus = DocPrintStatusEnum.Queued;
+            return this;
+        }
+
+        public IDocBuilder Description(string description)
+        {
+            _agg.DocDesc = description;
+            return this;
+        }
+
+        public IDocBuilder ErrorPrint(string errMsg)
+        {
+            var newAction = new DocActionModel
+            {
+                Action = $"Error Print: {errMsg}",
+                ActionDate = _dateTime.Now,
+            };
+            _agg.ListAction.Add(newAction);
+            _agg.DocPrintStatus = DocPrintStatusEnum.ErrorPrint;
             return this;
         }
     }

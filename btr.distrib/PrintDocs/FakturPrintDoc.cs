@@ -120,36 +120,19 @@ namespace btr.distrib.PrintDocs
 
         public void PrintDoc()
         {
-            try
+            PrintDocument pd = new PrintDocument();
+            pd.PrintPage += new PrintPageEventHandler((sender, e) =>
             {
-                // Create a PrintDocument object
-                PrintDocument pd = new PrintDocument();
-
-                // Set the PrintPage event handler
-                pd.PrintPage += new PrintPageEventHandler((sender, e) =>
-                {
-                    // Read the text file
-                    string fileContent = System.IO.File.ReadAllText(_opt.TempFile);
-
-                    // Set the font and print the content
-                    Font font = new Font("Consolas", 8, FontStyle.Regular);
-                    e.Graphics.DrawString(fileContent, font, Brushes.Black, e.MarginBounds);
-                });
-
-                // Set the printer settings, e.g., draft mode
-                PrinterSettings printerSettings = new PrinterSettings
-                {
-                    PrinterName = _opt.Faktur
-                };
-                pd.PrinterSettings = printerSettings;
-
-                // Start printing
-                pd.Print();
-            }
-            catch (Exception ex)
+                string fileContent = System.IO.File.ReadAllText(_opt.TempFile);
+                Font font = new Font("Consolas", 8, FontStyle.Regular);
+                e.Graphics.DrawString(fileContent, font, Brushes.Black, e.MarginBounds);
+            });
+            PrinterSettings printerSettings = new PrinterSettings
             {
-                Console.WriteLine("An error occurred: " + ex.Message);
-            }
+                PrinterName = _opt.Faktur
+            };
+            pd.PrinterSettings = printerSettings;
+            pd.Print();
         }
     }
 }

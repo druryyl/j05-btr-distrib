@@ -2,6 +2,6 @@
 {
     public enum DocPrintStatusEnum
     {
-        Queued, Printed, Canceled
+        Queued, Printed, ErrorPrint, Canceled
     }
 }

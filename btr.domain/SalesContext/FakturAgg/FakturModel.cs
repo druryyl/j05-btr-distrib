@@ -8,6 +8,11 @@ namespace btr.domain.SalesContext.FakturAgg
 { 
     public class FakturModel : IFakturKey, ISalesPersonKey, ICustomerKey, IWarehouseKey
     {
+        public FakturModel()
+        {
+        }
+        public FakturModel(string id) => FakturId = id;
+
         public string FakturId { get; set; }
         public DateTime FakturDate { get; set; }
     
