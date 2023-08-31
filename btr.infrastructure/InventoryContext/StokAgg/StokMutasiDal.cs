@@ -28,7 +28,7 @@ namespace btr.infrastructure.InventoryContext.StokAgg
                 conn.Open();
                 bcp.AddMap("StokId", "StokId");
                 bcp.AddMap("StokMutasiId", "StokMutasiId");
-                bcp.AddMap("MutasiId", "MutasiId");
+                bcp.AddMap("ReffId", "ReffId");
                 bcp.AddMap("NoUrut", "NoUrut");
                 bcp.AddMap("MutasiDate", "MutasiDate");
                 bcp.AddMap("QtyIn", "QtyIn");
@@ -63,7 +63,7 @@ namespace btr.infrastructure.InventoryContext.StokAgg
         {
             const string sql = @"
             SELECT
-                StokId, StokMutasiId, MutasiId, NoUrut, 
+                StokId, StokMutasiId, ReffId, NoUrut, 
                 MutasiDate, QtyIn, QtyOut, HargaJual
             FROM 
                 BTR_StokMutasi aa

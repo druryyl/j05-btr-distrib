@@ -25,17 +25,17 @@ namespace btr.infrastructure.InventoryContext.StokAgg
         {
             const string sql = @"
             INSERT INTO BTR_Stok(
-                StokId, StokControlId, StokControlDate,
+                StokId, StokDate, ReffId,
                 BrgId,  WarehouseId, QtyIn, Qty,
                 NilaiPersediaan)
             VALUES (
-                @StokId, @StokControlId, @StokControlDate,
+                @StokId, @StokDate, @ReffId,
                 @BrgId,  @WarehouseId, @QtyIn, @Qty,
                 @NilaiPersediaan)";
             var @dp = new DynamicParameters();
             dp.AddParam("@StokId", model.StokId, SqlDbType.VarChar);
-            dp.AddParam("@StokControlId", model.ReffId, SqlDbType.VarChar);
-            dp.AddParam("@StokControlDate", model.StokDate, SqlDbType.DateTime);
+            dp.AddParam("@StokDate", model.StokDate, SqlDbType.DateTime);
+            dp.AddParam("@ReffId", model.ReffId, SqlDbType.VarChar);
             dp.AddParam("@BrgId", model.BrgId, SqlDbType.VarChar);
             dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
             dp.AddParam("@QtyIn", model.QtyIn, SqlDbType.Int);
@@ -55,8 +55,8 @@ namespace btr.infrastructure.InventoryContext.StokAgg
                 BTR_Stok
             SET
                 StokId = @StokId, 
-                StokControlId = @StokControlId, 
-                StokControlDate = @StokControlDate,
+                StokDate = @StokDate,
+                ReffId = @ReffId,
                 BrgId = @BrgId,  
                 WarehouseId = @WarehouseId, 
                 QtyIn = @QtyIn, 
@@ -67,8 +67,8 @@ namespace btr.infrastructure.InventoryContext.StokAgg
 
             var @dp = new DynamicParameters();
             dp.AddParam("@StokId", model.StokId, SqlDbType.VarChar);
-            dp.AddParam("@StokControlId", model.ReffId, SqlDbType.VarChar);
-            dp.AddParam("@StokControlDate", model.StokDate, SqlDbType.DateTime);
+            dp.AddParam("@StokDate", model.StokDate, SqlDbType.DateTime);
+            dp.AddParam("@ReffId", model.ReffId, SqlDbType.VarChar);
             dp.AddParam("@BrgId", model.BrgId, SqlDbType.VarChar);
             dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
             dp.AddParam("@QtyIn", model.QtyIn, SqlDbType.Int);
@@ -102,7 +102,7 @@ namespace btr.infrastructure.InventoryContext.StokAgg
         {
             const string sql = @"
             SELECT
-                aa.StokId, aa.StokControlId, aa.StokControlDate,
+                aa.StokId, aa.StokDate, aa.ReffId,
                 aa.BrgId,  aa.WarehouseId, aa.QtyIn, aa.Qty,
                 aa.NilaiPersediaan,
                 ISNULL(bb.BrgName, '') AS BrgName,
@@ -127,7 +127,7 @@ namespace btr.infrastructure.InventoryContext.StokAgg
         {
             const string sql = @"
             SELECT
-                aa.StokId, aa.StokControlId, aa.StokControlDate,
+                aa.StokId, aa.StokDate, aa.ReffId,
                 aa.BrgId,  aa.WarehouseId, aa.QtyIn, aa.Qty,
                 aa.NilaiPersediaan,
                 ISNULL(bb.BrgName, '') AS BrgName,

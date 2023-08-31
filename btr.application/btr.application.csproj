@@ -91,6 +91,7 @@
     <Compile Include="InventoryContext\StokAgg\IStokDal.cs" />
     <Compile Include="InventoryContext\StokAgg\IStokMutasiDal.cs" />
     <Compile Include="InventoryContext\StokAgg\StokBuilder.cs" />
+    <Compile Include="InventoryContext\StokAgg\StokValidator.cs" />
     <Compile Include="InventoryContext\StokAgg\StokWriter.cs" />
     <Compile Include="InventoryContext\StokAgg\UseCases\ListBrgStokQuery.cs" />
     <Compile Include="InventoryContext\StokBalanceAgg\IStokBalanceDal.cs" />

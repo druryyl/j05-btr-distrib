@@ -57,7 +57,7 @@
             this.ribbonPanel1 = new System.Windows.Forms.RibbonPanel();
             this.PrintButton = new System.Windows.Forms.RibbonButton();
             this.FinanceTab = new System.Windows.Forms.RibbonTab();
-            this.DistributionTab = new System.Windows.Forms.RibbonTab();
+            this.SettingTab = new System.Windows.Forms.RibbonTab();
             this.ReceivingPanel = new System.Windows.Forms.RibbonPanel();
             this.DeliveryPanel = new System.Windows.Forms.RibbonPanel();
             this.TestingButton = new System.Windows.Forms.RibbonButton();
@@ -85,7 +85,7 @@
             this.ribbon1.Tabs.Add(this.PurchaseTab);
             this.ribbon1.Tabs.Add(this.InventoryTab);
             this.ribbon1.Tabs.Add(this.FinanceTab);
-            this.ribbon1.Tabs.Add(this.DistributionTab);
+            this.ribbon1.Tabs.Add(this.SettingTab);
             this.ribbon1.Text = "ribbon1";
             this.ribbon1.ThemeColor = System.Windows.Forms.RibbonTheme.Blue_2010;
             // 
@@ -301,13 +301,12 @@
             this.FinanceTab.Name = "FinanceTab";
             this.FinanceTab.Text = "Finance";
             // 
-            // DistributionTab
+            // SettingTab
             // 
-            this.DistributionTab.Name = "DistributionTab";
-            this.DistributionTab.Panels.Add(this.ReceivingPanel);
-            this.DistributionTab.Panels.Add(this.DeliveryPanel);
-            this.DistributionTab.Text = "Distribusi";
-            this.DistributionTab.Visible = false;
+            this.SettingTab.Name = "SettingTab";
+            this.SettingTab.Panels.Add(this.ReceivingPanel);
+            this.SettingTab.Panels.Add(this.DeliveryPanel);
+            this.SettingTab.Text = "Setting";
             // 
             // ReceivingPanel
             // 
@@ -322,7 +321,7 @@
             // 
             // TestingButton
             // 
-            this.TestingButton.Image = ((System.Drawing.Image)(resources.GetObject("TestingButton.Image")));
+            this.TestingButton.Image = global::btr.distrib.Properties.Resources.icons8_microscope_32;
             this.TestingButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_microscope_32;
             this.TestingButton.Name = "TestingButton";
             this.TestingButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("TestingButton.SmallImage")));
@@ -343,6 +342,7 @@
             this.Text = "MainForm";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
+
         }
 
         private System.Windows.Forms.RibbonButton TestingButton;
@@ -356,7 +356,7 @@
         private System.Windows.Forms.RibbonPanel MasterPurchaseRibbonPanel;
         private System.Windows.Forms.RibbonTab SalesTab;
         private System.Windows.Forms.RibbonPanel FakturPanel;
-        private System.Windows.Forms.RibbonTab DistributionTab;
+        private System.Windows.Forms.RibbonTab SettingTab;
         private System.Windows.Forms.RibbonTab InventoryTab;
         private System.Windows.Forms.RibbonTab FinanceTab;
         private System.Windows.Forms.RibbonPanel MasterSalesPanel;

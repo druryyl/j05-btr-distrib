@@ -13,6 +13,16 @@ namespace btr.application.InventoryContext.StokAgg
 {
     public class AddStokCommand : IRequest, IBrgKey, IWarehouseKey
     {
+        public AddStokCommand(string brgId, string warehouseId, int qty, string satuan, decimal nilai, string reffId, string jenisMutasi)
+        {
+            BrgId = brgId;
+            WarehouseId = warehouseId;
+            Qty = qty;
+            Satuan = satuan;
+            Nilai = nilai;
+            ReffId = reffId;
+            JenisMutasi = jenisMutasi;
+        }
         public string BrgId { get; set; }
         public string WarehouseId { get; set; }
         public int Qty { get; set; }
@@ -52,7 +62,7 @@ namespace btr.application.InventoryContext.StokAgg
             //  BUILD
             var konversi = GetKonversi(request, request.Satuan);
             var qtyKecil = request.Qty * konversi;
-            var nilaiKecil = request.Nilai / (konversi * qtyKecil);
+            var nilaiKecil = request.Nilai / konversi;
             _aggregate = _stokBuilder
                 .Create(request, request, (int)qtyKecil, nilaiKecil, request.ReffId, request.JenisMutasi)
                 .Build();
