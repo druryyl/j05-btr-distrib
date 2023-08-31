@@ -15,8 +15,17 @@ namespace btr.distrib.SharedForm
 
         private async void button1_Click(object sender, System.EventArgs e)
         {
-            var cmd = new AddStokCommand("BR0001", "W19", 30, "PCS/40", 1900, "ADJ-001", "ADJUSTMENT");
-            await _mediator.Send(cmd);
+            //var cmd = new AddStokCommand("BR0001", "W19", 10, "PCS/40", 1900, "ADJ-001", "ADJUSTMENT");
+            //await _mediator.Send(cmd);
+
+            //var cmd2 = new AddStokCommand("BR0001", "W19", 4, "PCS/40", 1900, "ADJ-001", "ADJUSTMENT");
+            //await _mediator.Send(cmd2);
+
+
+            //var cmd3 = new RemoveStokCommand("BR0001", "W19",13, "PCS/40", 2100, "FAKTUR-001", "FAKTUR");
+            //await _mediator.Send(cmd3);
+
+
         }
     }
 }

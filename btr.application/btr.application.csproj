@@ -90,6 +90,7 @@
     <Compile Include="InventoryContext\StokAgg\AddStokCommand.cs" />
     <Compile Include="InventoryContext\StokAgg\IStokDal.cs" />
     <Compile Include="InventoryContext\StokAgg\IStokMutasiDal.cs" />
+    <Compile Include="InventoryContext\StokAgg\RemoveStokCommand.cs" />
     <Compile Include="InventoryContext\StokAgg\StokBuilder.cs" />
     <Compile Include="InventoryContext\StokAgg\StokValidator.cs" />
     <Compile Include="InventoryContext\StokAgg\StokWriter.cs" />

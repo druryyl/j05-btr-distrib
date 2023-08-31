@@ -106,6 +106,7 @@ namespace btr.application.InventoryContext.StokAgg
                 JenisMutasi = jenisMutasi,
                 NoUrut = noUrut,
             };
+            _agg.Qty -= qty;
             _agg.ListMutasi.Add(newMutasi);
             return this;
         }
