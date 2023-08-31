@@ -18,7 +18,6 @@ namespace btr.distrib.SharedForm
 {
     public partial class MainForm : Form
     {
-        private readonly FakturForm _fakturForm;
         private readonly ServiceProvider _servicesProvider;
 
         public MainForm(ServiceCollection servicesCollection)
@@ -103,6 +102,14 @@ namespace btr.distrib.SharedForm
         private void PrintButton_Click(object sender, EventArgs e)
         {
             var form = _servicesProvider.GetRequiredService<PrintManagerForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void TestingButton_Click(object sender, EventArgs e)
+        {
+            var form = _servicesProvider.GetRequiredService<TestPlayground>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

@@ -1,8 +1,7 @@
-﻿using btr.domain.SupportContext.DocAgg;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace btr.domain.SupportContext.PrintManagerAgg
+namespace btr.domain.SupportContext.DocAgg
 {
 
     public class DocModel : IDocKey

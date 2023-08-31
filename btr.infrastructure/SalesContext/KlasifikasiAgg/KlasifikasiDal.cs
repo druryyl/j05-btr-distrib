@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using btr.application.SalesContext.WilayahAgg;
-using btr.domain.SalesContext.SalesPersonAgg;
+using btr.application.SalesContext.KlasifikasiAgg;
+using btr.domain.SalesContext.KlasifikasiAgg;
 using btr.infrastructure.Helpers;
 using btr.nuna.Infrastructure;
 using Dapper;
 using Microsoft.Extensions.Options;
 
-namespace btr.infrastructure.InventoryContext.KlasifikasiAgg
+namespace btr.infrastructure.SalesContext.KlasifikasiAgg
 {
     public class KlasifikasiDal : IKlasifikasiDal
     {

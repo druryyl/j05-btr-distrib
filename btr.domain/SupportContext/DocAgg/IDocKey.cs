@@ -1,4 +1,4 @@
-﻿namespace btr.domain.SupportContext.PrintManagerAgg
+﻿namespace btr.domain.SupportContext.DocAgg
 {
     public interface IDocKey
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using btr.application.InventoryContext.WarehouseAgg.Contracts;
+using btr.application.InventoryContext.WarehouseAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.infrastructure.Helpers;
 using btr.nuna.Infrastructure;

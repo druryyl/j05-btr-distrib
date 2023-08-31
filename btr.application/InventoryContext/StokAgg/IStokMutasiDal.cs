@@ -1,7 +1,7 @@
 ﻿using btr.domain.InventoryContext.StokAgg;
 using btr.nuna.Infrastructure;
 
-namespace btr.application.InventoryContext.StokAgg.Contracts
+namespace btr.application.InventoryContext.StokAgg
 {
     public interface IStokMutasiDal :
         IInsertBulk<StokMutasiModel>,

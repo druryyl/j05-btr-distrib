@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using btr.application.InventoryContext.StokAgg.Contracts;
+using btr.application.InventoryContext.StokAgg;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.StokAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
@@ -140,33 +140,6 @@ namespace btr.infrastructure.InventoryContext.StokAgg
                 aa.BrgId = @BrgId
                 AND aa.WarehouseId = @WarehouseId
                 AND aa.Qty > 0";
-
-            var dp = new DynamicParameters();
-            dp.AddParam("@BrgId", brg.BrgId, SqlDbType.VarChar);
-            dp.AddParam("@WarehouseId", warehouse.WarehouseId, SqlDbType.VarChar);
-
-            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
-            {
-                return conn.Read<StokModel>(sql, dp);
-            }
-        }
-
-        public IEnumerable<StokModel> ListDataAll(IBrgKey brg, IWarehouseKey warehouse)
-        {
-            const string sql = @"
-            SELECT
-                aa.StokId, aa.StokControlId, aa.StokControlDate,
-                aa.BrgId,  aa.WarehouseId, aa.QtyIn, aa.Qty,
-                aa.NilaiPersediaan,
-                ISNULL(bb.BrgName, '') AS BrgName,
-                ISNULL(cc.WarehouseName, '') AS WarehouseName
-            FROM
-                BTR_Stok aa
-                LEFT JOIN BTR_Brg bb ON aa.BrgId = bb.BrgId
-                LEFT JOIN BTR_Warehouse cc on aa.WarehouseId = cc.WarehouseId
-            WHERE
-                aa.BrgId = @BrgId
-                AND aa.WarehouseId = @WarehouseId ";
 
             var dp = new DynamicParameters();
             dp.AddParam("@BrgId", brg.BrgId, SqlDbType.VarChar);

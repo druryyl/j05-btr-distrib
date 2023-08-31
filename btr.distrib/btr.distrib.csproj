@@ -319,8 +319,16 @@
     <Compile Include="SharedForm\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SharedForm\TestPlayground.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SharedForm\TestPlayground.Designer.cs">
+      <DependentUpon>TestPlayground.cs</DependentUpon>
+    </Compile>
     <Compile Include="WinformAssemblyAnchor.cs" />
     <Content Include="icons8_truck.ico" />
+    <Content Include="Resources\icons8_microscope.ico" />
+    <Content Include="Resources\icons8_microscope_32.png" />
     <None Include="Resources\app-wallpaper-4.jpg" />
     <None Include="Resources\icons8_print.ico" />
     <None Include="Resources\icons8_warehouse.ico" />

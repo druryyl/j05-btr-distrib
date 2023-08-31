@@ -1,12 +1,10 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using btr.application.InventoryContext.WarehouseAgg.Workers;
 using btr.domain.InventoryContext.WarehouseAgg;
 using Dawn;
-using Mapster;
 using MediatR;
 
-namespace btr.application.InventoryContext.WarehouseAgg.UseCases
+namespace btr.application.InventoryContext.WarehouseAgg
 {
     public class GetWarehouseQuery : IRequest<WarehouseModel>, IWarehouseKey
     {

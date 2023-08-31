@@ -87,11 +87,12 @@
     <Compile Include="BrgContext\KategoriAgg\IKategoriDal.cs" />
     <Compile Include="BrgContext\KategoriAgg\KategoriBuilder.cs" />
     <Compile Include="BrgContext\KategoriAgg\KategoriWriter.cs" />
-    <Compile Include="InventoryContext\StokAgg\Contracts\IStokDal.cs" />
-    <Compile Include="InventoryContext\StokAgg\Contracts\IStokMutasiDal.cs" />
-    <Compile Include="InventoryContext\StokAgg\UseCases\AddStokCommand.cs" />
+    <Compile Include="InventoryContext\StokAgg\AddStokCommand.cs" />
+    <Compile Include="InventoryContext\StokAgg\IStokDal.cs" />
+    <Compile Include="InventoryContext\StokAgg\IStokMutasiDal.cs" />
+    <Compile Include="InventoryContext\StokAgg\StokBuilder.cs" />
+    <Compile Include="InventoryContext\StokAgg\StokWriter.cs" />
     <Compile Include="InventoryContext\StokAgg\UseCases\ListBrgStokQuery.cs" />
-    <Compile Include="InventoryContext\StokAgg\UseCases\RemoveStokCommand.cs" />
     <Compile Include="InventoryContext\StokBalanceAgg\IStokBalanceDal.cs" />
     <Compile Include="InventoryContext\StokBalanceAgg\StokBalanceBuilder.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\IWarehouseDal.cs" />
@@ -159,7 +160,6 @@
     <Folder Include="InventoryContext\GoodReceiptAgg\Contracts\" />
     <Folder Include="InventoryContext\GoodReceiptAgg\UseCases\" />
     <Folder Include="InventoryContext\GoodReceiptAgg\Workers\" />
-    <Folder Include="InventoryContext\StokAgg\Workers\" />
     <Folder Include="PurchaseContext\InvoiceAgg\" />
     <Folder Include="PurchaseContext\KlaimAgg\" />
     <Folder Include="SupportContext\UserAgg\" />

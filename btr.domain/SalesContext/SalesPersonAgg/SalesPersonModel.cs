@@ -1,4 +1,6 @@
-﻿namespace btr.domain.SalesContext.SalesPersonAgg
+﻿using btr.domain.SalesContext.WilayahAgg;
+
+namespace btr.domain.SalesContext.SalesPersonAgg
 {
     public class SalesPersonModel : ISalesPersonKey, IWilayahKey
     {

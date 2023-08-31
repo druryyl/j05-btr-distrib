@@ -1,4 +1,4 @@
-﻿using btr.domain.SupportContext.PrintManagerAgg;
+﻿using btr.domain.SupportContext.DocAgg;
 using FluentValidation;
 
 namespace btr.application.SupportContext.DocAgg

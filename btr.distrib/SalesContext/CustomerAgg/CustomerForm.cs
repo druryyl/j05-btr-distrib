@@ -15,6 +15,9 @@ using btr.domain.SalesContext.SalesPersonAgg;
 using btr.application.BrgContext.HargaTypeAgg;
 using btr.domain.BrgContext.HargaTypeAgg;
 using System.Drawing;
+using btr.application.SalesContext.KlasifikasiAgg;
+using btr.domain.SalesContext.KlasifikasiAgg;
+using btr.domain.SalesContext.WilayahAgg;
 
 namespace btr.distrib.SalesContext.CustomerAgg
 {

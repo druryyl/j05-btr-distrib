@@ -4,7 +4,7 @@ using btr.domain.InventoryContext.StokAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.nuna.Infrastructure;
 
-namespace btr.application.InventoryContext.StokAgg.Contracts
+namespace btr.application.InventoryContext.StokAgg
 {
     public interface IStokDal :
         IInsert<StokModel>,
@@ -13,6 +13,5 @@ namespace btr.application.InventoryContext.StokAgg.Contracts
         IGetData<StokModel, IStokKey>,
         IListData<StokModel, IBrgKey, IWarehouseKey>
     {
-        IEnumerable<StokModel> ListDataAll(IBrgKey brg, IWarehouseKey warehouse);
     }
 }

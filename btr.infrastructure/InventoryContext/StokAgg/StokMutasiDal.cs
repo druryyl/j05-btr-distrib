@@ -2,7 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using btr.application.InventoryContext.StokAgg.Contracts;
+using btr.application.InventoryContext.StokAgg;
 using btr.domain.InventoryContext.StokAgg;
 using btr.infrastructure.Helpers;
 using btr.nuna.Infrastructure;

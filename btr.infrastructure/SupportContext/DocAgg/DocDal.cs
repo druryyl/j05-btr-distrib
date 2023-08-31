@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using btr.application.SupportContext.PrintManagerAgg;
-using btr.domain.SupportContext.PrintManagerAgg;
+using btr.application.SupportContext.DocAgg;
+using btr.domain.SupportContext.DocAgg;
 using btr.infrastructure.Helpers;
 using btr.nuna.Domain;
 using btr.nuna.Infrastructure;
 using Dapper;
 using Microsoft.Extensions.Options;
 
-namespace btr.infrastructure.InventoryContext.DocAgg
+namespace btr.infrastructure.SupportContext.DocAgg
 {
     public class DocDal : IDocDal
     {

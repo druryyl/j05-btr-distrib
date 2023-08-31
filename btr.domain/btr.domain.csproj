@@ -59,12 +59,12 @@
     <Compile Include="FinanceContext\PiutangAgg\PiutangModel.cs" />
     <Compile Include="InventoryContext\DeliveryAgg\DeliveryModel.cs" />
     <Compile Include="InventoryContext\DeliveryAgg\IDeliveryKey.cs" />
+    <Compile Include="InventoryContext\StokAgg\StokModel.cs" />
     <Compile Include="InventoryContext\StokBalanceAgg\StokBalanceModel.cs" />
     <Compile Include="InventoryContext\TerimaBrgAgg\TerimaBrgModel.cs" />
     <Compile Include="InventoryContext\TerimaBrgAgg\ITerimaBrgKey.cs" />
     <Compile Include="InventoryContext\StokAgg\IStokKey.cs" />
     <Compile Include="InventoryContext\StokAgg\IStokMutasiKey.cs" />
-    <Compile Include="InventoryContext\StokAgg\StokModel.cs" />
     <Compile Include="InventoryContext\StokAgg\StokMutasiModel.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\IWarehouseKey.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\WarehouseModel.cs" />

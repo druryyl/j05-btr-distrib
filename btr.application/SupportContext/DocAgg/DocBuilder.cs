@@ -1,8 +1,5 @@
-﻿using btr.application.InventoryContext.WarehouseAgg.Contracts;
-using btr.application.SupportContext.PrintManagerAgg;
-using btr.domain.InventoryContext.WarehouseAgg;
+﻿using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SupportContext.DocAgg;
-using btr.domain.SupportContext.PrintManagerAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
 using System;
@@ -10,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using btr.application.InventoryContext.WarehouseAgg;
 
 namespace btr.application.SupportContext.DocAgg
 {

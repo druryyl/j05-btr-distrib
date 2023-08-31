@@ -60,6 +60,7 @@
             this.DistributionTab = new System.Windows.Forms.RibbonTab();
             this.ReceivingPanel = new System.Windows.Forms.RibbonPanel();
             this.DeliveryPanel = new System.Windows.Forms.RibbonPanel();
+            this.TestingButton = new System.Windows.Forms.RibbonButton();
             this.SuspendLayout();
             // 
             // ribbon1
@@ -311,18 +312,27 @@
             // ReceivingPanel
             // 
             this.ReceivingPanel.Name = "ReceivingPanel";
-            this.ReceivingPanel.Text = "Receiving";
+            this.ReceivingPanel.Text = "";
             // 
             // DeliveryPanel
             // 
+            this.DeliveryPanel.Items.Add(this.TestingButton);
             this.DeliveryPanel.Name = "DeliveryPanel";
-            this.DeliveryPanel.Text = "Delivery";
+            this.DeliveryPanel.Text = "";
+            // 
+            // TestingButton
+            // 
+            this.TestingButton.Image = ((System.Drawing.Image)(resources.GetObject("TestingButton.Image")));
+            this.TestingButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_microscope_32;
+            this.TestingButton.Name = "TestingButton";
+            this.TestingButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("TestingButton.SmallImage")));
+            this.TestingButton.Text = "Testing";
+            this.TestingButton.Click += new System.EventHandler(this.TestingButton_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::btr.distrib.Properties.Resources.app_wallpaper_4;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(876, 450);
             this.Controls.Add(this.ribbon1);
@@ -333,8 +343,9 @@
             this.Text = "MainForm";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
-
         }
+
+        private System.Windows.Forms.RibbonButton TestingButton;
 
         #endregion
 
@@ -353,7 +364,6 @@
         private System.Windows.Forms.RibbonPanel DeliveryPanel;
         private System.Windows.Forms.RibbonPanel ribbonPanel1;
         private System.Windows.Forms.RibbonPanel ribbonPanel2;
-        private System.Windows.Forms.RibbonPanel ribbonPanel3;
         private System.Windows.Forms.RibbonButton FakturButton;
         private System.Windows.Forms.RibbonButton ReturJualButton;
         private System.Windows.Forms.RibbonButton ReportFakturButton;

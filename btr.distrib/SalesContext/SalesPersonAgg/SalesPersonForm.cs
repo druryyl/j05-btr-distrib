@@ -12,6 +12,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using btr.domain.SalesContext.WilayahAgg;
 
 namespace btr.distrib.SalesContext.SalesPersonAgg
 {

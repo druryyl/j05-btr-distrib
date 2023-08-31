@@ -1,6 +1,4 @@
-﻿using btr.application.InventoryContext.WarehouseAgg.Contracts;
-using btr.application.InventoryContext.WarehouseAgg.Workers;
-using btr.domain.InventoryContext.WarehouseAgg;
+﻿using btr.domain.InventoryContext.WarehouseAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
 using System;

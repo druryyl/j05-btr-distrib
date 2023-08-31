@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using btr.application.InventoryContext.WarehouseAgg.Contracts;
 using btr.domain.InventoryContext.WarehouseAgg;
 using Mapster;
 using MediatR;
 
-namespace btr.application.InventoryContext.WarehouseAgg.UseCases
+namespace btr.application.InventoryContext.WarehouseAgg
 {
     public class ListWarehouseQuery : IRequest<IEnumerable<WarehouseModel>>
     {

@@ -4,13 +4,12 @@ using System.Data.SqlClient;
 using System.Linq;
 using btr.application.SupportContext.DocAgg;
 using btr.domain.SupportContext.DocAgg;
-using btr.domain.SupportContext.PrintManagerAgg;
 using btr.infrastructure.Helpers;
 using btr.nuna.Infrastructure;
 using Dapper;
 using Microsoft.Extensions.Options;
 
-namespace btr.infrastructure.SalesContext.DocAgg
+namespace btr.infrastructure.SupportContext.DocAgg
 {
     public class DocActionDal : IDocActionDal
     {

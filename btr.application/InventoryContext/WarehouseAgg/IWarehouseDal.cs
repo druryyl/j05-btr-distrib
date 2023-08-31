@@ -1,7 +1,7 @@
 ﻿using btr.domain.InventoryContext.WarehouseAgg;
 using btr.nuna.Infrastructure;
 
-namespace btr.application.InventoryContext.WarehouseAgg.Contracts
+namespace btr.application.InventoryContext.WarehouseAgg
 {
     public interface IWarehouseDal :
         IInsert<WarehouseModel>,

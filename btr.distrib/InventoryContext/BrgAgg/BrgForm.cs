@@ -14,7 +14,6 @@ using btr.application.BrgContext.BrgAgg;
 using btr.application.BrgContext.HargaTypeAgg;
 using btr.application.BrgContext.JenisBrgAgg;
 using btr.application.InventoryContext.StokBalanceAgg;
-using btr.application.InventoryContext.WarehouseAgg.Contracts;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.BrgContext.HargaTypeAgg;
 using btr.domain.InventoryContext.StokBalanceAgg;
@@ -23,6 +22,7 @@ using Polly;
 using btr.nuna.Domain;
 using System.Drawing;
 using btr.application.BrgContext.KategoriAgg;
+using btr.application.InventoryContext.WarehouseAgg;
 
 namespace btr.distrib.InventoryContext.BrgAgg
 {

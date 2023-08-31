@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using btr.application.InventoryContext.WarehouseAgg.Contracts;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
 
-namespace btr.application.InventoryContext.WarehouseAgg.Workers
+namespace btr.application.InventoryContext.WarehouseAgg
 {
     public interface IWarehouseBuilder : INunaBuilder<WarehouseModel>
     {

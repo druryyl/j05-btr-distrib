@@ -1,17 +1,16 @@
-﻿using btr.application.InventoryContext.WarehouseAgg.Contracts;
-using btr.application.SalesContext.FakturAgg.Workers;
+﻿using btr.application.SalesContext.FakturAgg.Workers;
 using btr.application.SupportContext.DocAgg;
-using btr.application.SupportContext.PrintManagerAgg;
 using btr.distrib.Helpers;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SalesContext.FakturAgg;
-using btr.domain.SupportContext.PrintManagerAgg;
 using btr.nuna.Domain;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using btr.application.InventoryContext.WarehouseAgg;
+using btr.domain.SupportContext.DocAgg;
 
 namespace btr.distrib.PrintDocs
 {

@@ -2,13 +2,13 @@
 using System.Data;
 using System.Data.SqlClient;
 using btr.application.SalesContext.WilayahAgg;
-using btr.domain.SalesContext.SalesPersonAgg;
+using btr.domain.SalesContext.WilayahAgg;
 using btr.infrastructure.Helpers;
 using btr.nuna.Infrastructure;
 using Dapper;
 using Microsoft.Extensions.Options;
 
-namespace btr.infrastructure.InventoryContext.WilayahAgg
+namespace btr.infrastructure.SalesContext.WilayahAgg
 {
     public class WilayahDal : IWilayahDal
     {

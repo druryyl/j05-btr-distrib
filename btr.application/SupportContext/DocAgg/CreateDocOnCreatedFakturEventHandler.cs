@@ -1,6 +1,5 @@
 ﻿using btr.application.SalesContext.FakturAgg.UseCases;
 using btr.domain.InventoryContext.WarehouseAgg;
-using btr.domain.SupportContext.PrintManagerAgg;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using btr.domain.SupportContext.DocAgg;
 
 namespace btr.application.SupportContext.DocAgg
 {

@@ -1,7 +1,7 @@
-﻿using btr.domain.SalesContext.SalesPersonAgg;
+﻿using btr.domain.SalesContext.KlasifikasiAgg;
 using btr.nuna.Infrastructure;
 
-namespace btr.application.SalesContext.WilayahAgg
+namespace btr.application.SalesContext.KlasifikasiAgg
 {
     public interface IKlasifikasiDal :
         IInsert<KlasifikasiModel>,

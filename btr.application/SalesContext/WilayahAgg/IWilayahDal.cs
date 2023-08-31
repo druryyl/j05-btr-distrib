@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using btr.domain.SalesContext.WilayahAgg;
 
 namespace btr.application.SalesContext.WilayahAgg
 {

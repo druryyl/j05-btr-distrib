@@ -1,6 +1,4 @@
 ﻿using btr.application.InventoryContext.WarehouseAgg;
-using btr.application.InventoryContext.WarehouseAgg.Contracts;
-using btr.application.InventoryContext.WarehouseAgg.Workers;
 using btr.distrib.Browsers;
 using btr.distrib.Helpers;
 using btr.distrib.SharedForm;

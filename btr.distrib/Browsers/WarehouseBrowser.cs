@@ -1,9 +1,9 @@
-﻿using btr.application.InventoryContext.WarehouseAgg.Contracts;
-using btr.distrib.SharedForm;
+﻿using btr.distrib.SharedForm;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.nuna.Domain;
 using System.Collections.Generic;
 using System.Linq;
+using btr.application.InventoryContext.WarehouseAgg;
 using btr.distrib.Helpers;
 
 namespace btr.distrib.Browsers
