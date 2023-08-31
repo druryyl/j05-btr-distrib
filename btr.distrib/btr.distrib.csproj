@@ -329,6 +329,9 @@
     <Content Include="icons8_truck.ico" />
     <Content Include="Resources\icons8_microscope.ico" />
     <Content Include="Resources\icons8_microscope_32.png" />
+    <EmbeddedResource Include="SharedForm\TestPlayground.resx">
+      <DependentUpon>TestPlayground.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Resources\app-wallpaper-4.jpg" />
     <None Include="Resources\icons8_print.ico" />
     <None Include="Resources\icons8_warehouse.ico" />
