@@ -52,13 +52,70 @@ namespace btr.distrib.PrintDocs
             WarehouseCombo.SelectedValueChanged += WarehouseCombo_SelectedValueChanged;
             PrintTimer.Tick += PrintTimer_Tick;
             RefreshNowButton.Click += RefreshNowButton_Click;
+            GridAtas.CellDoubleClick += GridAtas_CellDoubleClick;
             GridBawah.CellDoubleClick += GridBawah_CellDoubleClick;
-            AutoPrintCheck.CheckedChanged += AutoPrintCheck_CheckedChanged;
         }
 
-        private void AutoPrintCheck_CheckedChanged(object sender, EventArgs e)
+        private void InitWarehouse()
         {
-            PrintTimer.Enabled = AutoPrintCheck.Checked;
+            var listWarehouse = _warehouseDal.ListData()?.ToList()
+                ?? new List<WarehouseModel>();
+            WarehouseCombo.DataSource = listWarehouse;
+            WarehouseCombo.DisplayMember = "WarehouseName";
+            WarehouseCombo.ValueMember = "WarehouseId";
+        }
+
+        private void InitGrid()
+        {
+            GridAtas.DataSource = new List<PrintManagerDto>();
+            GridAtas.Columns.GetCol("Id").Width = 100;
+            GridAtas.Columns.GetCol("TglJam").Width = 100;
+            GridAtas.Columns.GetCol("Description").Width = 200;
+            GridAtas.Columns.GetCol("Status").Width = 80;
+            GridAtas.Columns.SetDefaultCellStyle(Color.Azure);
+
+            GridBawah.DataSource = new List<PrintManagerDto>();
+            GridBawah.Columns.GetCol("Id").Width = 100;
+            GridBawah.Columns.GetCol("TglJam").Width = 100;
+            GridBawah.Columns.GetCol("Description").Width = 200;
+            GridBawah.Columns.GetCol("Status").Width = 80;
+            GridBawah.Columns.SetDefaultCellStyle(Color.Beige);
+        }
+
+        private void StartPrint(int rowIndex)
+        {
+            var id = GridAtas.Rows[rowIndex].Cells[0].Value.ToString();
+            var faktur = _fakturBuilder.Load(new FakturModel(id)).Build();
+            _fakturPrinter.CreateDoc(faktur);
+            DocModel doc = null;
+            try
+            {
+                _fakturPrinter.PrintDoc();
+                if (_fakturPrinter.IsPrinted)
+                    doc = _docBuilder
+                        .LoadOrCreate(new DocModel(id))
+                        .Print()
+                        .Build();
+            }
+            catch (Exception ex)
+            {
+                var errMsg = ex.Message.Substring(0, ex.Message.Length > 255 ? 255 : ex.Message.Length);
+                doc = _docBuilder
+                    .LoadOrCreate(new DocModel(id))
+                    .ErrorPrint(errMsg)
+                    .Build();
+            }
+
+            if (doc is null)
+                return;
+
+            _docWriter.Save(ref doc);
+        }
+
+        private void GridAtas_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            StartPrint(e.RowIndex);
+            ListDoc();
         }
 
         private void GridBawah_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -94,7 +151,6 @@ namespace btr.distrib.PrintDocs
             if (refreshCounter == 10)
             {
                 PrintTimer.Enabled = false;
-                StartPrint();
                 ListDoc();
                 PrintTimer.Enabled = true;
             }
@@ -104,62 +160,9 @@ namespace btr.distrib.PrintDocs
                 refreshCounter = 0;
         }
 
-        private void StartPrint()
-        {
-            if (GridAtas.Rows.Count <= 0) return;
-
-            var id = GridAtas.Rows[0].Cells[0].Value.ToString();
-            var faktur = _fakturBuilder.Load(new FakturModel(id)).Build();
-            _fakturPrinter.CreateDoc(faktur);
-            DocModel doc;
-            try
-            {
-                _fakturPrinter.PrintDoc();
-                doc = _docBuilder
-                    .LoadOrCreate(new DocModel(id))
-                    .Print()
-                    .Build();
-            }
-            catch (Exception ex)
-            {
-                var errMsg = ex.Message.Substring(0, ex.Message.Length > 255 ? 255 : ex.Message.Length);
-                doc = _docBuilder
-                    .LoadOrCreate(new DocModel(id))
-                    .ErrorPrint(errMsg)
-                    .Build();
-            }
-            _docWriter.Save(ref doc);
-        }
-
         private void WarehouseCombo_SelectedValueChanged(object sender, EventArgs e)
         {
             ListDoc();
-        }
-
-        private void InitWarehouse()
-        {
-            var listWarehouse = _warehouseDal.ListData()?.ToList()
-                ?? new List<WarehouseModel>();
-            WarehouseCombo.DataSource = listWarehouse;
-            WarehouseCombo.DisplayMember = "WarehouseName";
-            WarehouseCombo.ValueMember = "WarehouseId";
-        }
-
-        private void InitGrid()
-        {
-            GridAtas.DataSource = new List<PrintManagerDto>();
-            GridAtas.Columns.GetCol("Id").Width = 100;
-            GridAtas.Columns.GetCol("TglJam").Width = 100;
-            GridAtas.Columns.GetCol("Description").Width = 200;
-            GridAtas.Columns.GetCol("Status").Width = 80;
-            GridAtas.Columns.SetDefaultCellStyle(Color.Azure);
-
-            GridBawah.DataSource = new List<PrintManagerDto>();
-            GridBawah.Columns.GetCol("Id").Width = 100;
-            GridBawah.Columns.GetCol("TglJam").Width = 100;
-            GridBawah.Columns.GetCol("Description").Width = 200;
-            GridBawah.Columns.GetCol("Status").Width = 80;
-            GridBawah.Columns.SetDefaultCellStyle(Color.Beige);
         }
 
         private void ListDoc()
@@ -184,7 +187,6 @@ namespace btr.distrib.PrintDocs
                     $"{x.DocType} {x.DocDesc}", x.DocPrintStatus.ToString()))
                 .ToList();
             GridBawah.DataSource = listBawah;
-
         }
     }
 

@@ -75,7 +75,6 @@ namespace btr.application.InventoryContext.StokAgg
             var sisa = qtyKecil;
             var listMovingStok = new List<StokModel>();
             while(sisa > 0)
-
             {
                 var stok = listStok
                     .OrderBy(x => x.StokId)

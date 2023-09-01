@@ -31,12 +31,11 @@
             this.components = new System.ComponentModel.Container();
             this.GridAtas = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.AutoPrintCheck = new System.Windows.Forms.CheckBox();
+            this.RefreshPrgBar = new System.Windows.Forms.ProgressBar();
             this.RefreshNowButton = new System.Windows.Forms.Button();
             this.WarehouseCombo = new System.Windows.Forms.ComboBox();
             this.PrintTimer = new System.Windows.Forms.Timer(this.components);
             this.GridBawah = new System.Windows.Forms.DataGridView();
-            this.RefreshPrgBar = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.GridAtas)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GridBawah)).BeginInit();
@@ -44,6 +43,8 @@
             // 
             // GridAtas
             // 
+            this.GridAtas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.GridAtas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.GridAtas.Location = new System.Drawing.Point(12, 63);
             this.GridAtas.Name = "GridAtas";
@@ -52,10 +53,11 @@
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.Cornsilk;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.RefreshPrgBar);
-            this.panel1.Controls.Add(this.AutoPrintCheck);
             this.panel1.Controls.Add(this.RefreshNowButton);
             this.panel1.Controls.Add(this.WarehouseCombo);
             this.panel1.Location = new System.Drawing.Point(12, 12);
@@ -63,17 +65,14 @@
             this.panel1.Size = new System.Drawing.Size(561, 45);
             this.panel1.TabIndex = 1;
             // 
-            // AutoPrintCheck
+            // RefreshPrgBar
             // 
-            this.AutoPrintCheck.AutoSize = true;
-            this.AutoPrintCheck.Checked = true;
-            this.AutoPrintCheck.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.AutoPrintCheck.Location = new System.Drawing.Point(478, 7);
-            this.AutoPrintCheck.Name = "AutoPrintCheck";
-            this.AutoPrintCheck.Size = new System.Drawing.Size(78, 17);
-            this.AutoPrintCheck.TabIndex = 4;
-            this.AutoPrintCheck.Text = "Auto Print";
-            this.AutoPrintCheck.UseVisualStyleBackColor = true;
+            this.RefreshPrgBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.RefreshPrgBar.Location = new System.Drawing.Point(3, 30);
+            this.RefreshPrgBar.Name = "RefreshPrgBar";
+            this.RefreshPrgBar.Size = new System.Drawing.Size(551, 10);
+            this.RefreshPrgBar.TabIndex = 5;
             // 
             // RefreshNowButton
             // 
@@ -99,18 +98,14 @@
             // 
             // GridBawah
             // 
+            this.GridBawah.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.GridBawah.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.GridBawah.Location = new System.Drawing.Point(12, 199);
             this.GridBawah.Name = "GridBawah";
             this.GridBawah.Size = new System.Drawing.Size(561, 239);
             this.GridBawah.TabIndex = 3;
-            // 
-            // RefreshPrgBar
-            // 
-            this.RefreshPrgBar.Location = new System.Drawing.Point(3, 30);
-            this.RefreshPrgBar.Name = "RefreshPrgBar";
-            this.RefreshPrgBar.Size = new System.Drawing.Size(551, 10);
-            this.RefreshPrgBar.TabIndex = 5;
             // 
             // PrintManagerForm
             // 
@@ -126,7 +121,6 @@
             this.Text = "Print Manager";
             ((System.ComponentModel.ISupportInitialize)(this.GridAtas)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GridBawah)).EndInit();
             this.ResumeLayout(false);
 
@@ -138,7 +132,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ComboBox WarehouseCombo;
         private System.Windows.Forms.Button RefreshNowButton;
-        private System.Windows.Forms.CheckBox AutoPrintCheck;
         private System.Windows.Forms.Timer PrintTimer;
         private System.Windows.Forms.DataGridView GridBawah;
         private System.Windows.Forms.ProgressBar RefreshPrgBar;
