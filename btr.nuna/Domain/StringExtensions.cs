@@ -1,4 +1,6 @@
-﻿namespace btr.nuna.Domain
+﻿using System.Collections.Generic;
+
+namespace btr.nuna.Domain
 {
     public static class StringExtensions
     {
@@ -23,6 +25,29 @@
                     return false;
             }
             return result;
+        }
+
+        public static string[] WrapText(this string str, int length)
+        {
+            if (str is null)
+                return new List<string>().ToArray();
+
+            var listWord = str.Split(' ');
+            var result = new List<string>();
+            var subResult = string.Empty;
+            foreach(var item in listWord)
+            {
+                if (subResult.Trim().Length + item.Length > length)
+                {
+                    result.Add(subResult);
+                    subResult = string.Empty;
+                }
+                subResult = subResult + item + ' ';
+            }
+            if (subResult.Length > 0)
+                result.Add(subResult);
+
+            return result.ToArray();
         }
     }
 }
