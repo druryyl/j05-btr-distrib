@@ -49,6 +49,7 @@
             this.SaveButton = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.LastIdLabel = new System.Windows.Forms.Label();
             this.FakturIdText = new System.Windows.Forms.TextBox();
             this.SalesIdText = new System.Windows.Forms.TextBox();
             this.SalesPersonNameTextBox = new System.Windows.Forms.TextBox();
@@ -76,7 +77,6 @@
             this.WarehouseNameText = new System.Windows.Forms.TextBox();
             this.WarehouseButton = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.LastIdLabel = new System.Windows.Forms.Label();
             this.PanelAtas4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturItemGrid)).BeginInit();
             this.PanelTengah.SuspendLayout();
@@ -96,7 +96,7 @@
             // PrintButton
             // 
             this.PrintButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.PrintButton.Location = new System.Drawing.Point(921, 529);
+            this.PrintButton.Location = new System.Drawing.Point(921, 491);
             this.PrintButton.Name = "PrintButton";
             this.PrintButton.Size = new System.Drawing.Size(75, 23);
             this.PrintButton.TabIndex = 44;
@@ -146,7 +146,7 @@
             this.FakturItemGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.FakturItemGrid.Location = new System.Drawing.Point(6, 201);
             this.FakturItemGrid.Name = "FakturItemGrid";
-            this.FakturItemGrid.Size = new System.Drawing.Size(852, 322);
+            this.FakturItemGrid.Size = new System.Drawing.Size(852, 284);
             this.FakturItemGrid.TabIndex = 40;
             // 
             // PanelTengah
@@ -169,7 +169,7 @@
             this.PanelTengah.Controls.Add(this.TotalLabel);
             this.PanelTengah.Location = new System.Drawing.Point(864, 201);
             this.PanelTengah.Name = "PanelTengah";
-            this.PanelTengah.Size = new System.Drawing.Size(138, 322);
+            this.PanelTengah.Size = new System.Drawing.Size(138, 284);
             this.PanelTengah.TabIndex = 41;
             // 
             // BiayaLainText
@@ -325,7 +325,7 @@
             // SaveButton
             // 
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveButton.Location = new System.Drawing.Point(759, 529);
+            this.SaveButton.Location = new System.Drawing.Point(759, 491);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
             this.SaveButton.TabIndex = 42;
@@ -336,7 +336,7 @@
             // DeleteButton
             // 
             this.DeleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.DeleteButton.Location = new System.Drawing.Point(840, 529);
+            this.DeleteButton.Location = new System.Drawing.Point(840, 491);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(75, 23);
             this.DeleteButton.TabIndex = 43;
@@ -361,6 +361,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(200, 186);
             this.panel1.TabIndex = 36;
+            // 
+            // LastIdLabel
+            // 
+            this.LastIdLabel.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LastIdLabel.Location = new System.Drawing.Point(11, 47);
+            this.LastIdLabel.Name = "LastIdLabel";
+            this.LastIdLabel.Size = new System.Drawing.Size(181, 24);
+            this.LastIdLabel.TabIndex = 6;
+            this.LastIdLabel.Text = "-";
+            this.LastIdLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // FakturIdText
             // 
@@ -634,22 +644,12 @@
             this.label7.TabIndex = 0;
             this.label7.Text = "Warehouse";
             // 
-            // LastIdLabel
-            // 
-            this.LastIdLabel.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LastIdLabel.Location = new System.Drawing.Point(11, 47);
-            this.LastIdLabel.Name = "LastIdLabel";
-            this.LastIdLabel.Size = new System.Drawing.Size(181, 24);
-            this.LastIdLabel.TabIndex = 6;
-            this.LastIdLabel.Text = "-";
-            this.LastIdLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
             // FakturForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Khaki;
-            this.ClientSize = new System.Drawing.Size(1008, 561);
+            this.ClientSize = new System.Drawing.Size(1008, 523);
             this.Controls.Add(this.PrintButton);
             this.Controls.Add(this.PanelAtas4);
             this.Controls.Add(this.FakturItemGrid);

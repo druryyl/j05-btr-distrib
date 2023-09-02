@@ -46,7 +46,7 @@ namespace btr.distrib.PrintDocs
             pd = new JudeDocument();
             pd.PrintPage += PrintDocument_PrintPage;
             pd.PrinterSettings = new PrinterSettings { PrinterName = _opt.Faktur };
-            PaperSize customPaperSize = new PaperSize("Custom", Convert.ToInt32(9.5 * 100), Convert.ToInt32(11 * 100));
+            PaperSize customPaperSize = new PaperSize("Custom", Convert.ToInt32(9.5 * 100), Convert.ToInt32(5.5 * 100));
             pd.DefaultPageSettings.PaperSize = customPaperSize;
             Margins margins = new Margins(50, 50, 50, 50);
             pd.DefaultPageSettings.Margins = margins;
@@ -85,13 +85,13 @@ namespace btr.distrib.PrintDocs
                 var salesNameeeee = model.SalesPersonName.FixWidth(13);
                 var jatuhTmpo = "12 Sep 2023";
 
-                var hdr1 = $"CV BINTANG TIMUR RAHAYU                                              {tgl}\n";
-                var hdr2 = $"Jl.Kaliurang Km 5.5 Gg Durmo No 18                                   Kepada Yth Customer-{custId}\n";
-                var hdr3 = $"Yogyakarta 0274-546079                                               {cust.CustomerName}\n";
-                var hdr4 = $"                                                                     {cust.Address1} \n";
-                var hdr5 = $"FAKTUR PENJUALAN                                                     {cust.Address2} \n";
-                var hdr6 = $" \n";
-                var hdr7 = $"No.Faktur: {noFakturrrr}            Sales: {salesNameeeee}           Jenis: {jnsJl}      Tempo:{jatuhTmpo}\n";
+                var hdr1 = $"CV BINTANG TIMUR RAHAYU                                              Kepada Yth Customer-{custId}\n";
+                var hdr2 = $"Jl.Kaliurang Km 5.5 Gg Durmo No 18                                   {cust.CustomerName}\n";
+                var hdr3 = $"Yogyakarta 0274-546079                                               {cust.Address1} \n";
+                var hdr4 = $"                                                                     {cust.Address2} \n";
+                var hdr5 = $"FAKTUR PENJUALAN                                                     \n";
+                var hdr6 = $"No.Faktur: {noFakturrrr}            Sales: {salesNameeeee}           Jenis: {jnsJl}      Tempo:{jatuhTmpo}\n";
+                var hdr7 = $" \n";
                 var hdr8 = $"──┬───────┬──────────────────────────────┬──┬─────────────┬───────────────────┬───────────────┬───────────\n";
                 var hdr9 = $"No│Kode   │Nama Barang                   │  │  Kwantitas  │       @Harga      │    Discount   │   Total   \n";
                 var hdrA = $"──┼───────┼──────────────────────────────┼──┼──────┬──────┼──────────┬────────┼───┬───┬───┬───┼───────────\n";
@@ -146,10 +146,10 @@ namespace btr.distrib.PrintDocs
             sb.Append($"                                                                                   PPN 11%    :{ppn.ToString("N0").FixWidthRight(11)}\n");
             sb.Append($"                                                                                   GRAND TOTAL:{grandTotal.ToString("N0").FixWidthRight(11)}\n");
             sb.Append($"\n");
-            sb.Append($"Tanda Terima,                             Pengirim,                             Yogyakarta, {model.FakturDate:dd-MM-yyyy}\n");
+            sb.Append($"Tanda Terima,                             Pengirim,                                Yogyakarta, {model.FakturDate:dd-MM-yyyy}\n");
             sb.Append($"\n");
             sb.Append($"\n");
-            sb.Append($"___________________                       ___________________                   Mayang\n");
+            sb.Append($"___________________                       ___________________                      Mayang\n");
             sb.Append($"(Nama Terang/Cap)\n");
 
             _content = sb.ToString();

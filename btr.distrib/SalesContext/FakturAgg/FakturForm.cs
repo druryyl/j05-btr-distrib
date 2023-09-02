@@ -99,8 +99,8 @@ namespace btr.distrib.SalesContext.FakturAgg
 
             FakturItemGrid.CellContentClick += FakturItemGrid_CellContentClick;
             FakturItemGrid.CellValueChanged += FakturItemGrid_CellValueChanged;
+            FakturItemGrid.CellValidated += FakturItemGrid_CellValidated;
         }
-
 
         private void ClearForm()
         {
@@ -276,6 +276,17 @@ namespace btr.distrib.SalesContext.FakturAgg
             if (e.ColumnIndex == grid.Columns.GetCol("Ppn").Index)
                 CalcTotal();
         }
+        private void FakturItemGrid_CellValidated(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex <0 ) return;
+            var grid = (DataGridView)sender;
+            if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("BrgId").Index)
+            {
+                if (grid.CurrentCell.Value is null) return;
+                ValidateRow(e.RowIndex);
+            }
+        }
+
 
         private void ValidateRow(int rowIndex)
         {

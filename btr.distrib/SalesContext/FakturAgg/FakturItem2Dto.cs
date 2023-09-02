@@ -1,4 +1,7 @@
-﻿using System;
+﻿using btr.application.BrgContext.BrgAgg;
+using btr.domain.BrgContext.BrgAgg;
+using btr.nuna.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,12 +12,20 @@ namespace btr.distrib.SalesContext.FakturAgg
         private string _qty;
         private string _disc;
         private decimal _ppn;
+
+        private string _brgId;
+
         public FakturItem2Dto()
         {
             ListStokHargaSatuan = new List<FakturItem2DtoStokHargaSatuan>();
         }
 
-        public string BrgId { get; set; }
+        public string BrgId 
+        { 
+            get => _brgId; 
+            set => _brgId = value;
+        }
+
         public string BrgName { get; private set; }
         public string StokHarga
         {
@@ -78,7 +89,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             {
                 if (x >= result.Count) break;
 
-                if (int.TryParse(item, out var temp))
+                if (decimal.TryParse(item, out var temp))
                     result[x] = temp;
                 x++;
             }

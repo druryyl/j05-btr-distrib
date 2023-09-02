@@ -328,6 +328,7 @@
     </Compile>
     <Compile Include="WinformAssemblyAnchor.cs" />
     <Content Include="icons8_truck.ico" />
+    <None Include="Resources\icons8_documents_16.png" />
     <Content Include="Resources\icons8_microscope.ico" />
     <Content Include="Resources\icons8_microscope_32.png" />
     <EmbeddedResource Include="SharedForm\TestPlayground.resx">
