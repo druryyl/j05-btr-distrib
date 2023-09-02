@@ -256,12 +256,10 @@ namespace btr.distrib.SalesContext.FakturAgg
 
             var brgId = _listItem[grid.CurrentRow.Index].BrgId;
             _brgStokBrowser.Filter.StaticFilter1 = WarehouseIdText.Text;
+            _brgStokBrowser.Filter.UserKeyword = _listItem[grid.CurrentRow.Index].BrgId;
             brgId = _brgStokBrowser.Browse(brgId);
             _listItem[grid.CurrentRow.Index].BrgId = brgId;
             ValidateRow(e.RowIndex);
-
-            // if (_listItem.Last().BrgName.Length != 0)
-            //     _listItem.Add(new FakturItem2Dto());
         }
         
         private void FakturItemGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -327,7 +325,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             var fbk = Policy<BrgModel>
                 .Handle<KeyNotFoundException>()
                 .Fallback(null as BrgModel);
-            var brg = fbk.Execute(_brgBuilder.Load(brgKey).Build);
+            var brg = fbk.Execute(() => _brgBuilder.Load(brgKey).Build());
             return brg;
         }
 
@@ -337,7 +335,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             var fbk = Policy<StokBalanceModel>
                 .Handle<KeyNotFoundException>()
                 .Fallback(new StokBalanceModel());
-            var stok = fbk.Execute(_stokBalanceBuilder.Load(brgKey).Build);
+            var stok = fbk.Execute(() => _stokBalanceBuilder.Load(brgKey).Build());
             var result = stok.ListWarehouse.FirstOrDefault(x => x.WarehouseId == WarehouseIdText.Text)
                 ?? new StokBalanceWarehouseModel { Qty = 0, }; 
             return result;

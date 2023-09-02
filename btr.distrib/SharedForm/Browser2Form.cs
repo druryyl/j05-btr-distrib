@@ -24,17 +24,33 @@ namespace btr.distrib.SharedForm
 
             BrowserGrid.DataBindingComplete += BrowserGrid_DataBindingComplete;
             BrowserGrid.CellDoubleClick += BrowserGrid_CellDoubleClick;
+            BrowserGrid.KeyDown += BrowserGrid_KeyDown;
             FilterTextBox.KeyDown += FilterTextBox_KeyDown;
             SearchButton.Click += SearchButton_Click;
 
             if (!_engine.Filter.IsDate)
                 HideDateInput();
 
+            _engine.Filter.RemoveNull();
+            if (_engine.Filter.UserKeyword.Length > 0)
+            {
+                FilterTextBox.Text = _engine.Filter.UserKeyword;
+            }
+
             RefreshGrid();
             BrowserGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             BrowserGrid.AutoResizeColumns();
         }
-        
+
+        private void BrowserGrid_KeyDown(object sender, KeyEventArgs e)
+        {
+            var grid = (DataGridView)sender;
+            if (e.KeyCode == Keys.Enter)
+            {
+                ConfirmPilihan(grid.CurrentRow.Index);
+            }
+        }
+
         private void HideDateInput()
         {
             FilterDate1TextBox.Visible = false;
@@ -53,7 +69,10 @@ namespace btr.distrib.SharedForm
         private void FilterTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
+            {
                 RefreshGrid();
+                BrowserGrid.Focus();
+            }
         }
 
         private void RefreshGrid()
@@ -104,11 +123,15 @@ namespace btr.distrib.SharedForm
         {
             if (e.RowIndex == -1)
                 return;
-
-            var dataGrid = (DataGridView)sender;
-            Result = dataGrid.Rows[e.RowIndex].Cells[0].Value.ToString();
-            DialogResult = DialogResult.OK;
+            ConfirmPilihan(e.RowIndex);
         }
 
+        private void ConfirmPilihan(int rowIndes)
+        {
+            if (rowIndes < 0)
+                return;
+            Result = BrowserGrid.Rows[rowIndes].Cells[0].Value.ToString();
+            DialogResult = DialogResult.OK;
+        }
     }
 }

@@ -8,7 +8,6 @@ namespace btr.distrib.SharedForm
 {
     public interface IQueryBrowser<TResult>
     {
-        //  TODO: Browser tidak load all data       
         bool HideAllRow { get; }
         bool IsShowDate { get; }
         string[] BrowserQueryArgs { get; set; }
