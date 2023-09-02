@@ -38,7 +38,7 @@ namespace btr.distrib.PrintDocs
             _mediator = mediator;
 
             InitPrintDocument();
-            InitPrintPreview();
+            
         }
 
         private void InitPrintDocument()
@@ -48,7 +48,7 @@ namespace btr.distrib.PrintDocs
             pd.PrinterSettings = new PrinterSettings { PrinterName = _opt.Faktur };
             PaperSize customPaperSize = new PaperSize("Custom", Convert.ToInt32(9.5 * 100), Convert.ToInt32(5.5 * 100));
             pd.DefaultPageSettings.PaperSize = customPaperSize;
-            Margins margins = new Margins(50, 50, 50, 50);
+            Margins margins = new Margins(0, 0, 25, 25);
             pd.DefaultPageSettings.Margins = margins;
         }
 
@@ -61,14 +61,16 @@ namespace btr.distrib.PrintDocs
 
         private void PrintDocument_PrintPage(object sender, PrintPageEventArgs e)
         {
-            Font font = new Font("Lucida Console", 8.25f, FontStyle.Regular);
+            Font font = new Font("Courier New", 9, FontStyle.Regular);
             e.Graphics.DrawString(_content, font, Brushes.Black, e.MarginBounds);
         }
 
         public void PrintDoc()
         {
+            InitPrintPreview();
             ppv.ShowDialog();
             IsPrinted = pd.IsPrinting;
+            ppv.Close();
         }
 
         public async void CreateDoc(FakturModel model)
@@ -85,16 +87,16 @@ namespace btr.distrib.PrintDocs
                 var salesNameeeee = model.SalesPersonName.FixWidth(13);
                 var jatuhTmpo = "12 Sep 2023";
 
-                var hdr1 = $"CV BINTANG TIMUR RAHAYU                                              Kepada Yth Customer-{custId}\n";
-                var hdr2 = $"Jl.Kaliurang Km 5.5 Gg Durmo No 18                                   {cust.CustomerName}\n";
-                var hdr3 = $"Yogyakarta 0274-546079                                               {cust.Address1} \n";
-                var hdr4 = $"                                                                     {cust.Address2} \n";
-                var hdr5 = $"FAKTUR PENJUALAN                                                     \n";
-                var hdr6 = $"No.Faktur: {noFakturrrr}            Sales: {salesNameeeee}           Jenis: {jnsJl}      Tempo:{jatuhTmpo}\n";
+                var hdr1 = $"CV BINTANG TIMUR RAHAYU                                           Kepada Yth Customer-{custId}\n";
+                var hdr2 = $"Jl.Kaliurang Km 5.5 Gg Durmo No 18                                {cust.CustomerName}\n";
+                var hdr3 = $"Yogyakarta 0274-546079                                            {cust.Address1} \n";
+                var hdr4 = $"                                                                  {cust.Address2} \n";
+                var hdr5 = $"FAKTUR PENJUALAN                                                  \n";
+                var hdr6 = $"No.Faktur: {noFakturrrr}         Sales: {salesNameeeee}           Jenis: {jnsJl}      Tempo:{jatuhTmpo}\n";
                 var hdr7 = $" \n";
-                var hdr8 = $"──┬───────┬──────────────────────────────┬──┬─────────────┬───────────────────┬───────────────┬───────────\n";
-                var hdr9 = $"No│Kode   │Nama Barang                   │  │  Kwantitas  │       @Harga      │    Discount   │   Total   \n";
-                var hdrA = $"──┼───────┼──────────────────────────────┼──┼──────┬──────┼──────────┬────────┼───┬───┬───┬───┼───────────\n";
+                var hdr8 = $"──┬───────┬───────────────────────────┬──┬─────────────┬───────────────────┬───────────────┬───────────\n";
+                var hdr9 = $"No│Kode   │Nama Barang                │  │  Kwantitas  │       @Harga      │    Discount   │   Total   \n";
+                var hdrA = $"──┼───────┼───────────────────────────┼──┼──────┬──────┼──────────┬────────┼───┬───┬───┬───┼───────────\n";
                 sb.Append(hdr1);
                 sb.Append(hdr2);
                 sb.Append(hdr3);
@@ -110,12 +112,12 @@ namespace btr.distrib.PrintDocs
             var i = 1;
             foreach(var item in model.ListItem)
             {
-                if (i % 5 == 1)
+                if (i % 10 == 1)
                     PrintHeader();
                 
                 var no = i.ToString("D2");
                 var brgId = item.BrgId.FixWidth(7);
-                var brgName = item.BrgName.FixWidth(30);
+                var brgName = item.BrgName.FixWidth(27);
                 var bonus = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 3)?.Qty.ToString().FixWidthRight(2) ?? string.Empty.FixWidth(2);
                 var qty1 = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 1)?.Qty.ToString().FixWidthRight(6) ?? string.Empty.FixWidth(6);
                 var qty2 = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 2)?.Qty.ToString().FixWidthRight(6) ?? string.Empty.FixWidth(6);
@@ -127,29 +129,29 @@ namespace btr.distrib.PrintDocs
                 var disc4 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 4)?.DiscountProsen.ToString("N0").FixWidthRight(3) ?? string.Empty.FixWidth(3);
                 var total = item.Total.ToString("N0").FixWidthRight(11);
                 
-                sb.Append($"{no}|{brgId}|{brgName}|{bonus}|{qty1}|{qty2}|{hrg1}|{hrg2}|{disc1}|{disc2}|{disc3}|{disc4}|{total}\n");
+                sb.Append($"{no}│{brgId}│{brgName}│{bonus}│{qty1}│{qty2}│{hrg1}│{hrg2}│{disc1}│{disc2}│{disc3}│{disc4}│{total}\n");
                 i++;
             }
 
-            for(var j = 1; j <= i % 5; j++)
-                sb.Append($"  │       │                              │  │      │      │          │        │   │   │   │   │              \n");
+            for(var j = 1; j <= 10-i; j++)
+                sb.Append($"  │       │                           │  │      │      │          │        │   │   │   │   │              \n");
             
-            sb.Append($"──┴───────┴──────────────────────────────┴──┴──────┴──────┴──────────┴────────┴───┴───┴───┴───┴───────────\n");
+            sb.Append($"──┴───────┴───────────────────────────┴──┴──────┴──────┴──────────┴────────┴───┴───┴───┴───┴───────────\n");
             var subTotal = model.ListItem.Sum(x => x.SubTotal);
             var discount = model.ListItem.Sum(x => x.DiscountRp) + model.DiscountLain;
             var total2 = subTotal + discount;
             var ppn = model.ListItem.Sum(x => x.PpnRp);
             var grandTotal = model.ListItem.Sum(x => x.Total);
-            sb.Append($"                                                                                   SUBTOTAL   :{subTotal.ToString("N0").FixWidthRight(11)}\n");
-            sb.Append($"                                                                                   DISCOUNT   :{discount.ToString("N0").FixWidthRight(11)}\n");
-            sb.Append($"                                                                                   TOTAL      :{total2.ToString("N0").FixWidthRight(11)}\n");
-            sb.Append($"                                                                                   PPN 11%    :{ppn.ToString("N0").FixWidthRight(11)}\n");
-            sb.Append($"                                                                                   GRAND TOTAL:{grandTotal.ToString("N0").FixWidthRight(11)}\n");
+            sb.Append($"                                                                                SUBTOTAL   :{subTotal.ToString("N0").FixWidthRight(11)}\n");
+            sb.Append($"                                                                                DISCOUNT   :{discount.ToString("N0").FixWidthRight(11)}\n");
+            sb.Append($"                                                                                TOTAL      :{total2.ToString("N0").FixWidthRight(11)}\n");
+            sb.Append($"                                                                                PPN 11%    :{ppn.ToString("N0").FixWidthRight(11)}\n");
+            sb.Append($"                                                                                GRAND TOTAL:{grandTotal.ToString("N0").FixWidthRight(11)}\n");
             sb.Append($"\n");
-            sb.Append($"Tanda Terima,                             Pengirim,                                Yogyakarta, {model.FakturDate:dd-MM-yyyy}\n");
+            sb.Append($"Tanda Terima,                          Pengirim,                                Yogyakarta, {model.FakturDate:dd-MM-yyyy}\n");
             sb.Append($"\n");
             sb.Append($"\n");
-            sb.Append($"___________________                       ___________________                      Mayang\n");
+            sb.Append($"___________________                    ___________________                      Mayang\n");
             sb.Append($"(Nama Terang/Cap)\n");
 
             _content = sb.ToString();
