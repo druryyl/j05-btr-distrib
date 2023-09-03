@@ -1,46 +1,68 @@
-﻿using btr.application.InventoryContext.StokAgg.UseCases;
+﻿using btr.application.BrgContext.BrgStokViewAgg.Contracts;
 using btr.distrib.SharedForm;
+using btr.domain.BrgContext.BrgStokViewAgg;
+using btr.domain.InventoryContext.WarehouseAgg;
 using btr.nuna.Domain;
-using MediatR;
-using Polly;
-using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Linq;
+using btr.distrib.Helpers;
 
 namespace btr.distrib.Browsers
 {
-    public interface IBrgStokBrowser : IQueryBrowser<ListBrgStokResponse>
+    public class BrgStokBrowser :
+        IBrowser<BrgStokBrowserView>,
+        IBrowseEngine<BrgStokBrowserView>
     {
-    }
+        private readonly IBrgStokViewDal _brgStokViewDal;
 
-    public class BrgStokBrowser : IBrgStokBrowser
-    {
-        private readonly IMediator _mediator;
-
-        public BrgStokBrowser(IMediator mediator)
+        public BrgStokBrowser(IBrgStokViewDal brgStokViewDal)
         {
-            _mediator = mediator;
+            _brgStokViewDal = brgStokViewDal;
+            Filter = new BrowseFilter();
+            Filter.IsDate = false;
+            Filter.HideAllRows = true;
         }
-        public bool HideAllRow { get => true; }
 
-        public bool IsShowDate { get; private set; }
-        public string[] BrowserQueryArgs { get; set; }
-
-        public async Task<IEnumerable<ListBrgStokResponse>> Browse(string userSearch, Periode userPeriode)
+        public string Browse(string defaultValue)
         {
-            var brgName = userSearch;
-            var warehouseId = BrowserQueryArgs[0];
-            IsShowDate = false;
+            var form = new BrowserForm<BrgStokBrowserView>(this);
 
-            var policy = Policy<IEnumerable<ListBrgStokResponse>>
-                .Handle<KeyNotFoundException>().Or<ArgumentException>()
-                .FallbackAsync(new List<ListBrgStokResponse>());
+            var dialogResult = form.ShowDialog();
+            if (dialogResult == System.Windows.Forms.DialogResult.OK)
+                return form.Result;
+            else
+                return defaultValue;
+        }
 
-            var query = new ListBrgStokQuery(brgName, warehouseId);
-            Task<IEnumerable<ListBrgStokResponse>> queryTask() => _mediator.Send(query);
-            var result = await policy.ExecuteAsync(queryTask);
+        public BrowseFilter Filter { get; set; }
+
+        public IEnumerable<BrgStokBrowserView> GenDataSource()
+        {
+            var warehouse = new WarehouseModel(Filter.StaticFilter1);
+            var listData = _brgStokViewDal.ListData(warehouse)?.ToList() 
+                ?? new List<BrgStokViewModel>();
+
+            var result = listData
+                .OrderBy(x => x.BrgName)
+                .Select(x => new BrgStokBrowserView
+                {
+                    Id = x.BrgId,
+                    BrgName = x.BrgName,
+                    Stok = x.Stok,
+                }).ToList();
+
+            if (Filter.UserKeyword.Length > 0)
+                result = result
+                    .Where(x => x.BrgName.ContainMultiWord(Filter.UserKeyword)).ToList();
+
             return result;
         }
+    }
 
+    public class BrgStokBrowserView
+    {
+        public string Id { get; set; }
+        public string BrgName { get; set; }
+        public int Stok { get; set; }
     }
 }

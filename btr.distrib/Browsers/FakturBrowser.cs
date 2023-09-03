@@ -1,43 +1,66 @@
-﻿using btr.application.SalesContext.FakturAgg.UseCases;
-using btr.distrib.SharedForm;
+﻿using btr.distrib.SharedForm;
 using btr.nuna.Domain;
-using MediatR;
-using Polly;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Linq;
+using btr.distrib.Helpers;
+using btr.application.SalesContext.FakturAgg.Contracts;
+using btr.domain.SalesContext.FakturAgg;
 
 namespace btr.distrib.Browsers
 {
-    public interface IFakturBrowser : IQueryBrowser<ListFakturResponse>
+    public class FakturBrowser : IBrowser<Faktur2BrowserView>
     {
-    }
+        private readonly IFakturDal _fakturDal;
 
-    public class FakturBrowser : IFakturBrowser
-    {
-        private readonly IMediator _mediator;
-
-        public FakturBrowser(IMediator mediator)
+        public FakturBrowser(IFakturDal fakturDal)
         {
-            _mediator = mediator;
+            _fakturDal = fakturDal;
+            Filter = new BrowseFilter();
+            Filter.IsDate = true;
+            Filter.HideAllRows = false;
         }
 
-        public bool IsShowDate => true;
-        public string[] BrowserQueryArgs { get; set; }
-
-        public async Task<IEnumerable<ListFakturResponse>> Browse(string userSearch, Periode periode)
+        public string Browse(string defaultValue)
         {
-            var tgl1 = periode.Tgl1.ToString("yyyy-MM-dd");
-            var tgl2 = periode.Tgl2.ToString("yyyy-MM-dd");
+            var form = new BrowserForm<Faktur2BrowserView>(this);
 
-            var policy = Policy<IEnumerable<ListFakturResponse>>
-                .Handle<KeyNotFoundException>()
-                .FallbackAsync(new List<ListFakturResponse>());
-            var query = new ListFakturQuery(tgl1, tgl2);
-            Task<IEnumerable<ListFakturResponse>> queryTask() => _mediator.Send(query);
-            var result = await policy.ExecuteAsync(queryTask);
+            var dialogResult = form.ShowDialog();
+            if (dialogResult == System.Windows.Forms.DialogResult.OK)
+                return form.Result;
+            else
+                return defaultValue;
+        }
+
+        public BrowseFilter Filter { get; set; }
+
+        public IEnumerable<Faktur2BrowserView> GenDataSource()
+        {
+            var listData = _fakturDal.ListData(Filter.Date)?.ToList() ?? new List<FakturModel>();
+            var result = listData
+                .OrderBy(x => x.CustomerName)
+                .Select(x => new Faktur2BrowserView
+                {
+                    Id = x.FakturId,
+                    Tgl = x.FakturDate.ToString("dd-MMM HH:mm"),
+                    Customer = x.CustomerName,
+                    Sales = x.SalesPersonName,
+                    Total = x.Total
+                }).ToList();
+
+            if (Filter.UserKeyword.Length > 0)
+                result = result
+                    .Where(x => x.Customer.ContainMultiWord(Filter.UserKeyword)).ToList();
+
             return result;
         }
+    }
 
-        public bool HideAllRow { get; }
+    public class Faktur2BrowserView
+    {
+        public string Id { get; set; }
+        public string Tgl { get; set; }
+        public string Customer { get; set; }
+        public string Sales { get; set; }
+        public decimal Total { get; set; }
     }
 }

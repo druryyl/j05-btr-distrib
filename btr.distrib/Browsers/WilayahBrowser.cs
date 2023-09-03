@@ -22,7 +22,7 @@ namespace btr.distrib.Browsers
 
         public string Browse(string defaultValue)
         {
-            var form = new Browser2Form<WilayahBrowserView>(this);
+            var form = new BrowserForm<WilayahBrowserView>(this);
 
             var dialogResult = form.ShowDialog();
             if (dialogResult == System.Windows.Forms.DialogResult.OK)

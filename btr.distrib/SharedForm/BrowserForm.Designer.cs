@@ -1,6 +1,6 @@
 ﻿namespace btr.distrib.SharedForm
 {
-    partial class BrowserForm<T, TKey>
+    partial class BrowserForm<T>
     {
         /// <summary>
         /// Required designer variable.
@@ -49,18 +49,17 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(331, 64);
-            this.panel1.TabIndex = 7;
+            this.panel1.TabIndex = 9;
             // 
             // SearchButton
             // 
             this.SearchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.SearchButton.Location = new System.Drawing.Point(261, 6);
+            this.SearchButton.Location = new System.Drawing.Point(257, 5);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(70, 23);
             this.SearchButton.TabIndex = 6;
             this.SearchButton.Text = "Search";
             this.SearchButton.UseVisualStyleBackColor = true;
-            this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
             // 
             // FilterDate2TextBox
             // 
@@ -88,7 +87,6 @@
             this.FilterTextBox.Name = "FilterTextBox";
             this.FilterTextBox.Size = new System.Drawing.Size(252, 22);
             this.FilterTextBox.TabIndex = 1;
-            this.FilterTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FilterTextBox_KeyDown);
             // 
             // BrowserGrid
             // 
@@ -100,14 +98,12 @@
             this.BrowserGrid.BackgroundColor = System.Drawing.Color.DarkOliveGreen;
             this.BrowserGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.BrowserGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.BrowserGrid.Location = new System.Drawing.Point(0, 64);
+            this.BrowserGrid.Location = new System.Drawing.Point(0, 63);
             this.BrowserGrid.Name = "BrowserGrid";
             this.BrowserGrid.Size = new System.Drawing.Size(331, 388);
-            this.BrowserGrid.TabIndex = 6;
-            this.BrowserGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.BrowserGrid_CellDoubleClick);
-            this.BrowserGrid.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.BrowserGrid_DataBindingComplete);
+            this.BrowserGrid.TabIndex = 8;
             // 
-            // BrowserForm
+            // Browser2Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -116,10 +112,9 @@
             this.Controls.Add(this.BrowserGrid);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.KeyPreview = true;
-            this.Name = "BrowserForm";
+            this.Name = "Browser2Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Browse Data";
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.BrowserForm_KeyDown);
+            this.Text = "Browser";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BrowserGrid)).EndInit();

@@ -21,7 +21,7 @@ namespace btr.distrib.Browsers
 
         public string Browse(string defaultValue)
         {
-            var form = new Browser2Form<KategoriBrowserView>(this);
+            var form = new BrowserForm<KategoriBrowserView>(this);
 
             var dialogResult = form.ShowDialog();
             if (dialogResult == System.Windows.Forms.DialogResult.OK)

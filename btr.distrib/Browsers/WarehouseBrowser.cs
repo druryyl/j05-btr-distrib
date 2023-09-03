@@ -23,7 +23,7 @@ namespace btr.distrib.Browsers
 
         public string Browse(string defaultValue)
         {
-            var form = new Browser2Form<WarehouseBrowserView>(this);
+            var form = new BrowserForm<WarehouseBrowserView>(this);
 
             var dialogResult = form.ShowDialog();
             if (dialogResult == System.Windows.Forms.DialogResult.OK)
