@@ -407,9 +407,9 @@ namespace btr.distrib.SalesContext.FakturAgg
             FakturItemGrid.Columns.GetCol("DiscTotal").Visible = false;
             FakturItemGrid.Columns.GetCol("PpnRp").Visible = false;
             //  width
-            FakturItemGrid.Columns.GetCol("BrgId").Width = 50;
+            FakturItemGrid.Columns.GetCol("BrgId").Width = 80;
             FakturItemGrid.Columns.GetCol("Find").Width = 20;
-            FakturItemGrid.Columns.GetCol("BrgName").Width = 150;
+            FakturItemGrid.Columns.GetCol("BrgName").Width = 200;
             FakturItemGrid.Columns.GetCol("StokHarga").Width = 100;
             FakturItemGrid.Columns.GetCol("Qty").Width = 50;
             FakturItemGrid.Columns.GetCol("QtyDetil").Width = 80;
@@ -430,9 +430,13 @@ namespace btr.distrib.SalesContext.FakturAgg
             //  number-format
             FakturItemGrid.Columns.GetCol("SubTotal").DefaultCellStyle.Format = "#,##0.00";
             FakturItemGrid.Columns.GetCol("Total").DefaultCellStyle.Format = "#,##0.00";
+            FakturItemGrid.Columns.GetCol("BrgName").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
+
             //  auto-resize-rows
             FakturItemGrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             FakturItemGrid.AutoResizeRows();
+
         }
         private void RefreshGrid()
         {

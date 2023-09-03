@@ -96,7 +96,7 @@
             // PrintButton
             // 
             this.PrintButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.PrintButton.Location = new System.Drawing.Point(921, 491);
+            this.PrintButton.Location = new System.Drawing.Point(1019, 491);
             this.PrintButton.Name = "PrintButton";
             this.PrintButton.Size = new System.Drawing.Size(75, 23);
             this.PrintButton.TabIndex = 44;
@@ -113,7 +113,7 @@
             this.PanelAtas4.Controls.Add(this.NoteLabel);
             this.PanelAtas4.Location = new System.Drawing.Point(624, 9);
             this.PanelAtas4.Name = "PanelAtas4";
-            this.PanelAtas4.Size = new System.Drawing.Size(378, 186);
+            this.PanelAtas4.Size = new System.Drawing.Size(476, 186);
             this.PanelAtas4.TabIndex = 39;
             // 
             // NoteTextBox
@@ -126,7 +126,7 @@
             this.NoteTextBox.Multiline = true;
             this.NoteTextBox.Name = "NoteTextBox";
             this.NoteTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.NoteTextBox.Size = new System.Drawing.Size(355, 144);
+            this.NoteTextBox.Size = new System.Drawing.Size(453, 144);
             this.NoteTextBox.TabIndex = 16;
             // 
             // NoteLabel
@@ -146,7 +146,7 @@
             this.FakturItemGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.FakturItemGrid.Location = new System.Drawing.Point(6, 201);
             this.FakturItemGrid.Name = "FakturItemGrid";
-            this.FakturItemGrid.Size = new System.Drawing.Size(852, 284);
+            this.FakturItemGrid.Size = new System.Drawing.Size(950, 284);
             this.FakturItemGrid.TabIndex = 40;
             // 
             // PanelTengah
@@ -167,7 +167,7 @@
             this.PanelTengah.Controls.Add(this.DisconutLainLabel);
             this.PanelTengah.Controls.Add(this.TotalText);
             this.PanelTengah.Controls.Add(this.TotalLabel);
-            this.PanelTengah.Location = new System.Drawing.Point(864, 201);
+            this.PanelTengah.Location = new System.Drawing.Point(962, 201);
             this.PanelTengah.Name = "PanelTengah";
             this.PanelTengah.Size = new System.Drawing.Size(138, 284);
             this.PanelTengah.TabIndex = 41;
@@ -325,7 +325,7 @@
             // SaveButton
             // 
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveButton.Location = new System.Drawing.Point(759, 491);
+            this.SaveButton.Location = new System.Drawing.Point(857, 491);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
             this.SaveButton.TabIndex = 42;
@@ -336,7 +336,7 @@
             // DeleteButton
             // 
             this.DeleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.DeleteButton.Location = new System.Drawing.Point(840, 491);
+            this.DeleteButton.Location = new System.Drawing.Point(938, 491);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(75, 23);
             this.DeleteButton.TabIndex = 43;
@@ -649,7 +649,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Khaki;
-            this.ClientSize = new System.Drawing.Size(1008, 523);
+            this.ClientSize = new System.Drawing.Size(1106, 523);
             this.Controls.Add(this.PrintButton);
             this.Controls.Add(this.PanelAtas4);
             this.Controls.Add(this.FakturItemGrid);

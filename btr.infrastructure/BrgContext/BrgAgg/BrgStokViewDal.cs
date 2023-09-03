@@ -24,13 +24,13 @@ namespace btr.infrastructure.BrgContext.BrgAgg
         {
             const string sql = @"
                 SELECT
-                    aa.BrgId, aa.BrgName, SUM(bb.Qty) Stok
+                    aa.BrgId, aa.BrgCode, aa.BrgName, SUM(bb.Qty) Stok
                 FROM
                     BTR_Brg aa
                     LEFT JOIN BTR_Stok bb ON aa.BrgId = bb.BrgId
                         AND bb.WarehouseId = @WarehouseId
                 GROUP BY
-                    aa.BrgId, aa.BrgName ";
+                    aa.BrgId, aa.BrgName, aa.BrgCode ";
 
             var dp = new DynamicParameters();
             dp.AddParam("@WarehouseId", filter.WarehouseId, System.Data.SqlDbType.VarChar);
@@ -45,7 +45,7 @@ namespace btr.infrastructure.BrgContext.BrgAgg
         {
             const string sql = @"
                 SELECT
-                    aa.BrgId, aa.BrgName, SUM(bb.Qty) Stok
+                    aa.BrgId, aa.BrgCode, aa.BrgName, SUM(bb.Qty) Stok
                 FROM
                     BTR_Brg aa
                     LEFT JOIN BTR_Stok bb ON aa.BrgId = bb.BrgId
@@ -53,7 +53,7 @@ namespace btr.infrastructure.BrgContext.BrgAgg
                 WHERE
                     aa.BrgId = @BrgId 
                 GROUP BY
-                    aa.BrgId, aa.BrgName ";
+                    aa.BrgId, aa.BrgName, aa.BrgCode ";
 
             var dp = new DynamicParameters();
             dp.AddParam("@WarehouseId", key.WarehouseId, System.Data.SqlDbType.VarChar);
