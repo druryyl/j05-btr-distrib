@@ -104,6 +104,7 @@
     <Compile Include="SupportContext\DocAgg\DocActionDal.cs" />
     <Compile Include="SupportContext\DocAgg\DocDal.cs" />
     <Compile Include="SupportContext\TglJamAgg\TglJamDal.cs" />
+    <Compile Include="SupportContext\UserAgg\UserDal.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\btr.application\btr.application.csproj">
@@ -131,7 +132,6 @@
     <Folder Include="InventoryContext\GoodReceiptAgg\" />
     <Folder Include="PurchaseContext\InvoiceAgg\" />
     <Folder Include="PurchaseContext\KlaimAgg\" />
-    <Folder Include="SupportContext\UserAgg\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

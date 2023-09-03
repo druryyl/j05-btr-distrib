@@ -88,5 +88,6 @@
     <Build Include="Tables\SalesContext\BTR_Klasifikasi.sql" />
     <Build Include="Tables\Helper\BTR_Doc.sql" />
     <Build Include="Tables\Helper\BTR_DocAction.sql" />
+    <Build Include="Tables\Helper\BTR_User.sql" />
   </ItemGroup>
 </Project>

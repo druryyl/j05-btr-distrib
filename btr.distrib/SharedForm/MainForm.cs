@@ -7,6 +7,7 @@ using btr.distrib.PurchaseContext.SupplierAgg;
 using btr.distrib.SalesContext.CustomerAgg;
 using btr.distrib.SalesContext.FakturAgg;
 using btr.distrib.SalesContext.SalesPersonAgg;
+using btr.distrib.SalesContext.UserAgg;
 using btr.distrib.SalesContext.WilayahAgg;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -120,6 +121,14 @@ namespace btr.distrib.SharedForm
             var form = _servicesProvider.GetRequiredService<AboutForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.ShowDialog();
+        }
+
+        private void UserButton_Click(object sender, EventArgs e)
+        {
+            var form = _servicesProvider.GetRequiredService<UserForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
         }
     }
 }

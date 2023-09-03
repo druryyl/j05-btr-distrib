@@ -152,6 +152,10 @@
     <Compile Include="SupportContext\DocAgg\IDocActionDal.cs" />
     <Compile Include="SupportContext\DocAgg\IDocDal.cs" />
     <Compile Include="SupportContext\TglJamAgg\ITglJamDal.cs" />
+    <Compile Include="SupportContext\UserAgg\IUserDal.cs" />
+    <Compile Include="SupportContext\UserAgg\UserBuilder.cs" />
+    <Compile Include="SupportContext\UserAgg\UserValidator.cs" />
+    <Compile Include="SupportContext\UserAgg\UserWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="FinanceContext\CreditNoteAgg\" />
@@ -165,7 +169,6 @@
     <Folder Include="InventoryContext\GoodReceiptAgg\Workers\" />
     <Folder Include="PurchaseContext\InvoiceAgg\" />
     <Folder Include="PurchaseContext\KlaimAgg\" />
-    <Folder Include="SupportContext\UserAgg\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\btr.domain\btr.domain.csproj">

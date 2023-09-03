@@ -148,7 +148,7 @@ namespace btr.distrib.InventoryContext.BrgAgg
             brg.ListSatuan
                 .OrderBy(x => x.Conversion).ToList()
                 .ForEach(x => _listSatuan
-                    .Add(new BrgFormSatuanDto(x.Satuan, x.Conversion)));
+                    .Add(new BrgFormSatuanDto(x.Satuan, x.Conversion, x.SatuanPrint)));
             SatuanGrid.Refresh();
 
             //  harga
@@ -424,7 +424,7 @@ namespace btr.distrib.InventoryContext.BrgAgg
             foreach (var item in _listSatuan)
                 brg = _brgBuilder
                     .Attach(brg)
-                    .AddSatuan(item.Satuan, item.Conversion)
+                    .AddSatuan(item.Satuan, item.Conversion, item.SatuanPrint)
                     .Build();
 
             brg.ListHarga.Clear();

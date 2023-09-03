@@ -76,7 +76,7 @@
             // 
             this.SearchText.Location = new System.Drawing.Point(13, 311);
             this.SearchText.Name = "SearchText";
-            this.SearchText.Size = new System.Drawing.Size(219, 20);
+            this.SearchText.Size = new System.Drawing.Size(219, 22);
             this.SearchText.TabIndex = 49;
             // 
             // label3
@@ -84,7 +84,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(12, 91);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(32, 13);
+            this.label3.Size = new System.Drawing.Size(34, 13);
             this.label3.TabIndex = 11;
             this.label3.Text = "Code";
             // 
@@ -92,7 +92,7 @@
             // 
             this.BrgCodeText.Location = new System.Drawing.Point(12, 107);
             this.BrgCodeText.Name = "BrgCodeText";
-            this.BrgCodeText.Size = new System.Drawing.Size(205, 20);
+            this.BrgCodeText.Size = new System.Drawing.Size(205, 22);
             this.BrgCodeText.TabIndex = 9;
             // 
             // label2
@@ -100,7 +100,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 50);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(76, 13);
+            this.label2.Size = new System.Drawing.Size(80, 13);
             this.label2.TabIndex = 9;
             this.label2.Text = "Wilayah Name";
             // 
@@ -116,7 +116,7 @@
             // 
             this.WilayahNameText.Location = new System.Drawing.Point(12, 66);
             this.WilayahNameText.Name = "WilayahNameText";
-            this.WilayahNameText.Size = new System.Drawing.Size(205, 20);
+            this.WilayahNameText.Size = new System.Drawing.Size(205, 22);
             this.WilayahNameText.TabIndex = 8;
             // 
             // WilayahButton
@@ -133,7 +133,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(12, 9);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(59, 13);
+            this.label6.Size = new System.Drawing.Size(62, 13);
             this.label6.TabIndex = 0;
             this.label6.Text = "Wilayah ID";
             // 
@@ -173,6 +173,7 @@
             this.Controls.Add(this.SearchText);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.ListGrid);
+            this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "WilayahForm";
             this.Text = "Wilayah";
             this.panel2.ResumeLayout(false);

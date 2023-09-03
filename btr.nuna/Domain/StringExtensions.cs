@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace btr.nuna.Domain
 {
@@ -48,6 +50,24 @@ namespace btr.nuna.Domain
                 result.Add(subResult);
 
             return result.ToArray();
+        }
+
+        public static string HashSha256(this string password)
+        {
+            using (var sha256 = SHA256.Create())
+            {
+                byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+                byte[] hashBytes = sha256.ComputeHash(passwordBytes);
+
+                // Convert the hash to a hexadecimal string
+                StringBuilder hashBuilder = new StringBuilder();
+                for (int i = 0; i < hashBytes.Length; i++)
+                {
+                    hashBuilder.Append(hashBytes[i].ToString("x2")); // "x2" formats the byte as a two-digit hexadecimal number
+                }
+
+                return hashBuilder.ToString();
+            }
         }
     }
 }

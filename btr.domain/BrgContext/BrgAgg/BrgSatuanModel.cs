@@ -2,8 +2,8 @@
 {
     public class BrgSatuanModel : IBrgKey
     {
-        public BrgSatuanModel(string brgId, string satuan, int conversion) =>
-            (BrgId, Satuan, Conversion) = (brgId, satuan, conversion);
+        public BrgSatuanModel(string brgId, string satuan, int conversion, string satuanPrint) =>
+            (BrgId, Satuan, Conversion, SatuanPrint) = (brgId, satuan, conversion, satuanPrint);
         public BrgSatuanModel()
         { 
         }

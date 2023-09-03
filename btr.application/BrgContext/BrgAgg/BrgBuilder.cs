@@ -29,7 +29,7 @@ namespace btr.application.BrgContext.BrgAgg
         IBrgBuilder JenisBrg(IJenisBrgKey jenisBrgKey);
         
         IBrgBuilder Hpp(decimal hpp);
-        IBrgBuilder AddSatuan(string satuan, int conversion);
+        IBrgBuilder AddSatuan(string satuan, int conversion, string satuanPrint);
         IBrgBuilder RemoveSatuan(string satuan);
         IBrgBuilder AddHarga(IHargaTypeKey hargaTypeKey, decimal harga);
 
@@ -158,11 +158,11 @@ namespace btr.application.BrgContext.BrgAgg
             return this;
         }
 
-        public IBrgBuilder AddSatuan(string satuan, int conversion)
+        public IBrgBuilder AddSatuan(string satuan, int conversion, string satuanPrint)
         {
             if (_aggRoot.ListSatuan.Any(x => x.Satuan == satuan))
                 throw new ArgumentException($"Satuan already exist ({satuan})");
-            _aggRoot.ListSatuan.Add(new BrgSatuanModel(_aggRoot.BrgId, satuan, conversion));
+            _aggRoot.ListSatuan.Add(new BrgSatuanModel(_aggRoot.BrgId, satuan, conversion, satuanPrint));
             return this;
         }
 
