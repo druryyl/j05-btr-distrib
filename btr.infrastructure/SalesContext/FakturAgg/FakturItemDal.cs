@@ -68,7 +68,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
         {
             const string sql = @"
             SELECT
-                aa.FakturId, aa.FakturItemId, aa.NoUrut, aa.BrgId,
+                aa.FakturId, aa.FakturItemId, aa.NoUrut, aa.BrgId, aa.BrgCode,
                 aa.AvailableQty, aa.Qty, aa.HargaJual, aa.SubTotal,
                 aa.DiscountRp, aa.PpnProsen, aa.PpnRp, aa.Total,
                 ISNULL(bb.BrgName, '') AS BrgName

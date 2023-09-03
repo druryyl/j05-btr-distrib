@@ -128,7 +128,7 @@ namespace btr.distrib.PrintDocs
                     PrintHeader();
                 
                 var no = noItem.ToString("D2");
-                var brgId = item.BrgId.FixWidth(10);
+                var brgId = item.BrgCode.Trim().Length > 0 ? item.BrgCode.FixWidth(10) : item.BrgId.FixWidth(10);
 
                 var arrName = item.BrgName.WrapText(27);
                 var arrName1 = arrName[0].FixWidth(27);
