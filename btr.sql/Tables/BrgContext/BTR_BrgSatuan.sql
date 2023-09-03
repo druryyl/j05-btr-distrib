@@ -2,6 +2,7 @@ CREATE TABLE BTR_BrgSatuan(
     BrgId VARCHAR(6) NOT NULL CONSTRAINT DF_BTR_BrgSatuanHarga_BrgId DEFAULT(''), 
     Satuan VARCHAR(7) NOT NULL CONSTRAINT DF_BTR_BrgSatuanHarga_Satuan DEFAULT(''),
     Conversion INT NOT NULL CONSTRAINT DF_BTR_BrgSatuanHarga_Conversion DEFAULT(0),
-    
+    SatuanPrint VARCHAR(7) NOT NULL CONSTRAINT DF_BTR_BrgSatuan_SatuanPrint DEFAULT(''),
+
     CONSTRAINT PK_BrgSatuan PRIMARY KEY CLUSTERED (BrgId, Satuan)
 )

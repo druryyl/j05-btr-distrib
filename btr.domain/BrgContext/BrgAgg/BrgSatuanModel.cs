@@ -11,5 +11,6 @@
         public string BrgId { get; set; }
         public string Satuan { get; set; }
         public int Conversion { get; set; }
+        public string SatuanPrint { get; set; }
     }
 }

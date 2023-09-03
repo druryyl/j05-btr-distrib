@@ -60,6 +60,7 @@
             this.BrgButton = new System.Windows.Forms.RibbonButton();
             this.WarehouseButton = new System.Windows.Forms.RibbonButton();
             this.PrintButton = new System.Windows.Forms.RibbonButton();
+            this.AboutButton = new System.Windows.Forms.RibbonButton();
             this.TestingButton = new System.Windows.Forms.RibbonButton();
             this.SuspendLayout();
             // 
@@ -184,6 +185,7 @@
             // 
             // ReceivingPanel
             // 
+            this.ReceivingPanel.Items.Add(this.AboutButton);
             this.ReceivingPanel.Name = "ReceivingPanel";
             this.ReceivingPanel.Text = "";
             // 
@@ -323,6 +325,15 @@
             this.PrintButton.Text = "Print";
             this.PrintButton.Click += new System.EventHandler(this.PrintButton_Click);
             // 
+            // AboutButton
+            // 
+            this.AboutButton.Image = global::btr.distrib.Properties.Resources.icons8_about_32;
+            this.AboutButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_about_32;
+            this.AboutButton.Name = "AboutButton";
+            this.AboutButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("AboutButton.SmallImage")));
+            this.AboutButton.Text = "About";
+            this.AboutButton.Click += new System.EventHandler(this.AboutButton_Click);
+            // 
             // TestingButton
             // 
             this.TestingButton.Image = global::btr.distrib.Properties.Resources.icons8_microscope_32;
@@ -384,5 +395,6 @@
         private System.Windows.Forms.RibbonButton BrgButton;
         private System.Windows.Forms.RibbonButton WarehouseButton;
         private System.Windows.Forms.RibbonButton PrintButton;
+        private System.Windows.Forms.RibbonButton AboutButton;
     }
 }

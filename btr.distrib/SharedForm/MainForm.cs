@@ -114,5 +114,12 @@ namespace btr.distrib.SharedForm
             form.MdiParent = this;
             form.Show();
         }
+
+        private void AboutButton_Click(object sender, EventArgs e)
+        {
+            var form = _servicesProvider.GetRequiredService<AboutForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.ShowDialog();
+        }
     }
 }

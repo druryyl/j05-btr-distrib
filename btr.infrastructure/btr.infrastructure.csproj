@@ -103,6 +103,7 @@
     <Compile Include="SalesContext\WilayahAgg\WilayahDal.cs" />
     <Compile Include="SupportContext\DocAgg\DocActionDal.cs" />
     <Compile Include="SupportContext\DocAgg\DocDal.cs" />
+    <Compile Include="SupportContext\TglJamAgg\TglJamDal.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\btr.application\btr.application.csproj">

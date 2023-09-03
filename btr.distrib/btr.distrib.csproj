@@ -301,6 +301,12 @@
     <Compile Include="SalesContext\WilayahAgg\WilayahForm.Designer.cs">
       <DependentUpon>WilayahForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SharedForm\AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SharedForm\AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SharedForm\Browser2Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -329,8 +335,12 @@
     <Compile Include="WinformAssemblyAnchor.cs" />
     <Content Include="icons8_truck.ico" />
     <None Include="Resources\icons8_documents_16.png" />
+    <None Include="Resources\icons8_about_32.png" />
     <Content Include="Resources\icons8_microscope.ico" />
     <Content Include="Resources\icons8_microscope_32.png" />
+    <EmbeddedResource Include="SharedForm\AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SharedForm\TestPlayground.resx">
       <DependentUpon>TestPlayground.cs</DependentUpon>
     </EmbeddedResource>

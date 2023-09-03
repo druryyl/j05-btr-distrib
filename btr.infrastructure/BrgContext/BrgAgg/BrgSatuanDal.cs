@@ -29,6 +29,7 @@ namespace btr.infrastructure.BrgContext.BrgAgg
                 bcp.AddMap("BrgId", "BrgId");
                 bcp.AddMap("Satuan", "Satuan");
                 bcp.AddMap("Conversion", "Conversion");
+                bcp.AddMap("SatuanPrint", "SatuanPrint");
 
                 var fetched = listModel.ToList();
                 bcp.BatchSize = fetched.Count;
@@ -58,7 +59,7 @@ namespace btr.infrastructure.BrgContext.BrgAgg
         {
             const string sql = @"
             SELECT
-                aa.BrgId, aa.Satuan, aa.Conversion
+                aa.BrgId, aa.Satuan, aa.Conversion, aa.SatuanPrint
             FROM 
                 BTR_BrgSatuan aa
             WHERE

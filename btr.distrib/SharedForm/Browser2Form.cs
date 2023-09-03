@@ -27,6 +27,7 @@ namespace btr.distrib.SharedForm
             BrowserGrid.KeyDown += BrowserGrid_KeyDown;
             FilterTextBox.KeyDown += FilterTextBox_KeyDown;
             SearchButton.Click += SearchButton_Click;
+            this.KeyDown += BrowserForm_KeyDown;
 
             if (!_engine.Filter.IsDate)
                 HideDateInput();
@@ -42,7 +43,14 @@ namespace btr.distrib.SharedForm
             BrowserGrid.AutoResizeColumns();
         }
 
-        private void BrowserGrid_KeyDown(object sender, KeyEventArgs e)
+        private void BrowserForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                DialogResult = DialogResult.Cancel;
+            }
+        }
+            private void BrowserGrid_KeyDown(object sender, KeyEventArgs e)
         {
             var grid = (DataGridView)sender;
             if (e.KeyCode == Keys.Enter)

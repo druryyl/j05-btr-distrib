@@ -6,6 +6,7 @@ using btr.application.InventoryContext.WarehouseAgg;
 using btr.application.SalesContext.CustomerAgg.Contracts;
 using btr.application.SalesContext.FakturAgg.Contracts;
 using btr.application.SalesContext.SalesPersonAgg.Contracts;
+using btr.application.SupportContext.TglJamAgg;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SalesContext.CustomerAgg;
@@ -44,7 +45,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         private readonly ISalesPersonDal _salesPersonDal;
         private readonly IWarehouseDal _warehouseDal;
         private readonly IBrgBuilder _brgBuilder;
-        private readonly DateTimeProvider _dateTime;
+        private readonly ITglJamDal _dateTime;
 
         public FakturBuilder(IFakturDal fakturDal,
             IFakturItemDal fakturItemDal,
@@ -54,7 +55,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             ISalesPersonDal salesPersonDal,
             IWarehouseDal warehouseDal,
             IBrgBuilder brgBuilder,
-            DateTimeProvider dateTime)
+            ITglJamDal dateTime)
         {
             _fakturDal = fakturDal;
             _fakturItemDal = fakturItemDal;
@@ -78,7 +79,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         {
             _aggRoot = new FakturModel
             {
-                CreateTime = _dateTime.Now,
+                CreateTime = _dateTime.Now(),
                 LastUpdate = new DateTime(3000, 1, 1),
                 UserId = userKey.UserId,
                 ListItem = new List<FakturItemModel>()

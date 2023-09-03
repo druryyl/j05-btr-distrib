@@ -15,6 +15,8 @@ using System;
 using System.Reflection;
 using System.Windows.Forms;
 using btr.distrib.Helpers;
+using btr.application.SupportContext.TglJamAgg;
+using btr.infrastructure.SupportContext.TglJamAgg;
 
 namespace btr.distrib
 {
@@ -42,6 +44,7 @@ namespace btr.distrib
             services.AddValidatorsFromAssembly(Assembly.Load("btr.application"));
             services.AddScoped<INunaCounterBL, NunaCounterBL>();
             services.AddScoped<DateTimeProvider, DateTimeProvider>();
+            services.AddScoped<ITglJamDal, TglJamDal>();
 
             services
                 .Scan(selector => selector

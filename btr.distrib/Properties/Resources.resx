@@ -139,9 +139,6 @@
   <data name="icons8_day_view" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8_day_view.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8_import" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8_import.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="icons8_bill" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8_bill.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -150,6 +147,9 @@
   </data>
   <data name="documents_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\documents_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8_real_estate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8_real_estate.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="3d_farm_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\3d_farm_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -169,17 +169,20 @@
   <data name="caretaker_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\caretaker_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="flag_of_bremen_with_lesser_arms_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flag_of_bremen_with_lesser_arms_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="import_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\import_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8_microscope_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8_microscope_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8_documents_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8_documents_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="real_estate_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\real_estate_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="flag_of_bremen_with_lesser_arms_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\flag_of_bremen_with_lesser_arms_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8_microscope_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8_microscope_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="map_marker_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\map_marker_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -196,8 +199,8 @@
   <data name="icons8_3d_farm_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8_3d_farm_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8_real_estate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8_real_estate.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8_import" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8_import.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8_print" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8_print.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -208,7 +211,7 @@
   <data name="icons8_graph_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8_graph_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8_documents_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8_documents_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8_about_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8_about_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

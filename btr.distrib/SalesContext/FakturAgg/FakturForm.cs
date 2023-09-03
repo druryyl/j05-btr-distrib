@@ -26,6 +26,7 @@ using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.StokBalanceAgg;
 using btr.application.InventoryContext.WarehouseAgg;
 using btr.domain.InventoryContext.StokBalanceAgg;
+using btr.application.SupportContext.TglJamAgg;
 
 namespace btr.distrib.SalesContext.FakturAgg
 {
@@ -45,8 +46,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly IWarehouseDal _warehouseDal;
         private readonly IBrgBuilder _brgBuilder;
         private readonly IStokBalanceBuilder _stokBalanceBuilder;
-
-        //private readonly IFakturBrowser _fakturBrowser;
+        private readonly ITglJamDal _dateTime;
 
         private readonly IFakturPrintDoc _fakturPrintDoc;
 
@@ -60,15 +60,11 @@ namespace btr.distrib.SalesContext.FakturAgg
             ICustomerDal customerDal,
             IWarehouseDal warehouseDal,
             IBrgBuilder brgBuilder,
-            IStokBalanceBuilder stokBalanceBuilder, 
+            IStokBalanceBuilder stokBalanceBuilder,
             IFakturPrintDoc fakturPrintDoc
-            )
+,
+            ITglJamDal dateTime)
         {
-            InitializeComponent();
-            InitGrid();
-            ClearForm();
-            RegisterEventHandler();
-
             _mediator = mediator;
 
             _warehouseBrowser = warehouseBrowser;
@@ -85,6 +81,12 @@ namespace btr.distrib.SalesContext.FakturAgg
             _stokBalanceBuilder = stokBalanceBuilder;
 
             _fakturPrintDoc = fakturPrintDoc;
+            _dateTime = dateTime;
+
+            InitializeComponent();
+            InitGrid();
+            ClearForm();
+            RegisterEventHandler();
         }
 
         private void RegisterEventHandler()
@@ -100,12 +102,15 @@ namespace btr.distrib.SalesContext.FakturAgg
             FakturItemGrid.CellContentClick += FakturItemGrid_CellContentClick;
             FakturItemGrid.CellValueChanged += FakturItemGrid_CellValueChanged;
             FakturItemGrid.CellValidated += FakturItemGrid_CellValidated;
+            FakturItemGrid.KeyDown += FakturItemGrid_KeyDown;
+            FakturItemGrid.EditingControlShowing += FakturItemGrid_EditingControlShowing;
         }
+
 
         private void ClearForm()
         {
             FakturIdText.Text = string.Empty;
-            FakturDateText.Value = DateTime.Now;
+            FakturDateText.Value = _dateTime.Now();
             SalesIdText.Text = string.Empty;
             SalesPersonNameTextBox.Text = string.Empty;
             CustomerIdText.Text = string.Empty;
@@ -254,14 +259,8 @@ namespace btr.distrib.SalesContext.FakturAgg
             if (e.ColumnIndex != grid.Columns["Find"].Index)
                 return;
 
-            var brgId = _listItem[grid.CurrentRow.Index].BrgId;
-            _brgStokBrowser.Filter.StaticFilter1 = WarehouseIdText.Text;
-            _brgStokBrowser.Filter.UserKeyword = _listItem[grid.CurrentRow.Index].BrgId;
-            brgId = _brgStokBrowser.Browse(brgId);
-            _listItem[grid.CurrentRow.Index].BrgId = brgId;
-            ValidateRow(e.RowIndex);
+            BrowseBrg(e.RowIndex);
         }
-        
         private void FakturItemGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             var grid = (DataGridView)sender;
@@ -284,8 +283,48 @@ namespace btr.distrib.SalesContext.FakturAgg
                 ValidateRow(e.RowIndex);
             }
         }
+        private void FakturItemGrid_KeyDown(object sender, KeyEventArgs e)
+        {
+            var grid = (DataGridView)sender;
+            if (e.KeyCode == Keys.F1)
+            {
+                if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("BrgId").Index)
+                    BrowseBrg(grid.CurrentCell.RowIndex);
+            }
+        }
 
+        #region browse-brg-saat-cell-aktif
+        private void FakturItemGrid_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            var grid = (DataGridView)sender;
+            if (grid.CurrentCell.ColumnIndex != 1)
+                return;
 
+            if (e.Control is TextBox textBox)
+            {
+                textBox.KeyDown += TextBox_KeyDown;
+            }
+        }
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F1)
+            {
+                FakturItemGrid.EndEdit();
+                BrowseBrg(FakturItemGrid.CurrentCell.RowIndex);
+            }
+        }
+        #endregion
+
+        private void BrowseBrg(int rowIndex)
+        {
+            var grid = FakturItemGrid;
+            var brgId = _listItem[rowIndex].BrgId;
+            _brgStokBrowser.Filter.StaticFilter1 = WarehouseIdText.Text;
+            _brgStokBrowser.Filter.UserKeyword = _listItem[rowIndex].BrgId;
+            brgId = _brgStokBrowser.Browse(brgId);
+            _listItem[rowIndex].BrgId = brgId;
+            ValidateRow(rowIndex);
+        }
         private void ValidateRow(int rowIndex)
         {
             var brg = BuildBrg(rowIndex);
@@ -318,17 +357,16 @@ namespace btr.distrib.SalesContext.FakturAgg
             }
             return result;
         }
-
         private BrgModel BuildBrg(int rowIndex)
         {
-            var brgKey = new BrgModel(_listItem[rowIndex].BrgId);
+            var id = _listItem[rowIndex].BrgId ?? string.Empty;
+            var brgKey = new BrgModel(id);
             var fbk = Policy<BrgModel>
                 .Handle<KeyNotFoundException>()
                 .Fallback(null as BrgModel);
             var brg = fbk.Execute(() => _brgBuilder.Load(brgKey).Build());
             return brg;
         }
-
         private StokBalanceWarehouseModel BuildStok(int rowIndex)
         {
             var brgKey = new BrgModel(_listItem[rowIndex].BrgId);
@@ -346,7 +384,6 @@ namespace btr.distrib.SalesContext.FakturAgg
             _listItem[rowIndex].SetBrgName(string.Empty);
             FakturItemGrid.Refresh();
         }
-        
         private void InitGrid()
         {
             var binding = new BindingSource();
@@ -397,7 +434,6 @@ namespace btr.distrib.SalesContext.FakturAgg
             FakturItemGrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             FakturItemGrid.AutoResizeRows();
         }
-
         private void RefreshGrid()
         {
             if (!_listItem.Any())

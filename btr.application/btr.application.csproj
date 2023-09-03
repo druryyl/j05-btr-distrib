@@ -151,6 +151,7 @@
     <Compile Include="SupportContext\DocAgg\DocWriter.cs" />
     <Compile Include="SupportContext\DocAgg\IDocActionDal.cs" />
     <Compile Include="SupportContext\DocAgg\IDocDal.cs" />
+    <Compile Include="SupportContext\TglJamAgg\ITglJamDal.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="FinanceContext\CreditNoteAgg\" />
