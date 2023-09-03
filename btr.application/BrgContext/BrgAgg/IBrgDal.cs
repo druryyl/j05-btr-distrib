@@ -8,6 +8,7 @@ namespace btr.application.BrgContext.BrgAgg
         IUpdate<BrgModel>,
         IDelete<IBrgKey>,
         IGetData<BrgModel, IBrgKey>,
+        IGetData<BrgModel, string>,
         IListData<BrgModel>
     {
     }

@@ -146,5 +146,34 @@ namespace btr.infrastructure.BrgContext.BrgAgg
 
             return result;
         }
+
+        public BrgModel GetData(string key)
+        {
+            const string sql = @"
+                SELECT
+                    aa.BrgId, aa.BrgName, aa.BrgCode, aa.IsAktif, 
+                    aa.SupplierId, aa.KategoriId, aa.Hpp, aa.HppTimestamp,
+                    ISNULL(bb.SupplierName, '') SupplierName,
+                    ISNULL(cc.JenisBrgName, '') JenisBrgName,
+                    ISNULL(dd.KategoriName, '') KategoriName
+                FROM
+                    BTR_Brg aa
+                    LEFT JOIN BTR_Supplier bb ON aa.SupplierId = bb.SupplierId
+                    LEFT JOIN BTR_JenisBrg cc ON aa.JenisBrgId = cc.JenisBrgId
+                    LEFT JOIN BTR_Kategori dd ON aa.KategoriId = dd.KategoriId
+                WHERE
+                    BrgCode = @BrgCode ";
+
+            var dp = new DynamicParameters();
+            dp.AddParam("@BrgCode", key, SqlDbType.VarChar);
+
+            BrgModel result;
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                result = conn.ReadSingle<BrgModel>(sql, dp);
+            }
+
+            return result;
+        }
     }
 }

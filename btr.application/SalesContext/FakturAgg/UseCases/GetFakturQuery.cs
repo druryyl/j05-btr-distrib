@@ -57,6 +57,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
 
         public string BrgId { get; set; }
         public string BrgName { get; set; }
+        public string BrgCode { get; set; }
 
         public int AvailableQty { get; set; }
         public int Qty { get; set; }

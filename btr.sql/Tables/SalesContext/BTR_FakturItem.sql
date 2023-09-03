@@ -4,6 +4,7 @@
     NoUrut INT NOT NULL CONSTRAINT DF_BTR_FakturItem_ItemNo DEFAULT(''),
     
     BrgId VARCHAR(6) NOT NULL CONSTRAINT DF_BTR_FakturItem_BrgId DEFAULT(''),
+    BrgCode VARCHAR(10) NOT NULL CONSTRAINT DF_BTR_FakturItem_BrgCode DEFAULT(''),
     AvailableQty INT NOT NULL CONSTRAINT DF_BTR_FakturItem_AvailableQty DEFAULT(0),
     Qty INT NOT NULL CONSTRAINT DF_BTR_FakturItem_Qty DEFAULT(0),
     

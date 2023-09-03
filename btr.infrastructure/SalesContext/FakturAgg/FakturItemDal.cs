@@ -30,6 +30,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 bcp.AddMap("FakturItemId", "FakturItemId");
                 bcp.AddMap("NoUrut", "NoUrut");
                 bcp.AddMap("BrgId", "BrgId");
+                bcp.AddMap("BrgCode", "BrgCode");
                 bcp.AddMap("AvailableQty", "AvailableQty");
                 bcp.AddMap("Qty", "Qty");
                 bcp.AddMap("HargaJual", "HargaJual");

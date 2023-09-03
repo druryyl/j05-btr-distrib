@@ -1,76 +1,41 @@
-﻿using System;
+﻿using btr.application.BrgContext.BrgAgg;
+using btr.domain.BrgContext.BrgAgg;
+using btr.nuna.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using btr.application.BrgContext.BrgAgg;
-using btr.domain.BrgContext.BrgAgg;
-using MediatR;
-using Polly;
 
 namespace btr.distrib.SalesContext.FakturAgg
 {
     public class FakturItemDto
     {
-        private string _brgId = string.Empty;
-        private string _brgName = string.Empty; 
-        private string _disc = string.Empty;
-        private string _discRp = string.Empty;
-        private decimal _discTotal = 0;
+        private string _qty;
+        private string _disc;
+        private decimal _ppn;
 
-        private string _qty = string.Empty;
-        private int[] _qtyInt = new int[3];
-        private string _qtyDetil = string.Empty;
-        private decimal _subTotal = 0;
-        private decimal _ppn = 0;
-        private decimal _ppnRp = 0;
-        private decimal _total = 0;
+        private string _brgId;
 
         public FakturItemDto()
         {
-            ListStokHargaSatuan = new List<FakturItemDtoStokHargaSatuan>();
+            ListStokHargaSatuan = new List<FakturItem2DtoStokHargaSatuan>();
         }
 
-        public string BrgId { get; set; }
+        public string BrgId 
+        { 
+            get => _brgId; 
+            set => _brgId = value;
+        }
+
+        public string Code { get; private set; }
+
         public string BrgName { get; private set; }
-
-        //private async Task BrgIdSetterAsync(string value)
-        //{
-        //    _brgId = value;
-
-        //    var defBrgHarga = new BrgModel()
-        //    {
-        //        BrgId = _brgId,
-        //        BrgName = string.Empty,
-        //        ListSatuan = new List<BrgSatuanModel>(),
-        //        ListHarga = new List<BrgHargaModel>()
-        //    };
-        //    var fallbackBrg = Policy<BrgModel>
-        //        .Handle<KeyNotFoundException>()
-        //        .FallbackAsync(defBrgHarga);
-        //    var queryBrg = new GetBrgQuery(_brgId);
-        //    Task<BrgModel> QueryBrg() => _mediator.Send(queryBrg);
-        //    var brg = await fallbackBrg.ExecuteAsync(QueryBrg);
-
-        //    _brgName = brg.BrgName;
-        //    ListStokHargaSatuan = GenListStokHargaSatuan();
-        //    ReCalc();
-        //}
-
-        private List<FakturItemDtoStokHargaSatuan> GenListStokHargaSatuan()
-        {
-            //result.ListSatuan
-            //    .Select(x => new FakturItemDtoStokHargaSatuan(x.Stok, x.HargaJual, x.Satuan))
-            //    .ToList();
-            throw new NotImplementedException();
-        }
-
         public string StokHarga
         {
             get
             {
                 return string.Join(Environment.NewLine,
                     ListStokHargaSatuan
-                    .Select(x => $"{x.Stok} {x.Satuan} @{x.Harga}"));
+                        .Select(x => $"{x.Stok} {x.Satuan} @{x.Harga:N0}"));
             }
         }
         public string Qty
@@ -81,10 +46,10 @@ namespace btr.distrib.SalesContext.FakturAgg
                 _qty = value;
                 ReCalc();
             }
-        }
-        public string QtyDetil { get => _qtyDetil; }
-
-        public decimal SubTotal { get => _subTotal; }
+        }        
+        
+        public string QtyDetil { get; private set;}
+        public decimal SubTotal { get; private set; }
 
         public string Disc
         {
@@ -95,8 +60,8 @@ namespace btr.distrib.SalesContext.FakturAgg
                 ReCalc();
             }
         }
-        public string DiscRp { get => _discRp; }
-        public decimal DiscTotal { get => _discTotal; }
+        public string DiscRp { get; private set; }
+        public decimal DiscTotal { get; private set; }
         public decimal Ppn
         {
             get => _ppn;
@@ -105,25 +70,19 @@ namespace btr.distrib.SalesContext.FakturAgg
                 _ppn = value;
                 ReCalc();
             }
-        }
-        public decimal PpnRp { get => _ppnRp; }
-        public decimal Total { get => _total; }
-        public List<FakturItemDtoStokHargaSatuan> ListStokHargaSatuan { get; set; }
-        public void ReCalc()
-        {
-            ReCalcQty();
-            ReCalcSubTotal();
-            ReCalcDisc();
-            _ppnRp = (SubTotal - DiscTotal) * Ppn / 100;
-            _total = SubTotal - DiscTotal + PpnRp;
-        }
-        public void SetBrgName(string name) => _brgName = name;
+        }        public decimal PpnRp { get; private set; }
+        public decimal Total { get; private set; }
 
-        #region PRIVATE-HELPER
-        private List<decimal> ParseStringMultiNumber(string str, int size)
+        public List<FakturItem2DtoStokHargaSatuan> ListStokHargaSatuan { get; set; }
+
+
+        public void SetBrgName(string name) => BrgName = name;
+        public void SetCode(string code) => Code = code;
+        
+        private static List<decimal> ParseStringMultiNumber(string str, int size)
         {
             var result = new List<decimal>();
-            for (int i = 0; i < size; i++)
+            for (var i = 0; i < size; i++)
                 result.Add(0);
 
             var resultStr = (str == string.Empty ? "0" : str).Split(';').ToList();
@@ -133,7 +92,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             {
                 if (x >= result.Count) break;
 
-                if (int.TryParse(item, out var temp))
+                if (decimal.TryParse(item, out var temp))
                     result[x] = temp;
                 x++;
             }
@@ -141,20 +100,19 @@ namespace btr.distrib.SalesContext.FakturAgg
         }
         private void ReCalcQty()
         {
-            var qtys = ParseStringMultiNumber(_qty, 3);
-            _qtyInt[0] = (int)qtys[0];
-            _qtyInt[1] = (int)qtys[1];
-            _qtyInt[2] = (int)qtys[2];
+            if (Qty is null) return;
+            var qtys = ParseStringMultiNumber(Qty, 3);
             var satBesar = ListStokHargaSatuan.FirstOrDefault()?.Satuan ?? string.Empty;
             var satKecil = ListStokHargaSatuan.LastOrDefault()?.Satuan ?? string.Empty;
-            _qtyDetil = $"{_qtyInt[0]} {satBesar}\n{_qtyInt[1]} {satKecil}\nBonus {_qtyInt[2]} {satKecil}";
-        }
-
+            QtyDetil = $"{(int)qtys[0]} {satBesar}\n{(int)qtys[1]} {satKecil}\nBonus {(int)qtys[2]} {satKecil}";
+        }        
+        
         private void ReCalcDisc()
         {
-            var discs = ParseStringMultiNumber(_disc, 4);
+            if (Disc is null) return;
+            var discs = ParseStringMultiNumber(Disc, 4);
 
-            decimal[] discRp = new decimal[4];
+            var discRp = new decimal[4];
             discRp[0] = SubTotal * discs[0] / 100;
             var newSubTotal = SubTotal - discRp[0];
             discRp[1] = newSubTotal * discs[1] / 100;
@@ -162,7 +120,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             discRp[2] = newSubTotal * discs[2] / 100;
             newSubTotal -= discRp[2];
             discRp[3] = newSubTotal * discs[3] / 100;
-            _discTotal = discRp[0] + discRp[1] + discRp[2] + discRp[3];
+            DiscTotal = discRp[0] + discRp[1] + discRp[2] + discRp[3];
 
             var discFormated1 = discRp[0] == 0 ? "-" : $"{discRp[0]:#,##0.00}";
             var discFormated2 = discRp[1] == 0 ? "-" : $"{discRp[1]:#,##0.00}";
@@ -172,20 +130,30 @@ namespace btr.distrib.SalesContext.FakturAgg
             result += $"2: {discFormated2}\n";
             result += $"3: {discFormated3}\n";
             result += $"4: {discFormated4}";
-            _discRp = result;
-        }
+            DiscRp = result;
+        }    
+        
         private void ReCalcSubTotal()
         {
-            var result = _qtyInt[0] * ListStokHargaSatuan.FirstOrDefault()?.Harga ?? 0;
-            result += _qtyInt[1] * ListStokHargaSatuan.LastOrDefault()?.Harga ?? 0;
-            _subTotal = result;
-        }
-        #endregion
+            if (Qty is null) return;
+            var qtys = ParseStringMultiNumber(Qty, 3);
+            var result = qtys[0] * ListStokHargaSatuan.FirstOrDefault()?.Harga ?? 0;
+            result += qtys[1] * ListStokHargaSatuan.LastOrDefault()?.Harga ?? 0;
+            SubTotal = result;
+        }        
+        public void ReCalc()
+        {
+            ReCalcQty();
+            ReCalcSubTotal();
+            ReCalcDisc();
+            PpnRp = (SubTotal - DiscTotal) * Ppn / 100;
+            Total = SubTotal - DiscTotal + PpnRp;
+        }        
     }
 
-    public class FakturItemDtoStokHargaSatuan
+    public class FakturItem2DtoStokHargaSatuan
     {
-        public FakturItemDtoStokHargaSatuan(int stok, decimal harga, string satuan)
+        public FakturItem2DtoStokHargaSatuan(int stok, decimal harga, string satuan)
         {
             Stok = stok;
             Harga = harga;
@@ -195,5 +163,4 @@ namespace btr.distrib.SalesContext.FakturAgg
         public decimal Harga { get; set; }
         public string Satuan { get; set; }
     }
-
 }

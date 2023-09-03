@@ -27,12 +27,14 @@ using btr.application.InventoryContext.StokBalanceAgg;
 using btr.application.InventoryContext.WarehouseAgg;
 using btr.domain.InventoryContext.StokBalanceAgg;
 using btr.application.SupportContext.TglJamAgg;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using TextBox = System.Windows.Forms.TextBox;
 
 namespace btr.distrib.SalesContext.FakturAgg
 {
     public partial class FakturForm : Form
     {
-        private readonly BindingList<FakturItem2Dto> _listItem = new BindingList<FakturItem2Dto>();
+        private readonly BindingList<FakturItemDto> _listItem = new BindingList<FakturItemDto>();
         private readonly IMediator _mediator;
 
         private readonly IBrowser<SalesPersonBrowserView> _salesBrowser;
@@ -47,6 +49,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly IBrgBuilder _brgBuilder;
         private readonly IStokBalanceBuilder _stokBalanceBuilder;
         private readonly ITglJamDal _dateTime;
+        private readonly IBrgDal _brgDal;
 
         private readonly IFakturPrintDoc _fakturPrintDoc;
 
@@ -63,7 +66,8 @@ namespace btr.distrib.SalesContext.FakturAgg
             IStokBalanceBuilder stokBalanceBuilder,
             IFakturPrintDoc fakturPrintDoc
 ,
-            ITglJamDal dateTime)
+            ITglJamDal dateTime,
+            IBrgDal brgDal)
         {
             _mediator = mediator;
 
@@ -87,6 +91,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             InitGrid();
             ClearForm();
             RegisterEventHandler();
+            _brgDal = brgDal;
         }
 
         private void RegisterEventHandler()
@@ -129,7 +134,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             SisaText.Value = 0;
 
             _listItem.Clear();
-            _listItem.Add(new FakturItem2Dto());
+            _listItem.Add(new FakturItemDto());
         }
 
         #region FAKTUR
@@ -185,7 +190,7 @@ namespace btr.distrib.SalesContext.FakturAgg
                 var listQtyHarga = item.ListQtyHarga
                     .Where(x => x.HargaJual != 0)
                     .Select(x => new FakturItem2DtoStokHargaSatuan(x.Qty, x.HargaJual, x.Satuan));
-                var newItem = new FakturItem2Dto()
+                var newItem = new FakturItemDto()
                 {
                     BrgId = item.BrgId,
                     Qty = qtyString,
@@ -193,10 +198,11 @@ namespace btr.distrib.SalesContext.FakturAgg
                     ListStokHargaSatuan = listQtyHarga.ToList(),
                 };
                 newItem.SetBrgName(item.BrgName);
+                newItem.SetCode(item.BrgCode);
                 newItem.ReCalc();
                 _listItem.Add(newItem);
             }
-            _listItem.Add(new FakturItem2Dto());
+            _listItem.Add(new FakturItemDto());
             RefreshGrid();
         }
         #endregion
@@ -279,7 +285,11 @@ namespace btr.distrib.SalesContext.FakturAgg
             var grid = (DataGridView)sender;
             if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("BrgId").Index)
             {
-                if (grid.CurrentCell.Value is null) return;
+                if (grid.CurrentCell.Value is null)
+                {
+                    CleanRow(e.RowIndex);
+                    return;
+                }
                 ValidateRow(e.RowIndex);
             }
         }
@@ -302,6 +312,7 @@ namespace btr.distrib.SalesContext.FakturAgg
 
             if (e.Control is TextBox textBox)
             {
+                textBox.KeyDown -= TextBox_KeyDown;
                 textBox.KeyDown += TextBox_KeyDown;
             }
         }
@@ -337,6 +348,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             var hrg = brg.ListHarga.FirstOrDefault()?.Harga ?? 0;            
 
             _listItem[rowIndex].SetBrgName(brg.BrgName);
+            _listItem[rowIndex].SetCode(brg.BrgCode);
             _listItem[rowIndex].ListStokHargaSatuan = BuildStokHrgSatuan(stok.Qty, hrg, brg.ListSatuan).ToList();
             FakturItemGrid.Refresh();
             CalcTotal();
@@ -365,8 +377,25 @@ namespace btr.distrib.SalesContext.FakturAgg
                 .Handle<KeyNotFoundException>()
                 .Fallback(null as BrgModel);
             var brg = fbk.Execute(() => _brgBuilder.Load(brgKey).Build());
+
+            if (brg is null)
+            {
+                brg = GetBrgByCode(id);
+                _listItem[rowIndex].BrgId = brg?.BrgId??string.Empty;
+                FakturItemGrid.Refresh();
+            }
+
             return brg;
         }
+        private BrgModel GetBrgByCode(string id)
+        {
+            var result = _brgDal.GetData(id);
+            if (result is null) return null;
+
+            result = _brgBuilder.Load(result).Build();
+            return result;
+        }
+
         private StokBalanceWarehouseModel BuildStok(int rowIndex)
         {
             var brgKey = new BrgModel(_listItem[rowIndex].BrgId);
@@ -382,6 +411,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private void CleanRow(int rowIndex)
         {
             _listItem[rowIndex].SetBrgName(string.Empty);
+            _listItem[rowIndex].SetCode(string.Empty);
             FakturItemGrid.Refresh();
         }
         private void InitGrid()
@@ -404,12 +434,15 @@ namespace btr.distrib.SalesContext.FakturAgg
             RefreshGrid();
 
             //  hide
+            //FakturItemGrid.Columns.GetCol("Code").Visible = false;
             FakturItemGrid.Columns.GetCol("DiscTotal").Visible = false;
             FakturItemGrid.Columns.GetCol("PpnRp").Visible = false;
+            FakturItemGrid.Columns.GetCol("Find").Visible = false;
             //  width
-            FakturItemGrid.Columns.GetCol("BrgId").Width = 80;
+            FakturItemGrid.Columns.GetCol("BrgId").Width = 50;
+            FakturItemGrid.Columns.GetCol("Code").Width = 80;
             FakturItemGrid.Columns.GetCol("Find").Width = 20;
-            FakturItemGrid.Columns.GetCol("BrgName").Width = 200;
+            FakturItemGrid.Columns.GetCol("BrgName").Width = 160;
             FakturItemGrid.Columns.GetCol("StokHarga").Width = 100;
             FakturItemGrid.Columns.GetCol("Qty").Width = 50;
             FakturItemGrid.Columns.GetCol("QtyDetil").Width = 80;
@@ -441,13 +474,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private void RefreshGrid()
         {
             if (!_listItem.Any())
-                _listItem.Add(new FakturItem2Dto());
-
-            //var binding = new BindingSource
-            //{
-            //    DataSource = _listItem,
-            //};
-            //FakturItemGrid.DataSource = binding;
+                _listItem.Add(new FakturItemDto());
         }
         #endregion
 

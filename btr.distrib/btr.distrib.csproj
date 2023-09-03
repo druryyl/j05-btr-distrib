@@ -286,7 +286,6 @@
       <DependentUpon>FakturForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SalesContext\FakturAgg\FakturItemDto.cs" />
-    <Compile Include="SalesContext\FakturAgg\FakturItem2Dto.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\SalesPersonForm.cs">
       <SubType>Form</SubType>
     </Compile>

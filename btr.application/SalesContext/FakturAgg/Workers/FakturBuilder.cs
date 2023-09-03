@@ -174,6 +174,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             {
                 BrgId = brgKey.BrgId,
                 BrgName = brg.BrgName,
+                BrgCode = brg.BrgCode,
                 NoUrut = noUrut,
                 ListQtyHarga = GenListStokHarga(brg, qtyString).ToList(),
             };
