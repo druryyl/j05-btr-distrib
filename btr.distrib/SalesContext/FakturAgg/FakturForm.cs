@@ -29,6 +29,7 @@ using btr.domain.InventoryContext.StokBalanceAgg;
 using btr.application.SupportContext.TglJamAgg;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using TextBox = System.Windows.Forms.TextBox;
+using btr.application.SalesContext.FakturAgg.Workers;
 
 namespace btr.distrib.SalesContext.FakturAgg
 {
@@ -50,6 +51,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly IStokBalanceBuilder _stokBalanceBuilder;
         private readonly ITglJamDal _dateTime;
         private readonly IBrgDal _brgDal;
+        private readonly IFakturBuilder _fakturBuilder;
 
         private readonly IFakturPrintDoc _fakturPrintDoc;
 
@@ -67,7 +69,8 @@ namespace btr.distrib.SalesContext.FakturAgg
             IFakturPrintDoc fakturPrintDoc
 ,
             ITglJamDal dateTime,
-            IBrgDal brgDal)
+            IBrgDal brgDal,
+            IFakturBuilder fakturBuilder)
         {
             _mediator = mediator;
 
@@ -92,6 +95,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             ClearForm();
             RegisterEventHandler();
             _brgDal = brgDal;
+            _fakturBuilder = fakturBuilder;
         }
 
         private void RegisterEventHandler()
@@ -517,10 +521,15 @@ namespace btr.distrib.SalesContext.FakturAgg
             }
 
             ClearForm();
-            LastIdLabel.Text = result;
+            var fakturDb = _fakturBuilder
+                .Load(new FakturModel(result))
+                .Build();
+
+            LastIdLabel.Text = $"{result} - {fakturDb.FakturCode}";
         }
         private async Task<string> CreateFakturAsync()
         {
+            var mainform = (MainForm)this.Parent.Parent;
             var cmd = new CreateFakturCommand
             {
                 FakturDate = FakturDateText.Value.ToString("yyyy-MM-dd"),
@@ -529,7 +538,7 @@ namespace btr.distrib.SalesContext.FakturAgg
                 WarehouseId = WarehouseIdText.Text,
                 RencanaKirimDate = TglRencanaKirimTextBox.Value.ToString("yyyy-MM-dd"),
                 TermOfPayment = TermOfPaymentComboBox.SelectedIndex,
-                UserId = string.Empty,
+                UserId = mainform.UserId.UserId
             };
 
             var listItem = ( 
@@ -549,6 +558,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         }
         private async Task<string> UpdateFakturAsync()
         {
+            var mainform = (MainForm)this.Parent.Parent;
             var cmd = new UpdateFakturCommand
             {
                 FakturId = FakturIdText.Text,
@@ -558,7 +568,7 @@ namespace btr.distrib.SalesContext.FakturAgg
                 WarehouseId = WarehouseIdText.Text,
                 RencanaKirimDate = TglRencanaKirimTextBox.Value.ToString("yyyy-MM-dd"),
                 TermOfPayment = TermOfPaymentComboBox.SelectedIndex,
-                UserId = string.Empty,
+                UserId = mainform.UserId.UserId,
             };
 
             var listItem = (

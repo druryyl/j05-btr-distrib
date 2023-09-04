@@ -1,12 +1,13 @@
 ﻿using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.SalesPersonAgg;
+using btr.domain.SupportContext.UserAgg;
 using System;
 using System.Collections.Generic;
 
 namespace btr.domain.SalesContext.FakturAgg
 { 
-    public class FakturModel : IFakturKey, ISalesPersonKey, ICustomerKey, IWarehouseKey
+    public class FakturModel : IFakturKey, ISalesPersonKey, ICustomerKey, IWarehouseKey, IUserKey
     {
         public FakturModel()
         {
@@ -15,7 +16,8 @@ namespace btr.domain.SalesContext.FakturAgg
 
         public string FakturId { get; set; }
         public DateTime FakturDate { get; set; }
-    
+        public string FakturCode { get; set; }
+
         public string SalesPersonId { get; set; }
         public string SalesPersonName { get; set; }
     

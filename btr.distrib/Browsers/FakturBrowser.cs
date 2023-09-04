@@ -41,6 +41,7 @@ namespace btr.distrib.Browsers
                 .Select(x => new Faktur2BrowserView
                 {
                     Id = x.FakturId,
+                    Code = x.FakturCode,
                     Tgl = x.FakturDate.ToString("dd-MMM HH:mm"),
                     Customer = x.CustomerName,
                     Sales = x.SalesPersonName,
@@ -58,6 +59,7 @@ namespace btr.distrib.Browsers
     public class Faktur2BrowserView
     {
         public string Id { get; set; }
+        public string Code { get; set; }
         public string Tgl { get; set; }
         public string Customer { get; set; }
         public string Sales { get; set; }

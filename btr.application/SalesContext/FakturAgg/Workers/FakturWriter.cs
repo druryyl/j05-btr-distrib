@@ -4,6 +4,8 @@ using btr.domain.SalesContext.FakturAgg;
 using btr.nuna.Application;
 using FluentValidation;
 using btr.nuna.Domain;
+using btr.application.SupportContext.UserAgg;
+using btr.domain.SupportContext.UserAgg;
 
 namespace btr.application.SalesContext.FakturAgg.Workers
 {
@@ -18,13 +20,15 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         private readonly IFakturDiscountDal _fakturDiscountDal;
         private readonly INunaCounterBL _counter;
         private readonly IValidator<FakturModel> _validator;
+        private readonly IUserBuilder _userBuilder;
 
         public FakturWriter(IFakturDal fakturDal,
             IFakturItemDal fakturItemDal,
             IFakturQtyHargaDal fakturQtyHargaDal,
             IFakturDiscountDal fakturDiscountDal,
             INunaCounterBL counter,
-            IValidator<FakturModel> validator)
+            IValidator<FakturModel> validator,
+            IUserBuilder userBuilder)
         {
             _fakturDal = fakturDal;
             _fakturItemDal = fakturItemDal;
@@ -32,6 +36,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             _fakturDiscountDal = fakturDiscountDal;
             _counter = counter;
             _validator = validator;
+            _userBuilder = userBuilder;
         }
 
         public void Save(ref FakturModel model)
@@ -42,6 +47,10 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             //  GENERATE-ID
             if (model.FakturId.IsNullOrEmpty())
                 model.FakturId = _counter.Generate("FKTR", IDFormatEnum.PREFYYMnnnnnC);
+
+            if (model.FakturCode.IsNullOrEmpty())
+                model.FakturCode = GenerateFakturCode(model);
+            
             foreach (var item in model.ListItem)
             {
                 item.FakturId = model.FakturId;
@@ -81,6 +90,14 @@ namespace btr.application.SalesContext.FakturAgg.Workers
 
                 trans.Complete();
             }
+        }
+
+        private string GenerateFakturCode(IUserKey userKey)
+        {
+            var user = _userBuilder.Load(userKey).Build();
+            var prefix = user.Prefix;
+            var result = _counter.Generate(prefix, IDFormatEnum.PF_YYM_nnnC);
+            return result;
         }
     }
 }

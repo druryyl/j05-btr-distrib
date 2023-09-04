@@ -81,6 +81,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
                 .SalesPerson(request)
                 .Warehouse(request)
                 .TglRencanaKirim(request.RencanaKirimDate.ToDate(DateFormatEnum.YMD))
+                .User(request)
                 .ClearItem()
                 .Build();
             foreach (var item in request.ListBrg)

@@ -83,7 +83,7 @@ namespace btr.distrib.PrintDocs
             {
                 var tgl = model.FakturDate.ToString("dd-MM-yyyy");
                 var custId = model.CustomerId.PadRight(12, ' ');
-                var noFakturrrr = model.FakturId.FixWidth(13);
+                var noFakturrrr = model.FakturCode.FixWidth(13);
                 var jnsJl = model.TermOfPayment.FixWidth(7);
                 var salesNameeeee = model.SalesPersonName.FixWidth(13);
                 var jatuhTmpo = "12 Sep 2023";

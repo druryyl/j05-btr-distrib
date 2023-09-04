@@ -24,12 +24,12 @@ namespace btr.infrastructure.SalesContext.FakturAgg
         {
             const string sql = @"
             INSERT INTO BTR_Faktur(
-                FakturId, FakturDate, SalesPersonId, CustomerId,
+                FakturId, FakturDate, FakturCode, SalesPersonId, CustomerId,
                 WarehouseId, TglRencanaKirim, TermOfPayment, Total,
                 DiscountLain, BiayaLain, GrandTotal, UangMuka, KurangBayar, 
                 CreateTime, LastUpdate, UserId)
             VALUES(
-                @FakturId, @FakturDate, @SalesPersonId, @CustomerId,
+                @FakturId, @FakturDate, @FakturCode, @SalesPersonId, @CustomerId,
                 @WarehouseId, @TglRencanaKirim, @TermOfPayment, @Total,
                 @DiscountLain, @BiayaLain, @GrandTotal, @UangMuka, @KurangBayar, 
                 @CreateTime, @LastUpdate, @UserId) ";
@@ -38,7 +38,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
 
             dp.AddParam("@FakturId", model.FakturId, SqlDbType.VarChar);
             dp.AddParam("@FakturDate", model.FakturDate, SqlDbType.DateTime);
-
+            dp.AddParam("@FakturCode", model.FakturCode, SqlDbType.VarChar);
             dp.AddParam("@SalesPersonId", model.SalesPersonId, SqlDbType.VarChar);
             dp.AddParam("@CustomerId", model.CustomerId, SqlDbType.VarChar);
             dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
@@ -68,6 +68,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             UPDATE 
                 BTR_Faktur
             SET
+                FakturCode = @FakturCode,
                 FakturDate = @FakturDate, 
                 SalesPersonId = @SalesPersonId, 
                 CustomerId = @CustomerId,
@@ -90,6 +91,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
 
             dp.AddParam("@FakturId", model.FakturId, SqlDbType.VarChar);
             dp.AddParam("@FakturDate", model.FakturDate, SqlDbType.DateTime);
+            dp.AddParam("@FakturCode", model.FakturCode, SqlDbType.VarChar);
 
             dp.AddParam("@SalesPersonId", model.SalesPersonId, SqlDbType.VarChar);
             dp.AddParam("@CustomerId", model.CustomerId, SqlDbType.VarChar);
@@ -135,7 +137,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
         {
             const string sql = @"
             SELECT
-                aa.FakturId, aa.FakturDate, aa.SalesPersonId, aa.CustomerId,
+                aa.FakturId, aa.FakturDate, aa.FakturCode, aa.SalesPersonId, aa.CustomerId,
                 aa.WarehouseId, aa.TglRencanaKirim, aa.TermOfPayment, aa.Total,
                 aa.DiscountLain, aa.BiayaLain, aa.GrandTotal, aa.UangMuka, aa.KurangBayar, 
                 aa.CreateTime, aa.LastUpdate, aa.UserId,
@@ -165,7 +167,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
         {
             const string sql = @"
             SELECT
-                aa.FakturId, aa.FakturDate, aa.SalesPersonId, aa.CustomerId,
+                aa.FakturId, aa.FakturDate, aa.FakturCode, aa.SalesPersonId, aa.CustomerId,
                 aa.WarehouseId, aa.TglRencanaKirim, aa.TermOfPayment, aa.Total,
                 aa.DiscountLain, aa.BiayaLain, aa.GrandTotal, aa.UangMuka, aa.KurangBayar, 
                 aa.CreateTime, aa.LastUpdate, aa.UserId,

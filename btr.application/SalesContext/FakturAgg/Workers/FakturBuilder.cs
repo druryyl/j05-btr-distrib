@@ -28,6 +28,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         IFakturBuilder SalesPerson(ISalesPersonKey salesPersonKey);
         IFakturBuilder Warehouse(IWarehouseKey warehouseKey);
         IFakturBuilder TglRencanaKirim(DateTime tglRencanaKirim);
+        IFakturBuilder User(IUserKey user);
         IFakturBuilder AddItem(IBrgKey brgKey, string qtyString, string discountString, decimal ppnProsen);
         IFakturBuilder ClearItem();
         IFakturBuilder CalcTotal();
@@ -272,6 +273,12 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         public IFakturBuilder ClearItem()
         {
             _aggRoot.ListItem.Clear();
+            return this;
+        }
+
+        public IFakturBuilder User(IUserKey user)
+        {
+            _aggRoot.UserId = user.UserId;
             return this;
         }
     }

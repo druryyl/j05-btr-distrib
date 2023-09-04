@@ -93,6 +93,16 @@ namespace btr.distrib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap app_wallpaper_5 {
+            get {
+                object obj = ResourceManager.GetObject("app-wallpaper-5", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap caretaker_48px {
             get {
                 object obj = ResourceManager.GetObject("caretaker_48px", resourceCulture);
