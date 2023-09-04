@@ -63,7 +63,7 @@ namespace btr.distrib.PrintDocs
 
         private void PrintDocument_PrintPage(object sender, PrintPageEventArgs e)
         {
-            Font font = new Font("Courier New", 9f, FontStyle.Regular);
+            Font font = new Font("Courier New", 8.25f, FontStyle.Regular);
             e.Graphics.DrawString(_content, font, Brushes.Black, e.MarginBounds);
         }
 

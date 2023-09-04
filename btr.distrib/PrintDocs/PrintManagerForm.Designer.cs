@@ -32,7 +32,6 @@
             this.GridAtas = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.RefreshPrgBar = new System.Windows.Forms.ProgressBar();
-            this.RefreshNowButton = new System.Windows.Forms.Button();
             this.WarehouseCombo = new System.Windows.Forms.ComboBox();
             this.PrintTimer = new System.Windows.Forms.Timer(this.components);
             this.GridBawah = new System.Windows.Forms.DataGridView();
@@ -58,7 +57,6 @@
             this.panel1.BackColor = System.Drawing.Color.Cornsilk;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.RefreshPrgBar);
-            this.panel1.Controls.Add(this.RefreshNowButton);
             this.panel1.Controls.Add(this.WarehouseCombo);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
@@ -73,15 +71,6 @@
             this.RefreshPrgBar.Name = "RefreshPrgBar";
             this.RefreshPrgBar.Size = new System.Drawing.Size(551, 10);
             this.RefreshPrgBar.TabIndex = 5;
-            // 
-            // RefreshNowButton
-            // 
-            this.RefreshNowButton.Location = new System.Drawing.Point(195, 3);
-            this.RefreshNowButton.Name = "RefreshNowButton";
-            this.RefreshNowButton.Size = new System.Drawing.Size(119, 23);
-            this.RefreshNowButton.TabIndex = 2;
-            this.RefreshNowButton.Text = "Refresh Now";
-            this.RefreshNowButton.UseVisualStyleBackColor = true;
             // 
             // WarehouseCombo
             // 
@@ -131,7 +120,6 @@
         private System.Windows.Forms.DataGridView GridAtas;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ComboBox WarehouseCombo;
-        private System.Windows.Forms.Button RefreshNowButton;
         private System.Windows.Forms.Timer PrintTimer;
         private System.Windows.Forms.DataGridView GridBawah;
         private System.Windows.Forms.ProgressBar RefreshPrgBar;

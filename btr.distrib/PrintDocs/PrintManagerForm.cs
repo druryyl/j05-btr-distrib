@@ -51,7 +51,6 @@ namespace btr.distrib.PrintDocs
         {
             WarehouseCombo.SelectedValueChanged += WarehouseCombo_SelectedValueChanged;
             PrintTimer.Tick += PrintTimer_Tick;
-            RefreshNowButton.Click += RefreshNowButton_Click;
             GridAtas.CellDoubleClick += GridAtas_CellDoubleClick;
             GridBawah.CellDoubleClick += GridBawah_CellDoubleClick;
         }
