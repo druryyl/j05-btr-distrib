@@ -1,5 +1,4 @@
 ﻿using btr.application;
-using btr.distrib.Browsers;
 using btr.distrib.PrintDocs;
 using btr.distrib.SharedForm;
 using btr.infrastructure;
@@ -33,10 +32,39 @@ namespace btr.distrib
                 .AddJsonFile("appsettings.json", false, true)
                 .Build();
             ConfigureServices(services, configuration);
-            var form = new MainForm(services);
-            Application.Run(form);
+
+            if (!IsSuccessLogin(services, out string user))
+                MessageBox.Show("Login Failed");
+            else
+            {
+                var form = GetMainForm(services, user);
+                Application.Run(form);
+            }
         }
 
+        private static Form GetMainForm(ServiceCollection services, string user)
+        {
+            var form = new MainForm(services);
+            form.SetUser(user);
+
+            return form;
+        }
+
+        private static bool IsSuccessLogin(ServiceCollection services, out string user)
+        {
+            user = string.Empty;
+            var _servicesProvider = services.BuildServiceProvider();
+            var login = _servicesProvider.GetRequiredService<LoginForm>();
+            login.StartPosition = FormStartPosition.CenterScreen;
+            var diagResult = login.ShowDialog();
+            if (diagResult == DialogResult.OK)
+            {
+                user = login.UserId;
+                return true;
+            }
+            return false;
+        }
+            
         private static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
             services.AddMediatR(cfg => cfg

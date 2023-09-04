@@ -311,6 +311,12 @@
       <DependentUpon>BrowserForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Browsers\IBrowser.cs" />
+    <Compile Include="SharedForm\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SharedForm\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SharedForm\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -332,6 +338,9 @@
     <Compile Include="WinformAssemblyAnchor.cs" />
     <Content Include="icons8_truck.ico" />
     <None Include="Resources\icons8_user_account_32.png" />
+    <EmbeddedResource Include="SharedForm\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SharedForm\UserForm.resx">
       <DependentUpon>UserForm.cs</DependentUpon>
     </EmbeddedResource>

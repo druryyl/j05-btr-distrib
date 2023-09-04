@@ -9,7 +9,10 @@ using btr.distrib.SalesContext.FakturAgg;
 using btr.distrib.SalesContext.SalesPersonAgg;
 using btr.distrib.SalesContext.UserAgg;
 using btr.distrib.SalesContext.WilayahAgg;
+using btr.domain.SupportContext.UserAgg;
+using btr.infrastructure.Helpers;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using System;
 using System.Drawing;
 using System.Linq;
@@ -20,12 +23,22 @@ namespace btr.distrib.SharedForm
     public partial class MainForm : Form
     {
         private readonly ServiceProvider _servicesProvider;
+        public IUserKey UserId { get; private set; }
 
         public MainForm(ServiceCollection servicesCollection)
         {
             InitializeComponent();
             Controls.OfType<MdiClient>().FirstOrDefault().BackColor = Color.White;
             _servicesProvider = servicesCollection.BuildServiceProvider();
+        }
+
+        public void SetUser(string user)
+        {
+            var dbOpt =  _servicesProvider.GetRequiredService<IOptions<DatabaseOptions>>();
+
+            LoginStatus.Text = $"User ID: {user}";
+            ServerDbStatus.Text = $"Connected Database: {dbOpt.Value.DbName}@{dbOpt.Value.ServerName}";
+            UserId = new UserModel(user);
         }
 
         private void FakturButton_Click(object sender, EventArgs e)
