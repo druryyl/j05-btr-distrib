@@ -82,7 +82,6 @@ namespace btr.distrib.PrintDocs
             var cust = await _mediator.Send(new GetCustomerQuery(model.CustomerId));
 
             var noItem = 1;
-            var noBaris = 0;
             var listItemWithBonus = PindahBonusNewBaris(model.ListItem);
             foreach (var item in listItemWithBonus)
             {
@@ -101,13 +100,12 @@ namespace btr.distrib.PrintDocs
 
                 var arrQty1 = GetQty(item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 1), 7);
                 var arrQty2 = GetQty(item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 2), 7);
-                var arrQty3 = GetQty(item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 3), 7);
 
-                var qty1a = arrQty1[0];
-                var qty2a = arrQty2[0];
+                var qty1A = arrQty1[0];
+                var qty2A = arrQty2[0];
 
-                var qty1b = arrQty1.Length > 1 ? arrQty1[1] : string.Empty.FixWidth(7);
-                var qty2b = arrQty2.Length > 1 ? arrQty2[1] : string.Empty.FixWidth(7);
+                var qty1B = arrQty1.Length > 1 ? arrQty1[1] : string.Empty.FixWidth(7);
+                var qty2B = arrQty2.Length > 1 ? arrQty2[1] : string.Empty.FixWidth(7);
 
                 var hrg1 = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 1)?.HargaJual.ToString("N0").FixWidthRight(10) ?? "-".FixWidthRight(10);
                 var hrg2 = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 2)?.HargaJual.ToString("N0").FixWidthRight(8) ?? "-".FixWidthRight(8);
@@ -117,14 +115,12 @@ namespace btr.distrib.PrintDocs
                 var disc4 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 4)?.DiscountProsen.ToString("N2").FixWidthRight(3) ?? "-".FixWidthRight(3);
                 var total = item.Total.ToString("N0").FixWidthRight(11);
 
-                sb.Append($"{no}│{brgId}│{arrName1.FixWidth(27)}│{qty1a}│{qty2a}│{hrg1}│{hrg2}│{disc1}│{disc2}│{disc3}│{disc4}│{total}\n");
-                if ($"{arrName2}{qty1b}{qty2b}".Trim().Length > 0)
+                sb.Append($"{no}│{brgId}│{arrName1.FixWidth(27)}│{qty1A}│{qty2A}│{hrg1}│{hrg2}│{disc1}│{disc2}│{disc3}│{disc4}│{total}\n");
+                if ($"{arrName2}{qty1B}{qty2B}".Trim().Length > 0)
                 {
-                    sb.Append($"  │          │{arrName2.FixWidth(27)}│{qty1b}│{qty2b}│          │        │     │     │   │   │              \n");
-                    noBaris++;
+                    sb.Append($"  │          │{arrName2.FixWidth(27)}│{qty1B}│{qty2B}│          │        │     │     │   │   │              \n");
                 }
                 noItem++;
-                noBaris++;
             }
 
             //  jika kurang dari 10, tambahkan baris kosong
@@ -174,9 +170,9 @@ namespace btr.distrib.PrintDocs
             var tgl = model.FakturDate.ToString("dd-MM-yyyy");
             var custId = model.CustomerId.PadRight(12, ' ');
             var noFakturrrr = model.FakturCode.FixWidth(13);
-            var jnsJl = model.TermOfPayment.FixWidth(7);
+            var jnsJl = model.TermOfPayment.ToString().FixWidth(7);
             var salesNameee = model.SalesPersonName.FixWidth(13);
-            var jatuhTmpo = "12 Sep 2023";
+            var jatuhTmpo = model.DueDate.ToString("dd MMM yyyy");
             var addr1 = cust.Address1;
             var addr2 = cust.Address2.Length > 0 ? cust.Address2 : cust.Kota;
             var addr3 = cust.Address2.Length > 0 ? cust.Kota : string.Empty ;

@@ -32,7 +32,8 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
         public string WarehouseName { get; set; }
         public string TglRencanaKirim { get; set; }
 
-        public string TermOfPayment { get; set; }
+        public int TermOfPayment { get; set; }
+        public string DueDate { get; set; }
 
         public decimal Total { get; set; }
         public decimal DiscountLain { get; set; }
@@ -131,6 +132,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
             result.TglRencanaKirim = _aggRoot.TglRencanaKirim.ToString("yyyy-MM-dd");
             result.CreateTime = _aggRoot.CreateTime.ToString("yyyy-MM-dd HH:mm:ss");
             result.LastUpdate = _aggRoot.LastUpdate.ToString("yyyy-MM-dd HH:mm:ss");
+            result.DueDate = _aggRoot.DueDate.ToString("yyyy-MM-dd");
             return result;
         }
     }

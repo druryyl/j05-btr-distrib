@@ -129,7 +129,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             WarehouseIdText.Text = string.Empty;
             WarehouseNameText.Text = string.Empty;
             TglRencanaKirimTextBox.Value= DateTime.Now.AddDays(1);
-            TermOfPaymentComboBox.SelectedIndex = 0;
+            TermOfPaymentCombo.SelectedIndex = 0;
 
             TotalText.Value = 0;
             DiscountLainText.Value = 0;
@@ -180,6 +180,8 @@ namespace btr.distrib.SalesContext.FakturAgg
             WarehouseIdText.Text = result.WarehouseId;
             WarehouseNameText.Text = result.WarehouseName;
             TglRencanaKirimTextBox.Value = result.TglRencanaKirim.ToDate();
+            TermOfPaymentCombo.SelectedIndex = result.TermOfPayment;
+            DueDateText.Value = result.DueDate.ToDate(DateFormatEnum.YMD);
             TotalText.Value = result.Total;
             GrandTotalText.Value = result.GrandTotal;
             UangMukaText.Value = result.UangMuka;
@@ -537,7 +539,8 @@ namespace btr.distrib.SalesContext.FakturAgg
                 SalesPersonId = SalesIdText.Text,
                 WarehouseId = WarehouseIdText.Text,
                 RencanaKirimDate = TglRencanaKirimTextBox.Value.ToString("yyyy-MM-dd"),
-                TermOfPayment = TermOfPaymentComboBox.SelectedIndex,
+                TermOfPayment = TermOfPaymentCombo.SelectedIndex,
+                DueDate = DueDateText.Value.ToString("yyyy-MM-dd"),
                 UserId = mainform.UserId.UserId
             };
 
@@ -567,7 +570,8 @@ namespace btr.distrib.SalesContext.FakturAgg
                 SalesPersonId = SalesIdText.Text,
                 WarehouseId = WarehouseIdText.Text,
                 RencanaKirimDate = TglRencanaKirimTextBox.Value.ToString("yyyy-MM-dd"),
-                TermOfPayment = TermOfPaymentComboBox.SelectedIndex,
+                TermOfPayment = TermOfPaymentCombo.SelectedIndex,
+                DueDate = DueDateText.Value.ToString("yyyy-MM-dd"),
                 UserId = mainform.UserId.UserId,
             };
 

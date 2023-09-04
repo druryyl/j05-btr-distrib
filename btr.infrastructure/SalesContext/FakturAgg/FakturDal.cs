@@ -25,12 +25,12 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             const string sql = @"
             INSERT INTO BTR_Faktur(
                 FakturId, FakturDate, FakturCode, SalesPersonId, CustomerId,
-                WarehouseId, TglRencanaKirim, TermOfPayment, Total,
+                WarehouseId, TglRencanaKirim, TermOfPayment, DueDate, Total,
                 DiscountLain, BiayaLain, GrandTotal, UangMuka, KurangBayar, 
                 CreateTime, LastUpdate, UserId)
             VALUES(
                 @FakturId, @FakturDate, @FakturCode, @SalesPersonId, @CustomerId,
-                @WarehouseId, @TglRencanaKirim, @TermOfPayment, @Total,
+                @WarehouseId, @TglRencanaKirim, @TermOfPayment, @DueDate, @Total,
                 @DiscountLain, @BiayaLain, @GrandTotal, @UangMuka, @KurangBayar, 
                 @CreateTime, @LastUpdate, @UserId) ";
 
@@ -43,7 +43,8 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             dp.AddParam("@CustomerId", model.CustomerId, SqlDbType.VarChar);
             dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
             dp.AddParam("@TglRencanaKirim", model.TglRencanaKirim, SqlDbType.DateTime);
-            dp.AddParam("@TermOfPayment", model.TermOfPayment, SqlDbType.VarChar);
+            dp.AddParam("@TermOfPayment", model.TermOfPayment, SqlDbType.Int);
+            dp.AddParam("@DueDate", model.DueDate, SqlDbType.DateTime);
 
             dp.AddParam("@Total", model.Total, SqlDbType.Decimal);
             dp.AddParam("@DiscountLain", model.DiscountLain, SqlDbType.Decimal);
@@ -75,6 +76,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 WarehouseId = @WarehouseId, 
                 TglRencanaKirim = @TglRencanaKirim, 
                 TermOfPayment = @TermOfPayment, 
+                DueDate = @DueDate,
                 Total = @Total,
                 DiscountLain = @DiscountLain, 
                 BiayaLain = @BiayaLain, 
@@ -97,7 +99,8 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             dp.AddParam("@CustomerId", model.CustomerId, SqlDbType.VarChar);
             dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
             dp.AddParam("@TglRencanaKirim", model.TglRencanaKirim, SqlDbType.DateTime);
-            dp.AddParam("@TermOfPayment", model.TermOfPayment, SqlDbType.VarChar);
+            dp.AddParam("@TermOfPayment", model.TermOfPayment, SqlDbType.Int);
+            dp.AddParam("@DueDate", model.DueDate, SqlDbType.DateTime);
 
             dp.AddParam("@Total", model.Total, SqlDbType.Decimal);
             dp.AddParam("@DiscountLain", model.DiscountLain, SqlDbType.Decimal);
@@ -138,7 +141,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             const string sql = @"
             SELECT
                 aa.FakturId, aa.FakturDate, aa.FakturCode, aa.SalesPersonId, aa.CustomerId,
-                aa.WarehouseId, aa.TglRencanaKirim, aa.TermOfPayment, aa.Total,
+                aa.WarehouseId, aa.TglRencanaKirim, aa.TermOfPayment, aa.DueDate, aa.Total,
                 aa.DiscountLain, aa.BiayaLain, aa.GrandTotal, aa.UangMuka, aa.KurangBayar, 
                 aa.CreateTime, aa.LastUpdate, aa.UserId,
                 ISNULL(bb.SalesPersonName, '') AS SalesPersonName,
@@ -168,7 +171,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             const string sql = @"
             SELECT
                 aa.FakturId, aa.FakturDate, aa.FakturCode, aa.SalesPersonId, aa.CustomerId,
-                aa.WarehouseId, aa.TglRencanaKirim, aa.TermOfPayment, aa.Total,
+                aa.WarehouseId, aa.TglRencanaKirim, aa.TermOfPayment, aa.DueDate, aa.Total,
                 aa.DiscountLain, aa.BiayaLain, aa.GrandTotal, aa.UangMuka, aa.KurangBayar, 
                 aa.CreateTime, aa.LastUpdate, aa.UserId,
                 ISNULL(bb.SalesPersonName, '') AS SalesPersonName,

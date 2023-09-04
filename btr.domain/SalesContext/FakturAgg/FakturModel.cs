@@ -7,6 +7,11 @@ using System.Collections.Generic;
 
 namespace btr.domain.SalesContext.FakturAgg
 { 
+    public enum TermOfPaymentEnum
+    {
+        Credit, Cash
+    }
+
     public class FakturModel : IFakturKey, ISalesPersonKey, ICustomerKey, IWarehouseKey, IUserKey
     {
         public FakturModel()
@@ -30,7 +35,8 @@ namespace btr.domain.SalesContext.FakturAgg
         public string WarehouseName { get; set; }
         public DateTime TglRencanaKirim { get; set; }
 
-        public string TermOfPayment { get; set; }
+        public TermOfPaymentEnum TermOfPayment { get; set; }
+        public DateTime DueDate { get; set; }
 
         public decimal Total { get; set; }
         public decimal DiscountLain { get; set; }

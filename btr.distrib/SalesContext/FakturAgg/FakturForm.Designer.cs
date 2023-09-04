@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.PrintButton = new System.Windows.Forms.Button();
             this.PanelAtas4 = new System.Windows.Forms.Panel();
             this.NoteTextBox = new System.Windows.Forms.TextBox();
             this.NoteLabel = new System.Windows.Forms.Label();
@@ -70,13 +69,16 @@
             this.label6 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.WarehouseIdText = new System.Windows.Forms.TextBox();
-            this.TermOfPaymentComboBox = new System.Windows.Forms.ComboBox();
-            this.TermOfPaymentLabel = new System.Windows.Forms.Label();
             this.TglRencanaKirimTextBox = new System.Windows.Forms.DateTimePicker();
             this.TglRencanaKirimLabel = new System.Windows.Forms.Label();
             this.WarehouseNameText = new System.Windows.Forms.TextBox();
             this.WarehouseButton = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.TermOfPaymentCombo = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.DueDateText = new System.Windows.Forms.DateTimePicker();
+            this.label5 = new System.Windows.Forms.Label();
             this.PanelAtas4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturItemGrid)).BeginInit();
             this.PanelTengah.SuspendLayout();
@@ -91,17 +93,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.CreditBalanceTextBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlafondTextBox)).BeginInit();
             this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // PrintButton
-            // 
-            this.PrintButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.PrintButton.Location = new System.Drawing.Point(1019, 491);
-            this.PrintButton.Name = "PrintButton";
-            this.PrintButton.Size = new System.Drawing.Size(75, 23);
-            this.PrintButton.TabIndex = 44;
-            this.PrintButton.Text = "Print";
-            this.PrintButton.UseVisualStyleBackColor = true;
             // 
             // PanelAtas4
             // 
@@ -111,9 +104,9 @@
             this.PanelAtas4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PanelAtas4.Controls.Add(this.NoteTextBox);
             this.PanelAtas4.Controls.Add(this.NoteLabel);
-            this.PanelAtas4.Location = new System.Drawing.Point(624, 9);
+            this.PanelAtas4.Location = new System.Drawing.Point(830, 9);
             this.PanelAtas4.Name = "PanelAtas4";
-            this.PanelAtas4.Size = new System.Drawing.Size(476, 186);
+            this.PanelAtas4.Size = new System.Drawing.Size(270, 186);
             this.PanelAtas4.TabIndex = 39;
             // 
             // NoteTextBox
@@ -126,8 +119,8 @@
             this.NoteTextBox.Multiline = true;
             this.NoteTextBox.Name = "NoteTextBox";
             this.NoteTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.NoteTextBox.Size = new System.Drawing.Size(453, 144);
-            this.NoteTextBox.TabIndex = 16;
+            this.NoteTextBox.Size = new System.Drawing.Size(247, 144);
+            this.NoteTextBox.TabIndex = 17;
             // 
             // NoteLabel
             // 
@@ -147,7 +140,7 @@
             this.FakturItemGrid.Location = new System.Drawing.Point(6, 201);
             this.FakturItemGrid.Name = "FakturItemGrid";
             this.FakturItemGrid.Size = new System.Drawing.Size(950, 284);
-            this.FakturItemGrid.TabIndex = 40;
+            this.FakturItemGrid.TabIndex = 18;
             // 
             // PanelTengah
             // 
@@ -183,7 +176,7 @@
             0});
             this.BiayaLainText.Name = "BiayaLainText";
             this.BiayaLainText.Size = new System.Drawing.Size(117, 20);
-            this.BiayaLainText.TabIndex = 20;
+            this.BiayaLainText.TabIndex = 21;
             this.BiayaLainText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.BiayaLainText.ThousandsSeparator = true;
             this.BiayaLainText.Validated += new System.EventHandler(this.BiayaLainText_Validated);
@@ -209,7 +202,7 @@
             this.SisaText.Name = "SisaText";
             this.SisaText.ReadOnly = true;
             this.SisaText.Size = new System.Drawing.Size(117, 20);
-            this.SisaText.TabIndex = 23;
+            this.SisaText.TabIndex = 24;
             this.SisaText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.SisaText.ThousandsSeparator = true;
             // 
@@ -233,7 +226,7 @@
             0});
             this.UangMukaText.Name = "UangMukaText";
             this.UangMukaText.Size = new System.Drawing.Size(117, 20);
-            this.UangMukaText.TabIndex = 22;
+            this.UangMukaText.TabIndex = 23;
             this.UangMukaText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.UangMukaText.ThousandsSeparator = true;
             this.UangMukaText.Validated += new System.EventHandler(this.UangMukaText_Validated);
@@ -259,7 +252,7 @@
             this.GrandTotalText.Name = "GrandTotalText";
             this.GrandTotalText.ReadOnly = true;
             this.GrandTotalText.Size = new System.Drawing.Size(117, 20);
-            this.GrandTotalText.TabIndex = 21;
+            this.GrandTotalText.TabIndex = 22;
             this.GrandTotalText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.GrandTotalText.ThousandsSeparator = true;
             // 
@@ -283,7 +276,7 @@
             0});
             this.DiscountLainText.Name = "DiscountLainText";
             this.DiscountLainText.Size = new System.Drawing.Size(117, 20);
-            this.DiscountLainText.TabIndex = 19;
+            this.DiscountLainText.TabIndex = 20;
             this.DiscountLainText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.DiscountLainText.ThousandsSeparator = true;
             this.DiscountLainText.Validated += new System.EventHandler(this.DiscountLainText_Validated);
@@ -309,7 +302,7 @@
             this.TotalText.Name = "TotalText";
             this.TotalText.ReadOnly = true;
             this.TotalText.Size = new System.Drawing.Size(117, 20);
-            this.TotalText.TabIndex = 18;
+            this.TotalText.TabIndex = 19;
             this.TotalText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.TotalText.ThousandsSeparator = true;
             // 
@@ -325,10 +318,10 @@
             // SaveButton
             // 
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveButton.Location = new System.Drawing.Point(857, 491);
+            this.SaveButton.Location = new System.Drawing.Point(1025, 491);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
-            this.SaveButton.TabIndex = 42;
+            this.SaveButton.TabIndex = 25;
             this.SaveButton.Text = "Save";
             this.SaveButton.UseVisualStyleBackColor = true;
             this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
@@ -336,11 +329,11 @@
             // DeleteButton
             // 
             this.DeleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.DeleteButton.Location = new System.Drawing.Point(938, 491);
+            this.DeleteButton.Location = new System.Drawing.Point(6, 491);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(75, 23);
-            this.DeleteButton.TabIndex = 43;
-            this.DeleteButton.Text = "Delete";
+            this.DeleteButton.TabIndex = 26;
+            this.DeleteButton.Text = "New";
             this.DeleteButton.UseVisualStyleBackColor = true;
             // 
             // panel1
@@ -557,8 +550,6 @@
             this.panel3.BackColor = System.Drawing.Color.Cornsilk;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.WarehouseIdText);
-            this.panel3.Controls.Add(this.TermOfPaymentComboBox);
-            this.panel3.Controls.Add(this.TermOfPaymentLabel);
             this.panel3.Controls.Add(this.TglRencanaKirimTextBox);
             this.panel3.Controls.Add(this.TglRencanaKirimLabel);
             this.panel3.Controls.Add(this.WarehouseNameText);
@@ -576,28 +567,6 @@
             this.WarehouseIdText.Name = "WarehouseIdText";
             this.WarehouseIdText.Size = new System.Drawing.Size(147, 22);
             this.WarehouseIdText.TabIndex = 11;
-            // 
-            // TermOfPaymentComboBox
-            // 
-            this.TermOfPaymentComboBox.FormattingEnabled = true;
-            this.TermOfPaymentComboBox.Items.AddRange(new object[] {
-            "Net D-Days",
-            "Cash On Delivery",
-            "Cash Before Delivery",
-            "Cash In Advance"});
-            this.TermOfPaymentComboBox.Location = new System.Drawing.Point(11, 134);
-            this.TermOfPaymentComboBox.Name = "TermOfPaymentComboBox";
-            this.TermOfPaymentComboBox.Size = new System.Drawing.Size(175, 21);
-            this.TermOfPaymentComboBox.TabIndex = 15;
-            // 
-            // TermOfPaymentLabel
-            // 
-            this.TermOfPaymentLabel.AutoSize = true;
-            this.TermOfPaymentLabel.Location = new System.Drawing.Point(8, 118);
-            this.TermOfPaymentLabel.Name = "TermOfPaymentLabel";
-            this.TermOfPaymentLabel.Size = new System.Drawing.Size(93, 13);
-            this.TermOfPaymentLabel.TabIndex = 19;
-            this.TermOfPaymentLabel.Text = "Term Of Payment";
             // 
             // TglRencanaKirimTextBox
             // 
@@ -644,13 +613,64 @@
             this.label7.TabIndex = 0;
             this.label7.Text = "Warehouse";
             // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.Cornsilk;
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.DueDateText);
+            this.panel4.Controls.Add(this.label5);
+            this.panel4.Controls.Add(this.TermOfPaymentCombo);
+            this.panel4.Controls.Add(this.label4);
+            this.panel4.Location = new System.Drawing.Point(624, 9);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(200, 186);
+            this.panel4.TabIndex = 45;
+            // 
+            // TermOfPaymentCombo
+            // 
+            this.TermOfPaymentCombo.FormattingEnabled = true;
+            this.TermOfPaymentCombo.Items.AddRange(new object[] {
+            "Credit",
+            "Cash"});
+            this.TermOfPaymentCombo.Location = new System.Drawing.Point(6, 24);
+            this.TermOfPaymentCombo.Name = "TermOfPaymentCombo";
+            this.TermOfPaymentCombo.Size = new System.Drawing.Size(175, 21);
+            this.TermOfPaymentCombo.TabIndex = 15;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 8);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(93, 13);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "Term Of Payment";
+            // 
+            // DueDateText
+            // 
+            this.DueDateText.CustomFormat = "ddd dd-MM-yyyy";
+            this.DueDateText.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.DueDateText.Location = new System.Drawing.Point(6, 71);
+            this.DueDateText.Name = "DueDateText";
+            this.DueDateText.Size = new System.Drawing.Size(176, 22);
+            this.DueDateText.TabIndex = 16;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(3, 55);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(72, 13);
+            this.label5.TabIndex = 21;
+            this.label5.Text = "Jatuh Tempo";
+            // 
             // FakturForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Khaki;
             this.ClientSize = new System.Drawing.Size(1106, 523);
-            this.Controls.Add(this.PrintButton);
+            this.Controls.Add(this.panel4);
             this.Controls.Add(this.PanelAtas4);
             this.Controls.Add(this.FakturItemGrid);
             this.Controls.Add(this.PanelTengah);
@@ -681,13 +701,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.PlafondTextBox)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button PrintButton;
         private System.Windows.Forms.Panel PanelAtas4;
         private System.Windows.Forms.TextBox NoteTextBox;
         private System.Windows.Forms.Label NoteLabel;
@@ -728,13 +748,16 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TextBox WarehouseIdText;
-        private System.Windows.Forms.ComboBox TermOfPaymentComboBox;
-        private System.Windows.Forms.Label TermOfPaymentLabel;
         private System.Windows.Forms.DateTimePicker TglRencanaKirimTextBox;
         private System.Windows.Forms.Label TglRencanaKirimLabel;
         private System.Windows.Forms.TextBox WarehouseNameText;
         private System.Windows.Forms.Button WarehouseButton;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label LastIdLabel;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.ComboBox TermOfPaymentCombo;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DateTimePicker DueDateText;
+        private System.Windows.Forms.Label label5;
     }
 }

@@ -25,6 +25,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
         public string WarehouseId { get; set; }
         public string RencanaKirimDate { get; set; }
         public int TermOfPayment { get; set; }
+        public string DueDate { get; set; }
         public string UserId { get; set; }
         public IEnumerable<CreateFakturCommandItem> ListBrg { get; set; }
     }
@@ -70,7 +71,8 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
                 .Member(x => x.FakturDate, y => y.ValidDate("yyyy-MM-dd"))
                 .Member(x => x.CustomerId, y => y.NotEmpty())
                 .Member(x => x.SalesPersonId, y => y.NotEmpty())
-                .Member(x => x.WarehouseId, y => y.NotEmpty());
+                .Member(x => x.WarehouseId, y => y.NotEmpty())
+                .Member(x => x.DueDate, y => y.ValidDate("yyyy-MM-dd"));
 
             //  BUILD
             _aggRoot = _builder
@@ -81,6 +83,8 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
                 .Warehouse(request)
                 .TglRencanaKirim(request.RencanaKirimDate.ToDate(DateFormatEnum.YMD))
                 .User(request)
+                .TermOfPayment((TermOfPaymentEnum)request.TermOfPayment)
+                .DueDate(request.DueDate.ToDate(DateFormatEnum.YMD))
                 .Build();
             foreach (var item in request.ListBrg)
             {

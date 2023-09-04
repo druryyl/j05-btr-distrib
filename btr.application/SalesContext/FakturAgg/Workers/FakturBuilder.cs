@@ -28,6 +28,9 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         IFakturBuilder SalesPerson(ISalesPersonKey salesPersonKey);
         IFakturBuilder Warehouse(IWarehouseKey warehouseKey);
         IFakturBuilder TglRencanaKirim(DateTime tglRencanaKirim);
+        IFakturBuilder TermOfPayment(TermOfPaymentEnum termOfPayment);
+        IFakturBuilder DueDate(DateTime dueDate);
+
         IFakturBuilder User(IUserKey user);
         IFakturBuilder AddItem(IBrgKey brgKey, string qtyString, string discountString, decimal ppnProsen);
         IFakturBuilder ClearItem();
@@ -279,6 +282,18 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         public IFakturBuilder User(IUserKey user)
         {
             _aggRoot.UserId = user.UserId;
+            return this;
+        }
+
+        public IFakturBuilder TermOfPayment(TermOfPaymentEnum termOfPayment)
+        {
+            _aggRoot.TermOfPayment = termOfPayment;
+            return this;
+        }
+
+        public IFakturBuilder DueDate(DateTime dueDate)
+        {
+            _aggRoot.DueDate = dueDate;
             return this;
         }
     }
