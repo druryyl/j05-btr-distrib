@@ -1,0 +1,8 @@
+﻿CREATE TABLE BTR_UserParam(
+    UserId VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_UserParam_UserId DEFAULT(''),
+    ParamKey VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_UserParam_ParamKey DEFAULT(''),
+    ParamVal VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_UserParam_ParamVal DEFAULT(''),
+    
+    CONSTRAINT PK_BTR_UserParam PRIMARY KEY CLUSTERED(UserId, ParamKey)   
+)
+

@@ -56,7 +56,6 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
-    <Folder Include="Tables\Helper" />
     <Folder Include="Tables\InventoryContext" />
     <Folder Include="Tables\SalesContext" />
     <Folder Include="Tables\" />
@@ -67,6 +66,7 @@
     <Build Include="Tables\BrgContext\BTR_Brg.sql" />
     <Build Include="Tables\BrgContext\BTR_BrgSatuan.sql" />
     <Build Include="Tables\Helper\BTR_ParamNo.sql" />
+    <Build Include="Tables\Helper\BTR_UserParam.sql" />
     <Build Include="Tables\InventoryContext\BTR_Stok.sql" />
     <Build Include="Tables\InventoryContext\BTR_StokMutasi.sql" />
     <Build Include="Tables\InventoryContext\BTR_Warehouse.sql" />
