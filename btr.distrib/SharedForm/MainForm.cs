@@ -1,5 +1,6 @@
 ﻿using btr.distrib.InventoryContext.BrgAgg;
 using btr.distrib.InventoryContext.KategoriAgg;
+using btr.distrib.InventoryContext.OpnameAgg;
 using btr.distrib.InventoryContext.WarehouseAgg;
 using btr.distrib.PrintDocs;
 using btr.distrib.PurchaseContext.PurchaseOrderAgg;
@@ -139,6 +140,14 @@ namespace btr.distrib.SharedForm
         private void UserButton_Click(object sender, EventArgs e)
         {
             var form = _servicesProvider.GetRequiredService<UserForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void OpnameButton_Click(object sender, EventArgs e)
+        {
+            var form = _servicesProvider.GetRequiredService<OpnameForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

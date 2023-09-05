@@ -56,6 +56,8 @@
             this.WarehouseButton = new System.Windows.Forms.RibbonButton();
             this.ribbonPanel1 = new System.Windows.Forms.RibbonPanel();
             this.PrintButton = new System.Windows.Forms.RibbonButton();
+            this.ribbonPanel3 = new System.Windows.Forms.RibbonPanel();
+            this.OpnameButton = new System.Windows.Forms.RibbonButton();
             this.FinanceTab = new System.Windows.Forms.RibbonTab();
             this.SettingTab = new System.Windows.Forms.RibbonTab();
             this.DeliveryPanel = new System.Windows.Forms.RibbonPanel();
@@ -264,6 +266,7 @@
             this.InventoryTab.Name = "InventoryTab";
             this.InventoryTab.Panels.Add(this.ribbonPanel2);
             this.InventoryTab.Panels.Add(this.ribbonPanel1);
+            this.InventoryTab.Panels.Add(this.ribbonPanel3);
             this.InventoryTab.Text = "Inventory";
             // 
             // ribbonPanel2
@@ -305,6 +308,21 @@
             this.PrintButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("PrintButton.SmallImage")));
             this.PrintButton.Text = "Print";
             this.PrintButton.Click += new System.EventHandler(this.PrintButton_Click);
+            // 
+            // ribbonPanel3
+            // 
+            this.ribbonPanel3.Items.Add(this.OpnameButton);
+            this.ribbonPanel3.Name = "ribbonPanel3";
+            this.ribbonPanel3.Text = "";
+            // 
+            // OpnameButton
+            // 
+            this.OpnameButton.Image = global::btr.distrib.Properties.Resources.icons8_hashtag_activity_feed_32;
+            this.OpnameButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_hashtag_activity_feed_32;
+            this.OpnameButton.Name = "OpnameButton";
+            this.OpnameButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("OpnameButton.SmallImage")));
+            this.OpnameButton.Text = "Opname";
+            this.OpnameButton.Click += new System.EventHandler(this.OpnameButton_Click);
             // 
             // FinanceTab
             // 
@@ -443,5 +461,7 @@
         private System.Windows.Forms.StatusStrip AppStatus;
         private System.Windows.Forms.ToolStripStatusLabel LoginStatus;
         private System.Windows.Forms.ToolStripStatusLabel ServerDbStatus;
+        private System.Windows.Forms.RibbonPanel ribbonPanel3;
+        private System.Windows.Forms.RibbonButton OpnameButton;
     }
 }
