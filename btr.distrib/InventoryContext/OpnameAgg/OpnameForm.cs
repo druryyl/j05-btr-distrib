@@ -3,12 +3,15 @@ using btr.application.InventoryContext.OpnameAgg;
 using btr.application.InventoryContext.StokAgg;
 using btr.application.InventoryContext.StokBalanceAgg;
 using btr.application.InventoryContext.WarehouseAgg;
+using btr.application.SupportContext.TglJamAgg;
 using btr.distrib.Helpers;
 using btr.distrib.SharedForm;
 using btr.domain.BrgContext.BrgAgg;
+using btr.domain.InventoryContext.OpnameAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Domain;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,6 +32,9 @@ namespace btr.distrib.InventoryContext.OpnameAgg
         private readonly IStokBalanceBuilder _stokBalanceBuilder;
         private readonly IOpnameBuilder _opnameBuilder;
         private readonly IOpnameWriter _opnameWriter;
+        private readonly IMediator _mediator;
+        private readonly IOpnameDal _opnameDal;
+        private readonly ITglJamDal _tglJamDal;
 
         public OpnameForm(IWarehouseDal warehouseDal,
             IBrgDal brgDal,
@@ -36,28 +42,49 @@ namespace btr.distrib.InventoryContext.OpnameAgg
             IStokBuilder stokBuilder,
             IStokBalanceBuilder stokBalanceBuilder,
             IOpnameBuilder opnameBuilder,
-            IOpnameWriter opnameWriter)
+            IOpnameWriter opnameWriter,
+            IMediator mediator,
+            IOpnameDal opnameDal,
+            ITglJamDal tglJamDal)
         {
             _warehouseDal = warehouseDal;
             _brgDal = brgDal;
             _brgBuilder = brgBuilder;
             _stokBalanceBuilder = stokBalanceBuilder;
+            _opnameBuilder = opnameBuilder;
+            _opnameWriter = opnameWriter;
+            _mediator = mediator;
 
             InitializeComponent();
             InitWarehouseCombo();
             InitGridBrg();
+            InitPeriodeReport();
             RegisterEventHandler();
-            _opnameBuilder = opnameBuilder;
-            _opnameWriter = opnameWriter;
+            _opnameDal = opnameDal;
+            _tglJamDal = tglJamDal;
         }
 
+        private void InitPeriodeReport()
+        {
+            Tgl1Date.CustomFormat = "ddd, dd MMM yyyy";
+            Tgl2Date.CustomFormat = "ddd, dd MMM yyyy";
+            Tgl1Date.Format = DateTimePickerFormat.Custom;
+            Tgl2Date.Format = DateTimePickerFormat.Custom;
+        }
         private void RegisterEventHandler()
         {
             SearchText.KeyDown += SearchText_KeyDown;
             BrgGrid.KeyDown += BrgGrid_KeyDown;
             BrgGrid.CellDoubleClick += BrgGrid_CellDoubleClick;
             SaveButton.Click += SaveButton_Click;
+            ReportButton.Click += ReportButton_Click;
         }
+
+        private void ReportButton_Click(object sender, EventArgs e)
+        {
+            RefreshGridReport();
+        }
+
         private void ClearForm()
         {
             BrgIdText.Clear();
@@ -90,9 +117,30 @@ namespace btr.distrib.InventoryContext.OpnameAgg
                 .QtyAwal((int)Qty2AwalText.Value, (int)Qty1AwalText.Value)
                 .QtyOpname((int)Qty2OpnameText.Value, (int)Qty1OpnameText.Value)
                 .Build();
-
             _opnameWriter.Save(ref opname);
+
+            GenStok(opname);
+
             ClearForm();
+        }
+
+        private async void GenStok(OpnameModel opname)
+        {
+            var qtyAdjust = opname.Qty2Adjust * opname.Conversion2;
+            qtyAdjust += opname.Qty1Adjust;
+
+            if (qtyAdjust > 0)
+            {
+                var cmd = new AddStokCommand(opname.BrgId, opname.WarehouseId, 
+                    qtyAdjust, opname.Satuan1, opname.Nilai, opname.OpnameId, "OPNAME");
+                await _mediator.Send(cmd);
+            }
+            else
+            {
+                var cmd = new RemoveStokCommand(opname.BrgId, opname.WarehouseId,
+                    -qtyAdjust, opname.Satuan1, 0, opname.OpnameId, "OPNAME");
+                await _mediator.Send(cmd);
+            }
         }
 
         private void BrgGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -149,6 +197,10 @@ namespace btr.distrib.InventoryContext.OpnameAgg
             WarehouseCombo.DataSource = listWh;
             WarehouseCombo.DisplayMember = "WarehouseName";
             WarehouseCombo.ValueMember = "WarehouseId";
+
+            WarehouseReportCombo.DataSource = listWh;
+            WarehouseReportCombo.DisplayMember = "WarehouseName";
+            WarehouseReportCombo.ValueMember = "WarehouseId";
         }
 
         private void InitGridBrg()
@@ -176,6 +228,26 @@ namespace btr.distrib.InventoryContext.OpnameAgg
             BrgGrid.DataSource = listBrg;
 
         }
+
+        private void RefreshGridReport()
+        {
+            var tgl1 = Tgl1Date.Value;
+            var tgl2 = Tgl2Date.Value;
+            var periode = new Periode(tgl1, tgl2);
+            var listOpname = _opnameDal.ListData(periode)?.ToList()
+                ?? new List<OpnameModel>();
+
+            var result = listOpname
+                .Where(x => x.WarehouseId == WarehouseReportCombo.SelectedValue.ToString())
+                .OrderBy(x => x.OpnameDate)
+                .Select(x => new ReportOpnameFormDto(x)).ToList();
+            ReportGrid.DataSource = result;
+            ReportGrid.Columns.SetDefaultCellStyle(Color.LemonChiffon);
+            ReportGrid.AutoResizeColumns();
+            ReportGrid.Columns.GetCol("A").Width = 10;
+            ReportGrid.Columns.GetCol("B").Width = 10;
+
+        }
     }
 
     public class BrgOpnameFormDto
@@ -193,19 +265,29 @@ namespace btr.distrib.InventoryContext.OpnameAgg
 
     public class ReportOpnameFormDto
     {
+        public ReportOpnameFormDto(OpnameModel opname)
+        {
+            if (opname is null)
+                return;
+            TglJam = opname.OpnameDate;
+            BrgId = opname.BrgId;
+            Code = opname.BrgCode;
+            BrgName = opname.BrgName;
+            Qty_Awal = $"{opname.Qty2Awal:N0} {opname.Satuan2}";
+            Qty_Awal_ = $"{opname.Qty1Awal:N0} {opname.Satuan1}";
+            Qty_Op = $"{opname.Qty2Opname:N0} {opname.Satuan2}";
+            Qty_Op_ = $"{opname.Qty1Opname:N0} {opname.Satuan1}";
+
+        }
         public DateTime TglJam { get; }
         public string BrgId { get; }
         public string Code { get; }
         public string BrgName { get; }
-
-        public int QtyAwalBesar { get; }
-        public int QtyOpnameBesar { get; }
-        public int SatuanBesar { get; set; }
-
-        public int QtyAwalKecil { get; }
-        public int QtyOpnameKecil { get; }
-        public int SatuanKecil { get; set; }
-
-
+        public string A {get;set;}
+        public string Qty_Awal { get; }
+        public string Qty_Awal_ { get; }
+        public string B { get; set; }
+        public string Qty_Op { get; }
+        public string Qty_Op_ { get; }
     }
 }

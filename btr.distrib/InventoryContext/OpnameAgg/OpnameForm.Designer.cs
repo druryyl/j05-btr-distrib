@@ -59,7 +59,7 @@
             this.Tgl1Date = new System.Windows.Forms.DateTimePicker();
             this.ReportGrid = new System.Windows.Forms.DataGridView();
             this.WarehouseReportCombo = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.ReportButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.InputPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BrgGrid)).BeginInit();
@@ -115,6 +115,7 @@
             // 
             // DeleteButton
             // 
+            this.DeleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.DeleteButton.Location = new System.Drawing.Point(622, 381);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(75, 23);
@@ -124,6 +125,7 @@
             // 
             // SaveButton
             // 
+            this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.SaveButton.Location = new System.Drawing.Point(545, 381);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
@@ -148,6 +150,8 @@
             // 
             // BrgGrid
             // 
+            this.BrgGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.BrgGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.BrgGrid.Location = new System.Drawing.Point(6, 61);
             this.BrgGrid.Name = "BrgGrid";
@@ -156,6 +160,9 @@
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.Cornsilk;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.NilaiText);
@@ -171,6 +178,7 @@
             // 
             // NilaiText
             // 
+            this.NilaiText.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.NilaiText.Location = new System.Drawing.Point(182, 334);
             this.NilaiText.Maximum = new decimal(new int[] {
             9999999,
@@ -185,6 +193,7 @@
             // 
             // label9
             // 
+            this.label9.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(179, 315);
             this.label9.Name = "label9";
@@ -194,6 +203,7 @@
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.tableLayoutPanel1.BackColor = System.Drawing.Color.White;
             this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tableLayoutPanel1.ColumnCount = 2;
@@ -381,6 +391,7 @@
             // 
             // BrgCodeText
             // 
+            this.BrgCodeText.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.BrgCodeText.BackColor = System.Drawing.Color.Gainsboro;
             this.BrgCodeText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BrgCodeText.Location = new System.Drawing.Point(126, 7);
@@ -390,6 +401,7 @@
             // 
             // BrgNameText
             // 
+            this.BrgNameText.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.BrgNameText.BackColor = System.Drawing.Color.Gainsboro;
             this.BrgNameText.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BrgNameText.Location = new System.Drawing.Point(18, 42);
@@ -400,6 +412,7 @@
             // 
             // BrgIdText
             // 
+            this.BrgIdText.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.BrgIdText.BackColor = System.Drawing.Color.Gainsboro;
             this.BrgIdText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BrgIdText.Location = new System.Drawing.Point(17, 7);
@@ -410,7 +423,7 @@
             // ReportPage
             // 
             this.ReportPage.BackColor = System.Drawing.Color.Khaki;
-            this.ReportPage.Controls.Add(this.button1);
+            this.ReportPage.Controls.Add(this.ReportButton);
             this.ReportPage.Controls.Add(this.WarehouseReportCombo);
             this.ReportPage.Controls.Add(this.Tgl2Date);
             this.ReportPage.Controls.Add(this.Tgl1Date);
@@ -438,6 +451,9 @@
             // 
             // ReportGrid
             // 
+            this.ReportGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ReportGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ReportGrid.Location = new System.Drawing.Point(8, 34);
             this.ReportGrid.Name = "ReportGrid";
@@ -452,14 +468,14 @@
             this.WarehouseReportCombo.Size = new System.Drawing.Size(148, 21);
             this.WarehouseReportCombo.TabIndex = 3;
             // 
-            // button1
+            // ReportButton
             // 
-            this.button1.Location = new System.Drawing.Point(446, 6);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 14;
-            this.button1.Text = "Report";
-            this.button1.UseVisualStyleBackColor = true;
+            this.ReportButton.Location = new System.Drawing.Point(446, 6);
+            this.ReportButton.Name = "ReportButton";
+            this.ReportButton.Size = new System.Drawing.Size(75, 23);
+            this.ReportButton.TabIndex = 14;
+            this.ReportButton.Text = "Report";
+            this.ReportButton.UseVisualStyleBackColor = true;
             // 
             // OpnameForm
             // 
@@ -523,7 +539,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.DateTimePicker Tgl2Date;
         private System.Windows.Forms.DateTimePicker Tgl1Date;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button ReportButton;
         private System.Windows.Forms.ComboBox WarehouseReportCombo;
     }
 }
