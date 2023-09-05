@@ -35,5 +35,14 @@ namespace btr.test.Helpers
             var result = bilangan.Eja();
             result.Should().Be("seratus");
         }
+    
+        [Fact]
+        public void FormatNumerikTest()
+        {
+            var x = new decimal(10.00);
+            var y = x.ToString("0.##");
+            y.Should().Be("10");
+
+        }
     }
 }

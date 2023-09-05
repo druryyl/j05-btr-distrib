@@ -87,6 +87,9 @@
     <Compile Include="BrgContext\KategoriAgg\IKategoriDal.cs" />
     <Compile Include="BrgContext\KategoriAgg\KategoriBuilder.cs" />
     <Compile Include="BrgContext\KategoriAgg\KategoriWriter.cs" />
+    <Compile Include="InventoryContext\OpnameAgg\IOpnameDal.cs" />
+    <Compile Include="InventoryContext\OpnameAgg\OpnameBuilder.cs" />
+    <Compile Include="InventoryContext\OpnameAgg\OpnameWriter.cs" />
     <Compile Include="InventoryContext\StokAgg\AddStokCommand.cs" />
     <Compile Include="InventoryContext\StokAgg\IStokDal.cs" />
     <Compile Include="InventoryContext\StokAgg\IStokMutasiDal.cs" />
