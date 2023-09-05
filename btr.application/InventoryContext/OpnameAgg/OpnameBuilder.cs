@@ -2,9 +2,12 @@
 using System.Linq;
 using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.WarehouseAgg;
+using btr.application.SupportContext.TglJamAgg;
+using btr.application.SupportContext.UserAgg;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.OpnameAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
+using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
 
@@ -17,6 +20,7 @@ namespace btr.application.InventoryContext.OpnameAgg
 
         IOpnameBuilder Brg(IBrgKey brgKey);
         IOpnameBuilder Warehouse(IWarehouseKey warehouseKey);
+        IOpnameBuilder User(IUserKey user);
 
         IOpnameBuilder QtyAwal(int qtyBesar, int qtyKecil);
         IOpnameBuilder QtyOpname(int qtyBesar, int qtyKecil);
@@ -29,14 +33,20 @@ namespace btr.application.InventoryContext.OpnameAgg
         private readonly IOpnameDal _opnameDal;
         private readonly IBrgBuilder _brgBuilder;
         private readonly IWarehouseDal _warehouseDal;
+        private readonly ITglJamDal _tglJamDal;
+        private readonly IUserDal _userDal;
 
-        public OpnameBuilder(IOpnameDal opnameDal, 
-            IBrgBuilder brgBuilder, 
-            IWarehouseDal warehouseDal)
+        public OpnameBuilder(IOpnameDal opnameDal,
+            IBrgBuilder brgBuilder,
+            IWarehouseDal warehouseDal,
+            ITglJamDal tglJamDal,
+            IUserDal userDal)
         {
             _opnameDal = opnameDal;
             _brgBuilder = brgBuilder;
             _warehouseDal = warehouseDal;
+            _tglJamDal = tglJamDal;
+            _userDal = userDal;
         }
 
         public OpnameModel Build()
@@ -55,6 +65,7 @@ namespace btr.application.InventoryContext.OpnameAgg
         public IOpnameBuilder Create()
         {
             _agg = new OpnameModel();
+            _agg.OpnameDate = _tglJamDal.Now();
             return this;
         }
 
@@ -112,6 +123,14 @@ namespace btr.application.InventoryContext.OpnameAgg
         public IOpnameBuilder Nilai(decimal nilai)
         {
             _agg.Nilai = nilai;
+            return this;
+        }
+
+        public IOpnameBuilder User(IUserKey userKey)
+        {
+            var user = _userDal.GetData(userKey)
+                ?? throw new KeyNotFoundException("UserId invalid");
+            _agg.UserId = user.UserId;
             return this;
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using btr.domain.BrgContext.BrgAgg;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace btr.domain.InventoryContext.StokBalanceAgg
 {
-    public class StokBalanceModel
+    public class StokBalanceModel : IBrgKey
     {
         public string BrgId { get; set; }
         public string BrgName { get; set; }

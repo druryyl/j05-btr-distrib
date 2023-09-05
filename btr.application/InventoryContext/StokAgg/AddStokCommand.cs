@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using btr.application.BrgContext.BrgAgg;
+using btr.application.InventoryContext.StokBalanceAgg;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.StokAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
@@ -39,15 +40,22 @@ namespace btr.application.InventoryContext.StokAgg
         private readonly IStokBuilder _stokBuilder;
         private readonly IStokWriter _writer;
         private readonly IBrgBuilder _brgBuilder;
+        private readonly IStokBalanceBuilder _stokBalanceBuilder;
+        private readonly IStokBalanceWriter _stokBalanceWriter;
 
-        public AddStokHandler(IStokBuilder builder, 
-            IStokDal stokDal, 
-            IStokWriter writer, IBrgBuilder brgBuilder)
+        public AddStokHandler(IStokBuilder builder,
+            IStokDal stokDal,
+            IStokWriter writer,
+            IBrgBuilder brgBuilder,
+            IStokBalanceBuilder stokBalanceBuilder,
+            IStokBalanceWriter stokBalanceWriter)
         {
             _stokBuilder = builder;
             _stokDal = stokDal;
             _writer = writer;
             _brgBuilder = brgBuilder;
+            _stokBalanceBuilder = stokBalanceBuilder;
+            _stokBalanceWriter = stokBalanceWriter;
         }
 
         public Task Handle(AddStokCommand request, CancellationToken cancellationToken)
@@ -66,9 +74,19 @@ namespace btr.application.InventoryContext.StokAgg
             _aggregate = _stokBuilder
                 .Create(request, request, (int)qtyKecil, nilaiKecil, request.ReffId, request.JenisMutasi)
                 .Build();
-            
+
             //  WRITE
             _writer.Save(ref _aggregate);
+
+            //      stok balance
+            var listStok = _stokDal.ListData(request, request) ??
+                new List<StokModel>();
+            var qtyBalance = listStok.Sum(x => x.Qty);
+            var stokBalance = _stokBalanceBuilder
+                .Load(request)
+                .Qty(request, qtyBalance)
+                .Build();
+            _stokBalanceWriter.Save(ref  stokBalance);
             return Task.FromResult(Unit.Value);
         }
 

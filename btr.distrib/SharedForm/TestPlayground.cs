@@ -22,10 +22,8 @@ namespace btr.distrib.SharedForm
             //await _mediator.Send(cmd2);
 
 
-            //var cmd3 = new RemoveStokCommand("BR0001", "W19",13, "PCS/40", 2100, "FAKTUR-001", "FAKTUR");
+            //var cmd3 = new RemoveStokCommand("BR0001", "W19", 13, "PCS/40", 2100, "FAKTUR-001", "FAKTUR");
             //await _mediator.Send(cmd3);
-
-
         }
     }
 }

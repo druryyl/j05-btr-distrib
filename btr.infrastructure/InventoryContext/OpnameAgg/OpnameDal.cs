@@ -32,22 +32,22 @@ namespace btr.infrastructure.InventoryContext.OpnameAgg
                     @OpnameId, @OpnameDate, @UserId,
                     @BrgId, @BrgCode, @WarehouseId,
                     @Qty1Awal, @Qty1Opname, @Qty1Adjust, @Satuan1,
-                    @Qty2Awal, @ Qty2Opname, @Qty2Adjust, @Satuan2)";
+                    @Qty2Awal, @Qty2Opname, @Qty2Adjust, @Satuan2)";
 
             var dp = new DynamicParameters();
             dp.AddParam("@OpnameId", model.OpnameId, SqlDbType.VarChar); 
-            dp.AddParam("@OpnameDate", model.OpnameDate, SqlDbType.VarChar); 
+            dp.AddParam("@OpnameDate", model.OpnameDate, SqlDbType.DateTime); 
             dp.AddParam("@UserId", model.UserId, SqlDbType.VarChar);
             dp.AddParam("@BrgId", model.BrgId, SqlDbType.VarChar); 
             dp.AddParam("@BrgCode", model.BrgCode, SqlDbType.VarChar); 
             dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
-            dp.AddParam("@Qty1Awal", model.Qty1Awal, SqlDbType.VarChar); 
-            dp.AddParam("@Qty1Opname", model.Qty1Opname, SqlDbType.VarChar); 
-            dp.AddParam("@Qty1Adjust", model.Qty1Adjust, SqlDbType.VarChar); 
+            dp.AddParam("@Qty1Awal", model.Qty1Awal, SqlDbType.Int); 
+            dp.AddParam("@Qty1Opname", model.Qty1Opname, SqlDbType.Int); 
+            dp.AddParam("@Qty1Adjust", model.Qty1Adjust, SqlDbType.Int); 
             dp.AddParam("@Satuan1", model.Satuan1, SqlDbType.VarChar);
-            dp.AddParam("@Qty2Awal", model.Qty2Awal, SqlDbType.VarChar); 
-            dp.AddParam("@Qty2Opname", model.Qty2Opname, SqlDbType.VarChar); 
-            dp.AddParam("@Qty2Adjust", model.Qty2Adjust, SqlDbType.VarChar); 
+            dp.AddParam("@Qty2Awal", model.Qty2Awal, SqlDbType.Int); 
+            dp.AddParam("@Qty2Opname", model.Qty2Opname, SqlDbType.Int); 
+            dp.AddParam("@Qty2Adjust", model.Qty2Adjust, SqlDbType.Int); 
             dp.AddParam("@Satuan2", model.Satuan2, SqlDbType.VarChar);
             
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
@@ -80,21 +80,21 @@ namespace btr.infrastructure.InventoryContext.OpnameAgg
                     OpnameId = @OpnameId";
 
             var dp = new DynamicParameters();
-            dp.AddParam("@OpnameId", model.OpnameId, SqlDbType.VarChar); 
-            dp.AddParam("@OpnameDate", model.OpnameDate, SqlDbType.VarChar); 
+            dp.AddParam("@OpnameId", model.OpnameId, SqlDbType.VarChar);
+            dp.AddParam("@OpnameDate", model.OpnameDate, SqlDbType.DateTime);
             dp.AddParam("@UserId", model.UserId, SqlDbType.VarChar);
-            dp.AddParam("@BrgId", model.BrgId, SqlDbType.VarChar); 
-            dp.AddParam("@BrgCode", model.BrgCode, SqlDbType.VarChar); 
+            dp.AddParam("@BrgId", model.BrgId, SqlDbType.VarChar);
+            dp.AddParam("@BrgCode", model.BrgCode, SqlDbType.VarChar);
             dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
-            dp.AddParam("@Qty1Awal", model.Qty1Awal, SqlDbType.VarChar); 
-            dp.AddParam("@Qty1Opname", model.Qty1Opname, SqlDbType.VarChar); 
-            dp.AddParam("@Qty1Adjust", model.Qty1Adjust, SqlDbType.VarChar); 
+            dp.AddParam("@Qty1Awal", model.Qty1Awal, SqlDbType.Int);
+            dp.AddParam("@Qty1Opname", model.Qty1Opname, SqlDbType.Int);
+            dp.AddParam("@Qty1Adjust", model.Qty1Adjust, SqlDbType.Int);
             dp.AddParam("@Satuan1", model.Satuan1, SqlDbType.VarChar);
-            dp.AddParam("@Qty2Awal", model.Qty2Awal, SqlDbType.VarChar); 
-            dp.AddParam("@Qty2Opname", model.Qty2Opname, SqlDbType.VarChar); 
-            dp.AddParam("@Qty2Adjust", model.Qty2Adjust, SqlDbType.VarChar); 
+            dp.AddParam("@Qty2Awal", model.Qty2Awal, SqlDbType.Int);
+            dp.AddParam("@Qty2Opname", model.Qty2Opname, SqlDbType.Int);
+            dp.AddParam("@Qty2Adjust", model.Qty2Adjust, SqlDbType.Int);
             dp.AddParam("@Satuan2", model.Satuan2, SqlDbType.VarChar);
-            
+
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
                 conn.Execute(sql, dp);

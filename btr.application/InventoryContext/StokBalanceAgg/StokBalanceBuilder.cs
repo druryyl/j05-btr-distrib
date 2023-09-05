@@ -1,6 +1,7 @@
 ﻿using btr.application.BrgContext.BrgAgg;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.StokBalanceAgg;
+using btr.domain.InventoryContext.WarehouseAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace btr.application.InventoryContext.StokBalanceAgg
     public interface IStokBalanceBuilder : INunaBuilder<StokBalanceModel>
     {
         IStokBalanceBuilder Load(IBrgKey brgKey);
+        IStokBalanceBuilder Qty(IWarehouseKey warehouseKey, int qty);
     }
     public class StokBalanceBuilder : IStokBalanceBuilder
     {
@@ -43,6 +45,26 @@ namespace btr.application.InventoryContext.StokBalanceAgg
         {
             _agg.RemoveNull();
             return _agg;
+        }
+
+        public IStokBalanceBuilder Qty(IWarehouseKey warehouseKey, int qty)
+        {
+            var wh = _agg.ListWarehouse
+                .FirstOrDefault(x => x.WarehouseId == warehouseKey.WarehouseId);
+            if (wh is null)
+            {
+                wh = new StokBalanceWarehouseModel 
+                { 
+                    WarehouseId = warehouseKey.WarehouseId,
+                    Qty = qty,
+                };
+                _agg.ListWarehouse.Add(wh);
+            }
+            else
+                wh.Qty = qty;
+
+            return this;
+
         }
     }
 }
