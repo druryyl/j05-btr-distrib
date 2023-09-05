@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using btr.application.InventoryContext.StokAgg;
 using btr.application.SalesContext.FakturAgg.Workers;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
@@ -99,9 +101,34 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
                 .Build();
 
             //  APPLY
-            _writer.Save(ref _aggRoot);
+            using (var trans = TransHelper.NewScope())
+            {
+                _writer.Save(ref _aggRoot);
+                //try
+                //{
+                //    GenStok();
+                //}
+                //catch (System.Exception)
+                //{
+                //    throw;
+                //}
+                trans.Complete();
+            }
+
             _mediator.Publish(new CreatedFakturEvent(request, _aggRoot), cancellationToken);
             return Task.FromResult(GenResponse());
+        }
+
+        private async void GenStok()
+        {
+            foreach(var item in _aggRoot.ListItem)
+            {
+                var sat = item.ListQtyHarga.FirstOrDefault(x => x.Conversion == 1);
+                var qty = item.ListQtyHarga.Sum(x => x.Qty * x.Conversion);
+                var removeStok = new RemoveStokCommand(item.BrgId, _aggRoot.WarehouseId,
+                    qty, sat.Satuan, item.HargaJual, _aggRoot.FakturId, "FAKTUR-JUAL");
+            await _mediator.Send(removeStok);
+            }
         }
 
         private CreateFakturResponse GenResponse()

@@ -248,6 +248,9 @@ namespace btr.application.SalesContext.FakturAgg.Workers
 
         private static List<decimal> ParseStringMultiNumber(string str, int size)
         {
+            if (str is null)
+                str = string.Empty;
+
             var result = new List<decimal>();
             for (var i = 0; i < size; i++)
                 result.Add(0);
