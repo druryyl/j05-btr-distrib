@@ -100,6 +100,7 @@
     <Compile Include="SupportContext\DocAgg\DocPrintStatusEnum.cs" />
     <Compile Include="SupportContext\DocAgg\IDocKey.cs" />
     <Compile Include="SupportContext\ParamUser\ParamUserModel.cs" />
+    <Compile Include="SupportContext\PlaygroundAgg\ImportOpnameModel.cs" />
     <Compile Include="SupportContext\UserAgg\IUserKey.cs" />
     <Compile Include="SupportContext\UserAgg\UserModel.cs" />
   </ItemGroup>
