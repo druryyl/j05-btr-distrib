@@ -32,6 +32,7 @@ namespace btr.distrib.SharedForm
         private void InitializeComponent()
         {
             this.button1 = new System.Windows.Forms.Button();
+            this.PrgBar = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // button1
@@ -42,13 +43,20 @@ namespace btr.distrib.SharedForm
             this.button1.TabIndex = 0;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // PrgBar
+            // 
+            this.PrgBar.Location = new System.Drawing.Point(12, 94);
+            this.PrgBar.Name = "PrgBar";
+            this.PrgBar.Size = new System.Drawing.Size(267, 23);
+            this.PrgBar.TabIndex = 1;
             // 
             // TestPlayground
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(291, 301);
+            this.Controls.Add(this.PrgBar);
             this.Controls.Add(this.button1);
             this.Name = "TestPlayground";
             this.Text = "TestPlayground";
@@ -59,5 +67,6 @@ namespace btr.distrib.SharedForm
         #endregion
 
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ProgressBar PrgBar;
     }
 }

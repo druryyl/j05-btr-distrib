@@ -105,6 +105,7 @@
     <Compile Include="SupportContext\DocAgg\DocActionDal.cs" />
     <Compile Include="SupportContext\DocAgg\DocDal.cs" />
     <Compile Include="SupportContext\ParamUserAgg\ParamUserDal.cs" />
+    <Compile Include="SupportContext\PlaygroundAgg\ImportOpnameDal.cs" />
     <Compile Include="SupportContext\TglJamAgg\TglJamDal.cs" />
     <Compile Include="SupportContext\UserAgg\UserDal.cs" />
   </ItemGroup>
