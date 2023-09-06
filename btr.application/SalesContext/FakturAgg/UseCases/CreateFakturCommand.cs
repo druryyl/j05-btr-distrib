@@ -104,14 +104,6 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
             using (var trans = TransHelper.NewScope())
             {
                 _writer.Save(ref _aggRoot);
-                //try
-                //{
-                //    GenStok();
-                //}
-                //catch (System.Exception)
-                //{
-                //    throw;
-                //}
                 trans.Complete();
             }
 
