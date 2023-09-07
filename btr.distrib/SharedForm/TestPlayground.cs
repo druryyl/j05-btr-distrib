@@ -16,86 +16,38 @@ namespace btr.distrib.SharedForm
 {
     public partial class TestPlayground : Form
     {
-        private readonly IMediator _mediator;
-        private readonly IOpnameBuilder _opnameBuilder;
-        private readonly IOpnameWriter _opnameWriter;
-        private readonly IImportOpnameDal _importOpnameDal;
-        private readonly IBrgDal _brgDal;
+        private readonly IAddStokWorker _addStokWorker;
+        private readonly IRemoveFifoStokWorker _removeFifoStokWorker;
 
-        public TestPlayground(IMediator mediator,
-            IOpnameBuilder opnameBuilder,
-            IOpnameWriter opnameWriter,
-            IImportOpnameDal importOpnameDal,
-            IBrgDal brgDal)
+        public TestPlayground(IAddStokWorker addStokWorker, 
+            IRemoveFifoStokWorker removeFifoStokWorker)
         {
             InitializeComponent();
-            _mediator = mediator;
-            _opnameBuilder = opnameBuilder;
-            _opnameWriter = opnameWriter;
-            _importOpnameDal = importOpnameDal;
-            _brgDal = brgDal;
-            button1.Click += button1_Click;
+            AddStokButton.Click += AddStokButton_Click;
+            RemoveFifoButton.Click += RemoveFifo_Click;
+            _addStokWorker = addStokWorker;
+            _removeFifoStokWorker = removeFifoStokWorker;
         }
 
-
-        private async void button1_Click(object sender, System.EventArgs e)
+        private void AddStokButton_Click(object sender, System.EventArgs e)
         {
-            var listImport = _importOpnameDal.ListData()?.ToList();
-            PrgBar.Maximum = listImport.Count;
-            PrgBar.Value = 0;
-            using (var trans = TransHelper.NewScope())
-            {
-                foreach (var item in listImport)
-                {
-                    PrgBar.Value++;
-                    if (item.Qty <= 0)
-                        continue;
+            var req = new AddStokRequest("BR0001", "G00", 100, "pcs/40", 40000, "TR-001", "ADJUST-PLUS");
+            _addStokWorker.Execute(req);
 
-                    var brg = _brgDal.GetData(item.BrgCode);
-
-                    var opname = _opnameBuilder
-                        .Create()
-                        .Brg(brg)
-                        .Warehouse(new WarehouseModel("G00"))
-                        .User(new UserModel("jude7"))
-                        .QtyAwal(0, 0)
-                        .QtyOpname(0, item.Qty)
-                        .Nilai(item.Nilai)
-                        .Build();
-                    _opnameWriter.Save(ref opname);
-                    GenStok(opname);
-                }
-
-                trans.Complete();
-            }
-
-            //var cmd = new AddStokCommand("BR0001", "W19", 10, "PCS/40", 1900, "ADJ-001", "ADJUSTMENT");
-            //await _mediator.Send(cmd);
-
-            //var cmd2 = new AddStokCommand("BR0001", "W19", 4, "PCS/40", 1900, "ADJ-001", "ADJUSTMENT");
-            //await _mediator.Send(cmd2);
-
-
-            //var cmd3 = new RemoveStokCommand("BR0001", "W19", 13, "PCS/40", 2100, "FAKTUR-001", "FAKTUR");
-            //await _mediator.Send(cmd3);
+            var req2 = new AddStokRequest("BR0001", "G00", 70, "pcs/40", 40000, "TR-002", "ADJUST-PLUS");
+            _addStokWorker.Execute(req2);
+            MessageBox.Show("Done");
         }
-        private async void GenStok(OpnameModel opname)
+
+        private void RemoveFifo_Click(object sender, System.EventArgs e)
         {
-            var qtyAdjust = opname.Qty2Adjust * opname.Conversion2;
-            qtyAdjust += opname.Qty1Adjust;
+            var req = new RemoveFifoStokRequest("BR0001", "G00", 55, "pcs/40", 45000, "TR-003", "ADJUST-MIN");
+            _removeFifoStokWorker.Execute(req);
 
-            //if (qtyAdjust > 0)
-            //{
-            //    var cmd = new AddStokCommand(opname.BrgId, opname.WarehouseId,
-            //        qtyAdjust, opname.Satuan1, opname.Nilai, opname.OpnameId, "OPNAME");
-            //    await _mediator.Send(cmd);
-            //}
-            //else
-            //{
-            //    var cmd = new RemoveStokCommand(opname.BrgId, opname.WarehouseId,
-            //        -qtyAdjust, opname.Satuan1, 0, opname.OpnameId, "OPNAME");
-            //    await _mediator.Send(cmd);
-            //}
+            var req2 = new RemoveFifoStokRequest("BR0001", "G00", 80, "pcs/40", 45000, "TR-004", "ADJUST-MIN");
+            _removeFifoStokWorker.Execute(req2);
+            MessageBox.Show("Done");
         }
+
     }
 }

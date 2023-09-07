@@ -69,7 +69,7 @@ namespace btr.application.InventoryContext.StokAgg
                 .Member(x => x.Satuan, y => y.NotEmpty());
 
             //  BUILD
-            var konversi = GetKonversi(request, request.Satuan);
+            var konversi = GetKonversi(request, request.Satuan, out BrgModel brg);
             var qtyKecil = request.Qty * konversi;
             var nilaiKecil = request.Nilai / konversi;
             _aggregate = _stokBuilder
@@ -91,21 +91,12 @@ namespace btr.application.InventoryContext.StokAgg
             return true;
         }
 
-        public decimal GetKonversi(IBrgKey brgKey, string satuan)
+        public int GetKonversi(IBrgKey brgKey, string satuan, out BrgModel brg)
         {
-            var brg = _brgBuilder.Load(brgKey).Build();
-            var thisSatuan = brg.ListSatuan.FirstOrDefault(x => x.Satuan == satuan)
-                             ?? throw new KeyNotFoundException("Satuan invalid");
+            brg = _brgBuilder.Load(brgKey).Build();
+            var thisSatuan = brg.ListSatuan.FirstOrDefault(x => x.Satuan.ToLower() == satuan.ToLower())
+                ?? throw new KeyNotFoundException("Satuan invalid");
             return thisSatuan.Conversion;
         }
-        private int ConvertQtySatKecil(IBrgKey brgKey, int qty, string satuan)
-        {
-            var brg = _brgBuilder.Load(brgKey).Build();
-            var thisSatuan = brg.ListSatuan.FirstOrDefault(x => x.Satuan == satuan)
-                             ?? throw new KeyNotFoundException("Satuan invalid");
-            var result = qty * thisSatuan.Conversion;
-            return result;
-        }
-
     }
 }

@@ -31,18 +31,19 @@ namespace btr.distrib.SharedForm
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.AddStokButton = new System.Windows.Forms.Button();
             this.PrgBar = new System.Windows.Forms.ProgressBar();
+            this.RemoveFifoButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // AddStokButton
             // 
-            this.button1.Location = new System.Drawing.Point(56, 50);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.AddStokButton.Location = new System.Drawing.Point(12, 12);
+            this.AddStokButton.Name = "AddStokButton";
+            this.AddStokButton.Size = new System.Drawing.Size(75, 23);
+            this.AddStokButton.TabIndex = 0;
+            this.AddStokButton.Text = "AddStok";
+            this.AddStokButton.UseVisualStyleBackColor = true;
             // 
             // PrgBar
             // 
@@ -51,13 +52,23 @@ namespace btr.distrib.SharedForm
             this.PrgBar.Size = new System.Drawing.Size(267, 23);
             this.PrgBar.TabIndex = 1;
             // 
+            // button1
+            // 
+            this.RemoveFifoButton.Location = new System.Drawing.Point(93, 12);
+            this.RemoveFifoButton.Name = "button1";
+            this.RemoveFifoButton.Size = new System.Drawing.Size(96, 23);
+            this.RemoveFifoButton.TabIndex = 2;
+            this.RemoveFifoButton.Text = "Remove FIFO";
+            this.RemoveFifoButton.UseVisualStyleBackColor = true;
+            // 
             // TestPlayground
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(291, 301);
+            this.ClientSize = new System.Drawing.Size(291, 134);
+            this.Controls.Add(this.RemoveFifoButton);
             this.Controls.Add(this.PrgBar);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.AddStokButton);
             this.Name = "TestPlayground";
             this.Text = "TestPlayground";
             this.ResumeLayout(false);
@@ -66,7 +77,8 @@ namespace btr.distrib.SharedForm
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button AddStokButton;
         private System.Windows.Forms.ProgressBar PrgBar;
+        private System.Windows.Forms.Button RemoveFifoButton;
     }
 }

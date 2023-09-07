@@ -17,12 +17,12 @@ namespace btr.application.InventoryContext.StokAgg.UseCases
         private readonly IStokMutasiDal _stokMutasiDal;
         private readonly IStokBuilder _stokBuilder;
         private readonly IStokWriter _stokWriter;
-        private readonly IRemoveStokWorker _removeStokWorker;
+        private readonly IRemoveFifoStokWorker _removeStokWorker;
 
         public RollBackStokWorker(IStokMutasiDal stokMutasiDal,
             IStokBuilder stokBuilder,
             IStokWriter stokWriter,
-            IRemoveStokWorker removeStokWorker)
+            IRemoveFifoStokWorker removeStokWorker)
         {
             _stokMutasiDal = stokMutasiDal;
             _stokBuilder = stokBuilder;
@@ -72,9 +72,9 @@ namespace btr.application.InventoryContext.StokAgg.UseCases
             _stokWriter.Save(ref removedStok);
 
             var qtyToBeRemovedInOtherStok = item.QtyIn - stok.Qty;
-            var removeStokWorker = new RemoveStokRequest(stok.BrgId, stok.WarehouseId,
+            var removeStokWorker = new RemoveFifoStokRequest(stok.BrgId, stok.WarehouseId,
                 qtyToBeRemovedInOtherStok, "", stok.NilaiPersediaan,item.ReffId, "ROLLBACK");
-            _ = _removeStokWorker.Execute(removeStokWorker);
+            _removeStokWorker.Execute(removeStokWorker);
         }
 
     }

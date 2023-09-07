@@ -49,7 +49,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         private readonly IStokMutasiDal _stokMutasiDal;
         private readonly IRollBackStokWorker _rollBackStokWorker;
         private readonly IBrgBuilder _brgBuilder;
-        private readonly IRemoveStokWorker _removeStokWorker;
+        private readonly IRemoveFifoStokWorker _removeStokWorker;
         private readonly IMediator _mediator;
 
         public SaveFakturWorker(IFakturBuilder fakturBuilder,
@@ -58,7 +58,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             IStokMutasiDal stokMutasiDal,
             IRollBackStokWorker rollBackStokWorker,
             IBrgBuilder brgBuilder,
-            IRemoveStokWorker removeStokWorker,
+            IRemoveFifoStokWorker removeStokWorker,
             IMediator mediator)
         {
             _fakturBuilder = fakturBuilder;
@@ -141,7 +141,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
                 var brg = _brgBuilder.Load(item).Build();
                 var satuan = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty;
                 GetQtyJual(item, out int qtyJual, out decimal harga);
-                var req = new RemoveStokRequest(item.BrgId,
+                var req = new RemoveFifoStokRequest(item.BrgId,
                     faktur.WarehouseId, qtyJual, satuan, harga, faktur.FakturId, "FAKTUR");
                 _removeStokWorker.Execute(req);
 
@@ -149,7 +149,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
                 if (qtyBonus == 0)
                     return;
 
-                var reqBonus = new RemoveStokRequest(item.BrgId,
+                var reqBonus = new RemoveFifoStokRequest(item.BrgId,
                     faktur.WarehouseId, qtyBonus, satuan, 0, faktur.FakturId, "FAKTUR-BONUS");
                 _removeStokWorker.Execute(reqBonus);
             }

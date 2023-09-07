@@ -18,4 +18,8 @@
     {
         TOut Execute();
     }
+    public interface INunaServiceVoid<in TIn>
+    {
+        void Execute(TIn req);
+    }
 }
