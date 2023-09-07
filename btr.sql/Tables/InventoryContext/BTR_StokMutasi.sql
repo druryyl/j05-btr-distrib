@@ -3,6 +3,7 @@
     StokMutasiId VARCHAR(17) NOT NULL CONSTRAINT DF_BTR_StokMutasi_StokMutasiId DEFAULT(''),
     ReffId VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_StokMutasi_ReffId DEFAULT(''),
     NoUrut INT NOT NULL CONSTRAINT DF_BTR_StokMutasi_NoUrut DEFAULT(0),
+    JenisMutasi VARCHAR(20) NOT NULL CONSTRAINT DF_BTR_StokMutasi_JenisMutasi DEFAULT(''),
     MutasiDate DATETIME NOT NULL CONSTRAINT DF_BTR_StokMutasi_MutasiDate DEFAULT('3000-01-01'),
     QtyIn INT NOT NULL CONSTRAINT DF_BTR_StokMutasi_QtyIn DEFAULT(0),
     QtyOut INT NOT NULL CONSTRAINT DF_BTR_StokMutasi_QtyOut DEFAULT(0),
@@ -14,5 +15,11 @@ GO
 
 CREATE INDEX IX_BTR_StokMutasi_StokId
     ON BTR_StokMutasi (StokId, StokMutasiId)
+    WITH(FILLFACTOR=95)
+GO
+
+
+CREATE INDEX IX_BTR_StokMutasi_ReffId
+    ON BTR_StokMutasi (ReffId, StokMutasiId)
     WITH(FILLFACTOR=95)
 GO
