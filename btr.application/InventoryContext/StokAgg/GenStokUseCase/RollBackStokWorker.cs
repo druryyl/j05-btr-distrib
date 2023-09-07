@@ -8,19 +8,14 @@ using Dawn;
 
 namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
 {
-    public class RollBackStokRequest : IBrgKey, IReffKey, IWarehouseKey
+    public class RollBackStokRequest : IReffKey
     {
-        public RollBackStokRequest(string brgId, string warehouseId,
-            string reffId)
+        public RollBackStokRequest(string reffId)
         {
-            BrgId = brgId;
-            WarehouseId = warehouseId;
             ReffId = reffId;
         }
 
-        public string BrgId { get; set; }
         public string ReffId { get; set; }
-        public string WarehouseId { get; set; }
     }
 
     public interface IRollBackStokWorker : INunaServiceVoid<RollBackStokRequest>
@@ -59,19 +54,21 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
             //      rollback hanya untuk pembatalan stok keluar
             listStokMutasi.RemoveAll(x => x.QtyOut == 0);
             var result = new List<StokModel>();
+            var resultBalance = new List<GenStokBalanceRequest>();
+            
             foreach(var item in listStokMutasi)
             {
                 var stok = _stokBuilder.Load(item).Build();
-                if (stok.BrgId != request.BrgId)
-                    continue;
-                if (stok.WarehouseId != request.WarehouseId)
-                    continue;
-
+                //  stok-controler
                 stok = _stokBuilder
                     .Attach(stok)
                     .RollBack(request)
                     .Build();
                 result.Add(stok);
+                
+                //  stok-balancer
+                var stokBalance = new GenStokBalanceRequest(stok.BrgId, stok.WarehouseId);
+                resultBalance.Add(stokBalance);
             }
 
             //  WRITE
@@ -80,8 +77,8 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                 foreach(var item in result)
                     _ = _stokWriter.Save(item);
                 
-                var stokBalanceReq = new GenStokBalanceRequest(request.BrgId, request.WarehouseId);
-                _stokBalanceWorker.Execute(stokBalanceReq);
+                foreach(var item in resultBalance)
+                    _stokBalanceWorker.Execute(item);
 
                 trans.Complete();
             }

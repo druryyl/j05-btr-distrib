@@ -31,11 +31,15 @@ namespace btr.distrib.SharedForm
 
         private void AddStokButton_Click(object sender, System.EventArgs e)
         {
-            var req = new AddStokRequest("BR0001", "G00", 100, "pcs/40", 40000, "TR-001", "ADJUST-PLUS");
-            _addStokWorker.Execute(req);
+            // var req = new AddStokRequest("BR0001", "G00", 100, "pcs/40", 40000, "TR-001", "ADJUST-PLUS");
+            // _addStokWorker.Execute(req);
+            //
+            // var req2 = new AddStokRequest("BR0001", "G00", 70, "pcs/40", 40000, "TR-002", "ADJUST-PLUS");
+            // _addStokWorker.Execute(req2);
 
-            var req2 = new AddStokRequest("BR0001", "G00", 70, "pcs/40", 40000, "TR-002", "ADJUST-PLUS");
-            _addStokWorker.Execute(req2);
+            var req3 = new AddStokRequest("BR0002", "G00", 50, "pcs", 35000, "TR-003", "ADJUST-PLUS");
+            _addStokWorker.Execute(req3);
+            
             MessageBox.Show("Done");
         }
 
@@ -50,7 +54,7 @@ namespace btr.distrib.SharedForm
         }
         private void RollBackButton_Click(object sender, System.EventArgs e)
         {
-            var req = new RollBackStokRequest("BR0001", "G00", "TR-003");
+            var req = new RollBackStokRequest("TR-003");
             _rollBackStokWorker.Execute(req);
             MessageBox.Show("Done");
         }

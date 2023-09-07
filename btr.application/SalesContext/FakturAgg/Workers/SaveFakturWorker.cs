@@ -83,7 +83,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
 
             //  PROSES FAKTUR
             var faktur = SaveFaktur(req);
-            //GenStok(faktur);
+            GenStok(faktur);
 
             //  RESULT
             return faktur;
@@ -135,17 +135,19 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         #region GENERATE-STOK
         private void GenStok(FakturModel faktur)
         {
-            //_rollBackStokWorker.Execute(new StokModel { ReffId = faktur.FakturId});
+            //  rollback dulu (kasus save ulang)
+            _rollBackStokWorker.Execute(new RollBackStokRequest(faktur.FakturId));
+            
             foreach(var item in faktur.ListItem)
             {
                 var brg = _brgBuilder.Load(item).Build();
                 var satuan = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty;
-                GetQtyJual(item, out int qtyJual, out decimal harga);
+                GetQtyJual(item, out var qtyJual, out var harga);
                 var req = new RemoveFifoStokRequest(item.BrgId,
                     faktur.WarehouseId, qtyJual, satuan, harga, faktur.FakturId, "FAKTUR");
                 _removeStokWorker.Execute(req);
 
-                GetQtyBonus(item, out int qtyBonus);
+                GetQtyBonus(item, out var qtyBonus);
                 if (qtyBonus == 0)
                     return;
 
@@ -155,7 +157,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             }
         }
 
-        private void GetQtyJual(FakturItemModel item, out int qtyKecil, out decimal hargaSat)
+        private static void GetQtyJual(FakturItemModel item, out int qtyKecil, out decimal hargaSat)
         {
             var item1= item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 1);
             var item2 = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 2);
@@ -165,12 +167,9 @@ namespace btr.application.SalesContext.FakturAgg.Workers
 
             qtyKecil = qty1 + qty2;
             hargaSat = (item1?.HargaJual ?? 0) / (item1?.Conversion ?? 1);
-
-            var item3 = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 3);
-            var qty3 = (item3?.Qty ?? 0) * (item3?.Conversion ?? 0);
         }
 
-        private void GetQtyBonus(FakturItemModel item, out int qty)
+        private static void GetQtyBonus(FakturItemModel item, out int qty)
         {
             var item3 = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 3);
             qty = (item3?.Qty ?? 0) * (item3?.Conversion ?? 0);

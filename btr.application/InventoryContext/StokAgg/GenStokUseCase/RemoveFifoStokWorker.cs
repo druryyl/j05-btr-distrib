@@ -78,7 +78,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                     .FirstOrDefault(x => x.Qty > 0)
                     ?? throw new ArgumentException($"Stok tidak mencukupi: {brg.BrgName}");
 
-                var pengurang = sisa >= qtyKecil ? qtyKecil : sisa;
+                var pengurang = Math.Min(sisa, stok.Qty);
                 stok = _stokBuilder
                     .Load(stok)
                     .RemoveStok(pengurang, hargaKecil, request.ReffId, request.JenisMutasi)
