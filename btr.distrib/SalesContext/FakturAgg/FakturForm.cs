@@ -52,6 +52,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly ITglJamDal _dateTime;
         private readonly IBrgDal _brgDal;
         private readonly IFakturBuilder _fakturBuilder;
+        private readonly ISaveFakturWorker _saveFakturWorker;
 
         private readonly IFakturPrintDoc _fakturPrintDoc;
 
@@ -70,7 +71,8 @@ namespace btr.distrib.SalesContext.FakturAgg
 ,
             ITglJamDal dateTime,
             IBrgDal brgDal,
-            IFakturBuilder fakturBuilder)
+            IFakturBuilder fakturBuilder,
+            ISaveFakturWorker saveFakturWorker)
         {
             _mediator = mediator;
 
@@ -96,6 +98,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             RegisterEventHandler();
             _brgDal = brgDal;
             _fakturBuilder = fakturBuilder;
+            _saveFakturWorker = saveFakturWorker;
         }
 
         private void RegisterEventHandler()
@@ -506,63 +509,10 @@ namespace btr.distrib.SalesContext.FakturAgg
         #endregion
 
         #region SAVE
-        private async void SaveButton_Click(object sender, EventArgs e)
-        {
-            string result;
-            if (FakturIdText.Text.Length == 0)
-                result = await CreateFakturAsync();
-            else
-                result = await UpdateFakturAsync();
-
-            if (MessageBox.Show(@"Cetak Faktur ?", @"Faktur", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                var response = await _mediator.Send(new GetFakturQuery(result));
-                var faktur = response.Adapt<FakturModel>();
-                _fakturPrintDoc.CreateDoc(faktur);
-                _fakturPrintDoc.PrintDoc();
-            }
-
-            ClearForm();
-            var fakturDb = _fakturBuilder
-                .Load(new FakturModel(result))
-                .Build();
-
-            LastIdLabel.Text = $"{result} - {fakturDb.FakturCode}";
-        }
-        private async Task<string> CreateFakturAsync()
+        private void SaveButton_Click(object sender, EventArgs e)
         {
             var mainform = (MainForm)this.Parent.Parent;
-            var cmd = new CreateFakturCommand
-            {
-                FakturDate = FakturDateText.Value.ToString("yyyy-MM-dd"),
-                CustomerId = CustomerIdText.Text,
-                SalesPersonId = SalesIdText.Text,
-                WarehouseId = WarehouseIdText.Text,
-                RencanaKirimDate = TglRencanaKirimTextBox.Value.ToString("yyyy-MM-dd"),
-                TermOfPayment = TermOfPaymentCombo.SelectedIndex,
-                DueDate = DueDateText.Value.ToString("yyyy-MM-dd"),
-                UserId = mainform.UserId.UserId
-            };
-
-            var listItem = ( 
-                from c in _listItem
-                where c.BrgName.Length > 0
-                select new CreateFakturCommandItem
-                {
-                    BrgId = c.BrgId,
-                    QtyString = c.Qty,
-                    DiscountString = c.Disc,
-                    PpnProsen = c.Ppn,
-                }).ToList();
-            cmd.ListBrg = listItem;
-
-            var response = await _mediator.Send(cmd);
-            return response.FakturId;
-        }
-        private async Task<string> UpdateFakturAsync()
-        {
-            var mainform = (MainForm)this.Parent.Parent;
-            var cmd = new UpdateFakturCommand
+            var cmd = new SaveFakturRequest
             {
                 FakturId = FakturIdText.Text,
                 FakturDate = FakturDateText.Value.ToString("yyyy-MM-dd"),
@@ -578,7 +528,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             var listItem = (
                 from c in _listItem
                 where c.BrgName?.Length > 0
-                select new UpdateFakturCommandItem
+                select new SaveFakturRequestItem
                 {
                     BrgId = c.BrgId,
                     QtyString = c.Qty,
@@ -586,9 +536,14 @@ namespace btr.distrib.SalesContext.FakturAgg
                     PpnProsen = c.Ppn,
                 }).ToList();
             cmd.ListBrg = listItem;
+            var result = _saveFakturWorker.Execute(cmd);
 
-            var response = await _mediator.Send(cmd);
-            return response.FakturId;
+            ClearForm();
+            var fakturDb = _fakturBuilder
+                .Load(result)
+                .Build();
+
+            LastIdLabel.Text = $"{result.FakturId} - {fakturDb.FakturCode}";
         }
         #endregion
     }

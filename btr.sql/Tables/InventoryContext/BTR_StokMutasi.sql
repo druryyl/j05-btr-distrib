@@ -17,3 +17,9 @@ CREATE INDEX IX_BTR_StokMutasi_StokId
     ON BTR_StokMutasi (StokId, StokMutasiId)
     WITH(FILLFACTOR=95)
 GO
+
+
+CREATE INDEX IX_BTR_StokMutasi_ReffId
+    ON BTR_StokMutasi (ReffId, StokMutasiId)
+    WITH(FILLFACTOR=95)
+GO

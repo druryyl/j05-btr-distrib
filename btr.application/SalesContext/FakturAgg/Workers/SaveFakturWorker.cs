@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 
 namespace btr.application.SalesContext.FakturAgg.Workers
 {
-    public class SaveFakturCommand : IFakturKey, ICustomerKey, ISalesPersonKey, IWarehouseKey, IUserKey
+    public class SaveFakturRequest : IFakturKey, ICustomerKey, ISalesPersonKey, IWarehouseKey, IUserKey
     {
         public string FakturId { get; set; }
         public string FakturDate { get; set; }
@@ -31,18 +31,18 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         public int TermOfPayment { get; set; }
         public string DueDate { get; set; }
         public string UserId { get; set; }
-        public IEnumerable<SaveFakturCommandItem> ListBrg { get; set; }
+        public IEnumerable<SaveFakturRequestItem> ListBrg { get; set; }
     }
 
-    public class SaveFakturCommandItem : IBrgKey
+    public class SaveFakturRequestItem : IBrgKey
     {
         public string BrgId { get; set; }
         public string QtyString { get; set; }
         public string DiscountString { get; set; }
         public decimal PpnProsen { get; set; }
     }
-
-    public class SaveFakturWorker : INunaService<FakturModel, SaveFakturCommand>
+    public interface ISaveFakturWorker : INunaService<FakturModel, SaveFakturRequest> { }
+    public class SaveFakturWorker : ISaveFakturWorker
     {
         private readonly IFakturBuilder _fakturBuilder;
         private readonly IFakturWriter _fakturWriter;
@@ -69,7 +69,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             _removeStokWorker = removeStokWorker;
         }
 
-        public FakturModel Execute(SaveFakturCommand req)
+        public FakturModel Execute(SaveFakturRequest req)
         {
             //  GUARD
             Guard.Argument(() => req).NotNull()
@@ -80,25 +80,24 @@ namespace btr.application.SalesContext.FakturAgg.Workers
                 .Member(x => x.DueDate, y => y.ValidDate("yyyy-MM-dd"));
 
             //  PROSES FAKTUR
-            var faktur = SaveFaktur(req, out FakturModel prevState);
-            GenStok(faktur, prevState);
+            var faktur = SaveFaktur(req);
+            //GenStok(faktur);
 
             //  RESULT
             return faktur;
         }
-        private FakturModel SaveFaktur(SaveFakturCommand req, out FakturModel prevState)
+        private FakturModel SaveFaktur(SaveFakturRequest req)
         {
             //  BUILD
             FakturModel result;
             if (req.FakturId.Length == 0)
             {
                 result = _fakturBuilder.CreateNew(req).Build();
-                prevState = result;
             }
             else
             {
                 result = _fakturBuilder.Load(req).Build();
-                prevState = null;
+                result.ListItem.Clear();
             }
 
             result = _fakturBuilder
@@ -135,14 +134,19 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             _rollBackStokWorker.Execute(new StokModel { ReffId = faktur.FakturId});
             foreach(var item in faktur.ListItem)
             {
+                var brg = _brgBuilder.Load(item).Build();
+                var satuan = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty;
                 GetQtyJual(item, out int qtyJual, out decimal harga);
                 var req = new RemoveStokRequest(item.BrgId,
-                    faktur.WarehouseId, qtyJual, string.Empty, harga, faktur.FakturId, "FAKTUR");
+                    faktur.WarehouseId, qtyJual, satuan, harga, faktur.FakturId, "FAKTUR");
                 _removeStokWorker.Execute(req);
 
                 GetQtyBonus(item, out int qtyBonus);
+                if (qtyBonus == 0)
+                    return;
+
                 var reqBonus = new RemoveStokRequest(item.BrgId,
-                    faktur.WarehouseId, qtyBonus, string.Empty, 0, faktur.FakturId, "FAKTUR-BONUS");
+                    faktur.WarehouseId, qtyBonus, satuan, 0, faktur.FakturId, "FAKTUR-BONUS");
                 _removeStokWorker.Execute(reqBonus);
             }
         }

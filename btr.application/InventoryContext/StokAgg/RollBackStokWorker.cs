@@ -37,10 +37,10 @@ namespace btr.application.InventoryContext.StokAgg.UseCases
             if (reffKey.ReffId == string.Empty)
                 return true;
 
-            var listStokMutasi = _stokMutasiDal.ListData(reffKey);
+            var listStokMutasi = _stokMutasiDal.ListData(reffKey)?.ToList();
             if (listStokMutasi is null)
                 return true;
-
+            listStokMutasi.RemoveAll(x => x.JenisMutasi == "ROLLBACK");
             foreach(var item in listStokMutasi)
             {
                 var stok = _stokBuilder.Load(item).Build();

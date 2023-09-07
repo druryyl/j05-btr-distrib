@@ -78,5 +78,24 @@ namespace btr.infrastructure.InventoryContext.StokAgg
                 return conn.Read<StokMutasiModel>(sql, dp);
             }
         }
+
+        public IEnumerable<StokMutasiModel> ListData(IReffKey reffKey)
+        {
+            const string sql = @"
+            SELECT
+                StokId, StokMutasiId, ReffId, NoUrut, 
+                JenisMutasi, MutasiDate, QtyIn, QtyOut, HargaJual
+            FROM 
+                BTR_StokMutasi aa
+            WHERE
+                aa.ReffId = @ReffId ";
+            var dp = new DynamicParameters();
+            dp.AddParam("@ReffId", reffKey.ReffId, SqlDbType.VarChar);
+
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                return conn.Read<StokMutasiModel>(sql, dp);
+            }
+        }
     }
 }
