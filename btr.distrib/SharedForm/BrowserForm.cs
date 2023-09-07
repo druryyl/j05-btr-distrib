@@ -1,7 +1,5 @@
-﻿using btr.distrib.Browsers;
-using btr.nuna.Domain;
+﻿using btr.nuna.Domain;
 using System;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;

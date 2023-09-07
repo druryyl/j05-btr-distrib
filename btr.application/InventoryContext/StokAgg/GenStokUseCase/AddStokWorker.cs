@@ -8,7 +8,7 @@ using btr.domain.InventoryContext.WarehouseAgg;
 using btr.nuna.Application;
 using Dawn;
 
-namespace btr.application.InventoryContext.StokAgg
+namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
 {
     public class AddStokRequest : IBrgKey, IWarehouseKey
     {

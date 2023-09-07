@@ -1,14 +1,12 @@
-﻿using btr.application.InventoryContext.StokAgg.GenStokUseCase;
+﻿using System.Collections.Generic;
+using System.Linq;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.StokAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.nuna.Application;
 using Dawn;
-using Mapster;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace btr.application.InventoryContext.StokAgg.UseCases
+namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
 {
     public class RollBackStokRequest : IBrgKey, IReffKey, IWarehouseKey
     {

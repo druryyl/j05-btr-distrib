@@ -1,4 +1,4 @@
-﻿namespace btr.distrib.SalesContext.UserAgg
+﻿namespace btr.distrib.SharedForm
 {
     partial class UserForm
     {

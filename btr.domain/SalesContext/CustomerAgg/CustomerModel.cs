@@ -1,6 +1,5 @@
 ﻿using btr.domain.BrgContext.HargaTypeAgg;
 using btr.domain.SalesContext.KlasifikasiAgg;
-using btr.domain.SalesContext.SalesPersonAgg;
 using btr.domain.SalesContext.WilayahAgg;
 
 namespace btr.domain.SalesContext.CustomerAgg

@@ -8,7 +8,7 @@ using btr.nuna.Infrastructure;
 using Dapper;
 using Microsoft.Extensions.Options;
 
-namespace btr.infrastructure.SalesContext.UserAgg
+namespace btr.infrastructure.SupportContext.UserAgg
 {
     public class UserDal : IUserDal
     {

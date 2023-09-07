@@ -1,7 +1,4 @@
-﻿using btr.application.BrgContext.BrgAgg;
-using btr.domain.BrgContext.BrgAgg;
-using btr.nuna.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 

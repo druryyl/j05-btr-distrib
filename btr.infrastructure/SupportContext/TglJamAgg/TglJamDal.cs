@@ -2,11 +2,7 @@
 using btr.infrastructure.Helpers;
 using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace btr.infrastructure.SupportContext.TglJamAgg
 {

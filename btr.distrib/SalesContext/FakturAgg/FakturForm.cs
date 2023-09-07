@@ -2,9 +2,7 @@
 using btr.distrib.Browsers;
 using btr.distrib.PrintDocs;
 using btr.distrib.SharedForm;
-using btr.domain.SalesContext.FakturAgg;
 using btr.nuna.Domain;
-using Mapster;
 using MediatR;
 using Polly;
 using System;
@@ -27,7 +25,6 @@ using btr.application.InventoryContext.StokBalanceAgg;
 using btr.application.InventoryContext.WarehouseAgg;
 using btr.domain.InventoryContext.StokBalanceAgg;
 using btr.application.SupportContext.TglJamAgg;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using TextBox = System.Windows.Forms.TextBox;
 using btr.application.SalesContext.FakturAgg.Workers;
 

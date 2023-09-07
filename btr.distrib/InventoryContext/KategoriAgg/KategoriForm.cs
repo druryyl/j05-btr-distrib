@@ -6,7 +6,6 @@ using btr.domain.BrgContext.KategoriAgg;
 using btr.nuna.Domain;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;

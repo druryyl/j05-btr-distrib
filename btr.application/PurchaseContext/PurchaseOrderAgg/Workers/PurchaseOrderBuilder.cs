@@ -11,7 +11,6 @@ using btr.domain.PurchaseContext.PurchaseOrderAgg;
 using btr.domain.PurchaseContext.SupplierAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
-using FluentValidation;
 
 namespace btr.application.PurchaseContext.PurchaseOrderAgg.Workers
 {

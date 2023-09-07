@@ -1,13 +1,7 @@
 ﻿using btr.application.SalesContext.CustomerAgg.Contracts;
-using btr.domain.BrgContext.BrgAgg;
 using btr.domain.SalesContext.CustomerAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace btr.application.SalesContext.CustomerAgg.Workers
 {

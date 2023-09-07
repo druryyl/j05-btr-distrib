@@ -1,6 +1,4 @@
-﻿using btr.application.PurchaseContext.SupplierAgg.Contracts;
-using btr.distrib.SharedForm;
-using btr.domain.PurchaseContext.SupplierAgg;
+﻿using btr.distrib.SharedForm;
 using btr.nuna.Domain;
 using System.Collections.Generic;
 using System.Linq;

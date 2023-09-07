@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace btr.domain.BrgContext.BrgStokViewAgg
+﻿namespace btr.domain.BrgContext.BrgStokViewAgg
 {
     public class BrgStokViewModel
     {

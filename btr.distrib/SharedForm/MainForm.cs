@@ -8,7 +8,6 @@ using btr.distrib.PurchaseContext.SupplierAgg;
 using btr.distrib.SalesContext.CustomerAgg;
 using btr.distrib.SalesContext.FakturAgg;
 using btr.distrib.SalesContext.SalesPersonAgg;
-using btr.distrib.SalesContext.UserAgg;
 using btr.distrib.SalesContext.WilayahAgg;
 using btr.domain.SupportContext.UserAgg;
 using btr.infrastructure.Helpers;

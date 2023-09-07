@@ -3,12 +3,8 @@ using btr.domain.SupportContext.PlaygroundAgg;
 using btr.infrastructure.Helpers;
 using btr.nuna.Infrastructure;
 using Microsoft.Extensions.Options;
-using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace btr.infrastructure.SupportContext.PlaygroundAgg
 {

@@ -10,9 +10,11 @@ using Dawn;
 
 namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
 {
-    public class RemoveFifoStokRequest : IBrgKey, IWarehouseKey
+    public class RemovePriorityStokRequest : IBrgKey, IWarehouseKey
     {
-        public RemoveFifoStokRequest(string brgId, string warehouseId, int qty, string satuan, decimal hargaJual, string reffId, string jenisMutasi)
+        public RemovePriorityStokRequest(string brgId, string warehouseId, 
+            int qty, string satuan, decimal hargaJual, string reffId, 
+            string jenisMutasi, string priorityReffId)
         {
             BrgId = brgId;
             WarehouseId = warehouseId;
@@ -21,6 +23,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
             HargaJual = hargaJual;
             ReffId = reffId;
             JenisMutasi = jenisMutasi;
+            PriorityReffId = priorityReffId;
         }
         public string BrgId { get; set; }
         public string WarehouseId { get; set; }
@@ -29,11 +32,12 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
         public decimal HargaJual { get; set; }
         public string ReffId { get; set; }
         public string JenisMutasi { get; set; }
+        public string PriorityReffId { get; }
     }
 
-    public interface IRemoveFifoStokWorker : INunaServiceVoid<RemoveFifoStokRequest>
+    public interface IRemovePriorityStokWorker : INunaServiceVoid<RemovePriorityStokRequest>
     { }
-    public class RemoveFifoStokWorker : IRemoveFifoStokWorker
+    public class RemovePriorityStokWorker : IRemovePriorityStokWorker
     {
         private readonly IStokDal _stokDal;
         private readonly IStokBuilder _stokBuilder;
@@ -41,7 +45,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
         private readonly IBrgBuilder _brgBuilder;
         private readonly IGenStokBalanceWorker _stokBalanceWorker;
 
-        public RemoveFifoStokWorker(IStokBuilder builder,
+        public RemovePriorityStokWorker(IStokBuilder builder,
             IStokDal stokDal,
             IStokWriter writer, IBrgBuilder brgBuilder,
             IGenStokBalanceWorker stokBalanceWorker)
@@ -53,7 +57,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
             _stokBalanceWorker = stokBalanceWorker;
         }
 
-        public void Execute(RemoveFifoStokRequest request)
+        public void Execute(RemovePriorityStokRequest request)
         {
             //  GUARD
             Guard.Argument(() => request).NotNull()
@@ -63,18 +67,23 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                 .Member(x => x.Satuan, y => y.NotEmpty());
 
             //  BUILD
-            var konversi = GetKonversi(request, request.Satuan, out BrgModel brg);
+            var konversi = GetKonversi(request, request.Satuan, out var brg);
             var qtyKecil = request.Qty * konversi;
             var hargaKecil = request.HargaJual / konversi;
 
-            var listStok = _stokDal.ListData(request, request)?.ToList()
+            var listStokAll = _stokDal.ListData(request, request)?.ToList()
                 ?? throw new KeyNotFoundException("Stok not found");
+            //      reff-id yang diprioritaskan taro di atas
+            var listStok = listStokAll.Where(x => x.ReffId == request.PriorityReffId).ToList();
+            listStok.AddRange(listStokAll
+                .Where(x => x.ReffId != request.PriorityReffId)
+                .OrderBy(y => y.StokDate));
+                
             int sisa = qtyKecil;
             var listMovingStok = new List<StokModel>();
             while (sisa > 0)
             {
                 var stok = listStok
-                    .OrderBy(x => x.StokId)
                     .FirstOrDefault(x => x.Qty > 0)
                     ?? throw new ArgumentException($"Stok tidak mencukupi: {brg.BrgName}");
 

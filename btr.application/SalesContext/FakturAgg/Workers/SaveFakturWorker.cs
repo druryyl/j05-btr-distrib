@@ -2,7 +2,6 @@
 using btr.application.InventoryContext.StokAgg;
 using btr.application.InventoryContext.StokAgg.UseCases;
 using btr.domain.BrgContext.BrgAgg;
-using btr.domain.InventoryContext.StokAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.FakturAgg;
@@ -14,6 +13,7 @@ using Dawn;
 using MediatR;
 using System.Collections.Generic;
 using System.Linq;
+using btr.application.InventoryContext.StokAgg.GenStokUseCase;
 
 namespace btr.application.SalesContext.FakturAgg.Workers
 {

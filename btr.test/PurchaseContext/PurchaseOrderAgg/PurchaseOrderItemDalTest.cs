@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using btr.domain.PurchaseContext.PurchaseOrderAgg;
 using btr.infrastructure.PurchaseContext.PurchaseOrderAgg;
 using btr.nuna.Application;
-using btr.nuna.Domain;
 using btr.test.Helpers;
 using FluentAssertions;
 using Microsoft.Extensions.Options;

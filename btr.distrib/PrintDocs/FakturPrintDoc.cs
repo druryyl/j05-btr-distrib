@@ -4,7 +4,6 @@ using btr.infrastructure.Helpers;
 using MediatR;
 using Microsoft.Extensions.Options;
 using System;
-using System.IO;
 using System.Linq;
 using btr.nuna.Domain;
 using System.Drawing.Printing;

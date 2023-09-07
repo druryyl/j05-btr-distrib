@@ -35,6 +35,7 @@ namespace btr.distrib.SharedForm
             this.PrgBar = new System.Windows.Forms.ProgressBar();
             this.RemoveFifoButton = new System.Windows.Forms.Button();
             this.RollBackButton = new System.Windows.Forms.Button();
+            this.RemovePriorityButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // AddStokButton
@@ -71,11 +72,21 @@ namespace btr.distrib.SharedForm
             this.RollBackButton.Text = "RollBack";
             this.RollBackButton.UseVisualStyleBackColor = true;
             // 
+            // RemovePriorityButton
+            // 
+            this.RemovePriorityButton.Location = new System.Drawing.Point(93, 41);
+            this.RemovePriorityButton.Name = "RemovePriorityButton";
+            this.RemovePriorityButton.Size = new System.Drawing.Size(96, 23);
+            this.RemovePriorityButton.TabIndex = 4;
+            this.RemovePriorityButton.Text = "Remove Priority";
+            this.RemovePriorityButton.UseVisualStyleBackColor = true;
+            // 
             // TestPlayground
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(299, 134);
+            this.Controls.Add(this.RemovePriorityButton);
             this.Controls.Add(this.RollBackButton);
             this.Controls.Add(this.RemoveFifoButton);
             this.Controls.Add(this.PrgBar);
@@ -83,8 +94,9 @@ namespace btr.distrib.SharedForm
             this.Name = "TestPlayground";
             this.Text = "TestPlayground";
             this.ResumeLayout(false);
-
         }
+
+        private System.Windows.Forms.Button RemovePriorityButton;
 
         #endregion
 

@@ -1,6 +1,8 @@
-﻿using btr.application.InventoryContext.StokAgg;
+﻿using System;
+using btr.application.InventoryContext.StokAgg;
 using btr.application.InventoryContext.StokAgg.UseCases;
 using System.Windows.Forms;
+using btr.application.InventoryContext.StokAgg.GenStokUseCase;
 
 namespace btr.distrib.SharedForm
 {
@@ -9,20 +11,23 @@ namespace btr.distrib.SharedForm
         private readonly IAddStokWorker _addStokWorker;
         private readonly IRemoveFifoStokWorker _removeFifoStokWorker;
         private readonly IRollBackStokWorker _rollBackStokWorker;
-
+        private readonly IRemovePriorityStokWorker _removePriorityStokWorker;
         public TestPlayground(IAddStokWorker addStokWorker,
             IRemoveFifoStokWorker removeFifoStokWorker,
-            IRollBackStokWorker rollBackStokWorker)
+            IRollBackStokWorker rollBackStokWorker, 
+            IRemovePriorityStokWorker removePriorityStokWorker)
         {
             InitializeComponent();
             AddStokButton.Click += AddStokButton_Click;
             RemoveFifoButton.Click += RemoveFifo_Click;
             RollBackButton.Click += RollBackButton_Click;
-
+            RemovePriorityButton.Click += RemovePriorityButtonOnClick;
             _addStokWorker = addStokWorker;
             _removeFifoStokWorker = removeFifoStokWorker;
             _rollBackStokWorker = rollBackStokWorker;
+            _removePriorityStokWorker = removePriorityStokWorker;
         }
+
 
         private void AddStokButton_Click(object sender, System.EventArgs e)
         {
@@ -39,8 +44,8 @@ namespace btr.distrib.SharedForm
             var req = new RemoveFifoStokRequest("BR0001", "G00", 55, "pcs/40", 45000, "TR-003", "ADJUST-MIN");
             _removeFifoStokWorker.Execute(req);
 
-            var req2 = new RemoveFifoStokRequest("BR0001", "G00", 80, "pcs/40", 45000, "TR-004", "ADJUST-MIN");
-            _removeFifoStokWorker.Execute(req2);
+            // var req2 = new RemoveFifoStokRequest("BR0001", "G00", 80, "pcs/40", 45000, "TR-004", "ADJUST-MIN");
+            // _removeFifoStokWorker.Execute(req2);
             MessageBox.Show("Done");
         }
         private void RollBackButton_Click(object sender, System.EventArgs e)
@@ -50,6 +55,11 @@ namespace btr.distrib.SharedForm
             MessageBox.Show("Done");
         }
 
-
+        private void RemovePriorityButtonOnClick(object sender, EventArgs e)
+        {
+            var req = new RemovePriorityStokRequest("BR0001", "G00", 55, "pcs/40", 45000, "TR-003", "ADJUST-MIN", "TR-002");
+            _removePriorityStokWorker.Execute(req);
+            MessageBox.Show("Done");
+        }
     }
 }

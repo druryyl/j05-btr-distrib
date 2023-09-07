@@ -1,10 +1,9 @@
-﻿using btr.distrib.Browsers;
-using btr.nuna.Domain;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using btr.distrib.Helpers;
+using btr.nuna.Domain;
 
-namespace btr.distrib.SharedForm
+namespace btr.distrib.Browsers
 {
     public interface IQueryBrowser<TResult>
     {

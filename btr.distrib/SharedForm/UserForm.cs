@@ -1,16 +1,14 @@
-﻿using btr.distrib.Helpers;
-using btr.nuna.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using btr.application.SupportContext.UserAgg;
+using btr.distrib.Helpers;
 using btr.domain.SupportContext.UserAgg;
 using Polly;
 
-namespace btr.distrib.SalesContext.UserAgg
+namespace btr.distrib.SharedForm
 {
     public partial class UserForm : Form
     {
