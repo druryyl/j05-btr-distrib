@@ -91,11 +91,9 @@
     <Compile Include="InventoryContext\OpnameAgg\OpnameBuilder.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameValidator.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameWriter.cs" />
-    <Compile Include="InventoryContext\StokAgg\AddStokCommand.cs" />
     <Compile Include="InventoryContext\StokAgg\AddStokWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\IStokDal.cs" />
     <Compile Include="InventoryContext\StokAgg\IStokMutasiDal.cs" />
-    <Compile Include="InventoryContext\StokAgg\RemoveStokCommand.cs" />
     <Compile Include="InventoryContext\StokAgg\RemoveStokWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\StokBuilder.cs" />
     <Compile Include="InventoryContext\StokAgg\StokValidator.cs" />
@@ -133,10 +131,8 @@
     <Compile Include="SalesContext\FakturAgg\Contracts\IFakturDiscountDal.cs" />
     <Compile Include="SalesContext\FakturAgg\Contracts\IFakturItemDal.cs" />
     <Compile Include="SalesContext\FakturAgg\Contracts\IFakturQtyHargaDal.cs" />
-    <Compile Include="SalesContext\FakturAgg\UseCases\CreateFakturCommand.cs" />
     <Compile Include="SalesContext\FakturAgg\UseCases\GetFakturQuery.cs" />
     <Compile Include="SalesContext\FakturAgg\UseCases\ListFakturQuery.cs" />
-    <Compile Include="SalesContext\FakturAgg\UseCases\UpdateFakturCommand.cs" />
     <Compile Include="SalesContext\FakturAgg\Workers\FakturBuilder.cs" />
     <Compile Include="SalesContext\FakturAgg\Workers\FakturValidator.cs" />
     <Compile Include="SalesContext\FakturAgg\Workers\FakturWriter.cs" />
@@ -153,8 +149,7 @@
     <Compile Include="SalesContext\WilayahAgg\IWilayahDal.cs" />
     <Compile Include="SalesContext\WilayahAgg\WilayahBuilder.cs" />
     <Compile Include="SalesContext\WilayahAgg\WilayahWriter.cs" />
-    <Compile Include="SupportContext\DocAgg\CreateDocOnCreatedFakturEventHandler.cs" />
-    <Compile Include="SupportContext\DocAgg\CreateUpdateDocOnUpdatedFakturEventHandler.cs" />
+    <Compile Include="SupportContext\DocAgg\CreateDocOnSavedFakturEventHandler.cs" />
     <Compile Include="SupportContext\DocAgg\DocBuilder.cs" />
     <Compile Include="SupportContext\DocAgg\DocValidator.cs" />
     <Compile Include="SupportContext\DocAgg\DocWriter.cs" />

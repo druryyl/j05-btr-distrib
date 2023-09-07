@@ -1,30 +1,27 @@
-﻿using btr.application.SalesContext.FakturAgg.UseCases;
-using btr.domain.InventoryContext.WarehouseAgg;
+﻿using btr.domain.InventoryContext.WarehouseAgg;
 using MediatR;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using btr.domain.SupportContext.DocAgg;
+using btr.application.SalesContext.FakturAgg.Workers;
 
 namespace btr.application.SupportContext.DocAgg
 {
-    public class CreateUpdateDocOnCreatedFakturEventHandler : INotificationHandler<UpdatedFakturEvent>
+    public class CreateDocOnSavedFakturEventHandler : INotificationHandler<SavedFakturEvent>
     {
         private DocModel _aggregate;
         private readonly IDocBuilder _builder;
         private readonly IDocWriter _writer;
 
-        public CreateUpdateDocOnCreatedFakturEventHandler(IDocBuilder builder,
+        public CreateDocOnSavedFakturEventHandler(IDocBuilder builder, 
             IDocWriter writer)
         {
             _builder = builder;
             _writer = writer;
         }
 
-        public Task Handle(UpdatedFakturEvent notification, CancellationToken cancellationToken)
+        public Task Handle(SavedFakturEvent notification, CancellationToken cancellationToken)
         {
             //  BUILD
             _aggregate = _builder
@@ -39,7 +36,6 @@ namespace btr.application.SupportContext.DocAgg
 
             //  RETURN
             return Task.CompletedTask;
-
         }
     }
 }

@@ -84,18 +84,18 @@ namespace btr.distrib.SharedForm
             var qtyAdjust = opname.Qty2Adjust * opname.Conversion2;
             qtyAdjust += opname.Qty1Adjust;
 
-            if (qtyAdjust > 0)
-            {
-                var cmd = new AddStokCommand(opname.BrgId, opname.WarehouseId,
-                    qtyAdjust, opname.Satuan1, opname.Nilai, opname.OpnameId, "OPNAME");
-                await _mediator.Send(cmd);
-            }
-            else
-            {
-                var cmd = new RemoveStokCommand(opname.BrgId, opname.WarehouseId,
-                    -qtyAdjust, opname.Satuan1, 0, opname.OpnameId, "OPNAME");
-                await _mediator.Send(cmd);
-            }
+            //if (qtyAdjust > 0)
+            //{
+            //    var cmd = new AddStokCommand(opname.BrgId, opname.WarehouseId,
+            //        qtyAdjust, opname.Satuan1, opname.Nilai, opname.OpnameId, "OPNAME");
+            //    await _mediator.Send(cmd);
+            //}
+            //else
+            //{
+            //    var cmd = new RemoveStokCommand(opname.BrgId, opname.WarehouseId,
+            //        -qtyAdjust, opname.Satuan1, 0, opname.OpnameId, "OPNAME");
+            //    await _mediator.Send(cmd);
+            //}
         }
     }
 }

@@ -12,11 +12,8 @@ using btr.nuna.Application;
 using btr.nuna.Domain;
 using Dawn;
 using MediatR;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace btr.application.SalesContext.FakturAgg.Workers
 {
@@ -41,7 +38,9 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         public string DiscountString { get; set; }
         public decimal PpnProsen { get; set; }
     }
+
     public interface ISaveFakturWorker : INunaService<FakturModel, SaveFakturRequest> { }
+
     public class SaveFakturWorker : ISaveFakturWorker
     {
         private readonly IFakturBuilder _fakturBuilder;
@@ -51,6 +50,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         private readonly IRollBackStokWorker _rollBackStokWorker;
         private readonly IBrgBuilder _brgBuilder;
         private readonly IRemoveStokWorker _removeStokWorker;
+        private readonly IMediator _mediator;
 
         public SaveFakturWorker(IFakturBuilder fakturBuilder,
             IFakturWriter fakturWriter,
@@ -58,7 +58,8 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             IStokMutasiDal stokMutasiDal,
             IRollBackStokWorker rollBackStokWorker,
             IBrgBuilder brgBuilder,
-            IRemoveStokWorker removeStokWorker)
+            IRemoveStokWorker removeStokWorker,
+            IMediator mediator)
         {
             _fakturBuilder = fakturBuilder;
             _fakturWriter = fakturWriter;
@@ -67,6 +68,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             _rollBackStokWorker = rollBackStokWorker;
             _brgBuilder = brgBuilder;
             _removeStokWorker = removeStokWorker;
+            _mediator = mediator;
         }
 
         public FakturModel Execute(SaveFakturRequest req)
@@ -126,9 +128,11 @@ namespace btr.application.SalesContext.FakturAgg.Workers
 
             //  APPLY
             _fakturWriter.Save(ref result);
+            _mediator.Publish(new SavedFakturEvent(req, result));
             return result;
         }
 
+        #region GENERATE-STOK
         private void GenStok(FakturModel faktur)
         {
             _rollBackStokWorker.Execute(new StokModel { ReffId = faktur.FakturId});
@@ -171,5 +175,17 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             var item3 = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 3);
             qty = (item3?.Qty ?? 0) * (item3?.Conversion ?? 0);
         }
+        #endregion
+    }
+
+    public class SavedFakturEvent : INotification
+    {
+        public SavedFakturEvent(SaveFakturRequest request, FakturModel aggregate)
+        {
+            Request = request;
+            Aggregate = aggregate;
+        }
+        public SaveFakturRequest Request { get; }
+        public FakturModel Aggregate { get; }
     }
 }
