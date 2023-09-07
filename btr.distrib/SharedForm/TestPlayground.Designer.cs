@@ -34,6 +34,7 @@ namespace btr.distrib.SharedForm
             this.AddStokButton = new System.Windows.Forms.Button();
             this.PrgBar = new System.Windows.Forms.ProgressBar();
             this.RemoveFifoButton = new System.Windows.Forms.Button();
+            this.RollBackButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // AddStokButton
@@ -52,20 +53,30 @@ namespace btr.distrib.SharedForm
             this.PrgBar.Size = new System.Drawing.Size(267, 23);
             this.PrgBar.TabIndex = 1;
             // 
-            // button1
+            // RemoveFifoButton
             // 
             this.RemoveFifoButton.Location = new System.Drawing.Point(93, 12);
-            this.RemoveFifoButton.Name = "button1";
+            this.RemoveFifoButton.Name = "RemoveFifoButton";
             this.RemoveFifoButton.Size = new System.Drawing.Size(96, 23);
             this.RemoveFifoButton.TabIndex = 2;
             this.RemoveFifoButton.Text = "Remove FIFO";
             this.RemoveFifoButton.UseVisualStyleBackColor = true;
             // 
+            // RollBackButton
+            // 
+            this.RollBackButton.Location = new System.Drawing.Point(195, 12);
+            this.RollBackButton.Name = "RollBackButton";
+            this.RollBackButton.Size = new System.Drawing.Size(96, 23);
+            this.RollBackButton.TabIndex = 3;
+            this.RollBackButton.Text = "RollBack";
+            this.RollBackButton.UseVisualStyleBackColor = true;
+            // 
             // TestPlayground
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(291, 134);
+            this.ClientSize = new System.Drawing.Size(299, 134);
+            this.Controls.Add(this.RollBackButton);
             this.Controls.Add(this.RemoveFifoButton);
             this.Controls.Add(this.PrgBar);
             this.Controls.Add(this.AddStokButton);
@@ -80,5 +91,6 @@ namespace btr.distrib.SharedForm
         private System.Windows.Forms.Button AddStokButton;
         private System.Windows.Forms.ProgressBar PrgBar;
         private System.Windows.Forms.Button RemoveFifoButton;
+        private System.Windows.Forms.Button RollBackButton;
     }
 }

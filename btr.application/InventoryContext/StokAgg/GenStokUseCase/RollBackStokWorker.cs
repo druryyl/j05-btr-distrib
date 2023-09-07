@@ -1,14 +1,31 @@
-﻿using btr.domain.InventoryContext.StokAgg;
+﻿using btr.application.InventoryContext.StokAgg.GenStokUseCase;
+using btr.domain.BrgContext.BrgAgg;
+using btr.domain.InventoryContext.StokAgg;
+using btr.domain.InventoryContext.WarehouseAgg;
 using btr.nuna.Application;
-using System;
+using Dawn;
+using Mapster;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace btr.application.InventoryContext.StokAgg.UseCases
 {
-    public interface IRollBackStokWorker : INunaService<bool, IReffKey>
+    public class RollBackStokRequest : IBrgKey, IReffKey, IWarehouseKey
+    {
+        public RollBackStokRequest(string brgId, string warehouseId,
+            string reffId)
+        {
+            BrgId = brgId;
+            WarehouseId = warehouseId;
+            ReffId = reffId;
+        }
+
+        public string BrgId { get; set; }
+        public string ReffId { get; set; }
+        public string WarehouseId { get; set; }
+    }
+
+    public interface IRollBackStokWorker : INunaServiceVoid<RollBackStokRequest>
     {
     }
 
@@ -17,65 +34,59 @@ namespace btr.application.InventoryContext.StokAgg.UseCases
         private readonly IStokMutasiDal _stokMutasiDal;
         private readonly IStokBuilder _stokBuilder;
         private readonly IStokWriter _stokWriter;
-        private readonly IRemoveFifoStokWorker _removeStokWorker;
+        private readonly IGenStokBalanceWorker _stokBalanceWorker;
 
         public RollBackStokWorker(IStokMutasiDal stokMutasiDal,
             IStokBuilder stokBuilder,
             IStokWriter stokWriter,
-            IRemoveFifoStokWorker removeStokWorker)
+            IGenStokBalanceWorker genStokBalanceWorker)
         {
             _stokMutasiDal = stokMutasiDal;
             _stokBuilder = stokBuilder;
             _stokWriter = stokWriter;
-            _removeStokWorker = removeStokWorker;
+            _stokBalanceWorker = genStokBalanceWorker;
         }
 
-        public bool Execute(IReffKey reffKey)
+        public void Execute(RollBackStokRequest request)
         {
-            if (reffKey is null)
-                return true;
-            if (reffKey.ReffId == string.Empty)
-                return true;
+            //  GUARD
+            Guard.Argument(() => request).NotNull()
+                .Member(x => x.ReffId, y => y.NotEmpty());
 
-            var listStokMutasi = _stokMutasiDal.ListData(reffKey)?.ToList();
+            //  BUILD
+            var listStokMutasi = _stokMutasiDal.ListData(request)?.ToList();
             if (listStokMutasi is null)
-                return true;
-            listStokMutasi.RemoveAll(x => x.JenisMutasi == "ROLLBACK");
+                return;
+
+            //      rollback hanya untuk pembatalan stok keluar
+            listStokMutasi.RemoveAll(x => x.QtyOut == 0);
+            var result = new List<StokModel>();
             foreach(var item in listStokMutasi)
             {
                 var stok = _stokBuilder.Load(item).Build();
-                //  jika stok keluar, maka masukan
-                if (item.QtyOut > 0)
-                    AddStok(stok, item);
-                else
-                    RemoveStok(stok, item);
+                if (stok.BrgId != request.BrgId)
+                    continue;
+                if (stok.WarehouseId != request.WarehouseId)
+                    continue;
+
+                stok = _stokBuilder
+                    .Attach(stok)
+                    .RollBack(request)
+                    .Build();
+                result.Add(stok);
             }
-            return true;
+
+            //  WRITE
+            using (var trans = TransHelper.NewScope())
+            {
+                foreach(var item in result)
+                    _ = _stokWriter.Save(item);
+                
+                var stokBalanceReq = new GenStokBalanceRequest(request.BrgId, request.WarehouseId);
+                _stokBalanceWorker.Execute(stokBalanceReq);
+
+                trans.Complete();
+            }
         }
-
-        private void AddStok(StokModel stok, StokMutasiModel item)
-        {
-            var addedStok = _stokBuilder
-                .Create(stok, stok, item.QtyOut, stok.NilaiPersediaan, item.ReffId, "ROLLBACK")
-                .Build();
-            _stokWriter.Save(ref addedStok);
-        }
-
-        private void RemoveStok(StokModel stok, StokMutasiModel item)
-        {
-            
-            //  pertama remove sisa stok dirinya dulu
-            var removedStok = _stokBuilder
-                .Load(stok)
-                .RemoveStok(stok.Qty, stok.NilaiPersediaan, item.ReffId, "ROLLBACK")
-                .Build();
-            _stokWriter.Save(ref removedStok);
-
-            var qtyToBeRemovedInOtherStok = item.QtyIn - stok.Qty;
-            var removeStokWorker = new RemoveFifoStokRequest(stok.BrgId, stok.WarehouseId,
-                qtyToBeRemovedInOtherStok, "", stok.NilaiPersediaan,item.ReffId, "ROLLBACK");
-            _removeStokWorker.Execute(removeStokWorker);
-        }
-
     }
 }

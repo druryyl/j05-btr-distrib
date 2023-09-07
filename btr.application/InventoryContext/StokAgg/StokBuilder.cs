@@ -16,7 +16,9 @@ namespace btr.application.InventoryContext.StokAgg
         IStokBuilder Create(IBrgKey brgKey, IWarehouseKey warehouseKey, 
             int qty, decimal nilai, string reffId, string jenisMutasi);
         IStokBuilder Load(IStokKey stokKey);
+        IStokBuilder Attach(StokModel stok);
         IStokBuilder RemoveStok(int qty, decimal hargaJual, string reffId, string jenisMutasi);
+        IStokBuilder RollBack(IReffKey reffKey);
     }
     
     public class StokBuilder : IStokBuilder
@@ -108,6 +110,19 @@ namespace btr.application.InventoryContext.StokAgg
             };
             _agg.Qty -= qty;
             _agg.ListMutasi.Add(newMutasi);
+            return this;
+        }
+
+        public IStokBuilder RollBack(IReffKey reffKey)
+        {
+            _agg.ListMutasi.RemoveAll(x => x.ReffId == reffKey.ReffId);
+            _agg.Qty = _agg.ListMutasi.Sum(x => x.QtyIn -  x.QtyOut);
+            return this;
+        }
+
+        public IStokBuilder Attach(StokModel stok)
+        {
+            _agg = stok;
             return this;
         }
     }

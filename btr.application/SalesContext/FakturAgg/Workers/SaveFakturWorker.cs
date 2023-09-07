@@ -135,7 +135,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         #region GENERATE-STOK
         private void GenStok(FakturModel faktur)
         {
-            _rollBackStokWorker.Execute(new StokModel { ReffId = faktur.FakturId});
+            //_rollBackStokWorker.Execute(new StokModel { ReffId = faktur.FakturId});
             foreach(var item in faktur.ListItem)
             {
                 var brg = _brgBuilder.Load(item).Build();

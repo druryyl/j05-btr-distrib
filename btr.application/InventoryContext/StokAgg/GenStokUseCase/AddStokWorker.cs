@@ -77,7 +77,7 @@ namespace btr.application.InventoryContext.StokAgg
                 .Build();
 
             //  WRITE
-            _writer.Save(ref _aggregate);
+            _writer.Save(_aggregate);
 
             //      stok balance
             var listStok = _stokDal.ListData(request, request) ??

@@ -94,17 +94,17 @@ namespace btr.application.InventoryContext.StokAgg
             //  WRITE
             using (var trans = TransHelper.NewScope())
             {
+                //  stok
                 foreach (var item in listMovingStok)
-                {
-                    var anItem = item;
-                    _stokWriter.Save(ref anItem);
-                }
+                    _stokWriter.Save(item);
+
+                //  stok balance
+                var stokBalanceReq = new GenStokBalanceRequest(request.BrgId, request.WarehouseId);
+                _stokBalanceWorker.Execute(stokBalanceReq);
+
                 trans.Complete();
             }
 
-            //  stok balance
-            var stokBalanceReq = new GenStokBalanceRequest(request.BrgId, request.WarehouseId);
-            _stokBalanceWorker.Execute(stokBalanceReq);
         }
 
         public int GetKonversi(IBrgKey brgKey, string satuan, out BrgModel brg)

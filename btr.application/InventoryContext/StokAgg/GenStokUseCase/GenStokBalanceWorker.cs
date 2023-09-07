@@ -3,12 +3,8 @@ using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.StokAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.nuna.Application;
-using MediatR;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
 {

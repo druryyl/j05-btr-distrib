@@ -4,6 +4,10 @@
     {
         void Save(ref T model);
     }
+    public interface INunaWriter2<T>
+    {
+        T Save(T model);
+    }
 
     public interface INunaBuilder<out T>
     {

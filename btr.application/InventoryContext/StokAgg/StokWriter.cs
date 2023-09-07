@@ -5,7 +5,7 @@ using FluentValidation;
 
 namespace btr.application.InventoryContext.StokAgg
 {
-    public interface IStokWriter : INunaWriter<StokModel>
+    public interface IStokWriter : INunaWriter2<StokModel>
     {
     }
     
@@ -27,7 +27,7 @@ namespace btr.application.InventoryContext.StokAgg
             _validator = validator;
         }
 
-        public void Save(ref StokModel model)
+        public StokModel Save(StokModel model)
         {
             _validator.ValidateAndThrow(model);
             if (model.StokId.IsNullOrEmpty())
@@ -51,6 +51,7 @@ namespace btr.application.InventoryContext.StokAgg
 
                 trans.Complete();
             }
+            return model;
         }
     }
 }

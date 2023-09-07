@@ -1,16 +1,6 @@
-﻿using btr.application.BrgContext.BrgAgg;
-using btr.application.InventoryContext.OpnameAgg;
-using btr.application.InventoryContext.StokAgg;
-using btr.application.SupportContext.PlaygroundAgg;
-using btr.domain.BrgContext.BrgAgg;
-using btr.domain.InventoryContext.OpnameAgg;
-using btr.domain.InventoryContext.WarehouseAgg;
-using btr.domain.SupportContext.UserAgg;
-using btr.nuna.Application;
-using MediatR;
-using System.Linq;
+﻿using btr.application.InventoryContext.StokAgg;
+using btr.application.InventoryContext.StokAgg.UseCases;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace btr.distrib.SharedForm
 {
@@ -18,15 +8,20 @@ namespace btr.distrib.SharedForm
     {
         private readonly IAddStokWorker _addStokWorker;
         private readonly IRemoveFifoStokWorker _removeFifoStokWorker;
+        private readonly IRollBackStokWorker _rollBackStokWorker;
 
-        public TestPlayground(IAddStokWorker addStokWorker, 
-            IRemoveFifoStokWorker removeFifoStokWorker)
+        public TestPlayground(IAddStokWorker addStokWorker,
+            IRemoveFifoStokWorker removeFifoStokWorker,
+            IRollBackStokWorker rollBackStokWorker)
         {
             InitializeComponent();
             AddStokButton.Click += AddStokButton_Click;
             RemoveFifoButton.Click += RemoveFifo_Click;
+            RollBackButton.Click += RollBackButton_Click;
+
             _addStokWorker = addStokWorker;
             _removeFifoStokWorker = removeFifoStokWorker;
+            _rollBackStokWorker = rollBackStokWorker;
         }
 
         private void AddStokButton_Click(object sender, System.EventArgs e)
@@ -48,6 +43,13 @@ namespace btr.distrib.SharedForm
             _removeFifoStokWorker.Execute(req2);
             MessageBox.Show("Done");
         }
+        private void RollBackButton_Click(object sender, System.EventArgs e)
+        {
+            var req = new RollBackStokRequest("BR0001", "G00", "TR-003");
+            _rollBackStokWorker.Execute(req);
+            MessageBox.Show("Done");
+        }
+
 
     }
 }
