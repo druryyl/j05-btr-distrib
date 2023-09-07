@@ -96,10 +96,12 @@
     <Compile Include="InventoryContext\StokAgg\IStokDal.cs" />
     <Compile Include="InventoryContext\StokAgg\IStokMutasiDal.cs" />
     <Compile Include="InventoryContext\StokAgg\RemoveStokCommand.cs" />
+    <Compile Include="InventoryContext\StokAgg\RemoveStokWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\StokBuilder.cs" />
     <Compile Include="InventoryContext\StokAgg\StokValidator.cs" />
     <Compile Include="InventoryContext\StokAgg\StokWriter.cs" />
     <Compile Include="InventoryContext\StokAgg\UseCases\ListBrgStokQuery.cs" />
+    <Compile Include="InventoryContext\StokAgg\RollBackStokWorker.cs" />
     <Compile Include="InventoryContext\StokBalanceAgg\IStokBalanceDal.cs" />
     <Compile Include="InventoryContext\StokBalanceAgg\StokBalanceBuilder.cs" />
     <Compile Include="InventoryContext\StokBalanceAgg\StokBalanceWriter.cs" />

@@ -2,7 +2,7 @@
 
 namespace btr.domain.InventoryContext.StokAgg
 {
-    public class StokMutasiModel : IStokKey, IStokMutasiKey
+    public class StokMutasiModel : IStokKey, IStokMutasiKey, IReffKey
     {
         public string StokId { get; set; }
         public string StokMutasiId { get; set; }

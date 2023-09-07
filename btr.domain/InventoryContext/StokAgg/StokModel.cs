@@ -5,7 +5,7 @@ using btr.domain.InventoryContext.WarehouseAgg;
 
 namespace btr.domain.InventoryContext.StokAgg
 {
-    public class StokModel : IStokKey, IBrgKey, IWarehouseKey
+    public class StokModel : IStokKey, IBrgKey, IWarehouseKey, IReffKey
     {
 
         public string StokId { get; set; }
