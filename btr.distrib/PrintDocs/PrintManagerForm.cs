@@ -11,6 +11,7 @@ using System.Linq;
 using System.Windows.Forms;
 using btr.application.InventoryContext.WarehouseAgg;
 using btr.domain.SupportContext.DocAgg;
+using System.Drawing.Printing;
 
 namespace btr.distrib.PrintDocs
 {
@@ -85,6 +86,7 @@ namespace btr.distrib.PrintDocs
         {
             var id = GridAtas.Rows[rowIndex].Cells[0].Value.ToString();
             var faktur = _fakturBuilder.Load(new FakturModel(id)).Build();
+            _fakturPrinter.DefaultPrinter = GetPrinterName();
             _fakturPrinter.CreateDoc(faktur);
             DocModel doc = null;
             try
@@ -151,6 +153,7 @@ namespace btr.distrib.PrintDocs
             {
                 PrintTimer.Enabled = false;
                 ListDoc();
+                PrinterLabel.Text = GetPrinterName();
                 PrintTimer.Enabled = true;
             }
 
@@ -173,7 +176,7 @@ namespace btr.distrib.PrintDocs
                 .Where(x => x.WarehouseId == WarehouseCombo.SelectedValue.ToString())
                 .Where(x => x.DocPrintStatus == DocPrintStatusEnum.Queued)
                 .OrderBy(x => x.DocId)
-                .Select(x => new PrintManagerDto(x.DocId, x.DocDate.ToString("dd-MMM HH:mm:ss"),
+                .Select(x => new PrintManagerDto(x.DocId, x.Code, x.DocDate.ToString("dd-MMM HH:mm:ss"),
                     $"{x.DocType} {x.DocDesc}",x.DocPrintStatus.ToString()))
                 .ToList();
             GridAtas.DataSource = listAtas;
@@ -182,23 +185,42 @@ namespace btr.distrib.PrintDocs
                 .Where(x => x.WarehouseId == WarehouseCombo.SelectedValue.ToString())
                 .Where(x => x.DocPrintStatus != DocPrintStatusEnum.Queued)
                 .OrderBy(x => x.DocId)
-                .Select(x => new PrintManagerDto(x.DocId, x.DocDate.ToString("dd-MMM HH:mm:ss"),
+                .Select(x => new PrintManagerDto(x.DocId, x.Code, x.DocDate.ToString("dd-MMM HH:mm:ss"),
                     $"{x.DocType} {x.DocDesc}", x.DocPrintStatus.ToString()))
                 .ToList();
             GridBawah.DataSource = listBawah;
+        }
+
+        private string GetPrinterName()
+        {
+            string defaultPrinterName = null;
+
+            try
+            {
+                PrintDocument printDocument = new PrintDocument();
+                defaultPrinterName = "Printer : " + printDocument.PrinterSettings.PrinterName;
+            }
+            catch (Exception ex)
+            {
+                defaultPrinterName = "Printer Error : " + ex.Message;
+            }
+
+            return defaultPrinterName;
         }
     }
 
     public class PrintManagerDto
     {
-        public PrintManagerDto(string id, string tglJam, string description, string status)
+        public PrintManagerDto(string id, string code, string tglJam, string description, string status)
         {
             Id = id;
+            Code = code;
             TglJam = tglJam;
             Description = description;
             Status = status;
         }
         public string Id { get; }
+        public string Code { get; set; }
         public string TglJam { get; }
         public string Description { get; }
         public string Status { get; }

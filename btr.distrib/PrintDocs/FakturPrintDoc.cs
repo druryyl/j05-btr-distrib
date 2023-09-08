@@ -21,6 +21,7 @@ namespace btr.distrib.PrintDocs
         void CreateDoc(T model);
         void PrintDoc();
         bool IsPrinted { get; }
+        string DefaultPrinter { get; set; }
     }
     public interface IFakturPrintDoc : IPrintDoc<FakturModel> 
     { 
@@ -47,7 +48,7 @@ namespace btr.distrib.PrintDocs
         {
             pd = new JudeDocument();
             pd.PrintPage += PrintDocument_PrintPage;
-            pd.PrinterSettings = new PrinterSettings { PrinterName = _opt.Faktur };
+            pd.PrinterSettings = new PrinterSettings { PrinterName = DefaultPrinter };
             PaperSize customPaperSize = new PaperSize("Custom", Convert.ToInt32(9.5 * 100), Convert.ToInt32(5.5 * 100));
             pd.DefaultPageSettings.PaperSize = customPaperSize;
             Margins margins = new Margins(0, 0, 25, 25);
@@ -228,6 +229,7 @@ namespace btr.distrib.PrintDocs
         }
 
         public bool IsPrinted { get; private set; }
+        public string DefaultPrinter { get; set; }
     }
 
     public class JudeDocument : PrintDocument

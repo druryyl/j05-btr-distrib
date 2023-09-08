@@ -15,6 +15,7 @@ namespace btr.application.SupportContext.DocAgg
 
         IDocBuilder Warehouse(IWarehouseKey warehouseKey);
         IDocBuilder Description(string description);
+        IDocBuilder Code(string code);
         IDocBuilder Cancel();
         IDocBuilder Print();
         IDocBuilder Queue();
@@ -152,6 +153,12 @@ namespace btr.application.SupportContext.DocAgg
             };
             _agg.ListAction.Add(newAction);
             _agg.DocPrintStatus = DocPrintStatusEnum.ErrorPrint;
+            return this;
+        }
+
+        public IDocBuilder Code(string code)
+        {
+            _agg.Code = code;
             return this;
         }
     }

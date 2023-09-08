@@ -35,9 +35,12 @@
             this.WarehouseCombo = new System.Windows.Forms.ComboBox();
             this.PrintTimer = new System.Windows.Forms.Timer(this.components);
             this.GridBawah = new System.Windows.Forms.DataGridView();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.PrinterLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.GridAtas)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GridBawah)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // GridAtas
@@ -60,7 +63,7 @@
             this.panel1.Controls.Add(this.WarehouseCombo);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(561, 45);
+            this.panel1.Size = new System.Drawing.Size(196, 45);
             this.panel1.TabIndex = 1;
             // 
             // RefreshPrgBar
@@ -69,7 +72,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.RefreshPrgBar.Location = new System.Drawing.Point(3, 30);
             this.RefreshPrgBar.Name = "RefreshPrgBar";
-            this.RefreshPrgBar.Size = new System.Drawing.Size(551, 10);
+            this.RefreshPrgBar.Size = new System.Drawing.Size(186, 10);
             this.RefreshPrgBar.TabIndex = 5;
             // 
             // WarehouseCombo
@@ -96,12 +99,31 @@
             this.GridBawah.Size = new System.Drawing.Size(561, 239);
             this.GridBawah.TabIndex = 3;
             // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.Cornsilk;
+            this.panel2.Controls.Add(this.PrinterLabel);
+            this.panel2.Location = new System.Drawing.Point(214, 12);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(359, 45);
+            this.panel2.TabIndex = 4;
+            // 
+            // PrinterLabel
+            // 
+            this.PrinterLabel.AutoSize = true;
+            this.PrinterLabel.Location = new System.Drawing.Point(12, 7);
+            this.PrinterLabel.Name = "PrinterLabel";
+            this.PrinterLabel.Size = new System.Drawing.Size(79, 13);
+            this.PrinterLabel.TabIndex = 0;
+            this.PrinterLabel.Text = "[Printer Name]";
+            // 
             // PrintManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Khaki;
             this.ClientSize = new System.Drawing.Size(585, 450);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.GridBawah);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.GridAtas);
@@ -111,6 +133,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.GridAtas)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.GridBawah)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -123,5 +147,7 @@
         private System.Windows.Forms.Timer PrintTimer;
         private System.Windows.Forms.DataGridView GridBawah;
         private System.Windows.Forms.ProgressBar RefreshPrgBar;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label PrinterLabel;
     }
 }

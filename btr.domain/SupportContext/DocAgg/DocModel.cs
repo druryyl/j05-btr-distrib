@@ -12,6 +12,7 @@ namespace btr.domain.SupportContext.DocAgg
         public DocModel(string id) => DocId = id;
 
         public string DocId { get; set; }
+        public string Code { get; set; }
         public string DocType { get; set; }
         public string DocDesc { get; set; }
         public DateTime DocDate { get; set; }

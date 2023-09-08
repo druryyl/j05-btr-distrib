@@ -75,10 +75,10 @@
             this.WarehouseButton = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.TermOfPaymentCombo = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.DueDateText = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
+            this.TermOfPaymentCombo = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.PanelAtas4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturItemGrid)).BeginInit();
             this.PanelTengah.SuspendLayout();
@@ -626,6 +626,24 @@
             this.panel4.Size = new System.Drawing.Size(200, 186);
             this.panel4.TabIndex = 45;
             // 
+            // DueDateText
+            // 
+            this.DueDateText.CustomFormat = "ddd dd-MM-yyyy";
+            this.DueDateText.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.DueDateText.Location = new System.Drawing.Point(6, 71);
+            this.DueDateText.Name = "DueDateText";
+            this.DueDateText.Size = new System.Drawing.Size(176, 22);
+            this.DueDateText.TabIndex = 16;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(3, 55);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(72, 13);
+            this.label5.TabIndex = 21;
+            this.label5.Text = "Jatuh Tempo";
+            // 
             // TermOfPaymentCombo
             // 
             this.TermOfPaymentCombo.FormattingEnabled = true;
@@ -645,24 +663,6 @@
             this.label4.Size = new System.Drawing.Size(93, 13);
             this.label4.TabIndex = 19;
             this.label4.Text = "Term Of Payment";
-            // 
-            // DueDateText
-            // 
-            this.DueDateText.CustomFormat = "ddd dd-MM-yyyy";
-            this.DueDateText.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.DueDateText.Location = new System.Drawing.Point(6, 71);
-            this.DueDateText.Name = "DueDateText";
-            this.DueDateText.Size = new System.Drawing.Size(176, 22);
-            this.DueDateText.TabIndex = 16;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 55);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(72, 13);
-            this.label5.TabIndex = 21;
-            this.label5.Text = "Jatuh Tempo";
             // 
             // FakturForm
             // 

@@ -15,12 +15,13 @@ namespace btr.nuna.Application
     {
         PF_YYM_nnnnnC, //  format-A1 (13 digit) : PF-21A-00001F => Max 1jt per bulan
         PF_YYM_nnnC,   //  format-A2 (11 digit) : PF-21A-002C   => Max 4k per bulan
-        PFnnnn,         // format-B1 ( 6 digit) : PF4321         => Max 65k global
+        PFnnnn,        // format-B1 ( 6 digit) : PF4321         => Max 65k global
         PFnnn,         //  format-B1 ( 5 digit) : PF321         => Max 4k global
         Pnn,           //  format-B2 ( 3 digit) : P7A           => Max 255 global
-        PREFYYMnnnnnC  //  format-A3 (13 digit) : PFFF21A00001F => Max 1jt per bulan 
+        PREFYYMnnnnnC, //  format-A3 (13 digit) : PFFF21A00001F => Max 1jt per bulan 
+        PYYMnnnn       //  format-A3 (8 digit)  : P23A0001      => Max 65k per bulan 
     }
-    
+
     public class NunaCounterBL : INunaCounterBL
     {
         private readonly INunaCounterDal _counterDal;
@@ -71,6 +72,9 @@ namespace btr.nuna.Application
                     result = $"{prefix}";
                     break;
                 case IDFormatEnum.PREFYYMnnnnnC:
+                    result = $"{prefix}{periode}";
+                    break;
+                case IDFormatEnum.PYYMnnnn:
                     result = $"{prefix}{periode}";
                     break;
                 default:
@@ -149,6 +153,10 @@ namespace btr.nuna.Application
                     break;
                 case IDFormatEnum.PREFYYMnnnnnC:
                     noUrutBlok = $"{Gen_5(noUrutHex)}{sourceFlag.Trim()}{checkDigit}";
+                    result = $"{anchor}{noUrutBlok}";
+                    break;
+                case IDFormatEnum.PYYMnnnn:
+                    noUrutBlok = $"{Gen_4(noUrutHex)}{sourceFlag.Trim()}";
                     result = $"{anchor}{noUrutBlok}";
                     break;
                 default:

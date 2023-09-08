@@ -25,6 +25,7 @@ namespace btr.application.SupportContext.DocAgg
             //  BUILD
             _aggregate = _builder
                 .LoadOrCreate(new DocModel(notification.Aggregate.FakturId))
+                .Code(notification.Aggregate.FakturCode)
                 .Warehouse(new WarehouseModel(notification.Aggregate.WarehouseId))
                 .Description($"{notification.Aggregate.CustomerName}")
                 .Queue()

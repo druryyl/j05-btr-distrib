@@ -135,21 +135,23 @@
             // 
             this.label4.BackColor = System.Drawing.Color.WhiteSmoke;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(18, 58);
+            this.label4.Location = new System.Drawing.Point(14, 39);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(151, 38);
             this.label4.TabIndex = 2;
-            this.label4.Text = "AB 239 012";
+            this.label4.Text = "A239012A";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // PrefixText
             // 
-            this.PrefixText.Location = new System.Drawing.Point(18, 33);
-            this.PrefixText.MaxLength = 2;
+            this.PrefixText.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PrefixText.Location = new System.Drawing.Point(92, 9);
+            this.PrefixText.MaxLength = 1;
             this.PrefixText.Name = "PrefixText";
-            this.PrefixText.Size = new System.Drawing.Size(151, 22);
+            this.PrefixText.Size = new System.Drawing.Size(40, 27);
             this.PrefixText.TabIndex = 1;
-            this.PrefixText.Text = "AB";
+            this.PrefixText.Text = "A";
+            this.PrefixText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label6
             // 

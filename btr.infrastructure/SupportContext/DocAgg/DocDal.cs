@@ -24,14 +24,15 @@ namespace btr.infrastructure.SupportContext.DocAgg
         {
             const string sql = @"
                 INSERT INTO BTR_Doc(
-                    DocId, DocType, DocDate, DocDesc,
+                    DocId, Code, DocType, DocDate, DocDesc, 
                     WarehouseId, DocPrintStatus)
                 VALUES (
-                    @DocId, @DocType, @DocDate, @DocDesc,
+                    @DocId, @Code, @DocType, @DocDate, @DocDesc, 
                     @WarehouseId, @DocPrintStatus)";
 
             var dp = new DynamicParameters();
             dp.AddParam("@DocId", model.DocId, SqlDbType.VarChar);
+            dp.AddParam("@Code", model.Code, SqlDbType.VarChar);
             dp.AddParam("@DocType", model.DocType, SqlDbType.VarChar);
             dp.AddParam("@DocDate", model.DocDate, SqlDbType.DateTime);
             dp.AddParam("@DocDesc", model.DocDesc, SqlDbType.VarChar);
@@ -50,6 +51,7 @@ namespace btr.infrastructure.SupportContext.DocAgg
                 UPDATE 
                     BTR_Doc
                 SET
+                    Code = @Code,
                     DocType = @DocType,
                     DocDate = @DocDate,
                     DocDesc = @DocDesc,
@@ -59,6 +61,7 @@ namespace btr.infrastructure.SupportContext.DocAgg
                     DocId = @DocId ";
 
             var dp = new DynamicParameters();
+            dp.AddParam("@Code", model.Code, SqlDbType.VarChar);
             dp.AddParam("@DocId", model.DocId, SqlDbType.VarChar);
             dp.AddParam("@DocType", model.DocType, SqlDbType.VarChar);
             dp.AddParam("@DocDate", model.DocDate, SqlDbType.DateTime);
@@ -93,7 +96,7 @@ namespace btr.infrastructure.SupportContext.DocAgg
         {
             const string sql = @"
                 SELECT
-                    aa.DocId, aa.DocType, aa.DocDate, aa.DocDesc,
+                    aa.DocId, aa.Code, aa.DocType, aa.DocDate, aa.DocDesc,
                     aa.WarehouseId, aa.DocPrintStatus,
                     ISNULL(bb.WarehouseName, '') AS WarehouseName
                 FROM                
@@ -115,7 +118,7 @@ namespace btr.infrastructure.SupportContext.DocAgg
         {
             const string sql = @"
                 SELECT
-                    aa.DocId, aa.DocType, aa.DocDate, aa.DocDesc,
+                    aa.DocId, aa.Code, aa.DocType, aa.DocDate, aa.DocDesc,
                     aa.WarehouseId, aa.DocPrintStatus,
                     ISNULL(bb.WarehouseName, '') AS WarehouseName
                 FROM                
