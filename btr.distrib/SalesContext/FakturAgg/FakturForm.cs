@@ -117,8 +117,14 @@ namespace btr.distrib.SalesContext.FakturAgg
             FakturItemGrid.CellValidated += FakturItemGrid_CellValidated;
             FakturItemGrid.KeyDown += FakturItemGrid_KeyDown;
             FakturItemGrid.EditingControlShowing += FakturItemGrid_EditingControlShowing;
+
+            NewButton.Click += NewButton_Click;
         }
 
+        private void NewButton_Click(object sender, EventArgs e)
+        {
+            ClearForm();
+        }
 
         private void ClearForm()
         {
@@ -158,8 +164,8 @@ namespace btr.distrib.SalesContext.FakturAgg
             var textbox = (TextBox)sender;
             if (textbox.Text.Length == 0)
                 ClearForm();
-
-            await ValidateFaktur();
+            else
+                await ValidateFaktur();
         }
         private async Task ValidateFaktur()
         {

@@ -46,7 +46,7 @@
             this.TotalText = new System.Windows.Forms.NumericUpDown();
             this.TotalLabel = new System.Windows.Forms.Label();
             this.SaveButton = new System.Windows.Forms.Button();
-            this.DeleteButton = new System.Windows.Forms.Button();
+            this.NewButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.LastIdLabel = new System.Windows.Forms.Label();
             this.FakturIdText = new System.Windows.Forms.TextBox();
@@ -328,15 +328,15 @@
             this.SaveButton.UseVisualStyleBackColor = true;
             this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
-            // DeleteButton
+            // NewButton
             // 
-            this.DeleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.DeleteButton.Location = new System.Drawing.Point(6, 491);
-            this.DeleteButton.Name = "DeleteButton";
-            this.DeleteButton.Size = new System.Drawing.Size(75, 23);
-            this.DeleteButton.TabIndex = 26;
-            this.DeleteButton.Text = "New";
-            this.DeleteButton.UseVisualStyleBackColor = true;
+            this.NewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.NewButton.Location = new System.Drawing.Point(6, 491);
+            this.NewButton.Name = "NewButton";
+            this.NewButton.Size = new System.Drawing.Size(75, 23);
+            this.NewButton.TabIndex = 26;
+            this.NewButton.Text = "New";
+            this.NewButton.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -676,7 +676,7 @@
             this.Controls.Add(this.FakturItemGrid);
             this.Controls.Add(this.PanelTengah);
             this.Controls.Add(this.SaveButton);
-            this.Controls.Add(this.DeleteButton);
+            this.Controls.Add(this.NewButton);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel3);
@@ -727,7 +727,7 @@
         private System.Windows.Forms.NumericUpDown TotalText;
         private System.Windows.Forms.Label TotalLabel;
         private System.Windows.Forms.Button SaveButton;
-        private System.Windows.Forms.Button DeleteButton;
+        private System.Windows.Forms.Button NewButton;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox FakturIdText;
         private System.Windows.Forms.TextBox SalesIdText;
