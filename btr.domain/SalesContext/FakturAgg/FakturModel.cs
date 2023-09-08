@@ -39,8 +39,8 @@ namespace btr.domain.SalesContext.FakturAgg
         public DateTime DueDate { get; set; }
 
         public decimal Total { get; set; }
-        public decimal DiscountLain { get; set; }
-        public decimal BiayaLain { get; set; }
+        public decimal Discount { get; set; }
+        public decimal Tax { get; set; }
         public decimal GrandTotal { get; set; }
     
         public decimal UangMuka { get; set; }

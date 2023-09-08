@@ -33,7 +33,7 @@
             this.NoteLabel = new System.Windows.Forms.Label();
             this.FakturItemGrid = new System.Windows.Forms.DataGridView();
             this.PanelTengah = new System.Windows.Forms.Panel();
-            this.BiayaLainText = new System.Windows.Forms.NumericUpDown();
+            this.TaxText = new System.Windows.Forms.NumericUpDown();
             this.BiayaLainLabel = new System.Windows.Forms.Label();
             this.SisaText = new System.Windows.Forms.NumericUpDown();
             this.SisaLabel = new System.Windows.Forms.Label();
@@ -41,7 +41,7 @@
             this.UangMukaLabel = new System.Windows.Forms.Label();
             this.GrandTotalText = new System.Windows.Forms.NumericUpDown();
             this.GrandTotalLabel = new System.Windows.Forms.Label();
-            this.DiscountLainText = new System.Windows.Forms.NumericUpDown();
+            this.DiscountText = new System.Windows.Forms.NumericUpDown();
             this.DisconutLainLabel = new System.Windows.Forms.Label();
             this.TotalText = new System.Windows.Forms.NumericUpDown();
             this.TotalLabel = new System.Windows.Forms.Label();
@@ -82,11 +82,11 @@
             this.PanelAtas4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturItemGrid)).BeginInit();
             this.PanelTengah.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.BiayaLainText)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TaxText)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SisaText)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.UangMukaText)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GrandTotalText)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DiscountLainText)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DiscountText)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TotalText)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -148,7 +148,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PanelTengah.BackColor = System.Drawing.Color.Cornsilk;
             this.PanelTengah.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PanelTengah.Controls.Add(this.BiayaLainText);
+            this.PanelTengah.Controls.Add(this.TaxText);
             this.PanelTengah.Controls.Add(this.BiayaLainLabel);
             this.PanelTengah.Controls.Add(this.SisaText);
             this.PanelTengah.Controls.Add(this.SisaLabel);
@@ -156,7 +156,7 @@
             this.PanelTengah.Controls.Add(this.UangMukaLabel);
             this.PanelTengah.Controls.Add(this.GrandTotalText);
             this.PanelTengah.Controls.Add(this.GrandTotalLabel);
-            this.PanelTengah.Controls.Add(this.DiscountLainText);
+            this.PanelTengah.Controls.Add(this.DiscountText);
             this.PanelTengah.Controls.Add(this.DisconutLainLabel);
             this.PanelTengah.Controls.Add(this.TotalText);
             this.PanelTengah.Controls.Add(this.TotalLabel);
@@ -165,30 +165,31 @@
             this.PanelTengah.Size = new System.Drawing.Size(138, 284);
             this.PanelTengah.TabIndex = 41;
             // 
-            // BiayaLainText
+            // TaxText
             // 
-            this.BiayaLainText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BiayaLainText.Location = new System.Drawing.Point(11, 102);
-            this.BiayaLainText.Maximum = new decimal(new int[] {
+            this.TaxText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TaxText.Location = new System.Drawing.Point(11, 102);
+            this.TaxText.Maximum = new decimal(new int[] {
             999999999,
             0,
             0,
             0});
-            this.BiayaLainText.Name = "BiayaLainText";
-            this.BiayaLainText.Size = new System.Drawing.Size(117, 20);
-            this.BiayaLainText.TabIndex = 21;
-            this.BiayaLainText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.BiayaLainText.ThousandsSeparator = true;
-            this.BiayaLainText.Validated += new System.EventHandler(this.BiayaLainText_Validated);
+            this.TaxText.Name = "TaxText";
+            this.TaxText.ReadOnly = true;
+            this.TaxText.Size = new System.Drawing.Size(117, 20);
+            this.TaxText.TabIndex = 21;
+            this.TaxText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.TaxText.ThousandsSeparator = true;
+            this.TaxText.Validated += new System.EventHandler(this.BiayaLainText_Validated);
             // 
             // BiayaLainLabel
             // 
             this.BiayaLainLabel.AutoSize = true;
             this.BiayaLainLabel.Location = new System.Drawing.Point(8, 86);
             this.BiayaLainLabel.Name = "BiayaLainLabel";
-            this.BiayaLainLabel.Size = new System.Drawing.Size(57, 13);
+            this.BiayaLainLabel.Size = new System.Drawing.Size(23, 13);
             this.BiayaLainLabel.TabIndex = 14;
-            this.BiayaLainLabel.Text = "Biaya Lain";
+            this.BiayaLainLabel.Text = "Tax";
             // 
             // SisaText
             // 
@@ -265,30 +266,31 @@
             this.GrandTotalLabel.TabIndex = 8;
             this.GrandTotalLabel.Text = "Grand Total";
             // 
-            // DiscountLainText
+            // DiscountText
             // 
-            this.DiscountLainText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DiscountLainText.Location = new System.Drawing.Point(11, 63);
-            this.DiscountLainText.Maximum = new decimal(new int[] {
+            this.DiscountText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DiscountText.Location = new System.Drawing.Point(11, 63);
+            this.DiscountText.Maximum = new decimal(new int[] {
             999999999,
             0,
             0,
             0});
-            this.DiscountLainText.Name = "DiscountLainText";
-            this.DiscountLainText.Size = new System.Drawing.Size(117, 20);
-            this.DiscountLainText.TabIndex = 20;
-            this.DiscountLainText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.DiscountLainText.ThousandsSeparator = true;
-            this.DiscountLainText.Validated += new System.EventHandler(this.DiscountLainText_Validated);
+            this.DiscountText.Name = "DiscountText";
+            this.DiscountText.ReadOnly = true;
+            this.DiscountText.Size = new System.Drawing.Size(117, 20);
+            this.DiscountText.TabIndex = 20;
+            this.DiscountText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.DiscountText.ThousandsSeparator = true;
+            this.DiscountText.Validated += new System.EventHandler(this.DiscountLainText_Validated);
             // 
             // DisconutLainLabel
             // 
             this.DisconutLainLabel.AutoSize = true;
             this.DisconutLainLabel.Location = new System.Drawing.Point(8, 47);
             this.DisconutLainLabel.Name = "DisconutLainLabel";
-            this.DisconutLainLabel.Size = new System.Drawing.Size(77, 13);
+            this.DisconutLainLabel.Size = new System.Drawing.Size(53, 13);
             this.DisconutLainLabel.TabIndex = 6;
-            this.DisconutLainLabel.Text = "Discount Lain";
+            this.DisconutLainLabel.Text = "Discount";
             // 
             // TotalText
             // 
@@ -602,7 +604,6 @@
             this.WarehouseButton.TabIndex = 12;
             this.WarehouseButton.Text = "...";
             this.WarehouseButton.UseVisualStyleBackColor = true;
-            this.WarehouseButton.Click += new System.EventHandler(this.WarehouseButton_Click);
             // 
             // label7
             // 
@@ -687,11 +688,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.FakturItemGrid)).EndInit();
             this.PanelTengah.ResumeLayout(false);
             this.PanelTengah.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.BiayaLainText)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TaxText)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SisaText)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.UangMukaText)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GrandTotalText)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DiscountLainText)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DiscountText)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TotalText)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -713,7 +714,7 @@
         private System.Windows.Forms.Label NoteLabel;
         private System.Windows.Forms.DataGridView FakturItemGrid;
         private System.Windows.Forms.Panel PanelTengah;
-        private System.Windows.Forms.NumericUpDown BiayaLainText;
+        private System.Windows.Forms.NumericUpDown TaxText;
         private System.Windows.Forms.Label BiayaLainLabel;
         private System.Windows.Forms.NumericUpDown SisaText;
         private System.Windows.Forms.Label SisaLabel;
@@ -721,7 +722,7 @@
         private System.Windows.Forms.Label UangMukaLabel;
         private System.Windows.Forms.NumericUpDown GrandTotalText;
         private System.Windows.Forms.Label GrandTotalLabel;
-        private System.Windows.Forms.NumericUpDown DiscountLainText;
+        private System.Windows.Forms.NumericUpDown DiscountText;
         private System.Windows.Forms.Label DisconutLainLabel;
         private System.Windows.Forms.NumericUpDown TotalText;
         private System.Windows.Forms.Label TotalLabel;

@@ -23,12 +23,13 @@ namespace btr.infrastructure.SalesContext.SalesPersonAgg
         {
             const string sql = @"
             INSERT INTO BTR_SalesPerson(
-                SalesPersonId, SalesPersonName, WilayahId)
+                SalesPersonId, SalesPersonCode, SalesPersonName, WilayahId)
             VALUES (
-                @SalesPersonId, @SalesPersonName, @WilayahId)";
+                @SalesPersonId, @SalesPersonCode, @SalesPersonName, @WilayahId)";
 
             var dp = new DynamicParameters();
             dp.AddParam("@SalesPersonId", model.SalesPersonId, SqlDbType.VarChar);
+            dp.AddParam("@SalesPersonCode", model.SalesPersonCode, SqlDbType.VarChar);
             dp.AddParam("@SalesPersonName", model.SalesPersonName, SqlDbType.VarChar);
             dp.AddParam("@WilayahId", model.WilayahId, SqlDbType.VarChar);
 
@@ -45,12 +46,14 @@ namespace btr.infrastructure.SalesContext.SalesPersonAgg
                 BTR_SalesPerson
             SET
                 SalesPersonName = @SalesPersonName,
+                SalesPersonCode = @SalesPersonCode,
                 WilayahId = @WilayahId
             WHERE
                 SalesPersonId = @SalesPersonId ";
 
             var dp = new DynamicParameters();
             dp.AddParam("@SalesPersonId", model.SalesPersonId, SqlDbType.VarChar);
+            dp.AddParam("@SalesPersonCode", model.SalesPersonCode, SqlDbType.VarChar);
             dp.AddParam("@SalesPersonName", model.SalesPersonName, SqlDbType.VarChar);
             dp.AddParam("@WilayahId", model.WilayahId, SqlDbType.VarChar);
 
@@ -81,7 +84,8 @@ namespace btr.infrastructure.SalesContext.SalesPersonAgg
         {
             const string sql = @"
             SELECT
-                aa.SalesPersonId, aa.SalesPersonName, aa.WilayahId,
+                aa.SalesPersonId, aa.SalesPersonName, 
+                aa.SalesPersonCode, aa.WilayahId,
                 ISNULL(bb.WilayahName, '') AS WilayahName
             FROM
                 BTR_SalesPerson aa
@@ -102,7 +106,8 @@ namespace btr.infrastructure.SalesContext.SalesPersonAgg
         {
             const string sql = @"
             SELECT
-                aa.SalesPersonId, aa.SalesPersonName, aa.WilayahId,
+                aa.SalesPersonId, aa.SalesPersonName, 
+                aa.SalesPersonCode, aa.WilayahId,
                 ISNULL(bb.WilayahName, '') AS WilayahName
             FROM
                 BTR_SalesPerson aa

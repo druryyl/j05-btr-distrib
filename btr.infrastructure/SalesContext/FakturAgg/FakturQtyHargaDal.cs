@@ -32,9 +32,11 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 bcp.AddMap("NoUrut", "NoUrut");
                 bcp.AddMap("BrgId", "BrgId");
                 bcp.AddMap("Satuan", "Satuan");
+                bcp.AddMap("HargaSatuan", "HargaSatuan");
+
                 bcp.AddMap("Conversion", "Conversion");
                 bcp.AddMap("Qty", "Qty");
-                bcp.AddMap("HargaJual", "HargaJual");
+                bcp.AddMap("SubTotal", "SubTotal");
 
                 var fetched = listModel.ToList();
                 bcp.BatchSize = fetched.Count;
@@ -65,8 +67,8 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             const string sql = @"
             SELECT
                 aa.FakturId, aa.FakturItemId, aa.FakturQtyHargaId,
-                aa.NoUrut, aa.BrgId, aa.Satuan,
-                aa.Conversion, aa.Qty, aa.HargaJual
+                aa.NoUrut, aa.BrgId, aa.Satuan, aa.HargaSatuan,
+                aa.Conversion, aa.Qty, aa.SubTotal
             FROM 
                 BTR_FakturQtyHarga aa
             WHERE

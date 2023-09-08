@@ -14,7 +14,7 @@ namespace btr.distrib.SalesContext.FakturAgg
 
         public FakturItemDto()
         {
-            ListStokHargaSatuan = new List<FakturItem2DtoStokHargaSatuan>();
+            ListStokHargaSatuan = new List<FakturItemDtoStokHargaSatuan>();
         }
 
         public string BrgId 
@@ -70,7 +70,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         }        public decimal PpnRp { get; private set; }
         public decimal Total { get; private set; }
 
-        public List<FakturItem2DtoStokHargaSatuan> ListStokHargaSatuan { get; set; }
+        public List<FakturItemDtoStokHargaSatuan> ListStokHargaSatuan { get; set; }
 
 
         public void SetBrgName(string name) => BrgName = name;
@@ -148,9 +148,9 @@ namespace btr.distrib.SalesContext.FakturAgg
         }        
     }
 
-    public class FakturItem2DtoStokHargaSatuan
+    public class FakturItemDtoStokHargaSatuan
     {
-        public FakturItem2DtoStokHargaSatuan(int stok, decimal harga, string satuan)
+        public FakturItemDtoStokHargaSatuan(int stok, decimal harga, string satuan)
         {
             Stok = stok;
             Harga = harga;

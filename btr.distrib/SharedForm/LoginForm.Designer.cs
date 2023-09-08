@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.UserIdText = new System.Windows.Forms.TextBox();
             this.PasswrodText = new System.Windows.Forms.TextBox();
+            this.UserIdText = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.LoginButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -49,14 +49,20 @@
             this.panel1.Size = new System.Drawing.Size(253, 81);
             this.panel1.TabIndex = 0;
             // 
-            // label1
+            // PasswrodText
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(32, 21);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "User ID";
+            this.PasswrodText.Location = new System.Drawing.Point(91, 42);
+            this.PasswrodText.Name = "PasswrodText";
+            this.PasswrodText.PasswordChar = '*';
+            this.PasswrodText.Size = new System.Drawing.Size(100, 22);
+            this.PasswrodText.TabIndex = 3;
+            // 
+            // UserIdText
+            // 
+            this.UserIdText.Location = new System.Drawing.Point(91, 18);
+            this.UserIdText.Name = "UserIdText";
+            this.UserIdText.Size = new System.Drawing.Size(100, 22);
+            this.UserIdText.TabIndex = 2;
             // 
             // label2
             // 
@@ -67,20 +73,14 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Password";
             // 
-            // UserIdText
+            // label1
             // 
-            this.UserIdText.Location = new System.Drawing.Point(91, 18);
-            this.UserIdText.Name = "UserIdText";
-            this.UserIdText.Size = new System.Drawing.Size(100, 22);
-            this.UserIdText.TabIndex = 2;
-            // 
-            // PasswrodText
-            // 
-            this.PasswrodText.Location = new System.Drawing.Point(91, 42);
-            this.PasswrodText.Name = "PasswrodText";
-            this.PasswrodText.PasswordChar = '*';
-            this.PasswrodText.Size = new System.Drawing.Size(100, 22);
-            this.PasswrodText.TabIndex = 3;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(32, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(44, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "User ID";
             // 
             // LoginButton
             // 
@@ -106,7 +106,6 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
-
         }
 
         #endregion

@@ -38,7 +38,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.BrgCodeText = new System.Windows.Forms.TextBox();
+            this.SalesPersonCodeText = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.SalesPersonIdText = new System.Windows.Forms.TextBox();
             this.SalesPersonNameText = new System.Windows.Forms.TextBox();
@@ -84,7 +84,7 @@
             this.panel2.Controls.Add(this.label7);
             this.panel2.Controls.Add(this.checkBox1);
             this.panel2.Controls.Add(this.label3);
-            this.panel2.Controls.Add(this.BrgCodeText);
+            this.panel2.Controls.Add(this.SalesPersonCodeText);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.SalesPersonIdText);
             this.panel2.Controls.Add(this.SalesPersonNameText);
@@ -148,12 +148,12 @@
             this.label3.TabIndex = 11;
             this.label3.Text = "Code";
             // 
-            // BrgCodeText
+            // SalesPersonCodeText
             // 
-            this.BrgCodeText.Location = new System.Drawing.Point(12, 107);
-            this.BrgCodeText.Name = "BrgCodeText";
-            this.BrgCodeText.Size = new System.Drawing.Size(205, 22);
-            this.BrgCodeText.TabIndex = 9;
+            this.SalesPersonCodeText.Location = new System.Drawing.Point(12, 107);
+            this.SalesPersonCodeText.Name = "SalesPersonCodeText";
+            this.SalesPersonCodeText.Size = new System.Drawing.Size(205, 22);
+            this.SalesPersonCodeText.TabIndex = 9;
             // 
             // label2
             // 
@@ -253,7 +253,7 @@
         private System.Windows.Forms.TextBox SalesPersonNameText;
         private System.Windows.Forms.Button SalesPersonButton;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox BrgCodeText;
+        private System.Windows.Forms.TextBox SalesPersonCodeText;
         private System.Windows.Forms.TextBox WilayahIdText;
         private System.Windows.Forms.TextBox WilayahNameText;
         private System.Windows.Forms.Button WilayahButton;

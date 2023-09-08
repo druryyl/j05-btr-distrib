@@ -26,12 +26,12 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             INSERT INTO BTR_Faktur(
                 FakturId, FakturDate, FakturCode, SalesPersonId, CustomerId,
                 WarehouseId, TglRencanaKirim, TermOfPayment, DueDate, Total,
-                DiscountLain, BiayaLain, GrandTotal, UangMuka, KurangBayar, 
+                Discount, Tax, GrandTotal, UangMuka, KurangBayar, 
                 CreateTime, LastUpdate, UserId)
             VALUES(
                 @FakturId, @FakturDate, @FakturCode, @SalesPersonId, @CustomerId,
                 @WarehouseId, @TglRencanaKirim, @TermOfPayment, @DueDate, @Total,
-                @DiscountLain, @BiayaLain, @GrandTotal, @UangMuka, @KurangBayar, 
+                @Discount, @Tax, @GrandTotal, @UangMuka, @KurangBayar, 
                 @CreateTime, @LastUpdate, @UserId) ";
 
             var dp = new DynamicParameters();
@@ -47,8 +47,8 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             dp.AddParam("@DueDate", model.DueDate, SqlDbType.DateTime);
 
             dp.AddParam("@Total", model.Total, SqlDbType.Decimal);
-            dp.AddParam("@DiscountLain", model.DiscountLain, SqlDbType.Decimal);
-            dp.AddParam("@BiayaLain", model.BiayaLain, SqlDbType.Decimal);
+            dp.AddParam("@Discount", model.Discount, SqlDbType.Decimal);
+            dp.AddParam("@Tax", model.Tax, SqlDbType.Decimal);
             dp.AddParam("@GrandTotal", model.GrandTotal, SqlDbType.Decimal);
             dp.AddParam("@UangMuka", model.UangMuka, SqlDbType.Decimal);
             dp.AddParam("@KurangBayar", model.KurangBayar, SqlDbType.Decimal);
@@ -78,8 +78,8 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 TermOfPayment = @TermOfPayment, 
                 DueDate = @DueDate,
                 Total = @Total,
-                DiscountLain = @DiscountLain, 
-                BiayaLain = @BiayaLain, 
+                Discount = @Discount, 
+                Tax = @Tax,
                 GrandTotal = @GrandTotal, 
                 UangMuka = @UangMuka, 
                 KurangBayar = @KurangBayar, 
@@ -103,8 +103,8 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             dp.AddParam("@DueDate", model.DueDate, SqlDbType.DateTime);
 
             dp.AddParam("@Total", model.Total, SqlDbType.Decimal);
-            dp.AddParam("@DiscountLain", model.DiscountLain, SqlDbType.Decimal);
-            dp.AddParam("@BiayaLain", model.BiayaLain, SqlDbType.Decimal);
+            dp.AddParam("@Discount", model.Discount, SqlDbType.Decimal);
+            dp.AddParam("@Tax", model.Tax, SqlDbType.Decimal);
             dp.AddParam("@GrandTotal", model.GrandTotal, SqlDbType.Decimal);
             dp.AddParam("@UangMuka", model.UangMuka, SqlDbType.Decimal);
             dp.AddParam("@KurangBayar", model.KurangBayar, SqlDbType.Decimal);
@@ -142,7 +142,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             SELECT
                 aa.FakturId, aa.FakturDate, aa.FakturCode, aa.SalesPersonId, aa.CustomerId,
                 aa.WarehouseId, aa.TglRencanaKirim, aa.TermOfPayment, aa.DueDate, aa.Total,
-                aa.DiscountLain, aa.BiayaLain, aa.GrandTotal, aa.UangMuka, aa.KurangBayar, 
+                aa.Discount, aa.Tax, aa.GrandTotal, aa.UangMuka, aa.KurangBayar, 
                 aa.CreateTime, aa.LastUpdate, aa.UserId,
                 ISNULL(bb.SalesPersonName, '') AS SalesPersonName,
                 ISNULL(cc.CustomerName, '') AS CustomerName,
@@ -172,7 +172,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             SELECT
                 aa.FakturId, aa.FakturDate, aa.FakturCode, aa.SalesPersonId, aa.CustomerId,
                 aa.WarehouseId, aa.TglRencanaKirim, aa.TermOfPayment, aa.DueDate, aa.Total,
-                aa.DiscountLain, aa.BiayaLain, aa.GrandTotal, aa.UangMuka, aa.KurangBayar, 
+                aa.Discount, aa.Tax, aa.GrandTotal, aa.UangMuka, aa.KurangBayar, 
                 aa.CreateTime, aa.LastUpdate, aa.UserId,
                 ISNULL(bb.SalesPersonName, '') AS SalesPersonName,
                 ISNULL(cc.CustomerName, '') AS CustomerName,

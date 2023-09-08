@@ -15,6 +15,8 @@ namespace btr.application.SalesContext.SalesPersonAgg.Workers
         ISalesPersonBuilder Attach(SalesPersonModel model);
         ISalesPersonBuilder Wilayah(IWilayahKey wilayahKey);
         ISalesPersonBuilder Name(string name);
+        ISalesPersonBuilder Code(string code);
+
     }
 
     public class SalesPersonBuilder : ISalesPersonBuilder
@@ -79,6 +81,12 @@ namespace btr.application.SalesContext.SalesPersonAgg.Workers
                 ?? throw new KeyNotFoundException("WilayahID invalid");
             _aggRoot.WilayahId = wilayah.WilayahId;
             _aggRoot.WilayahName = wilayah.WilayahName;
+            return this;
+        }
+
+        public ISalesPersonBuilder Code(string code)
+        {
+            _aggRoot.SalesPersonCode = code;
             return this;
         }
     }

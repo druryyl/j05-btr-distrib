@@ -114,6 +114,7 @@ namespace btr.distrib.SharedForm
                     .Sum(x => x.Width)
                     + (BrowserGrid.RowHeadersVisible ? BrowserGrid.RowHeadersWidth : 0);
 
+            allColWidth2 += 20;
             var maxWidth = 1200;
             var minWidth = 300;
             var margin = 20;

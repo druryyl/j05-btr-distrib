@@ -107,8 +107,8 @@ namespace btr.distrib.PrintDocs
                 var qty1B = arrQty1.Length > 1 ? arrQty1[1] : string.Empty.FixWidth(7);
                 var qty2B = arrQty2.Length > 1 ? arrQty2[1] : string.Empty.FixWidth(7);
 
-                var hrg1 = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 1)?.HargaJual.ToString("N0").FixWidthRight(10) ?? "-".FixWidthRight(10);
-                var hrg2 = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 2)?.HargaJual.ToString("N0").FixWidthRight(8) ?? "-".FixWidthRight(8);
+                var hrg1 = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 1)?.SubTotal.ToString("N0").FixWidthRight(10) ?? "-".FixWidthRight(10);
+                var hrg2 = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 2)?.SubTotal.ToString("N0").FixWidthRight(8) ?? "-".FixWidthRight(8);
                 var disc1 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 1)?.DiscountProsen.ToString("N2").FixWidthRight(5) ?? "-".FixWidthRight(5);
                 var disc2 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 2)?.DiscountProsen.ToString("N2").FixWidthRight(5) ?? "-".FixWidthRight(5);
                 var disc3 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 3)?.DiscountProsen.ToString("N2").FixWidthRight(3) ?? "-".FixWidthRight(3);
@@ -129,9 +129,9 @@ namespace btr.distrib.PrintDocs
 
             sb.Append($"──┴──────────┴───────────────────────────┴───────┴───────┴──────────┴────────┴─────┴─────┴───┴───┴───────────\n");
             var subTotal = model.ListItem.Sum(x => x.SubTotal);
-            var discount = model.ListItem.Sum(x => x.DiscountRp) + model.DiscountLain;
+            var discount = model.ListItem.Sum(x => x.DiscountRp);
             var total2 = subTotal + discount;
-            var ppn = model.ListItem.Sum(x => x.PpnRp);
+            var ppn = model.ListItem.Sum(x => x.PpnRp); 
             var grandTotal = model.ListItem.Sum(x => x.Total);
             grandTotal = decimal.Floor(grandTotal);
             var terbilang = $"{grandTotal.Eja()} rupiah".WrapText(70);
@@ -215,7 +215,7 @@ namespace btr.distrib.PrintDocs
                 
                 //  default bonus adalah satuan kecil;
                 itemBonus.NoUrut = 2;
-                itemBonus.HargaJual = 0;
+                itemBonus.SubTotal = 0;
                 newItem.ListQtyHarga.Add(itemBonus);
                 newItem.ListDiscount.Clear();
                 newItem.Total = 0;

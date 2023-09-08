@@ -183,7 +183,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
                 ListQtyHarga = GenListStokHarga(brg, qtyString).ToList(),
             };
             newItem.Qty = newItem.ListQtyHarga.Sum(x => x.Qty * x.Conversion);
-            newItem.SubTotal = newItem.ListQtyHarga.Sum(x => x.Qty * x.HargaJual);
+            newItem.SubTotal = newItem.ListQtyHarga.Sum(x => x.Qty * x.HargaSatuan);
 
             newItem.ListDiscount = GenListDiscount(brgKey.BrgId, newItem.SubTotal, discountString).ToList();
             newItem.DiscountRp = newItem.ListDiscount.Sum(x => x.DiscountRp);
@@ -210,11 +210,11 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             var hrgBesar = hrg * (decimal)qtys[0];
             var hrgKecil = hrg * (decimal)qtys[1];
 
-            result.Add(new FakturQtyHargaModel(1, brg.BrgId, satuanBesar.Satuan,
+            result.Add(new FakturQtyHargaModel(1, brg.BrgId, satuanBesar.Satuan, hrg,
                 satuanBesar.Conversion, (int)qtys[0], hrgBesar));
-            result.Add(new FakturQtyHargaModel(2, brg.BrgId, satuanKecil.Satuan,
+            result.Add(new FakturQtyHargaModel(2, brg.BrgId, satuanKecil.Satuan, hrg,
                 satuanKecil.Conversion, (int)qtys[1], hrgKecil));
-            result.Add(new FakturQtyHargaModel(3, brg.BrgId, satuanKecil.Satuan,
+            result.Add(new FakturQtyHargaModel(3, brg.BrgId, satuanKecil.Satuan, hrg,
                 satuanKecil.Conversion, (int)qtys[2], 0));
             result.RemoveAll(x => x.Qty == 0);
 
@@ -270,8 +270,10 @@ namespace btr.application.SalesContext.FakturAgg.Workers
 
         public IFakturBuilder CalcTotal()
         {
-            _aggRoot.Total = _aggRoot.ListItem.Sum(x => x.Total);
-            _aggRoot.GrandTotal = _aggRoot.Total - _aggRoot.DiscountLain + _aggRoot.BiayaLain;
+            _aggRoot.Total = _aggRoot.ListItem.Sum(x => x.SubTotal);
+            _aggRoot.Discount = _aggRoot.ListItem.Sum(x => x.DiscountRp);
+            _aggRoot.Tax = _aggRoot.ListItem.Sum(x => x.PpnRp);
+            _aggRoot.GrandTotal = _aggRoot.ListItem.Sum(x => x.Total);
             _aggRoot.KurangBayar = _aggRoot.GrandTotal - _aggRoot.UangMuka;
             return this;
         }

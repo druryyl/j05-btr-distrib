@@ -7,9 +7,10 @@
 
     BrgId VARCHAR(6) NOT NULL CONSTRAINT DF_BTR_FakturQtyHarga_BrgId DEFAULT(''),
     Satuan VARCHAR(7) NOT NULL CONSTRAINT DF_BTR_FakturQtyHarga_Satuan DEFAULT(''),
+    HargaSatuan DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_FakturQtyHarga_HargaSatuan DEFAULT(0),
     Conversion INT NOT NULL CONSTRAINT DF_BTR_FakturQtyHarga_Conversion DEFAULT(0),
     Qty INT NOT NULL CONSTRAINT DF_BTR_FakturQtyHarga_Qty DEFAULT(0),
-    HargaJual DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_FakturQtyHarga_HargaJual DEFAULT(0),
+    SubTotal DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_FakturQtyHarga_SubTotal DEFAULT(0),
     
     CONSTRAINT PK_BTR_FakturQtyHarga PRIMARY KEY CLUSTERED(FakturQtyHargaId) 
 )

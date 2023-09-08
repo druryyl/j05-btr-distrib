@@ -33,8 +33,7 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
             IBrowser<SalesPersonBrowserView> salesPersonBrowser,
             IBrowser<WilayahBrowserView> wilayahBrowser,
             ISalesPersonBuilder salesPersonBuilder,
-            ISalesPersonWriter salesPersonWriter
-            )
+            ISalesPersonWriter salesPersonWriter)
         {
             InitializeComponent();
 
@@ -163,12 +162,16 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
         {
             SalesPersonIdText.Text = salesPerson.SalesPersonId;
             SalesPersonNameText.Text = salesPerson.SalesPersonName;
+            SalesPersonCodeText.Text = salesPerson.SalesPersonCode;
+            WilayahIdText.Text = salesPerson.WilayahId;
+            WilayahNameText.Text = salesPerson.WilayahName;
         }
 
         private void ClearForm()
         {
             SalesPersonIdText.Clear();
             SalesPersonNameText.Clear();
+            SalesPersonCodeText.Clear();
             WilayahIdText.Clear();
             WilayahNameText.Clear();
         }
@@ -193,6 +196,7 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
             salesPerson = _salesPersonBuilder
                 .Attach(salesPerson)
                 .Name(SalesPersonNameText.Text)
+                .Code(SalesPersonCodeText.Text)
                 .Wilayah(new WilayahModel(WilayahIdText.Text))
                 .Build();
 

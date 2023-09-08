@@ -102,11 +102,15 @@ namespace btr.distrib.SalesContext.FakturAgg
         {
             SalesPersonButton.Click += SalesPersonButton_Click;
             SalesIdText.Validated += SalesIdText_Validated;
+            SalesIdText.KeyDown += SalesIdText_KeyDown;
 
             CustomerButton.Click += CustomerButton_Click;
             CustomerIdText.Validated += CustomerIdText_Validated;
+            CustomerIdText.KeyDown += CustomerIdText_KeyDown;
 
             WarehouseIdText.Validated += WarehouseIdText_Validated;
+            WarehouseButton.Click += WarehouseButton_Click;
+            WarehouseIdText.KeyDown += WarehouseIdText_KeyDown;
 
             FakturItemGrid.CellContentClick += FakturItemGrid_CellContentClick;
             FakturItemGrid.CellValueChanged += FakturItemGrid_CellValueChanged;
@@ -132,8 +136,8 @@ namespace btr.distrib.SalesContext.FakturAgg
             TermOfPaymentCombo.SelectedIndex = 0;
 
             TotalText.Value = 0;
-            DiscountLainText.Value = 0;
-            BiayaLainText.Value = 0;
+            DiscountText.Value = 0;
+            TaxText.Value = 0;
             UangMukaText.Value = 0;
             SisaText.Value = 0;
 
@@ -183,6 +187,8 @@ namespace btr.distrib.SalesContext.FakturAgg
             TermOfPaymentCombo.SelectedIndex = result.TermOfPayment;
             DueDateText.Value = result.DueDate.ToDate(DateFormatEnum.YMD);
             TotalText.Value = result.Total;
+            DiscountText.Value = result.Discount;
+            TaxText.Value = result.Tax;
             GrandTotalText.Value = result.GrandTotal;
             UangMukaText.Value = result.UangMuka;
             SisaText.Value = result.KurangBayar;
@@ -194,8 +200,8 @@ namespace btr.distrib.SalesContext.FakturAgg
                 var qtyString = string.Join(";", item.ListQtyHarga.Select(x => x.Qty.ToString()));
                 var discString = string.Join(";", item.ListDiscount.Select(x => x.DiscountProsen.ToString(CultureInfo.InvariantCulture)));
                 var listQtyHarga = item.ListQtyHarga
-                    .Where(x => x.HargaJual != 0)
-                    .Select(x => new FakturItem2DtoStokHargaSatuan(x.Qty, x.HargaJual, x.Satuan));
+                    .Where(x => x.SubTotal != 0)
+                    .Select(x => new FakturItemDtoStokHargaSatuan(x.Qty, x.HargaSatuan, x.Satuan));
                 var newItem = new FakturItemDto()
                 {
                     BrgId = item.BrgId,
@@ -209,13 +215,13 @@ namespace btr.distrib.SalesContext.FakturAgg
                 _listItem.Add(newItem);
             }
             _listItem.Add(new FakturItemDto());
-            RefreshGrid();
         }
         #endregion
 
         #region SALES-PERSON
         private void SalesPersonButton_Click(object sender, EventArgs e)
         {
+            _salesBrowser.Filter.UserKeyword = SalesIdText.Text;
             SalesIdText.Text = _salesBrowser.Browse(SalesIdText.Text);
             SalesIdText_Validated(SalesIdText, null);
         }
@@ -228,11 +234,23 @@ namespace btr.distrib.SalesContext.FakturAgg
             var sales = _salesPersonDal.GetData(new SalesPersonModel(textbox.Text));
             SalesPersonNameTextBox.Text = sales?.SalesPersonName ?? string.Empty;
         }
+        private void SalesIdText_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F1)
+            {
+                _salesBrowser.Filter.UserKeyword = SalesIdText.Text;
+                SalesIdText.Text = _salesBrowser.Browse(SalesIdText.Text);
+                SalesIdText_Validated(SalesIdText, null);
+                if (SalesPersonNameTextBox.Text.Length > 0)
+                    CustomerIdText.Focus();
+            }
+        }
         #endregion
 
         #region CUSTOMER
         private void CustomerButton_Click(object sender, EventArgs e)
         {
+            _customerBrowser.Filter.UserKeyword = CustomerIdText.Text;
             CustomerIdText.Text = _customerBrowser.Browse(CustomerIdText.Text);
             CustomerIdText_Validated(CustomerIdText, null);
         }
@@ -244,6 +262,17 @@ namespace btr.distrib.SalesContext.FakturAgg
 
             var customer = _customerDal.GetData(new CustomerModel(textbox.Text));
             CustomerNameTextBox.Text = customer?.CustomerName ?? string.Empty;
+        }
+        private void CustomerIdText_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F1)
+            {
+                _customerBrowser.Filter.UserKeyword = CustomerIdText.Text;
+                CustomerIdText.Text = _customerBrowser.Browse(CustomerIdText.Text);
+                CustomerIdText_Validated(CustomerIdText, null);
+                if (CustomerNameTextBox.Text.Length > 0)
+                    WarehouseIdText.Focus();
+            }
         }
         #endregion
 
@@ -261,6 +290,17 @@ namespace btr.distrib.SalesContext.FakturAgg
 
             var warehouse = _warehouseDal.GetData(new WarehouseModel(textbox.Text));
             WarehouseNameText.Text = warehouse?.WarehouseName ?? string.Empty;
+        }
+        private void WarehouseIdText_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F1)
+            {
+                _warehouseBrowser.Filter.UserKeyword = WarehouseIdText.Text;
+                WarehouseIdText.Text = _warehouseBrowser.Browse(WarehouseIdText.Text);
+                WarehouseIdText_Validated(WarehouseIdText, null);
+                if (WarehouseNameText.Text.Length > 0)
+                    TglRencanaKirimTextBox.Focus();
+            }
         }
         #endregion
 
@@ -306,6 +346,12 @@ namespace btr.distrib.SalesContext.FakturAgg
             {
                 if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("BrgId").Index)
                     BrowseBrg(grid.CurrentCell.RowIndex);
+            }
+
+            if (e.KeyCode == Keys.Delete)
+            {
+                _listItem.RemoveAt(grid.CurrentCell.RowIndex);
+                grid.Refresh();
             }
         }
 
@@ -360,16 +406,16 @@ namespace btr.distrib.SalesContext.FakturAgg
             CalcTotal();
         }
 
-        private static IEnumerable<FakturItem2DtoStokHargaSatuan> BuildStokHrgSatuan(
+        private static IEnumerable<FakturItemDtoStokHargaSatuan> BuildStokHrgSatuan(
             int qty, decimal harga, IEnumerable<BrgSatuanModel> listSatuan)
         {
-            var result = new List<FakturItem2DtoStokHargaSatuan>();
+            var result = new List<FakturItemDtoStokHargaSatuan>();
             var sisa = qty;
             foreach(var item in listSatuan.OrderByDescending(x => x.Conversion))
             {
                 var thisQty = (int)(sisa / item.Conversion);
                 var thisHrg = harga * item.Conversion;
-                var newItem = new FakturItem2DtoStokHargaSatuan(thisQty, thisHrg, item.Satuan);
+                var newItem = new FakturItemDtoStokHargaSatuan(thisQty, thisHrg, item.Satuan);
                 result.Add(newItem);
                 sisa -= (thisQty * item.Conversion);
             }
@@ -437,10 +483,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             buttonCol.DefaultCellStyle.BackColor = Color.Brown;
             FakturItemGrid.Columns.Insert(1, buttonCol);
 
-            RefreshGrid();
-
             //  hide
-            //FakturItemGrid.Columns.GetCol("Code").Visible = false;
             FakturItemGrid.Columns.GetCol("DiscTotal").Visible = false;
             FakturItemGrid.Columns.GetCol("PpnRp").Visible = false;
             FakturItemGrid.Columns.GetCol("Find").Visible = false;
@@ -477,18 +520,15 @@ namespace btr.distrib.SalesContext.FakturAgg
             FakturItemGrid.AutoResizeRows();
 
         }
-        private void RefreshGrid()
-        {
-            if (!_listItem.Any())
-                _listItem.Add(new FakturItemDto());
-        }
         #endregion
 
         #region TOTAL
         private void CalcTotal()
         {
-            TotalText.Value = _listItem.Sum(x => x.Total);
-            GrandTotalText.Value = TotalText.Value - DiscountLainText.Value + BiayaLainText.Value;
+            TotalText.Value = _listItem.Sum(x => x.SubTotal);
+            DiscountText.Value = _listItem.Sum(x => x.DiscTotal);
+            TaxText.Value = _listItem.Sum(x => x.PpnRp);
+            GrandTotalText.Value = _listItem.Sum(x => x.Total);
             SisaText.Value = GrandTotalText.Value - UangMukaText.Value;
         }
         private void DiscountLainText_Validated(object sender, EventArgs e)

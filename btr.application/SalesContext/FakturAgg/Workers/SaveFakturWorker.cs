@@ -166,7 +166,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             var qty2 = (item2?.Qty ?? 0) * (item2?.Conversion ?? 0);
 
             qtyKecil = qty1 + qty2;
-            hargaSat = (item1?.HargaJual ?? 0) / (item1?.Conversion ?? 1);
+            hargaSat = (item1?.SubTotal ?? 0) / (item1?.Conversion ?? 1);
         }
 
         private static void GetQtyBonus(FakturItemModel item, out int qty)

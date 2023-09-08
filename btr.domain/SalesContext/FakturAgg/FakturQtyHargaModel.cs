@@ -10,14 +10,15 @@ namespace btr.domain.SalesContext.FakturAgg
         }
 
         public FakturQtyHargaModel(int qtyHargaNo, string brgId, string satuan, 
-            int conversion, int qty, decimal hargaJual)
+            decimal hargaSatuan, int conversion, int qty, decimal subTotal)
         {
             NoUrut = qtyHargaNo;
             BrgId = brgId;
             Satuan = satuan;
+            HargaSatuan = hargaSatuan;
             Conversion = conversion;
             Qty = qty;
-            HargaJual = hargaJual;
+            SubTotal = subTotal;
         }
         public string FakturId { get; set; }
         public string FakturItemId { get; set; }
@@ -26,9 +27,10 @@ namespace btr.domain.SalesContext.FakturAgg
     
         public string BrgId { get; set; }
         public string Satuan { get; set; }
+        public decimal HargaSatuan { get; set; }
         public int Conversion { get; set; } 
         public int Qty { get; set; }
-        public decimal HargaJual { get; set; }
+        public decimal SubTotal { get; set; }
     }
 }
 
