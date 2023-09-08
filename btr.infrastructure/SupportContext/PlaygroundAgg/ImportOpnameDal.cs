@@ -20,7 +20,7 @@ namespace btr.infrastructure.SupportContext.PlaygroundAgg
         public IEnumerable<ImportOpnameModel> ListData()
         {
             const string sql = @"
-                SELECT BrgCode, BrgName, Qty, Satuan, Nilai
+                SELECT Gudang, BrgCode, BrgName, Qty, Satuan, Nilai
                 FROM DUMMY_ImportOpname ";
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {

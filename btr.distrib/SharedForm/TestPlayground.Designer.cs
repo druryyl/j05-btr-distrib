@@ -36,6 +36,7 @@ namespace btr.distrib.SharedForm
             this.RemoveFifoButton = new System.Windows.Forms.Button();
             this.RollBackButton = new System.Windows.Forms.Button();
             this.RemovePriorityButton = new System.Windows.Forms.Button();
+            this.ImportOpnameButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // AddStokButton
@@ -49,9 +50,9 @@ namespace btr.distrib.SharedForm
             // 
             // PrgBar
             // 
-            this.PrgBar.Location = new System.Drawing.Point(12, 94);
+            this.PrgBar.Location = new System.Drawing.Point(12, 124);
             this.PrgBar.Name = "PrgBar";
-            this.PrgBar.Size = new System.Drawing.Size(267, 23);
+            this.PrgBar.Size = new System.Drawing.Size(279, 15);
             this.PrgBar.TabIndex = 1;
             // 
             // RemoveFifoButton
@@ -74,18 +75,28 @@ namespace btr.distrib.SharedForm
             // 
             // RemovePriorityButton
             // 
-            this.RemovePriorityButton.Location = new System.Drawing.Point(93, 41);
+            this.RemovePriorityButton.Location = new System.Drawing.Point(12, 41);
             this.RemovePriorityButton.Name = "RemovePriorityButton";
             this.RemovePriorityButton.Size = new System.Drawing.Size(96, 23);
             this.RemovePriorityButton.TabIndex = 4;
             this.RemovePriorityButton.Text = "Remove Priority";
             this.RemovePriorityButton.UseVisualStyleBackColor = true;
             // 
+            // ImportOpnameButton
+            // 
+            this.ImportOpnameButton.Location = new System.Drawing.Point(12, 95);
+            this.ImportOpnameButton.Name = "ImportOpnameButton";
+            this.ImportOpnameButton.Size = new System.Drawing.Size(96, 23);
+            this.ImportOpnameButton.TabIndex = 5;
+            this.ImportOpnameButton.Text = "Import Opname";
+            this.ImportOpnameButton.UseVisualStyleBackColor = true;
+            // 
             // TestPlayground
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(299, 134);
+            this.ClientSize = new System.Drawing.Size(299, 151);
+            this.Controls.Add(this.ImportOpnameButton);
             this.Controls.Add(this.RemovePriorityButton);
             this.Controls.Add(this.RollBackButton);
             this.Controls.Add(this.RemoveFifoButton);
@@ -94,6 +105,7 @@ namespace btr.distrib.SharedForm
             this.Name = "TestPlayground";
             this.Text = "TestPlayground";
             this.ResumeLayout(false);
+
         }
 
         private System.Windows.Forms.Button RemovePriorityButton;
@@ -104,5 +116,6 @@ namespace btr.distrib.SharedForm
         private System.Windows.Forms.ProgressBar PrgBar;
         private System.Windows.Forms.Button RemoveFifoButton;
         private System.Windows.Forms.Button RollBackButton;
+        private System.Windows.Forms.Button ImportOpnameButton;
     }
 }

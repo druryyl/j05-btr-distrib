@@ -2,6 +2,7 @@
 {
     public class ImportOpnameModel
     {
+        public string Gudang { get; set; }
         public string BrgCode { get; set; }
         public string BrgName { get; set; }
         public int Qty { get; set; }
