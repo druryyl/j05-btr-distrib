@@ -34,16 +34,47 @@ namespace btr.distrib.SharedForm
 
             RegisterEventHandler();
             InitGrid();
+            label4.Text = $"{PrefixText.Text}{TahunBulanHex()}-0001";
         }
 
         private void RegisterEventHandler()
         {
             UserIdText.Validated += UserIdText_Validated;
+            PrefixText.Validated += PrefixText_Validated;
 
             SaveButton.Click += SaveButton_Click;
             ListGrid.CellDoubleClick += ListGrid_CellDoubleClick;
 
             NewButton.Click += NewButton_Click;
+        }
+
+        private void PrefixText_Validated(object sender, EventArgs e)
+        {
+            label4.Text = $"{PrefixText.Text}{TahunBulanHex()}-0001";
+        }
+
+        private string TahunBulanHex()
+        {
+            var tahun = DateTime.Now.ToString("yy");
+            var bulan = DateTime.Now.Month;
+            string bulanHex;
+            switch (bulan)
+            {
+                case 10:
+                    bulanHex = "A";
+                    break;
+                case 11:
+                    bulanHex = "B";
+                    break;
+                case 12:
+                    bulanHex = "C";
+                    break;
+                default:
+                    bulanHex = bulan.ToString();
+                    break;
+
+            }
+            return $"{tahun}{bulanHex}";
         }
 
         #region GRID-CUSTOMER
@@ -64,12 +95,13 @@ namespace btr.distrib.SharedForm
 
             _listUser = listUser
                 .Select(x => new UserFormGridDto(x.UserId,
-                    x.UserName)).ToList();
+                    x.UserName, x.Prefix)).ToList();
             ListGrid.DataSource = _listUser;
 
             ListGrid.Columns.SetDefaultCellStyle(Color.MintCream);
             ListGrid.Columns.GetCol("Id").Width = 50;
-            ListGrid.Columns.GetCol("Name").Width = 150;
+            ListGrid.Columns.GetCol("Name").Width = 100;
+            ListGrid.Columns.GetCol("Prefix").Width = 50;
         }
         #endregion
 
@@ -134,12 +166,14 @@ namespace btr.distrib.SharedForm
     }
     public class UserFormGridDto
     {
-        public UserFormGridDto(string id, string name)
+        public UserFormGridDto(string id, string name, string prefix)
         {
             Id = id;
             Name = name;
+            Prefix = prefix;    
         }
         public string Id { get; }
         public string Name { get; }
+        public string Prefix { get; }
     }
 }
