@@ -35,7 +35,8 @@ namespace btr.distrib
             ConfigureServices(services, configuration);
 
             if (!IsSuccessLogin(services, out string user))
-                MessageBox.Show("Login Failed");
+                return;
+                //MessageBox.Show("Login Failed");
             else
             {
                 var form = GetMainForm(services, user);

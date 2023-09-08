@@ -344,6 +344,7 @@
     </Compile>
     <Compile Include="WinformAssemblyAnchor.cs" />
     <Content Include="icons8_truck.ico" />
+    <None Include="Resources\key_48px.png" />
     <None Include="Resources\icons8_user_account_32.png" />
     <EmbeddedResource Include="InventoryContext\OpnameAgg\OpnameForm.resx">
       <DependentUpon>OpnameForm.cs</DependentUpon>
