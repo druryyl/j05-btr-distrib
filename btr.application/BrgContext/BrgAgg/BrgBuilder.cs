@@ -134,7 +134,7 @@ namespace btr.application.BrgContext.BrgAgg
         public IBrgBuilder Kategori(IKategoriKey kategoriKey)
         {
             var katogeri = _kategoriDal.GetData(kategoriKey)
-                           ?? throw new KeyNotFoundException($"SupplierID not found ({kategoriKey.KategoriId})");
+                           ?? throw new KeyNotFoundException($"KategoriID not found ({kategoriKey.KategoriId})");
             _aggRoot.KategoriId = katogeri.KategoriId;
             _aggRoot.KategoriName = katogeri.KategoriName;
             return this;

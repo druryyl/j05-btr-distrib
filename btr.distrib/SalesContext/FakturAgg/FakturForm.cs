@@ -412,6 +412,8 @@ namespace btr.distrib.SalesContext.FakturAgg
 
             _listItem[rowIndex].SetBrgName(brg.BrgName);
             _listItem[rowIndex].SetCode(brg.BrgCode);
+            _listItem[rowIndex].Ppn = 11;
+
             _listItem[rowIndex].ListStokHargaSatuan = BuildStokHrgSatuan(stok.Qty, hrg, brg.ListSatuan).ToList();
             FakturItemGrid.Refresh();
             CalcTotal();
