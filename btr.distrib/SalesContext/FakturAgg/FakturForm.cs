@@ -51,7 +51,8 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly IFakturBuilder _fakturBuilder;
         private readonly ISaveFakturWorker _saveFakturWorker;
 
-        private readonly IFakturPrintDoc _fakturPrintDoc;
+        private string _tipeHarga = string.Empty;
+
 
         public FakturForm(IMediator mediator,
             IBrowser<WarehouseBrowserView> warehouseBrowser,
@@ -64,8 +65,6 @@ namespace btr.distrib.SalesContext.FakturAgg
             IWarehouseDal warehouseDal,
             IBrgBuilder brgBuilder,
             IStokBalanceBuilder stokBalanceBuilder,
-            IFakturPrintDoc fakturPrintDoc
-,
             ITglJamDal dateTime,
             IBrgDal brgDal,
             IFakturBuilder fakturBuilder,
@@ -86,7 +85,6 @@ namespace btr.distrib.SalesContext.FakturAgg
             _brgBuilder = brgBuilder;
             _stokBalanceBuilder = stokBalanceBuilder;
 
-            _fakturPrintDoc = fakturPrintDoc;
             _dateTime = dateTime;
 
             InitializeComponent();
@@ -146,6 +144,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             TaxText.Value = 0;
             UangMukaText.Value = 0;
             SisaText.Value = 0;
+            _tipeHarga = string.Empty;
 
             _listItem.Clear();
             _listItem.Add(new FakturItemDto());
@@ -268,6 +267,7 @@ namespace btr.distrib.SalesContext.FakturAgg
 
             var customer = _customerDal.GetData(new CustomerModel(textbox.Text));
             CustomerNameTextBox.Text = customer?.CustomerName ?? string.Empty;
+            _tipeHarga = customer?.HargaTypeId??string.Empty;
         }
         private void CustomerIdText_KeyDown(object sender, KeyEventArgs e)
         {
@@ -403,7 +403,12 @@ namespace btr.distrib.SalesContext.FakturAgg
                 return;
             }
             var stok = BuildStok(rowIndex);
-            var hrg = brg.ListHarga.FirstOrDefault()?.Harga ?? 0;            
+
+            decimal hrg = 0M;
+            if (_tipeHarga.Length == 0)
+                hrg = brg.ListHarga.FirstOrDefault()?.Harga ?? 0;
+            else
+                hrg = brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == _tipeHarga)?.Harga ?? 0;
 
             _listItem[rowIndex].SetBrgName(brg.BrgName);
             _listItem[rowIndex].SetCode(brg.BrgCode);

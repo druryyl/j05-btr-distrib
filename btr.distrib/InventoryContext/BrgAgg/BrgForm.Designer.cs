@@ -32,6 +32,9 @@
             this.SearchButton = new System.Windows.Forms.Button();
             this.BrgGrid = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.HppTimestampText = new System.Windows.Forms.DateTimePicker();
+            this.HppText = new System.Windows.Forms.NumericUpDown();
+            this.TotalLabel = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.BrgCodeText = new System.Windows.Forms.TextBox();
@@ -52,28 +55,25 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.SatuanTab = new System.Windows.Forms.TabPage();
             this.SatuanGrid = new System.Windows.Forms.DataGridView();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.HargaTab = new System.Windows.Forms.TabPage();
             this.HargaGrid = new System.Windows.Forms.DataGridView();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.StokTab = new System.Windows.Forms.TabPage();
             this.StokGrid = new System.Windows.Forms.DataGridView();
             this.SaveButton = new System.Windows.Forms.Button();
-            this.HppText = new System.Windows.Forms.NumericUpDown();
-            this.TotalLabel = new System.Windows.Forms.Label();
-            this.HppTimestampText = new System.Windows.Forms.DateTimePicker();
             this.NewButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.BrgGrid)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.HppText)).BeginInit();
             this.panel3.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.SatuanTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SatuanGrid)).BeginInit();
-            this.tabPage2.SuspendLayout();
+            this.HargaTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.HargaGrid)).BeginInit();
-            this.tabPage3.SuspendLayout();
+            this.StokTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.StokGrid)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.HppText)).BeginInit();
             this.SuspendLayout();
             // 
             // SearchText
@@ -82,13 +82,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.SearchText.Location = new System.Drawing.Point(7, 395);
             this.SearchText.Name = "SearchText";
-            this.SearchText.Size = new System.Drawing.Size(219, 22);
+            this.SearchText.Size = new System.Drawing.Size(349, 22);
             this.SearchText.TabIndex = 0;
             // 
             // SearchButton
             // 
             this.SearchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SearchButton.Location = new System.Drawing.Point(231, 394);
+            this.SearchButton.Location = new System.Drawing.Point(361, 394);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(75, 23);
             this.SearchButton.TabIndex = 1;
@@ -103,7 +103,7 @@
             this.BrgGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.BrgGrid.Location = new System.Drawing.Point(6, 8);
             this.BrgGrid.Name = "BrgGrid";
-            this.BrgGrid.Size = new System.Drawing.Size(300, 380);
+            this.BrgGrid.Size = new System.Drawing.Size(430, 380);
             this.BrgGrid.TabIndex = 2;
             // 
             // panel2
@@ -122,10 +122,47 @@
             this.panel2.Controls.Add(this.BrgNameText);
             this.panel2.Controls.Add(this.BrgButton);
             this.panel2.Controls.Add(this.label6);
-            this.panel2.Location = new System.Drawing.Point(312, 9);
+            this.panel2.Location = new System.Drawing.Point(442, 9);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(228, 211);
             this.panel2.TabIndex = 47;
+            // 
+            // HppTimestampText
+            // 
+            this.HppTimestampText.CalendarMonthBackground = System.Drawing.SystemColors.InactiveCaption;
+            this.HppTimestampText.CustomFormat = "ddd, dd-MMM-yyyy";
+            this.HppTimestampText.Enabled = false;
+            this.HppTimestampText.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.HppTimestampText.Location = new System.Drawing.Point(12, 174);
+            this.HppTimestampText.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
+            this.HppTimestampText.Name = "HppTimestampText";
+            this.HppTimestampText.Size = new System.Drawing.Size(205, 22);
+            this.HppTimestampText.TabIndex = 21;
+            // 
+            // HppText
+            // 
+            this.HppText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.HppText.Location = new System.Drawing.Point(12, 148);
+            this.HppText.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.HppText.Name = "HppText";
+            this.HppText.ReadOnly = true;
+            this.HppText.Size = new System.Drawing.Size(205, 20);
+            this.HppText.TabIndex = 20;
+            this.HppText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.HppText.ThousandsSeparator = true;
+            // 
+            // TotalLabel
+            // 
+            this.TotalLabel.AutoSize = true;
+            this.TotalLabel.Location = new System.Drawing.Point(9, 132);
+            this.TotalLabel.Name = "TotalLabel";
+            this.TotalLabel.Size = new System.Drawing.Size(27, 13);
+            this.TotalLabel.TabIndex = 19;
+            this.TotalLabel.Text = "HPP";
             // 
             // checkBox1
             // 
@@ -210,7 +247,7 @@
             this.panel3.Controls.Add(this.SupplierButton);
             this.panel3.Controls.Add(this.label1);
             this.panel3.Controls.Add(this.label5);
-            this.panel3.Location = new System.Drawing.Point(546, 9);
+            this.panel3.Location = new System.Drawing.Point(676, 9);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(228, 211);
             this.panel3.TabIndex = 49;
@@ -304,25 +341,25 @@
             // 
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(312, 226);
+            this.tabControl1.Controls.Add(this.HargaTab);
+            this.tabControl1.Controls.Add(this.SatuanTab);
+            this.tabControl1.Controls.Add(this.StokTab);
+            this.tabControl1.Location = new System.Drawing.Point(442, 226);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(462, 191);
             this.tabControl1.TabIndex = 50;
             // 
-            // tabPage1
+            // SatuanTab
             // 
-            this.tabPage1.BackColor = System.Drawing.Color.Cornsilk;
-            this.tabPage1.Controls.Add(this.SatuanGrid);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(454, 165);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Satuan";
+            this.SatuanTab.BackColor = System.Drawing.Color.Cornsilk;
+            this.SatuanTab.Controls.Add(this.SatuanGrid);
+            this.SatuanTab.Location = new System.Drawing.Point(4, 22);
+            this.SatuanTab.Name = "SatuanTab";
+            this.SatuanTab.Padding = new System.Windows.Forms.Padding(3);
+            this.SatuanTab.Size = new System.Drawing.Size(454, 165);
+            this.SatuanTab.TabIndex = 0;
+            this.SatuanTab.Text = "Satuan";
             // 
             // SatuanGrid
             // 
@@ -333,16 +370,16 @@
             this.SatuanGrid.Size = new System.Drawing.Size(448, 159);
             this.SatuanGrid.TabIndex = 0;
             // 
-            // tabPage2
+            // HargaTab
             // 
-            this.tabPage2.BackColor = System.Drawing.Color.Cornsilk;
-            this.tabPage2.Controls.Add(this.HargaGrid);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(454, 165);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Harga";
+            this.HargaTab.BackColor = System.Drawing.Color.Cornsilk;
+            this.HargaTab.Controls.Add(this.HargaGrid);
+            this.HargaTab.Location = new System.Drawing.Point(4, 22);
+            this.HargaTab.Name = "HargaTab";
+            this.HargaTab.Padding = new System.Windows.Forms.Padding(3);
+            this.HargaTab.Size = new System.Drawing.Size(454, 165);
+            this.HargaTab.TabIndex = 1;
+            this.HargaTab.Text = "Harga";
             // 
             // HargaGrid
             // 
@@ -353,16 +390,16 @@
             this.HargaGrid.Size = new System.Drawing.Size(448, 159);
             this.HargaGrid.TabIndex = 1;
             // 
-            // tabPage3
+            // StokTab
             // 
-            this.tabPage3.BackColor = System.Drawing.Color.Cornsilk;
-            this.tabPage3.Controls.Add(this.StokGrid);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(454, 165);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Stok";
+            this.StokTab.BackColor = System.Drawing.Color.Cornsilk;
+            this.StokTab.Controls.Add(this.StokGrid);
+            this.StokTab.Location = new System.Drawing.Point(4, 22);
+            this.StokTab.Name = "StokTab";
+            this.StokTab.Padding = new System.Windows.Forms.Padding(3);
+            this.StokTab.Size = new System.Drawing.Size(454, 165);
+            this.StokTab.TabIndex = 2;
+            this.StokTab.Text = "Stok";
             // 
             // StokGrid
             // 
@@ -376,54 +413,17 @@
             // SaveButton
             // 
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveButton.Location = new System.Drawing.Point(699, 423);
+            this.SaveButton.Location = new System.Drawing.Point(829, 423);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
             this.SaveButton.TabIndex = 51;
             this.SaveButton.Text = "Save";
             this.SaveButton.UseVisualStyleBackColor = true;
             // 
-            // HppText
-            // 
-            this.HppText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HppText.Location = new System.Drawing.Point(12, 148);
-            this.HppText.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
-            this.HppText.Name = "HppText";
-            this.HppText.ReadOnly = true;
-            this.HppText.Size = new System.Drawing.Size(205, 20);
-            this.HppText.TabIndex = 20;
-            this.HppText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.HppText.ThousandsSeparator = true;
-            // 
-            // TotalLabel
-            // 
-            this.TotalLabel.AutoSize = true;
-            this.TotalLabel.Location = new System.Drawing.Point(9, 132);
-            this.TotalLabel.Name = "TotalLabel";
-            this.TotalLabel.Size = new System.Drawing.Size(27, 13);
-            this.TotalLabel.TabIndex = 19;
-            this.TotalLabel.Text = "HPP";
-            // 
-            // HppTimestampText
-            // 
-            this.HppTimestampText.CalendarMonthBackground = System.Drawing.SystemColors.InactiveCaption;
-            this.HppTimestampText.CustomFormat = "ddd, dd-MMM-yyyy";
-            this.HppTimestampText.Enabled = false;
-            this.HppTimestampText.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.HppTimestampText.Location = new System.Drawing.Point(12, 174);
-            this.HppTimestampText.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
-            this.HppTimestampText.Name = "HppTimestampText";
-            this.HppTimestampText.Size = new System.Drawing.Size(205, 22);
-            this.HppTimestampText.TabIndex = 21;
-            // 
             // NewButton
             // 
             this.NewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.NewButton.Location = new System.Drawing.Point(312, 423);
+            this.NewButton.Location = new System.Drawing.Point(442, 423);
             this.NewButton.Name = "NewButton";
             this.NewButton.Size = new System.Drawing.Size(75, 23);
             this.NewButton.TabIndex = 52;
@@ -435,7 +435,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Khaki;
-            this.ClientSize = new System.Drawing.Size(782, 450);
+            this.ClientSize = new System.Drawing.Size(912, 450);
             this.Controls.Add(this.NewButton);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.tabControl1);
@@ -450,16 +450,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.BrgGrid)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.HppText)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
+            this.SatuanTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SatuanGrid)).EndInit();
-            this.tabPage2.ResumeLayout(false);
+            this.HargaTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.HargaGrid)).EndInit();
-            this.tabPage3.ResumeLayout(false);
+            this.StokTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.StokGrid)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.HppText)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -486,9 +486,9 @@
         private System.Windows.Forms.Button SupplierButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage SatuanTab;
+        private System.Windows.Forms.TabPage HargaTab;
+        private System.Windows.Forms.TabPage StokTab;
         private System.Windows.Forms.DataGridView SatuanGrid;
         private System.Windows.Forms.DataGridView HargaGrid;
         private System.Windows.Forms.DataGridView StokGrid;

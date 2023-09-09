@@ -200,7 +200,12 @@ namespace btr.distrib.InventoryContext.BrgAgg
                 InitGridBrg();
                 return;
             }
-            var result = _listBrg.Where(x => x.BrgName.ContainMultiWord(keyword)).ToList();
+            
+            var resultName = _listBrg.Where(x => x.BrgName.ContainMultiWord(keyword)).ToList();
+            var resultId = _listBrg.Where(x => x.Id.ToLower().StartsWith(keyword.ToLower())).ToList();
+            var resultCode = _listBrg.Where(x => x.Code.ToLower().StartsWith(keyword.ToLower())).ToList();
+            var result = resultName.Concat(resultId).Concat(resultCode).ToList();
+
             BrgGrid.DataSource = result;
             BrgGrid.Refresh();
         }
@@ -379,7 +384,7 @@ namespace btr.distrib.InventoryContext.BrgAgg
             foreach (var item in listBrg)
             {
                 var brg = new BrgFormBrgDto(
-                    item.BrgId, item.BrgName, item.KategoriName);
+                    item.BrgId, item.BrgCode, item.BrgName, item.KategoriName);
                 _listBrg.Add(brg);
             }
 
@@ -393,7 +398,8 @@ namespace btr.distrib.InventoryContext.BrgAgg
             
             BrgGrid.Columns.SetDefaultCellStyle(Color.Beige);
             BrgGrid.Columns.GetCol("Id").Width = 50;
-            BrgGrid.Columns.GetCol("BrgName").Width = 200;
+            BrgGrid.Columns.GetCol("Code").Width = 80;
+            BrgGrid.Columns.GetCol("BrgName").Width = 150;
             BrgGrid.Columns.GetCol("Kategori").Width = 100;
             if (BrgGrid.Rows.Count == 0)
                 return;
@@ -446,8 +452,6 @@ namespace btr.distrib.InventoryContext.BrgAgg
             ClearForm();
         }
         #endregion
-
-
     }
 }
     
