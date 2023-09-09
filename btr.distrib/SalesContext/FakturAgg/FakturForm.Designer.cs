@@ -411,10 +411,11 @@
             // 
             // FakturDateText
             // 
-            this.FakturDateText.CustomFormat = "ddd dd-MM-yyyy";
+            this.FakturDateText.CustomFormat = "ddd dd-MM-yyyy HH:mm";
             this.FakturDateText.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.FakturDateText.Location = new System.Drawing.Point(11, 87);
             this.FakturDateText.Name = "FakturDateText";
+            this.FakturDateText.ShowUpDown = true;
             this.FakturDateText.Size = new System.Drawing.Size(176, 22);
             this.FakturDateText.TabIndex = 2;
             // 

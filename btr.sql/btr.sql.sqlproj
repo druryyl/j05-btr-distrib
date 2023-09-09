@@ -60,6 +60,8 @@
     <Folder Include="Tables\" />
     <Folder Include="Tables\BrgContext\" />
     <Folder Include="Tables\PurchaseContext\" />
+    <Folder Include="Tables\Helper\" />
+    <Folder Include="Tables\InventoryContext\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\BrgContext\BTR_Brg.sql" />
@@ -89,5 +91,6 @@
     <Build Include="Tables\Helper\BTR_Doc.sql" />
     <Build Include="Tables\Helper\BTR_DocAction.sql" />
     <Build Include="Tables\Helper\BTR_User.sql" />
+    <Build Include="Tables\SalesContext\BTR_FakturControl.sql" />
   </ItemGroup>
 </Project>
