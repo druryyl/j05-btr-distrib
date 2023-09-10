@@ -38,6 +38,7 @@ namespace btr.domain.SalesContext.FakturAgg
         public TermOfPaymentEnum TermOfPayment { get; set; }
         public DateTime DueDate { get; set; }
 
+        public string HargaTypeId { get; set; }
         public decimal Total { get; set; }
         public decimal Discount { get; set; }
         public decimal Tax { get; set; }

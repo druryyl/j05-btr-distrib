@@ -1,6 +1,7 @@
 ﻿using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.OpnameAgg;
 using btr.application.InventoryContext.StokAgg;
+using btr.application.InventoryContext.StokAgg.GenStokUseCase;
 using btr.application.InventoryContext.StokBalanceAgg;
 using btr.application.InventoryContext.WarehouseAgg;
 using btr.application.SupportContext.TglJamAgg;
@@ -31,6 +32,8 @@ namespace btr.distrib.InventoryContext.OpnameAgg
         private readonly IMediator _mediator;
         private readonly IOpnameDal _opnameDal;
         private readonly ITglJamDal _tglJamDal;
+        private readonly IAddStokWorker _addStokWorker;
+        private readonly IRemoveFifoStokWorker _removeFifoStokWorker;
 
         public OpnameForm(IWarehouseDal warehouseDal,
             IBrgDal brgDal,
@@ -41,7 +44,9 @@ namespace btr.distrib.InventoryContext.OpnameAgg
             IOpnameWriter opnameWriter,
             IMediator mediator,
             IOpnameDal opnameDal,
-            ITglJamDal tglJamDal)
+            ITglJamDal tglJamDal,
+            IAddStokWorker addStokWorker,
+            IRemoveFifoStokWorker removeFifoStokWorker)
         {
             _warehouseDal = warehouseDal;
             _brgDal = brgDal;
@@ -58,6 +63,8 @@ namespace btr.distrib.InventoryContext.OpnameAgg
             RegisterEventHandler();
             _opnameDal = opnameDal;
             _tglJamDal = tglJamDal;
+            _addStokWorker = addStokWorker;
+            _removeFifoStokWorker = removeFifoStokWorker;
         }
 
         private void InitPeriodeReport()
@@ -120,23 +127,23 @@ namespace btr.distrib.InventoryContext.OpnameAgg
             ClearForm();
         }
 
-        private async void GenStok(OpnameModel opname)
+        private     void GenStok(OpnameModel opname)
         {
-            //var qtyAdjust = opname.Qty2Adjust * opname.Conversion2;
-            //qtyAdjust += opname.Qty1Adjust;
+            var qtyAdjust = opname.Qty2Adjust * opname.Conversion2;
+            qtyAdjust += opname.Qty1Adjust;
 
-            //if (qtyAdjust > 0)
-            //{
-            //    var cmd = new AddStokCommand(opname.BrgId, opname.WarehouseId, 
-            //        qtyAdjust, opname.Satuan1, opname.Nilai, opname.OpnameId, "OPNAME");
-            //    await _mediator.Send(cmd);
-            //}
-            //else
-            //{
-            //    var cmd = new RemoveStokCommand(opname.BrgId, opname.WarehouseId,
-            //        -qtyAdjust, opname.Satuan1, 0, opname.OpnameId, "OPNAME");
-            //    await _mediator.Send(cmd);
-            //}
+            if (qtyAdjust > 0)
+            {
+                var cmd = new AddStokRequest(opname.BrgId, opname.WarehouseId,
+                    qtyAdjust, opname.Satuan1, opname.Nilai, opname.OpnameId, "OPNAME");
+                _addStokWorker.Execute(cmd);
+            }
+            else
+            {
+                var cmd = new RemoveFifoStokRequest(opname.BrgId, opname.WarehouseId,
+                    -qtyAdjust, opname.Satuan1, 0, opname.OpnameId, "OPNAME");
+                _removeFifoStokWorker.Execute(cmd);
+            }
         }
 
         private void BrgGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

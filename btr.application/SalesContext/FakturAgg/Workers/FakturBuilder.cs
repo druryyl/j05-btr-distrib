@@ -8,6 +8,7 @@ using btr.application.SalesContext.FakturAgg.Contracts;
 using btr.application.SalesContext.SalesPersonAgg.Contracts;
 using btr.application.SupportContext.TglJamAgg;
 using btr.domain.BrgContext.BrgAgg;
+using btr.domain.BrgContext.HargaTypeAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.FakturAgg;
@@ -137,6 +138,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             _aggRoot.CustomerName = customer.CustomerName;
             _aggRoot.Plafond = customer.Plafond;
             _aggRoot.CreditBalance = customer.CreditBalance;
+            _aggRoot.HargaTypeId = customer.HargaTypeId;
             return this;
         }
 
@@ -180,7 +182,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
                 BrgName = brg.BrgName,
                 BrgCode = brg.BrgCode,
                 NoUrut = noUrut,
-                ListQtyHarga = GenListStokHarga(brg, qtyString).ToList(),
+                ListQtyHarga = GenListStokHarga(brg, qtyString, new HargaTypeModel(_aggRoot.HargaTypeId)).ToList(),
             };
             newItem.Qty = newItem.ListQtyHarga.Sum(x => x.Qty * x.Conversion);
             newItem.SubTotal = newItem.ListQtyHarga.Sum(x => x.Qty * x.HargaSatuan);
@@ -195,24 +197,20 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             return this;
         }
 
-        private static IEnumerable<FakturQtyHargaModel> GenListStokHarga(BrgModel brg, string qtyString)
+        private static IEnumerable<FakturQtyHargaModel> GenListStokHarga(BrgModel brg, string qtyString, IHargaTypeKey hargaTypeId)
         {
-            //  TODO: Perbaiki GenList Stok-Harga di Faktur Builder
-            
             var result = new List<FakturQtyHargaModel>();
             var qtys = ParseStringMultiNumber(qtyString, 3);
             var satuanBesar = brg.ListSatuan.OrderBy(x => x.Conversion).Last();
             var satuanKecil = brg.ListSatuan.OrderBy(x => x.Conversion).First();
 
-            //  TODO: Harga Jual seharusnya ambil dari jenis customer
-            //  sementara di-bypass, konfirmasi ke mas harjo/mba pargi
-            var hrg = brg.ListHarga.FirstOrDefault()?.Harga ?? 0;
-            var hrgBesar = hrg * (decimal)qtys[0];
+            var hrg = brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == hargaTypeId.HargaTypeId)?.Harga ?? 0;
+            var hrgBesar = hrg * (decimal)qtys[0] * satuanBesar.Conversion;
             var hrgKecil = hrg * (decimal)qtys[1];
 
-            result.Add(new FakturQtyHargaModel(1, brg.BrgId, satuanBesar.Satuan, hrg,
+            result.Add(new FakturQtyHargaModel(1, brg.BrgId, satuanBesar.Satuan, hrgBesar,
                 satuanBesar.Conversion, (int)qtys[0], hrgBesar));
-            result.Add(new FakturQtyHargaModel(2, brg.BrgId, satuanKecil.Satuan, hrg,
+            result.Add(new FakturQtyHargaModel(2, brg.BrgId, satuanKecil.Satuan, hrgKecil,
                 satuanKecil.Conversion, (int)qtys[1], hrgKecil));
             result.Add(new FakturQtyHargaModel(3, brg.BrgId, satuanKecil.Satuan, hrg,
                 satuanKecil.Conversion, (int)qtys[2], 0));

@@ -147,7 +147,7 @@ namespace btr.distrib.PrintDocs
             sb.Append($"\n");
             sb.Append($"\n");
             sb.Append($"\n");
-            sb.Append($"___________________                      ___________________                   Mayang\n");
+            sb.Append($"___________________                      ___________________                   {model.UserId}\n");
             sb.Append($"(Nama Terang/Cap)\n");
 
             _content = sb.ToString();

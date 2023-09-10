@@ -27,6 +27,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
         public string CustomerName { get; set; }
         public decimal Plafond { get; set; }
         public decimal CreditBalance { get; set; }
+        public string HargaTypeId { get; set; }
 
         public string WarehouseId { get; set; }
         public string WarehouseName { get; set; }

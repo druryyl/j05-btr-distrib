@@ -19,8 +19,11 @@ namespace btr.distrib.SharedForm
         {
             InitializeComponent();
             _userDal = userDal;
-            PasswrodText.KeyDown += PasswrodText_KeyDown;
+            //PasswrodText.KeyDown += PasswrodText_KeyDown;
+            UserIdText.KeyPress += MoveNextControl;
+            PasswrodText.KeyPress += MoveNextControl;
         }
+
 
         private void PasswrodText_KeyDown(object sender, KeyEventArgs e)
         {
@@ -29,7 +32,14 @@ namespace btr.distrib.SharedForm
                 LoginButton_Click(null, null);
             }
         }
-
+        private void MoveNextControl(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                this.SelectNextControl((Control)sender, true, true, true, true);
+                e.Handled = true;
+            }
+        }
         private void LoginButton_Click(object sender, EventArgs e)
         {
             var user = _userDal.GetData(new UserModel(UserIdText.Text))

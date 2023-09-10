@@ -184,6 +184,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             SalesPersonNameTextBox.Text = result.SalesPersonName;
             CustomerIdText.Text = result.CustomerId;
             CustomerNameTextBox.Text = result.CustomerName;
+            _tipeHarga = result.HargaTypeId;
             PlafondTextBox.Value = result.Plafond;
             CreditBalanceTextBox.Value = result.CreditBalance;
             WarehouseIdText.Text = result.WarehouseId;

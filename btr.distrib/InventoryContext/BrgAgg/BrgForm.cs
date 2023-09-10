@@ -320,7 +320,9 @@ namespace btr.distrib.InventoryContext.BrgAgg
         {
             _listHarga.Clear();
             var listHargaType = _hargaTypeDal.ListData()?.ToList() ?? new List<HargaTypeModel>();
-            foreach (var item in listHargaType)
+            var prio = listHargaType.Where(x => x.HargaTypeName.EndsWith("Trade")).ToList();
+            var non = listHargaType.Where(x => !x.HargaTypeName.EndsWith("Trade")).ToList();
+            foreach (var item in prio.Concat(non))
             {
                 var harga = new BrgFormHargaDto();
                 harga.TypeId = item.HargaTypeId;
