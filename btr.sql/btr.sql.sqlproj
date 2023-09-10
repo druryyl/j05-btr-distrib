@@ -91,6 +91,6 @@
     <Build Include="Tables\Helper\BTR_Doc.sql" />
     <Build Include="Tables\Helper\BTR_DocAction.sql" />
     <Build Include="Tables\Helper\BTR_User.sql" />
-    <Build Include="Tables\SalesContext\BTR_FakturControl.sql" />
+    <Build Include="Tables\SalesContext\BTR_FakturControlStatus.sql" />
   </ItemGroup>
 </Project>

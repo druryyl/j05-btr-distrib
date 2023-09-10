@@ -28,6 +28,8 @@ namespace btr.domain.SalesContext.FakturAgg
     
         public string CustomerId { get; set; }
         public string CustomerName { get; set; }
+        public string CustomerCode { get; set; }
+        public string Npwp { get; set; }
         public decimal Plafond { get; set; }
         public decimal CreditBalance { get; set; }
     
@@ -46,7 +48,7 @@ namespace btr.domain.SalesContext.FakturAgg
     
         public decimal UangMuka { get; set; }
         public decimal KurangBayar { get; set; }
-    
+        public string NoFakturPajak { get; set; }
         public DateTime CreateTime { get; set; }
         public DateTime LastUpdate { get; set; }
         public string UserId { get; set; }

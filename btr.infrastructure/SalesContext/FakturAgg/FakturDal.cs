@@ -26,12 +26,12 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             INSERT INTO BTR_Faktur(
                 FakturId, FakturDate, FakturCode, SalesPersonId, CustomerId, HargaTypeId,
                 WarehouseId, TglRencanaKirim, TermOfPayment, DueDate, Total,
-                Discount, Tax, GrandTotal, UangMuka, KurangBayar, 
+                Discount, Tax, GrandTotal, UangMuka, KurangBayar, NoFakturPajak,
                 CreateTime, LastUpdate, UserId)
             VALUES(
                 @FakturId, @FakturDate, @FakturCode, @SalesPersonId, @CustomerId, @HargaTypeId,
                 @WarehouseId, @TglRencanaKirim, @TermOfPayment, @DueDate, @Total,
-                @Discount, @Tax, @GrandTotal, @UangMuka, @KurangBayar, 
+                @Discount, @Tax, @GrandTotal, @UangMuka, @KurangBayar, @NoFakturPajak,
                 @CreateTime, @LastUpdate, @UserId) ";
 
             var dp = new DynamicParameters();
@@ -54,6 +54,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             dp.AddParam("@GrandTotal", model.GrandTotal, SqlDbType.Decimal);
             dp.AddParam("@UangMuka", model.UangMuka, SqlDbType.Decimal);
             dp.AddParam("@KurangBayar", model.KurangBayar, SqlDbType.Decimal);
+            dp.AddParam("@NoFakturPajak", model.NoFakturPajak, SqlDbType.VarChar);
 
             dp.AddParam("@CreateTime", model.CreateTime, SqlDbType.DateTime);
             dp.AddParam("@LastUpdate", model.LastUpdate, SqlDbType.DateTime);
@@ -86,6 +87,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 GrandTotal = @GrandTotal, 
                 UangMuka = @UangMuka, 
                 KurangBayar = @KurangBayar, 
+                NoFakturPajak = @NoFakturPajak, 
                 CreateTime = @CreateTime, 
                 LastUpdate = @LastUpdate, 
                 UserId = @UserId
@@ -112,6 +114,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             dp.AddParam("@GrandTotal", model.GrandTotal, SqlDbType.Decimal);
             dp.AddParam("@UangMuka", model.UangMuka, SqlDbType.Decimal);
             dp.AddParam("@KurangBayar", model.KurangBayar, SqlDbType.Decimal);
+            dp.AddParam("@NoFakturPajak", model.NoFakturPajak, SqlDbType.VarChar);
 
             dp.AddParam("@CreateTime", model.CreateTime, SqlDbType.DateTime);
             dp.AddParam("@LastUpdate", model.LastUpdate, SqlDbType.DateTime);
@@ -146,10 +149,12 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             SELECT
                 aa.FakturId, aa.FakturDate, aa.FakturCode, aa.SalesPersonId, aa.CustomerId, aa.HargaTypeId,
                 aa.WarehouseId, aa.TglRencanaKirim, aa.TermOfPayment, aa.DueDate, aa.Total,
-                aa.Discount, aa.Tax, aa.GrandTotal, aa.UangMuka, aa.KurangBayar, 
+                aa.Discount, aa.Tax, aa.GrandTotal, aa.UangMuka, aa.KurangBayar, aa.NoFakturPajak,
                 aa.CreateTime, aa.LastUpdate, aa.UserId,
                 ISNULL(bb.SalesPersonName, '') AS SalesPersonName,
                 ISNULL(cc.CustomerName, '') AS CustomerName,
+                ISNULL(cc.CustomerCode, '') AS CustomerCode,
+                ISNULL(cc.Npwp, '') AS Npwp,
                 ISNULL(cc.Plafond, 0) AS Plafond,
                 ISNULL(cc.CreditBalance, 0) AS CreditBalance,
                 ISNULL(dd.WarehouseName, '') AS WarehouseName
@@ -176,10 +181,12 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             SELECT
                 aa.FakturId, aa.FakturDate, aa.FakturCode, aa.SalesPersonId, aa.CustomerId, aa.HargaTypeId,
                 aa.WarehouseId, aa.TglRencanaKirim, aa.TermOfPayment, aa.DueDate, aa.Total,
-                aa.Discount, aa.Tax, aa.GrandTotal, aa.UangMuka, aa.KurangBayar, 
+                aa.Discount, aa.Tax, aa.GrandTotal, aa.UangMuka, aa.KurangBayar, aa.NoFakturPajak,
                 aa.CreateTime, aa.LastUpdate, aa.UserId,
                 ISNULL(bb.SalesPersonName, '') AS SalesPersonName,
                 ISNULL(cc.CustomerName, '') AS CustomerName,
+                ISNULL(cc.CustomerCode, '') AS CustomerCode,
+                ISNULL(cc.Npwp, '') AS Npwp,
                 ISNULL(cc.Plafond, 0) AS Plafond,
                 ISNULL(cc.CreditBalance, 0) AS CreditBalance,
                 ISNULL(dd.WarehouseName, '') AS WarehouseName

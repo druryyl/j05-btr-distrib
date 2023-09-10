@@ -90,6 +90,9 @@
     <Compile Include="SalesContext\FakturAgg\IFakturItemKey.cs" />
     <Compile Include="SalesContext\FakturAgg\IFakturKey.cs" />
     <Compile Include="SalesContext\FakturAgg\IFakturStokHargaKey.cs" />
+    <Compile Include="SalesContext\FakturControlAgg\FakturControlModel.cs" />
+    <Compile Include="SalesContext\FakturControlAgg\FakturControlStatusModel.cs" />
+    <Compile Include="SalesContext\FakturControlAgg\StatusFakturEnum.cs" />
     <Compile Include="SalesContext\KlasifikasiAgg\IKlasifikasiKey.cs" />
     <Compile Include="SalesContext\KlasifikasiAgg\KlasifikasiModel.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\ISalesPersonKey.cs" />
