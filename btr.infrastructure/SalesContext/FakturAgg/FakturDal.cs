@@ -27,12 +27,12 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 FakturId, FakturDate, FakturCode, SalesPersonId, CustomerId, HargaTypeId,
                 WarehouseId, TglRencanaKirim, TermOfPayment, DueDate, Total,
                 Discount, Tax, GrandTotal, UangMuka, KurangBayar, NoFakturPajak,
-                CreateTime, LastUpdate, UserId)
+                CreateTime, LastUpdate, UserId, VoidDate, UserIdVoid)
             VALUES(
                 @FakturId, @FakturDate, @FakturCode, @SalesPersonId, @CustomerId, @HargaTypeId,
                 @WarehouseId, @TglRencanaKirim, @TermOfPayment, @DueDate, @Total,
                 @Discount, @Tax, @GrandTotal, @UangMuka, @KurangBayar, @NoFakturPajak,
-                @CreateTime, @LastUpdate, @UserId) ";
+                @CreateTime, @LastUpdate, @UserId, @VoidDate, @UserIdVoid) ";
 
             var dp = new DynamicParameters();
 
@@ -59,6 +59,10 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             dp.AddParam("@CreateTime", model.CreateTime, SqlDbType.DateTime);
             dp.AddParam("@LastUpdate", model.LastUpdate, SqlDbType.DateTime);
             dp.AddParam("@UserId", model.UserId, SqlDbType.VarChar);
+            dp.AddParam("@VoidDate", model.VoidDate, SqlDbType.DateTime);
+            dp.AddParam("@UserIdVoid", model.UserIdVoid, SqlDbType.VarChar);
+
+
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -81,6 +85,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 TglRencanaKirim = @TglRencanaKirim, 
                 TermOfPayment = @TermOfPayment, 
                 DueDate = @DueDate,
+
                 Total = @Total,
                 Discount = @Discount, 
                 Tax = @Tax,
@@ -88,9 +93,12 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 UangMuka = @UangMuka, 
                 KurangBayar = @KurangBayar, 
                 NoFakturPajak = @NoFakturPajak, 
+
                 CreateTime = @CreateTime, 
                 LastUpdate = @LastUpdate, 
-                UserId = @UserId
+                UserId = @UserId,
+                VoidDate = @VoidDate,
+                UserIdVoid @UserIdVoid
             WHERE
                 FakturId = @FakturId ";
 
@@ -119,6 +127,8 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             dp.AddParam("@CreateTime", model.CreateTime, SqlDbType.DateTime);
             dp.AddParam("@LastUpdate", model.LastUpdate, SqlDbType.DateTime);
             dp.AddParam("@UserId", model.UserId, SqlDbType.VarChar);
+            dp.AddParam("@VoidDate", model.VoidDate, SqlDbType.DateTime);
+            dp.AddParam("@UserIdVoid", model.UserIdVoid, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -150,7 +160,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 aa.FakturId, aa.FakturDate, aa.FakturCode, aa.SalesPersonId, aa.CustomerId, aa.HargaTypeId,
                 aa.WarehouseId, aa.TglRencanaKirim, aa.TermOfPayment, aa.DueDate, aa.Total,
                 aa.Discount, aa.Tax, aa.GrandTotal, aa.UangMuka, aa.KurangBayar, aa.NoFakturPajak,
-                aa.CreateTime, aa.LastUpdate, aa.UserId,
+                aa.CreateTime, aa.LastUpdate, aa.UserId, aa.VoidDate, aa.UserIdVoid,
                 ISNULL(bb.SalesPersonName, '') AS SalesPersonName,
                 ISNULL(cc.CustomerName, '') AS CustomerName,
                 ISNULL(cc.CustomerCode, '') AS CustomerCode,
@@ -182,7 +192,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 aa.FakturId, aa.FakturDate, aa.FakturCode, aa.SalesPersonId, aa.CustomerId, aa.HargaTypeId,
                 aa.WarehouseId, aa.TglRencanaKirim, aa.TermOfPayment, aa.DueDate, aa.Total,
                 aa.Discount, aa.Tax, aa.GrandTotal, aa.UangMuka, aa.KurangBayar, aa.NoFakturPajak,
-                aa.CreateTime, aa.LastUpdate, aa.UserId,
+                aa.CreateTime, aa.LastUpdate, aa.UserId, aa.VoidDate, aa.UserIdVoid,
                 ISNULL(bb.SalesPersonName, '') AS SalesPersonName,
                 ISNULL(cc.CustomerName, '') AS CustomerName,
                 ISNULL(cc.CustomerCode, '') AS CustomerCode,

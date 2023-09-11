@@ -2,6 +2,6 @@
 {
     public enum StatusFakturEnum
     {
-        Posted, Kirim, KembaliFaktur, Lunas, Pajak
+        Posted, Kirim, KembaliFaktur, Lunas, Pajak, Unknown
     }
 }

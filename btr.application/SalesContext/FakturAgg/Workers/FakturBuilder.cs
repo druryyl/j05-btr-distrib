@@ -31,6 +31,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         IFakturBuilder TglRencanaKirim(DateTime tglRencanaKirim);
         IFakturBuilder TermOfPayment(TermOfPaymentEnum termOfPayment);
         IFakturBuilder DueDate(DateTime dueDate);
+        IFakturBuilder Void(IUserKey userKey);
 
         IFakturBuilder User(IUserKey user);
         IFakturBuilder AddItem(IBrgKey brgKey, string qtyString, string discountString, decimal ppnProsen);
@@ -87,7 +88,11 @@ namespace btr.application.SalesContext.FakturAgg.Workers
                 CreateTime = _dateTime.Now(),
                 LastUpdate = new DateTime(3000, 1, 1),
                 UserId = userKey.UserId,
-                ListItem = new List<FakturItemModel>()
+                VoidDate = new DateTime(3000, 1, 1),
+                UserIdVoid = userKey.UserId,
+                ListItem = new List<FakturItemModel>(),
+
+
             };
             return this;
         }
@@ -297,6 +302,13 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         public IFakturBuilder DueDate(DateTime dueDate)
         {
             _aggRoot.DueDate = dueDate;
+            return this;
+        }
+
+        public IFakturBuilder Void(IUserKey userKey)
+        {
+            _aggRoot.VoidDate = _dateTime.Now();
+            _aggRoot.UserIdVoid = userKey.UserId;
             return this;
         }
     }

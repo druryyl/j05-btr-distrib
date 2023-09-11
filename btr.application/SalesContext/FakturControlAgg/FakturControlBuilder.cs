@@ -5,6 +5,7 @@ using btr.domain.SalesContext.FakturControlAgg;
 using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,6 +16,8 @@ namespace btr.application.SalesContext.FakturControlAgg
         IFakturControlBuilder LoadOrCreate(IFakturKey fakturKey);
         IFakturControlBuilder Attach(FakturControlModel faktur);
         IFakturControlBuilder Posted(IUserKey user);
+        IFakturControlBuilder Unpost(IUserKey user);
+
         IFakturControlBuilder Kirim(IUserKey user);
         IFakturControlBuilder KembaliFaktur(IUserKey user);
         IFakturControlBuilder FakturPajak(IUserKey user);
@@ -117,6 +120,13 @@ namespace btr.application.SalesContext.FakturControlAgg
         {
             _aggregate.ListStatus.RemoveAll(x => x.StatusFaktur == status);
             return this;
+        }
+
+        public IFakturControlBuilder Unpost(IUserKey user)
+        {
+            //  jika sudah kirim, maka tidak bisa unpost
+            //var kirim = _aggregate.ListStatus
+            throw new NotImplementedException();
         }
     }
 }
