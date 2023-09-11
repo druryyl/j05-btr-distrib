@@ -12,12 +12,13 @@ namespace btr.application.SalesContext.FakturControlAgg
 {
     public interface IFakturControlBuilder : INunaBuilder<FakturControlModel>
     {
-        IFakturControlBuilder LoadOrCreate(FakturModel faktur);
+        IFakturControlBuilder LoadOrCreate(IFakturKey fakturKey);
         IFakturControlBuilder Attach(FakturControlModel faktur);
         IFakturControlBuilder Posted(IUserKey user);
         IFakturControlBuilder Kirim(IUserKey user);
         IFakturControlBuilder KembaliFaktur(IUserKey user);
         IFakturControlBuilder FakturPajak(IUserKey user);
+        IFakturControlBuilder Reset(StatusFakturEnum status);
     }
     public class FakturControlBuilder : IFakturControlBuilder
     {
@@ -33,10 +34,10 @@ namespace btr.application.SalesContext.FakturControlAgg
             _dateTime = tglJamDal;
         }
 
-        public IFakturControlBuilder LoadOrCreate(FakturModel faktur)
+        public IFakturControlBuilder LoadOrCreate(IFakturKey fakturKey)
         {
-            if (faktur is null)
-                throw new KeyNotFoundException("Faktur not found");
+            var faktur = _fakturDal.GetData(fakturKey)
+                ?? throw new KeyNotFoundException("Faktur not found");
             faktur.RemoveNull();
 
             _aggregate = new FakturControlModel
@@ -47,8 +48,8 @@ namespace btr.application.SalesContext.FakturControlAgg
                 CustomerCode = faktur.CustomerCode,
                 CustomerName = faktur.CustomerName,
                 Npwp = faktur.Npwp,
-                SalesId = faktur.SalesPersonId,
-                SalesName = faktur.SalesPersonName,
+                SalesPersonId = faktur.SalesPersonId,
+                SalesPersonName = faktur.SalesPersonName,
                 Total = faktur.GrandTotal,
                 Bayar = faktur.GrandTotal - faktur.KurangBayar,
                 Sisa = faktur.KurangBayar,
@@ -96,6 +97,7 @@ namespace btr.application.SalesContext.FakturControlAgg
                 ?? new FakturControlStatusModel
                 {
                     FakturId = _aggregate.FakturId,
+                    FakturDate = _aggregate.FakturDate,
                     StatusFaktur = status,
                     StatusDate = _dateTime.Now(),
                     Keterangan = string.Empty,
@@ -109,6 +111,12 @@ namespace btr.application.SalesContext.FakturControlAgg
         {
             _aggregate.RemoveNull();
             return _aggregate;
+        }
+
+        public IFakturControlBuilder Reset(StatusFakturEnum status)
+        {
+            _aggregate.ListStatus.RemoveAll(x => x.StatusFaktur == status);
+            return this;
         }
     }
 }

@@ -7,6 +7,7 @@ using btr.distrib.PurchaseContext.PurchaseOrderAgg;
 using btr.distrib.PurchaseContext.SupplierAgg;
 using btr.distrib.SalesContext.CustomerAgg;
 using btr.distrib.SalesContext.FakturAgg;
+using btr.distrib.SalesContext.FakturControlAgg;
 using btr.distrib.SalesContext.SalesPersonAgg;
 using btr.distrib.SalesContext.WilayahAgg;
 using btr.domain.SupportContext.UserAgg;
@@ -147,6 +148,14 @@ namespace btr.distrib.SharedForm
         private void OpnameButton_Click(object sender, EventArgs e)
         {
             var form = _servicesProvider.GetRequiredService<OpnameForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void ControlFakturButton_Click(object sender, EventArgs e)
+        {
+            var form = _servicesProvider.GetRequiredService<FakturControlForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

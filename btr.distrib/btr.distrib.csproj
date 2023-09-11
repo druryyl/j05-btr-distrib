@@ -292,6 +292,12 @@
       <DependentUpon>FakturForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SalesContext\FakturAgg\FakturItemDto.cs" />
+    <Compile Include="SalesContext\FakturControlAgg\FakturControlForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SalesContext\FakturControlAgg\FakturControlForm.Designer.cs">
+      <DependentUpon>FakturControlForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SalesContext\SalesPersonAgg\SalesPersonForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -343,10 +349,14 @@
     </Compile>
     <Compile Include="WinformAssemblyAnchor.cs" />
     <Content Include="icons8_truck.ico" />
+    <None Include="Resources\icons8_to_do_32.png" />
     <None Include="Resources\key_48px.png" />
     <None Include="Resources\icons8_user_account_32.png" />
     <EmbeddedResource Include="InventoryContext\OpnameAgg\OpnameForm.resx">
       <DependentUpon>OpnameForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SalesContext\FakturControlAgg\FakturControlForm.resx">
+      <DependentUpon>FakturControlForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SharedForm\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>

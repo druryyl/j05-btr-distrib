@@ -29,11 +29,11 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             {
                 conn.Open();
                 bcp.AddMap("FakturId", "FakturId");
-                bcp.AddMap("FakturDate", "FakturDate");
+                bcp.AddMap("FakturDate", "FakturDate"); 
                 bcp.AddMap("StatusFaktur", "StatusFaktur");
                 bcp.AddMap("StatusDate", "StatusDate");
                 bcp.AddMap("Keterangan", "Keterangan");
-                bcp.AddMap("Keterangan", "Keterangan");
+                bcp.AddMap("UserId", "UserId");
 
                 var fetched = listModel.ToList();
                 bcp.BatchSize = fetched.Count;
@@ -88,7 +88,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             FROM 
                 BTR_FakturControlStatus aa
             WHERE
-                aa.FakturDate = @Tgl1 AND @Tgl1";
+                aa.FakturDate BETWEEN @Tgl1 AND @Tgl2";
 
             var dp = new DynamicParameters();
             dp.AddParam("@Tgl1", filter.Tgl1, SqlDbType.DateTime);

@@ -139,8 +139,10 @@
     <Compile Include="SalesContext\FakturAgg\Workers\FakturValidator.cs" />
     <Compile Include="SalesContext\FakturAgg\Workers\FakturWriter.cs" />
     <Compile Include="SalesContext\FakturAgg\Workers\SaveFakturWorker.cs" />
-    <Compile Include="SalesContext\FakturControlAgg\FakturBuilder.cs" />
+    <Compile Include="SalesContext\FakturControlAgg\FakturControlBuilder.cs" />
+    <Compile Include="SalesContext\FakturControlAgg\FakturControlWriter.cs" />
     <Compile Include="SalesContext\FakturControlAgg\IFakturControlStatusDal.cs" />
+    <Compile Include="SalesContext\FakturControlAgg\ListFakturControlWorker.cs" />
     <Compile Include="SalesContext\KlasifikasiAgg\IKlasifikasiDal.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\Contracts\ISalesPersonDal.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\UseCases\CreateSalesPersonCommand.cs" />

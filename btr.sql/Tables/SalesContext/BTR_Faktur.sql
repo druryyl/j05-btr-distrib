@@ -25,3 +25,8 @@
     
     CONSTRAINT PK_BTR_Faktur PRIMARY KEY CLUSTERED (FakturId)
 )
+GO
+
+CREATE INDEX IX_BTR_Faktur_FakturDate
+    ON BTR_Faktur(FakturDate, FakturId)
+GO

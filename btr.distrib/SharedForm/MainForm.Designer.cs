@@ -34,7 +34,7 @@
             this.FakturPanel = new System.Windows.Forms.RibbonPanel();
             this.FakturButton = new System.Windows.Forms.RibbonButton();
             this.ReturJualButton = new System.Windows.Forms.RibbonButton();
-            this.ReportFakturButton = new System.Windows.Forms.RibbonButton();
+            this.ControlFakturButton = new System.Windows.Forms.RibbonButton();
             this.MasterSalesPanel = new System.Windows.Forms.RibbonPanel();
             this.OutletButton = new System.Windows.Forms.RibbonButton();
             this.KategoriButton = new System.Windows.Forms.RibbonButton();
@@ -109,10 +109,10 @@
             this.FakturPanel.ButtonMoreEnabled = false;
             this.FakturPanel.ButtonMoreVisible = false;
             this.FakturPanel.Items.Add(this.FakturButton);
+            this.FakturPanel.Items.Add(this.ControlFakturButton);
             this.FakturPanel.Items.Add(this.ReturJualButton);
-            this.FakturPanel.Items.Add(this.ReportFakturButton);
             this.FakturPanel.Name = "FakturPanel";
-            this.FakturPanel.Text = "";
+            this.FakturPanel.Text = "Faktur";
             // 
             // FakturButton
             // 
@@ -131,13 +131,14 @@
             this.ReturJualButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ReturJualButton.SmallImage")));
             this.ReturJualButton.Text = "Retur";
             // 
-            // ReportFakturButton
+            // ControlFakturButton
             // 
-            this.ReportFakturButton.Image = global::btr.distrib.Properties.Resources.icons8_documents;
-            this.ReportFakturButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents;
-            this.ReportFakturButton.Name = "ReportFakturButton";
-            this.ReportFakturButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ReportFakturButton.SmallImage")));
-            this.ReportFakturButton.Text = "Reporting";
+            this.ControlFakturButton.Image = global::btr.distrib.Properties.Resources.icons8_to_do_32;
+            this.ControlFakturButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_to_do_32;
+            this.ControlFakturButton.Name = "ControlFakturButton";
+            this.ControlFakturButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ControlFakturButton.SmallImage")));
+            this.ControlFakturButton.Text = "Control";
+            this.ControlFakturButton.Click += new System.EventHandler(this.ControlFakturButton_Click);
             // 
             // MasterSalesPanel
             // 
@@ -442,7 +443,7 @@
         private System.Windows.Forms.RibbonPanel ribbonPanel2;
         private System.Windows.Forms.RibbonButton FakturButton;
         private System.Windows.Forms.RibbonButton ReturJualButton;
-        private System.Windows.Forms.RibbonButton ReportFakturButton;
+        private System.Windows.Forms.RibbonButton ControlFakturButton;
         private System.Windows.Forms.RibbonButton OutletButton;
         private System.Windows.Forms.RibbonButton KategoriButton;
         private System.Windows.Forms.RibbonSeparator ribbonSeparator1;
