@@ -11,7 +11,6 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
     {
         public string FakturId { get; set; }
     }
-    public  
     public class GenStokFakturWorker
     {
     }
