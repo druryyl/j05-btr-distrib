@@ -45,8 +45,6 @@ namespace btr.application.SalesContext.FakturAgg.Workers
     {
         private readonly IFakturBuilder _fakturBuilder;
         private readonly IFakturWriter _fakturWriter;
-        private readonly IAddStokWorker _addStokWorker;
-        private readonly IStokMutasiDal _stokMutasiDal;
         private readonly IRollBackStokWorker _rollBackStokWorker;
         private readonly IBrgBuilder _brgBuilder;
         private readonly IRemoveFifoStokWorker _removeStokWorker;
@@ -54,8 +52,6 @@ namespace btr.application.SalesContext.FakturAgg.Workers
 
         public SaveFakturWorker(IFakturBuilder fakturBuilder,
             IFakturWriter fakturWriter,
-            IAddStokWorker addStokWorker,
-            IStokMutasiDal stokMutasiDal,
             IRollBackStokWorker rollBackStokWorker,
             IBrgBuilder brgBuilder,
             IRemoveFifoStokWorker removeStokWorker,
@@ -63,8 +59,6 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         {
             _fakturBuilder = fakturBuilder;
             _fakturWriter = fakturWriter;
-            _addStokWorker = addStokWorker;
-            _stokMutasiDal = stokMutasiDal;
             _rollBackStokWorker = rollBackStokWorker;
             _brgBuilder = brgBuilder;
             _removeStokWorker = removeStokWorker;

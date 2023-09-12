@@ -100,6 +100,7 @@
     <Compile Include="InventoryContext\StokAgg\StokBuilder.cs" />
     <Compile Include="InventoryContext\StokAgg\StokValidator.cs" />
     <Compile Include="InventoryContext\StokAgg\StokWriter.cs" />
+    <Compile Include="InventoryContext\StokAgg\UseCases\GenStokFakturWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\UseCases\ListBrgStokQuery.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\RollBackStokWorker.cs" />
     <Compile Include="InventoryContext\StokBalanceAgg\IStokBalanceDal.cs" />
@@ -133,8 +134,12 @@
     <Compile Include="SalesContext\FakturAgg\Contracts\IFakturDiscountDal.cs" />
     <Compile Include="SalesContext\FakturAgg\Contracts\IFakturItemDal.cs" />
     <Compile Include="SalesContext\FakturAgg\Contracts\IFakturQtyHargaDal.cs" />
+    <Compile Include="SalesContext\FakturAgg\UseCases\ChangeToCashFakturWorker.cs" />
+    <Compile Include="SalesContext\FakturAgg\UseCases\ChangeToCreditFakturWorker.cs" />
+    <Compile Include="SalesContext\FakturAgg\UseCases\GenStokFakturWorker.cs" />
     <Compile Include="SalesContext\FakturAgg\UseCases\GetFakturQuery.cs" />
     <Compile Include="SalesContext\FakturAgg\UseCases\ListFakturQuery.cs" />
+    <Compile Include="SalesContext\FakturAgg\UseCases\ReActivateFakturWorker.cs" />
     <Compile Include="SalesContext\FakturAgg\UseCases\VoidFakturWorker.cs" />
     <Compile Include="SalesContext\FakturAgg\Workers\FakturBuilder.cs" />
     <Compile Include="SalesContext\FakturAgg\Workers\FakturValidator.cs" />

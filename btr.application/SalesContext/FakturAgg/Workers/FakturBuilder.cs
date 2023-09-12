@@ -32,6 +32,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         IFakturBuilder TermOfPayment(TermOfPaymentEnum termOfPayment);
         IFakturBuilder DueDate(DateTime dueDate);
         IFakturBuilder Void(IUserKey userKey);
+        IFakturBuilder ReActivate(IUserKey userKey);
 
         IFakturBuilder User(IUserKey user);
         IFakturBuilder AddItem(IBrgKey brgKey, string qtyString, string discountString, decimal ppnProsen);
@@ -309,6 +310,13 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         {
             _aggRoot.VoidDate = _dateTime.Now();
             _aggRoot.UserIdVoid = userKey.UserId;
+            return this;
+        }
+
+        public IFakturBuilder ReActivate(IUserKey userKey)
+        {
+            _aggRoot.VoidDate = new DateTime(3000,1,1);
+            _aggRoot.UserIdVoid = string.Empty;
             return this;
         }
     }

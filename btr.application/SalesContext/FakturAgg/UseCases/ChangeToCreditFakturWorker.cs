@@ -1,6 +1,4 @@
-﻿using btr.application.InventoryContext.StokAgg;
-using btr.application.InventoryContext.StokAgg.GenStokUseCase;
-using btr.application.SalesContext.FakturAgg.Workers;
+﻿using btr.application.SalesContext.FakturAgg.Workers;
 using btr.application.SalesContext.FakturControlAgg;
 using btr.domain.SalesContext.FakturAgg;
 using btr.domain.SupportContext.UserAgg;
@@ -13,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace btr.application.SalesContext.FakturAgg.UseCases
 {
-    public class VoidFakturRequest : IFakturKey, IUserKey
+    public class ChangeToCreditFakturRequest : IFakturKey, IUserKey
     {
-        public VoidFakturRequest(string fakturId, string userId)
+        public ChangeToCreditFakturRequest(string fakturId, string userId)
         {
             FakturId = fakturId;
             UserId = userId;
@@ -24,56 +22,43 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
         public string UserId { get; set; }
     }
 
-    public interface IVoidFakturWorker : INunaServiceVoid<VoidFakturRequest>
-    {
-    }
+    public interface IChangeToCreditFakturWorker : INunaServiceVoid<ChangeToCreditFakturRequest> { }
 
-    public class VoidFakturWorker : IVoidFakturWorker
+    public class ChangeToCreditFakturWorker : IChangeToCreditFakturWorker
     {
         private readonly IFakturBuilder _fakturBuilder;
-        private readonly IRollBackStokWorker _rollBackStokWorker;
         private readonly IFakturControlBuilder _fakturControlBuilder;
-        private readonly IFakturControlWriter _fakturControlWriter;
         private readonly IFakturWriter _fakturWriter;
+        private readonly IFakturControlWriter _fakturControlWriter;
 
-        public VoidFakturWorker(IFakturBuilder fakturBuilder,
-            IRollBackStokWorker rollBackStokWorker,
+        public ChangeToCreditFakturWorker(IFakturBuilder fakturBuilder,
             IFakturControlBuilder fakturControlBuilder,
-            IFakturControlWriter fakturControlWriter,
-            IFakturWriter fakturWriter)
+            IFakturWriter fakturWriter,
+            IFakturControlWriter fakturControlWriter)
         {
             _fakturBuilder = fakturBuilder;
-            _rollBackStokWorker = rollBackStokWorker;
             _fakturControlBuilder = fakturControlBuilder;
-            _fakturControlWriter = fakturControlWriter;
             _fakturWriter = fakturWriter;
+            _fakturControlWriter = fakturControlWriter;
         }
 
-        public void Execute(VoidFakturRequest req)
+        public void Execute(ChangeToCreditFakturRequest req)
         {
-            //   void faktur
             var faktur = _fakturBuilder
                 .Load(req)
-                .Void((IUserKey)req)
+                .TermOfPayment(TermOfPaymentEnum.Credit)
                 .Build();
-            //  unpost faktur control
             var fakturControl = _fakturControlBuilder
                 .LoadOrCreate(req)
-                .CancelPost(req)
+                .CancelLunas(req)
                 .Build();
 
-            //  remove stok
-            var rollBackReq = new RollBackStokRequest(req.FakturId);
-
-            //  apply database
             using (var trans = TransHelper.NewScope())
             {
-                _rollBackStokWorker.Execute(rollBackReq);
                 _fakturWriter.Save(ref faktur);
                 _fakturControlWriter.Save(fakturControl);
                 trans.Complete();
             }
-
         }
     }
 }

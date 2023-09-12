@@ -27,14 +27,19 @@ namespace btr.distrib.SalesContext.FakturControlAgg
         private readonly IFakturControlStatusDal _fakturControlStatusDal;
         private readonly IFakturControlBuilder _builder;
         private readonly IFakturControlWriter _writer;
+        
         private readonly IVoidFakturWorker _voidFakturWorker;
+        private readonly IChangeToCashFakturWorker _changeToCashFakturWorker;
+        private readonly IChangeToCreditFakturWorker _changeToCreditFakturWorker;
 
         private BindingList<FakturControlView> _listItem = new BindingList<FakturControlView>();
         public FakturControlForm(IListFaktorControlWorker listFaktorControlWorker,
             IFakturControlBuilder builder,
             IFakturControlWriter writer,
             IFakturControlStatusDal fakturControlStatusDal,
-            IVoidFakturWorker voidFakturWorker)
+            IVoidFakturWorker voidFakturWorker,
+            IChangeToCashFakturWorker changeToCashFakturWorker,
+            IChangeToCreditFakturWorker changeToCreditFakturWorker)
         {
             _listFaktorControlWorker = listFaktorControlWorker;
             _fakturControlStatusDal = fakturControlStatusDal;
@@ -46,6 +51,8 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             RefreshGrid();
             RegisterEventHandler();
             _voidFakturWorker = voidFakturWorker;
+            _changeToCashFakturWorker = changeToCashFakturWorker;
+            _changeToCreditFakturWorker = changeToCreditFakturWorker;
         }
 
         private void RegisterEventHandler()
@@ -85,10 +92,11 @@ namespace btr.distrib.SalesContext.FakturControlAgg
         {
             switch (statusFaktur)
             {
+                //  re-gen stok
                 case StatusFakturEnum.Posted:
-
                     break;
                 
+                //  
                 case StatusFakturEnum.Kirim:
                     var faktur = _builder
                         .LoadOrCreate(fakturKey)
@@ -105,6 +113,8 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                     _writer.Save(faktur);
                     break;
                 case StatusFakturEnum.Lunas:
+                    var changeToCashReq = new ChangeToCashFakturRequest(fakturKey.FakturId, userKey.UserId);
+                    _changeToCashFakturWorker.Execute(changeToCashReq);
                     break;
                 case StatusFakturEnum.Pajak:
                     break;
@@ -114,67 +124,43 @@ namespace btr.distrib.SalesContext.FakturControlAgg
 
         }
 
-        private void FakturRollback(IFakturKey faktur, StatusFakturEnum statusFaktur, IUserKey userKey)
+        private void FakturRollback(IFakturKey fakturKey, StatusFakturEnum statusFaktur, IUserKey userKey)
         {
             switch (statusFaktur)
             {
                 //  void faktur
                 case StatusFakturEnum.Posted:
-                    var voidFakturRequest = new VoidFakturRequest(faktur.FakturId, userKey.UserId);
+                    var voidFakturRequest = new VoidFakturRequest(fakturKey.FakturId, userKey.UserId);
                     _voidFakturWorker.Execute(voidFakturRequest);
                     break;
 
+                //  batal kirim
                 case StatusFakturEnum.Kirim:
+                    var faktur = _builder
+                        .LoadOrCreate(fakturKey)
+                        .CancelKirim()
+                        .Build();
+                    _writer.Save(faktur);
                     break;
+                
+                //  batal kembali
                 case StatusFakturEnum.KembaliFaktur:
+                    faktur = _builder
+                        .LoadOrCreate(fakturKey)
+                        .CancelKembaliFaktur()
+                        .Build();
+                    _writer.Save(faktur); 
                     break;
+                
                 case StatusFakturEnum.Lunas:
+                    var changeToCreditReq = new ChangeToCreditFakturRequest(fakturKey.FakturId, userKey.UserId);
+                    _changeToCreditFakturWorker.Execute(changeToCreditReq);
                     break;
                 case StatusFakturEnum.Pajak:
                     break;
                 default:
                     break;
             }
-        }
-
-        private void SetStatus(string fakturId, bool value, StatusFakturEnum status)
-        {
-
-            //FakturControlModel faktur = null;
-            //if (value is true)
-            //{
-            //    switch (status)
-            //    {
-            //        case StatusFakturEnum.Posted:
-            //            break;
-            //        case StatusFakturEnum.Kirim:
-            //            faktur = _builder
-            //                .LoadOrCreate(new FakturModel(fakturId))
-            //                .Kirim(user)
-            //                .Build();
-            //            break;
-            //        case StatusFakturEnum.KembaliFaktur:
-            //            faktur = _builder
-            //                .LoadOrCreate(new FakturModel(fakturId))
-            //                .KembaliFaktur(user)
-            //                .Build();
-            //            break;
-            //        case StatusFakturEnum.Lunas:
-            //            break;
-            //        case StatusFakturEnum.Pajak:
-            //            break;
-            //        default:
-            //            break;
-            //    }
-            //}
-            //else
-            //    faktur = _builder
-            //        .LoadOrCreate(new FakturModel(fakturId))
-            //        .Reset(status)
-            //        .Build();
-
-            //if(faktur != null)
-            //    _ = _writer.Save(faktur);
         }
 
         private void SearchButton_Click(object sender, EventArgs e)

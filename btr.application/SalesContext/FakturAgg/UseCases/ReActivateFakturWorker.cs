@@ -13,9 +13,9 @@ using System.Threading.Tasks;
 
 namespace btr.application.SalesContext.FakturAgg.UseCases
 {
-    public class VoidFakturRequest : IFakturKey, IUserKey
+    public class ReactivateFakturRequest : IFakturKey, IUserKey
     {
-        public VoidFakturRequest(string fakturId, string userId)
+        public ReactivateFakturRequest(string fakturId, string userId)
         {
             FakturId = fakturId;
             UserId = userId;
@@ -24,11 +24,11 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
         public string UserId { get; set; }
     }
 
-    public interface IVoidFakturWorker : INunaServiceVoid<VoidFakturRequest>
+    public interface IReactivateFakturWorker : INunaServiceVoid<ReactivateFakturRequest>
     {
     }
 
-    public class VoidFakturWorker : IVoidFakturWorker
+    public class ReactivateFakturWorker : IReactivateFakturWorker
     {
         private readonly IFakturBuilder _fakturBuilder;
         private readonly IRollBackStokWorker _rollBackStokWorker;
@@ -36,7 +36,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
         private readonly IFakturControlWriter _fakturControlWriter;
         private readonly IFakturWriter _fakturWriter;
 
-        public VoidFakturWorker(IFakturBuilder fakturBuilder,
+        public ReactivateFakturWorker(IFakturBuilder fakturBuilder,
             IRollBackStokWorker rollBackStokWorker,
             IFakturControlBuilder fakturControlBuilder,
             IFakturControlWriter fakturControlWriter,
@@ -49,17 +49,17 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
             _fakturWriter = fakturWriter;
         }
 
-        public void Execute(VoidFakturRequest req)
+        public void Execute(ReactivateFakturRequest req)
         {
-            //   void faktur
+            //   re-activate faktur
             var faktur = _fakturBuilder
                 .Load(req)
-                .Void((IUserKey)req)
+                .ReActivate(req)
                 .Build();
             //  unpost faktur control
             var fakturControl = _fakturControlBuilder
                 .LoadOrCreate(req)
-                .CancelPost(req)
+                .Posted(req)
                 .Build();
 
             //  remove stok
