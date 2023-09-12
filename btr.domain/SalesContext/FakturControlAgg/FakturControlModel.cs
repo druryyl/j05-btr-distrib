@@ -17,7 +17,7 @@ namespace btr.domain.SalesContext.FakturControlAgg
         public string Npwp { get; set; }
         public string SalesPersonId { get; set; }
         public string SalesPersonName { get; set; }
-        public Decimal Total { get; set; }
+        public decimal GrandTotal { get; set; }
         public decimal Bayar { get; set; }
         public decimal Sisa { get; set; }
         public string NoFakturPajak { get; set; }

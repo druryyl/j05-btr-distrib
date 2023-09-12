@@ -106,6 +106,9 @@
             // 
             // FakturGrid
             // 
+            this.FakturGrid.AllowUserToAddRows = false;
+            this.FakturGrid.AllowUserToDeleteRows = false;
+            this.FakturGrid.AllowUserToOrderColumns = true;
             this.FakturGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.FakturGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FakturGrid.Location = new System.Drawing.Point(3, 53);

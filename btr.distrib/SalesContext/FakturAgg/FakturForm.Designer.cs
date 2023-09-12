@@ -79,6 +79,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.TermOfPaymentCombo = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.VoidPanel = new System.Windows.Forms.Panel();
+            this.CancelLabel = new System.Windows.Forms.Label();
             this.PanelAtas4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturItemGrid)).BeginInit();
             this.PanelTengah.SuspendLayout();
@@ -94,6 +96,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.PlafondTextBox)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.VoidPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // PanelAtas4
@@ -102,6 +105,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PanelAtas4.BackColor = System.Drawing.Color.Cornsilk;
             this.PanelAtas4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PanelAtas4.Controls.Add(this.VoidPanel);
             this.PanelAtas4.Controls.Add(this.NoteTextBox);
             this.PanelAtas4.Controls.Add(this.NoteLabel);
             this.PanelAtas4.Location = new System.Drawing.Point(830, 9);
@@ -666,6 +670,27 @@
             this.label4.TabIndex = 19;
             this.label4.Text = "Term Of Payment";
             // 
+            // VoidPanel
+            // 
+            this.VoidPanel.Controls.Add(this.CancelLabel);
+            this.VoidPanel.Location = new System.Drawing.Point(-1, -1);
+            this.VoidPanel.Name = "VoidPanel";
+            this.VoidPanel.Size = new System.Drawing.Size(270, 186);
+            this.VoidPanel.TabIndex = 46;
+            this.VoidPanel.Visible = false;
+            // 
+            // CancelLabel
+            // 
+            this.CancelLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CancelLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CancelLabel.ForeColor = System.Drawing.Color.Red;
+            this.CancelLabel.Location = new System.Drawing.Point(0, 0);
+            this.CancelLabel.Name = "CancelLabel";
+            this.CancelLabel.Size = new System.Drawing.Size(270, 186);
+            this.CancelLabel.TabIndex = 23;
+            this.CancelLabel.Text = "CANCELLED";
+            this.CancelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // FakturForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -705,6 +730,7 @@
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.VoidPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -761,5 +787,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DateTimePicker DueDateText;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Panel VoidPanel;
+        private System.Windows.Forms.Label CancelLabel;
     }
 }

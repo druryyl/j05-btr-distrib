@@ -65,7 +65,7 @@ namespace btr.application.SalesContext.FakturControlAgg
                 Npwp = faktur.Npwp,
                 SalesPersonId = faktur.SalesPersonId,
                 SalesPersonName = faktur.SalesPersonName,
-                Total = faktur.GrandTotal,
+                GrandTotal = faktur.GrandTotal,
                 Bayar = faktur.GrandTotal - faktur.KurangBayar,
                 Sisa = faktur.KurangBayar,
                 NoFakturPajak = faktur.NoFakturPajak,

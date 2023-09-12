@@ -45,7 +45,7 @@ namespace btr.distrib.Browsers
                     Tgl = x.FakturDate.ToString("dd-MMM HH:mm"),
                     Customer = x.CustomerName,
                     Sales = x.SalesPersonName,
-                    Total = x.Total
+                    GrandTotal = x.GrandTotal
                 }).ToList();
 
             if (Filter.UserKeyword.Length > 0)
@@ -63,6 +63,6 @@ namespace btr.distrib.Browsers
         public string Tgl { get; set; }
         public string Customer { get; set; }
         public string Sales { get; set; }
-        public decimal Total { get; set; }
+        public decimal GrandTotal { get; set; }
     }
 }

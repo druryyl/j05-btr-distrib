@@ -101,7 +101,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         public IFakturBuilder Load(IFakturKey fakturKey)
         {
             _aggRoot = _fakturDal.GetData(fakturKey)
-                       ?? throw new KeyNotFoundException($"Faktur nof found ({fakturKey.FakturId})");
+                       ?? throw new KeyNotFoundException($"Faktur not found ({fakturKey.FakturId})");
             _aggRoot.ListItem = _fakturItemDal.ListData(fakturKey)?.ToList()
                                 ?? new List<FakturItemModel>();
             

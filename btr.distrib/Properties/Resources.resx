@@ -136,14 +136,17 @@
   <data name="purchase_order_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\purchase_order_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="icons8_purchase_order" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8_purchase_order.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="icons8_documents" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8_documents.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8_day_view" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8_day_view.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8_import" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8_import.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8_to_do_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8_to_do_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8_bill" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8_bill.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -154,11 +157,11 @@
   <data name="documents_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\documents_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="icons8_real_estate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8_real_estate.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="3d_farm_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\3d_farm_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8_3d_farm_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8_3d_farm_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="app-wallpaper-5" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\app-wallpaper-5.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -208,11 +211,11 @@
   <data name="icons8_factory" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8_factory.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8_purchase_order" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8_purchase_order.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8_3d_farm_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8_3d_farm_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8_real_estate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8_real_estate.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8_import" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8_import.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8_print" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8_print.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -226,7 +229,7 @@
   <data name="icons8_graph_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8_graph_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8_to_do_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8_to_do_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="cancelled-stamp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cancelled-stamp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

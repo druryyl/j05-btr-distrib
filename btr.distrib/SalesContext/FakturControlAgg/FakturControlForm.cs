@@ -184,7 +184,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             FakturGrid.Columns.GetCol("Npwp").Width = 100;
             FakturGrid.Columns.GetCol("SalesPersonName").Width = 80;
 
-            FakturGrid.Columns.GetCol("Total").Width = 80;
+            FakturGrid.Columns.GetCol("GrandTotal").Width = 80;
             FakturGrid.Columns.GetCol("Bayar").Width = 80;
             FakturGrid.Columns.GetCol("Sisa").Width = 80;
 
@@ -197,7 +197,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             FakturGrid.Columns.GetCol("UserId").Width = 80;
             FakturGrid.RowHeadersWidth = 55;
 
-            FakturGrid.Columns.GetCol("Total").DefaultCellStyle.BackColor = Color.PaleTurquoise;
+            FakturGrid.Columns.GetCol("GrandTotal").DefaultCellStyle.BackColor = Color.PaleTurquoise;
             FakturGrid.Columns.GetCol("Bayar").DefaultCellStyle.BackColor = Color.Pink;
             FakturGrid.Columns.GetCol("Sisa").DefaultCellStyle.BackColor = Color.PaleTurquoise;
 
@@ -276,7 +276,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
         public string CustomerName { get; private set; }
         public string Npwp { get; private set; }
         public string SalesPersonName { get; private set; }
-        public Decimal Total { get; private set; }
+        public decimal GrandTotal { get; private set; }
         public decimal Bayar { get; private set; }
         public decimal Sisa { get; private set; }
 

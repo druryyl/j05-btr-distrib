@@ -1,6 +1,5 @@
 ﻿using btr.application.SalesContext.FakturAgg.UseCases;
 using btr.distrib.Browsers;
-using btr.distrib.PrintDocs;
 using btr.distrib.SharedForm;
 using btr.nuna.Domain;
 using MediatR;
@@ -11,7 +10,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using btr.distrib.Helpers;
 using btr.domain.SalesContext.CustomerAgg;
@@ -27,13 +25,13 @@ using btr.domain.InventoryContext.StokBalanceAgg;
 using btr.application.SupportContext.TglJamAgg;
 using TextBox = System.Windows.Forms.TextBox;
 using btr.application.SalesContext.FakturAgg.Workers;
+using btr.domain.SalesContext.FakturAgg;
 
 namespace btr.distrib.SalesContext.FakturAgg
 {
     public partial class FakturForm : Form
     {
         private readonly BindingList<FakturItemDto> _listItem = new BindingList<FakturItemDto>();
-        private readonly IMediator _mediator;
 
         private readonly IBrowser<SalesPersonBrowserView> _salesBrowser;
         private readonly IBrowser<CustomerBrowserView> _customerBrowser;
@@ -54,7 +52,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private string _tipeHarga = string.Empty;
 
 
-        public FakturForm(IMediator mediator,
+        public FakturForm(
             IBrowser<WarehouseBrowserView> warehouseBrowser,
             IBrowser<SalesPersonBrowserView> salesBrowser,
             IBrowser<CustomerBrowserView> customerBrowser,
@@ -70,8 +68,6 @@ namespace btr.distrib.SalesContext.FakturAgg
             IFakturBuilder fakturBuilder,
             ISaveFakturWorker saveFakturWorker)
         {
-            _mediator = mediator;
-
             _warehouseBrowser = warehouseBrowser;
             _salesBrowser = salesBrowser;
             _customerBrowser = customerBrowser;
@@ -98,6 +94,8 @@ namespace btr.distrib.SalesContext.FakturAgg
 
         private void RegisterEventHandler()
         {
+            FakturIdText.Validating += FakturIdText_Validating; ;
+
             SalesPersonButton.Click += SalesPersonButton_Click;
             SalesIdText.Validated += SalesIdText_Validated;
             SalesIdText.KeyDown += SalesIdText_KeyDown;
@@ -119,6 +117,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             NewButton.Click += NewButton_Click;
         }
 
+        #region NEW
         private void NewButton_Click(object sender, EventArgs e)
         {
             ClearForm();
@@ -148,60 +147,74 @@ namespace btr.distrib.SalesContext.FakturAgg
 
             _listItem.Clear();
             _listItem.Add(new FakturItemDto());
+            ShowAsActive();
         }
+        #endregion
 
         #region FAKTUR
-        private async void FakturButton_Click(object sender, EventArgs e)
+        private void FakturButton_Click(object sender, EventArgs e)
         {
             _fakturBrowser.Filter.Date = new Periode(DateTime.Now);
 
             FakturIdText.Text = _fakturBrowser.Browse(FakturIdText.Text);
-            await FakturIdText_ValidatedAsync(FakturIdText, null);
+            FakturIdText_Validating(FakturIdText, null);
         }
-        private async Task FakturIdText_ValidatedAsync(object sender, EventArgs e)
+
+        private void FakturIdText_Validating(object sender, CancelEventArgs e)
         {
             var textbox = (TextBox)sender;
+            var valid = true;
             if (textbox.Text.Length == 0)
                 ClearForm();
             else
-                await ValidateFaktur();
+                valid = ValidateFaktur();
+
+            if (!valid)
+                e.Cancel = true;
         }
-        private async Task ValidateFaktur()
+
+        private bool ValidateFaktur()
         {
             var textbox = FakturIdText;
-            var policy = Policy<GetFakturResponse>
+            var policy = Policy<FakturModel>
                 .Handle<KeyNotFoundException>().Or<ArgumentException>()
-                .FallbackAsync(new GetFakturResponse { ListItem = new List<GetFakturResponseItem>() });
-            var query = new GetFakturQuery(textbox.Text);
-            Task<GetFakturResponse> QueryTask() => _mediator.Send(query);
-            var result = await policy.ExecuteAsync(QueryTask);
+                .Fallback(null as FakturModel, (r,c) => 
+                {
+                    MessageBox.Show(r.Exception.Message);
+                });
 
-            result.RemoveNull();
-            CustomerNameTextBox.Text = result.CustomerName;
+            var faktur = policy.Execute(() => _fakturBuilder
+                .Load(new FakturModel(textbox.Text))
+                .Build());
+            if (faktur is null)
+                return false;
 
-            FakturDateText.Value = result.FakturDate.ToDate();
-            SalesIdText.Text = result.SalesPersonId;
-            SalesPersonNameTextBox.Text = result.SalesPersonName;
-            CustomerIdText.Text = result.CustomerId;
-            CustomerNameTextBox.Text = result.CustomerName;
-            _tipeHarga = result.HargaTypeId;
-            PlafondTextBox.Value = result.Plafond;
-            CreditBalanceTextBox.Value = result.CreditBalance;
-            WarehouseIdText.Text = result.WarehouseId;
-            WarehouseNameText.Text = result.WarehouseName;
-            TglRencanaKirimTextBox.Value = result.TglRencanaKirim.ToDate();
-            TermOfPaymentCombo.SelectedIndex = result.TermOfPayment;
-            DueDateText.Value = result.DueDate.ToDate(DateFormatEnum.YMD);
-            TotalText.Value = result.Total;
-            DiscountText.Value = result.Discount;
-            TaxText.Value = result.Tax;
-            GrandTotalText.Value = result.GrandTotal;
-            UangMukaText.Value = result.UangMuka;
-            SisaText.Value = result.KurangBayar;
+            faktur.RemoveNull();
+            CustomerNameTextBox.Text = faktur.CustomerName;
+
+            FakturDateText.Value = faktur.FakturDate;
+            SalesIdText.Text = faktur.SalesPersonId;
+            SalesPersonNameTextBox.Text = faktur.SalesPersonName;
+            CustomerIdText.Text = faktur.CustomerId;
+            CustomerNameTextBox.Text = faktur.CustomerName;
+            _tipeHarga = faktur.HargaTypeId;
+            PlafondTextBox.Value = faktur.Plafond;
+            CreditBalanceTextBox.Value = faktur.CreditBalance;
+            WarehouseIdText.Text = faktur.WarehouseId;
+            WarehouseNameText.Text = faktur.WarehouseName;
+            TglRencanaKirimTextBox.Value = faktur.TglRencanaKirim;
+            TermOfPaymentCombo.SelectedIndex = (int)faktur.TermOfPayment;
+            DueDateText.Value = faktur.DueDate;
+            TotalText.Value = faktur.Total;
+            DiscountText.Value = faktur.Discount;
+            TaxText.Value = faktur.Tax;
+            GrandTotalText.Value = faktur.GrandTotal;
+            UangMukaText.Value = faktur.UangMuka;
+            SisaText.Value = faktur.KurangBayar;
 
             _listItem.Clear();
 
-            foreach (var item in result.ListItem)
+            foreach (var item in faktur.ListItem)
             {
                 var qtyString = string.Join(";", item.ListQtyHarga.Select(x => x.Qty.ToString()));
                 var discString = string.Join(";", item.ListDiscount.Select(x => x.DiscountProsen.ToString(CultureInfo.InvariantCulture)));
@@ -221,6 +234,36 @@ namespace btr.distrib.SalesContext.FakturAgg
                 _listItem.Add(newItem);
             }
             _listItem.Add(new FakturItemDto());
+
+            if (faktur.IsVoid)
+                ShowAsVoid(faktur);
+            else
+                ShowAsActive();
+
+            return true;
+        }
+        
+        private void ShowAsVoid(FakturModel faktur)
+        {
+            this.BackColor = Color.RosyBrown;
+            foreach (var item in this.Controls)
+                if (item is Panel panel)
+                    panel.BackColor = Color.MistyRose;
+
+            CancelLabel.Text = $"Faktur sudah DIBATALKAN \noleh {faktur.UserIdVoid} \npada {faktur.VoidDate:ddd, dd MMM yyyy}";
+            VoidPanel.Visible = true;
+            SaveButton.Visible = false;
+        }
+        
+        private void ShowAsActive()
+        {
+            this.BackColor = Color.Khaki;
+            foreach (var item in this.Controls)
+                if (item is Panel panel)
+                    panel.BackColor = Color.Cornsilk;
+
+            VoidPanel.Visible = false;
+            SaveButton.Visible = true;
         }
         #endregion
 
