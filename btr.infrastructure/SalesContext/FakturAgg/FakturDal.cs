@@ -98,7 +98,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 LastUpdate = @LastUpdate, 
                 UserId = @UserId,
                 VoidDate = @VoidDate,
-                UserIdVoid @UserIdVoid
+                UserIdVoid = @UserIdVoid
             WHERE
                 FakturId = @FakturId ";
 

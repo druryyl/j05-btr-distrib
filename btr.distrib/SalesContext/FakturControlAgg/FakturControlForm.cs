@@ -6,17 +6,12 @@ using btr.domain.SalesContext.FakturAgg;
 using btr.domain.SalesContext.FakturControlAgg;
 using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Domain;
-using btr.nuna.Infrastructure;
 using Mapster;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.Remoting.Channels;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace btr.distrib.SalesContext.FakturControlAgg
@@ -31,6 +26,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
         private readonly IVoidFakturWorker _voidFakturWorker;
         private readonly IChangeToCashFakturWorker _changeToCashFakturWorker;
         private readonly IChangeToCreditFakturWorker _changeToCreditFakturWorker;
+        private readonly IReactivateFakturWorker _reactivateFakturWorker;
 
         private BindingList<FakturControlView> _listItem = new BindingList<FakturControlView>();
         public FakturControlForm(IListFaktorControlWorker listFaktorControlWorker,
@@ -39,7 +35,8 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             IFakturControlStatusDal fakturControlStatusDal,
             IVoidFakturWorker voidFakturWorker,
             IChangeToCashFakturWorker changeToCashFakturWorker,
-            IChangeToCreditFakturWorker changeToCreditFakturWorker)
+            IChangeToCreditFakturWorker changeToCreditFakturWorker, 
+            IReactivateFakturWorker reactivateFakturWorker)
         {
             _listFaktorControlWorker = listFaktorControlWorker;
             _fakturControlStatusDal = fakturControlStatusDal;
@@ -53,6 +50,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             _voidFakturWorker = voidFakturWorker;
             _changeToCashFakturWorker = changeToCashFakturWorker;
             _changeToCreditFakturWorker = changeToCreditFakturWorker;
+            _reactivateFakturWorker = reactivateFakturWorker;
         }
 
         private void RegisterEventHandler()
@@ -94,8 +92,9 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             {
                 //  re-gen stok
                 case StatusFakturEnum.Posted:
+                    var reactivateFakturRequest = new ReactivateFakturRequest(fakturKey.FakturId, userKey.UserId);
+                    _reactivateFakturWorker.Execute(reactivateFakturRequest);
                     break;
-                
                 //  
                 case StatusFakturEnum.Kirim:
                     var faktur = _builder
@@ -230,6 +229,10 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             var listStatus = _fakturControlStatusDal.ListData(periode)?.ToList() ?? new List<FakturControlStatusModel>();
             foreach(var item in _listItem)
             {
+                item.Posted = listStatus
+                    .Where(x => x.FakturId == item.FakturId)
+                    .FirstOrDefault(x => x.StatusFaktur == StatusFakturEnum.Posted) != null ? true : false;
+
                 item.Kirim = listStatus
                     .Where(x => x.FakturId == item.FakturId)
                     .FirstOrDefault(x => x.StatusFaktur == StatusFakturEnum.Kirim) != null ? true : false;

@@ -1,6 +1,8 @@
-﻿using btr.application.BrgContext.BrgAgg;
-using btr.application.InventoryContext.StokAgg;
-using btr.application.InventoryContext.StokAgg.UseCases;
+﻿using System.Collections.Generic;
+using System.Linq;
+using btr.application.BrgContext.BrgAgg;
+using btr.application.InventoryContext.StokAgg.GenStokUseCase;
+using btr.application.SalesContext.FakturAgg.Workers;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SalesContext.CustomerAgg;
@@ -11,11 +13,8 @@ using btr.nuna.Application;
 using btr.nuna.Domain;
 using Dawn;
 using MediatR;
-using System.Collections.Generic;
-using System.Linq;
-using btr.application.InventoryContext.StokAgg.GenStokUseCase;
 
-namespace btr.application.SalesContext.FakturAgg.Workers
+namespace btr.application.SalesContext.FakturAgg.UseCases
 {
     public class SaveFakturRequest : IFakturKey, ICustomerKey, ISalesPersonKey, IWarehouseKey, IUserKey
     {
@@ -45,24 +44,17 @@ namespace btr.application.SalesContext.FakturAgg.Workers
     {
         private readonly IFakturBuilder _fakturBuilder;
         private readonly IFakturWriter _fakturWriter;
-        private readonly IRollBackStokWorker _rollBackStokWorker;
-        private readonly IBrgBuilder _brgBuilder;
-        private readonly IRemoveFifoStokWorker _removeStokWorker;
         private readonly IMediator _mediator;
+        private readonly IGenStokFakturWorker _genStokWorker;
 
         public SaveFakturWorker(IFakturBuilder fakturBuilder,
             IFakturWriter fakturWriter,
-            IRollBackStokWorker rollBackStokWorker,
-            IBrgBuilder brgBuilder,
-            IRemoveFifoStokWorker removeStokWorker,
-            IMediator mediator)
+            IMediator mediator, IGenStokFakturWorker genStokWorker)
         {
             _fakturBuilder = fakturBuilder;
             _fakturWriter = fakturWriter;
-            _rollBackStokWorker = rollBackStokWorker;
-            _brgBuilder = brgBuilder;
-            _removeStokWorker = removeStokWorker;
             _mediator = mediator;
+            _genStokWorker = genStokWorker;
         }
 
         public FakturModel Execute(SaveFakturRequest req)
@@ -76,11 +68,19 @@ namespace btr.application.SalesContext.FakturAgg.Workers
                 .Member(x => x.DueDate, y => y.ValidDate("yyyy-MM-dd"));
 
             //  PROSES FAKTUR
-            var faktur = SaveFaktur(req);
-            GenStok(faktur);
+            FakturModel result;
+            using (var trans = TransHelper.NewScope())
+            {
+                result = SaveFaktur(req);
+                
+                var genStokReq = new GenStokFakturRequest(result.FakturId);
+                _genStokWorker.Execute(genStokReq);
+                
+                trans.Complete();                
+            }
 
             //  RESULT
-            return faktur;
+            return result;
         }
         private FakturModel SaveFaktur(SaveFakturRequest req)
         {
@@ -126,49 +126,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             return result;
         }
 
-        #region GENERATE-STOK
-        private void GenStok(FakturModel faktur)
-        {
-            //  rollback dulu (kasus save ulang)
-            _rollBackStokWorker.Execute(new RollBackStokRequest(faktur.FakturId));
-            
-            foreach(var item in faktur.ListItem)
-            {
-                var brg = _brgBuilder.Load(item).Build();
-                var satuan = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty;
-                GetQtyJual(item, out var qtyJual, out var harga);
-                var req = new RemoveFifoStokRequest(item.BrgId,
-                    faktur.WarehouseId, qtyJual, satuan, harga, faktur.FakturId, "FAKTUR");
-                _removeStokWorker.Execute(req);
 
-                GetQtyBonus(item, out var qtyBonus);
-                if (qtyBonus == 0)
-                    return;
-
-                var reqBonus = new RemoveFifoStokRequest(item.BrgId,
-                    faktur.WarehouseId, qtyBonus, satuan, 0, faktur.FakturId, "FAKTUR-BONUS");
-                _removeStokWorker.Execute(reqBonus);
-            }
-        }
-
-        private static void GetQtyJual(FakturItemModel item, out int qtyKecil, out decimal hargaSat)
-        {
-            var item1= item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 1);
-            var item2 = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 2);
-
-            var qty1 = (item1?.Qty ?? 0) * (item1?.Conversion ?? 0);
-            var qty2 = (item2?.Qty ?? 0) * (item2?.Conversion ?? 0);
-
-            qtyKecil = qty1 + qty2;
-            hargaSat = (item1?.SubTotal ?? 0) / (item1?.Conversion ?? 1);
-        }
-
-        private static void GetQtyBonus(FakturItemModel item, out int qty)
-        {
-            var item3 = item.ListQtyHarga.FirstOrDefault(x => x.NoUrut == 3);
-            qty = (item3?.Qty ?? 0) * (item3?.Conversion ?? 0);
-        }
-        #endregion
     }
 
     public class SavedFakturEvent : INotification

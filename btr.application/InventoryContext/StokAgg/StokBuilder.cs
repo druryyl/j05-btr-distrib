@@ -72,6 +72,8 @@ namespace btr.application.InventoryContext.StokAgg
             };
             var newMutasi = new StokMutasiModel
             {
+                BrgId = brgKey.BrgId,
+                WarehouseId = warehouseKey.WarehouseId,
                 ReffId = reffId,
                 JenisMutasi = jenisMutasi,
                 NoUrut = 0,
@@ -104,6 +106,8 @@ namespace btr.application.InventoryContext.StokAgg
                 QtyOut = qty,
                 HargaJual = hargaJual,
                 ReffId = reffId,
+                BrgId = _agg.BrgId,
+                WarehouseId = _agg.WarehouseId,
                 MutasiDate = _dateTime.Now,
                 JenisMutasi = jenisMutasi,
                 NoUrut = noUrut,

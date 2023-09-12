@@ -418,7 +418,12 @@ namespace btr.distrib.InventoryContext.BrgAgg
             else
                 brg = _brgBuilder.Load(new BrgModel(BrgIdText.Text)).Build();
 
-            brg = _brgBuilder
+            var fallback = Policy<BrgModel>
+                .Handle<KeyNotFoundException>()
+                .Fallback(null as BrgModel, (result, context) => MessageBox.Show(result.Exception.Message));
+
+            
+            brg = fallback.Execute(() => _brgBuilder
                 .Attach(brg)
                 .BrgId(BrgIdText.Text)
                 .Name(BrgNameText.Text)
@@ -426,7 +431,9 @@ namespace btr.distrib.InventoryContext.BrgAgg
                 .Supplier(new SupplierModel(SupplierIdText.Text))
                 .JenisBrg(new JenisBrgModel(JenisBrgCombo.SelectedValue.ToString()))
                 .Kategori(new KategoriModel(KategoriIdText.Text))
-                .Build();
+                .Build());
+            if (brg is null)
+                return;
 
             brg.ListSatuan.Clear();
             foreach (var item in _listSatuan)

@@ -11,7 +11,7 @@ using btr.nuna.Infrastructure;
 using Dapper;
 using Microsoft.Extensions.Options;
 
-namespace btr.infrastructure.SalesContext.FakturAgg
+namespace btr.infrastructure.SalesContext.FakturControlAgg
 {
     public class FakturControlStatusDal : IFakturControlStatusDal
     {
