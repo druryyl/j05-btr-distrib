@@ -92,5 +92,8 @@
     <Build Include="Tables\Helper\BTR_DocAction.sql" />
     <Build Include="Tables\Helper\BTR_User.sql" />
     <Build Include="Tables\SalesContext\BTR_FakturControlStatus.sql" />
+    <Build Include="Tables\InventoryContext\BTR_Packing.sql" />
+    <Build Include="Tables\InventoryContext\BTR_PackingFaktur.sql" />
+    <Build Include="Tables\InventoryContext\BTR_PackingSupplier.sql" />
   </ItemGroup>
 </Project>

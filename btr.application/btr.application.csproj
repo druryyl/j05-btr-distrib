@@ -91,6 +91,8 @@
     <Compile Include="InventoryContext\OpnameAgg\OpnameBuilder.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameValidator.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameWriter.cs" />
+    <Compile Include="InventoryContext\PackingAgg\IPackingDal.cs" />
+    <Compile Include="InventoryContext\PackingAgg\IPackingSupplierDal.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\AddStokWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokBalanceWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokFakturWorker.cs" />
