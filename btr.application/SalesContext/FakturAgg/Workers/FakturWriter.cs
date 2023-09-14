@@ -59,7 +59,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
                 {
                     item2.FakturId = model.FakturId;
                     item2.FakturItemId = item.FakturItemId;
-                    item2.FakturQtyHargaId = $"{item.FakturItemId}-{item2.NoUrut:D1}";
+                    item2.FakturQtyHargaId = $"{item.FakturItemId}-{(int)item2.JenisQty}";
                 }
                 foreach (var item2 in item.ListDiscount)
                 {

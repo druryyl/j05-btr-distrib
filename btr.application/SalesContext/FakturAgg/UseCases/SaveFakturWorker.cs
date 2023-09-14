@@ -33,6 +33,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
     public class SaveFakturRequestItem : IBrgKey
     {
         public string BrgId { get; set; }
+        public string StokHarga { get; set; }
         public string QtyString { get; set; }
         public string DiscountString { get; set; }
         public decimal PpnProsen { get; set; }
@@ -112,7 +113,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
             {
                 result = _fakturBuilder
                     .Attach(result)
-                    .AddItem(item, item.QtyString, item.DiscountString, item.PpnProsen)
+                    .AddItem(item, item.StokHarga, item.QtyString, item.DiscountString, item.PpnProsen)
                     .Build();
             }
             result = _fakturBuilder

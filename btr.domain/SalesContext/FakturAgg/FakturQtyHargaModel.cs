@@ -2,6 +2,10 @@
 
 namespace btr.domain.SalesContext.FakturAgg
 {
+    public enum JenisQtyFakturEnum
+    {
+        Besar, Kecil, Bonus
+    }
     public class FakturQtyHargaModel : IFakturKey, 
         IFakturItemKey, IFakturStokHargaKey, IBrgKey
     {
@@ -9,10 +13,10 @@ namespace btr.domain.SalesContext.FakturAgg
         {
         }
 
-        public FakturQtyHargaModel(int qtyHargaNo, string brgId, string satuan, 
+        public FakturQtyHargaModel(JenisQtyFakturEnum jenisQty, string brgId, string satuan, 
             decimal hargaSatuan, int conversion, int qty, decimal subTotal)
         {
-            NoUrut = qtyHargaNo;
+            JenisQty = jenisQty;
             BrgId = brgId;
             Satuan = satuan;
             HargaSatuan = hargaSatuan;
@@ -23,7 +27,7 @@ namespace btr.domain.SalesContext.FakturAgg
         public string FakturId { get; set; }
         public string FakturItemId { get; set; }
         public string FakturQtyHargaId { get; set; }
-        public int NoUrut { get; set; }
+        public JenisQtyFakturEnum JenisQty { get; set; }
     
         public string BrgId { get; set; }
         public string Satuan { get; set; }

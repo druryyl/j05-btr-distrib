@@ -9,12 +9,13 @@ namespace btr.distrib.SalesContext.FakturAgg
         private string _qty;
         private string _disc;
         private decimal _ppn;
-
+        private string _stokHarga = string.Empty;
+        private List<FakturItemDtoStokHargaSatuan> _listStokHargaSatuan;
         private string _brgId;
 
         public FakturItemDto()
         {
-            ListStokHargaSatuan = new List<FakturItemDtoStokHargaSatuan>();
+            _listStokHargaSatuan = new List<FakturItemDtoStokHargaSatuan>();
         }
 
         public string BrgId 
@@ -26,15 +27,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         public string Code { get; private set; }
 
         public string BrgName { get; private set; }
-        public string StokHarga
-        {
-            get
-            {
-                return string.Join(Environment.NewLine,
-                    ListStokHargaSatuan
-                        .Select(x => $"{x.Stok} {x.Satuan} @{x.Harga:N0}"));
-            }
-        }
+        public string StokHarga { get; private set; }
         public string Qty
         {
             get => _qty;
@@ -67,14 +60,27 @@ namespace btr.distrib.SalesContext.FakturAgg
                 _ppn = value;
                 ReCalc();
             }
-        }        public decimal PpnRp { get; private set; }
+        }        
+        public decimal PpnRp { get; private set; }
         public decimal Total { get; private set; }
 
-        public List<FakturItemDtoStokHargaSatuan> ListStokHargaSatuan { get; set; }
-
+        public List<FakturItemDtoStokHargaSatuan> ListStokHargaSatuan 
+        { 
+            get => _listStokHargaSatuan;
+            set
+            {
+                _listStokHargaSatuan = value;
+                SetStokHarga(string.Join(Environment.NewLine,
+                    _listStokHargaSatuan
+                    .Select(x => $"{x.Stok} {x.Satuan} @{x.Harga:N0}")));
+            }
+        }
 
         public void SetBrgName(string name) => BrgName = name;
+
         public void SetCode(string code) => Code = code;
+
+        public void SetStokHarga(string stokHarga) => StokHarga = stokHarga;
         
         private static List<decimal> ParseStringMultiNumber(string str, int size)
         {
@@ -95,6 +101,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             }
             return result;
         }
+
         private void ReCalcQty()
         {
             if (Qty is null) return;
@@ -138,6 +145,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             result += qtys[1] * ListStokHargaSatuan.LastOrDefault()?.Harga ?? 0;
             SubTotal = result;
         }        
+
         public void ReCalc()
         {
             ReCalcQty();

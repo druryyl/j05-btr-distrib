@@ -29,13 +29,23 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 bcp.AddMap("FakturId", "FakturId");
                 bcp.AddMap("FakturItemId", "FakturItemId");
                 bcp.AddMap("NoUrut", "NoUrut");
+                
                 bcp.AddMap("BrgId", "BrgId");
                 bcp.AddMap("BrgCode", "BrgCode");
-                bcp.AddMap("AvailableQty", "AvailableQty");
-                bcp.AddMap("Qty", "Qty");
-                bcp.AddMap("HargaJual", "HargaJual");
+                bcp.AddMap("StokHargaStr", "StokHargaStr");
+                
+                bcp.AddMap("QtyInputStr", "QtyInputStr");
+                bcp.AddMap("QtyDetilStr", "QtyDetilStr");
+                bcp.AddMap("QtyPotStok", "QtyPotStok");
+                bcp.AddMap("QtyJual", "QtyJual");
+                
+                bcp.AddMap("HargaSatuan", "HargaSatuan");
                 bcp.AddMap("SubTotal", "SubTotal");
-                bcp.AddMap("DiscountRp", "DiscountRp");
+                
+                bcp.AddMap("DiscInputStr", "DiscInputStr");
+                bcp.AddMap("DiscDetilStr", "DiscDetilStr");
+                bcp.AddMap("DiscRp", "DiscRp");
+
                 bcp.AddMap("PpnProsen", "PpnProsen");
                 bcp.AddMap("PpnRp", "PpnRp");
                 bcp.AddMap("Total", "Total");
@@ -68,16 +78,19 @@ namespace btr.infrastructure.SalesContext.FakturAgg
         {
             const string sql = @"
             SELECT
-                aa.FakturId, aa.FakturItemId, aa.NoUrut, aa.BrgId, aa.BrgCode,
-                aa.AvailableQty, aa.Qty, aa.HargaJual, aa.SubTotal,
-                aa.DiscountRp, aa.PpnProsen, aa.PpnRp, aa.Total,
+                aa.FakturId, aa.FakturItemId, aa.NoUrut, 
+                aa.BrgId, aa.BrgCode, aa.StokHargaStr, 
+                aa.QtyInputStr, aa.QtyDetilStr, aa.QtyPotStok, aa.QtyJual, 
+                aa.HargaSatuan, SubTotal,
+                aa.DiscInputStr, aa.DiscDetilStr, aa.DiscRp,
+                aa.PpnProsen, aa.PpnRp, aa.Total,
                 ISNULL(bb.BrgName, '') AS BrgName
             FROM 
                 BTR_FakturItem aa
                 LEFT JOIN BTR_Brg bb ON aa.BrgId = bb.BrgId
             WHERE
                 aa.FakturId = @FakturId ";
-
+            
             var dp = new DynamicParameters();
             dp.AddParam("@FakturId", fakturKey.FakturId, SqlDbType.VarChar);
 
