@@ -87,12 +87,15 @@
     <Compile Include="BrgContext\KategoriAgg\IKategoriDal.cs" />
     <Compile Include="BrgContext\KategoriAgg\KategoriBuilder.cs" />
     <Compile Include="BrgContext\KategoriAgg\KategoriWriter.cs" />
+    <Compile Include="InventoryContext\DriverAgg\IDriverDal.cs" />
     <Compile Include="InventoryContext\OpnameAgg\IOpnameDal.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameBuilder.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameValidator.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameWriter.cs" />
     <Compile Include="InventoryContext\PackingAgg\IPackingDal.cs" />
+    <Compile Include="InventoryContext\PackingAgg\IPackingFakturDal.cs" />
     <Compile Include="InventoryContext\PackingAgg\IPackingSupplierDal.cs" />
+    <Compile Include="InventoryContext\PackingAgg\PackingBuilder.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\AddStokWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokBalanceWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokFakturWorker.cs" />

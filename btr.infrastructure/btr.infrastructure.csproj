@@ -85,6 +85,8 @@
     <Compile Include="BrgContext\BrgAgg\BrgHargaDal.cs" />
     <Compile Include="BrgContext\BrgAgg\BrgStokViewDal.cs" />
     <Compile Include="BrgContext\KategoriAgg\KategoriDal.cs" />
+    <Compile Include="InventoryContext\DriverAgg\DriverModel.cs" />
+    <Compile Include="InventoryContext\DriverAgg\IDriverKey.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameDal.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingDal.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingSupplierDal.cs" />
@@ -134,8 +136,6 @@
     <Folder Include="FinanceContext\CreditNoteAgg\" />
     <Folder Include="FinanceContext\HutangAgg\" />
     <Folder Include="FinanceContext\PiutangAgg\" />
-    <Folder Include="InventoryContext\DeliveryAgg\" />
-    <Folder Include="InventoryContext\GoodReceiptAgg\" />
     <Folder Include="PurchaseContext\InvoiceAgg\" />
     <Folder Include="PurchaseContext\KlaimAgg\" />
   </ItemGroup>

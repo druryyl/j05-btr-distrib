@@ -59,6 +59,8 @@
     <Compile Include="FinanceContext\PiutangAgg\PiutangModel.cs" />
     <Compile Include="InventoryContext\DeliveryAgg\DeliveryModel.cs" />
     <Compile Include="InventoryContext\DeliveryAgg\IDeliveryKey.cs" />
+    <Compile Include="InventoryContext\DriverAgg\DriverModel.cs" />
+    <Compile Include="InventoryContext\DriverAgg\IDriverKey.cs" />
     <Compile Include="InventoryContext\OpnameAgg\IOpnameKey.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameModel.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingModel.cs" />

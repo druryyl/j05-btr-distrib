@@ -24,14 +24,17 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
         {
             const string sql = @"
             INSERT INTO BTR_Packing(
-                PackingId, PackingDate, DriverId, Route)
+                PackingId, PackingDate, WarehouseId, 
+                DriverId, DeliveryDate, Route)
             VALUES (
-                @PackingId, @PackingDate, @DriverId, @Route)";
+                @PackingId, @PackingDate, @DriverId, @DeliveryDate,  @Route)";
 
             var @dp = new DynamicParameters();
             dp.AddParam("@PackingId", model.PackingId, SqlDbType.VarChar);
             dp.AddParam("@PackingDate", model.PackingDate, SqlDbType.DateTime);
+            dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
             dp.AddParam("@DriveId", model.DriverId, SqlDbType.VarChar);
+            dp.AddParam("@DeliveryDate", model.DeliveryDate, SqlDbType.VarChar);
             dp.AddParam("@Route", model.Route, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
@@ -47,15 +50,20 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
                 BTR_Packing
             SET
                 PackingDate = @PackingDate,
+                WarehouseId = @WarehouseId,
                 DriverId = @DriverId,
-                Route = @Route
+                Route = @Route,
+                DeliveryDate = @DeliveryDate
             WHERE
                 PackingId = @PackingId ";
 
             var @dp = new DynamicParameters();
             dp.AddParam("@PackingId", model.PackingId, SqlDbType.VarChar);
             dp.AddParam("@PackingDate", model.PackingDate, SqlDbType.DateTime);
+            dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
+
             dp.AddParam("@DriveId", model.DriverId, SqlDbType.VarChar);
+            dp.AddParam("@DeliveryDate", model.DeliveryDate, SqlDbType.VarChar);
             dp.AddParam("@Route", model.Route, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
@@ -85,11 +93,14 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
         {
             const string sql = @"
             SELECT
-                aa.PackingId, aa.PackingDate, aa.DriverId, aa.Route
-                ISNULL(bb.DriverName, '') AS DriverName
+                aa.PackingId, aa.PackingDate, aa.WarehouseId,
+                aa.DriverId, aa.DeliveryDate, aa.Route,
+                ISNULL(bb.WarehouseName, '') AS WarehouseName,
+                ISNULL(cc.DriverName, '') AS DriverName
             FROM
                 BTR_Packing aa
-                LEFT JOIN BTR_Driver bb ON aa.DriverId = bb.DriverId
+                LEFT JOIN BTR_Warehouse bb ON aa.WarehouseId = bb.WarehouseId
+                LEFT JOIN BTR_Driver Cc ON aa.DriverId = cc.DriverId
             WHERE
                 PackingId = @PackingId ";
 
@@ -106,23 +117,20 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
         {
             const string sql = @"
             SELECT
-                aa.PackingId, aa.PackingDate, aa.ReffId,
-                aa.BrgId,  aa.WarehouseId, aa.QtyIn, aa.Qty,
-                aa.NilaiPersediaan,
-                ISNULL(bb.BrgName, '') AS BrgName,
-                ISNULL(cc.WarehouseName, '') AS WarehouseName
+                aa.PackingId, aa.PackingDate, aa.WarehouseId,
+                aa.DriverId, aa.DeliveryDate, aa.Route,
+                ISNULL(bb.WarehouseName, '') AS WarehouseName,
+                ISNULL(cc.DriverName, '') AS DriverName
             FROM
                 BTR_Packing aa
-                LEFT JOIN BTR_Brg bb ON aa.BrgId = bb.BrgId
-                LEFT JOIN BTR_Warehouse cc on aa.WarehouseId = cc.WarehouseId
+                LEFT JOIN BTR_Warehouse bb ON aa.WarehouseId = bb.WarehouseId
+                LEFT JOIN BTR_Driver Cc ON aa.DriverId = cc.DriverId
             WHERE
-                aa.BrgId = @BrgId
-                AND aa.WarehouseId = @WarehouseId
-                AND aa.Qty > 0";
+                aa.DeliveryDate BETWEEN @Tgl1 AND @Tgl2";
 
             var dp = new DynamicParameters();
-            dp.AddParam("@BrgId", brg.BrgId, SqlDbType.VarChar);
-            dp.AddParam("@WarehouseId", warehouse.WarehouseId, SqlDbType.VarChar);
+            dp.AddParam("@Tgl1", periode.Tgl1, SqlDbType.DateTime);
+            dp.AddParam("@Tgl1", periode.Tgl2, SqlDbType.DateTime);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {

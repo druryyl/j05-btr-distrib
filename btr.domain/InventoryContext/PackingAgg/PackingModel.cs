@@ -1,4 +1,7 @@
-﻿using System;
+﻿using btr.domain.InventoryContext.DriverAgg;
+using btr.domain.InventoryContext.WarehouseAgg;
+using btr.domain.SalesContext.FakturAgg;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,18 +9,23 @@ using System.Threading.Tasks;
 
 namespace btr.domain.InventoryContext.PackingAgg
 {
-    public class PackingModel : IPackingKey
+    public class PackingModel : IPackingKey, IDriverKey, IWarehouseKey
     {
         public string PackingId { get; }
-        public string PackingDate { get; set; }
+        public DateTime PackingDate { get; set; }
+
+        public string WarehouseId { get; set; }
+        public string WarehouseName { get; set; }
+        public DateTime DeliveryDate { get; set; }
         public string DriverId { get; set; }
         public string DriverName { get; set; }
+
         public string Route { get; set; }
         public List<PackingFakturModel> ListFaktur { get; set; }
         public List<PackingSupplierModel> ListSupplier { get; set; }
     }
 
-    public class PackingFakturModel
+    public class PackingFakturModel : IFakturKey
     {
         public string PackingId { get; set; }
         public string FakturId { get; set; }
