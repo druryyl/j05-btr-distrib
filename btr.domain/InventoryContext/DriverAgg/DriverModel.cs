@@ -1,6 +1,4 @@
-﻿using btr.infrastructure.InventoryContext.DriverAgg;
-
-namespace btr.domain.InventoryContext.DriverAgg
+﻿namespace btr.domain.InventoryContext.DriverAgg
 {
     public class DriverModel : IDriverKey
     {

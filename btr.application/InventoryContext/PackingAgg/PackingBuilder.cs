@@ -47,10 +47,8 @@ namespace btr.application.InventoryContext.PackingAgg
         private readonly IFakturDal _fakturDal;
         private readonly IDriverDal _driverDal;
         private readonly IWarehouseDal _warehouseDal;
-        private readonly ISupplierDal _supplierDal;
         private readonly ITglJamDal _dateTime;
         private readonly IFakturBuilder _fakturBuilder;
-        private readonly IBrgDal _brgDal;
         private readonly IBrgBuilder _brgBuilder;
 
         public PackingBuilder(IPackingDal packingDal,
@@ -60,9 +58,7 @@ namespace btr.application.InventoryContext.PackingAgg
             IWarehouseDal warehouseDal,
             ITglJamDal dateTime,
             IFakturDal fakturDal,
-            ISupplierDal supplierDal,
             IFakturBuilder fakturBuilder,
-            IBrgDal brgDal,
             IBrgBuilder brgBuilder)
         {
             _packingDal = packingDal;
@@ -72,9 +68,7 @@ namespace btr.application.InventoryContext.PackingAgg
             _warehouseDal = warehouseDal;
             _dateTime = dateTime;
             _fakturDal = fakturDal;
-            _supplierDal = supplierDal;
             _fakturBuilder = fakturBuilder;
-            _brgDal = brgDal;
             _brgBuilder = brgBuilder;
         }
 
