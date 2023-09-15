@@ -32,6 +32,9 @@ namespace btr.domain.SalesContext.FakturAgg
         public string Npwp { get; set; }
         public decimal Plafond { get; set; }
         public decimal CreditBalance { get; set; }
+        public string Address { get; set; } 
+        public string Kota { get; set; }
+
     
         public string WarehouseId { get; set; }
         public string WarehouseName { get; set; }

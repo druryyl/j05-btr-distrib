@@ -44,7 +44,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
     {
         private FakturModel _aggRoot = new FakturModel();
         private readonly IFakturDal _fakturDal;
-        private readonly IFakturItemDSal _fakturItemDal;
+        private readonly IFakturItemDal _fakturItemDal;
         private readonly IFakturQtyHargaDal _fakturQtyHargaDal;
         private readonly IFakturDiscountDal _fakturDiscountDal;
 

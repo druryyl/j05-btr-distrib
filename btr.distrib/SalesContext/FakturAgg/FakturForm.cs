@@ -227,7 +227,8 @@ namespace btr.distrib.SalesContext.FakturAgg
                     
                     Qty = qtyString,
                     Disc = discString,
-                    //ListStokHargaSatuan = listQtyHarga.ToList(),
+                    Ppn = item.PpnProsen,
+                    ListStokHargaSatuan = listQtyHarga.ToList(),
                 };
                 newItem.SetBrgName(item.BrgName);
                 newItem.SetCode(item.BrgCode);

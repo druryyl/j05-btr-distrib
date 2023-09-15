@@ -43,7 +43,7 @@ namespace btr.application.InventoryContext.PackingAgg
 
         private readonly IPackingDal _packingDal;
         private readonly IPackingFakturDal _packingFakturDal;
-        private readonly IPackingSupplierDal _packingSupplierDal;
+        private readonly IPackingBrgDal _packingSupplierDal;
         private readonly IFakturDal _fakturDal;
         private readonly IDriverDal _driverDal;
         private readonly IWarehouseDal _warehouseDal;
@@ -53,7 +53,7 @@ namespace btr.application.InventoryContext.PackingAgg
 
         public PackingBuilder(IPackingDal packingDal,
             IPackingFakturDal packingFakturDal,
-            IPackingSupplierDal packingSupplierDal,
+            IPackingBrgDal packingSupplierDal,
             IDriverDal driverDal,
             IWarehouseDal warehouseDal,
             ITglJamDal dateTime,
@@ -106,22 +106,8 @@ namespace btr.application.InventoryContext.PackingAgg
                 .Build();
 
             //      list detil
-            _aggregate.ListFaktur = _packingFakturDal.ListData(_aggregate)?.ToList()
-                ?? new List<PackingFakturModel>();
-            var listSupBrg = _packingSupplierDal.ListData(_aggregate)?.ToList()
-                ?? new List<PackingSupplierModel>();
-            
-            //      projection detil per-brg
-            _aggregate.ListSupplier = (
-                from c in listSupBrg
-                group c by new { c.PackingId, c.SupplierId, c.SupplierName } into g
-                select new PackingSupplierModel
-                {
-                    PackingId = g.Key.PackingId,
-                    SupplierId = g.Key.SupplierId,
-                    SupplierName = g.Key.SupplierName,
-                    ListBrg = g.Adapt<List<PackingBrgModel>>()
-                }).ToList();
+            _aggregate.ListFaktur = new List<PackingFakturModel>();
+            _aggregate.ListSupplier = new List<PackingSupplierModel>();
         }
 
         public IPackingBuilder Load(IPackingKey packingKey)
@@ -132,7 +118,7 @@ namespace btr.application.InventoryContext.PackingAgg
             _aggregate.ListFaktur = _packingFakturDal.ListData(_aggregate)?.ToList()
                 ?? new List<PackingFakturModel>();
             var listSupBrg = _packingSupplierDal.ListData(_aggregate)?.ToList()
-                ?? new List<PackingSupplierModel>();
+                ?? new List<PackingBrgModel>();
             //      projection detil per-brg
             _aggregate.ListSupplier = (
                 from c in listSupBrg
@@ -179,13 +165,15 @@ namespace btr.application.InventoryContext.PackingAgg
 
         public IPackingBuilder AddFaktur(IFakturKey fakturKey)
         {
+            var noUrut = _aggregate.ListFaktur.DefaultIfEmpty(new PackingFakturModel { NoUrut = 0}).Max(x => x.NoUrut);
+            noUrut++;
             var faktur = _fakturDal.GetData(fakturKey)
                 ?? throw new KeyNotFoundException("FakturId invalid");
             _aggregate.ListFaktur.Add(new PackingFakturModel
             {
                 FakturId = faktur.FakturId,
                 CustomerName = faktur.CustomerName,
-                Alamat = faktur.CustomerName,
+                Address = faktur.CustomerName,
                 GrandTotal = faktur.GrandTotal,
             });
             return this;

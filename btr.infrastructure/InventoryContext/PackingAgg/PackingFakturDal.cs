@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using btr.application.InventoryContext.PackingAgg;
@@ -9,37 +8,30 @@ using btr.nuna.Infrastructure;
 using Dapper;
 using Microsoft.Extensions.Options;
 
-namespace btr.infrastructure.InventoryContext.PackingAgg
+namespace btr.infrastructure.PurchaseContext.PackingFakturAgg
 {
-    public class PackingSupplierDal : IPackingSupplierDal
+    public class PackingFakturDal : IPackingFakturDal
     {
         private readonly DatabaseOptions _opt;
 
-        public PackingSupplierDal(IOptions<DatabaseOptions> opt)
+        public PackingFakturDal(IOptions<DatabaseOptions> opt)
         {
             _opt = opt.Value;
         }
 
-        public void Insert(IEnumerable<PackingSupplierModel> listModel)
+        public void Insert(IEnumerable<PackingFakturModel> listModel)
         {
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             using (var bcp = new SqlBulkCopy(conn))
             {
                 conn.Open();
                 bcp.AddMap("PackingId", "PackingId");
-                bcp.AddMap("SupplierId", "SupplierId");
                 bcp.AddMap("NoUrut", "NoUrut");
-                bcp.AddMap("BrgId", "BrgId");
-
-                bcp.AddMap("QtyKecil", "QtyKecil");
-                bcp.AddMap("SatuanKecil", "SatuanKecil");
-                bcp.AddMap("QtyBesar", "QtyBesar");
-                bcp.AddMap("SatuanBesar", "SatuanBesar");
-                bcp.AddMap("HargaJual", "HargaJual");
+                bcp.AddMap("FakturId", "FakturId");
 
                 var fetched = listModel.ToList();
                 bcp.BatchSize = fetched.Count;
-                bcp.DestinationTableName = "dbo.BTR_PackingSupplier";
+                bcp.DestinationTableName = "dbo.BTR_PackingFaktur";
                 bcp.WriteToServer(fetched.AsDataTable());
             }
         }
@@ -47,13 +39,13 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
         public void Delete(IPackingKey key)
         {
             const string sql = @"
-            DELETE FROM 
-                BTR_PackingSupplier
+            DELETE FROM
+                BTR_PackingFaktur
             WHERE
-                PackingId = @PackingId ";
+                PackingId = @PackingId";
 
             var dp = new DynamicParameters();
-            dp.AddParam("@PackingId", key.PackingId, SqlDbType.VarChar);
+            dp.AddParam("@PackingId", key.PackingId, System.Data.SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -61,23 +53,27 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
             }
         }
 
-        public IEnumerable<PackingSupplierModel> ListData(IPackingKey stok)
+        public IEnumerable<PackingFakturModel> ListData(IPackingKey filter)
         {
             const string sql = @"
             SELECT
-                PackingId, SupplierId, NoUrut, BrgId, 
-                QtyKecil, SatuanKecil, QtyBesar, SatuanBesar,
-                HargaJual
-            FROM 
-                BTR_PackingSupplier aa
+                aa.PackingId, aa.FakturId, aa.NoUrut, 
+                ISNULL(bb.GrandTotal, '') AS GrandTotal,
+                ISNULL(cc.CustomerName, '') CustomerName,
+                ISNULL(cc.Address1, '') Address
+            FROM
+                BTR_PackingFaktur aa
+                LEFT JOIN BTR_Faktur bb ON aa.FakturId = bb.FakturId
+                LEFT JOIN BTR_Customer cc ON bb.CustomerId = bb.CustomerId
             WHERE
-                aa.PackingId = @PackingId ";
+                PackingId = @PackingId ";
+
             var dp = new DynamicParameters();
-            dp.AddParam("@PackingId", stok.PackingId, SqlDbType.VarChar);
+            dp.AddParam("@PackingId", filter.PackingId, System.Data.SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
-                return conn.Read<PackingSupplierModel>(sql, dp);
+                return conn.Read<PackingFakturModel>(sql, dp);
             }
         }
     }

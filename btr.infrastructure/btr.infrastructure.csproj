@@ -85,11 +85,11 @@
     <Compile Include="BrgContext\BrgAgg\BrgHargaDal.cs" />
     <Compile Include="BrgContext\BrgAgg\BrgStokViewDal.cs" />
     <Compile Include="BrgContext\KategoriAgg\KategoriDal.cs" />
-    <Compile Include="InventoryContext\DriverAgg\DriverModel.cs" />
-    <Compile Include="InventoryContext\DriverAgg\IDriverKey.cs" />
+    <Compile Include="InventoryContext\DriverAgg\DriverDal.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameDal.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingDal.cs" />
-    <Compile Include="InventoryContext\PackingAgg\PackingSupplierDal.cs" />
+    <Compile Include="InventoryContext\PackingAgg\PackingFakturDal.cs" />
+    <Compile Include="InventoryContext\PackingAgg\PackingBrgDal.cs" />
     <Compile Include="InventoryContext\StokAgg\StokDal.cs" />
     <Compile Include="InventoryContext\StokAgg\StokMutasiDal.cs" />
     <Compile Include="InventoryContext\StokBalanceAgg\StokBalanceWarehouseDal.cs" />

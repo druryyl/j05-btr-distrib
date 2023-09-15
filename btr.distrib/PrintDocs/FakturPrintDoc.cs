@@ -49,8 +49,10 @@ namespace btr.distrib.PrintDocs
             pd = new JudeDocument();
             pd.PrintPage += PrintDocument_PrintPage;
             pd.PrinterSettings = new PrinterSettings { PrinterName = DefaultPrinter };
+            
             PaperSize customPaperSize = new PaperSize("Custom", Convert.ToInt32(9.5 * 100), Convert.ToInt32(5.5 * 100));
             pd.DefaultPageSettings.PaperSize = customPaperSize;
+            
             Margins margins = new Margins(0, 0, 25, 25);
             pd.DefaultPageSettings.Margins = margins;
         }
@@ -64,7 +66,20 @@ namespace btr.distrib.PrintDocs
 
         private void PrintDocument_PrintPage(object sender, PrintPageEventArgs e)
         {
+            var pd = (PrintDocument)sender;
             Font font = new Font("Courier New", 8.25f, FontStyle.Regular);
+            string[] lines = _content.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+            if (lines.Count() <= 32)
+            {
+                PaperSize customPaperSize = new PaperSize("Custom", Convert.ToInt32(9.5 * 100), Convert.ToInt32(5.5 * 100));
+                pd.DefaultPageSettings.PaperSize = customPaperSize;
+            }
+            else
+            {
+                PaperSize customPaperSize = new PaperSize("Custom", Convert.ToInt32(9.5 * 100), Convert.ToInt32(11 * 100));
+                pd.DefaultPageSettings.PaperSize = customPaperSize;
+            }
+
             e.Graphics.DrawString(_content, font, Brushes.Black, e.MarginBounds);
         }
 
@@ -83,10 +98,12 @@ namespace btr.distrib.PrintDocs
 
             var noItem = 1;
             var listItemWithBonus = PindahBonusNewBaris(model.ListItem);
+            
+            PrintHeader(model, cust, sb);
             foreach (var item in listItemWithBonus)
             {
-                if (noItem % 10 == 1)
-                    PrintHeader(model, cust, sb);
+                //if (noItem % 10 == 1)
+                //    PrintHeader(model, cust, sb);
 
                 var no = noItem.ToString("D2");
                 var brgId = item.BrgCode.Trim().Length > 0 ? item.BrgCode.FixWidth(10) : item.BrgId.FixWidth(10);

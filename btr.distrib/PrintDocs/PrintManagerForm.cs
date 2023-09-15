@@ -170,7 +170,9 @@ namespace btr.distrib.PrintDocs
         private void ListDoc()
         {
             var hMin3 = DateTime.Now.AddDays(-3);
-            var listDocAll = _docDal.ListData(new Periode(hMin3, DateTime.Now))
+            Tgl1Text.Value = hMin3;
+            Tgl2Text.Value = DateTime.Now;
+            var listDocAll = _docDal.ListData(new Periode(Tgl1Text.Value, Tgl2Text.Value))
                 ?? new List<DocModel>();
             var listAtas = listDocAll
                 .Where(x => x.WarehouseId == WarehouseCombo.SelectedValue.ToString())

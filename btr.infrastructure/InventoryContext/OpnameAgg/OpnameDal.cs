@@ -75,7 +75,7 @@ namespace btr.infrastructure.InventoryContext.OpnameAgg
                     Qty2Awal = @Qty2Awal,  
                     Qty2Opname = @Qty2Opname, 
                     Qty2Adjust = @Qty2Adjust, 
-                    Satuan2 = @Satuan2,
+                    Satuan2 = @Satuan2
                 WHERE
                     OpnameId = @OpnameId";
 

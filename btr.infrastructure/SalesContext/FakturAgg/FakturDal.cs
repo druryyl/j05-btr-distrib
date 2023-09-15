@@ -167,6 +167,8 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 ISNULL(cc.Npwp, '') AS Npwp,
                 ISNULL(cc.Plafond, 0) AS Plafond,
                 ISNULL(cc.CreditBalance, 0) AS CreditBalance,
+                ISNULL(cc.Address1, '') AS Address,
+                ISNULL(cc.Kota, '') AS Kota,
                 ISNULL(dd.WarehouseName, '') AS WarehouseName
             FROM 
                 BTR_Faktur aa
@@ -199,6 +201,8 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 ISNULL(cc.Npwp, '') AS Npwp,
                 ISNULL(cc.Plafond, 0) AS Plafond,
                 ISNULL(cc.CreditBalance, 0) AS CreditBalance,
+                ISNULL(cc.Address1, '') AS Address,
+                ISNULL(cc.Kota, '') AS Kota,
                 ISNULL(dd.WarehouseName, '') AS WarehouseName
             FROM 
                 BTR_Faktur aa

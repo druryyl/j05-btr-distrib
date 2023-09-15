@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace btr.application.InventoryContext.PackingAgg
 {
-    public interface IPackingSupplierDal :
-        IInsertBulk<PackingSupplierModel>,
+    public interface IPackingBrgDal :
+        IInsertBulk<PackingBrgModel>,
         IDelete<IPackingKey>,
-        IListData<PackingSupplierModel, IPackingKey>
+        IListData<PackingBrgModel, IPackingKey>
     {
     }
 }
