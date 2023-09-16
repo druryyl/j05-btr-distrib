@@ -408,8 +408,8 @@ namespace btr.distrib.InventoryContext.PackingAgg
 
             g.GetCol("BrgCode").Width = 80;
             g.GetCol("BrgName").Width = 250;
-            g.GetCol("Qty1").Width = 50;
-            g.GetCol("Qty2").Width = 50;
+            g.GetCol("QtyBesar").Width = 50;
+            g.GetCol("QtyKecil").Width = 50;
             g.GetCol("HargaJual").Width = 100;
         }
         #endregion
@@ -425,20 +425,20 @@ namespace btr.distrib.InventoryContext.PackingAgg
             HargaJual = harga;
 
             if (conversion == 1)
-                Qty2 = qty;
+                QtyKecil = qty;
             else
             {
                 decimal division = qty / conversion;
-                Qty1 = (int)division;
-                Qty2 = Qty1  % conversion;
+                QtyBesar = (int)division;
+                QtyKecil = qty- (QtyBesar * conversion);
             }
         }
 
         public string BrgId { get; private set; }
         public string BrgCode { get; private set; }
         public string BrgName { get; private set; }
-        public int Qty1 { get; private set; }
-        public int Qty2 { get; private set; }   
+        public int QtyBesar { get; private set; }
+        public int QtyKecil { get; private set; }   
         public decimal HargaJual { get; private set; }
     }
 

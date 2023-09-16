@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.PanelAtas4 = new System.Windows.Forms.Panel();
+            this.VoidPanel = new System.Windows.Forms.Panel();
+            this.CancelLabel = new System.Windows.Forms.Label();
             this.NoteTextBox = new System.Windows.Forms.TextBox();
             this.NoteLabel = new System.Windows.Forms.Label();
             this.FakturItemGrid = new System.Windows.Forms.DataGridView();
@@ -79,9 +81,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.TermOfPaymentCombo = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.VoidPanel = new System.Windows.Forms.Panel();
-            this.CancelLabel = new System.Windows.Forms.Label();
             this.PanelAtas4.SuspendLayout();
+            this.VoidPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturItemGrid)).BeginInit();
             this.PanelTengah.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TaxText)).BeginInit();
@@ -96,7 +97,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.PlafondTextBox)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
-            this.VoidPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // PanelAtas4
@@ -112,6 +112,27 @@
             this.PanelAtas4.Name = "PanelAtas4";
             this.PanelAtas4.Size = new System.Drawing.Size(270, 186);
             this.PanelAtas4.TabIndex = 39;
+            // 
+            // VoidPanel
+            // 
+            this.VoidPanel.Controls.Add(this.CancelLabel);
+            this.VoidPanel.Location = new System.Drawing.Point(-1, -1);
+            this.VoidPanel.Name = "VoidPanel";
+            this.VoidPanel.Size = new System.Drawing.Size(270, 186);
+            this.VoidPanel.TabIndex = 46;
+            this.VoidPanel.Visible = false;
+            // 
+            // CancelLabel
+            // 
+            this.CancelLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CancelLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CancelLabel.ForeColor = System.Drawing.Color.Red;
+            this.CancelLabel.Location = new System.Drawing.Point(0, 0);
+            this.CancelLabel.Name = "CancelLabel";
+            this.CancelLabel.Size = new System.Drawing.Size(270, 186);
+            this.CancelLabel.TabIndex = 23;
+            this.CancelLabel.Text = "CANCELLED";
+            this.CancelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // NoteTextBox
             // 
@@ -481,8 +502,8 @@
             this.CreditBalanceTextBox.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CreditBalanceTextBox.Location = new System.Drawing.Point(11, 132);
             this.CreditBalanceTextBox.Maximum = new decimal(new int[] {
-            999999999,
-            0,
+            1410065407,
+            2,
             0,
             0});
             this.CreditBalanceTextBox.Name = "CreditBalanceTextBox";
@@ -497,8 +518,8 @@
             this.PlafondTextBox.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PlafondTextBox.Location = new System.Drawing.Point(11, 93);
             this.PlafondTextBox.Maximum = new decimal(new int[] {
-            999999999,
-            0,
+            1410065407,
+            2,
             0,
             0});
             this.PlafondTextBox.Name = "PlafondTextBox";
@@ -670,27 +691,6 @@
             this.label4.TabIndex = 19;
             this.label4.Text = "Term Of Payment";
             // 
-            // VoidPanel
-            // 
-            this.VoidPanel.Controls.Add(this.CancelLabel);
-            this.VoidPanel.Location = new System.Drawing.Point(-1, -1);
-            this.VoidPanel.Name = "VoidPanel";
-            this.VoidPanel.Size = new System.Drawing.Size(270, 186);
-            this.VoidPanel.TabIndex = 46;
-            this.VoidPanel.Visible = false;
-            // 
-            // CancelLabel
-            // 
-            this.CancelLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CancelLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CancelLabel.ForeColor = System.Drawing.Color.Red;
-            this.CancelLabel.Location = new System.Drawing.Point(0, 0);
-            this.CancelLabel.Name = "CancelLabel";
-            this.CancelLabel.Size = new System.Drawing.Size(270, 186);
-            this.CancelLabel.TabIndex = 23;
-            this.CancelLabel.Text = "CANCELLED";
-            this.CancelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // FakturForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -711,6 +711,7 @@
             this.Text = "FakturForm";
             this.PanelAtas4.ResumeLayout(false);
             this.PanelAtas4.PerformLayout();
+            this.VoidPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.FakturItemGrid)).EndInit();
             this.PanelTengah.ResumeLayout(false);
             this.PanelTengah.PerformLayout();
@@ -730,7 +731,6 @@
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
-            this.VoidPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

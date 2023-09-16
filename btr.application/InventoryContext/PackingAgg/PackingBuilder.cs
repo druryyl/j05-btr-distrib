@@ -217,12 +217,26 @@ namespace btr.application.InventoryContext.PackingAgg
                     supBrg = CreateNewSupBrg(item);
                     listSupBrg.Add(supBrg);
                 }
-                var inPcs = item.ListQtyHarga.Sum(x => x.Qty * x.Conversion);
-                var conversion = item.ListQtyHarga.Max(x => x.Conversion);
-                var qtyBesar = Math.Floor((decimal)inPcs / conversion);
-                var qtyKecil = inPcs % conversion;
-                supBrg.QtyBesar += (int)qtyBesar;
-                supBrg.QtyKecil += qtyKecil;
+
+                int inPcs = item.ListQtyHarga.Sum(x => x.Qty * x.Conversion);
+                
+                int conversion = item.ListQtyHarga.Max(x => x.Conversion);
+                
+                var allInPcs = inPcs + (supBrg.QtyBesar * conversion);
+                allInPcs += supBrg.QtyKecil;
+                int qtyBesar = 0;
+                int qtyKecil = 0;
+
+                if (conversion == 1)
+                    qtyKecil = allInPcs;
+                else
+                {
+                    decimal division = allInPcs / conversion;
+                    qtyBesar = (int)division;
+                    qtyKecil = allInPcs - (qtyBesar * conversion);
+                }
+                supBrg.QtyBesar = qtyBesar;
+                supBrg.QtyKecil = qtyKecil;
                 supBrg.HargaJual += item.Total;
             }
 
