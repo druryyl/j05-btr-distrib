@@ -183,8 +183,11 @@ namespace btr.application.InventoryContext.PackingAgg
             _aggregate.ListFaktur.Add(new PackingFakturModel
             {
                 FakturId = faktur.FakturId,
+                FakturCode = faktur.FakturCode,
                 CustomerName = faktur.CustomerName,
-                Address = faktur.CustomerName,
+                Address = faktur.Address,
+                Kota = faktur.Kota,
+                PackingId = _aggregate.PackingId,
                 GrandTotal = faktur.GrandTotal,
             });
             AddBrgFaktur(fakturKey);

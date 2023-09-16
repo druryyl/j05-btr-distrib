@@ -65,11 +65,16 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
         {
             const string sql = @"
             SELECT
-                PackingId, SupplierId, NoUrut, BrgId, 
-                QtyKecil, SatuanKecil, QtyBesar, SatuanBesar,
-                HargaJual
+                aa.PackingId, aa.SupplierId, aa.NoUrut, aa.BrgId, 
+                aa.QtyKecil, aa.SatuanKecil, aa.QtyBesar, aa.SatuanBesar,
+                aa.HargaJual,
+                ISNULL(bb.SupplierName, '') AS SupplierName,
+                ISNULL(cc.BrgName, '') AS BrgName,
+                ISNULL(cc.BrgCode, '') AS BrgCode
             FROM 
                 BTR_PackingBrg aa
+                LEFT JOIN BTR_Supplier bb ON aa.SupplierId = bb.SupplierId
+                LEFT JOIN BTR_Brg cc ON aa.BrgId = cc.BrgId
             WHERE
                 aa.PackingId = @PackingId ";
             var dp = new DynamicParameters();

@@ -60,6 +60,7 @@ namespace btr.domain.InventoryContext.PackingAgg
         public int NoUrut {get;set;}
         public string BrgId { get; set; }
         public string BrgName { get; set; }
+        public string BrgCode { get; set; }
 
         public int QtyKecil { get; set; }
         public string SatuanKecil { get; set; }

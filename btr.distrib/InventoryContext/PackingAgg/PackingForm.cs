@@ -35,6 +35,7 @@ namespace btr.distrib.InventoryContext.PackingAgg
         private readonly IFakturBuilder _fakturBuilder;
         
         private ContextMenu _fakturKiriContextMenu;
+        private PackingModel _aggregate;
 
         public PackingForm(IFakturDal fakturDal,
             IWarehouseDal warehouseDal,
@@ -52,11 +53,12 @@ namespace btr.distrib.InventoryContext.PackingAgg
             _packingWriter = packingWriter;
             _dateTime = dateTime;
             _fakturBuilder = fakturBuilder;
+            _aggregate = null;
 
             InitWarehouse();
             InitDriver();
             InitFakturKiriGrid();
-            InitFakturKiriKanan();
+            InitFakturKanan();
             InitFakturBrgKanan();
             InitPeriode();
             InitContextMenu();
@@ -69,30 +71,119 @@ namespace btr.distrib.InventoryContext.PackingAgg
             WarehouseCombo.SelectedValueChanged += WarehouseCombo_SelectedValueChanged;
             DriverCombo.SelectedValueChanged += DriverCombo_SelectedValueChanged;
 
+            FakturKananGrid.DoubleClick += FakturKananGrid_DoubleClick;
             FakturKiriGrid.CellDoubleClick += FakturKiriGrid_CellDoubleClick;
             FakturKiriGrid.MouseClick += FakturKiriGrid_MouseClick;
-            
-            FakturKananGrid.DoubleClick += FakturKananGrid_DoubleClick;
-            
+              
             SearchButton.Click += SearchButton_Click;
             SearchText.KeyDown += SearchText_KeyDown;
+
+            PackingTab.SelectedIndexChanged += PackingTab_SelectedIndexChanged;
+            SupplierGrid.CellDoubleClick += SupplierGrid_CellDoubleClick;
+
         }
 
-        private void FakturKananGrid_DoubleClick(object sender, EventArgs e)
+        private void SupplierGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             var grid = (DataGridView)sender;
             if (grid.CurrentRow is null)
                 return;
 
-            var fakturKey = new FakturModel(grid.CurrentRow.Cells["FakturId"].Value.ToString());
-            LoadBrgFaktur(fakturKey);
+            var supplierId = grid.CurrentRow.Cells["SupplierId"].Value.ToString();
+            var listBrg = _aggregate.ListSupplier
+                .FirstOrDefault(x => x.SupplierId == supplierId)?
+                .ListBrg ?? new List<PackingBrgModel>();
+
+            var dataSource = (
+                from c in listBrg
+                select new PackingSupplierBrgDto(c.BrgId, c.BrgName, c.BrgCode,
+                    c.QtyBesar, c.SatuanBesar, c.QtyKecil, c.SatuanKecil, c.HargaJual)
+                ).ToList();
+
+            SupplierBrgGrid.DataSource = dataSource;
+            var col = SupplierBrgGrid.Columns;
+            col.SetDefaultCellStyle(Color.Beige);
+            col.GetCol("BrgId").Visible = false;
+            col.GetCol("BrgCode").Width = 80;
+            col.GetCol("BrgName").Width = 200;
+            col.GetCol("QtyBesar").Width = 40;
+            col.GetCol("SatBesar").Width = 40;
+            col.GetCol("QtyKecil").Width = 40;
+            col.GetCol("SatKecil").Width = 40;
+            col.GetCol("HargaJual").Width = 60;
         }
+
+        private void PackingTab_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var tab = (TabControl)sender;
+            if (tab.SelectedIndex == 1)
+            {
+                if (_aggregate is null)
+                    return;
+
+                var listSupplier = (
+                    from c in _aggregate.ListSupplier
+                    select new PackingSupplierDto(c.SupplierId, c.SupplierName, c.ListBrg.Count()))
+                    .ToList();
+                SupplierGrid.DataSource = listSupplier;
+                SupplierGrid.Columns.SetDefaultCellStyle(Color.AliceBlue);
+                SupplierGrid.Refresh();
+                SupplierGrid.Columns.GetCol("SupplierName").Width = 200;
+            }
+        }
+
+        #region AGGREGATE-USE-CASE
+        private void LoadOrCreate()
+        {
+            var driverKey = new DriverModel(DriverCombo.SelectedValue.ToString());
+            var warehouseKey = new WarehouseModel(WarehouseCombo.SelectedValue.ToString());
+            var deliveryDate = DeliveryDate.Value;
+
+            _aggregate = _packingBuilder
+                .LoadOrCreate(driverKey, deliveryDate)
+                .Warehouse(warehouseKey)
+                .Build();
+            _aggregate = _packingWriter.Save(_aggregate);
+            ShowAggregate();
+        }
+
+        private void ShowAggregate()
+        {
+            PackingIdLabel.Text = _aggregate?.PackingId ?? "[Packing ID]";
+            var listFaktur = (
+                from c in _aggregate.ListFaktur
+                select c.Adapt<PackingFakturDto>()
+                ).ToList();
+            FakturKananGrid.DataSource = listFaktur;
+            FakturKananGrid.Refresh();
+        }
+
+        private void AddFaktur(IFakturKey fakturKey)
+        {
+            _aggregate = _packingBuilder
+                .Attach(_aggregate)
+                .AddFaktur(fakturKey)
+                .Build();
+            _aggregate = _packingWriter.Save(_aggregate);
+        }
+
+        private void RemoveFaktur(IFakturKey fakturKey)
+        {
+            _aggregate = _packingBuilder
+                .Attach(_aggregate)
+                .RemoveFaktur(fakturKey)
+                .Build();
+            _aggregate = _packingWriter.Save(_aggregate);
+        }
+        #endregion
+
 
         #region WAREHOUSE
         private void WarehouseCombo_SelectedValueChanged(object sender, EventArgs e)
         {
+            LoadOrCreate();
+            ShowAggregate();
             RefreshFakturKiri();
-            LoadPacking();
         }
         private void InitWarehouse()
         {
@@ -124,12 +215,13 @@ namespace btr.distrib.InventoryContext.PackingAgg
         #region GRID-FAKTUR-KIRI
         private void FakturKiriGrid_MouseClick(object sender, MouseEventArgs e)
         {
+            var grid = (DataGridView)sender;
             if (e.Button == MouseButtons.Right)
             {
-                _fakturKiriContextMenu.Show(FakturKiriGrid, e.Location);
+                _fakturKiriContextMenu.Show(grid, e.Location);
             }
         }
-        
+
         private void FakturKiriGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0)
@@ -144,18 +236,13 @@ namespace btr.distrib.InventoryContext.PackingAgg
                 CancelPacking(packingKey, fakturKey);
             }
 
-            var driverKey = new DriverModel(DriverCombo.SelectedValue.ToString());
-            var warehouseKey = new WarehouseModel(WarehouseCombo.SelectedValue.ToString());
-            var deliveryDate = DeliveryDate.Value;
-            var packing = _packingBuilder
-                .LoadOrCreate(driverKey, deliveryDate)
-                .Warehouse(warehouseKey)
-                .AddFaktur(fakturKey)
-                .Build();
-            _ = _packingWriter.Save(packing);
 
+            if (_aggregate is null)
+                LoadOrCreate();
+
+            AddFaktur(fakturKey);
+            ShowAggregate();
             RefreshFakturKiri();
-            LoadPacking();
         }
         
         private void UnpackingFaktur_OnClick(object sender, EventArgs e)
@@ -167,13 +254,13 @@ namespace btr.distrib.InventoryContext.PackingAgg
             var packingKey = new PackingModel(grid.CurrentRow.Cells["PackingId"].Value.ToString());
             var fakturKey = new FakturModel(grid.CurrentRow.Cells["FakturId"].Value.ToString());
             CancelPacking(packingKey, fakturKey);
-            LoadPacking();
+            LoadOrCreate();
         }
         
         private void InitContextMenu()
         {
             _fakturKiriContextMenu = new ContextMenu();
-            _fakturKiriContextMenu.MenuItems.Add(new MenuItem("Unpacking Faktur", UnpackingFaktur_OnClick));
+            _fakturKiriContextMenu.MenuItems.Add(new MenuItem("Remove Faktur", UnpackingFaktur_OnClick));
             FakturKiriGrid.ContextMenu = _fakturKiriContextMenu;
         }
         
@@ -245,7 +332,8 @@ namespace btr.distrib.InventoryContext.PackingAgg
         #region DRIVER
         private void DriverCombo_SelectedValueChanged(object sender, EventArgs e)
         {
-            LoadPacking();
+            LoadOrCreate();
+            ShowAggregate();
         }
         private void InitDriver()
         {
@@ -256,11 +344,18 @@ namespace btr.distrib.InventoryContext.PackingAgg
         }
         #endregion
 
-        #region PACKING
-        #endregion
-
         #region GRID-FAKTUR-KANAN
-        private void InitFakturKiriKanan()
+        private void FakturKananGrid_DoubleClick(object sender, EventArgs e)
+        {
+            var grid = (DataGridView)sender;
+            if (grid.CurrentRow is null)
+                return;
+
+            var fakturKey = new FakturModel(grid.CurrentRow.Cells["FakturId"].Value.ToString());
+            LoadBrgFaktur(fakturKey);
+            ShowAggregate();
+        }
+        private void InitFakturKanan()
         {
             var listFaktur = new List<PackingFakturDto>();
             FakturKananGrid.DataSource = listFaktur;
@@ -281,23 +376,6 @@ namespace btr.distrib.InventoryContext.PackingAgg
             g.GetCol("Kota").Width = 70;
 
             g.GetCol("GrandTotal").Width = 70;
-        }
-
-        private void LoadPacking()
-        {
-            var driverKey = new DriverModel(DriverCombo.SelectedValue.ToString());
-            var deliveryDate = DeliveryDate.Value;
-
-            var packing = _packingBuilder
-                .Load(driverKey, deliveryDate)
-                .Build();
-
-            var listFaktur = (
-                from c in packing.ListFaktur
-                select c.Adapt<PackingFakturDto>()
-                ).ToList();
-            FakturKananGrid.DataSource = listFaktur;
-            FakturKananGrid.Refresh();
         }
         #endregion
 
@@ -364,6 +442,42 @@ namespace btr.distrib.InventoryContext.PackingAgg
         public decimal HargaJual { get; private set; }
     }
 
+    public class PackingSupplierDto
+    {
+        public PackingSupplierDto(string id, string name, int jumItem)
+        {
+            SupplierId = id;
+            SupplierName = name;
+            JumlahItem = jumItem;
+        }
+        public string SupplierId { get; private set; }  
+        public string SupplierName { get; private set; }
+        public int JumlahItem { get; private set; }
+    }
 
-    
+    public class PackingSupplierBrgDto
+    {
+        public PackingSupplierBrgDto(string id, string name, string code,
+            int qtyBesar, string satBesar, int qtyKecil, string satKecil,
+            decimal hargaJual)
+        {
+            BrgId = id;
+            BrgName = name;
+            BrgCode = code;
+            QtyBesar = qtyBesar;
+            SatBesar = satBesar;
+            QtyKecil = qtyKecil;
+            SatKecil = satKecil;
+            HargaJual = hargaJual;
+        }
+
+        public string BrgId { get; set; }
+        public string BrgCode { get; private set; }
+        public string BrgName { get; private set; }
+        public int QtyBesar { get; private set; }
+        public string SatBesar { get; private set; }
+        public int QtyKecil { get; private set; }
+        public string SatKecil { get; private set; }
+        public decimal HargaJual { get; private set; }
+    }
 }
