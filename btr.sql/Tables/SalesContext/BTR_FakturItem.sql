@@ -11,6 +11,7 @@
     QtyDetilStr VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_FakturItem_QtyDetilStr DEFAULT(''),
     QtyPotStok INT NOT NULL CONSTRAINT DF_BTR_FakturItem_QtyPotStok DEFAULT(0),
     QtyJual INT NOT NULL CONSTRAINT DF_BTR_FakturItem_QtyJual DEFAULT(0),
+    Conversion INT NOT NULL CONSTRAINT DF_BTR_FakturItem_Conversion DEFAULT(1),
     
     HargaSatuan DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_FakturItem_HargaSatuan DEFAULT(0),
     SubTotal DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_FakturItem_SubTotal DEFAULT(0),

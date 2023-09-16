@@ -20,6 +20,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using btr.domain.BrgContext.BrgAgg;
 
 namespace btr.distrib.InventoryContext.PackingAgg
 {
@@ -50,16 +51,17 @@ namespace btr.distrib.InventoryContext.PackingAgg
             _driverDal = driverDal;
             _packingWriter = packingWriter;
             _dateTime = dateTime;
+            _fakturBuilder = fakturBuilder;
 
             InitWarehouse();
             InitDriver();
             InitFakturKiriGrid();
             InitFakturKiriKanan();
+            InitFakturBrgKanan();
             InitPeriode();
             InitContextMenu();
 
             RegisterEventHandler();
-            _fakturBuilder = fakturBuilder;
         }
 
         private void RegisterEventHandler()
@@ -69,9 +71,21 @@ namespace btr.distrib.InventoryContext.PackingAgg
 
             FakturKiriGrid.CellDoubleClick += FakturKiriGrid_CellDoubleClick;
             FakturKiriGrid.MouseClick += FakturKiriGrid_MouseClick;
-
+            
+            FakturKananGrid.DoubleClick += FakturKananGrid_DoubleClick;
+            
             SearchButton.Click += SearchButton_Click;
             SearchText.KeyDown += SearchText_KeyDown;
+        }
+
+        private void FakturKananGrid_DoubleClick(object sender, EventArgs e)
+        {
+            var grid = (DataGridView)sender;
+            if (grid.CurrentRow is null)
+                return;
+
+            var fakturKey = new FakturModel(grid.CurrentRow.Cells["FakturId"].Value.ToString());
+            LoadBrgFaktur(fakturKey);
         }
 
         #region WAREHOUSE
@@ -147,6 +161,9 @@ namespace btr.distrib.InventoryContext.PackingAgg
         private void UnpackingFaktur_OnClick(object sender, EventArgs e)
         {
             var grid = FakturKiriGrid;
+            if (grid.CurrentRow is null)
+                return;
+            
             var packingKey = new PackingModel(grid.CurrentRow.Cells["PackingId"].Value.ToString());
             var fakturKey = new FakturModel(grid.CurrentRow.Cells["FakturId"].Value.ToString());
             CancelPacking(packingKey, fakturKey);
@@ -251,14 +268,14 @@ namespace btr.distrib.InventoryContext.PackingAgg
             FakturKananGrid.Columns.SetDefaultCellStyle(Color.Cornsilk);
 
             var g = FakturKananGrid.Columns;
-            g.GetCol("FakturId").Visible = false;
+            g.GetCol("FakturId").Visible = true;
             g.GetCol("PackingId").Visible = false;
             g.GetCol("DriverName").Visible = false;
 
             g.GetCol("FakturCode").Width = 60;
-            g.GetCol("FakturCode").HeaderText = "Code";
+            g.GetCol("FakturCode").HeaderText = @"Code";
             g.GetCol("CustomerName").Width = 80;
-            g.GetCol("CustomerName").HeaderText = "Customer";
+            g.GetCol("CustomerName").HeaderText = @"Customer";
 
             g.GetCol("Address").Width = 120;
             g.GetCol("Kota").Width = 70;
@@ -285,10 +302,37 @@ namespace btr.distrib.InventoryContext.PackingAgg
         #endregion
 
         #region GRID-BRG-PER-FAKTUR
+        
         private void LoadBrgFaktur(IFakturKey fakturKey)
         {
             var faktur = _fakturBuilder.Load(fakturKey).Build();
+            var listBrg = new List<PackingBrgFakturDto>();
+            foreach (var item in faktur.ListItem)
+            {
+                //  conversion belum benar2 update
+                var newItem = new PackingBrgFakturDto(item.BrgId, item.BrgCode, item.BrgName, 
+                    item.QtyPotStok, item.Conversion, item.Total);
+                listBrg.Add(newItem);
+            }
 
+            FakturBrgGrid.DataSource = listBrg;
+            FakturBrgGrid.Refresh();
+        }
+        private void InitFakturBrgKanan()
+        {
+            var listBrg = new List<PackingBrgFakturDto>();
+            FakturBrgGrid.DataSource = listBrg;
+            FakturBrgGrid.Refresh();
+            FakturBrgGrid.Columns.SetDefaultCellStyle(Color.Cornsilk);
+
+            var g = FakturBrgGrid.Columns;
+            g.GetCol("BrgId").Visible = false;
+
+            g.GetCol("BrgCode").Width = 80;
+            g.GetCol("BrgName").Width = 250;
+            g.GetCol("Qty1").Width = 50;
+            g.GetCol("Qty2").Width = 50;
+            g.GetCol("HargaJual").Width = 100;
         }
         #endregion
     }
@@ -300,18 +344,16 @@ namespace btr.distrib.InventoryContext.PackingAgg
             BrgId = id;
             BrgName = name;
             BrgCode = code;
-            //HargaJual = harga;
+            HargaJual = harga;
 
             if (conversion == 1)
                 Qty2 = qty;
             else
             {
                 decimal division = qty / conversion;
-                Qty1 = (int)Math.Floor(division);
+                Qty1 = (int)division;
                 Qty2 = Qty1  % conversion;
             }
-
-            
         }
 
         public string BrgId { get; private set; }
@@ -319,7 +361,7 @@ namespace btr.distrib.InventoryContext.PackingAgg
         public string BrgName { get; private set; }
         public int Qty1 { get; private set; }
         public int Qty2 { get; private set; }   
-        public int HargaJual { get; private set; }
+        public decimal HargaJual { get; private set; }
     }
 
 

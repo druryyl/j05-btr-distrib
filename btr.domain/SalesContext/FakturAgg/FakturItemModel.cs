@@ -20,6 +20,7 @@ namespace btr.domain.SalesContext.FakturAgg
         public string QtyDetilStr { get; set; }
         public int QtyPotStok { get; set; }     //  qty-termasuk-bonus (utk potong stok)
         public int QtyJual { get; set; }        //  qty-tanpa-bonys (utk hitung harga)
+        public int Conversion { get; set; }
 
         //  harga
         public decimal HargaSatuan { get; set; }

@@ -134,7 +134,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
                         BrgId = item.BrgId,
                         JenisQty = JenisQtyFakturEnum.Besar,
                         Satuan = qtyBesarDb.Satuan,
-                        HargaSatuan = brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == _aggRoot.HargaTypeId).Harga * qtyBesarDb.Conversion,
+                        HargaSatuan = brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == _aggRoot.HargaTypeId)?.Harga ?? 0 * qtyBesarDb.Conversion,
                         Conversion = qtyBesarDb.Conversion,
                         Qty = 0,
                         SubTotal = 0
@@ -149,7 +149,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
                         BrgId = item.BrgId,
                         JenisQty = JenisQtyFakturEnum.Kecil,
                         Satuan = qtyKecilDb.Satuan,
-                        HargaSatuan = brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == _aggRoot.HargaTypeId).Harga,
+                        HargaSatuan = brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == _aggRoot.HargaTypeId)?.Harga ?? 0,
                         Conversion = 1,
                         Qty = 0,
                         SubTotal = 0
@@ -163,7 +163,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
                         BrgId = item.BrgId,
                         JenisQty = JenisQtyFakturEnum.Kecil,
                         Satuan = qtyKecilDb.Satuan,
-                        HargaSatuan = brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == _aggRoot.HargaTypeId).Harga,
+                        HargaSatuan = brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == _aggRoot.HargaTypeId)?.Harga ?? 0,
                         Conversion = 1,
                         Qty = 0,
                         SubTotal = 0
@@ -245,6 +245,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
                 BrgId = brgKey.BrgId,
                 BrgName = brg.BrgName,
                 BrgCode = brg.BrgCode,
+                Conversion = brg.ListSatuan.Max(x => x.Conversion),
                 StokHargaStr = stokHrgStr ?? string.Empty, 
                 QtyInputStr = qtyInputStr ?? string.Empty,
                 DiscInputStr = discInputStr ?? string.Empty,

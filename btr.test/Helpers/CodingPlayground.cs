@@ -44,8 +44,9 @@ namespace btr.test.Helpers
         public void PembulatanKeBawah()
         {
             int x = 10;
-            int y = 6;
-            var result = (int)x / y;
+            var  y = 5.1;
+            var resul1 = x / y;
+            var result = (int)resul1;
             result.Should().Be(1);
         }
     }

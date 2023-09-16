@@ -38,6 +38,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 bcp.AddMap("QtyDetilStr", "QtyDetilStr");
                 bcp.AddMap("QtyPotStok", "QtyPotStok");
                 bcp.AddMap("QtyJual", "QtyJual");
+                bcp.AddMap("Conversion", "Conversion");
                 
                 bcp.AddMap("HargaSatuan", "HargaSatuan");
                 bcp.AddMap("SubTotal", "SubTotal");
@@ -81,7 +82,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 aa.FakturId, aa.FakturItemId, aa.NoUrut, 
                 aa.BrgId, aa.BrgCode, aa.StokHargaStr, 
                 aa.QtyInputStr, aa.QtyDetilStr, aa.QtyPotStok, aa.QtyJual, 
-                aa.HargaSatuan, SubTotal,
+                aa.Conversion, aa.HargaSatuan, SubTotal,
                 aa.DiscInputStr, aa.DiscDetilStr, aa.DiscRp,
                 aa.PpnProsen, aa.PpnRp, aa.Total,
                 ISNULL(bb.BrgName, '') AS BrgName

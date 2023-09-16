@@ -50,7 +50,7 @@ namespace btr.distrib.PrintDocs
             pd.PrintPage += PrintDocument_PrintPage;
             pd.PrinterSettings = new PrinterSettings { PrinterName = DefaultPrinter };
             
-            PaperSize customPaperSize = new PaperSize("Custom", Convert.ToInt32(9.5 * 100), Convert.ToInt32(5.5 * 100));
+            PaperSize customPaperSize = new PaperSize("Custom", Convert.ToInt32(9.5 * 100), Convert.ToInt32(11 * 100));
             pd.DefaultPageSettings.PaperSize = customPaperSize;
             
             Margins margins = new Margins(0, 0, 25, 25);
