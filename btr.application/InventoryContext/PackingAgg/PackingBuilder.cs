@@ -26,6 +26,7 @@ namespace btr.application.InventoryContext.PackingAgg
     {
         IPackingBuilder LoadOrCreate(IDriverKey driverKey, DateTime DeliveryDate);
         IPackingBuilder Load(IPackingKey packingKey);
+        IPackingBuilder Load(IDriverKey driverKey, DateTime DeliveryDate);
         IPackingBuilder Attach(PackingModel model);
 
         IPackingBuilder Warehouse(IWarehouseKey wareouseKey);
@@ -134,6 +135,15 @@ namespace btr.application.InventoryContext.PackingAgg
             return this;
         }
 
+        public IPackingBuilder Load(IDriverKey driverKey, DateTime deliveryDate)
+        {
+            var listPacking = _packingDal.ListData(new Periode(deliveryDate))?.ToList()
+                ?? throw new KeyNotFoundException("Packing not found");
+            var packing = listPacking.FirstOrDefault(x => x.DriverId == driverKey.DriverId)
+                ?? throw new KeyNotFoundException("Packing not found");
+            return Load(packing);
+        }
+
         public IPackingBuilder Attach(PackingModel model)
         {
             _aggregate = model;
@@ -148,6 +158,7 @@ namespace btr.application.InventoryContext.PackingAgg
             _aggregate.WarehouseName = warehouse.WarehouseName;
             return this;
         }
+
         public IPackingBuilder Driver(IDriverKey driverKey)
         {
             var driver = _driverDal.GetData(driverKey)
@@ -176,30 +187,33 @@ namespace btr.application.InventoryContext.PackingAgg
                 Address = faktur.CustomerName,
                 GrandTotal = faktur.GrandTotal,
             });
+            AddBrgFaktur(fakturKey);
             return this;
         }
 
         public IPackingBuilder RemoveFaktur(IFakturKey fakturKey)
         {
             _aggregate.ListFaktur.RemoveAll(x => x.FakturId == fakturKey.FakturId);
+            RemoveBrgFaktur(fakturKey);
+            //  TODO: RemoveBrg
             return this;
         }
 
-        public IPackingBuilder GenSupplier()
+        private void AddBrgFaktur(IFakturKey fakturKey)
         {
-            //      collect all faktur;
-            var listFakturItemAll = new List<FakturItemModel>();
-            foreach(var item in _aggregate.ListFaktur)
-            {
-                var faktur = _fakturBuilder.Load(item).Build();
-                listFakturItemAll.AddRange(faktur.ListItem);
-            }
+            var faktur = _fakturBuilder.Load(fakturKey).Build();
 
-            var listSupBrg = new List<PackingBrgModel>();
-            foreach (var item in listFakturItemAll)
+            var listSupBrg = _aggregate.ListSupplier
+                .SelectMany(hdr => hdr.ListBrg, (hdr, dtl) =>  dtl)?.ToList()
+                ?? new List<PackingBrgModel>();
+            foreach (var item in faktur.ListItem)
             {
-                var supBrg = listSupBrg.FirstOrDefault(x => x.BrgId == item.BrgId) 
-                    ?? CreateNewSupBrg(item);
+                var supBrg = listSupBrg.FirstOrDefault(x => x.BrgId == item.BrgId);
+                if (supBrg is null)
+                {
+                    supBrg = CreateNewSupBrg(item);
+                    listSupBrg.Add(supBrg);
+                }
                 var inPcs = item.ListQtyHarga.Sum(x => x.Qty * x.Conversion);
                 var conversion = item.ListQtyHarga.Max(x => x.Conversion);
                 var qtyBesar = Math.Floor((decimal)inPcs / conversion);
@@ -219,6 +233,104 @@ namespace btr.application.InventoryContext.PackingAgg
                     SupplierName = g.Key.SupplierName,
                     ListBrg = g.Adapt<List<PackingBrgModel>>()
                 }).ToList();
+
+            #region INNER-HELPER
+            PackingBrgModel CreateNewSupBrg(FakturItemModel fakturItem)
+            {
+                var brg = _brgBuilder.Load(fakturItem).Build();
+                var result = new PackingBrgModel
+                {
+                    BrgId = brg.BrgId,
+                    BrgName = brg.BrgName,
+                    SupplierId = brg.SupplierId,
+                    SupplierName = brg.SupplierName,
+                    HargaJual = 0,
+                    QtyBesar = 0,
+                    QtyKecil = 0,
+                    SatuanBesar = brg.ListSatuan.OrderBy(x => x.Conversion).Last().Satuan,
+                    SatuanKecil = brg.ListSatuan.OrderBy(x => x.Conversion).First().Satuan,
+                };
+                return result;
+
+            }
+            #endregion
+        }
+
+        private void RemoveBrgFaktur(IFakturKey fakturKey)
+        {
+            var faktur = _fakturBuilder.Load(fakturKey).Build();
+
+            var listSupBrg = _aggregate.ListSupplier
+                .SelectMany(hdr => hdr.ListBrg, (hdr, dtl) => dtl)?.ToList()
+                ?? new List<PackingBrgModel>();
+            foreach (var item in faktur.ListItem)
+            {
+                var supBrg = listSupBrg.FirstOrDefault(x => x.BrgId == item.BrgId);
+                if (supBrg is null)
+                    continue;
+
+                var inPcs = item.ListQtyHarga.Sum(x => x.Qty * x.Conversion);
+                var conversion = item.ListQtyHarga.Max(x => x.Conversion);
+                var qtyBesar = Math.Floor((decimal)inPcs / conversion);
+                var qtyKecil = inPcs % conversion;
+                supBrg.QtyBesar -= (int)qtyBesar;
+                supBrg.QtyKecil -= qtyKecil;
+                supBrg.HargaJual -= item.Total;
+                if (supBrg.QtyBesar + supBrg.QtyKecil <= 0)
+                    listSupBrg.RemoveAll(x => x.BrgId == supBrg.BrgId);
+            }
+
+            _aggregate.ListSupplier = (
+                from c in listSupBrg
+                group c by new { c.PackingId, c.SupplierId, c.SupplierName } into g
+                select new PackingSupplierModel
+                {
+                    PackingId = g.Key.PackingId,
+                    SupplierId = g.Key.SupplierId,
+                    SupplierName = g.Key.SupplierName,
+                    ListBrg = g.Adapt<List<PackingBrgModel>>()
+                }).ToList();
+        }
+
+        public IPackingBuilder GenSupplier()
+        {
+            //      collect all faktur;
+            var listFakturItemAll = new List<FakturItemModel>();
+            foreach(var item in _aggregate.ListFaktur)
+            {
+                var faktur = _fakturBuilder.Load(item).Build();
+                listFakturItemAll.AddRange(faktur.ListItem);
+            }
+
+            var listSupBrg = new List<PackingBrgModel>();
+            foreach (var item in listFakturItemAll)
+            {
+                var supBrg = listSupBrg.FirstOrDefault(x => x.BrgId == item.BrgId);
+                if (supBrg is null)
+                {
+                    supBrg = CreateNewSupBrg(item);
+                    listSupBrg.Add(supBrg);
+                }
+                var inPcs = item.ListQtyHarga.Sum(x => x.Qty * x.Conversion);
+                var conversion = item.ListQtyHarga.Max(x => x.Conversion);
+                var qtyBesar = Math.Floor((decimal)inPcs / conversion);
+                var qtyKecil = inPcs % conversion;
+                supBrg.QtyBesar += (int)qtyBesar;
+                supBrg.QtyKecil += qtyKecil;
+                supBrg.HargaJual += item.Total;
+            }
+
+            _aggregate.ListSupplier = (
+                from c in listSupBrg
+                group c by new { c.PackingId, c.SupplierId, c.SupplierName } into g
+                select new PackingSupplierModel
+                {
+                    PackingId = g.Key.PackingId,
+                    SupplierId = g.Key.SupplierId,
+                    SupplierName = g.Key.SupplierName,
+                    ListBrg = g.Adapt<List<PackingBrgModel>>()
+                }).ToList();
+
             return this;
 
             #region INNER-HELPER
@@ -238,8 +350,10 @@ namespace btr.application.InventoryContext.PackingAgg
                     SatuanKecil = brg.ListSatuan.OrderBy(x => x.Conversion).First().Satuan,
                 };
                 return result;
+
             }
             #endregion
         }
+
     }
 }

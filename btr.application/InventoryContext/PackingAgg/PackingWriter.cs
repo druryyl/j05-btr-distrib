@@ -40,6 +40,8 @@ namespace btr.application.InventoryContext.PackingAgg
             model.ListSupplier.ForEach(x => x.PackingId = model.PackingId);
             var listAllBrg = model.ListSupplier
                 .SelectMany(hdr => hdr.ListBrg, (hdr, dtl) => dtl)?.ToList()??new List<PackingBrgModel>();
+            listAllBrg.ForEach(x => x.PackingId = model.PackingId);
+
             var db = _packingDal.GetData(model);
             using (var trans = TransHelper.NewScope())
             {

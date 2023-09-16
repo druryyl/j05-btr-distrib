@@ -10,5 +10,5 @@
         SatuanBesar VARCHAR(15) NOT NULL CONSTRAINT DF_BTR_PackingBrg_SatuanBesar DEFAULT(''),
         HargaJual DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_PackingBrg_HargaJual DEFAULT(0),
 
-        CONSTRAINT PK_BTR_PackingBrg PRIMARY KEY CLUSTERED(PackingId, SupplierId, NoUrut)
+        CONSTRAINT PK_BTR_PackingBrg PRIMARY KEY CLUSTERED(PackingId, SupplierId, BrgId)
 )

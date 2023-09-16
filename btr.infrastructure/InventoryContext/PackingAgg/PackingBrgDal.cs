@@ -48,7 +48,7 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
         {
             const string sql = @"
             DELETE FROM 
-                BTR_PackingSupplier
+                BTR_PackingBrg
             WHERE
                 PackingId = @PackingId ";
 
@@ -69,7 +69,7 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
                 QtyKecil, SatuanKecil, QtyBesar, SatuanBesar,
                 HargaJual
             FROM 
-                BTR_PackingSupplier aa
+                BTR_PackingBrg aa
             WHERE
                 aa.PackingId = @PackingId ";
             var dp = new DynamicParameters();

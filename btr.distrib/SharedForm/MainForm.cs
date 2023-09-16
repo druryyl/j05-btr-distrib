@@ -125,6 +125,12 @@ namespace btr.distrib.SharedForm
 
         private void TestingButton_Click(object sender, EventArgs e)
         {
+            if (!this.UserId.UserId.ToLower().StartsWith("jude"))
+            {
+                MessageBox.Show("Only for programmer");
+                return;
+            }
+
             var form = _servicesProvider.GetRequiredService<TestPlayground>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;

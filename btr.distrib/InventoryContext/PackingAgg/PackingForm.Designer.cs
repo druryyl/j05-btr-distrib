@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.WarehouseCombo = new System.Windows.Forms.ComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.SearchButton = new System.Windows.Forms.Button();
@@ -37,7 +36,6 @@
             this.Faktur1Date = new System.Windows.Forms.DateTimePicker();
             this.FakturKiriGrid = new System.Windows.Forms.DataGridView();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
             this.DeliveryDate = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.DriverCombo = new System.Windows.Forms.ComboBox();
@@ -52,6 +50,11 @@
             this.SupplierGrid = new System.Windows.Forms.DataGridView();
             this.SupplierBrgGrid = new System.Windows.Forms.DataGridView();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.PackingIdLabel = new System.Windows.Forms.Label();
+            this.JumlahSupplierLabel = new System.Windows.Forms.Label();
+            this.JumlahFakturLabel = new System.Windows.Forms.Label();
+            this.JumlahItemLabel = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturKiriGrid)).BeginInit();
             this.panel3.SuspendLayout();
@@ -74,6 +77,7 @@
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // WarehouseCombo
@@ -97,7 +101,7 @@
             this.panel2.Controls.Add(this.Faktur1Date);
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(504, 66);
+            this.panel2.Size = new System.Drawing.Size(503, 66);
             this.panel2.TabIndex = 2;
             // 
             // SearchButton
@@ -140,17 +144,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.FakturKiriGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.FakturKiriGrid.DefaultCellStyle = dataGridViewCellStyle2;
             this.FakturKiriGrid.Location = new System.Drawing.Point(0, 72);
             this.FakturKiriGrid.Name = "FakturKiriGrid";
-            this.FakturKiriGrid.Size = new System.Drawing.Size(504, 357);
+            this.FakturKiriGrid.Size = new System.Drawing.Size(503, 357);
             this.FakturKiriGrid.TabIndex = 3;
             // 
             // panel3
@@ -159,24 +155,15 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BackColor = System.Drawing.Color.PaleTurquoise;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.label2);
+            this.panel3.Controls.Add(this.tableLayoutPanel1);
             this.panel3.Controls.Add(this.DeliveryDate);
             this.panel3.Controls.Add(this.label1);
             this.panel3.Controls.Add(this.DriverCombo);
             this.panel3.Controls.Add(this.label3);
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(605, 66);
+            this.panel3.Size = new System.Drawing.Size(606, 66);
             this.panel3.TabIndex = 4;
-            // 
-            // label2
-            // 
-            this.label2.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(249, 10);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(229, 46);
-            this.label2.TabIndex = 17;
-            this.label2.Text = "Faktur    : 0\r\nSupplier  : 0\r\nBarang    : 0";
             // 
             // DeliveryDate
             // 
@@ -223,7 +210,7 @@
             this.tabControl2.Location = new System.Drawing.Point(2, 72);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(603, 357);
+            this.tabControl2.Size = new System.Drawing.Size(604, 357);
             this.tabControl2.TabIndex = 5;
             // 
             // tabPage1
@@ -233,7 +220,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(595, 331);
+            this.tabPage1.Size = new System.Drawing.Size(596, 331);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Per-Faktur";
             // 
@@ -251,7 +238,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.FakturBrgGrid);
-            this.splitContainer1.Size = new System.Drawing.Size(589, 325);
+            this.splitContainer1.Size = new System.Drawing.Size(590, 325);
             this.splitContainer1.SplitterDistance = 231;
             this.splitContainer1.TabIndex = 2;
             // 
@@ -261,7 +248,7 @@
             this.FakturKananGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FakturKananGrid.Location = new System.Drawing.Point(0, 0);
             this.FakturKananGrid.Name = "FakturKananGrid";
-            this.FakturKananGrid.Size = new System.Drawing.Size(589, 231);
+            this.FakturKananGrid.Size = new System.Drawing.Size(590, 231);
             this.FakturKananGrid.TabIndex = 1;
             // 
             // FakturBrgGrid
@@ -270,7 +257,7 @@
             this.FakturBrgGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FakturBrgGrid.Location = new System.Drawing.Point(0, 0);
             this.FakturBrgGrid.Name = "FakturBrgGrid";
-            this.FakturBrgGrid.Size = new System.Drawing.Size(589, 90);
+            this.FakturBrgGrid.Size = new System.Drawing.Size(590, 90);
             this.FakturBrgGrid.TabIndex = 2;
             // 
             // tabPage2
@@ -280,7 +267,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(440, 331);
+            this.tabPage2.Size = new System.Drawing.Size(595, 331);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Per-Supplier";
             // 
@@ -298,7 +285,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.SupplierBrgGrid);
-            this.splitContainer2.Size = new System.Drawing.Size(434, 325);
+            this.splitContainer2.Size = new System.Drawing.Size(589, 325);
             this.splitContainer2.SplitterDistance = 231;
             this.splitContainer2.TabIndex = 2;
             // 
@@ -308,7 +295,7 @@
             this.SupplierGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SupplierGrid.Location = new System.Drawing.Point(0, 0);
             this.SupplierGrid.Name = "SupplierGrid";
-            this.SupplierGrid.Size = new System.Drawing.Size(434, 231);
+            this.SupplierGrid.Size = new System.Drawing.Size(589, 231);
             this.SupplierGrid.TabIndex = 1;
             // 
             // SupplierBrgGrid
@@ -317,7 +304,7 @@
             this.SupplierBrgGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SupplierBrgGrid.Location = new System.Drawing.Point(0, 0);
             this.SupplierBrgGrid.Name = "SupplierBrgGrid";
-            this.SupplierBrgGrid.Size = new System.Drawing.Size(434, 90);
+            this.SupplierBrgGrid.Size = new System.Drawing.Size(589, 90);
             this.SupplierBrgGrid.TabIndex = 2;
             // 
             // splitContainer3
@@ -338,8 +325,65 @@
             this.splitContainer3.Panel2.Controls.Add(this.panel3);
             this.splitContainer3.Panel2.Controls.Add(this.tabControl2);
             this.splitContainer3.Size = new System.Drawing.Size(1113, 429);
-            this.splitContainer3.SplitterDistance = 504;
+            this.splitContainer3.SplitterDistance = 503;
             this.splitContainer3.TabIndex = 6;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.JumlahItemLabel, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.JumlahFakturLabel, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.JumlahSupplierLabel, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.PackingIdLabel, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(245, 10);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(352, 45);
+            this.tableLayoutPanel1.TabIndex = 17;
+            // 
+            // PackingIdLabel
+            // 
+            this.PackingIdLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PackingIdLabel.Location = new System.Drawing.Point(3, 0);
+            this.PackingIdLabel.Name = "PackingIdLabel";
+            this.PackingIdLabel.Size = new System.Drawing.Size(170, 22);
+            this.PackingIdLabel.TabIndex = 0;
+            this.PackingIdLabel.Text = "[Packing ID]";
+            this.PackingIdLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // JumlahSupplierLabel
+            // 
+            this.JumlahSupplierLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.JumlahSupplierLabel.Location = new System.Drawing.Point(179, 0);
+            this.JumlahSupplierLabel.Name = "JumlahSupplierLabel";
+            this.JumlahSupplierLabel.Size = new System.Drawing.Size(170, 22);
+            this.JumlahSupplierLabel.TabIndex = 1;
+            this.JumlahSupplierLabel.Text = "Jumlah Supplier:";
+            this.JumlahSupplierLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // JumlahFakturLabel
+            // 
+            this.JumlahFakturLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.JumlahFakturLabel.Location = new System.Drawing.Point(3, 22);
+            this.JumlahFakturLabel.Name = "JumlahFakturLabel";
+            this.JumlahFakturLabel.Size = new System.Drawing.Size(170, 23);
+            this.JumlahFakturLabel.TabIndex = 2;
+            this.JumlahFakturLabel.Text = "Jumlah Faktur:";
+            this.JumlahFakturLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // JumlahItemLabel
+            // 
+            this.JumlahItemLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.JumlahItemLabel.Location = new System.Drawing.Point(179, 22);
+            this.JumlahItemLabel.Name = "JumlahItemLabel";
+            this.JumlahItemLabel.Size = new System.Drawing.Size(170, 23);
+            this.JumlahItemLabel.TabIndex = 3;
+            this.JumlahItemLabel.Text = "Jumlah Item:";
+            this.JumlahItemLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // PackingForm
             // 
@@ -376,6 +420,7 @@
             this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -403,6 +448,10 @@
         private System.Windows.Forms.DataGridView SupplierGrid;
         private System.Windows.Forms.DataGridView SupplierBrgGrid;
         private System.Windows.Forms.SplitContainer splitContainer3;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Label JumlahItemLabel;
+        private System.Windows.Forms.Label JumlahFakturLabel;
+        private System.Windows.Forms.Label JumlahSupplierLabel;
+        private System.Windows.Forms.Label PackingIdLabel;
     }
 }

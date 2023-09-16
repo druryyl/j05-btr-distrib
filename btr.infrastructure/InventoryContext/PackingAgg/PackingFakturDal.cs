@@ -58,13 +58,15 @@ namespace btr.infrastructure.PurchaseContext.PackingFakturAgg
             const string sql = @"
             SELECT
                 aa.PackingId, aa.FakturId, aa.NoUrut, 
-                ISNULL(bb.GrandTotal, '') AS GrandTotal,
-                ISNULL(cc.CustomerName, '') CustomerName,
-                ISNULL(cc.Address1, '') Address
+                ISNULL(bb.GrandTotal, 0) AS GrandTotal,
+                ISNULL(bb.FakturCode, '') AS FakturCode,
+                ISNULL(cc.CustomerName, '') AS CustomerName,
+                ISNULL(cc.Address1, '') AS Address,
+                ISNULL(cc.Kota, '') AS Kota
             FROM
                 BTR_PackingFaktur aa
                 LEFT JOIN BTR_Faktur bb ON aa.FakturId = bb.FakturId
-                LEFT JOIN BTR_Customer cc ON bb.CustomerId = bb.CustomerId
+                LEFT JOIN BTR_Customer cc ON bb.CustomerId = cc.CustomerId
             WHERE
                 PackingId = @PackingId ";
 

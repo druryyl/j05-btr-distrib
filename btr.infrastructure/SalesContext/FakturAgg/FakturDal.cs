@@ -221,5 +221,49 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 return conn.Read<FakturModel>(sql, dp);
             }
         }
+        public IEnumerable<FakturPackingView> ListDataPacking(Periode filter)
+        {
+            const string sql = @"
+            SELECT
+                aa.FakturId, aa.FakturDate, aa.FakturCode, aa.SalesPersonId, aa.CustomerId, aa.HargaTypeId,
+                aa.WarehouseId, aa.Tax, aa.GrandTotal, 
+                ISNULL(bb.SalesPersonName, '') AS SalesPersonName,
+                ISNULL(cc.CustomerName, '') AS CustomerName,
+                ISNULL(cc.CustomerCode, '') AS CustomerCode,
+                ISNULL(cc.Address1, '') AS Address,
+                ISNULL(cc.Kota, '') AS Kota,
+                ISNULL(dd.WarehouseName, '') AS WarehouseName,
+                ISNULL(ee.PackingId, '') AS PackingId,
+                ISNULL(ee.DriverId, '') AS DriverId,
+                ISNULL(ee.DriverName, '') AS DriverName,
+                ISNULL(ee.DeliveryDate, '3000-01-01') AS DeliveryDate
+            FROM 
+                BTR_Faktur aa
+                LEFT JOIN BTR_SalesPerson bb ON aa.SalesPersonId = bb.SalesPersonId
+                LEFT JOIN BTR_Customer cc ON aa.CustomerId = cc.CustomerId
+                LEFT JOIN BTR_Warehouse dd on aa.WarehouseId = dd.WarehouseId
+                LEFT JOIN (
+                    SELECT      aa1.FakturId, bb1.DriverId, bb1.DeliveryDate,
+                                MAX(aa1.PackingId) AS PackingId,
+                                ISNULL(cc1.DriverName, '') AS DriverName
+                    FROM        BTR_PackingFaktur aa1
+                    INNER JOIN  BTR_Packing bb1 ON aa1.PackingId = bb1.PackingId
+                    LEFT JOIN   BTR_Driver cc1 ON bb1.DriverId = cc1.DriverId
+                    INNER JOIN  BTR_Faktur dd1 ON aa1.FakturId = dd1.FakturId
+                    WHERE       dd1.FakturDate BETWEEN @Tgl1 AND @Tgl2
+                    GROUP BY    aa1.FakturId, bb1.DriverId, bb1.DeliveryDate, cc1.DriverName
+                )  ee ON aa.FakturId = ee.FakturId
+            WHERE
+                aa.FakturDate BETWEEN @Tgl1 AND @Tgl2 ";
+
+            var dp = new DynamicParameters();
+            dp.AddParam("@Tgl1", filter.Tgl1, SqlDbType.DateTime);
+            dp.AddParam("@Tgl2", filter.Tgl2, SqlDbType.DateTime);
+
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                return conn.Read<FakturPackingView>(sql, dp);
+            }
+        }
     }
 }

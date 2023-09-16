@@ -234,7 +234,7 @@ namespace btr.distrib.SalesContext.CustomerAgg
         private void WilayahButton_Click(object sender, EventArgs e)
         {
             WilayahIdText.Text = _wilayahBrowser.Browse(WilayahIdText.Text);
-            CustIdText_Validated(WilayahIdText, null);
+            WilayahIdText_Validated(WilayahIdText, null);
         }
 
         private void WilayahIdText_Validated(object sender, EventArgs e)

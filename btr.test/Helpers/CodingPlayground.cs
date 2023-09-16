@@ -39,5 +39,14 @@ namespace btr.test.Helpers
             y.Should().Be("10");
 
         }
+
+        [Fact]
+        public void PembulatanKeBawah()
+        {
+            int x = 10;
+            int y = 6;
+            var result = (int)x / y;
+            result.Should().Be(1);
+        }
     }
 }

@@ -63,7 +63,7 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
             dp.AddParam("@PackingDate", model.PackingDate, SqlDbType.DateTime);
             dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
 
-            dp.AddParam("@DriveId", model.DriverId, SqlDbType.VarChar);
+            dp.AddParam("@DriverId", model.DriverId, SqlDbType.VarChar);
             dp.AddParam("@DeliveryDate", model.DeliveryDate, SqlDbType.VarChar);
             dp.AddParam("@Route", model.Route, SqlDbType.VarChar);
 

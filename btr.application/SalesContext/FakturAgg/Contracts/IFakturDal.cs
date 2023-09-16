@@ -1,6 +1,7 @@
 ﻿using btr.domain.SalesContext.FakturAgg;
 using btr.nuna.Domain;
 using btr.nuna.Infrastructure;
+using System.Collections.Generic;
 
 namespace btr.application.SalesContext.FakturAgg.Contracts
 {
@@ -11,5 +12,7 @@ namespace btr.application.SalesContext.FakturAgg.Contracts
         IGetData<FakturModel, IFakturKey>,
         IListData<FakturModel, Periode>
     {
+        IEnumerable<FakturPackingView> ListDataPacking(Periode periode);
+
     }
 }

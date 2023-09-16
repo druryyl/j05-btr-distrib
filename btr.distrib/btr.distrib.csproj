@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>28</ApplicationRevision>
+    <ApplicationRevision>29</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -251,6 +251,7 @@
     <Compile Include="InventoryContext\OpnameAgg\OpnameForm.Designer.cs">
       <DependentUpon>OpnameForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InventoryContext\PackingAgg\PackingFakturDto.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingForm.cs">
       <SubType>Form</SubType>
     </Compile>
