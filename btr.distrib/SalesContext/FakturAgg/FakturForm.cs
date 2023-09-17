@@ -216,20 +216,23 @@ namespace btr.distrib.SalesContext.FakturAgg
 
             foreach (var item in faktur.ListItem)
             {
-                var qtyString = string.Join(";", item.ListQtyHarga.Select(x => x.Qty.ToString()));
-                var discString = string.Join(";", item.ListDiscount.Select(x => x.DiscountProsen.ToString(CultureInfo.InvariantCulture)));
+                var qtyString = item.QtyInputStr;
+                var discString = item.DiscInputStr;
                 var listQtyHarga = item.ListQtyHarga
                     .Where(x => x.SubTotal != 0)
                     .Select(x => new FakturItemDtoStokHargaSatuan(x.Qty, x.HargaSatuan, x.Satuan));
                 var newItem = new FakturItemDto()
                 {
                     BrgId = item.BrgId,
+                    
                     Qty = qtyString,
                     Disc = discString,
+                    Ppn = item.PpnProsen,
                     ListStokHargaSatuan = listQtyHarga.ToList(),
                 };
                 newItem.SetBrgName(item.BrgName);
                 newItem.SetCode(item.BrgCode);
+                newItem.SetStokHarga(item.StokHargaStr);
                 newItem.ReCalc();
                 _listItem.Add(newItem);
             }
@@ -625,6 +628,7 @@ namespace btr.distrib.SalesContext.FakturAgg
                 select new SaveFakturRequestItem
                 {
                     BrgId = c.BrgId,
+                    StokHarga = c.StokHarga,
                     QtyString = c.Qty,
                     DiscountString = c.Disc,
                     PpnProsen = c.Ppn,

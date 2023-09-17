@@ -28,443 +28,431 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.MainSplit = new System.Windows.Forms.SplitContainer();
-            this.KiriSplit = new System.Windows.Forms.SplitContainer();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.KiriBawahSplit = new System.Windows.Forms.SplitContainer();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.SearchButton = new System.Windows.Forms.Button();
+            this.SearchText = new System.Windows.Forms.TextBox();
+            this.Faktur2Date = new System.Windows.Forms.DateTimePicker();
+            this.Faktur1Date = new System.Windows.Forms.DateTimePicker();
             this.FakturKiriGrid = new System.Windows.Forms.DataGridView();
-            this.BrgKiriGrid = new System.Windows.Forms.DataGridView();
-            this.KananSplit = new System.Windows.Forms.SplitContainer();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.FakturPage = new System.Windows.Forms.TabPage();
-            this.SupplierPage = new System.Windows.Forms.TabPage();
-            this.PerFakturSplit = new System.Windows.Forms.SplitContainer();
-            this.FakturGridKanan = new System.Windows.Forms.DataGridView();
-            this.BrgGridKiri = new System.Windows.Forms.DataGridView();
-            this.PerSupplierSplit = new System.Windows.Forms.SplitContainer();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.WarehouseCombo = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.DeliveryDate = new System.Windows.Forms.DateTimePicker();
+            this.label1 = new System.Windows.Forms.Label();
+            this.DriverCombo = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.MainSplit)).BeginInit();
-            this.MainSplit.Panel1.SuspendLayout();
-            this.MainSplit.Panel2.SuspendLayout();
-            this.MainSplit.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.KiriSplit)).BeginInit();
-            this.KiriSplit.Panel1.SuspendLayout();
-            this.KiriSplit.Panel2.SuspendLayout();
-            this.KiriSplit.SuspendLayout();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.KiriBawahSplit)).BeginInit();
-            this.KiriBawahSplit.Panel1.SuspendLayout();
-            this.KiriBawahSplit.Panel2.SuspendLayout();
-            this.KiriBawahSplit.SuspendLayout();
+            this.PackingTab = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.FakturKananGrid = new System.Windows.Forms.DataGridView();
+            this.FakturBrgGrid = new System.Windows.Forms.DataGridView();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.SupplierGrid = new System.Windows.Forms.DataGridView();
+            this.SupplierBrgGrid = new System.Windows.Forms.DataGridView();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.WarehouseCombo = new System.Windows.Forms.ComboBox();
+            this.PackingIdLabel = new System.Windows.Forms.Label();
+            this.JumlahFakturLabel = new System.Windows.Forms.Label();
+            this.JumlahItemLabel = new System.Windows.Forms.Label();
+            this.JumlahSupplierLabel = new System.Windows.Forms.Label();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturKiriGrid)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BrgKiriGrid)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.KananSplit)).BeginInit();
-            this.KananSplit.Panel1.SuspendLayout();
-            this.KananSplit.Panel2.SuspendLayout();
-            this.KananSplit.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.FakturPage.SuspendLayout();
-            this.SupplierPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PerFakturSplit)).BeginInit();
-            this.PerFakturSplit.Panel1.SuspendLayout();
-            this.PerFakturSplit.Panel2.SuspendLayout();
-            this.PerFakturSplit.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.FakturGridKanan)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BrgGridKiri)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PerSupplierSplit)).BeginInit();
-            this.PerSupplierSplit.Panel1.SuspendLayout();
-            this.PerSupplierSplit.Panel2.SuspendLayout();
-            this.PerSupplierSplit.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            this.panel3.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.PackingTab.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.FakturKananGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FakturBrgGrid)).BeginInit();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SupplierGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SupplierBrgGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
+            this.splitContainer3.Panel1.SuspendLayout();
+            this.splitContainer3.Panel2.SuspendLayout();
+            this.splitContainer3.SuspendLayout();
             this.SuspendLayout();
             // 
-            // MainSplit
+            // panel2
             // 
-            this.MainSplit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainSplit.Location = new System.Drawing.Point(0, 0);
-            this.MainSplit.Name = "MainSplit";
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.SearchButton);
+            this.panel2.Controls.Add(this.WarehouseCombo);
+            this.panel2.Controls.Add(this.SearchText);
+            this.panel2.Controls.Add(this.Faktur2Date);
+            this.panel2.Controls.Add(this.Faktur1Date);
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(502, 66);
+            this.panel2.TabIndex = 2;
             // 
-            // MainSplit.Panel1
+            // SearchButton
             // 
-            this.MainSplit.Panel1.Controls.Add(this.KiriSplit);
+            this.SearchButton.Location = new System.Drawing.Point(203, 33);
+            this.SearchButton.Name = "SearchButton";
+            this.SearchButton.Size = new System.Drawing.Size(75, 23);
+            this.SearchButton.TabIndex = 3;
+            this.SearchButton.Text = "Search";
+            this.SearchButton.UseVisualStyleBackColor = true;
             // 
-            // MainSplit.Panel2
+            // SearchText
             // 
-            this.MainSplit.Panel2.Controls.Add(this.KananSplit);
-            this.MainSplit.Size = new System.Drawing.Size(1017, 469);
-            this.MainSplit.SplitterDistance = 484;
-            this.MainSplit.TabIndex = 0;
+            this.SearchText.Location = new System.Drawing.Point(6, 34);
+            this.SearchText.Name = "SearchText";
+            this.SearchText.Size = new System.Drawing.Size(191, 22);
+            this.SearchText.TabIndex = 2;
             // 
-            // KiriSplit
+            // Faktur2Date
             // 
-            this.KiriSplit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.KiriSplit.Location = new System.Drawing.Point(0, 0);
-            this.KiriSplit.Name = "KiriSplit";
-            this.KiriSplit.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.Faktur2Date.CustomFormat = "ddd, dd MMM yyyy";
+            this.Faktur2Date.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.Faktur2Date.Location = new System.Drawing.Point(145, 6);
+            this.Faktur2Date.Name = "Faktur2Date";
+            this.Faktur2Date.Size = new System.Drawing.Size(133, 22);
+            this.Faktur2Date.TabIndex = 1;
             // 
-            // KiriSplit.Panel1
+            // Faktur1Date
             // 
-            this.KiriSplit.Panel1.Controls.Add(this.panel1);
-            // 
-            // KiriSplit.Panel2
-            // 
-            this.KiriSplit.Panel2.Controls.Add(this.KiriBawahSplit);
-            this.KiriSplit.Size = new System.Drawing.Size(484, 469);
-            this.KiriSplit.SplitterDistance = 99;
-            this.KiriSplit.TabIndex = 0;
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.panel1.Controls.Add(this.WarehouseCombo);
-            this.panel1.Controls.Add(this.textBox1);
-            this.panel1.Controls.Add(this.dateTimePicker2);
-            this.panel1.Controls.Add(this.dateTimePicker1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(484, 99);
-            this.panel1.TabIndex = 0;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(12, 62);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(238, 22);
-            this.textBox1.TabIndex = 2;
-            // 
-            // dateTimePicker2
-            // 
-            this.dateTimePicker2.CustomFormat = "ddd, dd MMM yyyy";
-            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker2.Location = new System.Drawing.Point(134, 34);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(116, 22);
-            this.dateTimePicker2.TabIndex = 1;
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.CustomFormat = "ddd, dd MMM yyyy";
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(12, 34);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(116, 22);
-            this.dateTimePicker1.TabIndex = 0;
-            // 
-            // KiriBawahSplit
-            // 
-            this.KiriBawahSplit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.KiriBawahSplit.Location = new System.Drawing.Point(0, 0);
-            this.KiriBawahSplit.Name = "KiriBawahSplit";
-            this.KiriBawahSplit.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // KiriBawahSplit.Panel1
-            // 
-            this.KiriBawahSplit.Panel1.Controls.Add(this.FakturKiriGrid);
-            // 
-            // KiriBawahSplit.Panel2
-            // 
-            this.KiriBawahSplit.Panel2.Controls.Add(this.BrgKiriGrid);
-            this.KiriBawahSplit.Size = new System.Drawing.Size(484, 366);
-            this.KiriBawahSplit.SplitterDistance = 263;
-            this.KiriBawahSplit.TabIndex = 1;
+            this.Faktur1Date.CustomFormat = "ddd, dd MMM yyyy";
+            this.Faktur1Date.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.Faktur1Date.Location = new System.Drawing.Point(6, 6);
+            this.Faktur1Date.Name = "Faktur1Date";
+            this.Faktur1Date.Size = new System.Drawing.Size(133, 22);
+            this.Faktur1Date.TabIndex = 0;
             // 
             // FakturKiriGrid
             // 
+            this.FakturKiriGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.FakturKiriGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.FakturKiriGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FakturKiriGrid.Location = new System.Drawing.Point(0, 0);
+            this.FakturKiriGrid.Location = new System.Drawing.Point(0, 72);
             this.FakturKiriGrid.Name = "FakturKiriGrid";
-            this.FakturKiriGrid.Size = new System.Drawing.Size(484, 263);
-            this.FakturKiriGrid.TabIndex = 0;
+            this.FakturKiriGrid.Size = new System.Drawing.Size(502, 380);
+            this.FakturKiriGrid.TabIndex = 3;
             // 
-            // BrgKiriGrid
+            // panel3
             // 
-            this.BrgKiriGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.BrgKiriGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BrgKiriGrid.Location = new System.Drawing.Point(0, 0);
-            this.BrgKiriGrid.Name = "BrgKiriGrid";
-            this.BrgKiriGrid.Size = new System.Drawing.Size(484, 99);
-            this.BrgKiriGrid.TabIndex = 1;
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.tableLayoutPanel1);
+            this.panel3.Controls.Add(this.DeliveryDate);
+            this.panel3.Controls.Add(this.label1);
+            this.panel3.Controls.Add(this.DriverCombo);
+            this.panel3.Controls.Add(this.label3);
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(607, 94);
+            this.panel3.TabIndex = 4;
             // 
-            // KananSplit
+            // tableLayoutPanel1
             // 
-            this.KananSplit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.KananSplit.Location = new System.Drawing.Point(0, 0);
-            this.KananSplit.Name = "KananSplit";
-            this.KananSplit.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.JumlahItemLabel, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.JumlahFakturLabel, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.JumlahSupplierLabel, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.PackingIdLabel, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(275, 10);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.3F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.3F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.4F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(322, 75);
+            this.tableLayoutPanel1.TabIndex = 17;
             // 
-            // KananSplit.Panel1
+            // DeliveryDate
             // 
-            this.KananSplit.Panel1.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.KananSplit.Panel1.Controls.Add(this.label4);
-            this.KananSplit.Panel1.Controls.Add(this.comboBox2);
-            this.KananSplit.Panel1.Controls.Add(this.comboBox1);
-            this.KananSplit.Panel1.Controls.Add(this.label3);
-            this.KananSplit.Panel1.Controls.Add(this.dateTimePicker3);
-            this.KananSplit.Panel1.Controls.Add(this.label2);
+            this.DeliveryDate.CustomFormat = "ddd, dd MMMM yyyy";
+            this.DeliveryDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.DeliveryDate.Location = new System.Drawing.Point(91, 9);
+            this.DeliveryDate.Name = "DeliveryDate";
+            this.DeliveryDate.Size = new System.Drawing.Size(166, 22);
+            this.DeliveryDate.TabIndex = 16;
             // 
-            // KananSplit.Panel2
+            // label1
             // 
-            this.KananSplit.Panel2.Controls.Add(this.tabControl1);
-            this.KananSplit.Size = new System.Drawing.Size(529, 469);
-            this.KananSplit.SplitterDistance = 99;
-            this.KananSplit.TabIndex = 1;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(5, 14);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(80, 13);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "Delivery Date :";
             // 
-            // tabControl1
+            // DriverCombo
             // 
-            this.tabControl1.Controls.Add(this.FakturPage);
-            this.tabControl1.Controls.Add(this.SupplierPage);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(529, 366);
-            this.tabControl1.TabIndex = 0;
-            // 
-            // FakturPage
-            // 
-            this.FakturPage.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.FakturPage.Controls.Add(this.PerFakturSplit);
-            this.FakturPage.Location = new System.Drawing.Point(4, 22);
-            this.FakturPage.Name = "FakturPage";
-            this.FakturPage.Padding = new System.Windows.Forms.Padding(3);
-            this.FakturPage.Size = new System.Drawing.Size(521, 340);
-            this.FakturPage.TabIndex = 0;
-            this.FakturPage.Text = "Per-Faktur";
-            // 
-            // SupplierPage
-            // 
-            this.SupplierPage.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.SupplierPage.Controls.Add(this.PerSupplierSplit);
-            this.SupplierPage.Location = new System.Drawing.Point(4, 22);
-            this.SupplierPage.Name = "SupplierPage";
-            this.SupplierPage.Padding = new System.Windows.Forms.Padding(3);
-            this.SupplierPage.Size = new System.Drawing.Size(521, 340);
-            this.SupplierPage.TabIndex = 1;
-            this.SupplierPage.Text = "Per-Supplier";
-            // 
-            // PerFakturSplit
-            // 
-            this.PerFakturSplit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PerFakturSplit.Location = new System.Drawing.Point(3, 3);
-            this.PerFakturSplit.Name = "PerFakturSplit";
-            this.PerFakturSplit.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // PerFakturSplit.Panel1
-            // 
-            this.PerFakturSplit.Panel1.Controls.Add(this.FakturGridKanan);
-            // 
-            // PerFakturSplit.Panel2
-            // 
-            this.PerFakturSplit.Panel2.Controls.Add(this.BrgGridKiri);
-            this.PerFakturSplit.Size = new System.Drawing.Size(515, 334);
-            this.PerFakturSplit.SplitterDistance = 239;
-            this.PerFakturSplit.TabIndex = 2;
-            // 
-            // FakturGridKanan
-            // 
-            this.FakturGridKanan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.FakturGridKanan.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FakturGridKanan.Location = new System.Drawing.Point(0, 0);
-            this.FakturGridKanan.Name = "FakturGridKanan";
-            this.FakturGridKanan.Size = new System.Drawing.Size(515, 239);
-            this.FakturGridKanan.TabIndex = 1;
-            // 
-            // BrgGridKiri
-            // 
-            this.BrgGridKiri.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.BrgGridKiri.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BrgGridKiri.Location = new System.Drawing.Point(0, 0);
-            this.BrgGridKiri.Name = "BrgGridKiri";
-            this.BrgGridKiri.Size = new System.Drawing.Size(515, 91);
-            this.BrgGridKiri.TabIndex = 2;
-            // 
-            // PerSupplierSplit
-            // 
-            this.PerSupplierSplit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PerSupplierSplit.Location = new System.Drawing.Point(3, 3);
-            this.PerSupplierSplit.Name = "PerSupplierSplit";
-            this.PerSupplierSplit.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // PerSupplierSplit.Panel1
-            // 
-            this.PerSupplierSplit.Panel1.Controls.Add(this.dataGridView1);
-            // 
-            // PerSupplierSplit.Panel2
-            // 
-            this.PerSupplierSplit.Panel2.Controls.Add(this.dataGridView2);
-            this.PerSupplierSplit.Size = new System.Drawing.Size(515, 334);
-            this.PerSupplierSplit.SplitterDistance = 239;
-            this.PerSupplierSplit.TabIndex = 2;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(515, 239);
-            this.dataGridView1.TabIndex = 1;
-            // 
-            // dataGridView2
-            // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView2.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(515, 91);
-            this.dataGridView2.TabIndex = 2;
-            // 
-            // WarehouseCombo
-            // 
-            this.WarehouseCombo.FormattingEnabled = true;
-            this.WarehouseCombo.Location = new System.Drawing.Point(12, 9);
-            this.WarehouseCombo.Name = "WarehouseCombo";
-            this.WarehouseCombo.Size = new System.Drawing.Size(238, 21);
-            this.WarehouseCombo.TabIndex = 3;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 12);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(74, 13);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "Delivery Date";
-            // 
-            // dateTimePicker3
-            // 
-            this.dateTimePicker3.CustomFormat = "ddd, dd MMM yyyy";
-            this.dateTimePicker3.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker3.Location = new System.Drawing.Point(18, 28);
-            this.dateTimePicker3.Name = "dateTimePicker3";
-            this.dateTimePicker3.Size = new System.Drawing.Size(113, 22);
-            this.dateTimePicker3.TabIndex = 9;
+            this.DriverCombo.FormattingEnabled = true;
+            this.DriverCombo.Location = new System.Drawing.Point(91, 37);
+            this.DriverCombo.Name = "DriverCombo";
+            this.DriverCombo.Size = new System.Drawing.Size(166, 21);
+            this.DriverCombo.TabIndex = 14;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(134, 12);
+            this.label3.Location = new System.Drawing.Point(42, 40);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(37, 13);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "Driver";
+            this.label3.Size = new System.Drawing.Size(43, 13);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "Driver :";
             // 
-            // comboBox1
+            // PackingTab
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(137, 29);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(129, 21);
-            this.comboBox1.TabIndex = 12;
+            this.PackingTab.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PackingTab.Controls.Add(this.tabPage1);
+            this.PackingTab.Controls.Add(this.tabPage2);
+            this.PackingTab.Location = new System.Drawing.Point(2, 100);
+            this.PackingTab.Name = "PackingTab";
+            this.PackingTab.SelectedIndex = 0;
+            this.PackingTab.Size = new System.Drawing.Size(605, 352);
+            this.PackingTab.TabIndex = 5;
             // 
-            // comboBox2
+            // tabPage1
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(272, 28);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(129, 21);
-            this.comboBox2.TabIndex = 13;
+            this.tabPage1.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.tabPage1.Controls.Add(this.splitContainer1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(597, 326);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Per-Faktur";
             // 
-            // label4
+            // splitContainer1
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(269, 12);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(66, 13);
-            this.label4.TabIndex = 14;
-            this.label4.Text = "Warehouse";
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.FakturKananGrid);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.FakturBrgGrid);
+            this.splitContainer1.Size = new System.Drawing.Size(591, 320);
+            this.splitContainer1.SplitterDistance = 227;
+            this.splitContainer1.TabIndex = 2;
+            // 
+            // FakturKananGrid
+            // 
+            this.FakturKananGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.FakturKananGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FakturKananGrid.Location = new System.Drawing.Point(0, 0);
+            this.FakturKananGrid.Name = "FakturKananGrid";
+            this.FakturKananGrid.Size = new System.Drawing.Size(591, 227);
+            this.FakturKananGrid.TabIndex = 1;
+            // 
+            // FakturBrgGrid
+            // 
+            this.FakturBrgGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.FakturBrgGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FakturBrgGrid.Location = new System.Drawing.Point(0, 0);
+            this.FakturBrgGrid.Name = "FakturBrgGrid";
+            this.FakturBrgGrid.Size = new System.Drawing.Size(591, 89);
+            this.FakturBrgGrid.TabIndex = 2;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.tabPage2.Controls.Add(this.splitContainer2);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(597, 326);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Per-Supplier";
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.SupplierGrid);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.SupplierBrgGrid);
+            this.splitContainer2.Size = new System.Drawing.Size(591, 320);
+            this.splitContainer2.SplitterDistance = 177;
+            this.splitContainer2.TabIndex = 2;
+            // 
+            // SupplierGrid
+            // 
+            this.SupplierGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.SupplierGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SupplierGrid.Location = new System.Drawing.Point(0, 0);
+            this.SupplierGrid.Name = "SupplierGrid";
+            this.SupplierGrid.Size = new System.Drawing.Size(591, 177);
+            this.SupplierGrid.TabIndex = 1;
+            // 
+            // SupplierBrgGrid
+            // 
+            this.SupplierBrgGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.SupplierBrgGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SupplierBrgGrid.Location = new System.Drawing.Point(0, 0);
+            this.SupplierBrgGrid.Name = "SupplierBrgGrid";
+            this.SupplierBrgGrid.Size = new System.Drawing.Size(591, 139);
+            this.SupplierBrgGrid.TabIndex = 2;
+            // 
+            // splitContainer3
+            // 
+            this.splitContainer3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer3.Location = new System.Drawing.Point(6, 10);
+            this.splitContainer3.Name = "splitContainer3";
+            // 
+            // splitContainer3.Panel1
+            // 
+            this.splitContainer3.Panel1.Controls.Add(this.panel2);
+            this.splitContainer3.Panel1.Controls.Add(this.FakturKiriGrid);
+            // 
+            // splitContainer3.Panel2
+            // 
+            this.splitContainer3.Panel2.Controls.Add(this.panel3);
+            this.splitContainer3.Panel2.Controls.Add(this.PackingTab);
+            this.splitContainer3.Size = new System.Drawing.Size(1113, 452);
+            this.splitContainer3.SplitterDistance = 502;
+            this.splitContainer3.TabIndex = 6;
+            // 
+            // WarehouseCombo
+            // 
+            this.WarehouseCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.WarehouseCombo.FormattingEnabled = true;
+            this.WarehouseCombo.Location = new System.Drawing.Point(284, 7);
+            this.WarehouseCombo.Name = "WarehouseCombo";
+            this.WarehouseCombo.Size = new System.Drawing.Size(213, 21);
+            this.WarehouseCombo.TabIndex = 18;
+            // 
+            // PackingIdLabel
+            // 
+            this.PackingIdLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PackingIdLabel.Location = new System.Drawing.Point(3, 0);
+            this.PackingIdLabel.Name = "PackingIdLabel";
+            this.PackingIdLabel.Size = new System.Drawing.Size(155, 24);
+            this.PackingIdLabel.TabIndex = 0;
+            this.PackingIdLabel.Text = "[Packing ID]";
+            this.PackingIdLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // JumlahFakturLabel
+            // 
+            this.JumlahFakturLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.JumlahFakturLabel.Location = new System.Drawing.Point(3, 24);
+            this.JumlahFakturLabel.Name = "JumlahFakturLabel";
+            this.JumlahFakturLabel.Size = new System.Drawing.Size(155, 24);
+            this.JumlahFakturLabel.TabIndex = 2;
+            this.JumlahFakturLabel.Text = "Jumlah Faktur:";
+            this.JumlahFakturLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // JumlahItemLabel
+            // 
+            this.JumlahItemLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.JumlahItemLabel.Location = new System.Drawing.Point(3, 48);
+            this.JumlahItemLabel.Name = "JumlahItemLabel";
+            this.JumlahItemLabel.Size = new System.Drawing.Size(155, 27);
+            this.JumlahItemLabel.TabIndex = 4;
+            this.JumlahItemLabel.Text = "Jumlah Item:";
+            this.JumlahItemLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // JumlahSupplierLabel
+            // 
+            this.JumlahSupplierLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.JumlahSupplierLabel.Location = new System.Drawing.Point(164, 24);
+            this.JumlahSupplierLabel.Name = "JumlahSupplierLabel";
+            this.JumlahSupplierLabel.Size = new System.Drawing.Size(155, 24);
+            this.JumlahSupplierLabel.TabIndex = 1;
+            this.JumlahSupplierLabel.Text = "Jumlah Supplier:";
+            this.JumlahSupplierLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // PackingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
-            this.ClientSize = new System.Drawing.Size(1017, 469);
-            this.Controls.Add(this.MainSplit);
+            this.ClientSize = new System.Drawing.Size(1125, 469);
+            this.Controls.Add(this.splitContainer3);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "PackingForm";
             this.Text = "Packing List";
-            this.MainSplit.Panel1.ResumeLayout(false);
-            this.MainSplit.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.MainSplit)).EndInit();
-            this.MainSplit.ResumeLayout(false);
-            this.KiriSplit.Panel1.ResumeLayout(false);
-            this.KiriSplit.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.KiriSplit)).EndInit();
-            this.KiriSplit.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.KiriBawahSplit.Panel1.ResumeLayout(false);
-            this.KiriBawahSplit.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.KiriBawahSplit)).EndInit();
-            this.KiriBawahSplit.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturKiriGrid)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BrgKiriGrid)).EndInit();
-            this.KananSplit.Panel1.ResumeLayout(false);
-            this.KananSplit.Panel1.PerformLayout();
-            this.KananSplit.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.KananSplit)).EndInit();
-            this.KananSplit.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
-            this.FakturPage.ResumeLayout(false);
-            this.SupplierPage.ResumeLayout(false);
-            this.PerFakturSplit.Panel1.ResumeLayout(false);
-            this.PerFakturSplit.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.PerFakturSplit)).EndInit();
-            this.PerFakturSplit.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.FakturGridKanan)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BrgGridKiri)).EndInit();
-            this.PerSupplierSplit.Panel1.ResumeLayout(false);
-            this.PerSupplierSplit.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.PerSupplierSplit)).EndInit();
-            this.PerSupplierSplit.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.PackingTab.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.FakturKananGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FakturBrgGrid)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.SupplierGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SupplierBrgGrid)).EndInit();
+            this.splitContainer3.Panel1.ResumeLayout(false);
+            this.splitContainer3.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
+            this.splitContainer3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.SplitContainer MainSplit;
-        private System.Windows.Forms.SplitContainer KiriSplit;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.SplitContainer KiriBawahSplit;
-        private System.Windows.Forms.SplitContainer KananSplit;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TextBox SearchText;
+        private System.Windows.Forms.DateTimePicker Faktur2Date;
+        private System.Windows.Forms.DateTimePicker Faktur1Date;
+        private System.Windows.Forms.Button SearchButton;
         private System.Windows.Forms.DataGridView FakturKiriGrid;
-        private System.Windows.Forms.DataGridView BrgKiriGrid;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage FakturPage;
-        private System.Windows.Forms.SplitContainer PerFakturSplit;
-        private System.Windows.Forms.DataGridView FakturGridKanan;
-        private System.Windows.Forms.DataGridView BrgGridKiri;
-        private System.Windows.Forms.TabPage SupplierPage;
-        private System.Windows.Forms.SplitContainer PerSupplierSplit;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.ComboBox WarehouseCombo;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.DateTimePicker DeliveryDate;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox DriverCombo;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DateTimePicker dateTimePicker3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TabControl PackingTab;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.DataGridView FakturKananGrid;
+        private System.Windows.Forms.DataGridView FakturBrgGrid;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.DataGridView SupplierGrid;
+        private System.Windows.Forms.DataGridView SupplierBrgGrid;
+        private System.Windows.Forms.SplitContainer splitContainer3;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.ComboBox WarehouseCombo;
+        private System.Windows.Forms.Label JumlahItemLabel;
+        private System.Windows.Forms.Label JumlahFakturLabel;
+        private System.Windows.Forms.Label JumlahSupplierLabel;
+        private System.Windows.Forms.Label PackingIdLabel;
     }
 }

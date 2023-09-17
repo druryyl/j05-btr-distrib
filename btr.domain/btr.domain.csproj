@@ -63,6 +63,7 @@
     <Compile Include="InventoryContext\DriverAgg\IDriverKey.cs" />
     <Compile Include="InventoryContext\OpnameAgg\IOpnameKey.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameModel.cs" />
+    <Compile Include="SalesContext\FakturAgg\FakturPackingView.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingModel.cs" />
     <Compile Include="InventoryContext\StokAgg\IReffKey.cs" />
     <Compile Include="InventoryContext\StokAgg\StokModel.cs" />

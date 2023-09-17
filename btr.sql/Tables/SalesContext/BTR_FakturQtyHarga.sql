@@ -3,7 +3,7 @@
     FakturId VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_FakturQtyHarga_FakturId DEFAULT(''),
     FakturItemId VARCHAR(16) NOT NULL CONSTRAINT DF_BTR_FakturQtyHarga_FakturItemId DEFAULT(''),
     FakturQtyHargaId VARCHAR(18) NOT NULL CONSTRAINT DF_BTR_FakturQtyHarga_FakturQtyHargaId DEFAULT(''),
-    NoUrut INT NOT NULL CONSTRAINT DF_BTR_FakturQtyHarga_QtyHargaNo DEFAULT(0),
+    JenisQty INT NOT NULL CONSTRAINT DF_BTR_FakturQtyHarga_JenisQty DEFAULT(0),
 
     BrgId VARCHAR(6) NOT NULL CONSTRAINT DF_BTR_FakturQtyHarga_BrgId DEFAULT(''),
     Satuan VARCHAR(7) NOT NULL CONSTRAINT DF_BTR_FakturQtyHarga_Satuan DEFAULT(''),

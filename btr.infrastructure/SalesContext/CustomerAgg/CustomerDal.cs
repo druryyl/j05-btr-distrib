@@ -35,7 +35,7 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
 
             var dp = new DynamicParameters();
             dp.AddParam("@CustomerId", model.CustomerId, SqlDbType.VarChar);
-            dp.AddParam("@CustomerId", model.CustomerId, SqlDbType.VarChar);
+            dp.AddParam("@CustomerName", model.CustomerName, SqlDbType.VarChar);
             
             dp.AddParam("@WilayahId", model.WilayahId, SqlDbType.VarChar);
             dp.AddParam("@KlasifikasiId", model.KlasifikasiId, SqlDbType.VarChar);

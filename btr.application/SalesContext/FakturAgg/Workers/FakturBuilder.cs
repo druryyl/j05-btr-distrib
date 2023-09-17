@@ -35,7 +35,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         IFakturBuilder ReActivate(IUserKey userKey);
 
         IFakturBuilder User(IUserKey user);
-        IFakturBuilder AddItem(IBrgKey brgKey, string qtyString, string discountString, decimal ppnProsen);
+        IFakturBuilder AddItem(IBrgKey brgKey, string stokHrgStr, string qtyString, string discountString, decimal ppnProsen);
         IFakturBuilder ClearItem();
         IFakturBuilder CalcTotal();
     }
@@ -113,11 +113,67 @@ namespace btr.application.SalesContext.FakturAgg.Workers
 
             foreach (var item in _aggRoot.ListItem)
             {
-                item.ListQtyHarga = allQtyHarga.Where(x => x.FakturItemId == item.FakturItemId).ToList();
+                var brg = _brgBuilder.Load(item).Build();
+                item.ListQtyHarga = Get3JenisQty(item, allQtyHarga.Where(x => x.FakturItemId == item.FakturItemId).ToList());
                 item.ListDiscount = allDiscount.Where(x => x.FakturItemId == item.FakturItemId).ToList();
             }
 
             return this;
+        }
+
+        private List<FakturQtyHargaModel> Get3JenisQty(FakturItemModel item, List<FakturQtyHargaModel> existing)
+        {
+            var brg = _brgBuilder.Load(item).Build();
+            //  qty besar
+            var qtyBesarExisting = existing.FirstOrDefault(x => x.JenisQty == JenisQtyFakturEnum.Besar);
+            var qtyBesarDb = brg.ListSatuan.FirstOrDefault(x => x.Conversion > 1);
+            var qtyBesar = qtyBesarExisting ?? 
+                (qtyBesarDb is null ? null :
+                    new FakturQtyHargaModel
+                    {
+                        BrgId = item.BrgId,
+                        JenisQty = JenisQtyFakturEnum.Besar,
+                        Satuan = qtyBesarDb.Satuan,
+                        HargaSatuan = brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == _aggRoot.HargaTypeId)?.Harga ?? 0 * qtyBesarDb.Conversion,
+                        Conversion = qtyBesarDb.Conversion,
+                        Qty = 0,
+                        SubTotal = 0
+                    });
+            //  qty kecil
+            var qtyKecilExisting = existing.FirstOrDefault(x => x.JenisQty == JenisQtyFakturEnum.Kecil);
+            var qtyKecilDb = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1);
+            var qtyKecil = qtyKecilExisting ??
+                (qtyKecilDb is null ? null :
+                    new FakturQtyHargaModel
+                    {
+                        BrgId = item.BrgId,
+                        JenisQty = JenisQtyFakturEnum.Kecil,
+                        Satuan = qtyKecilDb.Satuan,
+                        HargaSatuan = brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == _aggRoot.HargaTypeId)?.Harga ?? 0,
+                        Conversion = 1,
+                        Qty = 0,
+                        SubTotal = 0
+                    });
+            //  qty bonus
+            var qtyBonusExisting = existing.FirstOrDefault(x => x.JenisQty == JenisQtyFakturEnum.Bonus);
+            var qtyBonus = qtyBonusExisting ??
+                (qtyKecilDb is null ? null :
+                    new FakturQtyHargaModel
+                    {
+                        BrgId = item.BrgId,
+                        JenisQty = JenisQtyFakturEnum.Kecil,
+                        Satuan = qtyKecilDb.Satuan,
+                        HargaSatuan = brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == _aggRoot.HargaTypeId)?.Harga ?? 0,
+                        Conversion = 1,
+                        Qty = 0,
+                        SubTotal = 0
+                    });
+
+            var result = new List<FakturQtyHargaModel>
+            {
+                qtyBesar, qtyKecil, qtyBonus
+            };
+            return result;
         }
 
         public IFakturBuilder Attach(FakturModel faktur)
@@ -173,8 +229,8 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             return this;
         }
 
-        public IFakturBuilder AddItem(IBrgKey brgKey, string qtyString,
-            string discountString, decimal ppnProsen)
+        public IFakturBuilder AddItem(IBrgKey brgKey, string stokHrgStr, string qtyInputStr,
+            string discInputStr, decimal ppnProsen)
         {
             var noUrutMax = _aggRoot.ListItem
                 .DefaultIfEmpty(new FakturItemModel() { NoUrut = 0 })
@@ -182,27 +238,108 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             var noUrut = noUrutMax + 1;
 
             var brg = _brgBuilder.Load(brgKey).Build();
+            var listQtyHarga = GenListStokHarga(brg, qtyInputStr, new HargaTypeModel(_aggRoot.HargaTypeId)).ToList();
             var newItem = new FakturItemModel
             {
+                NoUrut = noUrut,
                 BrgId = brgKey.BrgId,
                 BrgName = brg.BrgName,
                 BrgCode = brg.BrgCode,
-                NoUrut = noUrut,
-                ListQtyHarga = GenListStokHarga(brg, qtyString, new HargaTypeModel(_aggRoot.HargaTypeId)).ToList(),
+                Conversion = brg.ListSatuan.Max(x => x.Conversion),
+                StokHargaStr = stokHrgStr ?? string.Empty, 
+                QtyInputStr = qtyInputStr ?? string.Empty,
+                DiscInputStr = discInputStr ?? string.Empty,
+                
             };
-            newItem.Qty = newItem.ListQtyHarga.Sum(x => x.Qty * x.Conversion);
-            newItem.SubTotal = newItem.ListQtyHarga.Sum(x => x.Qty * x.HargaSatuan);
+            var subTotal = listQtyHarga.Sum(x => x.SubTotal);
+            var listDisc = GenListDiscount(brgKey.BrgId, subTotal, discInputStr).ToList();
+            
+            newItem.ListQtyHarga = listQtyHarga;
+            newItem.QtyDetilStr = GenQtyDetilStr(listQtyHarga, brg);
+            newItem.QtyPotStok = GenQtyPotStok(listQtyHarga, brg);
+            newItem.QtyJual = GenQtyJual(listQtyHarga, brg);
+            
+            newItem.HargaSatuan = listQtyHarga.First(x => x.JenisQty == JenisQtyFakturEnum.Kecil).HargaSatuan;
+            newItem.SubTotal = newItem.QtyJual * newItem.HargaSatuan;
+            
+            newItem.DiscDetilStr = GenDiscDetilStr(listDisc);
+            newItem.DiscRp = listDisc.Sum(x => x.DiscRp);
+            newItem.ListDiscount = listDisc;
 
-            newItem.ListDiscount = GenListDiscount(brgKey.BrgId, newItem.SubTotal, discountString).ToList();
-            newItem.DiscountRp = newItem.ListDiscount.Sum(x => x.DiscountRp);
-            newItem.PpnProsen = 11;
-            newItem.PpnRp = (newItem.SubTotal - newItem.DiscountRp) * 0.11M;
-            newItem.Total = newItem.SubTotal - newItem.DiscountRp + newItem.PpnRp;
+            newItem.PpnProsen = ppnProsen;
+            newItem.PpnRp = newItem.SubTotal * ppnProsen / 100;
+            newItem.Total = newItem.SubTotal - newItem.DiscRp + newItem.PpnRp;
 
+            newItem.ListQtyHarga.RemoveAll(x => x.Qty == 0);
             _aggRoot.ListItem.Add(newItem);
             return this;
         }
 
+        private static string GenDiscDetilStr(IReadOnlyCollection<FakturDiscountModel> listDisc)
+        {
+            var listString = new List<string>
+            {
+                $"{listDisc.FirstOrDefault(x => x.NoUrut == 1)?.DiscRp:N0 ?? string.Empty}",
+                $"{listDisc.FirstOrDefault(x => x.NoUrut == 2)?.DiscRp:N0 ?? string.Empty}",
+                $"{listDisc.FirstOrDefault(x => x.NoUrut == 3)?.DiscRp:N0 ?? string.Empty}",
+                $"{listDisc.FirstOrDefault(x => x.NoUrut == 4)?.DiscRp:N0 ?? string.Empty}"
+            };
+            var result = string.Join(Environment.NewLine, listString);
+            return result;
+        }
+        
+        private static int GenQtyPotStok(IReadOnlyCollection<FakturQtyHargaModel> listQty, BrgModel brg)
+        {
+            var qtyBesar = listQty.FirstOrDefault(x => x.JenisQty == JenisQtyFakturEnum.Besar)?.Qty ?? 0;
+            var qtyKecil = listQty.FirstOrDefault(x => x.JenisQty == JenisQtyFakturEnum.Kecil)?.Qty ?? 0;
+            var qtyBonus = listQty.FirstOrDefault(x => x.JenisQty == JenisQtyFakturEnum.Bonus)?.Qty ?? 0;
+
+            var conversion = brg.ListSatuan.FirstOrDefault(x => x.Conversion > 1)?.Conversion ?? 1;
+
+            var result = (qtyBesar * conversion) + qtyKecil + qtyBonus;
+            return result;
+        }
+        private static int GenQtyJual(IReadOnlyCollection<FakturQtyHargaModel> listQty, BrgModel brg)
+        {
+            var qtyBesar = listQty.FirstOrDefault(x => x.JenisQty == JenisQtyFakturEnum.Besar)?.Qty ?? 0;
+            var qtyKecil = listQty.FirstOrDefault(x => x.JenisQty == JenisQtyFakturEnum.Kecil)?.Qty ?? 0;
+            
+            var conversion = brg.ListSatuan.FirstOrDefault(x => x.Conversion > 1)?.Conversion ?? 1;
+            
+            var result = (qtyBesar * conversion) + qtyKecil;
+            return result;
+        }
+
+        private static string GenQtyDetilStr(IReadOnlyCollection<FakturQtyHargaModel> listQty, BrgModel brg)
+        {
+            string result = string.Empty;
+
+            //  qty besar
+            var qtyBesar = listQty.FirstOrDefault(x => x.JenisQty == JenisQtyFakturEnum.Besar);
+            var satBesar = brg.ListSatuan.FirstOrDefault(x => x.Conversion > 1);
+            if (qtyBesar != null)
+                result += $"{qtyBesar.Qty} {qtyBesar.Satuan}";
+            else
+                result += satBesar is null ? string.Empty : $"0 {satBesar.Satuan}";
+
+            //  qty kecil
+            var qtyKecil = listQty.FirstOrDefault(x => x.JenisQty == JenisQtyFakturEnum.Kecil);
+            var satKecil = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1);
+            if (qtyKecil != null)
+                result += $"{Environment.NewLine}{qtyKecil.Qty} {qtyKecil.Satuan}";
+            else
+                result += satKecil is null ? string.Empty : $"{Environment.NewLine}0 {satKecil.Satuan}";
+
+            //  qty bonus
+            var qtyBonus = listQty.FirstOrDefault(x => x.JenisQty == JenisQtyFakturEnum.Bonus);
+            if (qtyBonus != null)
+                result += $"{Environment.NewLine}{qtyBonus.Qty} {qtyBonus.Satuan}";
+            else
+                result += satKecil is null ? string.Empty : $"{Environment.NewLine}0 {satKecil.Satuan}";
+
+            return result;
+        }
+        
         private static IEnumerable<FakturQtyHargaModel> GenListStokHarga(BrgModel brg, string qtyString, IHargaTypeKey hargaTypeId)
         {
             var result = new List<FakturQtyHargaModel>();
@@ -211,16 +348,16 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             var satuanKecil = brg.ListSatuan.OrderBy(x => x.Conversion).First();
 
             var hrg = brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == hargaTypeId.HargaTypeId)?.Harga ?? 0;
-            var hrgBesar = hrg * (decimal)qtys[0] * satuanBesar.Conversion;
-            var hrgKecil = hrg * (decimal)qtys[1];
+            var hrgBesar = hrg * satuanBesar.Conversion;
+            var hrgKecil = hrg;
 
-            result.Add(new FakturQtyHargaModel(1, brg.BrgId, satuanBesar.Satuan, hrgBesar,
-                satuanBesar.Conversion, (int)qtys[0], hrgBesar));
-            result.Add(new FakturQtyHargaModel(2, brg.BrgId, satuanKecil.Satuan, hrgKecil,
-                satuanKecil.Conversion, (int)qtys[1], hrgKecil));
-            result.Add(new FakturQtyHargaModel(3, brg.BrgId, satuanKecil.Satuan, hrg,
+            result.Add(new FakturQtyHargaModel(JenisQtyFakturEnum.Besar, brg.BrgId, satuanBesar.Satuan, hrgBesar,
+                satuanBesar.Conversion, (int)qtys[0], hrgBesar * qtys[0]));
+            result.Add(new FakturQtyHargaModel(JenisQtyFakturEnum.Kecil, brg.BrgId, satuanKecil.Satuan, hrgKecil,
+                satuanKecil.Conversion, (int)qtys[1], hrgKecil * qtys[1]));
+            result.Add(new FakturQtyHargaModel(JenisQtyFakturEnum.Bonus, brg.BrgId, satuanKecil.Satuan, 0,
                 satuanKecil.Conversion, (int)qtys[2], 0));
-            result.RemoveAll(x => x.Qty == 0);
+            //result.RemoveAll(x => x.Qty == 0);
 
             return result;
         }
@@ -246,7 +383,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
                 new FakturDiscountModel(3, brgId, discs[2], discRp[2]),
                 new FakturDiscountModel(4, brgId, discs[3], discRp[3])
             };
-            result.RemoveAll(x => x.DiscountProsen == 0);
+            result.RemoveAll(x => x.DiscProsen == 0);
             return result;
         }
 
@@ -275,7 +412,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         public IFakturBuilder CalcTotal()
         {
             _aggRoot.Total = _aggRoot.ListItem.Sum(x => x.SubTotal);
-            _aggRoot.Discount = _aggRoot.ListItem.Sum(x => x.DiscountRp);
+            _aggRoot.Discount = _aggRoot.ListItem.Sum(x => x.DiscRp);
             _aggRoot.Tax = _aggRoot.ListItem.Sum(x => x.PpnRp);
             _aggRoot.GrandTotal = _aggRoot.ListItem.Sum(x => x.Total);
             _aggRoot.KurangBayar = _aggRoot.GrandTotal - _aggRoot.UangMuka;

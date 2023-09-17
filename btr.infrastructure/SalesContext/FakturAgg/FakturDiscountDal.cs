@@ -31,8 +31,8 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 bcp.AddMap("FakturDiscountId", "FakturDiscountId");
                 bcp.AddMap("NoUrut", "NoUrut");
                 bcp.AddMap("BrgId", "BrgId");
-                bcp.AddMap("DiscountProsen", "DiscountProsen");
-                bcp.AddMap("DiscountRp", "DiscountRp");
+                bcp.AddMap("DiscProsen", "DiscProsen");
+                bcp.AddMap("DiscRp", "DiscRp");
 
                 var fetched = listModel.ToList();
                 bcp.BatchSize = fetched.Count;
@@ -64,7 +64,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             SELECT
                 aa.FakturId, aa.FakturItemId, aa.FakturDiscountId,
                 aa.NoUrut, aa.BrgId, 
-                aa.DiscountProsen, aa.DiscountRp
+                aa.DiscProsen, aa.DiscRp
             FROM 
                 BTR_FakturDiscount aa
             WHERE

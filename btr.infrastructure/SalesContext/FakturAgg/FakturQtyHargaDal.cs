@@ -29,7 +29,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 bcp.AddMap("FakturId", "FakturId");
                 bcp.AddMap("FakturItemId", "FakturItemId");
                 bcp.AddMap("FakturQtyHargaId", "FakturQtyHargaId");
-                bcp.AddMap("NoUrut", "NoUrut");
+                bcp.AddMap("JenisQty", "JenisQty");
                 bcp.AddMap("BrgId", "BrgId");
                 bcp.AddMap("Satuan", "Satuan");
                 bcp.AddMap("HargaSatuan", "HargaSatuan");
@@ -67,7 +67,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             const string sql = @"
             SELECT
                 aa.FakturId, aa.FakturItemId, aa.FakturQtyHargaId,
-                aa.NoUrut, aa.BrgId, aa.Satuan, aa.HargaSatuan,
+                aa.JenisQty, aa.BrgId, aa.Satuan, aa.HargaSatuan,
                 aa.Conversion, aa.Qty, aa.SubTotal
             FROM 
                 BTR_FakturQtyHarga aa

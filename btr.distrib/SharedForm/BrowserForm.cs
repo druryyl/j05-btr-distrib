@@ -53,6 +53,7 @@ namespace btr.distrib.SharedForm
             var grid = (DataGridView)sender;
             if (e.KeyCode == Keys.Enter)
             {
+                if (grid.CurrentRow is null) return;
                 ConfirmPilihan(grid.CurrentRow.Index);
             }
         }

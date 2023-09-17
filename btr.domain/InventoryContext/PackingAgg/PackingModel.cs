@@ -11,7 +11,12 @@ namespace btr.domain.InventoryContext.PackingAgg
 {
     public class PackingModel : IPackingKey, IDriverKey, IWarehouseKey
     {
-        public string PackingId { get; }
+        public PackingModel()
+        {
+        }
+        public PackingModel(string id) => PackingId = id;
+
+        public string PackingId { get; set; }
         public DateTime PackingDate { get; set; }
 
         public string WarehouseId { get; set; }
@@ -28,9 +33,12 @@ namespace btr.domain.InventoryContext.PackingAgg
     public class PackingFakturModel : IFakturKey
     {
         public string PackingId { get; set; }
+        public int NoUrut { get; set; }
         public string FakturId { get; set; }
+        public string FakturCode { get; set; }
         public string CustomerName { get; set; }
-        public string Alamat { get; set; }
+        public string Address { get; set; }
+        public string Kota { get; set; }
         public decimal GrandTotal { get; set; }
     }
 
@@ -52,6 +60,7 @@ namespace btr.domain.InventoryContext.PackingAgg
         public int NoUrut {get;set;}
         public string BrgId { get; set; }
         public string BrgName { get; set; }
+        public string BrgCode { get; set; }
 
         public int QtyKecil { get; set; }
         public string SatuanKecil { get; set; }
