@@ -6,7 +6,9 @@
     BrgId VARCHAR(6) NOT NULL CONSTRAINT DF_BTR_FakturItem_BrgId DEFAULT(''),
     BrgCode VARCHAR(10) NOT NULL CONSTRAINT DF_BTR_FakturItem_BrgCode DEFAULT(''),
     StokHargaStr VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_Faktur_StokHargaStr DEFAULT(''),
-    
+    QtyInputStr VARCHAR(20) NOT NULL CONSTRAINT DF_BTR_Faktur_QtyInputStr DEFAULT(''),
+    QtyDetilStr VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_Faktur_QtyDetilStr DEFAULT(''),
+
     QtyBesar INT NOT NULL CONSTRAINT DF_BTR_FakturItem_QtyBesar DEFAULT(0),
     SatBesar VARCHAR(10) NOT NULL CONSTRAINT DF_BTR_FakturItem_SatBesar DEFAULT(''),
     Conversion INT NOT NULL CONSTRAINT DF_BTR_FakturItem_Conversion DEFAULT(1),

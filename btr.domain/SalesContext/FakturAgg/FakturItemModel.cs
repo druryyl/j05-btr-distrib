@@ -47,7 +47,6 @@ namespace btr.domain.SalesContext.FakturAgg
         
         public decimal Total { get; set; }
     
-        public List<FakturQtyHargaModel> ListQtyHarga { get; set; }
         public List<FakturDiscountModel> ListDiscount { get; set; }
     }
 }

@@ -45,7 +45,6 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         private FakturModel _aggRoot = new FakturModel();
         private readonly IFakturDal _fakturDal;
         private readonly IFakturItemDal _fakturItemDal;
-        private readonly IFakturQtyHargaDal _fakturQtyHargaDal;
         private readonly IFakturDiscountDal _fakturDiscountDal;
 
         private readonly ICustomerDal _customerDal;
@@ -57,7 +56,6 @@ namespace btr.application.SalesContext.FakturAgg.Workers
 
         public FakturBuilder(IFakturDal fakturDal,
             IFakturItemDal fakturItemDal,
-            IFakturQtyHargaDal fakturQtyHargaDal,
             IFakturDiscountDal fakturDiscountDal,
             ICustomerDal customerDal,
             ISalesPersonDal salesPersonDal,
@@ -68,7 +66,6 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         {
             _fakturDal = fakturDal;
             _fakturItemDal = fakturItemDal;
-            _fakturQtyHargaDal = fakturQtyHargaDal;
             _fakturDiscountDal = fakturDiscountDal;
 
             _customerDal = customerDal;
@@ -108,10 +105,6 @@ namespace btr.application.SalesContext.FakturAgg.Workers
                        ?? throw new KeyNotFoundException($"Faktur not found ({fakturKey.FakturId})");
             _aggRoot.ListItem = _fakturItemDal.ListData(fakturKey)?.ToList()
                                 ?? new List<FakturItemModel>();
-
-
-            var allQtyHarga = _fakturQtyHargaDal.ListData(fakturKey)?.ToList()
-                              ?? new List<FakturQtyHargaModel>();
             var allDiscount = _fakturDiscountDal.ListData(fakturKey)?.ToList()
                               ?? new List<FakturDiscountModel>();
 

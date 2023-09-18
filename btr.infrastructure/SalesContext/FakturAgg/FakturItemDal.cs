@@ -31,9 +31,10 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 bcp.AddMap("NoUrut","NoUrut"); 
 
                 bcp.AddMap("BrgId","BrgId"); 
-                bcp.AddMap("BrgName","BrgName"); 
                 bcp.AddMap("BrgCode","BrgCode"); 
-                bcp.AddMap("StokHargaStr","StokHargaStr"); 
+                bcp.AddMap("StokHargaStr","StokHargaStr");
+                bcp.AddMap("QtyInputStr", "QtyInputStr");
+                bcp.AddMap("QtyDetilStr", "QtyDetilStr");
 
                 bcp.AddMap("QtyBesar","QtyBesar"); 
                 bcp.AddMap("SatBesar","SatBesar"); 
@@ -89,6 +90,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             SELECT
                 aa.FakturId, aa.FakturItemId, aa.NoUrut, 
                 aa.BrgId, aa.BrgCode, aa.StokHargaStr, 
+                aa.QtyInputStr, aa.QtyDetilStr,
                 aa.QtyBesar, aa.SatBesar, aa.Conversion, aa.HrgSatBesar,                
                 aa.QtyKecil, aa.SatKecil, aa.HrgSatKecil,
                 aa.QtyJual, aa.HrgSat, aa.SubTotal,

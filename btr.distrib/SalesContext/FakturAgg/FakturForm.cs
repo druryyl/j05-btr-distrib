@@ -29,7 +29,7 @@ namespace btr.distrib.SalesContext.FakturAgg
 {
     public partial class FakturForm : Form
     {
-        private readonly BindingList<FakturItem2Dto> _listItem = new BindingList<FakturItem2Dto>();
+        private readonly BindingList<FakturItemDto> _listItem = new BindingList<FakturItemDto>();
 
         private readonly IBrowser<SalesPersonBrowserView> _salesBrowser;
         private readonly IBrowser<CustomerBrowserView> _customerBrowser;
@@ -147,7 +147,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             _tipeHarga = string.Empty;
 
             _listItem.Clear();
-            _listItem.Add(new FakturItem2Dto());
+            _listItem.Add(new FakturItemDto());
             ShowAsActive();
         }
         #endregion
@@ -214,30 +214,11 @@ namespace btr.distrib.SalesContext.FakturAgg
             SisaText.Value = faktur.KurangBayar;
 
             _listItem.Clear();
-
             foreach (var item in faktur.ListItem)
             {
-                //var qtyString = item.QtyInputStr;
-                //var discString = item.DiscInputStr;
-                //var listQtyHarga = item.ListQtyHarga
-                //    .Where(x => x.SubTotal != 0)
-                //    .Select(x => new FakturItemDtoStokHargaSatuan(x.Qty, x.HargaSatuan, x.Satuan));
-                //var newItem = new FakturItemDto()
-                //{
-                //    BrgId = item.BrgId,
-                    
-                //    Qty = qtyString,
-                //    Disc = discString,
-                //    Ppn = item.PpnProsen,
-                //    ListStokHargaSatuan = listQtyHarga.ToList(),
-                //};
-                //newItem.SetBrgName(item.BrgName);
-                //newItem.SetCode(item.BrgCode);
-                //newItem.SetStokHarga(item.StokHargaStr);
-                //newItem.ReCalc();
-                //_listItem.Add(newItem);
+                var newItem = item.Adapt<FakturItemDto>();
+                _listItem.Add(newItem);
             }
-            //_listItem.Add(new FakturItem2Dto());
 
             if (faktur.IsVoid)
                 ShowAsVoid(faktur);
@@ -478,7 +459,7 @@ namespace btr.distrib.SalesContext.FakturAgg
                 _tipeHarga,
                 WarehouseIdText.Text);
             var item = _createItemWorker.Execute(req);
-            _listItem[rowIndex] = item.Adapt<FakturItem2Dto>();
+            _listItem[rowIndex] = item.Adapt<FakturItemDto>();
             FakturItemGrid.Refresh();
             CalcTotal();
         }

@@ -77,10 +77,17 @@ namespace btr.application.SalesContext.FakturAgg.Workers
 
             //  jika cuman punya satu satuan, pindah jadi satuan kecil
             if (item.Conversion == 0)
-            {
-                item.QtyKecil = item.QtyBesar;
-                item.QtyBesar = 0;
-            }
+                if (item.QtyBesar > 0)
+                    if (item.QtyKecil == 0)
+                    {
+                        item.QtyKecil = item.QtyBesar;
+                        item.QtyBesar = 0;
+                    }
+                    else if (item.QtyKecil > 0)
+                    {
+                        item.QtyBesar = 0;
+                    }
+
 
             item.QtyJual = (item.QtyBesar * item.Conversion) + item.QtyKecil;
             item.HrgSat = item.HrgSatKecil;
