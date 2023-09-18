@@ -10,13 +10,17 @@ namespace btr.distrib.SalesContext.FakturAgg
 {
     public class FakturItem2Dto
     {
+        public FakturItem2Dto()
+        {
+            PpnProsen = 11; //default ppn 11%
+        }
         public string BrgId { get; set; }
         public string BrgCode { get; private set; }
         public string BrgName { get; private set; }
         public string StokHargaStr { get; private set; }
 
         public string QtyInputStr { get; set; }
-        public string QtyDetilStr { get; set; }
+        public string QtyDetilStr { get; private set; }
 
         public int QtyBesar { get; private set; }
         public string SatBesar { get; private set; }

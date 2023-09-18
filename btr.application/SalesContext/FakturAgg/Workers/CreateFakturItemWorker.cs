@@ -1,4 +1,5 @@
 ﻿using btr.application.BrgContext.BrgAgg;
+using btr.application.InventoryContext.StokBalanceAgg;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.SalesContext.FakturAgg;
 using btr.nuna.Application;
@@ -16,19 +17,22 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             string qtyInputStr, 
             string discInputStr, 
             decimal ppnProsen, 
-            string hargaTypeId) 
+            string hargaTypeId,
+            string warehouseId) 
         {
             BrgId = brgId;
             QtyInputStr = qtyInputStr;
             DiscInputStr = discInputStr;
             PpnProsen = ppnProsen;
             HargaTypeId = hargaTypeId;
+            WarehouseId = warehouseId;
         }
         public string BrgId { get; set; }
         public string QtyInputStr { get; set; }
         public string DiscInputStr { get; set; }
         public decimal PpnProsen { get; set; }
         public string HargaTypeId { get; set; }
+        public string WarehouseId { get; set; }
     }
 
     public interface ICreateFakturItemWorker : INunaService<FakturItemModel, CreateFakturItemRequest>
@@ -38,17 +42,21 @@ namespace btr.application.SalesContext.FakturAgg.Workers
     public class CreateFakturItemWorker : ICreateFakturItemWorker
     {
         private readonly IBrgBuilder _brgBuilder;
+        private readonly IStokBalanceBuilder _stokBalanceBuilder;
 
-        public CreateFakturItemWorker(IBrgBuilder brgBuilder)
+        public CreateFakturItemWorker(IBrgBuilder brgBuilder, 
+            IStokBalanceBuilder stokBalanceBuilder)
         {
             _brgBuilder = brgBuilder;
+            _stokBalanceBuilder = stokBalanceBuilder;
         }
 
         public FakturItemModel Execute(CreateFakturItemRequest req)
         {
             var brg = _brgBuilder.Load(req).Build();
-            var qtys = ParseStringMultiNumber(req.QtyInputStr, 3);
+            var stok = _stokBalanceBuilder.Load(brg).Build();
 
+            var qtys = ParseStringMultiNumber(req.QtyInputStr, 3);
 
             var item = new FakturItemModel
             {
@@ -57,16 +65,24 @@ namespace btr.application.SalesContext.FakturAgg.Workers
                 BrgCode = brg.BrgCode,
                 QtyInputStr = req.QtyInputStr,
             };
+            
             item.QtyKecil = (int)qtys[1];
-            item.SatKecil = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty; ;
-            item.HrgSatKecil = brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == req.HargaTypeId)?.Harga ?? 0; ;
+            item.SatKecil = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty;
+            item.HrgSatKecil = brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == req.HargaTypeId)?.Harga ?? 0;
 
             item.QtyBesar = (int)qtys[0];
-            item.SatBesar = brg.ListSatuan.FirstOrDefault(x => x.Conversion > 1)?.Satuan ?? string.Empty; ;
-            item.Conversion = brg.ListSatuan.FirstOrDefault(x => x.Conversion > 1)?.Conversion ?? 0; ;
+            item.SatBesar = brg.ListSatuan.FirstOrDefault(x => x.Conversion > 1)?.Satuan ?? string.Empty;
+            item.Conversion = brg.ListSatuan.FirstOrDefault(x => x.Conversion > 1)?.Conversion ?? 0;
             item.HrgSatBesar = item.HrgSatKecil * item.Conversion;
 
-            item.QtyJual = (item.QtyBesar * item.Conversion) * item.QtyKecil;
+            //  jika cuman punya satu satuan, pindah jadi satuan kecil
+            if (item.Conversion == 0)
+            {
+                item.QtyKecil = item.QtyBesar;
+                item.QtyBesar = 0;
+            }
+
+            item.QtyJual = (item.QtyBesar * item.Conversion) + item.QtyKecil;
             item.HrgSat = item.HrgSatKecil;
             item.SubTotal = item.QtyJual * item.HrgSat;
 
@@ -85,39 +101,57 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             item.PpnRp = item.SubTotal * req.PpnProsen / 100;
             item.Total = item.SubTotal - item.DiscRp + item.PpnRp;
 
+            var stokKecil = stok.ListWarehouse.FirstOrDefault(x => x.WarehouseId == req.WarehouseId)?.Qty ?? 0;
+            item.StokHargaStr = $"{stokKecil:N0} {item.SatKecil}@{item.HrgSatKecil:N0}";
+            int stokBesar = 0;
+            if (item.Conversion > 0)
+            {
+                stokBesar = (int)(stokKecil / item.Conversion);
+                stokKecil -= (stokBesar * item.Conversion);
+                item.StokHargaStr = $"{stokBesar:N0} {item.SatBesar} @{item.HrgSatKecil:N0}{Environment.NewLine}";
+                item.StokHargaStr += $"{stokKecil:N0} {item.SatKecil} @{item.HrgSatBesar:N0}";
+            }
+            item.QtyInputStr = $"{item.QtyBesar};{item.QtyKecil};{item.QtyBonus}";
+
             return item;
         }
 
         private string GenQtyDetilStr(FakturItemModel item)
         {
             var result = string.Empty;
-            //  normalisasi; jika qty kecil lebih dari conversion maka ubah jadi qty besar;
+            //  normalisasi; jika qty kecil lebih dari item.Conversion maka ubah jadi qty besar;
             if (item.Conversion > 0)
-                if (_qtyKecil > conversion)
+                if (item.QtyKecil > item.Conversion)
                 {
-                    var qtyBesarAdd = (int)(_qtyKecil / conversion);
-                    _qtyBesar += qtyBesarAdd;
-                    _qtyKecil -= (qtyBesarAdd * conversion);
-                }
+                    var qtyBesarAdd = (int)(item.QtyKecil / item.Conversion);
+                    item.QtyBesar += qtyBesarAdd;
+                    item.QtyKecil -= (qtyBesarAdd * item.Conversion);
+                };
 
-            QtyDetilStr = string.Empty;
-            if (_qtyBesar > 0)
-                QtyDetilStr = $"{_qtyBesar} {satBesar}";
-            if (_qtyKecil > 0)
-                QtyDetilStr += $"{Environment.NewLine}{_qtyKecil} {satKecil}";
-            if (_qtyBonus > 0)
-                QtyDetilStr = $"{Environment.NewLine}nBonus {_qtyBonus} {satKecil}";
+            if (item.QtyBesar > 0)
+                result = $"{item.QtyBesar} {item.SatBesar}{Environment.NewLine}";
+            if (item.QtyKecil > 0)
+                result += $"{item.QtyKecil} {item.SatKecil}{Environment.NewLine}";
+            if (item.QtyBonus > 0)
+                result += $"Bonus {item.QtyBonus} {item.SatKecil}";
+
+            return result.TrimEnd('\n', '\r');
         }
 
         private static string GenDiscDetilStr(IReadOnlyCollection<FakturDiscountModel> listDisc)
         {
-            var listString = new List<string>
+            var listString = new List<string>();
+            foreach (var item in listDisc)
             {
-                $"{listDisc.FirstOrDefault(x => x.NoUrut == 1)?.DiscRp:N0 ?? string.Empty}",
-                $"{listDisc.FirstOrDefault(x => x.NoUrut == 2)?.DiscRp:N0 ?? string.Empty}",
-                $"{listDisc.FirstOrDefault(x => x.NoUrut == 3)?.DiscRp:N0 ?? string.Empty}",
-                $"{listDisc.FirstOrDefault(x => x.NoUrut == 4)?.DiscRp:N0 ?? string.Empty}"
-            };
+                listString.Add($"{item.DiscRp:N0}");
+            }
+            
+            //{
+            //    $"{listDisc.FirstOrDefault(x => x.NoUrut == 1)?.DiscRp:N0 ?? 0}",
+            //    $"{listDisc.FirstOrDefault(x => x.NoUrut == 2)?.DiscRp:N0 ?? 0}",
+            //    $"{listDisc.FirstOrDefault(x => x.NoUrut == 3)?.DiscRp:N0 ?? 0}",
+            //    $"{listDisc.FirstOrDefault(x => x.NoUrut == 4)?.DiscRp:N0 ?? 0}"
+            //};
             var result = string.Join(Environment.NewLine, listString);
             return result;
         }

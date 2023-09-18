@@ -162,7 +162,9 @@ namespace btr.application.BrgContext.BrgAgg
         {
             if (_aggRoot.ListSatuan.Any(x => x.Satuan == satuan))
                 throw new ArgumentException($"Satuan already exist ({satuan})");
-            _aggRoot.ListSatuan.Add(new BrgSatuanModel(_aggRoot.BrgId, satuan, conversion, satuanPrint));
+            var newItem = new BrgSatuanModel(_aggRoot.BrgId, satuan, conversion, satuanPrint);
+            newItem.RemoveNull();
+            _aggRoot.ListSatuan.Add(newItem);
             return this;
         }
 

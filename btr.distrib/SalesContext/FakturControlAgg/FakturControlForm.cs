@@ -164,6 +164,12 @@ namespace btr.distrib.SalesContext.FakturControlAgg
 
         private void SearchButton_Click(object sender, EventArgs e)
         {
+            foreach(DataGridViewRow item in FakturGrid.Rows)
+            //{
+            //    if (Convert.ToBoolean(item.Cells[0].Value) == true)
+
+            //}
+
             RefreshGrid();
         }
 

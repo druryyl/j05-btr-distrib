@@ -198,7 +198,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         {
             var item = _createFakturItemWorker.Execute(
                 new CreateFakturItemRequest(brgKey.BrgId, qtyInputStr, discInputStr,
-                ppnProsen, _aggRoot.HargaTypeId));
+                ppnProsen, _aggRoot.HargaTypeId, _aggRoot.WarehouseId));
 
             var noUrutMax = _aggRoot.ListItem
                 .DefaultIfEmpty(new FakturItemModel() { NoUrut = 0 })
