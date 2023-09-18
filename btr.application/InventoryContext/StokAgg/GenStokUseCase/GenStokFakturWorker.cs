@@ -49,7 +49,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                     var satuan = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty;
                     
                     var reqRemoveStok = new RemoveFifoStokRequest(item.BrgId,
-                        faktur.WarehouseId, item.QtyJual, satuan, item.HargaSatuan, faktur.FakturId, "FAKTUR");
+                        faktur.WarehouseId, item.QtyJual, satuan, item.HrgSat, faktur.FakturId, "FAKTUR");
                     _removeFifoStokWorker.Execute(reqRemoveStok);
 
                     var qtyBonus = item.QtyPotStok - item.QtyJual;

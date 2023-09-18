@@ -15,16 +15,26 @@ namespace btr.domain.SalesContext.FakturAgg
         public string BrgCode { get; set; }
         public string StokHargaStr { get; set; }
         
-        //  qty
         public string QtyInputStr { get; set; }
         public string QtyDetilStr { get; set; }
-        public int QtyPotStok { get; set; }     //  qty-termasuk-bonus (utk potong stok)
-        public int QtyJual { get; set; }        //  qty-tanpa-bonys (utk hitung harga)
+
+        public int QtyBesar { get; set; }
+        public string SatBesar { get; set; }
         public int Conversion { get; set; }
+        public decimal HrgSatBesar { get; set; }
+
+        public int QtyKecil { get; set; }
+        public string SatKecil { get; set; }
+        public decimal HrgSatKecil { get; set; }
 
         //  harga
-        public decimal HargaSatuan { get; set; }
+        public int QtyJual { get; set; }
+        public decimal HrgSat { get; set; }
         public decimal SubTotal { get; set; }
+
+        public int QtyBonus { get; set; }
+        public int QtyPotStok { get; set; }
+
 
         //  diskon
         public string DiscInputStr { get; set; }

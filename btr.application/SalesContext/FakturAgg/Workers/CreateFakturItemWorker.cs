@@ -1,0 +1,173 @@
+﻿using btr.application.BrgContext.BrgAgg;
+using btr.domain.BrgContext.BrgAgg;
+using btr.domain.SalesContext.FakturAgg;
+using btr.nuna.Application;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace btr.application.SalesContext.FakturAgg.Workers
+{
+    public class CreateFakturItemRequest : IBrgKey
+    {
+        public CreateFakturItemRequest(string brgId, 
+            string qtyInputStr, 
+            string discInputStr, 
+            decimal ppnProsen, 
+            string hargaTypeId) 
+        {
+            BrgId = brgId;
+            QtyInputStr = qtyInputStr;
+            DiscInputStr = discInputStr;
+            PpnProsen = ppnProsen;
+            HargaTypeId = hargaTypeId;
+        }
+        public string BrgId { get; set; }
+        public string QtyInputStr { get; set; }
+        public string DiscInputStr { get; set; }
+        public decimal PpnProsen { get; set; }
+        public string HargaTypeId { get; set; }
+    }
+
+    public interface ICreateFakturItemWorker : INunaService<FakturItemModel, CreateFakturItemRequest>
+    {
+    }
+
+    public class CreateFakturItemWorker : ICreateFakturItemWorker
+    {
+        private readonly IBrgBuilder _brgBuilder;
+
+        public CreateFakturItemWorker(IBrgBuilder brgBuilder)
+        {
+            _brgBuilder = brgBuilder;
+        }
+
+        public FakturItemModel Execute(CreateFakturItemRequest req)
+        {
+            var brg = _brgBuilder.Load(req).Build();
+            var qtys = ParseStringMultiNumber(req.QtyInputStr, 3);
+
+
+            var item = new FakturItemModel
+            {
+                BrgId = req.BrgId,
+                BrgName = brg.BrgName,
+                BrgCode = brg.BrgCode,
+                QtyInputStr = req.QtyInputStr,
+            };
+            item.QtyKecil = (int)qtys[1];
+            item.SatKecil = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty; ;
+            item.HrgSatKecil = brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == req.HargaTypeId)?.Harga ?? 0; ;
+
+            item.QtyBesar = (int)qtys[0];
+            item.SatBesar = brg.ListSatuan.FirstOrDefault(x => x.Conversion > 1)?.Satuan ?? string.Empty; ;
+            item.Conversion = brg.ListSatuan.FirstOrDefault(x => x.Conversion > 1)?.Conversion ?? 0; ;
+            item.HrgSatBesar = item.HrgSatKecil * item.Conversion;
+
+            item.QtyJual = (item.QtyBesar * item.Conversion) * item.QtyKecil;
+            item.HrgSat = item.HrgSatKecil;
+            item.SubTotal = item.QtyJual * item.HrgSat;
+
+            item.QtyBonus = (int)qtys[2];
+            item.QtyPotStok = item.QtyJual + item.QtyBonus;
+
+            item.QtyDetilStr = GenQtyDetilStr(item);
+
+            item.DiscInputStr = req.DiscInputStr ?? string.Empty;
+            var listDisc = GenListDiscount(req.BrgId, item.SubTotal, req.DiscInputStr).ToList();
+            item.DiscDetilStr = GenDiscDetilStr(listDisc);
+            item.DiscRp = listDisc.Sum(x => x.DiscRp);
+            item.ListDiscount = listDisc;
+
+            item.PpnProsen = req.PpnProsen;
+            item.PpnRp = item.SubTotal * req.PpnProsen / 100;
+            item.Total = item.SubTotal - item.DiscRp + item.PpnRp;
+
+            return item;
+        }
+
+        private string GenQtyDetilStr(FakturItemModel item)
+        {
+            var result = string.Empty;
+            //  normalisasi; jika qty kecil lebih dari conversion maka ubah jadi qty besar;
+            if (item.Conversion > 0)
+                if (_qtyKecil > conversion)
+                {
+                    var qtyBesarAdd = (int)(_qtyKecil / conversion);
+                    _qtyBesar += qtyBesarAdd;
+                    _qtyKecil -= (qtyBesarAdd * conversion);
+                }
+
+            QtyDetilStr = string.Empty;
+            if (_qtyBesar > 0)
+                QtyDetilStr = $"{_qtyBesar} {satBesar}";
+            if (_qtyKecil > 0)
+                QtyDetilStr += $"{Environment.NewLine}{_qtyKecil} {satKecil}";
+            if (_qtyBonus > 0)
+                QtyDetilStr = $"{Environment.NewLine}nBonus {_qtyBonus} {satKecil}";
+        }
+
+        private static string GenDiscDetilStr(IReadOnlyCollection<FakturDiscountModel> listDisc)
+        {
+            var listString = new List<string>
+            {
+                $"{listDisc.FirstOrDefault(x => x.NoUrut == 1)?.DiscRp:N0 ?? string.Empty}",
+                $"{listDisc.FirstOrDefault(x => x.NoUrut == 2)?.DiscRp:N0 ?? string.Empty}",
+                $"{listDisc.FirstOrDefault(x => x.NoUrut == 3)?.DiscRp:N0 ?? string.Empty}",
+                $"{listDisc.FirstOrDefault(x => x.NoUrut == 4)?.DiscRp:N0 ?? string.Empty}"
+            };
+            var result = string.Join(Environment.NewLine, listString);
+            return result;
+        }
+
+        private static IEnumerable<FakturDiscountModel> GenListDiscount(string brgId, decimal subTotal,
+            string disccountString)
+        {
+            var discs = ParseStringMultiNumber(disccountString, 4);
+
+            var discRp = new decimal[4];
+            discRp[0] = subTotal * discs[0] / 100;
+            var newSubTotal = subTotal - discRp[0];
+            discRp[1] = newSubTotal * discs[1] / 100;
+            newSubTotal -= discRp[1];
+            discRp[2] = newSubTotal * discs[2] / 100;
+            newSubTotal -= discRp[2];
+            discRp[3] = newSubTotal * discs[3] / 100;
+
+            var result = new List<FakturDiscountModel>
+            {
+                new FakturDiscountModel(1, brgId, discs[0], discRp[0]),
+                new FakturDiscountModel(2, brgId, discs[1], discRp[1]),
+                new FakturDiscountModel(3, brgId, discs[2], discRp[2]),
+                new FakturDiscountModel(4, brgId, discs[3], discRp[3])
+            };
+            result.RemoveAll(x => x.DiscProsen == 0);
+            return result;
+        }
+
+        private static List<decimal> ParseStringMultiNumber(string str, int size)
+        {
+            if (str is null)
+                str = string.Empty;
+
+            var result = new List<decimal>();
+            for (var i = 0; i < size; i++)
+                result.Add(0);
+
+            var resultStr = (str == string.Empty ? "0" : str).Split(';').ToList();
+
+            var x = 0;
+            foreach (var item in resultStr.TakeWhile(item => x < result.Count))
+            {
+                if (decimal.TryParse(item, out var temp))
+                    result[x] = temp;
+                x++;
+            }
+
+            return result;
+        }
+
+    }
+}

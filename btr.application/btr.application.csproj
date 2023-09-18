@@ -147,6 +147,7 @@
     <Compile Include="SalesContext\FakturAgg\UseCases\ListFakturQuery.cs" />
     <Compile Include="SalesContext\FakturAgg\UseCases\ReActivateFakturWorker.cs" />
     <Compile Include="SalesContext\FakturAgg\UseCases\VoidFakturWorker.cs" />
+    <Compile Include="SalesContext\FakturAgg\Workers\CreateFakturItemWorker.cs" />
     <Compile Include="SalesContext\FakturAgg\Workers\FakturBuilder.cs" />
     <Compile Include="SalesContext\FakturAgg\Workers\FakturValidator.cs" />
     <Compile Include="SalesContext\FakturAgg\Workers\FakturWriter.cs" />

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using btr.domain.BrgContext.BrgAgg;
+using btr.domain.InventoryContext.StokBalanceAgg;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,28 +8,43 @@ namespace btr.distrib.SalesContext.FakturAgg
 {
     public class FakturItemDto
     {
+        private string _brgId;
         private string _qty;
         private string _disc;
         private decimal _ppn;
-        private string _stokHarga = string.Empty;
+
+        private int _qtyBesar;
+        private string _satBesar ;
+        private int _conversion ;
+        private decimal _hrgSatBesar ;
+        private int _qtyKecil ;
+        private string _satKecil ;
+        private decimal _hrgSatKecil ;
+        private int _qtyJual ;
+        private decimal _hrgSat ;
+        private decimal _subTotal ;
+        private int _qtyBonus ;
+        private int _qtyPotStok ;
+
+        private BrgModel _brgModel;
+
+
         private List<FakturItemDtoStokHargaSatuan> _listStokHargaSatuan;
-        private string _brgId;
 
         public FakturItemDto()
         {
             _listStokHargaSatuan = new List<FakturItemDtoStokHargaSatuan>();
         }
 
-        public string BrgId 
-        { 
-            get => _brgId; 
-            set => _brgId = value;
-        }
+        public BrgModel Brg { get; set; }
+        public int Stok { get; set; }
+        public string HargaTypeId { get; set; }
 
-        public string Code { get; private set; }
-
-        public string BrgName { get; private set; }
+        public string BrgId { get => Brg?.BrgId ?? string.Empty; }
+        public string Code { get => Brg?.BrgCode ?? string.Empty; }
+        public string BrgName { get => Brg?.BrgName ?? string.Empty; }
         public string StokHarga { get; private set; }
+
         public string Qty
         {
             get => _qty;
@@ -38,7 +55,9 @@ namespace btr.distrib.SalesContext.FakturAgg
             }
         }        
         
-        public string QtyDetil { get; private set;}
+
+        public string QtyDetilStr { get; private set;}
+
         public decimal SubTotal { get; private set; }
 
         public string Disc
@@ -76,10 +95,6 @@ namespace btr.distrib.SalesContext.FakturAgg
             }
         }
 
-        public void SetBrgName(string name) => BrgName = name;
-
-        public void SetCode(string code) => Code = code;
-
         public void SetStokHarga(string stokHarga) => StokHarga = stokHarga;
         
         private static List<decimal> ParseStringMultiNumber(string str, int size)
@@ -106,11 +121,31 @@ namespace btr.distrib.SalesContext.FakturAgg
         {
             if (Qty is null) return;
             var qtys = ParseStringMultiNumber(Qty, 3);
-            var satBesar = ListStokHargaSatuan.FirstOrDefault()?.Satuan ?? string.Empty;
-            var satKecil = ListStokHargaSatuan.LastOrDefault()?.Satuan ?? string.Empty;
-            QtyDetil = $"{(int)qtys[0]} {satBesar}\n{(int)qtys[1]} {satKecil}\nBonus {(int)qtys[2]} {satKecil}";
-        }        
-        
+            var satBesar = Brg?.ListSatuan.FirstOrDefault(x => x.Conversion > 1)?.Satuan ?? string.Empty;
+            var satKecil = Brg?.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty;
+            var conversion = Brg?.ListSatuan.FirstOrDefault(x => x.Conversion > 1)?.Conversion ?? 0;
+            _qtyBesar = (int)qtys[0];
+            _qtyKecil = (int)qtys[1];
+            _qtyBonus = (int)qtys[2];
+
+            //  normalisasi; jika qty kecil lebih dari conversion maka ubah jadi qty besar;
+            if (conversion > 0)
+                if (_qtyKecil > conversion)
+                {
+                    var qtyBesarAdd = (int)(_qtyKecil / conversion);
+                    _qtyBesar += qtyBesarAdd;
+                    _qtyKecil -= (qtyBesarAdd * conversion);
+                }
+
+            QtyDetilStr = string.Empty;
+            if (_qtyBesar > 0)
+                QtyDetilStr = $"{_qtyBesar} {satBesar}";
+            if (_qtyKecil > 0)
+                QtyDetilStr += $"{Environment.NewLine}{_qtyKecil} {satKecil}";
+            if (_qtyBonus > 0)
+                QtyDetilStr = $"{Environment.NewLine}nBonus {_qtyBonus} {satKecil}";
+        }
+
         private void ReCalcDisc()
         {
             if (Disc is null) return;
@@ -130,10 +165,16 @@ namespace btr.distrib.SalesContext.FakturAgg
             var discFormated2 = discRp[1] == 0 ? "-" : $"{discRp[1]:#,##0.00}";
             var discFormated3 = discRp[2] == 0 ? "-" : $"{discRp[2]:#,##0.00}";
             var discFormated4 = discRp[3] == 0 ? "-" : $"{discRp[3]:#,##0.00}";
-            var result = $"1: {discFormated1}\n";
-            result += $"2: {discFormated2}\n";
-            result += $"3: {discFormated3}\n";
-            result += $"4: {discFormated4}";
+
+            var result = string.Empty;
+            if (discRp[0] > 0)
+                result += $"1: {discFormated1}";
+            if (discRp[1] > 0)
+                result += $"{Environment.NewLine}2: {discFormated2}";
+            if (discRp[2] > 0)
+                result += $"{Environment.NewLine}3: {discFormated3}";
+            if (discRp[3] > 0)
+                result += $"{Environment.NewLine}4: {discFormated4}";
             DiscRp = result;
         }    
         

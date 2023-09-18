@@ -118,7 +118,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
             }
             result = _fakturBuilder
                 .Attach(result)
-                .CalcTotal()
+                //.CalcTotal()
                 .Build();
 
             //  APPLY

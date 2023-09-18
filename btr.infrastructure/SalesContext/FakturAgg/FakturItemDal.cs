@@ -26,30 +26,38 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             using (var bcp = new SqlBulkCopy(conn))
             {
                 conn.Open();
-                bcp.AddMap("FakturId", "FakturId");
-                bcp.AddMap("FakturItemId", "FakturItemId");
-                bcp.AddMap("NoUrut", "NoUrut");
-                
-                bcp.AddMap("BrgId", "BrgId");
-                bcp.AddMap("BrgCode", "BrgCode");
-                bcp.AddMap("StokHargaStr", "StokHargaStr");
-                
-                bcp.AddMap("QtyInputStr", "QtyInputStr");
-                bcp.AddMap("QtyDetilStr", "QtyDetilStr");
-                bcp.AddMap("QtyPotStok", "QtyPotStok");
-                bcp.AddMap("QtyJual", "QtyJual");
-                bcp.AddMap("Conversion", "Conversion");
-                
-                bcp.AddMap("HargaSatuan", "HargaSatuan");
-                bcp.AddMap("SubTotal", "SubTotal");
-                
-                bcp.AddMap("DiscInputStr", "DiscInputStr");
-                bcp.AddMap("DiscDetilStr", "DiscDetilStr");
-                bcp.AddMap("DiscRp", "DiscRp");
+                bcp.AddMap("FakturId", "FakturId"); 
+                bcp.AddMap("FakturItemId","FakturItemId"); 
+                bcp.AddMap("NoUrut","NoUrut"); 
 
-                bcp.AddMap("PpnProsen", "PpnProsen");
-                bcp.AddMap("PpnRp", "PpnRp");
-                bcp.AddMap("Total", "Total");
+                bcp.AddMap("BrgId","BrgId"); 
+                bcp.AddMap("BrgName","BrgName"); 
+                bcp.AddMap("BrgCode","BrgCode"); 
+                bcp.AddMap("StokHargaStr","StokHargaStr"); 
+
+                bcp.AddMap("QtyBesar","QtyBesar"); 
+                bcp.AddMap("SatBesar","SatBesar"); 
+                bcp.AddMap("Conversion","Conversion"); 
+                bcp.AddMap("HrgSatBesar","HrgSatBesar"); 
+
+                bcp.AddMap("QtyKecil","QtyKecil"); 
+                bcp.AddMap("SatKecil","SatKecil"); 
+                bcp.AddMap("HrgSatKecil","HrgSatKecil"); 
+
+                bcp.AddMap("QtyJual","QtyJual"); 
+                bcp.AddMap("HrgSat","HrgSat"); 
+                bcp.AddMap("SubTotal","SubTotal"); 
+
+                bcp.AddMap("QtyBonus","QtyBonus"); 
+                bcp.AddMap("QtyPotStok","QtyPotStok"); 
+
+                bcp.AddMap("DiscInputStr","DiscInputStr"); 
+                bcp.AddMap("DiscDetilStr","DiscDetilStr"); 
+                bcp.AddMap("DiscRp","DiscRp"); 
+
+                bcp.AddMap("PpnProsen","PpnProsen"); 
+                bcp.AddMap("PpnRp","PpnRp"); 
+                bcp.AddMap("Total","Total"); 
 
                 var fetched = listModel.ToList();
                 bcp.BatchSize = fetched.Count;
@@ -81,8 +89,10 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             SELECT
                 aa.FakturId, aa.FakturItemId, aa.NoUrut, 
                 aa.BrgId, aa.BrgCode, aa.StokHargaStr, 
-                aa.QtyInputStr, aa.QtyDetilStr, aa.QtyPotStok, aa.QtyJual, 
-                aa.Conversion, aa.HargaSatuan, SubTotal,
+                aa.QtyBesar, aa.SatBesar, aa.Conversion, aa.HrgSatBesar,                
+                aa.QtyKecil, aa.SatKecil, aa.HrgSatKecil,
+                aa.QtyJual, aa.HrgSat, aa.SubTotal,
+                aa.QtyBonus, aa.QtyPotStok,
                 aa.DiscInputStr, aa.DiscDetilStr, aa.DiscRp,
                 aa.PpnProsen, aa.PpnRp, aa.Total,
                 ISNULL(bb.BrgName, '') AS BrgName

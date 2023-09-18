@@ -2,13 +2,11 @@
 using btr.distrib.Browsers;
 using btr.distrib.SharedForm;
 using btr.nuna.Domain;
-using MediatR;
 using Polly;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using btr.distrib.Helpers;
@@ -23,15 +21,15 @@ using btr.application.InventoryContext.StokBalanceAgg;
 using btr.application.InventoryContext.WarehouseAgg;
 using btr.domain.InventoryContext.StokBalanceAgg;
 using btr.application.SupportContext.TglJamAgg;
-using TextBox = System.Windows.Forms.TextBox;
 using btr.application.SalesContext.FakturAgg.Workers;
 using btr.domain.SalesContext.FakturAgg;
+using Mapster;
 
 namespace btr.distrib.SalesContext.FakturAgg
 {
     public partial class FakturForm : Form
     {
-        private readonly BindingList<FakturItemDto> _listItem = new BindingList<FakturItemDto>();
+        private readonly BindingList<FakturItem2Dto> _listItem = new BindingList<FakturItem2Dto>();
 
         private readonly IBrowser<SalesPersonBrowserView> _salesBrowser;
         private readonly IBrowser<CustomerBrowserView> _customerBrowser;
@@ -48,6 +46,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly IBrgDal _brgDal;
         private readonly IFakturBuilder _fakturBuilder;
         private readonly ISaveFakturWorker _saveFakturWorker;
+        private readonly ICreateFakturItemWorker _createItemWorker;
 
         private string _tipeHarga = string.Empty;
 
@@ -66,7 +65,8 @@ namespace btr.distrib.SalesContext.FakturAgg
             ITglJamDal dateTime,
             IBrgDal brgDal,
             IFakturBuilder fakturBuilder,
-            ISaveFakturWorker saveFakturWorker)
+            ISaveFakturWorker saveFakturWorker,
+            ICreateFakturItemWorker createItemWorker)
         {
             _warehouseBrowser = warehouseBrowser;
             _salesBrowser = salesBrowser;
@@ -90,6 +90,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             _brgDal = brgDal;
             _fakturBuilder = fakturBuilder;
             _saveFakturWorker = saveFakturWorker;
+            _createItemWorker = createItemWorker;
         }
 
         private void RegisterEventHandler()
@@ -146,7 +147,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             _tipeHarga = string.Empty;
 
             _listItem.Clear();
-            _listItem.Add(new FakturItemDto());
+            _listItem.Add(new FakturItem2Dto());
             ShowAsActive();
         }
         #endregion
@@ -216,27 +217,27 @@ namespace btr.distrib.SalesContext.FakturAgg
 
             foreach (var item in faktur.ListItem)
             {
-                var qtyString = item.QtyInputStr;
-                var discString = item.DiscInputStr;
-                var listQtyHarga = item.ListQtyHarga
-                    .Where(x => x.SubTotal != 0)
-                    .Select(x => new FakturItemDtoStokHargaSatuan(x.Qty, x.HargaSatuan, x.Satuan));
-                var newItem = new FakturItemDto()
-                {
-                    BrgId = item.BrgId,
+                //var qtyString = item.QtyInputStr;
+                //var discString = item.DiscInputStr;
+                //var listQtyHarga = item.ListQtyHarga
+                //    .Where(x => x.SubTotal != 0)
+                //    .Select(x => new FakturItemDtoStokHargaSatuan(x.Qty, x.HargaSatuan, x.Satuan));
+                //var newItem = new FakturItemDto()
+                //{
+                //    BrgId = item.BrgId,
                     
-                    Qty = qtyString,
-                    Disc = discString,
-                    Ppn = item.PpnProsen,
-                    ListStokHargaSatuan = listQtyHarga.ToList(),
-                };
-                newItem.SetBrgName(item.BrgName);
-                newItem.SetCode(item.BrgCode);
-                newItem.SetStokHarga(item.StokHargaStr);
-                newItem.ReCalc();
-                _listItem.Add(newItem);
+                //    Qty = qtyString,
+                //    Disc = discString,
+                //    Ppn = item.PpnProsen,
+                //    ListStokHargaSatuan = listQtyHarga.ToList(),
+                //};
+                //newItem.SetBrgName(item.BrgName);
+                //newItem.SetCode(item.BrgCode);
+                //newItem.SetStokHarga(item.StokHargaStr);
+                //newItem.ReCalc();
+                //_listItem.Add(newItem);
             }
-            _listItem.Add(new FakturItemDto());
+            //_listItem.Add(new FakturItem2Dto());
 
             if (faktur.IsVoid)
                 ShowAsVoid(faktur);
@@ -451,17 +452,26 @@ namespace btr.distrib.SalesContext.FakturAgg
             }
             var stok = BuildStok(rowIndex);
 
-            decimal hrg = 0M;
-            if (_tipeHarga.Length == 0)
-                hrg = brg.ListHarga.FirstOrDefault()?.Harga ?? 0;
-            else
-                hrg = brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == _tipeHarga)?.Harga ?? 0;
 
-            _listItem[rowIndex].SetBrgName(brg.BrgName);
-            _listItem[rowIndex].SetCode(brg.BrgCode);
-            _listItem[rowIndex].Ppn = 11;
+            var req = new CreateFakturItemRequest(
+                _listItem[rowIndex].BrgId,
+                _listItem[rowIndex].QtyInputStr,
+                _listItem[rowIndex].DiscInputStr,
+                _listItem[rowIndex].PpnProsen,
+                _tipeHarga);
+            var item = _createItemWorker.Execute(req);
+            _listItem[rowIndex] = item.Adapt<FakturItem2Dto>();
+            //decimal hrg = 0M;
+            //if (_tipeHarga.Length == 0)
+            //    hrg = brg.ListHarga.FirstOrDefault()?.Harga ?? 0;
+            //else
+            //    hrg = brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == _tipeHarga)?.Harga ?? 0;
 
-            _listItem[rowIndex].ListStokHargaSatuan = BuildStokHrgSatuan(stok.Qty, hrg, brg.ListSatuan).ToList();
+            //_listItem[rowIndex].SetBrgName(brg.BrgName);
+            //_listItem[rowIndex].SetCode(brg.BrgCode);
+            //_listItem[rowIndex].Ppn = 11;
+
+            //_listItem[rowIndex].ListStokHargaSatuan = BuildStokHrgSatuan(stok.Qty, hrg, brg.ListSatuan).ToList();
             FakturItemGrid.Refresh();
             CalcTotal();
         }
@@ -522,9 +532,9 @@ namespace btr.distrib.SalesContext.FakturAgg
 
         private void CleanRow(int rowIndex)
         {
-            _listItem[rowIndex].SetBrgName(string.Empty);
-            _listItem[rowIndex].SetCode(string.Empty);
-            FakturItemGrid.Refresh();
+            //_listItem[rowIndex].SetBrgName(string.Empty);
+            //_listItem[rowIndex].SetCode(string.Empty);
+            //FakturItemGrid.Refresh();
         }
         private void InitGrid()
         {
@@ -543,8 +553,39 @@ namespace btr.distrib.SalesContext.FakturAgg
             buttonCol.DefaultCellStyle.BackColor = Color.Brown;
             FakturItemGrid.Columns.Insert(1, buttonCol);
 
-            //  hide
-            FakturItemGrid.Columns.GetCol("DiscTotal").Visible = false;
+            //  TODO: Sesuaikan mapping kolom dari  FakturItem2Dto (DTO baru)
+            var cols = FakturItemGrid.Columns;
+            cols.GetCol("BrgId").Visible = true;
+            cols.GetCol("BrgName").Visible = true;
+            cols.GetCol("BrgCode").Visible = true;
+            cols.GetCol("StokHargaStr").Visible = true;
+            cols.GetCol("QtyInputStr").Visible = true;
+            cols.GetCol("QtyDetilStr").Visible = true;
+
+            cols.GetCol("QtyBesar").Visible = false;
+            cols.GetCol("SatBesar").Visible = false;
+            cols.GetCol("Conversion").Visible = false;
+            cols.GetCol("HrgSatBesar").Visible = false;
+            
+            cols.GetCol("QtyKecil").Visible = false;
+            cols.GetCol("SatKecil").Visible = false;
+            cols.GetCol("HrgSatKecil").Visible = false;
+            cols.GetCol("QtyJual").Visible = false;
+            cols.GetCol("HrgSat").Visible = false;
+            cols.GetCol("SubTotal").Visible = true;
+
+            cols.GetCol("QtyBonus").Visible = false;
+            cols.GetCol("QtyPotStok").Visible = false;
+            
+            cols.GetCol("DiscInputStr").Visible = true;
+            cols.GetCol("DiscDetilStr").Visible = true;
+            cols.GetCol("DiscRp").Visible = false;
+            cols.GetCol("PpnProsen").Visible = true;
+            cols.GetCol("PpnRp").Visible = false;
+            cols.GetCol("Total").Visible = true;
+
+        //  hide
+        FakturItemGrid.Columns.GetCol("DiscTotal").Visible = false;
             FakturItemGrid.Columns.GetCol("PpnRp").Visible = false;
             FakturItemGrid.Columns.GetCol("Find").Visible = false;
             //  width
@@ -586,7 +627,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private void CalcTotal()
         {
             TotalText.Value = _listItem.Sum(x => x.SubTotal);
-            DiscountText.Value = _listItem.Sum(x => x.DiscTotal);
+            //DiscountText.Value = _listItem.Sum(x => x.DiscTotal);
             TaxText.Value = _listItem.Sum(x => x.PpnRp);
             GrandTotalText.Value = _listItem.Sum(x => x.Total);
             SisaText.Value = GrandTotalText.Value - UangMukaText.Value;
@@ -628,10 +669,10 @@ namespace btr.distrib.SalesContext.FakturAgg
                 select new SaveFakturRequestItem
                 {
                     BrgId = c.BrgId,
-                    StokHarga = c.StokHarga,
-                    QtyString = c.Qty,
-                    DiscountString = c.Disc,
-                    PpnProsen = c.Ppn,
+                    StokHarga = c.StokHargaStr,
+                    QtyString = c.QtyInputStr,
+                    DiscountString = c.DiscInputStr,
+                    PpnProsen = c.PpnProsen,
                 }).ToList();
             cmd.ListBrg = listItem;
             var result = _saveFakturWorker.Execute(cmd);
