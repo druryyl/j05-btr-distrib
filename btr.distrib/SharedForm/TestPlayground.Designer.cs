@@ -37,6 +37,7 @@ namespace btr.distrib.SharedForm
             this.RollBackButton = new System.Windows.Forms.Button();
             this.RemovePriorityButton = new System.Windows.Forms.Button();
             this.ImportOpnameButton = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // AddStokButton
@@ -91,11 +92,22 @@ namespace btr.distrib.SharedForm
             this.ImportOpnameButton.Text = "Import Opname";
             this.ImportOpnameButton.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(114, 41);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(96, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Excel Document";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // TestPlayground
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(299, 151);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.ImportOpnameButton);
             this.Controls.Add(this.RemovePriorityButton);
             this.Controls.Add(this.RollBackButton);
@@ -117,5 +129,6 @@ namespace btr.distrib.SharedForm
         private System.Windows.Forms.Button RemoveFifoButton;
         private System.Windows.Forms.Button RollBackButton;
         private System.Windows.Forms.Button ImportOpnameButton;
+        private System.Windows.Forms.Button button1;
     }
 }

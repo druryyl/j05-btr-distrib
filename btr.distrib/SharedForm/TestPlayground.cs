@@ -11,6 +11,7 @@ using System.Linq;
 using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.OpnameAgg;
 using btr.domain.InventoryContext.OpnameAgg;
+using ClosedXML.Excel;
 
 namespace btr.distrib.SharedForm
 {
@@ -125,6 +126,17 @@ namespace btr.distrib.SharedForm
             var req = new RemovePriorityStokRequest("BR0001", "G00", 55, "pcs/40", 45000, "TR-003", "ADJUST-MIN", "TR-002");
             _removePriorityStokWorker.Execute(req);
             MessageBox.Show("Done");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Sample Sheet");
+                worksheet.Cell("A1").Value = "Hello World!";
+                worksheet.Cell("A2").FormulaA1 = "=MID(A1, 7, 5)";
+                workbook.SaveAs("HelloWorld.xlsx");
+            }
         }
     }
 }

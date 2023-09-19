@@ -55,6 +55,8 @@
             this.SupplierGrid = new System.Windows.Forms.DataGridView();
             this.SupplierBrgGrid = new System.Windows.Forms.DataGridView();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.PreviewBrgButton = new System.Windows.Forms.Button();
+            this.PreviewFakturButton = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturKiriGrid)).BeginInit();
             this.panel3.SuspendLayout();
@@ -173,7 +175,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.JumlahItemLabel, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.JumlahFakturLabel, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.JumlahSupplierLabel, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.JumlahSupplierLabel, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.PackingIdLabel, 0, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(275, 10);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -207,9 +209,9 @@
             // JumlahSupplierLabel
             // 
             this.JumlahSupplierLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.JumlahSupplierLabel.Location = new System.Drawing.Point(164, 24);
+            this.JumlahSupplierLabel.Location = new System.Drawing.Point(164, 48);
             this.JumlahSupplierLabel.Name = "JumlahSupplierLabel";
-            this.JumlahSupplierLabel.Size = new System.Drawing.Size(155, 24);
+            this.JumlahSupplierLabel.Size = new System.Drawing.Size(155, 27);
             this.JumlahSupplierLabel.TabIndex = 1;
             this.JumlahSupplierLabel.Text = "Jumlah Supplier:";
             this.JumlahSupplierLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -322,6 +324,8 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.tabPage2.Controls.Add(this.PreviewFakturButton);
+            this.tabPage2.Controls.Add(this.PreviewBrgButton);
             this.tabPage2.Controls.Add(this.splitContainer2);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -332,7 +336,6 @@
             // 
             // splitContainer2
             // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.Location = new System.Drawing.Point(3, 3);
             this.splitContainer2.Name = "splitContainer2";
             this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -344,8 +347,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.SupplierBrgGrid);
-            this.splitContainer2.Size = new System.Drawing.Size(591, 320);
-            this.splitContainer2.SplitterDistance = 82;
+            this.splitContainer2.Size = new System.Drawing.Size(591, 286);
+            this.splitContainer2.SplitterDistance = 73;
             this.splitContainer2.TabIndex = 2;
             // 
             // SupplierGrid
@@ -354,7 +357,7 @@
             this.SupplierGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SupplierGrid.Location = new System.Drawing.Point(0, 0);
             this.SupplierGrid.Name = "SupplierGrid";
-            this.SupplierGrid.Size = new System.Drawing.Size(591, 82);
+            this.SupplierGrid.Size = new System.Drawing.Size(591, 73);
             this.SupplierGrid.TabIndex = 1;
             // 
             // SupplierBrgGrid
@@ -363,7 +366,7 @@
             this.SupplierBrgGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SupplierBrgGrid.Location = new System.Drawing.Point(0, 0);
             this.SupplierBrgGrid.Name = "SupplierBrgGrid";
-            this.SupplierBrgGrid.Size = new System.Drawing.Size(591, 234);
+            this.SupplierBrgGrid.Size = new System.Drawing.Size(591, 209);
             this.SupplierBrgGrid.TabIndex = 2;
             // 
             // splitContainer3
@@ -386,6 +389,24 @@
             this.splitContainer3.Size = new System.Drawing.Size(1113, 452);
             this.splitContainer3.SplitterDistance = 502;
             this.splitContainer3.TabIndex = 6;
+            // 
+            // PreviewBrgButton
+            // 
+            this.PreviewBrgButton.Location = new System.Drawing.Point(478, 295);
+            this.PreviewBrgButton.Name = "PreviewBrgButton";
+            this.PreviewBrgButton.Size = new System.Drawing.Size(113, 23);
+            this.PreviewBrgButton.TabIndex = 3;
+            this.PreviewBrgButton.Text = "Preview Brg";
+            this.PreviewBrgButton.UseVisualStyleBackColor = true;
+            // 
+            // PreviewFakturButton
+            // 
+            this.PreviewFakturButton.Location = new System.Drawing.Point(366, 295);
+            this.PreviewFakturButton.Name = "PreviewFakturButton";
+            this.PreviewFakturButton.Size = new System.Drawing.Size(106, 23);
+            this.PreviewFakturButton.TabIndex = 4;
+            this.PreviewFakturButton.Text = "Preview Faktur";
+            this.PreviewFakturButton.UseVisualStyleBackColor = true;
             // 
             // PackingForm
             // 
@@ -454,5 +475,7 @@
         private System.Windows.Forms.Label JumlahFakturLabel;
         private System.Windows.Forms.Label JumlahSupplierLabel;
         private System.Windows.Forms.Label PackingIdLabel;
+        private System.Windows.Forms.Button PreviewFakturButton;
+        private System.Windows.Forms.Button PreviewBrgButton;
     }
 }
