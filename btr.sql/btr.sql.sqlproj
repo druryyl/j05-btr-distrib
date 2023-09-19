@@ -79,7 +79,6 @@
     <Build Include="Tables\SalesContext\BTR_Faktur.sql" />
     <Build Include="Tables\SalesContext\BTR_FakturDiscount.sql" />
     <Build Include="Tables\SalesContext\BTR_FakturItem.sql" />
-    <Build Include="Tables\SalesContext\BTR_FakturQtyHarga.sql" />
     <Build Include="Tables\SalesContext\BTR_SalesPerson.sql" />
     <Build Include="Tables\BrgContext\BTR_BrgHarga.sql" />
     <Build Include="Tables\BrgContext\BTR_Kategori.sql" />

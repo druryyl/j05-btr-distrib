@@ -67,6 +67,8 @@ namespace btr.distrib.SharedForm
                         continue;
 
                     var brg = _brgDal.GetData(item.BrgCode);
+                    if (brg is null)
+                        continue;
 
                     var opname = _opnameBuilder
                         .Create()

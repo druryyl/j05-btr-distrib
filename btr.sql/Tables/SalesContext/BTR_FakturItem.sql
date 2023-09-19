@@ -6,15 +6,24 @@
     BrgId VARCHAR(6) NOT NULL CONSTRAINT DF_BTR_FakturItem_BrgId DEFAULT(''),
     BrgCode VARCHAR(10) NOT NULL CONSTRAINT DF_BTR_FakturItem_BrgCode DEFAULT(''),
     StokHargaStr VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_Faktur_StokHargaStr DEFAULT(''),
-    
-    QtyInputStr VARCHAR(20) NOT NULL CONSTRAINT DF_BTR_FakturItem_QtyInputStr DEFAULT(''),
-    QtyDetilStr VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_FakturItem_QtyDetilStr DEFAULT(''),
-    QtyPotStok INT NOT NULL CONSTRAINT DF_BTR_FakturItem_QtyPotStok DEFAULT(0),
-    QtyJual INT NOT NULL CONSTRAINT DF_BTR_FakturItem_QtyJual DEFAULT(0),
+    QtyInputStr VARCHAR(20) NOT NULL CONSTRAINT DF_BTR_Faktur_QtyInputStr DEFAULT(''),
+    QtyDetilStr VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_Faktur_QtyDetilStr DEFAULT(''),
+
+    QtyBesar INT NOT NULL CONSTRAINT DF_BTR_FakturItem_QtyBesar DEFAULT(0),
+    SatBesar VARCHAR(10) NOT NULL CONSTRAINT DF_BTR_FakturItem_SatBesar DEFAULT(''),
     Conversion INT NOT NULL CONSTRAINT DF_BTR_FakturItem_Conversion DEFAULT(1),
-    
-    HargaSatuan DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_FakturItem_HargaSatuan DEFAULT(0),
+    HrgSatBesar DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_FakturItem_HargaSatBesar DEFAULT(0),
+
+    QtyKecil INT NOT NULL CONSTRAINT DF_BTR_FakturItem_QtyKecil DEFAULT(0),
+    SatKecil VARCHAR(10) NOT NULL CONSTRAINT DF_BTR_FakturItem_SatKecil DEFAULT(''),
+    HrgSatKecil DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_FakturItemHrgSatKecil DEFAULT(''),
+
+    QtyJual INT NOT NULL CONSTRAINT DF_BTR_FakturItem_QtyJual DEFAULT(0),
+    HrgSat DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_FakturItem_HargaSatuan DEFAULT(0),
     SubTotal DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_FakturItem_SubTotal DEFAULT(0),
+    
+    QtyBonus INT NOT NULL CONSTRAINT DF_BTR_FakturItem_QtyBonus DEFAULT(0),
+    QtyPotStok INT NOT NULL CONSTRAINT DF_BTR_FakturItem_QtyPotStok DEFAULT(0),
     
     DiscInputStr VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_FakturItem_DiscInputStr DEFAULT(''),
     DiscDetilStr VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_FakturItem_DiscDetilStr DEFAULT(''),

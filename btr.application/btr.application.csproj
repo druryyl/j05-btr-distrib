@@ -140,13 +140,13 @@
     <Compile Include="SalesContext\FakturAgg\Contracts\IFakturDal.cs" />
     <Compile Include="SalesContext\FakturAgg\Contracts\IFakturDiscountDal.cs" />
     <Compile Include="SalesContext\FakturAgg\Contracts\IFakturItemDal.cs" />
-    <Compile Include="SalesContext\FakturAgg\Contracts\IFakturQtyHargaDal.cs" />
     <Compile Include="SalesContext\FakturAgg\UseCases\ChangeToCashFakturWorker.cs" />
     <Compile Include="SalesContext\FakturAgg\UseCases\ChangeToCreditFakturWorker.cs" />
     <Compile Include="SalesContext\FakturAgg\UseCases\GetFakturQuery.cs" />
     <Compile Include="SalesContext\FakturAgg\UseCases\ListFakturQuery.cs" />
     <Compile Include="SalesContext\FakturAgg\UseCases\ReActivateFakturWorker.cs" />
     <Compile Include="SalesContext\FakturAgg\UseCases\VoidFakturWorker.cs" />
+    <Compile Include="SalesContext\FakturAgg\Workers\CreateFakturItemWorker.cs" />
     <Compile Include="SalesContext\FakturAgg\Workers\FakturBuilder.cs" />
     <Compile Include="SalesContext\FakturAgg\Workers\FakturValidator.cs" />
     <Compile Include="SalesContext\FakturAgg\Workers\FakturWriter.cs" />

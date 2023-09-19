@@ -16,7 +16,6 @@ namespace btr.application.SalesContext.FakturAgg.Workers
     {
         private readonly IFakturDal _fakturDal;
         private readonly IFakturItemDal _fakturItemDal;
-        private readonly IFakturQtyHargaDal _fakturQtyHargaDal;
         private readonly IFakturDiscountDal _fakturDiscountDal;
         private readonly INunaCounterBL _counter;
         private readonly IValidator<FakturModel> _validator;
@@ -24,7 +23,6 @@ namespace btr.application.SalesContext.FakturAgg.Workers
 
         public FakturWriter(IFakturDal fakturDal,
             IFakturItemDal fakturItemDal,
-            IFakturQtyHargaDal fakturQtyHargaDal,
             IFakturDiscountDal fakturDiscountDal,
             INunaCounterBL counter,
             IValidator<FakturModel> validator,
@@ -32,7 +30,6 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         {
             _fakturDal = fakturDal;
             _fakturItemDal = fakturItemDal;
-            _fakturQtyHargaDal = fakturQtyHargaDal;
             _fakturDiscountDal = fakturDiscountDal;
             _counter = counter;
             _validator = validator;
@@ -55,12 +52,6 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             {
                 item.FakturId = model.FakturId;
                 item.FakturItemId = $"{model.FakturId}-{item.NoUrut:D2}";
-                foreach (var item2 in item.ListQtyHarga)
-                {
-                    item2.FakturId = model.FakturId;
-                    item2.FakturItemId = item.FakturItemId;
-                    item2.FakturQtyHargaId = $"{item.FakturItemId}-{(int)item2.JenisQty}";
-                }
                 foreach (var item2 in item.ListDiscount)
                 {
                     item2.FakturId = model.FakturId;
@@ -68,7 +59,6 @@ namespace btr.application.SalesContext.FakturAgg.Workers
                     item2.FakturDiscountId = $"{item.FakturItemId}-{item2.NoUrut:D1}";
                 }
             }
-            var allStokHarga = model.ListItem.SelectMany(x => x.ListQtyHarga, (hdr, dtl) => dtl);
             var allDiscount = model.ListItem.SelectMany(x => x.ListDiscount, (hdr, dtl) => dtl);
 
             //  WRITE
@@ -81,11 +71,9 @@ namespace btr.application.SalesContext.FakturAgg.Workers
                     _fakturDal.Update(model);
 
                 _fakturItemDal.Delete(model);
-                _fakturQtyHargaDal.Delete(model);
                 _fakturDiscountDal.Delete(model);
 
                 _fakturItemDal.Insert(model.ListItem);
-                _fakturQtyHargaDal.Insert(allStokHarga);
                 _fakturDiscountDal.Insert(allDiscount);
 
                 trans.Complete();

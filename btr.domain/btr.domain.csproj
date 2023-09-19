@@ -89,7 +89,6 @@
     <Compile Include="SalesContext\FakturAgg\FakturDiscountModel.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturItemModel.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturModel.cs" />
-    <Compile Include="SalesContext\FakturAgg\FakturQtyHargaModel.cs" />
     <Compile Include="SalesContext\FakturAgg\IFakturDiscountKey.cs" />
     <Compile Include="SalesContext\FakturAgg\IFakturItemKey.cs" />
     <Compile Include="SalesContext\FakturAgg\IFakturKey.cs" />

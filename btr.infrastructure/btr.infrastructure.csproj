@@ -102,7 +102,6 @@
     <Compile Include="SalesContext\FakturAgg\FakturDal.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturDiscountDal.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturItemDal.cs" />
-    <Compile Include="SalesContext\FakturAgg\FakturQtyHargaDal.cs" />
     <Compile Include="SalesContext\FakturControlAgg\FakturControlStatusDal.cs" />
     <Compile Include="SalesContext\KlasifikasiAgg\KlasifikasiDal.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\SalesPersonDal.cs" />
