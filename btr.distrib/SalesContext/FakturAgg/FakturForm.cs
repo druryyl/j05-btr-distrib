@@ -24,6 +24,7 @@ using btr.application.SupportContext.TglJamAgg;
 using btr.application.SalesContext.FakturAgg.Workers;
 using btr.domain.SalesContext.FakturAgg;
 using Mapster;
+using btr.infrastructure.SalesContext.FakturAgg;
 
 namespace btr.distrib.SalesContext.FakturAgg
 {
@@ -212,6 +213,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             GrandTotalText.Value = faktur.GrandTotal;
             UangMukaText.Value = faktur.UangMuka;
             SisaText.Value = faktur.KurangBayar;
+            LastIdLabel.Text = $"{faktur.FakturCode}";
 
             _listItem.Clear();
             foreach (var item in faktur.ListItem)
@@ -224,7 +226,7 @@ namespace btr.distrib.SalesContext.FakturAgg
                 ShowAsVoid(faktur);
             else
                 ShowAsActive();
-
+            CalcTotal();
             return true;
         }
         
@@ -558,7 +560,9 @@ namespace btr.distrib.SalesContext.FakturAgg
             cols.GetCol("HrgSatKecil").Visible = false;
             cols.GetCol("QtyJual").Visible = false;
             cols.GetCol("HrgSat").Visible = false;
+
             cols.GetCol("SubTotal").Visible = true;
+            cols.GetCol("SubTotal").Width = 70;
 
             cols.GetCol("QtyBonus").Visible = false;
             cols.GetCol("QtyPotStok").Visible = false;
@@ -595,6 +599,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private void CalcTotal()
         {
             TotalText.Value = _listItem.Sum(x => x.SubTotal);
+            DiscountText.Value = _listItem.Sum(x => x.DiscRp);
             TaxText.Value = _listItem.Sum(x => x.PpnRp);
             GrandTotalText.Value = _listItem.Sum(x => x.Total);
             SisaText.Value = GrandTotalText.Value - UangMukaText.Value;

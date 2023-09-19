@@ -33,12 +33,12 @@
             this.WarehouseCombo = new System.Windows.Forms.ComboBox();
             this.PrintTimer = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
+            this.Tgl2Text = new System.Windows.Forms.DateTimePicker();
+            this.Tgl1Text = new System.Windows.Forms.DateTimePicker();
             this.PrinterLabel = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.GridAtas = new System.Windows.Forms.DataGridView();
             this.GridBawah = new System.Windows.Forms.DataGridView();
-            this.Tgl1Text = new System.Windows.Forms.DateTimePicker();
-            this.Tgl2Text = new System.Windows.Forms.DateTimePicker();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -83,6 +83,24 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(572, 64);
             this.panel2.TabIndex = 4;
+            // 
+            // Tgl2Text
+            // 
+            this.Tgl2Text.CustomFormat = "ddd, dd-MMM-yyyy";
+            this.Tgl2Text.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.Tgl2Text.Location = new System.Drawing.Point(147, 7);
+            this.Tgl2Text.Name = "Tgl2Text";
+            this.Tgl2Text.Size = new System.Drawing.Size(135, 22);
+            this.Tgl2Text.TabIndex = 2;
+            // 
+            // Tgl1Text
+            // 
+            this.Tgl1Text.CustomFormat = "ddd, dd-MMM-yyyy";
+            this.Tgl1Text.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.Tgl1Text.Location = new System.Drawing.Point(6, 7);
+            this.Tgl1Text.Name = "Tgl1Text";
+            this.Tgl1Text.Size = new System.Drawing.Size(135, 22);
+            this.Tgl1Text.TabIndex = 1;
             // 
             // PrinterLabel
             // 
@@ -130,24 +148,6 @@
             this.GridBawah.Name = "GridBawah";
             this.GridBawah.Size = new System.Drawing.Size(572, 172);
             this.GridBawah.TabIndex = 4;
-            // 
-            // Tgl1Text
-            // 
-            this.Tgl1Text.CustomFormat = "ddd, dd-MMM-yyyy";
-            this.Tgl1Text.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.Tgl1Text.Location = new System.Drawing.Point(6, 7);
-            this.Tgl1Text.Name = "Tgl1Text";
-            this.Tgl1Text.Size = new System.Drawing.Size(135, 22);
-            this.Tgl1Text.TabIndex = 1;
-            // 
-            // Tgl2Text
-            // 
-            this.Tgl2Text.CustomFormat = "ddd, dd-MMM-yyyy";
-            this.Tgl2Text.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.Tgl2Text.Location = new System.Drawing.Point(147, 7);
-            this.Tgl2Text.Name = "Tgl2Text";
-            this.Tgl2Text.Size = new System.Drawing.Size(135, 22);
-            this.Tgl2Text.TabIndex = 2;
             // 
             // PrintManagerForm
             // 

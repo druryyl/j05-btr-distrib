@@ -68,17 +68,8 @@ namespace btr.distrib.PrintDocs
         {
             var pd = (PrintDocument)sender;
             Font font = new Font("Courier New", 8.25f, FontStyle.Regular);
-            string[] lines = _content.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
-            if (lines.Count() <= 32)
-            {
-                PaperSize customPaperSize = new PaperSize("Custom", Convert.ToInt32(9.5 * 100), Convert.ToInt32(5.5 * 100));
-                pd.DefaultPageSettings.PaperSize = customPaperSize;
-            }
-            else
-            {
-                PaperSize customPaperSize = new PaperSize("Custom", Convert.ToInt32(9.5 * 100), Convert.ToInt32(11 * 100));
-                pd.DefaultPageSettings.PaperSize = customPaperSize;
-            }
+            PaperSize customPaperSize = new PaperSize("Custom", Convert.ToInt32(9.5 * 100), Convert.ToInt32(11 * 100));
+            pd.DefaultPageSettings.PaperSize = customPaperSize;
 
             e.Graphics.DrawString(_content, font, Brushes.Black, e.MarginBounds);
         }
@@ -102,41 +93,40 @@ namespace btr.distrib.PrintDocs
             PrintHeader(model, cust, sb);
             foreach (var item in listItemWithBonus)
             {
-                // TODO: Perbaiki Cetakan Faktur
+                var no = noItem.ToString("D2");
+                var brgId = item.BrgCode.Trim().Length > 0 ? item.BrgCode.FixWidth(10) : item.BrgId.FixWidth(10);
 
-                //var no = noItem.ToString("D2");
-                //var brgId = item.BrgCode.Trim().Length > 0 ? item.BrgCode.FixWidth(10) : item.BrgId.FixWidth(10);
+                var arrName = item.BrgName.WrapText(27);
+                var arrName1 = arrName[0].FixWidth(27);
+                var arrName2 = "".FixWidth(27);
+                if (arrName.Length > 1)
+                    arrName2 = arrName[1].FixWidth(27);
 
-                //var arrName = item.BrgName.WrapText(27);
-                //var arrName1 = arrName[0].FixWidth(27);
-                //var arrName2 = "".FixWidth(27);
-                //if (arrName.Length > 1)
-                //    arrName2 = arrName[1].FixWidth(27);
+                var arrQty1 = GetQty(item.QtyBesar, item.SatBesar, 7);
+                var arrQty2 = GetQty(item.QtyKecil, item.SatKecil, 7);
 
+                var qty1A = arrQty1[0];
+                var qty2A = arrQty2[0];
 
-                //var arrQty1 = GetQty(item.ListQtyHarga.FirstOrDefault(x => x.JenisQty == JenisQtyFakturEnum.Besar), 7);
-                //var arrQty2 = GetQty(item.ListQtyHarga.FirstOrDefault(x => x.JenisQty == JenisQtyFakturEnum.Kecil), 7);
+                var qty1B = arrQty1.Length > 1 ? arrQty1[1] : string.Empty.FixWidth(7);
+                var qty2B = arrQty2.Length > 1 ? arrQty2[1] : string.Empty.FixWidth(7);
 
-                //var qty1A = arrQty1[0];
-                //var qty2A = arrQty2[0];
+                var hrg = item.HrgSatBesar * item.QtyBesar;
+                var hrg1 = hrg != 0? $"{hrg:N0}".FixWidthRight(10) : "- ".FixWidthRight(10);
+                hrg = item.HrgSatKecil * item.QtyKecil;
+                var hrg2 = hrg != 0? $"{hrg:N0}".FixWidthRight(8) : "- ".FixWidthRight(8);
+                var disc1 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 1)?.DiscProsen.ToString("N2").FixWidthRight(5) ?? "-".FixWidthRight(5);
+                var disc2 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 2)?.DiscProsen.ToString("N2").FixWidthRight(5) ?? "-".FixWidthRight(5);
+                var disc3 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 3)?.DiscProsen.ToString("N2").FixWidthRight(3) ?? "-".FixWidthRight(3);
+                var disc4 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 4)?.DiscProsen.ToString("N2").FixWidthRight(3) ?? "-".FixWidthRight(3);
+                var total = item.Total.ToString("N0").FixWidthRight(11);
 
-                //var qty1B = arrQty1.Length > 1 ? arrQty1[1] : string.Empty.FixWidth(7);
-                //var qty2B = arrQty2.Length > 1 ? arrQty2[1] : string.Empty.FixWidth(7);
-
-                //var hrg1 = item.ListQtyHarga.FirstOrDefault(x => x.JenisQty == JenisQtyFakturEnum.Besar)?.SubTotal.ToString("N0").FixWidthRight(10) ?? "-".FixWidthRight(10);
-                //var hrg2 = item.ListQtyHarga.FirstOrDefault(x => x.JenisQty == JenisQtyFakturEnum.Kecil)?.SubTotal.ToString("N0").FixWidthRight(8) ?? "-".FixWidthRight(8);
-                //var disc1 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 1)?.DiscProsen.ToString("N2").FixWidthRight(5) ?? "-".FixWidthRight(5);
-                //var disc2 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 2)?.DiscProsen.ToString("N2").FixWidthRight(5) ?? "-".FixWidthRight(5);
-                //var disc3 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 3)?.DiscProsen.ToString("N2").FixWidthRight(3) ?? "-".FixWidthRight(3);
-                //var disc4 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 4)?.DiscProsen.ToString("N2").FixWidthRight(3) ?? "-".FixWidthRight(3);
-                //var total = item.Total.ToString("N0").FixWidthRight(11);
-
-                //sb.Append($"{no}│{brgId}│{arrName1.FixWidth(27)}│{qty1A}│{qty2A}│{hrg1}│{hrg2}│{disc1}│{disc2}│{disc3}│{disc4}│{total}\n");
-                //if ($"{arrName2}{qty1B}{qty2B}".Trim().Length > 0)
-                //{
-                //    sb.Append($"  │          │{arrName2.FixWidth(27)}│{qty1B}│{qty2B}│          │        │     │     │   │   │              \n");
-                //}
-                //noItem++;
+                sb.Append($"{no}│{brgId}│{arrName1.FixWidth(27)}│{qty1A}│{qty2A}│{hrg1}│{hrg2}│{disc1}│{disc2}│{disc3}│{disc4}│{total}\n");
+                if ($"{arrName2}{qty1B}{qty2B}".Trim().Length > 0)
+                {
+                    sb.Append($"  │          │{arrName2.FixWidth(27)}│{qty1B}│{qty2B}│          │        │     │     │   │   │              \n");
+                }
+                noItem++;
             }
 
             //  jika kurang dari 10, tambahkan baris kosong
@@ -169,22 +159,20 @@ namespace btr.distrib.PrintDocs
             _content = sb.ToString();
         }
 
-        //private static string[] GetQty(FakturQtyHargaModel item, int length)
-        //{
-        //    //if (item.Qty == 0)
-        //    //    return new string[] { "      -" };
+        private static string[] GetQty(int qtyParam, string satuan, int length)
+        {
+            if (qtyParam == 0)
+                return new string[] { "     - " };
 
-        //    //var qty = (item?.Qty ?? 0) != 0 ? $"{item.Qty:N0}" : "-";
-        //    //var sat = item?.Satuan.ToLower() ?? string.Empty;
-        //    //var qtySatuan = $"{qty} {sat.Trim()}";
-        //    //var lines = qtySatuan.WrapText(7);
-        //    //var result = new List<string>();
-        //    //foreach (var line in lines)
-        //    //    result.Add(line.Trim().FixWidthRight(length));
-        //    //return result.ToArray();
-        //    //  TODO: Cetak Faktur Perbaiki
-        //    throw new NotImplementedException();
-        //}
+            var qty = $"{qtyParam:N0}";
+            var sat = $"{satuan.ToLower()}";
+            var qtySatuan = $"{qty} {sat.Trim()}";
+            var lines = qtySatuan.WrapText(7);
+            var result = new List<string>();
+            foreach (var line in lines)
+                result.Add(line.Trim().FixWidthRight(length));
+            return result.ToArray();
+        }
 
         private static void PrintHeader(FakturModel model, CustomerModel cust, StringBuilder sb)
         {
@@ -225,27 +213,18 @@ namespace btr.distrib.PrintDocs
 
             foreach(var item in listItem)
             {
-                //  TODO: Perbaiki Cetakan Faktur
-                //result.Add(item);
-                //if (item.ListQtyHarga.FirstOrDefault(x => x.JenisQty == JenisQtyFakturEnum.Bonus) == null)
-                //    continue;
-                //var itemBonus = item.ListQtyHarga.FirstOrDefault(x => x.JenisQty == JenisQtyFakturEnum.Bonus) ?? new FakturQtyHargaModel();
-                //item.ListQtyHarga.RemoveAll(x => x.JenisQty == JenisQtyFakturEnum.Besar);
-
-                //var newItem = item.Adapt<FakturItemModel>();
-                //newItem.ListQtyHarga.Clear();
-                
-                ////  default bonus adalah satuan kecil;
-                //itemBonus.JenisQty = JenisQtyFakturEnum.Kecil;
-                //itemBonus.SubTotal = 0;
-                //newItem.ListQtyHarga.Add(itemBonus);
-                //newItem.ListDiscount.Clear();
-                //newItem.Total = 0;
-                //newItem.SubTotal = 0;
-                //newItem.DiscRp = 0;
-                //newItem.PpnRp = 0;
-
-                //result.Add(newItem);
+                result.Add(item);
+                if (item.QtyBonus == 0)
+                    continue;
+                var newItem = item.Adapt<FakturItemModel>();
+                newItem.ListDiscount.Clear();
+                newItem.QtyKecil = item.QtyBonus;
+                newItem.SatKecil = item.SatKecil;
+                newItem.Total = 0;
+                newItem.SubTotal = 0;
+                newItem.DiscRp = 0;
+                newItem.PpnRp = 0;
+                result.Add(newItem);
             }
             return result;
         }

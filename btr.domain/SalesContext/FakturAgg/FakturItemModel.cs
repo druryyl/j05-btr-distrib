@@ -35,7 +35,6 @@ namespace btr.domain.SalesContext.FakturAgg
         public int QtyBonus { get; set; }
         public int QtyPotStok { get; set; }
 
-
         //  diskon
         public string DiscInputStr { get; set; }
         public string DiscDetilStr { get; set; }

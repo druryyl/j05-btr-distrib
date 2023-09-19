@@ -12,6 +12,10 @@ using System.Windows.Forms;
 using btr.application.InventoryContext.WarehouseAgg;
 using btr.domain.SupportContext.DocAgg;
 using System.Drawing.Printing;
+using btr.infrastructure.BrgContext.BrgAgg;
+using btr.application.BrgContext.BrgAgg;
+using btr.application.PurchaseContext.SupplierAgg.Contracts;
+using btr.application.BrgContext.KategoriAgg;
 
 namespace btr.distrib.PrintDocs
 {
@@ -25,16 +29,27 @@ namespace btr.distrib.PrintDocs
         private readonly IFakturPrintDoc _fakturPrinter;
         private int refreshCounter = 0;
 
+        private readonly IBrgDal _brgDal;
+        private readonly ISupplierDal _supplierDal;
+        private readonly IKategoriDal _kategoriDal;
+
+
         public PrintManagerForm(IWarehouseDal warehouseDal,
             IDocDal docDal,
             IDocBuilder docBuilder,
             IFakturBuilder fakturBuilder,
             IFakturPrintDoc fakturPrinter,
-            IDocWriter docWriter)
+            IDocWriter docWriter,
+            IBrgDal brgDal,
+            ISupplierDal supplierDal,
+            IKategoriDal kategoriDal)
         {
             _warehouseDal = warehouseDal;
             _docDal = docDal;
             _docBuilder = docBuilder;
+            _fakturBuilder = fakturBuilder;
+            _fakturPrinter = fakturPrinter;
+            _docWriter = docWriter;
 
             InitializeComponent();
             InitWarehouse();
@@ -42,10 +57,13 @@ namespace btr.distrib.PrintDocs
             InitPrgBar();
 
             RegisterEventHandler();
-            ListDoc();
-            _fakturBuilder = fakturBuilder;
-            _fakturPrinter = fakturPrinter;
-            _docWriter = docWriter;
+            //ListDoc();
+            PrintTimer.Enabled = false;
+
+            _brgDal = brgDal;
+            _supplierDal = supplierDal;
+            _kategoriDal = kategoriDal;
+
         }
 
         private void RegisterEventHandler()
@@ -209,6 +227,51 @@ namespace btr.distrib.PrintDocs
 
             return defaultPrinterName;
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var listBrg = _brgDal.ListData();
+            var listSup = _supplierDal.ListData();
+            var listKat = _kategoriDal.ListData();
+
+            var result =(
+                from c1 in listBrg
+                join c2 in listSup on c1.SupplierId equals c2.SupplierId
+                join c3 in listKat on c1.KategoriId equals c3.KategoriId
+                group c1 by new
+                {
+                    c1.SupplierId,
+                    c2.SupplierName,
+                    c1.KategoriId,
+                    c3.KategoriName
+                } into g
+                select new SupplierKategoriDto
+                {
+                    Supplier = g.Key.SupplierName,
+                    Kategori = g.Key.KategoriName,
+                    Jum = g.Count()
+                }).ToList();
+
+            var result2 = new List<SupplierKategoriDto>();
+            foreach(var item in listSup.OrderBy(x => x.SupplierName))
+            {
+                var top3 = result
+                    .Where(x => x.Supplier == item.SupplierName)
+                    .OrderByDescending(x => x.Jum).Take(3).ToList();
+                result2.AddRange(top3);
+            }
+
+            GridBawah.DataSource = result2;
+            GridBawah.Refresh();
+
+        }
+    }
+
+    public class SupplierKategoriDto
+    {
+        public string Supplier { get; set; }
+        public string Kategori { get; set; }
+        public int Jum { get; set; }
     }
 
     public class PrintManagerDto

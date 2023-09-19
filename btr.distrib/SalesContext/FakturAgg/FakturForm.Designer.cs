@@ -384,7 +384,7 @@
             // 
             // LastIdLabel
             // 
-            this.LastIdLabel.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LastIdLabel.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LastIdLabel.Location = new System.Drawing.Point(11, 47);
             this.LastIdLabel.Name = "LastIdLabel";
             this.LastIdLabel.Size = new System.Drawing.Size(181, 24);

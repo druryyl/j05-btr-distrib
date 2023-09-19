@@ -389,7 +389,7 @@ namespace btr.distrib.InventoryContext.PackingAgg
             {
                 //  conversion belum benar2 update
                 var newItem = new PackingBrgFakturDto(item.BrgId, item.BrgCode, item.BrgName, 
-                    item.QtyPotStok, item.Conversion, item.Total);
+                    item.QtyBesar, item.QtyKecil, item.Total);
                 listBrg.Add(newItem);
             }
 
@@ -417,23 +417,17 @@ namespace btr.distrib.InventoryContext.PackingAgg
 
     public class PackingBrgFakturDto
     {
-        public PackingBrgFakturDto(string id, string code, string name, int qty, int conversion, decimal harga)
+        public PackingBrgFakturDto(string brgId, 
+            string brgCode, string brgName, 
+            int qtyBesar, int qtyKecil, decimal hargaJual)
         {
-            BrgId = id;
-            BrgName = name;
-            BrgCode = code;
-            HargaJual = harga;
-
-            if (conversion == 1)
-                QtyKecil = qty;
-            else
-            {
-                decimal division = qty / conversion;
-                QtyBesar = (int)division;
-                QtyKecil = qty- (QtyBesar * conversion);
-            }
+            BrgId = brgId;
+            BrgCode = brgCode;
+            BrgName = brgName;
+            QtyBesar = qtyBesar;
+            QtyKecil = qtyKecil;
+            HargaJual = hargaJual;
         }
-
         public string BrgId { get; private set; }
         public string BrgCode { get; private set; }
         public string BrgName { get; private set; }
