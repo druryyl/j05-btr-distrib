@@ -1,6 +1,8 @@
 ﻿using FluentAssertions;
 using btr.nuna.Domain;
 using Xunit;
+using System.Text.RegularExpressions;
+using System;
 
 namespace btr.test.Helpers
 {
@@ -48,6 +50,16 @@ namespace btr.test.Helpers
             var resul1 = x / y;
             var result = (int)resul1;
             result.Should().Be(1);
+        }
+        [Fact]
+        public void RegexTest()
+        {
+            const string pattern = @"^\d{3}\.\d{3}-\d{10}";
+            const string input = "010.000-10.23456789";
+
+            var matched = Regex.Match(input, pattern);
+            matched.Success.Should().BeTrue();
+
         }
     }
 }

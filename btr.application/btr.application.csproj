@@ -157,6 +157,8 @@
     <Compile Include="SalesContext\FakturControlAgg\IFakturControlStatusDal.cs" />
     <Compile Include="SalesContext\FakturControlAgg\ListFakturControlWorker.cs" />
     <Compile Include="SalesContext\KlasifikasiAgg\IKlasifikasiDal.cs" />
+    <Compile Include="SalesContext\NomorFpAgg\INomorSeriFpDal.cs" />
+    <Compile Include="SalesContext\NomorFpAgg\NomorSeriFpBuilder.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\Contracts\ISalesPersonDal.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\UseCases\CreateSalesPersonCommand.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\UseCases\GetDataSalesPersonQuery.cs" />

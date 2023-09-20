@@ -1,4 +1,7 @@
-﻿namespace btr.infrastructure.Helpers
+﻿using System;
+using System.Diagnostics;
+
+namespace btr.infrastructure.Helpers
 {
     public static class ConnStringHelper
     {
