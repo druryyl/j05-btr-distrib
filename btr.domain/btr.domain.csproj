@@ -96,6 +96,7 @@
     <Compile Include="SalesContext\FakturControlAgg\FakturControlModel.cs" />
     <Compile Include="SalesContext\FakturControlAgg\FakturControlStatusModel.cs" />
     <Compile Include="SalesContext\FakturControlAgg\StatusFakturEnum.cs" />
+    <Compile Include="SalesContext\FakturPajak\FakturPajakModel.cs" />
     <Compile Include="SalesContext\KlasifikasiAgg\IKlasifikasiKey.cs" />
     <Compile Include="SalesContext\KlasifikasiAgg\KlasifikasiModel.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\ISalesPersonKey.cs" />
