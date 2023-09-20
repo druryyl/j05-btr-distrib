@@ -1,0 +1,109 @@
+﻿using btr.application.SupportContext.TglJamAgg;
+using btr.domain.SalesContext.FakturAgg;
+using btr.domain.SalesContext.FakturPajak;
+using btr.nuna.Application;
+using btr.nuna.Domain;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+namespace btr.application.SalesContext.NomorFpAgg
+{
+    public interface IAlokasiFpBuilder : INunaBuilder<AlokasiFpModel>
+    {
+        IAlokasiFpBuilder Create();
+        IAlokasiFpBuilder Load(IAlokasiFpKey nsfpKey);
+        IAlokasiFpBuilder Attach(AlokasiFpModel nsfp);
+        IAlokasiFpBuilder NomorSeri(string noAwal, string noAkhir);
+        IAlokasiFpBuilder SetFaktur<T>(string nomorSeri, T faktur)
+            where T: IFakturKey, IFakturCode;
+
+    }
+    public class AlokasiFpBuilder : IAlokasiFpBuilder
+    {
+        private AlokasiFpModel _aggregate;
+        private readonly IAlokasiFpDal _alokasiFpDal;
+        private readonly IAlokasiFpItemDal _alokasiFpItemDal;
+        private readonly ITglJamDal _dateTime;
+
+        public AlokasiFpBuilder(IAlokasiFpDal alokasiFpDal, 
+            IAlokasiFpItemDal alokasiFpItemDal, 
+            ITglJamDal dateTime)
+        {
+            _alokasiFpDal = alokasiFpDal;
+            _alokasiFpItemDal = alokasiFpItemDal;
+            _dateTime = dateTime;
+        }
+
+        public IAlokasiFpBuilder Create()
+        {
+            _aggregate = new AlokasiFpModel();
+            _aggregate.AlokasiFpDate = _dateTime.Now();
+            _aggregate.ListItem = new List<AlokasiFpItemModel>();
+            return this;
+        }
+
+        public IAlokasiFpBuilder Load(IAlokasiFpKey nsfpKey)
+        {
+            _aggregate = _alokasiFpDal.GetData(nsfpKey)
+                ?? throw new KeyNotFoundException("Nomor Seri Faktur Pajak not found");
+            _aggregate.ListItem = _alokasiFpItemDal.ListData(nsfpKey)?.ToList()
+                ?? new List<AlokasiFpItemModel>();
+            return this;
+        }
+
+        public IAlokasiFpBuilder NomorSeri(string noAwal, string noAkhir)
+        {
+            const string pattern = @"^\d{3}\.\d{3}-\d{2}\.(\d{8})$";
+            //  sample string  "010.000-10.23456789";
+
+            var match1 = Regex.Match(noAwal, pattern);
+            if (!match1.Success)
+                throw new ArgumentException("Format Nomor Seri Awal invalid");
+
+            var match2 = Regex.Match(noAkhir, pattern);
+            if (!match2.Success)
+                throw new ArgumentException("Format Nomor Seri Akhir invalid");
+            
+            var noAwalN = long.Parse(match1.Groups[1].Value);
+            var noAkhirN = long.Parse(match2.Groups[1].Value);
+            if (noAkhirN - noAwalN > 50000)
+                throw new ArgumentException("Alokasi Nomor Seri FP terlalu besar. Maximum 50.000");
+
+            _aggregate.NoAwal = noAwal;
+            _aggregate.NoAkhir = noAkhir;
+
+            var listItem = new List<AlokasiFpItemModel>();
+            for(long i = noAwalN; i <= noAkhirN; i++)
+            {
+                var newItem = new AlokasiFpItemModel{NoUrut = i};
+                newItem.RemoveNull();
+                listItem.Add(newItem);
+            }
+
+            return this;
+        }
+
+        public AlokasiFpModel Build()
+        {
+            _aggregate.RemoveNull();
+            return _aggregate;
+        }
+
+        public IAlokasiFpBuilder Attach(AlokasiFpModel nsfp)
+        {
+            _aggregate = nsfp;
+            return this;
+        }
+
+        public IAlokasiFpBuilder SetFaktur<T>(string nomorSeri, T faktur) where T : IFakturKey, IFakturCode
+        {
+            var item = _aggregate.ListItem.FirstOrDefault(x => x.NoFakturPajak == nomorSeri)
+                ?? throw new ArgumentException($"Nomor Seri {nomorSeri} not found");
+            item.FakturId = faktur.FakturId;
+            item.FakturCode = faktur.FakturCode;
+            return this;
+        }
+    }
+}

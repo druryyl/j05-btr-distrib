@@ -95,5 +95,7 @@
     <Build Include="Tables\InventoryContext\BTR_PackingFaktur.sql" />
     <Build Include="Tables\InventoryContext\BTR_PackingBrg.sql" />
     <Build Include="Tables\InventoryContext\BTR_Driver.sql" />
+    <Build Include="Tables\SalesContext\BTR_AlokasiFp.sql" />
+    <Build Include="Tables\SalesContext\BTR_AlokasiFpItem.sql" />
   </ItemGroup>
 </Project>

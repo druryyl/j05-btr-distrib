@@ -4,4 +4,9 @@
     {
         string FakturId { get; }
     }
+
+    public interface IFakturCode
+    {
+        string FakturCode { get; }
+    }
 }

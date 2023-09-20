@@ -3,6 +3,7 @@ using btr.nuna.Domain;
 using Xunit;
 using System.Text.RegularExpressions;
 using System;
+using System.Linq;
 
 namespace btr.test.Helpers
 {
@@ -54,11 +55,17 @@ namespace btr.test.Helpers
         [Fact]
         public void RegexTest()
         {
-            const string pattern = @"^\d{3}\.\d{3}-\d{10}";
+            const string pattern = @"^\d{3}\.\d{3}-\d{2}\.(\d{8})$";
             const string input = "010.000-10.23456789";
 
             var matched = Regex.Match(input, pattern);
-            matched.Success.Should().BeTrue();
+            long noAwalN =0;
+            if (matched.Success)
+            {
+                noAwalN = long.Parse(matched.Groups[1].Value);
+            }
+
+            noAwalN.Should().Be(23456789);
 
         }
     }

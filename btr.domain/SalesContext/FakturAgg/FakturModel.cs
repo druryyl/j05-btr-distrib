@@ -12,7 +12,7 @@ namespace btr.domain.SalesContext.FakturAgg
         Credit, Cash
     }
 
-    public class FakturModel : IFakturKey, ISalesPersonKey, ICustomerKey, IWarehouseKey, IUserKey
+    public class FakturModel : IFakturKey, ISalesPersonKey, ICustomerKey, IWarehouseKey, IUserKey, IFakturCode
     {
         public FakturModel()
         {

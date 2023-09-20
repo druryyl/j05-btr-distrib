@@ -49,5 +49,21 @@ namespace btr.distrib.Helpers
                 Debug.Print(col.ValueType.Name);    
             }
         }
+        public static void DataGridView_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            var grid = sender as DataGridView;
+            var rowIdx = (e.RowIndex + 1).ToString();
+
+            var centerFormat = new StringFormat()
+            {
+                // right alignment might actually make more sense for numbers
+                Alignment = StringAlignment.Center,
+                LineAlignment = StringAlignment.Center
+            };
+
+            var headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
+            e.Graphics.DrawString(rowIdx, new Font("Consolas", 8.25f), SystemBrushes.ControlText, headerBounds, centerFormat);
+        }
+
     }
 }

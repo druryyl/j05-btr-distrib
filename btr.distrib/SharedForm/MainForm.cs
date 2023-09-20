@@ -9,6 +9,7 @@ using btr.distrib.PurchaseContext.SupplierAgg;
 using btr.distrib.SalesContext.CustomerAgg;
 using btr.distrib.SalesContext.FakturAgg;
 using btr.distrib.SalesContext.FakturControlAgg;
+using btr.distrib.SalesContext.NomorSeriFpAgg;
 using btr.distrib.SalesContext.SalesPersonAgg;
 using btr.distrib.SalesContext.WilayahAgg;
 using btr.domain.SupportContext.UserAgg;
@@ -171,6 +172,14 @@ namespace btr.distrib.SharedForm
         private void PackingButton_Click(object sender, EventArgs e)
         {
             var form = _servicesProvider.GetRequiredService<PackingForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void FakturPajakButton_Click(object sender, EventArgs e)
+        {
+            var form = _servicesProvider.GetRequiredService<AlokasiFpForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

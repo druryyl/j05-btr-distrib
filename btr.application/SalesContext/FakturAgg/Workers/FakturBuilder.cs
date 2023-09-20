@@ -38,6 +38,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         IFakturBuilder Void(IUserKey userKey);
         IFakturBuilder ReActivate(IUserKey userKey);
         IFakturBuilder User(IUserKey user);
+        IFakturBuilder CalcTotal();
     }
 
     public class FakturBuilder : IFakturBuilder
@@ -231,15 +232,17 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             return this;
         }
         #endregion
+
+        public IFakturBuilder CalcTotal()
+        {
+            _aggRoot.Total = _aggRoot.ListItem.Sum(x => x.SubTotal);
+            _aggRoot.Discount = _aggRoot.ListItem.Sum(x => x.DiscRp);
+            _aggRoot.Tax = _aggRoot.ListItem.Sum(x => x.PpnRp);
+            _aggRoot.GrandTotal = _aggRoot.ListItem.Sum(x => x.Total);
+            _aggRoot.KurangBayar = _aggRoot.GrandTotal - _aggRoot.UangMuka;
+            return this;
+        }
     }
 }
 
-        //public IFakturBuilder CalcTotal()
-        //{
-        //    _aggRoot.Total = _aggRoot.ListItem.Sum(x => x.SubTotal);
-        //    _aggRoot.Discount = _aggRoot.ListItem.Sum(x => x.DiscRp);
-        //    _aggRoot.Tax = _aggRoot.ListItem.Sum(x => x.PpnRp);
-        //    _aggRoot.GrandTotal = _aggRoot.ListItem.Sum(x => x.Total);
-        //    _aggRoot.KurangBayar = _aggRoot.GrandTotal - _aggRoot.UangMuka;
-        //    return this;
-        //}
+

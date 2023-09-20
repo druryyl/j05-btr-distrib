@@ -74,6 +74,7 @@ namespace btr.distrib.SalesContext.CustomerAgg
 
             SaveButton.Click += SaveButton_Click;
             CustGrid.CellDoubleClick += CustGrid_CellDoubleClick;
+            CustGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
 
             WilayahIdText.Validated += WilayahIdText_Validated;
             WilayahButton.Click += WilayahButton_Click;
