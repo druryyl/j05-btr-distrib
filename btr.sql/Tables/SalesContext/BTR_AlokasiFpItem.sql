@@ -6,12 +6,13 @@
 	FakturId VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_AlokasiFpItem_FakturId DEFAULT(''),
 	FakturCode VARCHAR(10) NOT NULL CONSTRAINT DF_BTR_AlokasiFpItem_FakturCode DEFAULT(''),
 
-	CONSTRAINT PK_BTR_AlokasiFpItem PRIMARY KEY CLUSTERED (AlokasiFpId, NoFakturPajak)
+	CONSTRAINT PK_BTR_AlokasiFpItem PRIMARY KEY CLUSTERED (AlokasiFpId, NoUrut)
 )
 GO
 
 CREATE UNIQUE INDEX UX_BTR_AlokasiFpItem_FakturId 
 	ON BTR_AlokasiFpItem (FakturId)
+	WHERE FakturId <> ''
 GO
 
 CREATE UNIQUE INDEX UX_BTR_AlokasiFpItem_NoFakturPajak

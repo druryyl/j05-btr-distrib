@@ -66,7 +66,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
             using (var trans = TransHelper.NewScope())
             {
                 _rollBackStokWorker.Execute(rollBackReq);
-                _fakturWriter.Save(ref faktur);
+                _ = _fakturWriter.Save(faktur);
                 _fakturControlWriter.Save(fakturControl);
                 _genStokFakturWorker.Execute(new GenStokFakturRequest(faktur.FakturId));
                 trans.Complete();

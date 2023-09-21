@@ -398,6 +398,9 @@
     </Compile>
     <Compile Include="WinformAssemblyAnchor.cs" />
     <Content Include="icons8_truck.ico" />
+    <None Include="Resources\icons8_numbers_48.png" />
+    <None Include="Resources\icons8_numeric_32.png" />
+    <None Include="Resources\icons8_numeric_16.png" />
     <None Include="Resources\tax2.ico" />
     <None Include="Resources\icons8_winrar_32.png" />
     <None Include="Resources\icons8_to_do_32.png" />

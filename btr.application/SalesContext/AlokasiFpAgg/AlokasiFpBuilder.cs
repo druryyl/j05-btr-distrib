@@ -18,6 +18,7 @@ namespace btr.application.SalesContext.NomorFpAgg
         IAlokasiFpBuilder NomorSeri(string noAwal, string noAkhir);
         IAlokasiFpBuilder SetFaktur<T>(string nomorSeri, T faktur)
             where T: IFakturKey, IFakturCode;
+        IAlokasiFpBuilder ClearListNomor();
 
     }
     public class AlokasiFpBuilder : IAlokasiFpBuilder
@@ -55,7 +56,7 @@ namespace btr.application.SalesContext.NomorFpAgg
 
         public IAlokasiFpBuilder NomorSeri(string noAwal, string noAkhir)
         {
-            const string pattern = @"^\d{3}\.\d{3}-\d{2}\.(\d{8})$";
+            const string pattern = @"(^\d{3}\.\d{3}-\d{2}\.)(\d{8})$";
             //  sample string  "010.000-10.23456789";
 
             var match1 = Regex.Match(noAwal, pattern);
@@ -66,8 +67,14 @@ namespace btr.application.SalesContext.NomorFpAgg
             if (!match2.Success)
                 throw new ArgumentException("Format Nomor Seri Akhir invalid");
             
-            var noAwalN = long.Parse(match1.Groups[1].Value);
-            var noAkhirN = long.Parse(match2.Groups[1].Value);
+            var prefix1 = match1.Groups[1].Value;
+            var prefix2 = match2.Groups[1].Value;
+            if (prefix1 != prefix2)
+                throw new ArgumentException("Awalan Nomor Seri Pajak tidak sama");
+
+
+            var noAwalN = long.Parse(match1.Groups[2].Value);
+            var noAkhirN = long.Parse(match2.Groups[2].Value);
             if (noAkhirN - noAwalN > 50000)
                 throw new ArgumentException("Alokasi Nomor Seri FP terlalu besar. Maximum 50.000");
 
@@ -77,11 +84,15 @@ namespace btr.application.SalesContext.NomorFpAgg
             var listItem = new List<AlokasiFpItemModel>();
             for(long i = noAwalN; i <= noAkhirN; i++)
             {
-                var newItem = new AlokasiFpItemModel{NoUrut = i};
+                var newItem = new AlokasiFpItemModel
+                {
+                    NoUrut = i,
+                    NoFakturPajak = $"{prefix1}{i:D8}"
+                };
                 newItem.RemoveNull();
                 listItem.Add(newItem);
             }
-
+            _aggregate.ListItem = listItem;
             return this;
         }
 
@@ -102,7 +113,14 @@ namespace btr.application.SalesContext.NomorFpAgg
             var item = _aggregate.ListItem.FirstOrDefault(x => x.NoFakturPajak == nomorSeri)
                 ?? throw new ArgumentException($"Nomor Seri {nomorSeri} not found");
             item.FakturId = faktur.FakturId;
-            item.FakturCode = faktur.FakturCode;
+            item.FakturCode = faktur.FakturCode; 
+            return this;
+        }
+
+        public IAlokasiFpBuilder ClearListNomor()
+        {
+            _aggregate.ListItem.Clear();
+            _aggregate.Sisa = _aggregate.Kapasitas;
             return this;
         }
     }

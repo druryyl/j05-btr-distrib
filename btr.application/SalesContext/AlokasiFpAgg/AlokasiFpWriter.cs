@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 
 namespace btr.application.SalesContext.NomorFpAgg
 {
-    public interface IAlokasiFpWriter : INunaWriter2<AlokasiFpModel>
+    public interface IAlokasiFpWriter : 
+        INunaWriter2<AlokasiFpModel>,
+        INunaDelete<AlokasiFpModel>
     {
     }
 
@@ -48,6 +50,16 @@ namespace btr.application.SalesContext.NomorFpAgg
                 trans.Complete();
             }
             return model;
+        }
+
+        public void Delete(AlokasiFpModel model)
+        {
+            using(var trans = TransHelper.NewScope())
+            {
+                _alokasiFpItemDal.Delete(model);
+                _alokasiFpDal.Delete(model);
+                trans.Complete();
+            }
         }
     }
 }

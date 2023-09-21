@@ -35,6 +35,8 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         IFakturBuilder AddItem(IBrgKey brgKey, string stokHrgStr, string qtyString, string discountString, decimal ppnProsen);
         IFakturBuilder ClearItem();
 
+        IFakturBuilder FakturPajak(string noSeriFakturPajak);
+
         IFakturBuilder Void(IUserKey userKey);
         IFakturBuilder ReActivate(IUserKey userKey);
         IFakturBuilder User(IUserKey user);
@@ -182,6 +184,11 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         public IFakturBuilder DueDate(DateTime dueDate)
         {
             _aggRoot.DueDate = dueDate;
+            return this;
+        }
+        public IFakturBuilder FakturPajak(string noSeriFakturPajak)
+        {
+            _aggRoot.NoFakturPajak = noSeriFakturPajak;
             return this;
         }
         #endregion

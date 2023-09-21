@@ -9,7 +9,7 @@ using btr.domain.SupportContext.UserAgg;
 
 namespace btr.application.SalesContext.FakturAgg.Workers
 {
-    public interface IFakturWriter : INunaWriter<FakturModel>
+    public interface IFakturWriter : INunaWriter2<FakturModel>
     {
     }
     public class FakturWriter : IFakturWriter
@@ -36,7 +36,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             _userBuilder = userBuilder;
         }
 
-        public void Save(ref FakturModel model)
+        public FakturModel Save(FakturModel model)
         {
             //  VALIDATE
             _validator.ValidateAndThrow(model);
@@ -78,6 +78,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
 
                 trans.Complete();
             }
+            return model;
         }
 
         private string GenerateFakturCode(IUserKey userKey)

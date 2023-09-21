@@ -122,7 +122,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
                 .Build();
 
             //  APPLY
-            _fakturWriter.Save(ref result);
+            _ = _fakturWriter.Save(result);
             _mediator.Publish(new SavedFakturEvent(req, result));
             return result;
         }

@@ -8,6 +8,10 @@
     {
         T Save(T model);
     }
+    public interface INunaDelete<T>
+    {
+        void Delete(T model);
+    }
 
     public interface INunaBuilder<out T>
     {

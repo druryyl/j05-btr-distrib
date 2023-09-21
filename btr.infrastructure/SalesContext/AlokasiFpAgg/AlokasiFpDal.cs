@@ -53,7 +53,7 @@ namespace btr.infrastructure.SalesContext.KlasifikasiAgg
                 AlokasiFpDate = @AlokasiFpDate,
                 NoAwal = @NoAwal,
                 NoAkhir = @NoAkhir,
-                Kapasitas = @Kapasitas
+                Kapasitas = @Kapasitas,
                 Sisa = @Sisa
             WHERE
                 AlokasiFpId = @AlokasiFpId ";

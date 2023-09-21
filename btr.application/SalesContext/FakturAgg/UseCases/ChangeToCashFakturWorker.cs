@@ -55,7 +55,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
 
             using (var trans = TransHelper.NewScope())
             {
-                _fakturWriter.Save(ref faktur);
+                _ = _fakturWriter.Save(faktur);
                 _fakturControlWriter.Save(fakturControl);
                 trans.Complete();
             }

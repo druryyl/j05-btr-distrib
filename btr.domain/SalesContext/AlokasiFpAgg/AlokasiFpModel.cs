@@ -9,6 +9,13 @@ namespace btr.domain.SalesContext.FakturPajak
 {
     public class AlokasiFpModel : IAlokasiFpKey
     {
+        public AlokasiFpModel()
+        {
+        }
+        public AlokasiFpModel(string id)
+        {
+            AlokasiFpId = id;
+        }
         public string AlokasiFpId { get; set; }
         public DateTime AlokasiFpDate { get; set; }
 
