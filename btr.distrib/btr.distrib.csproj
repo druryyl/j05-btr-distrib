@@ -275,18 +275,26 @@
     <Compile Include="InventoryContext\BrgAgg\BrgFormHargaDto.cs" />
     <Compile Include="InventoryContext\BrgAgg\BrgFormSatuanDto.cs" />
     <Compile Include="InventoryContext\BrgAgg\BrgFormStokDto.cs" />
+    <Compile Include="InventoryContext\InventoryInfo\SaldoStokInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryContext\InventoryInfo\SaldoStokInfoForm.Designer.cs">
+      <DependentUpon>SaldoStokInfoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="InventoryContext\KategoriAgg\KategoriForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="InventoryContext\KategoriAgg\KategoriForm.Designer.cs">
       <DependentUpon>KategoriForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InventoryContext\OpnameAgg\BrgOpnameFormDto.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="InventoryContext\OpnameAgg\OpnameForm.Designer.cs">
       <DependentUpon>OpnameForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InventoryContext\OpnameAgg\ReportOpnameFormDto.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingFakturDto.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingForm.cs">
       <SubType>Form</SubType>
@@ -300,6 +308,7 @@
     <Compile Include="InventoryContext\WarehouseAgg\WarehouseForm.Designer.cs">
       <DependentUpon>WarehouseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InventoryContext\WarehouseAgg\WarehouseFormGridDto.cs" />
     <Compile Include="PrintDocs\FakturPrintDoc.cs" />
     <Compile Include="PrintDocs\PrintManagerForm.cs">
       <SubType>Form</SubType>
