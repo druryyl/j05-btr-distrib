@@ -8,7 +8,7 @@ using btr.nuna.Infrastructure;
 using Dapper;
 using Microsoft.Extensions.Options;
 
-namespace btr.infrastructure.PurchaseContext.PackingFakturAgg
+namespace btr.infrastructure.InventoryContext.PackingAgg
 {
     public class PackingFakturDal : IPackingFakturDal
     {

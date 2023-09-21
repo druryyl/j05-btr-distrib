@@ -1,6 +1,6 @@
 ﻿using btr.domain.SalesContext.FakturAgg;
 
-namespace btr.domain.SalesContext.FakturPajak
+namespace btr.domain.SalesContext.AlokasiFpAgg
 {
     public class AlokasiFpItemModel : IAlokasiFpKey, IFakturKey, IFakturCode
     {
@@ -10,6 +10,7 @@ namespace btr.domain.SalesContext.FakturPajak
         public string FakturId { get; set;}
         public string FakturCode { get; set;}
 
-
+        
+        public string Npwp { get; set; }
     }
 }

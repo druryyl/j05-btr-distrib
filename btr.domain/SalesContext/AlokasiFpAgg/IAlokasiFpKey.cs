@@ -1,4 +1,4 @@
-﻿namespace btr.domain.SalesContext.FakturPajak
+﻿namespace btr.domain.SalesContext.AlokasiFpAgg
 {
     public interface IAlokasiFpKey
     {

@@ -1,14 +1,14 @@
-﻿using btr.application.SupportContext.TglJamAgg;
-using btr.domain.SalesContext.FakturAgg;
-using btr.domain.SalesContext.FakturPajak;
-using btr.nuna.Application;
-using btr.nuna.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using btr.application.SupportContext.TglJamAgg;
+using btr.domain.SalesContext.AlokasiFpAgg;
+using btr.domain.SalesContext.FakturAgg;
+using btr.nuna.Application;
+using btr.nuna.Domain;
 
-namespace btr.application.SalesContext.NomorFpAgg
+namespace btr.application.SalesContext.AlokasiFpAgg
 {
     public interface IAlokasiFpBuilder : INunaBuilder<AlokasiFpModel>
     {

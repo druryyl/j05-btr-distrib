@@ -101,6 +101,7 @@
     <Compile Include="SalesContext\AlokasiFpAgg\AlokasiFpDal.cs" />
     <Compile Include="SalesContext\AlokasiFpAgg\AlokasiFpItemDal.cs" />
     <Compile Include="SalesContext\CustomerAgg\CustomerDal.cs" />
+    <Compile Include="SalesContext\FakturAgg\FakturAlokasiFpItemDal.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturDal.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturDiscountDal.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturItemDal.cs" />

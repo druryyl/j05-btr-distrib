@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using btr.application.SalesContext.NomorFpAgg;
-using btr.domain.SalesContext.FakturPajak;
+using btr.application.SalesContext.AlokasiFpAgg;
+using btr.domain.SalesContext.AlokasiFpAgg;
 using btr.infrastructure.Helpers;
 using btr.nuna.Domain;
 using btr.nuna.Infrastructure;
 using Dapper;
 using Microsoft.Extensions.Options;
 
-namespace btr.infrastructure.SalesContext.KlasifikasiAgg
+namespace btr.infrastructure.SalesContext.AlokasiFpAgg
 {
     public class AlokasiFpDal : IAlokasiFpDal
     {

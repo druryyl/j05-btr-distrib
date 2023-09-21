@@ -1,6 +1,11 @@
-﻿namespace btr.application.SalesContext.FakturAgg.Contracts
+﻿using btr.domain.SalesContext.FakturAgg;
+using btr.nuna.Domain;
+using btr.nuna.Infrastructure;
+
+namespace btr.application.SalesContext.FakturAgg.Contracts
 {
-    public interface IFakturAlokasiItemDal
+    public interface IFakturAlokasiFpItemDal :
+        IListData<FakturAlokasiFpItemView, Periode>
     {
         
     }

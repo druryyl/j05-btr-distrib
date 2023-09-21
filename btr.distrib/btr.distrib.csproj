@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>34</ApplicationRevision>
+    <ApplicationRevision>35</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -429,6 +429,7 @@
     <None Include="Resources\app-wallpaper-5.jpg" />
     <None Include="Resources\icons8_hashtag_activity_feed_32.png" />
     <None Include="Resources\cancelled-stamp.png" />
+    <None Include="Resources\icons8_broadcasting_48.png" />
     <Content Include="Resources\icons8_microscope.ico" />
     <Content Include="Resources\icons8_microscope_32.png" />
     <EmbeddedResource Include="SharedForm\AboutForm.resx">

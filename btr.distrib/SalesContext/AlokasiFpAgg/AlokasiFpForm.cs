@@ -1,26 +1,21 @@
-﻿using btr.application.SalesContext.FakturAgg.Contracts;
-using btr.application.SalesContext.FakturAgg.Workers;
-using btr.application.SalesContext.NomorFpAgg;
-using btr.application.SupportContext.TglJamAgg;
-using btr.distrib.Helpers;
-using btr.domain.SalesContext.FakturAgg;
-using btr.domain.SalesContext.FakturPajak;
-using btr.nuna.Application;
-using btr.nuna.Domain;
-using DocumentFormat.OpenXml.Bibliography;
-using Mapster;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using btr.application.SalesContext.AlokasiFpAgg;
+using btr.application.SalesContext.FakturAgg.Contracts;
+using btr.application.SalesContext.FakturAgg.Workers;
+using btr.application.SupportContext.TglJamAgg;
+using btr.distrib.Helpers;
+using btr.domain.SalesContext.AlokasiFpAgg;
+using btr.domain.SalesContext.FakturAgg;
+using btr.nuna.Application;
+using btr.nuna.Domain;
+using Mapster;
 
-namespace btr.distrib.SalesContext.NomorSeriFpAgg
+namespace btr.distrib.SalesContext.AlokasiFpAgg
 {
     public partial class AlokasiFpForm : Form
     {
@@ -33,8 +28,9 @@ namespace btr.distrib.SalesContext.NomorSeriFpAgg
         private readonly IAlokasiFpDal _alokasiFpdal;
         private readonly IFakturBuilder _fakturBuilder;
         private readonly IFakturWriter _fakturWriter;
-
-        private BindingList<AlokasiFpFakturDto> _listFaktur;
+        private readonly IFakturAlokasiFpItemDal _fakturAlokasiFpItemDal;
+        
+        private BindingList<FakturAlokasiFpItemView> _listFaktur;
         
         private ContextMenu _alokasiMenu;
 
@@ -44,7 +40,8 @@ namespace btr.distrib.SalesContext.NomorSeriFpAgg
             IAlokasiFpWriter writer,
             IAlokasiFpDal alokasiFpdal,
             IFakturBuilder fakturBuilder,
-            IFakturWriter fakturWriter)
+            IFakturWriter fakturWriter, 
+            IFakturAlokasiFpItemDal fakturAlokasiFpItemDal)
         {
             _fakturDal = fakturDal;
             _dateTime = dateTime;
@@ -53,6 +50,7 @@ namespace btr.distrib.SalesContext.NomorSeriFpAgg
             _alokasiFpdal = alokasiFpdal;
             _fakturBuilder = fakturBuilder;
             _fakturWriter = fakturWriter;
+            _fakturAlokasiFpItemDal = fakturAlokasiFpItemDal;
 
             _agg = new AlokasiFpModel();
 
@@ -122,7 +120,7 @@ namespace btr.distrib.SalesContext.NomorSeriFpAgg
         {
             RefreshAlokasiGrid();
             var g = AlokasiGrid.Columns;
-            g.SetDefaultCellStyle(Color.Beige);
+            g.SetDefaultCellStyle(Color.LightCyan);
             g.GetCol("AlokasiId").Visible = false;
             g.GetCol("NoSeriFp").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             g.GetCol("NoSeriFp").Width = 130;
@@ -265,7 +263,7 @@ namespace btr.distrib.SalesContext.NomorSeriFpAgg
         {
             RefreshFakturGrid();
             var g = FakturGrid.Columns;
-            g.SetDefaultCellStyle(Color.MistyRose);
+            g.SetDefaultCellStyle(Color.Wheat);
             g.GetCol("FakturId").Visible = false;
 
             g.GetCol("FakturCode").Width = 60;
@@ -281,41 +279,33 @@ namespace btr.distrib.SalesContext.NomorSeriFpAgg
             g.GetCol("CustomerName").Width = 80;
             g.GetCol("CustomerName").HeaderText = "Customer";
 
+            g.GetCol("Npwp").Width = 100;
+            g.GetCol("Npwp").HeaderText = "NPWP";
+
             g.GetCol("Address").Width = 100;
             g.GetCol("GrandTotal").Width = 80;
             g.GetCol("NoFakturPajak").Width = 140;
+
+            g.GetCol("VoidDate").Visible = false;
+            g.GetCol("UserIdVoid").Visible = false;
 
         }
 
         private void RefreshFakturGrid()
         {
             var periode = new Periode(Periode1Date.Value, Periode2Date.Value);
-            var listFaktur = _fakturDal.ListData(periode)?.ToList()
-                ?? new List<FakturModel>();
+            var listFaktur = _fakturAlokasiFpItemDal.ListData(periode)?.ToList()
+                ?? new List<FakturAlokasiFpItemView>();
 
             var dataSource = listFaktur
-                .Where(x => x.IsVoid == false)
+                .Where(x => x.VoidDate == new DateTime(3000,1,1))
                 .OrderBy(x => x.FakturId)
-                .Adapt<List<AlokasiFpFakturDto>>();
-            _listFaktur = new BindingList<AlokasiFpFakturDto>(dataSource);
+                .Adapt<List<FakturAlokasiFpItemView>>();
+            _listFaktur = new BindingList<FakturAlokasiFpItemView>(dataSource);
             FakturGrid.DataSource = _listFaktur;
             FakturGrid.Refresh();
         }
         #endregion
-    }
-
-    public class AlokasiFpFakturDto : IFakturKey, IFakturCode
-    {
-        public string FakturId { get; private set; }
-        public string FakturCode { get; private set; }
-        public DateTime FakturDate { get; private set; }
-        public string CustomerName { get; private set; }
-        public string Address { get; private set; }
-        public decimal GrandTotal { get; private set; }
-        public string NoFakturPajak { get; private set; }
-        public string UserId { get; private set; }
-
-        public void SetNoFakturPajak(string noFakturPajak) => NoFakturPajak = noFakturPajak;
     }
 
     public class AlokasiFpAlokasiDto

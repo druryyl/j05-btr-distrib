@@ -1,7 +1,6 @@
 ﻿using System;
-using btr.domain.SalesContext.FakturAgg;
 
-namespace btr.domain.SalesContext.AlokasiFpAgg
+namespace btr.domain.SalesContext.FakturAgg
 {
     public class FakturAlokasiFpItemView : IFakturKey, IFakturCode
     {
@@ -14,6 +13,8 @@ namespace btr.domain.SalesContext.AlokasiFpAgg
         public decimal GrandTotal { get; private set; }
         public string NoFakturPajak { get; private set; }
         public string UserId { get; private set; }
+        public DateTime VoidDate { get; private set; }
+        public string UserIdVoid { get; private set; }
 
         public void SetNoFakturPajak(string noFakturPajak) => NoFakturPajak = noFakturPajak;
     }

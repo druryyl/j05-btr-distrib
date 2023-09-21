@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using btr.application.SalesContext.NomorFpAgg;
-using btr.domain.SalesContext.FakturPajak;
+using btr.application.SalesContext.AlokasiFpAgg;
+using btr.domain.SalesContext.AlokasiFpAgg;
 using btr.infrastructure.Helpers;
 using btr.nuna.Infrastructure;
 using Dapper;
 using Microsoft.Extensions.Options;
 
-namespace btr.infrastructure.PurchaseContext.AlokasiFpAgg
+namespace btr.infrastructure.SalesContext.AlokasiFpAgg
 {
     public class AlokasiFpItemDal : IAlokasiFpItemDal
     {
@@ -60,9 +60,12 @@ namespace btr.infrastructure.PurchaseContext.AlokasiFpAgg
             const string sql = @"
             SELECT
                 aa.AlokasiFpId, aa.NoFakturPajak,
-                aa.NoUrut, aa.FakturId, aa.FakturCode
+                aa.NoUrut, aa.FakturId, aa.FakturCode,
+                ISNULL(cc.Npwp, '') AS Npwp
             FROM
                 BTR_AlokasiFpItem aa
+                LEFT JOIN BTR_Faktur bb ON aa.FakturId = bb.FakturId
+                LEFT JOIN BTR_Customer cc ON bb.CustomerId = cc.CustomerId
             WHERE
                 AlokasiFpId = @AlokasiFpId ";
 

@@ -1,4 +1,4 @@
-﻿namespace btr.distrib.SalesContext.NomorSeriFpAgg
+﻿namespace btr.distrib.SalesContext.AlokasiFpAgg
 {
     partial class AlokasiFpForm
     {
@@ -75,7 +75,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.FakturGrid);
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
             this.splitContainer1.Panel2.Controls.Add(this.ProsesButton);
-            this.splitContainer1.Size = new System.Drawing.Size(907, 501);
+            this.splitContainer1.Size = new System.Drawing.Size(907, 451);
             this.splitContainer1.SplitterDistance = 237;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -83,7 +83,7 @@
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.BackColor = System.Drawing.Color.MistyRose;
+            this.panel2.BackColor = System.Drawing.Color.Cornsilk;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.AlokasiButton);
@@ -98,8 +98,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.BackColor = System.Drawing.Color.SaddleBrown;
-            this.label2.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label2.BackColor = System.Drawing.Color.DarkKhaki;
             this.label2.Location = new System.Drawing.Point(0, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(228, 19);
@@ -139,17 +138,18 @@
             this.AlokasiGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.AlokasiGrid.BackgroundColor = System.Drawing.Color.DarkKhaki;
             this.AlokasiGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.AlokasiGrid.Location = new System.Drawing.Point(6, 97);
             this.AlokasiGrid.Name = "AlokasiGrid";
-            this.AlokasiGrid.Size = new System.Drawing.Size(229, 397);
+            this.AlokasiGrid.Size = new System.Drawing.Size(229, 347);
             this.AlokasiGrid.TabIndex = 4;
             // 
             // panel3
             // 
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel3.BackColor = System.Drawing.Color.MistyRose;
+            this.panel3.BackColor = System.Drawing.Color.Cornsilk;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.NoAkhirLabel);
             this.panel3.Controls.Add(this.NoAwalLabel);
@@ -187,8 +187,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.BackColor = System.Drawing.Color.SaddleBrown;
-            this.label1.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label1.BackColor = System.Drawing.Color.DarkKhaki;
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(299, 19);
@@ -203,15 +202,16 @@
             this.FakturGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.FakturGrid.BackgroundColor = System.Drawing.Color.DarkKhaki;
             this.FakturGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.FakturGrid.Location = new System.Drawing.Point(3, 97);
             this.FakturGrid.Name = "FakturGrid";
-            this.FakturGrid.Size = new System.Drawing.Size(655, 397);
+            this.FakturGrid.Size = new System.Drawing.Size(655, 347);
             this.FakturGrid.TabIndex = 3;
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.MistyRose;
+            this.panel1.BackColor = System.Drawing.Color.Cornsilk;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.ListButton);
@@ -226,8 +226,7 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.BackColor = System.Drawing.Color.SaddleBrown;
-            this.label4.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label4.BackColor = System.Drawing.Color.DarkKhaki;
             this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(263, 19);
@@ -267,21 +266,24 @@
             // ProsesButton
             // 
             this.ProsesButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ProsesButton.Image = global::btr.distrib.Properties.Resources.icons8_numbers_48;
+            this.ProsesButton.BackColor = System.Drawing.Color.Linen;
+            this.ProsesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ProsesButton.Image = global::btr.distrib.Properties.Resources.icons8_broadcasting_48;
+            this.ProsesButton.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.ProsesButton.Location = new System.Drawing.Point(578, 7);
             this.ProsesButton.Name = "ProsesButton";
             this.ProsesButton.Size = new System.Drawing.Size(80, 84);
             this.ProsesButton.TabIndex = 8;
-            this.ProsesButton.Text = "PROSES";
+            this.ProsesButton.Text = "Proses Alokasi";
             this.ProsesButton.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.ProsesButton.UseVisualStyleBackColor = true;
+            this.ProsesButton.UseVisualStyleBackColor = false;
             // 
             // AlokasiFpForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.LightSalmon;
-            this.ClientSize = new System.Drawing.Size(907, 501);
+            this.BackColor = System.Drawing.Color.Khaki;
+            this.ClientSize = new System.Drawing.Size(907, 451);
             this.Controls.Add(this.splitContainer1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "AlokasiFpForm";

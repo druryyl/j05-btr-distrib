@@ -9,7 +9,6 @@ using btr.distrib.PurchaseContext.SupplierAgg;
 using btr.distrib.SalesContext.CustomerAgg;
 using btr.distrib.SalesContext.FakturAgg;
 using btr.distrib.SalesContext.FakturControlAgg;
-using btr.distrib.SalesContext.NomorSeriFpAgg;
 using btr.distrib.SalesContext.SalesPersonAgg;
 using btr.distrib.SalesContext.WilayahAgg;
 using btr.domain.SupportContext.UserAgg;
@@ -20,6 +19,7 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using btr.distrib.SalesContext.AlokasiFpAgg;
 
 namespace btr.distrib.SharedForm
 {
