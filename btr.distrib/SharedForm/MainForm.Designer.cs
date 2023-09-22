@@ -55,11 +55,11 @@
             this.OpnameButton = new System.Windows.Forms.RibbonButton();
             this.PrintFakturButton = new System.Windows.Forms.RibbonButton();
             this.PackingButton = new System.Windows.Forms.RibbonButton();
+            this.ReportingPanel = new System.Windows.Forms.RibbonPanel();
+            this.StokBalanceButton = new System.Windows.Forms.RibbonButton();
             this.InventoryMasterPanel = new System.Windows.Forms.RibbonPanel();
             this.BrgButton = new System.Windows.Forms.RibbonButton();
             this.WarehouseButton = new System.Windows.Forms.RibbonButton();
-            this.ribbonPanel1 = new System.Windows.Forms.RibbonPanel();
-            this.PrintButton = new System.Windows.Forms.RibbonButton();
             this.FinanceTab = new System.Windows.Forms.RibbonTab();
             this.SettingTab = new System.Windows.Forms.RibbonTab();
             this.DeliveryPanel = new System.Windows.Forms.RibbonPanel();
@@ -269,8 +269,8 @@
             // 
             this.InventoryTab.Name = "InventoryTab";
             this.InventoryTab.Panels.Add(this.InventoryTrsPanel);
+            this.InventoryTab.Panels.Add(this.ReportingPanel);
             this.InventoryTab.Panels.Add(this.InventoryMasterPanel);
-            this.InventoryTab.Panels.Add(this.ribbonPanel1);
             this.InventoryTab.Text = "Inventory";
             // 
             // InventoryTrsPanel
@@ -279,7 +279,7 @@
             this.InventoryTrsPanel.Items.Add(this.PrintFakturButton);
             this.InventoryTrsPanel.Items.Add(this.PackingButton);
             this.InventoryTrsPanel.Name = "InventoryTrsPanel";
-            this.InventoryTrsPanel.Text = "";
+            this.InventoryTrsPanel.Text = "Transaction";
             // 
             // OpnameButton
             // 
@@ -308,12 +308,27 @@
             this.PackingButton.Text = "Packing";
             this.PackingButton.Click += new System.EventHandler(this.PackingButton_Click);
             // 
+            // ReportingPanel
+            // 
+            this.ReportingPanel.Items.Add(this.StokBalanceButton);
+            this.ReportingPanel.Name = "ReportingPanel";
+            this.ReportingPanel.Text = "Reporting";
+            // 
+            // StokBalanceButton
+            // 
+            this.StokBalanceButton.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.StokBalanceButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.StokBalanceButton.Name = "StokBalanceButton";
+            this.StokBalanceButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("StokBalanceButton.SmallImage")));
+            this.StokBalanceButton.Text = "Stok-Balance";
+            this.StokBalanceButton.Click += new System.EventHandler(this.PrintButton_Click);
+            // 
             // InventoryMasterPanel
             // 
             this.InventoryMasterPanel.Items.Add(this.BrgButton);
             this.InventoryMasterPanel.Items.Add(this.WarehouseButton);
             this.InventoryMasterPanel.Name = "InventoryMasterPanel";
-            this.InventoryMasterPanel.Text = "";
+            this.InventoryMasterPanel.Text = "Master Data";
             // 
             // BrgButton
             // 
@@ -332,21 +347,6 @@
             this.WarehouseButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("WarehouseButton.SmallImage")));
             this.WarehouseButton.Text = "Warehouse";
             this.WarehouseButton.Click += new System.EventHandler(this.WarehouseButton_Click);
-            // 
-            // ribbonPanel1
-            // 
-            this.ribbonPanel1.Items.Add(this.PrintButton);
-            this.ribbonPanel1.Name = "ribbonPanel1";
-            this.ribbonPanel1.Text = "";
-            // 
-            // PrintButton
-            // 
-            this.PrintButton.Image = global::btr.distrib.Properties.Resources.icons8_print;
-            this.PrintButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_print;
-            this.PrintButton.Name = "PrintButton";
-            this.PrintButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("PrintButton.SmallImage")));
-            this.PrintButton.Text = "Print";
-            this.PrintButton.Click += new System.EventHandler(this.PrintButton_Click);
             // 
             // FinanceTab
             // 
@@ -462,7 +462,7 @@
         private System.Windows.Forms.RibbonPanel MasterSalesPanel;
         private System.Windows.Forms.RibbonPanel ReceivingPanel;
         private System.Windows.Forms.RibbonPanel DeliveryPanel;
-        private System.Windows.Forms.RibbonPanel ribbonPanel1;
+        private System.Windows.Forms.RibbonPanel ReportingPanel;
         private System.Windows.Forms.RibbonPanel InventoryMasterPanel;
         private System.Windows.Forms.RibbonButton FakturButton;
         private System.Windows.Forms.RibbonButton FakturPajakButton;
@@ -479,7 +479,7 @@
         private System.Windows.Forms.RibbonButton SupplierButton;
         private System.Windows.Forms.RibbonButton BrgButton;
         private System.Windows.Forms.RibbonButton WarehouseButton;
-        private System.Windows.Forms.RibbonButton PrintButton;
+        private System.Windows.Forms.RibbonButton StokBalanceButton;
         private System.Windows.Forms.RibbonButton AboutButton;
         private System.Windows.Forms.RibbonButton UserButton;
         private System.Windows.Forms.StatusStrip AppStatus;

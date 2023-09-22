@@ -93,6 +93,7 @@
     <Compile Include="InventoryContext\StokAgg\StokDal.cs" />
     <Compile Include="InventoryContext\StokAgg\StokMutasiDal.cs" />
     <Compile Include="InventoryContext\StokBalanceAgg\StokBalanceWarehouseDal.cs" />
+    <Compile Include="InventoryContext\StokBalanceReport\StokBalanceReportDal.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\WarehouseDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PurchaseContext\PurchaseOrderAgg\PurchaseOrderDal.cs" />

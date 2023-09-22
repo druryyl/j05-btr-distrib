@@ -20,6 +20,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using btr.distrib.SalesContext.AlokasiFpAgg;
+using btr.distrib.InventoryContext.InventoryInfo;
 
 namespace btr.distrib.SharedForm
 {
@@ -118,7 +119,7 @@ namespace btr.distrib.SharedForm
 
         private void PrintButton_Click(object sender, EventArgs e)
         {
-            var form = _servicesProvider.GetRequiredService<PrintManagerForm>();
+            var form = _servicesProvider.GetRequiredService<StokBalanceInfoForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
