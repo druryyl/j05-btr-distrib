@@ -6,12 +6,9 @@ using btr.domain.InventoryContext.WarehouseAgg;
 using btr.nuna.Domain;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace btr.distrib.InventoryContext.InventoryInfo
@@ -50,17 +47,22 @@ namespace btr.distrib.InventoryContext.InventoryInfo
         {
             _dataSource = _stokBalanceReportDal.ListData()?.ToList();
 
+            //      filter supplier
             if (SupplierText.Text.Length > 0)
                 _dataSource = _dataSource
                     .Where(x => x.SupplierName.ContainMultiWord(SupplierText.Text)).ToList();
 
+            //      filter kategori
             if (KategoriText.Text.Length > 0)
                 _dataSource = _dataSource
                     .Where(x => x.KategoriName.ContainMultiWord(KategoriText.Text)).ToList();
 
+            //      filter brg name
             if (BrgText.Text.Length > 0)
                 _dataSource = _dataSource
-                    .Where(x => x.BrgName.ContainMultiWord(BrgText.Text)).ToList();
+                    .Where(x => x.BrgName.ContainMultiWord(BrgText.Text) 
+                             || x.BrgCode.ToLower().StartsWith(BrgText.Text.ToLower()))
+                    .ToList();
 
             _dataSource = (
                 from c in _dataSource
@@ -101,15 +103,17 @@ namespace btr.distrib.InventoryContext.InventoryInfo
                     item.QtyBesar = 0;
                 }
             }
-            //_dataSource.RemoveAll(x => x.BrgCode.Length == 0);
             _dataSource = _dataSource
-                .OrderBy(x => x.BrgCode)
+                .OrderBy(x => string.IsNullOrEmpty(x.SupplierName))
+                .ThenBy(x => x.SupplierName)
+                .ThenBy(x => string.IsNullOrEmpty(x.KategoriName))
+                .ThenBy(x => x.KategoriName)
+                .ThenBy(x => string.IsNullOrEmpty(x.BrgCode))
+                .ThenBy(x => x.BrgCode)
                 .ToList();
-
 
             ResultGrid.DataSource = _dataSource;
             ResultGrid.Refresh();
-
         }
 
         private void InitGridResult()
@@ -120,6 +124,7 @@ namespace btr.distrib.InventoryContext.InventoryInfo
             ResultGrid.DataSource = _dataSource;
             ResultGrid.Refresh();
             ResultGrid.Columns.SetDefaultCellStyle(Color.AliceBlue);
+
             var g = ResultGrid.Columns;
             g.GetCol("BrgId").Width = 50;
             g.GetCol("BrgCode").Width = 60;
@@ -138,10 +143,16 @@ namespace btr.distrib.InventoryContext.InventoryInfo
             g.GetCol("Conversion").Visible= false;
             
             g.GetCol("QtyBesar").Width = 50;
+            g.GetCol("QtyBesar").DefaultCellStyle.Format = "0;0; ";
+            g.GetCol("QtyBesar").DefaultCellStyle.BackColor = Color.PaleGoldenrod;
+
             g.GetCol("QtyKecil").Width = 50;
+            g.GetCol("QtyKecil").DefaultCellStyle.Format = "0;0; ";
+            g.GetCol("QtyKecil").DefaultCellStyle.BackColor = Color.PaleGoldenrod;
 
             g.GetCol("Qty").Width = 50;
             g.GetCol("Qty").HeaderText = "In-PCS";
+            g.GetCol("Qty").DefaultCellStyle.BackColor = Color.PaleGoldenrod;
 
 
             g.GetCol("WarehouseId").Visible = false;
