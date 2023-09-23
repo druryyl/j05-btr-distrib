@@ -126,7 +126,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private void ClearForm()
         {
             FakturIdText.Text = string.Empty;
-            FakturDateText.Value = _dateTime.Now();
+            FakturDateText.Value = _dateTime.Now;
             SalesIdText.Text = string.Empty;
             SalesPersonNameTextBox.Text = string.Empty;
             CustomerIdText.Text = string.Empty;

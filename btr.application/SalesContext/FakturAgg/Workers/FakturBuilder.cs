@@ -90,7 +90,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         {
             _aggRoot = new FakturModel
             {
-                CreateTime = _dateTime.Now(),
+                CreateTime = _dateTime.Now,
                 LastUpdate = new DateTime(3000, 1, 1),
                 UserId = userKey.UserId,
                 VoidDate = new DateTime(3000, 1, 1),
@@ -215,7 +215,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         #region STATE
         public IFakturBuilder Void(IUserKey userKey)
         {
-            _aggRoot.VoidDate = _dateTime.Now();
+            _aggRoot.VoidDate = _dateTime.Now;
             _aggRoot.UserIdVoid = userKey.UserId;
             return this;
         }

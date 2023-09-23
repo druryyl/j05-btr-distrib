@@ -97,5 +97,6 @@
     <Build Include="Tables\InventoryContext\BTR_Driver.sql" />
     <Build Include="Tables\SalesContext\BTR_AlokasiFp.sql" />
     <Build Include="Tables\SalesContext\BTR_AlokasiFpItem.sql" />
+    <Build Include="Tables\SalesContext\BTR_FakturPajakVoid.sql" />
   </ItemGroup>
 </Project>

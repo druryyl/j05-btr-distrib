@@ -294,7 +294,7 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
 
         private void RefreshAlokasiGrid()
         {
-            var periode = new Periode(_dateTime.Now().AddDays(-31), _dateTime.Now());
+            var periode = new Periode(_dateTime.Now.AddDays(-31), _dateTime.Now);
             var listAlokasi = _alokasiFpdal.ListData(periode)?.ToList()
                 ?? new List<AlokasiFpModel>();
             var projection = listAlokasi
@@ -353,8 +353,8 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
 
         private void InitPeriode()
         {
-            Periode1Date.Value = _dateTime.Now().AddDays(-3);
-            Periode2Date.Value = _dateTime.Now();
+            Periode1Date.Value = _dateTime.Now.AddDays(-3);
+            Periode2Date.Value = _dateTime.Now;
         }
 
         #endregion

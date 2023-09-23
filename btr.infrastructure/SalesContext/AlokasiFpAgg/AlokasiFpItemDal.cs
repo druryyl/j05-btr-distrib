@@ -30,6 +30,7 @@ namespace btr.infrastructure.SalesContext.AlokasiFpAgg
                 bcp.AddMap("NoUrut", "NoUrut");
                 bcp.AddMap("FakturId", "FakturId");
                 bcp.AddMap("FakturCode", "FakturCode");
+                bcp.AddMap("FakturCode", "FakturCode");
 
                 var fetched = listModel.ToList();
                 bcp.BatchSize = fetched.Count;

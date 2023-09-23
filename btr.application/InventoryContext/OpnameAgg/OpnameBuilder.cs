@@ -65,7 +65,7 @@ namespace btr.application.InventoryContext.OpnameAgg
         public IOpnameBuilder Create()
         {
             _agg = new OpnameModel();
-            _agg.OpnameDate = _tglJamDal.Now();
+            _agg.OpnameDate = _tglJamDal.Now;
             return this;
         }
 

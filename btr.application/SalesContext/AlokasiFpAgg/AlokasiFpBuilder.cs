@@ -40,7 +40,7 @@ namespace btr.application.SalesContext.AlokasiFpAgg
         public IAlokasiFpBuilder Create()
         {
             _aggregate = new AlokasiFpModel();
-            _aggregate.AlokasiFpDate = _dateTime.Now();
+            _aggregate.AlokasiFpDate = _dateTime.Now;
             _aggregate.ListItem = new List<AlokasiFpItemModel>();
             return this;
         }

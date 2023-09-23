@@ -301,8 +301,8 @@ namespace btr.distrib.InventoryContext.PackingAgg
         }
         private void InitPeriode()
         {
-            Faktur1Date.Value = _dateTime.Now().AddDays(-2);
-            Faktur2Date.Value = _dateTime.Now();
+            Faktur1Date.Value = _dateTime.Now.AddDays(-2);
+            Faktur2Date.Value = _dateTime.Now;
         }
         #endregion
 

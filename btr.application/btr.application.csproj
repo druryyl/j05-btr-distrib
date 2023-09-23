@@ -159,6 +159,8 @@
     <Compile Include="SalesContext\FakturControlAgg\FakturControlWriter.cs" />
     <Compile Include="SalesContext\FakturControlAgg\IFakturControlStatusDal.cs" />
     <Compile Include="SalesContext\FakturControlAgg\ListFakturControlWorker.cs" />
+    <Compile Include="SalesContext\FakturPajakVoidAgg\FakturPajakVoidBuilder.cs" />
+    <Compile Include="SalesContext\FakturPajakVoidAgg\IFakturPajakVoidDal.cs" />
     <Compile Include="SalesContext\KlasifikasiAgg\IKlasifikasiDal.cs" />
     <Compile Include="SalesContext\AlokasiFpAgg\IAlokasiFpDal.cs" />
     <Compile Include="SalesContext\AlokasiFpAgg\AlokasiFpBuilder.cs" />

@@ -9,7 +9,6 @@ namespace btr.domain.SalesContext.AlokasiFpAgg
         public long NoUrut { get; set; }
         public string FakturId { get; set;}
         public string FakturCode { get; set;}
-
         
         public string Npwp { get; set; }
     }

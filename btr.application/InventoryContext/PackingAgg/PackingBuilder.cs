@@ -94,7 +94,7 @@ namespace btr.application.InventoryContext.PackingAgg
         {
             _aggregate = new PackingModel
             {
-                PackingDate = _dateTime.Now(),
+                PackingDate = _dateTime.Now,
                 DeliveryDate = deliveryDate,
             };
             _aggregate = Attach(_aggregate)

@@ -4,6 +4,6 @@ namespace btr.application.SupportContext.TglJamAgg
 {
     public interface ITglJamDal
     {
-        DateTime Now();
+        DateTime Now { get; }
     }
 }

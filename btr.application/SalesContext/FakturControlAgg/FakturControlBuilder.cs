@@ -170,7 +170,7 @@ namespace btr.application.SalesContext.FakturControlAgg
                     FakturId = _aggregate.FakturId,
                     FakturDate = _aggregate.FakturDate,
                     StatusFaktur = status,
-                    StatusDate = _dateTime.Now(),
+                    StatusDate = _dateTime.Now,
                     Keterangan = string.Empty,
                     UserId = user.UserId,
                 };

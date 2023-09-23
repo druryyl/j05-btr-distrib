@@ -15,21 +15,24 @@ namespace btr.infrastructure.SupportContext.TglJamAgg
             _opt = opt.Value;
         }
 
-        public DateTime Now()
-        {
-            DateTime result;
-            const string sql = @"SELECT GETDATE() TglJam";
-            using(var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+        public DateTime Now 
+        { 
+            get 
             {
-                conn.Open();
-                using (var cmd = new SqlCommand(sql, conn))
-                using (var dr = cmd.ExecuteReader())
+                DateTime result;
+                const string sql = @"SELECT GETDATE() TglJam";
+                using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
                 {
-                    dr.Read();
-                    result = Convert.ToDateTime(dr["TglJam"]);
+                    conn.Open();
+                    using (var cmd = new SqlCommand(sql, conn))
+                    using (var dr = cmd.ExecuteReader())
+                    {
+                        dr.Read();
+                        result = Convert.ToDateTime(dr["TglJam"]);
+                    }
                 }
+                return result;
             }
-            return result;
         }
     }
 }
