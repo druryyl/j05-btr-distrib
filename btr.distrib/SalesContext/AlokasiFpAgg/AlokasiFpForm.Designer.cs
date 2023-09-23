@@ -35,6 +35,7 @@
             this.NoAwalText = new System.Windows.Forms.MaskedTextBox();
             this.NoAkhirText = new System.Windows.Forms.MaskedTextBox();
             this.AlokasiGrid = new System.Windows.Forms.DataGridView();
+            this.ImportEFakturButton = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.NoAkhirLabel = new System.Windows.Forms.Label();
             this.NoAwalLabel = new System.Windows.Forms.Label();
@@ -46,7 +47,7 @@
             this.Periode2Date = new System.Windows.Forms.DateTimePicker();
             this.Periode1Date = new System.Windows.Forms.DateTimePicker();
             this.ProsesButton = new System.Windows.Forms.Button();
-            this.ImportEFakturButton = new System.Windows.Forms.Button();
+            this.ExportExcelButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -72,6 +73,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.ExportExcelButton);
             this.splitContainer1.Panel2.Controls.Add(this.ImportEFakturButton);
             this.splitContainer1.Panel2.Controls.Add(this.panel3);
             this.splitContainer1.Panel2.Controls.Add(this.FakturGrid);
@@ -143,6 +145,19 @@
             this.AlokasiGrid.Size = new System.Drawing.Size(229, 347);
             this.AlokasiGrid.TabIndex = 4;
             // 
+            // ImportEFakturButton
+            // 
+            this.ImportEFakturButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ImportEFakturButton.BackColor = System.Drawing.Color.Linen;
+            this.ImportEFakturButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ImportEFakturButton.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.ImportEFakturButton.Location = new System.Drawing.Point(532, 36);
+            this.ImportEFakturButton.Name = "ImportEFakturButton";
+            this.ImportEFakturButton.Size = new System.Drawing.Size(126, 24);
+            this.ImportEFakturButton.TabIndex = 9;
+            this.ImportEFakturButton.Text = "Export CSV";
+            this.ImportEFakturButton.UseVisualStyleBackColor = false;
+            // 
             // panel3
             // 
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
@@ -153,7 +168,7 @@
             this.panel3.Controls.Add(this.label1);
             this.panel3.Location = new System.Drawing.Point(272, 7);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(300, 84);
+            this.panel3.Size = new System.Drawing.Size(254, 84);
             this.panel3.TabIndex = 4;
             // 
             // NoAkhirLabel
@@ -162,7 +177,7 @@
             this.NoAkhirLabel.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NoAkhirLabel.Location = new System.Drawing.Point(0, 44);
             this.NoAkhirLabel.Name = "NoAkhirLabel";
-            this.NoAkhirLabel.Size = new System.Drawing.Size(298, 19);
+            this.NoAkhirLabel.Size = new System.Drawing.Size(252, 19);
             this.NoAkhirLabel.TabIndex = 11;
             this.NoAkhirLabel.Text = "xxx.xxx-xx.xxxxxxxx";
             this.NoAkhirLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -173,7 +188,7 @@
             this.NoAwalLabel.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NoAwalLabel.Location = new System.Drawing.Point(0, 25);
             this.NoAwalLabel.Name = "NoAwalLabel";
-            this.NoAwalLabel.Size = new System.Drawing.Size(298, 19);
+            this.NoAwalLabel.Size = new System.Drawing.Size(252, 19);
             this.NoAwalLabel.TabIndex = 10;
             this.NoAwalLabel.Text = "xxx.xxx-xx.xxxxxxxx";
             this.NoAwalLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -184,7 +199,7 @@
             this.label1.BackColor = System.Drawing.Color.DarkKhaki;
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(299, 19);
+            this.label1.Size = new System.Drawing.Size(253, 19);
             this.label1.TabIndex = 9;
             this.label1.Text = "Alokasi Terpilih";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -260,27 +275,25 @@
             this.ProsesButton.BackColor = System.Drawing.Color.Linen;
             this.ProsesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ProsesButton.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.ProsesButton.Location = new System.Drawing.Point(578, 7);
+            this.ProsesButton.Location = new System.Drawing.Point(532, 7);
             this.ProsesButton.Name = "ProsesButton";
-            this.ProsesButton.Size = new System.Drawing.Size(80, 39);
+            this.ProsesButton.Size = new System.Drawing.Size(126, 24);
             this.ProsesButton.TabIndex = 8;
             this.ProsesButton.Text = "Proses Alokasi";
-            this.ProsesButton.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ProsesButton.UseVisualStyleBackColor = false;
             // 
-            // ImportEFakturButton
+            // ExportExcelButton
             // 
-            this.ImportEFakturButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ImportEFakturButton.BackColor = System.Drawing.Color.Linen;
-            this.ImportEFakturButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ImportEFakturButton.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.ImportEFakturButton.Location = new System.Drawing.Point(578, 52);
-            this.ImportEFakturButton.Name = "ImportEFakturButton";
-            this.ImportEFakturButton.Size = new System.Drawing.Size(80, 39);
-            this.ImportEFakturButton.TabIndex = 9;
-            this.ImportEFakturButton.Text = "Import EFaktur";
-            this.ImportEFakturButton.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.ImportEFakturButton.UseVisualStyleBackColor = false;
+            this.ExportExcelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ExportExcelButton.BackColor = System.Drawing.Color.Linen;
+            this.ExportExcelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ExportExcelButton.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.ExportExcelButton.Location = new System.Drawing.Point(532, 66);
+            this.ExportExcelButton.Name = "ExportExcelButton";
+            this.ExportExcelButton.Size = new System.Drawing.Size(126, 24);
+            this.ExportExcelButton.TabIndex = 10;
+            this.ExportExcelButton.Text = "Export Excel";
+            this.ExportExcelButton.UseVisualStyleBackColor = false;
             // 
             // AlokasiFpForm
             // 
@@ -304,6 +317,8 @@
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Button ExportExcelButton;
 
         private System.Windows.Forms.Button ImportEFakturButton;
 

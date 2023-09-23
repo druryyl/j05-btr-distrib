@@ -15,6 +15,7 @@ using btr.domain.SalesContext.AlokasiFpAgg;
 using btr.domain.SalesContext.FakturAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
+using ClosedXML.Excel;
 using Mapster;
 using Color = System.Drawing.Color;
 
@@ -67,17 +68,80 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
 
         private void RegisterEventHandler()
         {
-            ProsesButton.Click += ProsesButton_Click;
-            ListButton.Click += ListButton_Click;
-            FakturGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
             
             AlokasiButton.Click += AlokasiButton_Click;
+
             AlokasiGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
             AlokasiGrid.MouseClick += AlokasiGrid_MouseClick;
+
+            ListButton.Click += ListButton_Click;
+            
+            FakturGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
+            
+            FakturGrid.ColumnHeaderMouseDoubleClick +=FakturGrid_ColumnHeaderMouseDoubleClick;
+            ProsesButton.Click += ProsesButton_Click;
             
             ImportEFakturButton.Click += ImportEFakturButton_Click;
+            ExportExcelButton.Click += ExportExcelButton_Click; 
         }
 
+        private void ExportExcelButton_Click(object sender, EventArgs e)
+        {
+
+            string filePath;
+            using (var saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = @"Excel Files|*.xlsx";
+                saveFileDialog.Title = @"Save Excel File";
+                saveFileDialog.DefaultExt = "xlsx";
+                saveFileDialog.AddExtension = true;
+                if (saveFileDialog.ShowDialog() != DialogResult.OK) 
+                    return;
+                filePath = saveFileDialog.FileName;
+            }
+
+            using (IXLWorkbook wb = new XLWorkbook())
+            {
+                wb.AddWorksheet("Alokasi E-Faktur")
+                    .FirstCell()
+                    .InsertTable(_listFaktur, false);
+                wb.SaveAs(filePath);
+            }
+        }
+
+        private bool _sortAsc = true;
+        private void FakturGrid_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            var grid = (DataGridView)sender;
+            var colName = grid.Columns[e.ColumnIndex].Name;
+
+            switch (colName)
+            {
+                case "CustomerName":
+                    _listFaktur = _sortAsc ? 
+                        new BindingList<FakturAlokasiFpItemView>(_listFaktur.OrderBy(x => x.CustomerName).ToList()) : 
+                        new BindingList<FakturAlokasiFpItemView>(_listFaktur.OrderByDescending(x => x.CustomerName).ToList());
+                    break;
+                case "NoFakturPajak":
+                    _listFaktur = _sortAsc ? 
+                        new BindingList<FakturAlokasiFpItemView>(_listFaktur.OrderBy(x => x.NoFakturPajak).ToList()) : 
+                        new BindingList<FakturAlokasiFpItemView>(_listFaktur.OrderByDescending(x => x.NoFakturPajak).ToList());
+                    break;
+                case "Npwp":
+                    _listFaktur = _sortAsc ? 
+                        new BindingList<FakturAlokasiFpItemView>(_listFaktur.OrderBy(x => x.Npwp).ToList()) : 
+                        new BindingList<FakturAlokasiFpItemView>(_listFaktur.OrderByDescending(x => x.Npwp).ToList());
+                    break;
+            }
+
+
+            var binding = new BindingSource();
+            binding.DataSource = _listFaktur;
+            grid.DataSource = binding;
+            _sortAsc = !_sortAsc;
+        }
+
+        #region IMPORT-EFAKTUR
         private void ImportEFakturButton_Click(object sender, EventArgs e)
         {
             var listEFaktur = new List<EFakturModel>();
@@ -157,6 +221,7 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
                 File.WriteAllText(filePath, sb.ToString());
             }
         }
+        #endregion
         
         #region ALOKASI-NOMOR
         private void AlokasiButton_Click(object sender, EventArgs e)

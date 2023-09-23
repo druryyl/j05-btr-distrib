@@ -34,6 +34,7 @@
             this.SearchText = new System.Windows.Forms.TextBox();
             this.CustGrid = new System.Windows.Forms.DataGridView();
             this.DetilPage = new System.Windows.Forms.TabPage();
+            this.NewButton = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.CreditBalanceText = new System.Windows.Forms.NumericUpDown();
@@ -44,6 +45,8 @@
             this.TipeHargaCombo = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.NamaWpText = new System.Windows.Forms.TextBox();
             this.IsKenaPajakCheck = new System.Windows.Forms.CheckBox();
             this.Alamat2WpText = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -78,7 +81,6 @@
             this.CustNameText = new System.Windows.Forms.TextBox();
             this.CustButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.NewButton = new System.Windows.Forms.Button();
             this.CustomerTab.SuspendLayout();
             this.ListPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CustGrid)).BeginInit();
@@ -159,12 +161,21 @@
             this.DetilPage.TabIndex = 0;
             this.DetilPage.Text = "Detail";
             // 
+            // NewButton
+            // 
+            this.NewButton.Location = new System.Drawing.Point(6, 408);
+            this.NewButton.Name = "NewButton";
+            this.NewButton.Size = new System.Drawing.Size(75, 23);
+            this.NewButton.TabIndex = 30;
+            this.NewButton.Text = "New";
+            this.NewButton.UseVisualStyleBackColor = true;
+            // 
             // SaveButton
             // 
             this.SaveButton.Location = new System.Drawing.Point(629, 408);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
-            this.SaveButton.TabIndex = 55;
+            this.SaveButton.TabIndex = 29;
             this.SaveButton.Text = "Save";
             this.SaveButton.UseVisualStyleBackColor = true;
             // 
@@ -263,6 +274,8 @@
             // 
             this.panel3.BackColor = System.Drawing.Color.Cornsilk;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.label8);
+            this.panel3.Controls.Add(this.NamaWpText);
             this.panel3.Controls.Add(this.IsKenaPajakCheck);
             this.panel3.Controls.Add(this.Alamat2WpText);
             this.panel3.Controls.Add(this.label9);
@@ -276,6 +289,22 @@
             this.panel3.Size = new System.Drawing.Size(228, 396);
             this.panel3.TabIndex = 54;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(14, 131);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(56, 13);
+            this.label8.TabIndex = 28;
+            this.label8.Text = "Nama WP";
+            // 
+            // NamaWpText
+            // 
+            this.NamaWpText.Location = new System.Drawing.Point(14, 147);
+            this.NamaWpText.Name = "NamaWpText";
+            this.NamaWpText.Size = new System.Drawing.Size(205, 22);
+            this.NamaWpText.TabIndex = 26;
+            // 
             // IsKenaPajakCheck
             // 
             this.IsKenaPajakCheck.AutoSize = true;
@@ -288,15 +317,15 @@
             // 
             // Alamat2WpText
             // 
-            this.Alamat2WpText.Location = new System.Drawing.Point(14, 176);
+            this.Alamat2WpText.Location = new System.Drawing.Point(14, 216);
             this.Alamat2WpText.Name = "Alamat2WpText";
             this.Alamat2WpText.Size = new System.Drawing.Size(205, 22);
-            this.Alamat2WpText.TabIndex = 27;
+            this.Alamat2WpText.TabIndex = 28;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(14, 132);
+            this.label9.Location = new System.Drawing.Point(14, 172);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(62, 13);
             this.label9.TabIndex = 13;
@@ -304,10 +333,10 @@
             // 
             // Alamat1WpText
             // 
-            this.Alamat1WpText.Location = new System.Drawing.Point(14, 148);
+            this.Alamat1WpText.Location = new System.Drawing.Point(14, 188);
             this.Alamat1WpText.Name = "Alamat1WpText";
             this.Alamat1WpText.Size = new System.Drawing.Size(205, 22);
-            this.Alamat1WpText.TabIndex = 26;
+            this.Alamat1WpText.TabIndex = 27;
             // 
             // label10
             // 
@@ -581,15 +610,6 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Customer ID";
             // 
-            // NewButton
-            // 
-            this.NewButton.Location = new System.Drawing.Point(6, 408);
-            this.NewButton.Name = "NewButton";
-            this.NewButton.Size = new System.Drawing.Size(75, 23);
-            this.NewButton.TabIndex = 56;
-            this.NewButton.Text = "New";
-            this.NewButton.UseVisualStyleBackColor = true;
-            // 
             // CustomerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -671,5 +691,7 @@
         private System.Windows.Forms.TextBox Alamat2WpText;
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button NewButton;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox NamaWpText;
     }
 }

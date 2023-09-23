@@ -33,6 +33,7 @@ namespace btr.application.SalesContext.CustomerAgg.Workers
         ICustomerBuilder IsKenaPajak(bool kenaPajak);
         ICustomerBuilder Npwp(string npwp);
         ICustomerBuilder Nppkp(string nppkp);
+        ICustomerBuilder NamaWp(string namaWp);
         ICustomerBuilder AddressWp(string address1, string address2);
     }
 
@@ -185,6 +186,12 @@ namespace btr.application.SalesContext.CustomerAgg.Workers
         {
             _aggRoot.AddressWp = address1;
             _aggRoot.AddressWp2 = address2;
+            return this;
+        }
+
+        public ICustomerBuilder NamaWp(string namaWp)
+        {
+            _aggRoot.NamaWp = namaWp;
             return this;
         }
     }
