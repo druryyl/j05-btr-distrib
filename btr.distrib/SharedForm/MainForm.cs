@@ -119,7 +119,7 @@ namespace btr.distrib.SharedForm
 
         private void PrintButton_Click(object sender, EventArgs e)
         {
-            var form = _servicesProvider.GetRequiredService<StokBalanceInfoForm>();
+            var form = _servicesProvider.GetRequiredService<PrintManagerForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -181,6 +181,14 @@ namespace btr.distrib.SharedForm
         private void FakturPajakButton_Click(object sender, EventArgs e)
         {
             var form = _servicesProvider.GetRequiredService<AlokasiFpForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void StokBalanceButton_Click(object sender, EventArgs e)
+        {
+            var form = _servicesProvider.GetRequiredService<StokBalanceInfoForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

@@ -1,15 +1,12 @@
 ﻿using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.DriverAgg;
 using btr.application.InventoryContext.WarehouseAgg;
-using btr.application.PurchaseContext.SupplierAgg.Contracts;
 using btr.application.SalesContext.FakturAgg.Contracts;
 using btr.application.SalesContext.FakturAgg.Workers;
 using btr.application.SupportContext.TglJamAgg;
-using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.DriverAgg;
 using btr.domain.InventoryContext.PackingAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
-using btr.domain.PurchaseContext.SupplierAgg;
 using btr.domain.SalesContext.FakturAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
@@ -17,8 +14,6 @@ using Mapster;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace btr.application.InventoryContext.PackingAgg
 {

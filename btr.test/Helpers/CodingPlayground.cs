@@ -2,8 +2,6 @@
 using btr.nuna.Domain;
 using Xunit;
 using System.Text.RegularExpressions;
-using System;
-using System.Linq;
 
 namespace btr.test.Helpers
 {

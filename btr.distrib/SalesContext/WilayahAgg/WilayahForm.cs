@@ -1,7 +1,6 @@
 ﻿using btr.application.SalesContext.WilayahAgg;
 using btr.distrib.Browsers;
 using btr.distrib.Helpers;
-using btr.distrib.SharedForm;
 using btr.nuna.Domain;
 using System;
 using System.Collections.Generic;

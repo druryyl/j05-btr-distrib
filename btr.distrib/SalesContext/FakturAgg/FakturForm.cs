@@ -19,12 +19,10 @@ using btr.domain.BrgContext.BrgAgg;
 using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.StokBalanceAgg;
 using btr.application.InventoryContext.WarehouseAgg;
-using btr.domain.InventoryContext.StokBalanceAgg;
 using btr.application.SupportContext.TglJamAgg;
 using btr.application.SalesContext.FakturAgg.Workers;
 using btr.domain.SalesContext.FakturAgg;
 using Mapster;
-using btr.infrastructure.SalesContext.FakturAgg;
 
 namespace btr.distrib.SalesContext.FakturAgg
 {

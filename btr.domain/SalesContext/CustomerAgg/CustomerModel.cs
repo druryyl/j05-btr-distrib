@@ -31,6 +31,7 @@ namespace btr.domain.SalesContext.CustomerAgg
 
         public string Npwp {get;set;}
         public string Nppkp {get;set;}
+        public string NamaWp { get; set; }
         public string AddressWp { get;set;}
         public string AddressWp2 { get;set;}
         public bool IsKenaPajak {get;set;}

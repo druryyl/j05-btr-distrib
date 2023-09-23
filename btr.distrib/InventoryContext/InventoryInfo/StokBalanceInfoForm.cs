@@ -6,7 +6,6 @@ using btr.domain.InventoryContext.WarehouseAgg;
 using btr.nuna.Domain;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -95,6 +94,7 @@ namespace btr.distrib.InventoryContext.InventoryInfo
                     QtyBesar = (int)(g.Sum(x => x.Qty)/g.Key.Conversion),
                     QtyKecil = g.Sum(x => x.Qty % g.Key.Conversion),
                 }).ToList();
+
             foreach(var item in _dataSource)
             {
                 if (item.SatBesar.Length == 0) 
@@ -103,7 +103,8 @@ namespace btr.distrib.InventoryContext.InventoryInfo
                     item.QtyBesar = 0;
                 }
             }
-            _dataSource = _dataSource
+            _dataSource 
+                = _dataSource
                 .OrderBy(x => string.IsNullOrEmpty(x.SupplierName))
                 .ThenBy(x => x.SupplierName)
                 .ThenBy(x => string.IsNullOrEmpty(x.KategoriName))

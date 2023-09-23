@@ -8,7 +8,6 @@ using System.Windows.Forms;
 using btr.nuna.Domain;
 using btr.domain.SalesContext.CustomerAgg;
 using btr.distrib.Browsers;
-using btr.distrib.SharedForm;
 using btr.application.SalesContext.WilayahAgg;
 using btr.application.BrgContext.HargaTypeAgg;
 using btr.domain.BrgContext.HargaTypeAgg;

@@ -1,6 +1,4 @@
 ﻿using System;
-using btr.application.InventoryContext.StokAgg;
-using btr.application.InventoryContext.StokAgg.UseCases;
 using System.Windows.Forms;
 using btr.application.InventoryContext.StokAgg.GenStokUseCase;
 using btr.domain.InventoryContext.WarehouseAgg;

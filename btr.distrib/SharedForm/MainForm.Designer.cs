@@ -321,7 +321,7 @@
             this.StokBalanceButton.Name = "StokBalanceButton";
             this.StokBalanceButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("StokBalanceButton.SmallImage")));
             this.StokBalanceButton.Text = "Stok-Balance";
-            this.StokBalanceButton.Click += new System.EventHandler(this.PrintButton_Click);
+            this.StokBalanceButton.Click += new System.EventHandler(this.StokBalanceButton_Click);
             // 
             // InventoryMasterPanel
             // 

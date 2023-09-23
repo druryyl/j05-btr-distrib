@@ -1,7 +1,6 @@
 ﻿using btr.application.BrgContext.KategoriAgg;
 using btr.distrib.Browsers;
 using btr.distrib.Helpers;
-using btr.distrib.SharedForm;
 using btr.domain.BrgContext.KategoriAgg;
 using btr.nuna.Domain;
 using System;

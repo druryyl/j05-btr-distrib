@@ -1,7 +1,6 @@
 ﻿using btr.application.PurchaseContext.SupplierAgg.Contracts;
 using btr.distrib.Browsers;
 using btr.distrib.Helpers;
-using btr.distrib.SharedForm;
 using btr.domain.BrgContext.JenisBrgAgg;
 using btr.domain.BrgContext.KategoriAgg;
 using btr.domain.PurchaseContext.SupplierAgg;

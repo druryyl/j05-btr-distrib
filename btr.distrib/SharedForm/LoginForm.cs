@@ -1,12 +1,8 @@
 ﻿using btr.application.SupportContext.UserAgg;
 using btr.domain.SupportContext.UserAgg;
-using btr.infrastructure.Helpers;
 using btr.nuna.Domain;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using System;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace btr.distrib.SharedForm
 {

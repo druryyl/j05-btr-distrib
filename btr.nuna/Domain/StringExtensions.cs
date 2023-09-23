@@ -14,6 +14,9 @@ namespace btr.nuna.Domain
         {
             return str.Length > length ? str.Substring(0, length) : str.PadLeft(length, ' ');
         }
+
+
+
         public static bool ContainMultiWord(this string source, string words)
         {
             bool result = true;

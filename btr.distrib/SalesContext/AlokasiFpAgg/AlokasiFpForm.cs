@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 using btr.application.SalesContext.AlokasiFpAgg;
+using btr.application.SalesContext.EFakturAgg;
 using btr.application.SalesContext.FakturAgg.Contracts;
 using btr.application.SalesContext.FakturAgg.Workers;
 using btr.application.SupportContext.TglJamAgg;
@@ -14,6 +16,7 @@ using btr.domain.SalesContext.FakturAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
 using Mapster;
+using Color = System.Drawing.Color;
 
 namespace btr.distrib.SalesContext.AlokasiFpAgg
 {
@@ -21,7 +24,6 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
     {
         private AlokasiFpModel _agg;
 
-        private readonly IFakturDal _fakturDal;
         private readonly ITglJamDal _dateTime;
         private readonly IAlokasiFpBuilder _alokasiBuilder;
         private readonly IAlokasiFpWriter _alokasiWriter;
@@ -29,21 +31,21 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
         private readonly IFakturBuilder _fakturBuilder;
         private readonly IFakturWriter _fakturWriter;
         private readonly IFakturAlokasiFpItemDal _fakturAlokasiFpItemDal;
+        private readonly IEFakturBuilder _efakturBuilder;
         
         private BindingList<FakturAlokasiFpItemView> _listFaktur;
         
         private ContextMenu _alokasiMenu;
 
-        public AlokasiFpForm(IFakturDal fakturDal,
-            ITglJamDal dateTime,
+        public AlokasiFpForm(ITglJamDal dateTime,
             IAlokasiFpBuilder builder,
             IAlokasiFpWriter writer,
             IAlokasiFpDal alokasiFpdal,
             IFakturBuilder fakturBuilder,
             IFakturWriter fakturWriter, 
-            IFakturAlokasiFpItemDal fakturAlokasiFpItemDal)
+            IFakturAlokasiFpItemDal fakturAlokasiFpItemDal, 
+            IEFakturBuilder efakturBuilder)
         {
-            _fakturDal = fakturDal;
             _dateTime = dateTime;
             _alokasiBuilder = builder;
             _alokasiWriter = writer;
@@ -51,6 +53,7 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             _fakturBuilder = fakturBuilder;
             _fakturWriter = fakturWriter;
             _fakturAlokasiFpItemDal = fakturAlokasiFpItemDal;
+            _efakturBuilder = efakturBuilder;
 
             _agg = new AlokasiFpModel();
 
@@ -67,11 +70,94 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             ProsesButton.Click += ProsesButton_Click;
             ListButton.Click += ListButton_Click;
             FakturGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
+            
             AlokasiButton.Click += AlokasiButton_Click;
             AlokasiGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
             AlokasiGrid.MouseClick += AlokasiGrid_MouseClick;
+            
+            ImportEFakturButton.Click += ImportEFakturButton_Click;
         }
 
+        private void ImportEFakturButton_Click(object sender, EventArgs e)
+        {
+            var listEFaktur = new List<EFakturModel>();
+            listEFaktur.AddRange(_listFaktur
+                .Where(x => x.NoFakturPajak.Length > 0)
+                .Select(item => _fakturBuilder.Load(item).Build())
+                .Select(faktur => _efakturBuilder.Create(faktur).Build()));
+            SaveToCsv(listEFaktur);
+        }
+
+        private static void SaveToCsv(List<EFakturModel> listEFaktur)
+        {
+            var sb = new StringBuilder();
+            //      header
+            sb.Append(
+                @"FK,KD_JENIS_TRANSAKSI,FG_PENGGANTI,NOMOR_FAKTUR,MASA_PAJAK,TAHUN_PAJAK,TANGGAL_FAKTUR,NPWP,NAMA,ALAMAT_LENGKAP,JUMLAH_DPP,JUMLAH_PPN,JUMLAH_PPNBM,ID_KETERANGAN_TAMBAHAN,FG_UANG_MUKA,UANG_MUKA_DPP,UANG_MUKA_PPN,UANG_MUKA_PPNBM,REFERENSI,KODE_DOKUMEN_PENDUKUNG");
+            sb.Append(Environment.NewLine);
+            sb.Append(
+                @"LT,NPWP,NAMA,JALAN,BLOK,NOMOR,RT,RW,KECAMATAN,KELURAHAN,KABUPATEN,PROPINSI,KODE_POS,NOMOR_TELEPON");
+            sb.Append(Environment.NewLine);
+            sb.Append(@"OF,KODE_OBJEK,NAMA,HARGA_SATUAN,JUMLAH_BARANG,HARGA_TOTAL,DISKON,DPP,PPN,TARIF_PPNBM,PPNBM");
+            sb.Append(Environment.NewLine);
+            //      content
+            const string fapr = @"FAPR,CV. BINTANG TIMUR RAHAYU,JALAN KALIURANG KM.5 GANG.DURMO NO.18 RT.012 RW.005 CATURTUNGGAL DEPOK  KAB.SLEMAN DAERAH ISTIMEWA YOGYAKARTA,Admin,,967913591542000,,,,,,,,,,,,,";
+            foreach (var item in listEFaktur)
+            {
+                sb.Append("FK,")
+                    .Append($"{item.KD_JENIS_TRANSAKSI},")
+                    .Append($"{item.FG_PENGGANTI},")
+                    .Append($"{item.NOMOR_FAKTUR},")
+                    .Append($"{item.MASA_PAJAK},")
+                    .Append($"{item.FG_PENGGANTI},")
+                    .Append($"{item.TANGGAL_FAKTUR},")
+                    .Append($"{item.NPWP},")
+                    .Append($"{item.NAMA},")
+                    .Append($"{item.ALAMAT_LENGKAP},")
+                    .Append($"{item.JUMLAH_DPP},")
+                    .Append($"{item.JUMLAH_PPN},")
+                    .Append($"{item.ID_KETERANGAN_TAMBAHAN},")
+                    .Append($"{item.FG_UANG_MUKA},")
+                    .Append($"{item.UANG_MUKA_DPP},")
+                    .Append($"{item.UANG_MUKA_PPN},")
+                    .Append($"{item.UANG_MUKA_PPNBM},")
+                    .Append($"{item.REFERENSI},")
+                    .Append($"{item.KODE_DOKUMEN_PENDUKUNG},")
+                    .Append($"{Environment.NewLine}");
+                sb.Append(fapr)
+                    .Append($"{Environment.NewLine}");
+                foreach (var item2 in item.ListItem)
+                {
+                    sb.Append("OF,")
+                        .Append($"{item2.KODE_OBJEK},")
+                        .Append($"{item2.NAMA},")
+                        .Append($"{item2.HARGA_SATUAN},")
+                        .Append($"{item2.JUMLAH_BARANG},")
+                        .Append($"{item2.HARGA_TOTAL},")
+                        .Append($"{item2.DISKON},")
+                        .Append($"{item2.DPP},")
+                        .Append($"{item2.PPN},")
+                        .Append($"{item2.TARIF_PPNBM},")
+                        .Append($"{item2.PPNBM}")
+                        .Append($"{Environment.NewLine}");
+                }
+            }
+
+            using (var saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = @"CSV Files|*.csv";
+                saveFileDialog.Title = @"Save CSV File";
+                saveFileDialog.DefaultExt = "csv";
+                saveFileDialog.AddExtension = true;
+                //      Show the SaveFileDialog and get the user's response
+                if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
+                //      Get the selected file path from the dialog
+                var filePath = saveFileDialog.FileName;
+                //      Write the CSV string to the selected file
+                File.WriteAllText(filePath, sb.ToString());
+            }
+        }
+        
         #region ALOKASI-NOMOR
         private void AlokasiButton_Click(object sender, EventArgs e)
         {
@@ -107,6 +193,9 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
 
         private void PilihAlokasiMenu_Click(object sender, EventArgs e)
         {
+            if (AlokasiGrid.CurrentRow is null)
+                return;
+            
             var alokasiId = AlokasiGrid.CurrentRow.Cells["AlokasiId"].Value.ToString();
             _agg = _alokasiBuilder
                 .Load(new AlokasiFpModel(alokasiId))
@@ -154,7 +243,10 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
 
         private void RemoveAlokasi()
         {
-            //  
+
+            if (AlokasiGrid.CurrentRow is null)
+                return;
+            
             var alokasiId = AlokasiGrid.CurrentRow.Cells["AlokasiId"].Value.ToString();
             var alokasi = _alokasiBuilder
                 .Load(new AlokasiFpModel(alokasiId))
@@ -254,7 +346,7 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
                 trans.Complete();
             }
 
-            MessageBox.Show("Proses selesai");
+            MessageBox.Show(@"Proses selesai");
         }
         #endregion
 
@@ -267,20 +359,20 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             g.GetCol("FakturId").Visible = false;
 
             g.GetCol("FakturCode").Width = 60;
-            g.GetCol("FakturCode").HeaderText = "Faktur";
+            g.GetCol("FakturCode").HeaderText = @"Faktur";
 
             g.GetCol("UserId").Width = 50;
-            g.GetCol("UserId").HeaderText = "Admin";
+            g.GetCol("UserId").HeaderText = @"Admin";
 
             g.GetCol("FakturDate").DefaultCellStyle.Format = "dd-MM-yyyy";
             g.GetCol("FakturDate").Width = 80;
-            g.GetCol("FakturDate").HeaderText = "Tgl";
+            g.GetCol("FakturDate").HeaderText = @"Tgl";
 
             g.GetCol("CustomerName").Width = 80;
-            g.GetCol("CustomerName").HeaderText = "Customer";
+            g.GetCol("CustomerName").HeaderText = @"Customer";
 
             g.GetCol("Npwp").Width = 100;
-            g.GetCol("Npwp").HeaderText = "NPWP";
+            g.GetCol("Npwp").HeaderText = @"NPWP";
 
             g.GetCol("Address").Width = 100;
             g.GetCol("GrandTotal").Width = 80;
@@ -288,7 +380,6 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
 
             g.GetCol("VoidDate").Visible = false;
             g.GetCol("UserIdVoid").Visible = false;
-
         }
 
         private void RefreshFakturGrid()

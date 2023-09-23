@@ -67,6 +67,7 @@
     <Compile Include="InventoryContext\StokBalanceReport\StokBalanceView.cs" />
     <Compile Include="SalesContext\AlokasiFpAgg\AlokasiFpItemModel.cs" />
     <Compile Include="SalesContext\AlokasiFpAgg\IAlokasiFpKey.cs" />
+    <Compile Include="SalesContext\EFakturAgg\EFakturModel.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturAlokasiFpItemView.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturPackingView.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingModel.cs" />

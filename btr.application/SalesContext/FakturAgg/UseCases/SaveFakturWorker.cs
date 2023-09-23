@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.StokAgg.GenStokUseCase;
 using btr.application.SalesContext.FakturAgg.Workers;
 using btr.domain.BrgContext.BrgAgg;

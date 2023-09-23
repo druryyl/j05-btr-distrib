@@ -12,7 +12,6 @@ using System.Windows.Forms;
 using btr.application.InventoryContext.WarehouseAgg;
 using btr.domain.SupportContext.DocAgg;
 using System.Drawing.Printing;
-using btr.infrastructure.BrgContext.BrgAgg;
 using btr.application.BrgContext.BrgAgg;
 using btr.application.PurchaseContext.SupplierAgg.Contracts;
 using btr.application.BrgContext.KategoriAgg;

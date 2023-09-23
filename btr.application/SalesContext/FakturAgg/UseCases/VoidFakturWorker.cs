@@ -1,15 +1,9 @@
-﻿using btr.application.InventoryContext.StokAgg;
-using btr.application.InventoryContext.StokAgg.GenStokUseCase;
+﻿using btr.application.InventoryContext.StokAgg.GenStokUseCase;
 using btr.application.SalesContext.FakturAgg.Workers;
 using btr.application.SalesContext.FakturControlAgg;
 using btr.domain.SalesContext.FakturAgg;
 using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Application;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace btr.application.SalesContext.FakturAgg.UseCases
 {

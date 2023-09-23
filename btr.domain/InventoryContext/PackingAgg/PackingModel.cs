@@ -3,9 +3,6 @@ using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SalesContext.FakturAgg;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace btr.domain.InventoryContext.PackingAgg
 {
