@@ -116,7 +116,7 @@ namespace btr.infrastructure.SalesContext.FakturPajakVoidAgg
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
-                return conn.Read<FakturPajakVoidModel>(sql);
+                return conn.Read<FakturPajakVoidModel>(sql, dp);
             }
         }
     }

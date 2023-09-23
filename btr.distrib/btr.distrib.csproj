@@ -405,8 +405,17 @@
     <Compile Include="SharedForm\UserForm.Designer.cs">
       <DependentUpon>UserForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SharedForm\VoidReasonForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SharedForm\VoidReasonForm.Designer.cs">
+      <DependentUpon>VoidReasonForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="WinformAssemblyAnchor.cs" />
     <Content Include="icons8_truck.ico" />
+    <EmbeddedResource Include="SharedForm\VoidReasonForm.resx">
+      <DependentUpon>VoidReasonForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Resources\icons8_numbers_48.png" />
     <None Include="Resources\icons8_numeric_32.png" />
     <None Include="Resources\icons8_numeric_16.png" />

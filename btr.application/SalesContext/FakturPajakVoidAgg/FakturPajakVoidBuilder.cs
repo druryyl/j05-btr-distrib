@@ -9,6 +9,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using btr.nuna.Domain;
 
 namespace btr.application.SalesContext.FakturPajakVoidAgg
 {
@@ -44,17 +45,21 @@ namespace btr.application.SalesContext.FakturPajakVoidAgg
 
         public IFakturPajakVoidBuilder Alasan(string alasan)
         {
-            throw new NotImplementedException();
+            _aggregate.AlasanVoid = alasan;
+            return this;
         }
 
         public IFakturPajakVoidBuilder User(IUserKey user)
         {
-            throw new NotImplementedException();
+            _aggregate.UserId = user.UserId;
+            return this;
+
         }
 
         public FakturPajakVoidModel Build()
         {
-            throw new NotImplementedException();
+            _aggregate.RemoveNull();
+            return _aggregate;
         }
     }
 }

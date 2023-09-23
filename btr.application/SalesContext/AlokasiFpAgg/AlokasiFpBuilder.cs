@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using btr.application.SalesContext.FakturPajakVoidAgg;
 using btr.application.SupportContext.TglJamAgg;
 using btr.domain.SalesContext.AlokasiFpAgg;
 using btr.domain.SalesContext.FakturAgg;
+using btr.infrastructure.SalesContext.FakturPajakVoidAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
 
@@ -27,14 +29,17 @@ namespace btr.application.SalesContext.AlokasiFpAgg
         private readonly IAlokasiFpDal _alokasiFpDal;
         private readonly IAlokasiFpItemDal _alokasiFpItemDal;
         private readonly ITglJamDal _dateTime;
+        private readonly IFakturPajakVoidDal _fakturPajakVoiDal;
 
-        public AlokasiFpBuilder(IAlokasiFpDal alokasiFpDal, 
-            IAlokasiFpItemDal alokasiFpItemDal, 
-            ITglJamDal dateTime)
+        public AlokasiFpBuilder(IAlokasiFpDal alokasiFpDal,
+            IAlokasiFpItemDal alokasiFpItemDal,
+            ITglJamDal dateTime,
+            IFakturPajakVoidDal fakturPajakVoiDal)
         {
             _alokasiFpDal = alokasiFpDal;
             _alokasiFpItemDal = alokasiFpItemDal;
             _dateTime = dateTime;
+            _fakturPajakVoiDal = fakturPajakVoiDal;
         }
 
         public IAlokasiFpBuilder Create()
@@ -92,6 +97,15 @@ namespace btr.application.SalesContext.AlokasiFpAgg
                 newItem.RemoveNull();
                 listItem.Add(newItem);
             }
+
+            //      jika sudah pernah di-void, maka hapus dari list
+            var listVoid = _fakturPajakVoiDal.ListData(new Periode(_dateTime.Now.AddYears(-1), _dateTime.Now))
+                ?.ToList() ?? new List<FakturPajakVoidModel>();
+            var listVoidCopy = listVoid.ToList();
+            foreach(var item in listVoidCopy)
+                listItem.RemoveAll(x => x.NoFakturPajak == item.NoFakturPajak);
+
+            //      selesai; assign to aggregate
             _aggregate.ListItem = listItem;
             return this;
         }

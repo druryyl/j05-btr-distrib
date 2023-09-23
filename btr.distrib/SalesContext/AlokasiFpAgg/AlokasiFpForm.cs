@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Windows.Forms;
 using btr.application.SalesContext.AlokasiFpAgg;
 using btr.application.SalesContext.EFakturAgg;
 using btr.application.SalesContext.FakturAgg.Contracts;
 using btr.application.SalesContext.FakturAgg.Workers;
+using btr.application.SalesContext.FakturPajakVoidAgg;
 using btr.application.SupportContext.TglJamAgg;
 using btr.distrib.Helpers;
+using btr.distrib.SharedForm;
 using btr.domain.SalesContext.AlokasiFpAgg;
 using btr.domain.SalesContext.FakturAgg;
 using btr.nuna.Application;
@@ -33,19 +36,26 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
         private readonly IFakturWriter _fakturWriter;
         private readonly IFakturAlokasiFpItemDal _fakturAlokasiFpItemDal;
         private readonly IEFakturBuilder _efakturBuilder;
-        
+        private readonly IFakturPajakVoidBuilder _fakturPajakVoidBuilder;
+        private readonly IFakturPajakVoidWriter _fakturPajakVoidWriter;
+        private readonly IFakturPajakVoidDal _fakturPajakVoidDal;
+
         private BindingList<FakturAlokasiFpItemView> _listFaktur;
         
         private ContextMenu _alokasiMenu;
+        private ContextMenu _fakturMenu;
 
         public AlokasiFpForm(ITglJamDal dateTime,
             IAlokasiFpBuilder builder,
             IAlokasiFpWriter writer,
             IAlokasiFpDal alokasiFpdal,
             IFakturBuilder fakturBuilder,
-            IFakturWriter fakturWriter, 
-            IFakturAlokasiFpItemDal fakturAlokasiFpItemDal, 
-            IEFakturBuilder efakturBuilder)
+            IFakturWriter fakturWriter,
+            IFakturAlokasiFpItemDal fakturAlokasiFpItemDal,
+            IEFakturBuilder efakturBuilder,
+            IFakturPajakVoidBuilder fakturPajakVoidBuilder,
+            IFakturPajakVoidWriter fakturPajakVoidWriter,
+            IFakturPajakVoidDal fakturPajakVoidDal)
         {
             _dateTime = dateTime;
             _alokasiBuilder = builder;
@@ -55,6 +65,7 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             _fakturWriter = fakturWriter;
             _fakturAlokasiFpItemDal = fakturAlokasiFpItemDal;
             _efakturBuilder = efakturBuilder;
+            _fakturPajakVoidBuilder = fakturPajakVoidBuilder;
 
             _agg = new AlokasiFpModel();
 
@@ -64,6 +75,8 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             InitFakturGrid();
             InitAlokasiGrid();
             InitContextMenu();
+            _fakturPajakVoidWriter = fakturPajakVoidWriter;
+            _fakturPajakVoidDal = fakturPajakVoidDal;
         }
 
         private void RegisterEventHandler()
@@ -74,15 +87,25 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             AlokasiGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
             AlokasiGrid.MouseClick += AlokasiGrid_MouseClick;
 
+
             ListButton.Click += ListButton_Click;
             
             FakturGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
-            
             FakturGrid.ColumnHeaderMouseDoubleClick +=FakturGrid_ColumnHeaderMouseDoubleClick;
+            FakturGrid.MouseClick += FakturGrid_MouseClick;
+            
             ProsesButton.Click += ProsesButton_Click;
             
             ImportEFakturButton.Click += ImportEFakturButton_Click;
             ExportExcelButton.Click += ExportExcelButton_Click; 
+        }
+
+        private void FakturGrid_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+                return;
+
+            _fakturMenu.Show((DataGridView)sender, e.Location);
         }
 
         private void ExportExcelButton_Click(object sender, EventArgs e)
@@ -289,6 +312,8 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             _alokasiMenu.MenuItems.Add(new MenuItem("Pilih Alokasi", PilihAlokasiMenu_Click));
             _alokasiMenu.MenuItems.Add(new MenuItem("Cancel Alokasi", RemoveAlokasiMenu_Click));
 
+            _fakturMenu = new ContextMenu();
+            _fakturMenu.MenuItems.Add(new MenuItem("Void Nomor Seri", VoidNomorSeriFakturMenu_Click));
         }
 
 
@@ -386,6 +411,12 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
                 if (itemAlokasi is null)
                     break;
 
+                //      jika nomor-seri-faktur-pajak sudah divoid,
+                //      maka tidak bisa digunakan kembali, skip next nomor seri (jika ada)
+                var fakturPajakVoid = _fakturPajakVoidDal.GetData(itemAlokasi);
+                if (fakturPajakVoid != null)
+                    continue;
+
                 //      update alokasi
                 itemAlokasi.FakturId = item.FakturId;
                 itemAlokasi.FakturCode = item.FakturCode;
@@ -461,6 +492,42 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             FakturGrid.DataSource = _listFaktur;
             FakturGrid.Refresh();
         }
+        
+        private void VoidNomorSeriFakturMenu_Click(object sender, EventArgs e)
+        {
+            if (FakturGrid.CurrentRow is null)
+                return;
+
+            if (FakturGrid.CurrentRow.Cells["NoFakturPajak"].Value.ToString().Length == 0)
+            {
+                SystemSounds.Exclamation.Play();
+                return;
+            }
+
+            //      input alasan void
+            var inputAlasan = new VoidReasonForm();
+            var dialogResult = inputAlasan.ShowDialog();
+            var alasan = string.Empty;
+            if (dialogResult == DialogResult.OK)
+                alasan = inputAlasan.Alasan;
+
+            //      add data faktur-pajak-void
+            var noFakturPajak = FakturGrid.CurrentRow.Cells["NoFakturPajak"].Value.ToString();
+            var noFakturPajakKey = new FakturModel
+            {
+                NoFakturPajak = noFakturPajak
+            };
+            var voidFaktur = _fakturPajakVoidBuilder
+                .LoadOrCreate(new AlokasiFpItemModel(noFakturPajakKey))
+                .Alasan(alasan)
+                .Build();
+            _fakturPajakVoidWriter.Save(voidFaktur);
+
+            //      update tampilan grid
+            _listFaktur[FakturGrid.CurrentRow.Index].SetNoFakturPajak(string.Empty);
+            FakturGrid.Refresh();
+        }
+
         #endregion
     }
 
