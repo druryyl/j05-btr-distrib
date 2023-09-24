@@ -85,12 +85,10 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
 
         private void RegisterEventHandler()
         {
-            
             AlokasiButton.Click += AlokasiButton_Click;
 
             AlokasiGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
             AlokasiGrid.MouseClick += AlokasiGrid_MouseClick;
-
 
             ListButton.Click += ListButton_Click;
             
@@ -98,147 +96,12 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             FakturGrid.ColumnHeaderMouseDoubleClick +=FakturGrid_ColumnHeaderMouseDoubleClick;
             FakturGrid.MouseClick += FakturGrid_MouseClick;
             FakturGrid.CellContentClick += FakturGrid_CellContentClick;
-            
-            ProsesButton.Click += ProsesButton_Click;
-            
-            ImportEFakturButton.Click += ImportEFakturButton_Click;
+
+            ExportEFakturButton.Click += ExportEFakturButton_Click;
             ExportExcelButton.Click += ExportExcelButton_Click; 
         }
 
-        //  TODO: Click IsSet akan "nempelin" Alokasi nomor ke faktur (jika masih ada tersisa)
-        private void FakturGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            var grid = (DataGridView)sender;
-            if (!(grid.CurrentCell is DataGridViewCheckBoxCell))
-                return;
-
-            if (grid.CurrentCell.ColumnIndex != grid.Columns["IsSet"].Index)
-                return;
-            grid.EndEdit();
-
-            try
-            {
-                if ((bool)grid.CurrentCell.Value == true)
-                    ProsesSetNoSerFaktur(e.RowIndex);
-                else
-                    ProsesUnsetNoSeriFaktur(e.RowIndex);
-            }
-            catch (ArgumentException ex)
-            {
-                MessageBox.Show(ex.Message);
-                RefreshFakturGrid();
-                return;
-            }
-        }
-
-        private void ProsesSetNoSerFaktur(int rowIndex)
-        {
-            //  GUARD
-            var item = _listFaktur[rowIndex];
-            if (item.NoFakturPajak.Length > 0)
-                return;
-            if (_agg.ListItem is null)
-            {
-                _listFaktur[rowIndex].IsSet = false;
-                throw new ArgumentException("Alokasi Faktur Pajak belum terpilih");
-            }
-
-            //      get available no-seri-faktur
-            var itemAlokasi = _agg.ListItem
-                .OrderBy(x => x.NoFakturPajak)
-                .FirstOrDefault(x => x.FakturId.Length == 0);
-
-            //      jika alokasi sudah full, maka selesai
-            if (itemAlokasi is null) 
-            { 
-                _listFaktur[rowIndex].IsSet = false;
-                throw new ArgumentException("Alokasi Faktur Pajak sudah terpakai semua");
-            }
-
-            //      jika nomor-seri-faktur-pajak sudah divoid,
-            //      maka tidak bisa digunakan kembali, skip next nomor seri (jika ada)
-            var fakturPajakVoid = _fakturPajakVoidDal.GetData(itemAlokasi);
-            if (fakturPajakVoid != null)
-                return;
-
-            //      update alokasi
-            itemAlokasi.FakturId = item.FakturId;
-            itemAlokasi.FakturCode = item.FakturCode;
-
-            //      update faktur
-            var faktur = _fakturBuilder
-                .Load(item)
-                .FakturPajak(itemAlokasi.NoFakturPajak)
-                .Build();
-
-            //      update visualisasi grid
-            item.SetNoFakturPajak(itemAlokasi.NoFakturPajak);
-            FakturGrid.Refresh();
-
-            //      write to database
-            _ = _alokasiWriter.Save(_agg);
-            _ = _fakturWriter.Save(faktur);
-
-            //RefreshFakturGrid();
-        }
-
-        private void ProsesUnsetNoSeriFaktur(int rowIndex)
-        {
-            //  GUARD
-            var item = _listFaktur[rowIndex];
-            if (item.NoFakturPajak.Length == 0) 
-                return;
-            var noSeriRemove = item.NoFakturPajak;
-
-            //  BUILD
-            //      1. build aggregate;
-            var alokasi = BuildAlokasi(noSeriRemove);
-            var faktur = _fakturBuilder.Load(item).Build();
-
-            //      2. modify aggregate
-            alokasi.ListItem
-                .Where(x => x.NoFakturPajak == noSeriRemove).ToList()
-                .ForEach(x => {
-                    x.FakturId = string.Empty;
-                    x.FakturCode = string.Empty;
-                    x.Npwp = string.Empty;
-                });
-            faktur.NoFakturPajak = string.Empty;
-
-            //  APPLY
-            using (var trans = TransHelper.NewScope())
-            {
-                _alokasiWriter.Save(alokasi);
-                _fakturWriter.Save(faktur);
-                trans.Complete();
-            }
-            RefreshFakturGrid();
-
-            //  INNER-HELPER
-            AlokasiFpModel BuildAlokasi(string noFakturPajak)
-            {
-                var alokasiItem = _alokasiFpItemDal.GetData(new FakturModel { NoFakturPajak = noSeriRemove })
-                    ?? new AlokasiFpItemModel();
-                alokasiItem.RemoveNull();
-                var fallbackAlokasi = Policy<AlokasiFpModel>
-                    .Handle<KeyNotFoundException>()
-                    .Fallback(new AlokasiFpModel { ListItem = new List<AlokasiFpItemModel>() });
-                var result = fallbackAlokasi.Execute(
-                    () => _alokasiBuilder
-                        .Load(alokasiItem)
-                        .Build());
-                return result;
-            }
-        }
-
-        private void FakturGrid_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-                return;
-
-            _fakturMenu.Show((DataGridView)sender, e.Location);
-        }
-
+        #region EXPORT EXCEL
         private void ExportExcelButton_Click(object sender, EventArgs e)
         {
 
@@ -249,7 +112,7 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
                 saveFileDialog.Title = @"Save Excel File";
                 saveFileDialog.DefaultExt = "xlsx";
                 saveFileDialog.AddExtension = true;
-                if (saveFileDialog.ShowDialog() != DialogResult.OK) 
+                if (saveFileDialog.ShowDialog() != DialogResult.OK)
                     return;
                 filePath = saveFileDialog.FileName;
             }
@@ -262,41 +125,10 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
                 wb.SaveAs(filePath);
             }
         }
+        #endregion
 
-        private bool _sortAsc = true;
-        private void FakturGrid_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            var grid = (DataGridView)sender;
-            var colName = grid.Columns[e.ColumnIndex].Name;
-
-            switch (colName)
-            {
-                case "CustomerName":
-                    _listFaktur = _sortAsc ? 
-                        new BindingList<FakturAlokasiFpItemView>(_listFaktur.OrderBy(x => x.CustomerName).ToList()) : 
-                        new BindingList<FakturAlokasiFpItemView>(_listFaktur.OrderByDescending(x => x.CustomerName).ToList());
-                    break;
-                case "NoFakturPajak":
-                    _listFaktur = _sortAsc ? 
-                        new BindingList<FakturAlokasiFpItemView>(_listFaktur.OrderBy(x => x.NoFakturPajak).ToList()) : 
-                        new BindingList<FakturAlokasiFpItemView>(_listFaktur.OrderByDescending(x => x.NoFakturPajak).ToList());
-                    break;
-                case "Npwp":
-                    _listFaktur = _sortAsc ? 
-                        new BindingList<FakturAlokasiFpItemView>(_listFaktur.OrderBy(x => x.Npwp).ToList()) : 
-                        new BindingList<FakturAlokasiFpItemView>(_listFaktur.OrderByDescending(x => x.Npwp).ToList());
-                    break;
-            }
-
-
-            var binding = new BindingSource();
-            binding.DataSource = _listFaktur;
-            grid.DataSource = binding;
-            _sortAsc = !_sortAsc;
-        }
-
-        #region IMPORT-EFAKTUR
-        private void ImportEFakturButton_Click(object sender, EventArgs e)
+        #region EXPORT-CSV-EFAKTUR
+        private void ExportEFakturButton_Click(object sender, EventArgs e)
         {
             var listEFaktur = new List<EFakturModel>();
             listEFaktur.AddRange(_listFaktur
@@ -422,6 +254,7 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
 
             NoAwalLabel.Text = _agg.NoAwal;
             NoAkhirLabel.Text = _agg.NoAkhir;
+            SisaFpLabel.Text = _agg.Sisa.ToString();
         }
 
         private void InitAlokasiGrid()
@@ -459,6 +292,8 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             AlokasiGrid.DataSource = projection;
             AlokasiGrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             AlokasiGrid.AutoResizeRows();
+
+            SisaFpLabel.Text = _agg.Sisa.ToString();
         }
 
         private void RemoveAlokasi()
@@ -509,72 +344,11 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             Periode1Date.Value = _dateTime.Now.AddDays(-3);
             Periode2Date.Value = _dateTime.Now;
         }
-
-        #endregion
-
-        #region PROSES
-        private void ProsesButton_Click(object sender, EventArgs e)
-        {
-            ProsesGenNoSeriFaktur();
-        }
-        private void ProsesGenNoSeriFaktur()
-        {
-            if (_agg?.ListItem is null)
-                throw new InvalidOperationException("Alokasi Faktur belum ada yg terpilih");
-
-            var listUpdatedFaktur = new List<FakturModel>();
-            foreach(var item in _listFaktur)
-            {
-                //      jika sudah terisi nomor-seri-nya, lanjutkan ke faktur berikutnya
-                //      (abaikan yang ini)
-                if (item.NoFakturPajak.Length > 0)
-                    continue;
-
-                //      get available no-seri-faktur
-                var itemAlokasi = _agg.ListItem
-                    .OrderBy(x => x.NoFakturPajak)
-                    .FirstOrDefault(x => x.FakturId.Length == 0);
-                
-                //      jika alokasi sudah full, maka selesai
-                if (itemAlokasi is null)
-                    break;
-
-                //      jika nomor-seri-faktur-pajak sudah divoid,
-                //      maka tidak bisa digunakan kembali, skip next nomor seri (jika ada)
-                var fakturPajakVoid = _fakturPajakVoidDal.GetData(itemAlokasi);
-                if (fakturPajakVoid != null)
-                    continue;
-
-                //      update alokasi
-                itemAlokasi.FakturId = item.FakturId;
-                itemAlokasi.FakturCode = item.FakturCode;
-                
-                //      update faktur
-                var faktur = _fakturBuilder
-                    .Load(item)
-                    .FakturPajak(itemAlokasi.NoFakturPajak)
-                    .Build();
-                listUpdatedFaktur.Add(faktur);
-
-                //      update visualisasi grid
-                item.SetNoFakturPajak(itemAlokasi.NoFakturPajak);
-                FakturGrid.Refresh();
-            }
-
-            //      simpan ke database
-            using (var trans = TransHelper.NewScope())
-            {
-                _ = _alokasiWriter.Save(_agg);
-                foreach (var item in listUpdatedFaktur)
-                    _ = _fakturWriter.Save(item);
-                trans.Complete();
-            }
-
-            MessageBox.Show(@"Proses selesai");
-        }
         #endregion
 
         #region GRID-FAKTUR
+        
+        #region --UPDATE-CONTENT
         private void InitFakturGrid()
         {
             _listFaktur = new BindingList<FakturAlokasiFpItemView>();
@@ -609,7 +383,6 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             g.GetCol("VoidDate").Visible = false;
             g.GetCol("UserIdVoid").Visible = false;
         }
-
         private void RefreshFakturGrid()
         {
             var periode = new Periode(Periode1Date.Value, Periode2Date.Value);
@@ -617,14 +390,176 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
                 ?? new List<FakturAlokasiFpItemView>();
 
             var dataSource = listFaktur
-                .Where(x => x.VoidDate == new DateTime(3000,1,1))
+                .Where(x => x.VoidDate == new DateTime(3000, 1, 1))
                 .OrderBy(x => x.FakturId)
                 .Adapt<List<FakturAlokasiFpItemView>>();
             _listFaktur = new BindingList<FakturAlokasiFpItemView>(dataSource);
             FakturGrid.DataSource = _listFaktur;
             FakturGrid.Refresh();
         }
+        #endregion
         
+        #region --SET-UNSET-NOMOR-FAKTUR-PAJAK
+        private void FakturGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var grid = (DataGridView)sender;
+            if (!(grid.CurrentCell is DataGridViewCheckBoxCell))
+                return;
+
+            if (grid.CurrentCell.ColumnIndex != grid.Columns["IsSet"].Index)
+                return;
+            grid.EndEdit();
+
+            try
+            {
+                if ((bool)grid.CurrentCell.Value == true)
+                    ProsesSetNoSerFaktur(e.RowIndex);
+                else
+                    ProsesUnsetNoSeriFaktur(e.RowIndex);
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message);
+                RefreshFakturGrid();
+                return;
+            }
+        }
+        private void ProsesSetNoSerFaktur(int rowIndex)
+        {
+            //  GUARD
+            var item = _listFaktur[rowIndex];
+            if (item.NoFakturPajak.Length > 0)
+                return;
+            if (_agg.ListItem is null)
+            {
+                _listFaktur[rowIndex].IsSet = false;
+                throw new ArgumentException("Alokasi Faktur Pajak belum terpilih");
+            }
+
+
+            //  BUILD
+            //      claim alokasi
+            _agg = _alokasiBuilder
+                .Attach(_agg)
+                .SetFaktur(item)
+                .Build();
+            //      update faktur
+            var noFakturPajak = _agg.ListItem
+                .FirstOrDefault(x => x.FakturId == item.FakturId)
+                .NoFakturPajak;
+            var faktur = _fakturBuilder
+                .Load(item)
+                .FakturPajak(noFakturPajak)
+                .Build();
+
+
+            //  APPLY
+            //      write to database
+            using (var trans = TransHelper.NewScope())
+            {
+                _ = _alokasiWriter.Save(_agg);
+                _ = _fakturWriter.Save(faktur);
+                trans.Complete();
+            }
+            //      update visualisasi grid
+            item.SetNoFakturPajak(noFakturPajak);
+            FakturGrid.Refresh();
+            RefreshAlokasiGrid();
+        }
+        private void ProsesUnsetNoSeriFaktur(int rowIndex)
+        {
+            //  GUARD
+            var item = _listFaktur[rowIndex];
+            if (item.NoFakturPajak.Length == 0)
+                return;
+            var noSeriRemove = item.NoFakturPajak;
+
+            //  BUILD
+            //      1. build aggregate;
+            var alokasi = BuildAlokasi(noSeriRemove);
+            var faktur = _fakturBuilder.Load(item).Build();
+
+            //      2. modify aggregate
+            if (alokasi.AlokasiFpId == (_agg.AlokasiFpId ?? string.Empty))
+                alokasi = _agg;
+
+            alokasi = _alokasiBuilder
+                .Attach(alokasi)
+                .UnSetFaktur(faktur)
+                .Build();
+            faktur.NoFakturPajak = string.Empty;
+
+            //  APPLY
+            using (var trans = TransHelper.NewScope())
+            {
+                _alokasiWriter.Save(alokasi);
+                _fakturWriter.Save(faktur);
+                trans.Complete();
+            }
+            item.SetNoFakturPajak(string.Empty);
+            FakturGrid.Refresh();
+            RefreshAlokasiGrid();
+
+            //  INNER-HELPER
+            AlokasiFpModel BuildAlokasi(string noSeriFaktur)
+            {
+                var alokasiItem = _alokasiFpItemDal.GetData(new FakturModel { NoFakturPajak = noSeriFaktur })
+                    ?? new AlokasiFpItemModel();
+                alokasiItem.RemoveNull();
+                var fallbackAlokasi = Policy<AlokasiFpModel>
+                    .Handle<KeyNotFoundException>()
+                    .Fallback(new AlokasiFpModel { ListItem = new List<AlokasiFpItemModel>() });
+                var result = fallbackAlokasi.Execute(
+                    () => _alokasiBuilder
+                        .Load(alokasiItem)
+                        .Build());
+                return result;
+            }
+        }
+        #endregion
+
+        #region --SORT-COLUMN
+        private bool _sortAsc = true;
+        private void FakturGrid_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            var grid = (DataGridView)sender;
+            var colName = grid.Columns[e.ColumnIndex].Name;
+
+            switch (colName)
+            {
+                case "CustomerName":
+                    _listFaktur = _sortAsc ?
+                        new BindingList<FakturAlokasiFpItemView>(_listFaktur.OrderBy(x => x.CustomerName).ToList()) :
+                        new BindingList<FakturAlokasiFpItemView>(_listFaktur.OrderByDescending(x => x.CustomerName).ToList());
+                    break;
+                case "NoFakturPajak":
+                    _listFaktur = _sortAsc ?
+                        new BindingList<FakturAlokasiFpItemView>(_listFaktur.OrderBy(x => x.NoFakturPajak).ToList()) :
+                        new BindingList<FakturAlokasiFpItemView>(_listFaktur.OrderByDescending(x => x.NoFakturPajak).ToList());
+                    break;
+                case "Npwp":
+                    _listFaktur = _sortAsc ?
+                        new BindingList<FakturAlokasiFpItemView>(_listFaktur.OrderBy(x => x.Npwp).ToList()) :
+                        new BindingList<FakturAlokasiFpItemView>(_listFaktur.OrderByDescending(x => x.Npwp).ToList());
+                    break;
+            }
+
+
+            var binding = new BindingSource();
+            binding.DataSource = _listFaktur;
+            grid.DataSource = binding;
+            _sortAsc = !_sortAsc;
+        }
+        #endregion
+
+        #region--VOID-NOMOR-SERI-FAKTUR-PAJAK
+        private void FakturGrid_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+                return;
+
+            _fakturMenu.Show((DataGridView)sender, e.Location);
+        }
         private void VoidNomorSeriFakturMenu_Click(object sender, EventArgs e)
         {
             if (FakturGrid.CurrentRow is null)
@@ -659,6 +594,7 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             _listFaktur[FakturGrid.CurrentRow.Index].SetNoFakturPajak(string.Empty);
             FakturGrid.Refresh();
         }
+        #endregion
 
         #endregion
     }

@@ -20,6 +20,10 @@ namespace btr.application.SalesContext.AlokasiFpAgg
         IAlokasiFpBuilder NomorSeri(string noAwal, string noAkhir);
         IAlokasiFpBuilder SetFaktur<T>(string nomorSeri, T faktur)
             where T: IFakturKey, IFakturCode;
+        IAlokasiFpBuilder SetFaktur<T>(T faktur)
+            where T : IFakturKey, IFakturCode;
+        IAlokasiFpBuilder UnSetFaktur(IFakturKey faktur);
+
         IAlokasiFpBuilder ClearListNomor();
 
     }
@@ -107,6 +111,8 @@ namespace btr.application.SalesContext.AlokasiFpAgg
 
             //      selesai; assign to aggregate
             _aggregate.ListItem = listItem;
+            _aggregate.Sisa = _aggregate.ListItem.Count(x => x.FakturId.Length == 0);
+            _aggregate.Kapasitas = _aggregate.ListItem.Count();
             return this;
         }
 
@@ -127,7 +133,34 @@ namespace btr.application.SalesContext.AlokasiFpAgg
             var item = _aggregate.ListItem.FirstOrDefault(x => x.NoFakturPajak == nomorSeri)
                 ?? throw new ArgumentException($"Nomor Seri {nomorSeri} not found");
             item.FakturId = faktur.FakturId;
-            item.FakturCode = faktur.FakturCode; 
+            item.FakturCode = faktur.FakturCode;
+            _aggregate.Sisa = _aggregate.ListItem.Count(x => x.FakturId.Length == 0);
+            return this;
+        }
+        
+        public IAlokasiFpBuilder SetFaktur<T>(T faktur) where T : IFakturKey, IFakturCode
+        {
+            var available = _aggregate.ListItem
+                .OrderBy(x => x.NoFakturPajak)
+                .FirstOrDefault(x => x.FakturId.Length == 0)
+                ?? throw new ArgumentException("Alokasi Faktur Pajak sudah terpakai semua");
+
+            available.FakturId = faktur.FakturId;
+            available.FakturCode = faktur.FakturCode;
+            _aggregate.Sisa = _aggregate.ListItem.Count(x => x.FakturId.Length == 0);
+            return this;
+        }
+
+        public IAlokasiFpBuilder UnSetFaktur(IFakturKey faktur)
+        {
+            var available = _aggregate.ListItem
+                .OrderBy(x => x.NoFakturPajak)
+                .FirstOrDefault(x => x.FakturId == faktur.FakturId)
+                ?? throw new ArgumentException("Faktur tidak ditemukan dalam alokasi");
+
+            available.FakturId = string.Empty;
+            available.FakturCode = string.Empty;
+            _aggregate.Sisa = _aggregate.ListItem.Count(x => x.FakturId.Length == 0);
             return this;
         }
 

@@ -35,7 +35,8 @@
             this.NoAwalText = new System.Windows.Forms.MaskedTextBox();
             this.NoAkhirText = new System.Windows.Forms.MaskedTextBox();
             this.AlokasiGrid = new System.Windows.Forms.DataGridView();
-            this.ImportEFakturButton = new System.Windows.Forms.Button();
+            this.ExportExcelButton = new System.Windows.Forms.Button();
+            this.ExportEFakturButton = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.NoAkhirLabel = new System.Windows.Forms.Label();
             this.NoAwalLabel = new System.Windows.Forms.Label();
@@ -46,8 +47,7 @@
             this.ListButton = new System.Windows.Forms.Button();
             this.Periode2Date = new System.Windows.Forms.DateTimePicker();
             this.Periode1Date = new System.Windows.Forms.DateTimePicker();
-            this.ProsesButton = new System.Windows.Forms.Button();
-            this.ExportExcelButton = new System.Windows.Forms.Button();
+            this.SisaFpLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -74,18 +74,18 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.ExportExcelButton);
-            this.splitContainer1.Panel2.Controls.Add(this.ImportEFakturButton);
+            this.splitContainer1.Panel2.Controls.Add(this.ExportEFakturButton);
             this.splitContainer1.Panel2.Controls.Add(this.panel3);
             this.splitContainer1.Panel2.Controls.Add(this.FakturGrid);
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
-            this.splitContainer1.Panel2.Controls.Add(this.ProsesButton);
             this.splitContainer1.Size = new System.Drawing.Size(907, 451);
             this.splitContainer1.SplitterDistance = 237;
             this.splitContainer1.TabIndex = 0;
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.Cornsilk;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.label2);
@@ -99,7 +99,8 @@
             // 
             // label2
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.BackColor = System.Drawing.Color.DarkKhaki;
             this.label2.Location = new System.Drawing.Point(0, 0);
             this.label2.Name = "label2";
@@ -137,7 +138,9 @@
             // 
             // AlokasiGrid
             // 
-            this.AlokasiGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.AlokasiGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.AlokasiGrid.BackgroundColor = System.Drawing.Color.DarkKhaki;
             this.AlokasiGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.AlokasiGrid.Location = new System.Drawing.Point(6, 97);
@@ -145,24 +148,39 @@
             this.AlokasiGrid.Size = new System.Drawing.Size(229, 347);
             this.AlokasiGrid.TabIndex = 4;
             // 
+            // ExportExcelButton
+            // 
+            this.ExportExcelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ExportExcelButton.BackColor = System.Drawing.Color.Linen;
+            this.ExportExcelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ExportExcelButton.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.ExportExcelButton.Location = new System.Drawing.Point(532, 66);
+            this.ExportExcelButton.Name = "ExportExcelButton";
+            this.ExportExcelButton.Size = new System.Drawing.Size(126, 24);
+            this.ExportExcelButton.TabIndex = 10;
+            this.ExportExcelButton.Text = "Export Excel";
+            this.ExportExcelButton.UseVisualStyleBackColor = false;
+            // 
             // ImportEFakturButton
             // 
-            this.ImportEFakturButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ImportEFakturButton.BackColor = System.Drawing.Color.Linen;
-            this.ImportEFakturButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ImportEFakturButton.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.ImportEFakturButton.Location = new System.Drawing.Point(532, 36);
-            this.ImportEFakturButton.Name = "ImportEFakturButton";
-            this.ImportEFakturButton.Size = new System.Drawing.Size(126, 24);
-            this.ImportEFakturButton.TabIndex = 9;
-            this.ImportEFakturButton.Text = "Export CSV";
-            this.ImportEFakturButton.UseVisualStyleBackColor = false;
+            this.ExportEFakturButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ExportEFakturButton.BackColor = System.Drawing.Color.Linen;
+            this.ExportEFakturButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ExportEFakturButton.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.ExportEFakturButton.Location = new System.Drawing.Point(532, 36);
+            this.ExportEFakturButton.Name = "ImportEFakturButton";
+            this.ExportEFakturButton.Size = new System.Drawing.Size(126, 24);
+            this.ExportEFakturButton.TabIndex = 9;
+            this.ExportEFakturButton.Text = "Export CSV";
+            this.ExportEFakturButton.UseVisualStyleBackColor = false;
             // 
             // panel3
             // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BackColor = System.Drawing.Color.Cornsilk;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.SisaFpLabel);
             this.panel3.Controls.Add(this.NoAkhirLabel);
             this.panel3.Controls.Add(this.NoAwalLabel);
             this.panel3.Controls.Add(this.label1);
@@ -173,29 +191,32 @@
             // 
             // NoAkhirLabel
             // 
-            this.NoAkhirLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.NoAkhirLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.NoAkhirLabel.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NoAkhirLabel.Location = new System.Drawing.Point(0, 44);
             this.NoAkhirLabel.Name = "NoAkhirLabel";
-            this.NoAkhirLabel.Size = new System.Drawing.Size(252, 19);
+            this.NoAkhirLabel.Size = new System.Drawing.Size(166, 19);
             this.NoAkhirLabel.TabIndex = 11;
             this.NoAkhirLabel.Text = "xxx.xxx-xx.xxxxxxxx";
             this.NoAkhirLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // NoAwalLabel
             // 
-            this.NoAwalLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.NoAwalLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.NoAwalLabel.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NoAwalLabel.Location = new System.Drawing.Point(0, 25);
             this.NoAwalLabel.Name = "NoAwalLabel";
-            this.NoAwalLabel.Size = new System.Drawing.Size(252, 19);
+            this.NoAwalLabel.Size = new System.Drawing.Size(166, 19);
             this.NoAwalLabel.TabIndex = 10;
             this.NoAwalLabel.Text = "xxx.xxx-xx.xxxxxxxx";
             this.NoAwalLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.BackColor = System.Drawing.Color.DarkKhaki;
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
@@ -208,7 +229,9 @@
             // 
             this.FakturGrid.AllowUserToAddRows = false;
             this.FakturGrid.AllowUserToDeleteRows = false;
-            this.FakturGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.FakturGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.FakturGrid.BackgroundColor = System.Drawing.Color.DarkKhaki;
             this.FakturGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.FakturGrid.Location = new System.Drawing.Point(3, 97);
@@ -231,7 +254,8 @@
             // 
             // label4
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.BackColor = System.Drawing.Color.DarkKhaki;
             this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Name = "label4";
@@ -269,31 +293,16 @@
             this.Periode1Date.Size = new System.Drawing.Size(120, 22);
             this.Periode1Date.TabIndex = 0;
             // 
-            // ProsesButton
+            // SisaFpLabel
             // 
-            this.ProsesButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ProsesButton.BackColor = System.Drawing.Color.Linen;
-            this.ProsesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ProsesButton.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.ProsesButton.Location = new System.Drawing.Point(532, 7);
-            this.ProsesButton.Name = "ProsesButton";
-            this.ProsesButton.Size = new System.Drawing.Size(126, 24);
-            this.ProsesButton.TabIndex = 8;
-            this.ProsesButton.Text = "Proses Alokasi";
-            this.ProsesButton.UseVisualStyleBackColor = false;
-            // 
-            // ExportExcelButton
-            // 
-            this.ExportExcelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ExportExcelButton.BackColor = System.Drawing.Color.Linen;
-            this.ExportExcelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ExportExcelButton.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.ExportExcelButton.Location = new System.Drawing.Point(532, 66);
-            this.ExportExcelButton.Name = "ExportExcelButton";
-            this.ExportExcelButton.Size = new System.Drawing.Size(126, 24);
-            this.ExportExcelButton.TabIndex = 10;
-            this.ExportExcelButton.Text = "Export Excel";
-            this.ExportExcelButton.UseVisualStyleBackColor = false;
+            this.SisaFpLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.SisaFpLabel.Font = new System.Drawing.Font("Consolas", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SisaFpLabel.Location = new System.Drawing.Point(162, 25);
+            this.SisaFpLabel.Name = "SisaFpLabel";
+            this.SisaFpLabel.Size = new System.Drawing.Size(91, 38);
+            this.SisaFpLabel.TabIndex = 12;
+            this.SisaFpLabel.Text = "0";
+            this.SisaFpLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // AlokasiFpForm
             // 
@@ -316,11 +325,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.FakturGrid)).EndInit();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
+
         }
 
         private System.Windows.Forms.Button ExportExcelButton;
 
-        private System.Windows.Forms.Button ImportEFakturButton;
+        private System.Windows.Forms.Button ExportEFakturButton;
 
         #endregion
 
@@ -338,9 +348,9 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label NoAwalLabel;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button ProsesButton;
         private System.Windows.Forms.Label NoAkhirLabel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label SisaFpLabel;
     }
 }
