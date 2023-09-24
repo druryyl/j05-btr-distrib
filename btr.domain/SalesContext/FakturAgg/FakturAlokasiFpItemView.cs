@@ -11,10 +11,12 @@ namespace btr.domain.SalesContext.FakturAgg
         public string  Npwp { get; private set; }
         public string Address { get; private set; }
         public decimal GrandTotal { get; private set; }
+        public bool IsSet { get; set; }
         public string NoFakturPajak { get; private set; }
         public string UserId { get; private set; }
         public DateTime VoidDate { get; private set; }
         public string UserIdVoid { get; private set; }
+
 
         public void SetNoFakturPajak(string noFakturPajak) => NoFakturPajak = noFakturPajak;
     }

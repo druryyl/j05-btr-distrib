@@ -29,7 +29,8 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                     aa.VoidDate, aa.UserIdVoid,
                     ISNULL(bb.CustomerName, '') AS CustomerName,
                     ISNULL(bb.Address1, '') AS Address,
-                    ISNULL(bb.Npwp, '') AS Npwp
+                    ISNULL(bb.Npwp, '') AS Npwp,
+                    IIF(aa.NoFakturPajak = '', 0, 1) IsSet
                 FROM
                     BTR_Faktur aa
                     LEFT JOIN BTR_Customer bb ON aa.CustomerId = bb.CustomerId

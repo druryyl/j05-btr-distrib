@@ -133,6 +133,7 @@
     <Compile Include="PurchaseContext\SupplierAgg\Workers\SupplierBuilder.cs" />
     <Compile Include="PurchaseContext\SupplierAgg\Workers\SupplierValidator.cs" />
     <Compile Include="PurchaseContext\SupplierAgg\Workers\SupplierWriter.cs" />
+    <Compile Include="SalesContext\AlokasiFpAgg\IAlokasiFpItemDal.cs" />
     <Compile Include="SalesContext\CustomerAgg\Contracts\ICustomerDal.cs" />
     <Compile Include="SalesContext\CustomerAgg\UseCases\GetCustomerQuery.cs" />
     <Compile Include="SalesContext\CustomerAgg\UseCases\ListCustomerQuery.cs" />

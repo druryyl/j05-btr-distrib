@@ -12,11 +12,4 @@ namespace btr.application.SalesContext.AlokasiFpAgg
         IListData<AlokasiFpModel, Periode>
     {
     }
-
-    public interface IAlokasiFpItemDal :
-        IInsertBulk<AlokasiFpItemModel>,
-        IDelete<IAlokasiFpKey>,
-        IListData<AlokasiFpItemModel, IAlokasiFpKey>
-    {
-    }
 }
