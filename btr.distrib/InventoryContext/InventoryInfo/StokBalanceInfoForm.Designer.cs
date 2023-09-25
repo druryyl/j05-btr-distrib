@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.KategoriButton = new System.Windows.Forms.Button();
+            this.SupplierButton = new System.Windows.Forms.Button();
             this.WarehouseGrid = new System.Windows.Forms.DataGridView();
             this.label4 = new System.Windows.Forms.Label();
             this.ProsesButton = new System.Windows.Forms.Button();
@@ -40,6 +42,7 @@
             this.BrgText = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.ResultGrid = new System.Windows.Forms.DataGridView();
+            this.ExcelButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -59,6 +62,9 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.BackColor = System.Drawing.Color.SkyBlue;
+            this.splitContainer1.Panel1.Controls.Add(this.ExcelButton);
+            this.splitContainer1.Panel1.Controls.Add(this.KategoriButton);
+            this.splitContainer1.Panel1.Controls.Add(this.SupplierButton);
             this.splitContainer1.Panel1.Controls.Add(this.WarehouseGrid);
             this.splitContainer1.Panel1.Controls.Add(this.label4);
             this.splitContainer1.Panel1.Controls.Add(this.ProsesButton);
@@ -76,6 +82,28 @@
             this.splitContainer1.Size = new System.Drawing.Size(800, 450);
             this.splitContainer1.SplitterDistance = 196;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // KategoriButton
+            // 
+            this.KategoriButton.BackColor = System.Drawing.Color.PowderBlue;
+            this.KategoriButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.KategoriButton.Location = new System.Drawing.Point(157, 107);
+            this.KategoriButton.Name = "KategoriButton";
+            this.KategoriButton.Size = new System.Drawing.Size(26, 22);
+            this.KategoriButton.TabIndex = 12;
+            this.KategoriButton.Text = "...";
+            this.KategoriButton.UseVisualStyleBackColor = false;
+            // 
+            // SupplierButton
+            // 
+            this.SupplierButton.BackColor = System.Drawing.Color.PowderBlue;
+            this.SupplierButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SupplierButton.Location = new System.Drawing.Point(157, 66);
+            this.SupplierButton.Name = "SupplierButton";
+            this.SupplierButton.Size = new System.Drawing.Size(26, 22);
+            this.SupplierButton.TabIndex = 11;
+            this.SupplierButton.Text = "...";
+            this.SupplierButton.UseVisualStyleBackColor = false;
             // 
             // WarehouseGrid
             // 
@@ -101,7 +129,7 @@
             // 
             this.ProsesButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ProsesButton.Location = new System.Drawing.Point(12, 395);
+            this.ProsesButton.Location = new System.Drawing.Point(12, 365);
             this.ProsesButton.Name = "ProsesButton";
             this.ProsesButton.Size = new System.Drawing.Size(171, 23);
             this.ProsesButton.TabIndex = 7;
@@ -116,6 +144,7 @@
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(171, 12);
             this.progressBar1.TabIndex = 6;
+            this.progressBar1.Visible = false;
             // 
             // KategoriText
             // 
@@ -123,7 +152,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.KategoriText.Location = new System.Drawing.Point(12, 107);
             this.KategoriText.Name = "KategoriText";
-            this.KategoriText.Size = new System.Drawing.Size(171, 22);
+            this.KategoriText.Size = new System.Drawing.Size(142, 22);
             this.KategoriText.TabIndex = 5;
             // 
             // label3
@@ -141,7 +170,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.SupplierText.Location = new System.Drawing.Point(12, 66);
             this.SupplierText.Name = "SupplierText";
-            this.SupplierText.Size = new System.Drawing.Size(171, 22);
+            this.SupplierText.Size = new System.Drawing.Size(142, 22);
             this.SupplierText.TabIndex = 3;
             // 
             // label2
@@ -182,6 +211,17 @@
             this.ResultGrid.Size = new System.Drawing.Size(598, 448);
             this.ResultGrid.TabIndex = 0;
             // 
+            // ExcelButton
+            // 
+            this.ExcelButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ExcelButton.Location = new System.Drawing.Point(12, 394);
+            this.ExcelButton.Name = "ExcelButton";
+            this.ExcelButton.Size = new System.Drawing.Size(171, 23);
+            this.ExcelButton.TabIndex = 13;
+            this.ExcelButton.Text = "Excel";
+            this.ExcelButton.UseVisualStyleBackColor = true;
+            // 
             // StokBalanceInfoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -216,5 +256,8 @@
         private System.Windows.Forms.Button ProsesButton;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DataGridView WarehouseGrid;
+        private System.Windows.Forms.Button SupplierButton;
+        private System.Windows.Forms.Button KategoriButton;
+        private System.Windows.Forms.Button ExcelButton;
     }
 }

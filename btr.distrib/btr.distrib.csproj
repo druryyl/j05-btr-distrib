@@ -275,6 +275,12 @@
     <Compile Include="InventoryContext\BrgAgg\BrgFormHargaDto.cs" />
     <Compile Include="InventoryContext\BrgAgg\BrgFormSatuanDto.cs" />
     <Compile Include="InventoryContext\BrgAgg\BrgFormStokDto.cs" />
+    <Compile Include="InventoryContext\InventoryInfo\BukuStokReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryContext\InventoryInfo\BukuStokReportForm.Designer.cs">
+      <DependentUpon>BukuStokReportForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="InventoryContext\InventoryInfo\StokBalanceInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>

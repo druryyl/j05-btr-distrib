@@ -44,17 +44,33 @@ namespace btr.distrib.SharedForm
             ServerDbStatus.Text = $"Connected Database: {dbOpt.Value.DbName}@{dbOpt.Value.ServerName}";
             UserId = new UserModel(user);
         }
+        private bool BringMdiChildToFrontIfLoaded<T>() where T : Form
+        {
+            var loadedForm = this.MdiChildren.OfType<T>().FirstOrDefault();
+            if (loadedForm != null)
+            {
+                loadedForm.BringToFront();
+                return true;
+            }
+            return false;
+        }
 
         private void FakturButton_Click(object sender, EventArgs e)
         {
+            if (BringMdiChildToFrontIfLoaded<FakturForm>())
+                return;
+
             var form = _servicesProvider.GetRequiredService<FakturForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
         }
 
+
         private void PoButton_Click(object sender, EventArgs e)
         {
+            if (BringMdiChildToFrontIfLoaded<PurchaseOrderForm>())
+                return;
             var form = _servicesProvider.GetRequiredService<PurchaseOrderForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
@@ -63,6 +79,8 @@ namespace btr.distrib.SharedForm
 
         private void BrgButton_Click(object sender, EventArgs e)
         {
+            if (BringMdiChildToFrontIfLoaded<BrgForm>())
+                return;
             var form = _servicesProvider.GetRequiredService<BrgForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
@@ -71,6 +89,8 @@ namespace btr.distrib.SharedForm
 
         private void OutletButton_Click(object sender, EventArgs e)
         {
+            if (BringMdiChildToFrontIfLoaded<CustomerForm>())
+                return;
             var form = _servicesProvider.GetRequiredService<CustomerForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
@@ -79,6 +99,8 @@ namespace btr.distrib.SharedForm
 
         private void SupplierButton_Click(object sender, EventArgs e)
         {
+            if (BringMdiChildToFrontIfLoaded<SupplierForm>())
+                return;
             var form = _servicesProvider.GetRequiredService<SupplierForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
@@ -87,6 +109,8 @@ namespace btr.distrib.SharedForm
 
         private void SalesPersonButton_Click(object sender, EventArgs e)
         {
+            if (BringMdiChildToFrontIfLoaded<SalesPersonForm>())
+                return;
             var form = _servicesProvider.GetRequiredService<SalesPersonForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
@@ -95,6 +119,8 @@ namespace btr.distrib.SharedForm
 
         private void WilayahButton_Click(object sender, EventArgs e)
         {
+            if (BringMdiChildToFrontIfLoaded<WilayahForm>())
+                return;
             var form = _servicesProvider.GetRequiredService<WilayahForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
@@ -102,7 +128,8 @@ namespace btr.distrib.SharedForm
         }
 
         private void KategoriButton_Click(object sender, EventArgs e)
-        {
+        {if (BringMdiChildToFrontIfLoaded<KategoriForm>())
+                return;
             var form = _servicesProvider.GetRequiredService<KategoriForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
@@ -110,7 +137,8 @@ namespace btr.distrib.SharedForm
         }
 
         private void WarehouseButton_Click(object sender, EventArgs e)
-        {
+        {if (BringMdiChildToFrontIfLoaded<WarehouseForm>())
+                return;
             var form = _servicesProvider.GetRequiredService<WarehouseForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
@@ -118,7 +146,8 @@ namespace btr.distrib.SharedForm
         }
 
         private void PrintButton_Click(object sender, EventArgs e)
-        {
+        {if (BringMdiChildToFrontIfLoaded<PrintManagerForm>())
+                return;
             var form = _servicesProvider.GetRequiredService<PrintManagerForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
@@ -148,6 +177,8 @@ namespace btr.distrib.SharedForm
 
         private void UserButton_Click(object sender, EventArgs e)
         {
+            if (BringMdiChildToFrontIfLoaded<UserForm>())
+                return;
             var form = _servicesProvider.GetRequiredService<UserForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
@@ -156,6 +187,8 @@ namespace btr.distrib.SharedForm
 
         private void OpnameButton_Click(object sender, EventArgs e)
         {
+            if (BringMdiChildToFrontIfLoaded<OpnameForm>())
+                return;
             var form = _servicesProvider.GetRequiredService<OpnameForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
@@ -164,6 +197,8 @@ namespace btr.distrib.SharedForm
 
         private void ControlFakturButton_Click(object sender, EventArgs e)
         {
+            if (BringMdiChildToFrontIfLoaded<FakturControlForm>())
+                return;
             var form = _servicesProvider.GetRequiredService<FakturControlForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
@@ -172,6 +207,8 @@ namespace btr.distrib.SharedForm
 
         private void PackingButton_Click(object sender, EventArgs e)
         {
+            if (BringMdiChildToFrontIfLoaded<PackingForm>())
+                return;
             var form = _servicesProvider.GetRequiredService<PackingForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
@@ -180,6 +217,8 @@ namespace btr.distrib.SharedForm
 
         private void FakturPajakButton_Click(object sender, EventArgs e)
         {
+            if (BringMdiChildToFrontIfLoaded<AlokasiFpForm>())
+                return;
             var form = _servicesProvider.GetRequiredService<AlokasiFpForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;

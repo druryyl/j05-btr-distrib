@@ -24,6 +24,7 @@ namespace btr.infrastructure.InventoryContext.StokBalanceReport
                             ISNULL(bb.BrgCode, '') AS BrgCode,
                             ISNULL(bb.SupplierId, '') AS SupplierId,
                             ISNULL(bb.KategoriId, '') AS KategoriId,
+                            ISNULL(bb.Hpp, 0) AS Hpp,
                             ISNULL(cc1.Satuan, '') AS SatKecil,
                             ISNULL(cc2.Satuan, '') AS SatBesar,
                             ISNULL(cc2.Conversion, 1) AS Conversion,

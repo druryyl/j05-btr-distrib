@@ -1,9 +1,15 @@
-﻿using btr.application.InventoryContext.StokBalanceReport;
+﻿using btr.application.BrgContext.KategoriAgg;
+using btr.application.InventoryContext.StokBalanceReport;
 using btr.application.InventoryContext.WarehouseAgg;
+using btr.application.PurchaseContext.SupplierAgg.Contracts;
+using btr.distrib.Browsers;
 using btr.distrib.Helpers;
+using btr.domain.BrgContext.KategoriAgg;
 using btr.domain.InventoryContext.StokBalanceReport;
 using btr.domain.InventoryContext.WarehouseAgg;
+using btr.domain.PurchaseContext.SupplierAgg;
 using btr.nuna.Domain;
+using ClosedXML.Excel;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -17,9 +23,18 @@ namespace btr.distrib.InventoryContext.InventoryInfo
         private readonly IWarehouseDal _warehouseDal;
         private List<StokBalanceView> _dataSource;
         private readonly IStokBalanceReportDal _stokBalanceReportDal;
+        private readonly IBrowser<SupplierBrowserView> _supplierBrowser;
+        private readonly IBrowser<KategoriBrowserView> _kategoriBrowser;
 
-        public StokBalanceInfoForm(IWarehouseDal warehouseDal, 
-            IStokBalanceReportDal stokBalanceReportDal)
+        private readonly ISupplierDal _supplierDal;
+        private readonly IKategoriDal _kategoriDal;
+
+        public StokBalanceInfoForm(IWarehouseDal warehouseDal,
+            IStokBalanceReportDal stokBalanceReportDal,
+            IBrowser<SupplierBrowserView> supplierBrowser,
+            ISupplierDal supplierDal,
+            IBrowser<KategoriBrowserView> kategoriBrowser,
+            IKategoriDal kategoriDal)
         {
             InitializeComponent();
 
@@ -29,12 +44,63 @@ namespace btr.distrib.InventoryContext.InventoryInfo
             InitGridWarehouse();
             InitGridResult();
             RegisterEventHandler();
+            _supplierBrowser = supplierBrowser;
+            _supplierDal = supplierDal;
+            _kategoriBrowser = kategoriBrowser;
+            _kategoriDal = kategoriDal;
         }
 
         private void RegisterEventHandler()
         {
             ProsesButton.Click += ProsesButton_Click;
+            ExcelButton.Click += ExcelButton_Click;
             ResultGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
+
+            SupplierButton.Click += SupplierButton_Click;
+            KategoriButton.Click += KategoriButton_Click;
+        }
+
+        private void ExcelButton_Click(object sender, EventArgs e)
+        {
+            string filePath;
+            using (var saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = @"Excel Files|*.xlsx";
+                saveFileDialog.Title = @"Save Excel File";
+                saveFileDialog.DefaultExt = "xlsx";
+                saveFileDialog.AddExtension = true;
+                saveFileDialog.FileName = $"stok-balance-{DateTime.Now:yyyy-MM-dd-HHmm}";
+                if (saveFileDialog.ShowDialog() != DialogResult.OK)
+                    return;
+                filePath = saveFileDialog.FileName;
+            }
+
+            using (IXLWorkbook wb = new XLWorkbook())
+            {
+                wb.AddWorksheet("Stok Balance")
+                    .FirstCell()
+                    .InsertTable(_dataSource, false);
+                wb.SaveAs(filePath);
+            }
+            System.Diagnostics.Process.Start(filePath);
+        }
+
+        private void KategoriButton_Click(object sender, EventArgs e)
+        {
+            _kategoriBrowser.Filter.UserKeyword = KategoriText.Text;
+            var currentText = SupplierText.Text;
+            var katId = _kategoriBrowser.Browse(currentText);
+            var kat = _kategoriDal.GetData(new KategoriModel(katId));
+            KategoriText.Text = kat?.KategoriName ?? currentText;
+        }
+
+        private void SupplierButton_Click(object sender, EventArgs e)
+        {
+            _supplierBrowser.Filter.UserKeyword = SupplierText.Text;
+            var currentText = SupplierText.Text;
+            var supId = _supplierBrowser.Browse(currentText);
+            var supplier = _supplierDal.GetData(new SupplierModel(supId));
+            SupplierText.Text = supplier?.SupplierName ?? currentText;
         }
 
         private void ProsesButton_Click(object sender, EventArgs e)
@@ -76,7 +142,8 @@ namespace btr.distrib.InventoryContext.InventoryInfo
                     c.KategoriName,
                     c.SatBesar,
                     c.SatKecil,
-                    c.Conversion
+                    c.Conversion,
+                    c.Hpp
                 } into g
                 select new StokBalanceView
                 {
@@ -93,6 +160,8 @@ namespace btr.distrib.InventoryContext.InventoryInfo
                     Qty = g.Sum(x => x.Qty),
                     QtyBesar = (int)(g.Sum(x => x.Qty)/g.Key.Conversion),
                     QtyKecil = g.Sum(x => x.Qty % g.Key.Conversion),
+                    Hpp = g.Key.Hpp,
+                    NilaiSediaan = g.Sum(x => x.Hpp * x.Qty) 
                 }).ToList();
 
             foreach(var item in _dataSource)
@@ -155,6 +224,13 @@ namespace btr.distrib.InventoryContext.InventoryInfo
             g.GetCol("Qty").HeaderText = "In-PCS";
             g.GetCol("Qty").DefaultCellStyle.BackColor = Color.PaleGoldenrod;
 
+            g.GetCol("Hpp").Width = 80;
+            g.GetCol("Hpp").HeaderText = "Hpp";
+            g.GetCol("Hpp").DefaultCellStyle.BackColor = Color.Thistle;
+
+            g.GetCol("NilaiSediaan").Width = 80;
+            g.GetCol("NilaiSediaan").HeaderText = "Nilai Sediaan";
+            g.GetCol("NilaiSediaan").DefaultCellStyle.BackColor = Color.Thistle;
 
             g.GetCol("WarehouseId").Visible = false;
             g.GetCol("WarehouseName").Visible = false;

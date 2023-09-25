@@ -112,6 +112,7 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
                 saveFileDialog.Title = @"Save Excel File";
                 saveFileDialog.DefaultExt = "xlsx";
                 saveFileDialog.AddExtension = true;
+                saveFileDialog.FileName = $"faktur-pajak-{_dateTime.Now:yyyy-MM-dd-HHmm}";
                 if (saveFileDialog.ShowDialog() != DialogResult.OK)
                     return;
                 filePath = saveFileDialog.FileName;
@@ -124,6 +125,7 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
                     .InsertTable(_listFaktur, false);
                 wb.SaveAs(filePath);
             }
+            System.Diagnostics.Process.Start(filePath);
         }
         #endregion
 

@@ -22,6 +22,7 @@
         public int QtyKecil { get; set; }
         public string SatKecil { get; set; }
         public int Qty { get; set; }
-
+        public decimal Hpp { get; set; }
+        public decimal NilaiSediaan { get; set; }
     }
 }
