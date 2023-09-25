@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Media;
@@ -140,8 +141,9 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             SaveToCsv(listEFaktur);
         }
 
-        private static void SaveToCsv(List<EFakturModel> listEFaktur)
+        private  void SaveToCsv(List<EFakturModel> listEFaktur)
         {
+            var toBeExported = listEFaktur.Where(x => x.NOMOR_FAKTUR.Length > 0).ToList();
             var sb = new StringBuilder();
             //      header
             sb.Append(
@@ -154,7 +156,7 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             sb.Append(Environment.NewLine);
             //      content
             const string fapr = @"FAPR,CV. BINTANG TIMUR RAHAYU,JALAN KALIURANG KM.5 GANG.DURMO NO.18 RT.012 RW.005 CATURTUNGGAL DEPOK  KAB.SLEMAN DAERAH ISTIMEWA YOGYAKARTA,Admin,,967913591542000,,,,,,,,,,,,,";
-            foreach (var item in listEFaktur)
+            foreach (var item in toBeExported)
             {
                 sb.Append("FK,")
                     .Append($"{item.KD_JENIS_TRANSAKSI},")
@@ -201,12 +203,17 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
                 saveFileDialog.Title = @"Save CSV File";
                 saveFileDialog.DefaultExt = "csv";
                 saveFileDialog.AddExtension = true;
+                saveFileDialog.FileName = $"efaktur-{_dateTime.Now:yyyy-MM-dd-HHmm}";
                 //      Show the SaveFileDialog and get the user's response
-                if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
+                if (saveFileDialog.ShowDialog() != DialogResult.OK) 
+                    return;
                 //      Get the selected file path from the dialog
                 var filePath = saveFileDialog.FileName;
                 //      Write the CSV string to the selected file
                 File.WriteAllText(filePath, sb.ToString());
+
+                string selectedFolder = Path.GetDirectoryName(filePath);
+                Process.Start("explorer.exe", selectedFolder);
             }
         }
         #endregion
