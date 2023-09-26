@@ -111,15 +111,16 @@ namespace btr.distrib.PrintDocs
                 var qty1B = arrQty1.Length > 1 ? arrQty1[1] : string.Empty.FixWidth(7);
                 var qty2B = arrQty2.Length > 1 ? arrQty2[1] : string.Empty.FixWidth(7);
 
-                var hrg = item.HrgSatBesar * item.QtyBesar;
+                var hrg = item.HrgSatBesar;
                 var hrg1 = hrg != 0? $"{hrg:N0}".FixWidthRight(10) : "- ".FixWidthRight(10);
-                hrg = item.HrgSatKecil * item.QtyKecil;
+                hrg = item.HrgSatKecil;
                 var hrg2 = hrg != 0? $"{hrg:N0}".FixWidthRight(8) : "- ".FixWidthRight(8);
                 var disc1 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 1)?.DiscProsen.ToString("N2").FixWidthRight(5) ?? "-".FixWidthRight(5);
                 var disc2 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 2)?.DiscProsen.ToString("N2").FixWidthRight(5) ?? "-".FixWidthRight(5);
                 var disc3 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 3)?.DiscProsen.ToString("N2").FixWidthRight(3) ?? "-".FixWidthRight(3);
                 var disc4 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 4)?.DiscProsen.ToString("N2").FixWidthRight(3) ?? "-".FixWidthRight(3);
-                var total = item.Total.ToString("N0").FixWidthRight(11);
+                var total = (item.SubTotal - item.DiscRp).ToString("N0").FixWidthRight(11);
+                //var total2 =  item.Total.ToString("N0").FixWidthRight(11);
 
                 sb.Append($"{no}│{brgId}│{arrName1.FixWidth(27)}│{qty1A}│{qty2A}│{hrg1}│{hrg2}│{disc1}│{disc2}│{disc3}│{disc4}│{total}\n");
                 if ($"{arrName2}{qty1B}{qty2B}".Trim().Length > 0)
@@ -136,7 +137,7 @@ namespace btr.distrib.PrintDocs
             sb.Append($"──┴──────────┴───────────────────────────┴───────┴───────┴──────────┴────────┴─────┴─────┴───┴───┴───────────\n");
             var subTotal = model.ListItem.Sum(x => x.SubTotal);
             var discount = model.ListItem.Sum(x => x.DiscRp);
-            var total2 = subTotal + discount;
+            var total2 = subTotal - discount;
             var ppn = model.ListItem.Sum(x => x.PpnRp); 
             var grandTotal = model.ListItem.Sum(x => x.Total);
             grandTotal = decimal.Floor(grandTotal);
@@ -187,11 +188,11 @@ namespace btr.distrib.PrintDocs
             var addr3 = cust.Address2.Length > 0 ? cust.Kota : string.Empty ;
             
 
-            var hdr1 = $"CV BINTANG TIMUR RAHAYU                ┌───────────────────────┐             Kepada Yth Customer-{custId}\n";
-            var hdr2 = $"Jl.Kaliurang Km 5.5 Gg Durmo No 18     │   FAKTUR PENJUALAN    │             {cust.CustomerName.FixWidth(40)}\n";
-            var hdr3 = $"Yogyakarta 0274-546079                 └───────────────────────┘             {addr1.FixWidth(40)}\n";
-            var hdr4 = $"                                                                             {addr2.FixWidth(40)}\n";
-            var hdr5 = $"                                                                             {addr3.FixWidth(40)}\n";
+            var hdr1 = $"CV BINTANG TIMUR RAHAYU                ┌───────────────────────┐                             Tgl: {model.FakturDate:dd-MMM-yyyy}\n";
+            var hdr2 = $"Jl.Kaliurang Km 5.5 Gg Durmo No 18     │   FAKTUR PENJUALAN    │             Kepada Yth Customer-{custId}\n";
+            var hdr3 = $"Yogyakarta 0274-546079                 └───────────────────────┘             {cust.CustomerName.FixWidth(40)}\n";
+            var hdr4 = $"                                                                             {addr1.FixWidth(40)}\n";
+            var hdr5 = $"                                                                             {addr2.FixWidth(40)}\n";
             var hdr6 = $"No.Faktur: {noFakturrrr}                 Sales: {salesNameee}                Jenis: {jnsJl} Tempo:{jatuhTmpo}\n";
             var hdr7 = $"──┬──────────┬───────────────────────────┬───────────────┬───────────────────┬───────────────────┬───────────\n";
             var hdr8 = $"No│Kode      │Nama Barang                │   Kwantitas   │       @Harga      │      Discount     │   Total   \n";
@@ -220,6 +221,9 @@ namespace btr.distrib.PrintDocs
                 newItem.ListDiscount.Clear();
                 newItem.QtyKecil = item.QtyBonus;
                 newItem.SatKecil = item.SatKecil;
+                newItem.HrgSat = 0;
+                newItem.HrgSatBesar = 0;
+                newItem.HrgSatKecil = 0;
                 newItem.Total = 0;
                 newItem.SubTotal = 0;
                 newItem.DiscRp = 0;

@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>42</ApplicationRevision>
+    <ApplicationRevision>50</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -254,6 +254,7 @@
     <Compile Include="Browsers\SalesPersonBrowser.cs" />
     <Compile Include="Browsers\WilayahBrowser.cs" />
     <Compile Include="Helpers\BrowseFilter.cs" />
+    <Compile Include="Helpers\CodeRedReporting.cs" />
     <Compile Include="Helpers\IBrowseEngine.cs" />
     <Compile Include="Browsers\SupplierBrowser.cs" />
     <Compile Include="Browsers\WarehouseBrowser.cs" />
@@ -275,16 +276,14 @@
     <Compile Include="InventoryContext\BrgAgg\BrgFormHargaDto.cs" />
     <Compile Include="InventoryContext\BrgAgg\BrgFormSatuanDto.cs" />
     <Compile Include="InventoryContext\BrgAgg\BrgFormStokDto.cs" />
-    <Compile Include="InventoryContext\InventoryInfo\BukuStokReportForm.cs">
+    <Compile Include="InventoryContext\KartuStokRpt\KartuStokReportForm.cs" />
+    <Compile Include="InventoryContext\KartuStokRpt\KartuStokReportForm.Designer.cs">
+      <DependentUpon>KartuStokReportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryContext\StokBalanceRpt\StokBalanceInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InventoryContext\InventoryInfo\BukuStokReportForm.Designer.cs">
-      <DependentUpon>BukuStokReportForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="InventoryContext\InventoryInfo\StokBalanceInfoForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="InventoryContext\InventoryInfo\StokBalanceInfoForm.Designer.cs">
+    <Compile Include="InventoryContext\StokBalanceRpt\StokBalanceInfoForm.Designer.cs">
       <DependentUpon>StokBalanceInfoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InventoryContext\KategoriAgg\KategoriForm.cs">
@@ -337,6 +336,7 @@
     <Compile Include="PurchaseContext\SupplierAgg\SupplierForm.Designer.cs">
       <DependentUpon>SupplierForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InventoryContext\StokBalanceRpt\WarehouseRptDto.cs" />
     <Compile Include="SalesContext\CustomerAgg\CustomerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -419,6 +419,13 @@
     </Compile>
     <Compile Include="WinformAssemblyAnchor.cs" />
     <Content Include="icons8_truck.ico" />
+    <None Include="Resources\icons8_vue_js_32.png" />
+    <None Include="Resources\icons8_uninstalling_updates_32.png" />
+    <None Include="Resources\icons8_stack_overflow_32.png" />
+    <None Include="Resources\icons8_stack_overflow_16.png" />
+    <EmbeddedResource Include="InventoryContext\KartuStokRpt\KartuStokReportForm.resx">
+      <DependentUpon>KartuStokReportForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SharedForm\VoidReasonForm.resx">
       <DependentUpon>VoidReasonForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -430,7 +437,7 @@
     <None Include="Resources\icons8_to_do_32.png" />
     <None Include="Resources\key_48px.png" />
     <None Include="Resources\icons8_user_account_32.png" />
-    <EmbeddedResource Include="InventoryContext\InventoryInfo\StokBalanceInfoForm.resx">
+    <EmbeddedResource Include="InventoryContext\StokBalanceRpt\StokBalanceInfoForm.resx">
       <DependentUpon>StokBalanceInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\OpnameAgg\OpnameForm.resx">
@@ -589,6 +596,8 @@
       <Name>btr.nuna</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ReportingContext\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

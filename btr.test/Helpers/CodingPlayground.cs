@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Globalization;
+using FluentAssertions;
 using btr.nuna.Domain;
 using Xunit;
 using System.Text.RegularExpressions;
@@ -66,5 +67,15 @@ namespace btr.test.Helpers
             noAwalN.Should().Be(23456789);
 
         }
+
+        [Fact]
+        public void DecimalToString()
+        {
+            decimal x = 8191.22M;
+            string y = x.ToString(CultureInfo.InvariantCulture);
+            y.Should().Be("8191.22");
+
+        }
+
     }
 }

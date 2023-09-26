@@ -35,18 +35,18 @@ namespace btr.application.SalesContext.EFakturAgg
                 throw new ArgumentException("Faktur invalid (null)");
             var customer = _customerDal.GetData(faktur)
                 ?? throw new KeyNotFoundException("Customer not found");
-            
+            var alamatWp = $"{customer.AddressWp} {customer.AddressWp2}";
             _aggregate = new EFakturModel
             {
                 KD_JENIS_TRANSAKSI = "01",
                 FG_PENGGANTI = 0,
-                NOMOR_FAKTUR = faktur.NoFakturPajak,
+                NOMOR_FAKTUR = faktur.NoFakturPajak.Replace("-", "").Replace(".","").Replace(",",""),
                 MASA_PAJAK = faktur.FakturDate.Month,
                 TAHUN_PAJAK = faktur.FakturDate.Year,
                 TANGGAL_FAKTUR = faktur.FakturDate.ToString("dd/MM/yyyy"),
-                NPWP = faktur.Npwp,
-                NAMA = customer.NamaWp,
-                ALAMAT_LENGKAP = $"{customer.AddressWp} {customer.AddressWp2}",
+                NPWP = faktur.Npwp.Length != 0 ? faktur.Npwp : "000000000000000",
+                NAMA = customer.NamaWp.Length != 0 ? customer.NamaWp : customer.CustomerName,
+                ALAMAT_LENGKAP = alamatWp.Length != 0 ? alamatWp : $"{customer.Address1} {customer.Address2}",
                 JUMLAH_DPP = faktur.Total,
                 JUMLAH_PPN = faktur.Tax,
                 JUMLAH_PPNBM = 0,

@@ -57,6 +57,7 @@
             this.PackingButton = new System.Windows.Forms.RibbonButton();
             this.ReportingPanel = new System.Windows.Forms.RibbonPanel();
             this.StokBalanceButton = new System.Windows.Forms.RibbonButton();
+            this.BukuStokButton = new System.Windows.Forms.RibbonButton();
             this.InventoryMasterPanel = new System.Windows.Forms.RibbonPanel();
             this.BrgButton = new System.Windows.Forms.RibbonButton();
             this.WarehouseButton = new System.Windows.Forms.RibbonButton();
@@ -89,7 +90,7 @@
             this.ribbon1.OrbDropDown.Size = new System.Drawing.Size(527, 72);
             this.ribbon1.OrbDropDown.TabIndex = 0;
             this.ribbon1.RibbonTabFont = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ribbon1.Size = new System.Drawing.Size(876, 106);
+            this.ribbon1.Size = new System.Drawing.Size(876, 120);
             this.ribbon1.TabIndex = 2;
             this.ribbon1.Tabs.Add(this.SalesTab);
             this.ribbon1.Tabs.Add(this.PurchaseTab);
@@ -296,7 +297,7 @@
             this.PrintFakturButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_print;
             this.PrintFakturButton.Name = "PrintFakturButton";
             this.PrintFakturButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("PrintFakturButton.SmallImage")));
-            this.PrintFakturButton.Text = "Print-Faktur";
+            this.PrintFakturButton.Text = "Print Faktur";
             this.PrintFakturButton.Click += new System.EventHandler(this.PrintButton_Click);
             // 
             // PackingButton
@@ -311,17 +312,26 @@
             // ReportingPanel
             // 
             this.ReportingPanel.Items.Add(this.StokBalanceButton);
+            this.ReportingPanel.Items.Add(this.BukuStokButton);
             this.ReportingPanel.Name = "ReportingPanel";
             this.ReportingPanel.Text = "Reporting";
             // 
             // StokBalanceButton
             // 
-            this.StokBalanceButton.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.StokBalanceButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.StokBalanceButton.Image = global::btr.distrib.Properties.Resources.icons8_vue_js_32;
+            this.StokBalanceButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_vue_js_32;
             this.StokBalanceButton.Name = "StokBalanceButton";
             this.StokBalanceButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("StokBalanceButton.SmallImage")));
-            this.StokBalanceButton.Text = "Stok-Balance";
+            this.StokBalanceButton.Text = "Stok Balance";
             this.StokBalanceButton.Click += new System.EventHandler(this.StokBalanceButton_Click);
+            // 
+            // BukuStokButton
+            // 
+            this.BukuStokButton.Image = global::btr.distrib.Properties.Resources.icons8_stack_overflow_32;
+            this.BukuStokButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_stack_overflow_32;
+            this.BukuStokButton.Name = "BukuStokButton";
+            this.BukuStokButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("BukuStokButton.SmallImage")));
+            this.BukuStokButton.Text = "Kartu Stok";
             // 
             // InventoryMasterPanel
             // 
@@ -489,5 +499,6 @@
         private System.Windows.Forms.RibbonButton OpnameButton;
         private System.Windows.Forms.RibbonButton PrintFakturButton;
         private System.Windows.Forms.RibbonButton PackingButton;
+        private System.Windows.Forms.RibbonButton BukuStokButton;
     }
 }

@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Media;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using btr.application.SalesContext.AlokasiFpAgg;
 using btr.application.SalesContext.EFakturAgg;
@@ -161,20 +163,21 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
                 sb.Append("FK,")
                     .Append($"{item.KD_JENIS_TRANSAKSI},")
                     .Append($"{item.FG_PENGGANTI},")
-                    .Append($"{item.NOMOR_FAKTUR},")
+                    .Append($"{item.NOMOR_FAKTUR.Substring(3)},")
                     .Append($"{item.MASA_PAJAK},")
-                    .Append($"{item.FG_PENGGANTI},")
+                    .Append($"{item.TAHUN_PAJAK},")
                     .Append($"{item.TANGGAL_FAKTUR},")
                     .Append($"{item.NPWP},")
                     .Append($"{item.NAMA},")
                     .Append($"{item.ALAMAT_LENGKAP},")
-                    .Append($"{item.JUMLAH_DPP},")
-                    .Append($"{item.JUMLAH_PPN},")
+                    .Append(ConvertTo0Zero(item.JUMLAH_DPP)).Append(",")
+                    .Append(ConvertTo0Zero(item.JUMLAH_PPN)).Append(",")
+                    .Append(ConvertTo0Zero(item.JUMLAH_PPNBM)).Append(",")
                     .Append($"{item.ID_KETERANGAN_TAMBAHAN},")
-                    .Append($"{item.FG_UANG_MUKA},")
-                    .Append($"{item.UANG_MUKA_DPP},")
-                    .Append($"{item.UANG_MUKA_PPN},")
-                    .Append($"{item.UANG_MUKA_PPNBM},")
+                    .Append(ConvertTo0Zero(item.FG_UANG_MUKA)).Append(",")
+                    .Append(ConvertTo0Zero(item.UANG_MUKA_DPP)).Append(",")
+                    .Append(ConvertTo0Zero(item.UANG_MUKA_PPN)).Append(",")
+                    .Append(ConvertTo0Zero(item.UANG_MUKA_PPNBM)).Append(",")
                     .Append($"{item.REFERENSI},")
                     .Append($"{item.KODE_DOKUMEN_PENDUKUNG},")
                     .Append($"{Environment.NewLine}");
@@ -185,14 +188,14 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
                     sb.Append("OF,")
                         .Append($"{item2.KODE_OBJEK},")
                         .Append($"{item2.NAMA},")
-                        .Append($"{item2.HARGA_SATUAN},")
-                        .Append($"{item2.JUMLAH_BARANG},")
-                        .Append($"{item2.HARGA_TOTAL},")
-                        .Append($"{item2.DISKON},")
-                        .Append($"{item2.DPP},")
-                        .Append($"{item2.PPN},")
-                        .Append($"{item2.TARIF_PPNBM},")
-                        .Append($"{item2.PPNBM}")
+                        .Append(ConvertTo1Zero(item2.HARGA_SATUAN)).Append(",")
+                        .Append(ConvertTo1Zero(item2.JUMLAH_BARANG)).Append(",")
+                        .Append(ConvertTo1Zero(item2.HARGA_TOTAL)).Append(",")
+                        .Append(ConvertTo1Zero(item2.DISKON)).Append(",")
+                        .Append(ConvertTo1Zero(item2.DPP)).Append(",") 
+                        .Append(ConvertTo1Zero(item2.PPN)).Append(",")
+                        .Append(ConvertTo1Zero(item2.TARIF_PPNBM)).Append(",")
+                        .Append(ConvertTo1Zero(item2.PPNBM)).Append(",")
                         .Append($"{Environment.NewLine}");
                 }
             }
@@ -214,6 +217,25 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
 
                 string selectedFolder = Path.GetDirectoryName(filePath);
                 Process.Start("explorer.exe", selectedFolder);
+            }
+
+            return;
+
+            string ConvertTo1Zero(decimal number)
+            {
+                var result =
+                    // Number has fractions
+                    number.ToString(number == Math.Floor(number) ?
+                    // Number is round (integer)
+                    "0" : "0.0", CultureInfo.InvariantCulture);
+
+                return result;
+            }
+            string ConvertTo0Zero(decimal number)
+            {
+                var result = number.ToString("0", CultureInfo.InvariantCulture);
+
+                return result;
             }
         }
         #endregion
@@ -387,6 +409,10 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
 
             g.GetCol("Address").Width = 100;
             g.GetCol("GrandTotal").Width = 80;
+
+            g.GetCol("IsSet").Width = 30;
+            g.GetCol("IsSet").HeaderText= "Set";
+
             g.GetCol("NoFakturPajak").Width = 140;
 
             g.GetCol("VoidDate").Visible = false;

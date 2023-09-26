@@ -403,6 +403,26 @@ namespace btr.distrib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_stack_overflow_16 {
+            get {
+                object obj = ResourceManager.GetObject("icons8_stack_overflow_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_stack_overflow_32 {
+            get {
+                object obj = ResourceManager.GetObject("icons8_stack_overflow_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_to_do_32 {
             get {
                 object obj = ResourceManager.GetObject("icons8_to_do_32", resourceCulture);
@@ -413,9 +433,29 @@ namespace btr.distrib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_uninstalling_updates_32 {
+            get {
+                object obj = ResourceManager.GetObject("icons8_uninstalling_updates_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_user_account_32 {
             get {
                 object obj = ResourceManager.GetObject("icons8_user_account_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_vue_js_32 {
+            get {
+                object obj = ResourceManager.GetObject("icons8_vue_js_32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

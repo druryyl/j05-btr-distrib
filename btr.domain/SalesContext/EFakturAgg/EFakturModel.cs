@@ -29,7 +29,7 @@ public class EFakturItemModel
     public string KODE_OBJEK { get; set; }
     public string NAMA { get; set; }
     public decimal HARGA_SATUAN { get; set; }
-    public double JUMLAH_BARANG { get; set; }
+    public decimal JUMLAH_BARANG { get; set; }
     public decimal HARGA_TOTAL { get; set; }
     public decimal DISKON { get; set; }
     public decimal DPP { get; set; }

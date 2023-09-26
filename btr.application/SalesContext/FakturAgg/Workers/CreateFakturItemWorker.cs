@@ -103,7 +103,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             item.ListDiscount = listDisc;
 
             item.PpnProsen = req.PpnProsen;
-            item.PpnRp = item.SubTotal * req.PpnProsen / 100;
+            item.PpnRp = (item.SubTotal - item.DiscRp) * req.PpnProsen / 100;
             item.Total = item.SubTotal - item.DiscRp + item.PpnRp;
 
             var stokKecil = stok.ListWarehouse.FirstOrDefault(x => x.WarehouseId == req.WarehouseId)?.Qty ?? 0;

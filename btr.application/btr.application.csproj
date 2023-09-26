@@ -88,6 +88,8 @@
     <Compile Include="BrgContext\KategoriAgg\KategoriBuilder.cs" />
     <Compile Include="BrgContext\KategoriAgg\KategoriWriter.cs" />
     <Compile Include="InventoryContext\DriverAgg\IDriverDal.cs" />
+    <Compile Include="InventoryContext\KartuStokRpt\IKartuStokDal.cs" />
+    <Compile Include="InventoryContext\KartuStokRpt\IKartuStokSaldoDal.cs" />
     <Compile Include="InventoryContext\OpnameAgg\IOpnameDal.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameBuilder.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameValidator.cs" />
@@ -113,7 +115,7 @@
     <Compile Include="InventoryContext\StokBalanceAgg\IStokBalanceDal.cs" />
     <Compile Include="InventoryContext\StokBalanceAgg\StokBalanceBuilder.cs" />
     <Compile Include="InventoryContext\StokBalanceAgg\StokBalanceWriter.cs" />
-    <Compile Include="InventoryContext\StokBalanceReport\IStokBalanceReportDal.cs" />
+    <Compile Include="InventoryContext\StokBalanceRpt\IStokBalanceReportDal.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\IWarehouseDal.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\GetWarehouseQuery.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\ListWarehouseQuery.cs" />

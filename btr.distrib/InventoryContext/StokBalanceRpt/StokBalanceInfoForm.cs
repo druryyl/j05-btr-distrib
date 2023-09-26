@@ -242,7 +242,7 @@ namespace btr.distrib.InventoryContext.InventoryInfo
             var list = _warehouseDal.ListData()?.ToList()
                 ?? new List<WarehouseModel>();
             var datasource = list
-                .Select(x => new WarehouseDto
+                .Select(x => new WarehouseRptDto
                 {
                     Id = x.WarehouseId,
                     IsPilih = true,
@@ -259,12 +259,5 @@ namespace btr.distrib.InventoryContext.InventoryInfo
             WarehouseGrid.Refresh();
 
         }
-    }
-
-    internal class WarehouseDto
-    {
-        public string Id { get; set; }
-        public bool IsPilih { get; set; }
-        public string Name { get; set; }
     }
 }

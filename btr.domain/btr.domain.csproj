@@ -61,10 +61,12 @@
     <Compile Include="InventoryContext\DeliveryAgg\IDeliveryKey.cs" />
     <Compile Include="InventoryContext\DriverAgg\DriverModel.cs" />
     <Compile Include="InventoryContext\DriverAgg\IDriverKey.cs" />
+    <Compile Include="InventoryContext\KartuStokRpt\KartuStokSaldoView.cs" />
+    <Compile Include="InventoryContext\KartuStokRpt\KartuStokView.cs" />
     <Compile Include="InventoryContext\OpnameAgg\IOpnameKey.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameModel.cs" />
     <Compile Include="InventoryContext\StokBalanceAgg\StokBalanceWarehouseModel.cs" />
-    <Compile Include="InventoryContext\StokBalanceReport\StokBalanceView.cs" />
+    <Compile Include="InventoryContext\StokBalanceRpt\StokBalanceView.cs" />
     <Compile Include="SalesContext\AlokasiFpAgg\AlokasiFpItemModel.cs" />
     <Compile Include="SalesContext\AlokasiFpAgg\IAlokasiFpKey.cs" />
     <Compile Include="SalesContext\EFakturAgg\EFakturModel.cs" />

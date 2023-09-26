@@ -60,7 +60,7 @@ namespace btr.infrastructure.SalesContext.AlokasiFpAgg
 
             var dp = new DynamicParameters();
             dp.AddParam("@AlokasiFpId", model.AlokasiFpId, SqlDbType.VarChar);
-            dp.AddParam("@AlokasiFpDate", model.AlokasiFpDate, SqlDbType.VarChar);
+            dp.AddParam("@AlokasiFpDate", model.AlokasiFpDate, SqlDbType.DateTime);
             dp.AddParam("@NoAwal", model.NoAwal, SqlDbType.VarChar);
             dp.AddParam("@NoAkhir", model.NoAkhir, SqlDbType.VarChar);
             dp.AddParam("@Kapasitas", model.Kapasitas, SqlDbType.Int);
