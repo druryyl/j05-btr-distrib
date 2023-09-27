@@ -67,6 +67,9 @@
     <Compile Include="InventoryContext\OpnameAgg\OpnameModel.cs" />
     <Compile Include="InventoryContext\StokBalanceAgg\StokBalanceWarehouseModel.cs" />
     <Compile Include="InventoryContext\StokBalanceRpt\StokBalanceView.cs" />
+    <Compile Include="PurchaseContext\InvoiceAgg\IInvoiceKey.cs" />
+    <Compile Include="PurchaseContext\InvoiceAgg\InvoiceDiscModel.cs" />
+    <Compile Include="PurchaseContext\InvoiceAgg\InvoiceItemModel.cs" />
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceModel.cs" />
     <Compile Include="SalesContext\AlokasiFpAgg\AlokasiFpItemModel.cs" />
     <Compile Include="SalesContext\AlokasiFpAgg\IAlokasiFpKey.cs" />

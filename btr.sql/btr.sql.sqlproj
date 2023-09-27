@@ -59,7 +59,6 @@
     <Folder Include="Tables\SalesContext" />
     <Folder Include="Tables\" />
     <Folder Include="Tables\BrgContext\" />
-    <Folder Include="Tables\PurchaseContext\" />
     <Folder Include="Tables\Helper\" />
     <Folder Include="Tables\InventoryContext\" />
   </ItemGroup>
@@ -72,6 +71,9 @@
     <Build Include="Tables\InventoryContext\BTR_Stok.sql" />
     <Build Include="Tables\InventoryContext\BTR_StokMutasi.sql" />
     <Build Include="Tables\InventoryContext\BTR_Warehouse.sql" />
+    <Build Include="Tables\PurchaseContext\BTR_Invoice.sql" />
+    <Build Include="Tables\PurchaseContext\BTR_InvoiceDisc.sql" />
+    <Build Include="Tables\PurchaseContext\BTR_InvoiceItem.sql" />
     <Build Include="Tables\PurchaseContext\BTR_PurchaseOrder.sql" />
     <Build Include="Tables\PurchaseContext\BTR_PurchaseOrderItem.sql" />
     <Build Include="Tables\PurchaseContext\BTR_Supplier.sql" />

@@ -1,0 +1,17 @@
+﻿CREATE TABLE BTR_Invoice{
+    InvoiceId VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_Invoice_InvoiceId DEFAULT(''),    
+    InvoiceDate DATETIME NOT NULL CONSTRAINT DF_BTR_Invoice_InvoiceDate DEFAULT('3000-01-01'), 
+    InvoiceCode VARCHAR(20) NOT NULL CONSTRAINT DF_BTR_Invoice_InvoiceCode DEFAULT(''), 
+
+    SupplierId VARCHAR(5) NOT NULL CONSTRAINT DF_BTR_Invoice_SupplierId DEFAULT(''), 
+    WarehouseId VARCHAR(5) NOT NULL CONSTRAINT DF_BTR_Invoice_WarehouseId DEFAULT(''), 
+
+    NoFakturPajak VARCHAR(20) NOT NULL CONSTRAINT DF_BTR_Invoice_NoFakturPajak DEFAULT(''), 
+    DueDate DATETIME NOT NULL CONSTRAINT DF_BTR_Invoice_DueDate DEFAULT('3000-01-01'), 
+    Total DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_Invoice_Total DEFAULT(''), 
+    Discount DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_Invoice_Discount DEFAULT(''), 
+    Tax DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_Invoice_Tax DEFAULT(''), 
+    GrandTotal DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_Invoice_GrandTotal DEFAULT(''),
+    
+    CONSTRAINT PK_BTR_Invoice PRIMARY KEY CLUSTERED (InvoiceId)
+}
