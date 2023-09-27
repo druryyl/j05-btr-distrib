@@ -47,7 +47,7 @@ namespace btr.application.SalesContext.EFakturAgg
                 NPWP = faktur.Npwp.Length != 0 ? faktur.Npwp : "000000000000000",
                 NAMA = customer.NamaWp.Length != 0 ? customer.NamaWp : customer.CustomerName,
                 ALAMAT_LENGKAP = alamatWp.Length != 0 ? alamatWp : $"{customer.Address1} {customer.Address2}",
-                JUMLAH_DPP = faktur.Total,
+                JUMLAH_DPP = faktur.Total - faktur.Discount,
                 JUMLAH_PPN = faktur.Tax,
                 JUMLAH_PPNBM = 0,
                 ID_KETERANGAN_TAMBAHAN = string.Empty,

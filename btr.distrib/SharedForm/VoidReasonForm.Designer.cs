@@ -79,7 +79,6 @@ namespace btr.distrib.SharedForm
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.RosyBrown;
-            this.CancelButton = this.CancelButton;
             this.ClientSize = new System.Drawing.Size(266, 113);
             this.ControlBox = false;
             this.Controls.Add(this.AlasanLabel);

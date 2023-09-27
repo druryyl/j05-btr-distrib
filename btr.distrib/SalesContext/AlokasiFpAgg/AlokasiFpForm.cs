@@ -160,6 +160,9 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             const string fapr = @"FAPR,CV. BINTANG TIMUR RAHAYU,JALAN KALIURANG KM.5 GANG.DURMO NO.18 RT.012 RW.005 CATURTUNGGAL DEPOK  KAB.SLEMAN DAERAH ISTIMEWA YOGYAKARTA,Admin,,967913591542000,,,,,,,,,,,,,";
             foreach (var item in toBeExported)
             {
+                //  DPP dijumlah ulang karena ada pembulatan ke bawah
+                var jumlahDpp = item.ListItem.Sum(x => Math.Floor(x.DPP));
+                var jumlahPpn = item.ListItem.Sum(x => Math.Floor(x.PPN));
                 sb.Append("FK,")
                     .Append($"{item.KD_JENIS_TRANSAKSI},")
                     .Append($"{item.FG_PENGGANTI},")
@@ -169,9 +172,9 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
                     .Append($"{item.TANGGAL_FAKTUR},")
                     .Append($"{item.NPWP},")
                     .Append($"{item.NAMA},")
-                    .Append($"{item.ALAMAT_LENGKAP},")
-                    .Append(ConvertTo0Zero(item.JUMLAH_DPP)).Append(",")
-                    .Append(ConvertTo0Zero(item.JUMLAH_PPN)).Append(",")
+                    .Append($"{item.ALAMAT_LENGKAP.Replace(",", " ")},")
+                    .Append(ConvertTo0Zero(jumlahDpp)).Append(",")
+                    .Append(ConvertTo0Zero(jumlahPpn)).Append(",")
                     .Append(ConvertTo0Zero(item.JUMLAH_PPNBM)).Append(",")
                     .Append($"{item.ID_KETERANGAN_TAMBAHAN},")
                     .Append(ConvertTo0Zero(item.FG_UANG_MUKA)).Append(",")
@@ -192,15 +195,16 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
                         .Append(ConvertTo1Zero(item2.JUMLAH_BARANG)).Append(",")
                         .Append(ConvertTo1Zero(item2.HARGA_TOTAL)).Append(",")
                         .Append(ConvertTo1Zero(item2.DISKON)).Append(",")
-                        .Append(ConvertTo1Zero(item2.DPP)).Append(",") 
-                        .Append(ConvertTo1Zero(item2.PPN)).Append(",")
-                        .Append(ConvertTo1Zero(item2.TARIF_PPNBM)).Append(",")
-                        .Append(ConvertTo1Zero(item2.PPNBM)).Append(",")
+                        .Append(ConvertTo1ZeroFloor(item2.DPP)).Append(",")
+                        .Append(ConvertTo1ZeroFloor(item2.PPN)).Append(",");
+                      sb.Append(ConvertTo0Zero(item2.TARIF_PPNBM)).Append(",")
+                        .Append(ConvertTo1Zero(item2.PPNBM))
                         .Append($"{Environment.NewLine}");
                 }
             }
 
-            using (var saveFileDialog = new SaveFileDialog())
+            using (var saveFileDialog 
+                = new SaveFileDialog())
             {
                 saveFileDialog.Filter = @"CSV Files|*.csv";
                 saveFileDialog.Title = @"Save CSV File";
@@ -223,17 +227,29 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
 
             string ConvertTo1Zero(decimal number)
             {
-                var result =
-                    // Number has fractions
-                    number.ToString(number == Math.Floor(number) ?
-                    // Number is round (integer)
-                    "0" : "0.0", CultureInfo.InvariantCulture);
-
+                //var result =
+                //    // Number has fractions
+                //    number.ToString(number == Math.Floor(number) ?
+                //    // Number is round (integer)
+                //    "0" : "0.0", CultureInfo.InvariantCulture);
+                var result = number.ToString("0.0", CultureInfo.InvariantCulture);
+                return result;
+            }
+            string ConvertTo1ZeroFloor(decimal number)
+            {
+                //var result =
+                //    // Number has fractions
+                //    number.ToString(number == Math.Floor(number) ?
+                //    // Number is round (integer)
+                //    "0" : "0.0", CultureInfo.InvariantCulture);
+                var resultInt = Math.Floor(number);
+                var result = resultInt.ToString("0.0", CultureInfo.InvariantCulture);
                 return result;
             }
             string ConvertTo0Zero(decimal number)
             {
-                var result = number.ToString("0", CultureInfo.InvariantCulture);
+                var resultInt = Math.Floor(number);
+                var result = resultInt.ToString("0", CultureInfo.InvariantCulture);
 
                 return result;
             }
@@ -624,6 +640,10 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
                 .Alasan(alasan)
                 .Build();
             _fakturPajakVoidWriter.Save(voidFaktur);
+
+            //      unset alokasi
+            ProsesUnsetNoSeriFaktur(FakturGrid.CurrentRow.Index);
+            _listFaktur[FakturGrid.CurrentRow.Index].IsSet = false;
 
             //      update tampilan grid
             _listFaktur[FakturGrid.CurrentRow.Index].SetNoFakturPajak(string.Empty);
