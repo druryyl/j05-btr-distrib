@@ -21,6 +21,7 @@ using System.Linq;
 using System.Windows.Forms;
 using btr.distrib.SalesContext.AlokasiFpAgg;
 using btr.distrib.InventoryContext.InventoryInfo;
+using btr.distrib.PurchaseContext.InvoiceAgg;
 
 namespace btr.distrib.SharedForm
 {
@@ -228,6 +229,14 @@ namespace btr.distrib.SharedForm
         private void StokBalanceButton_Click(object sender, EventArgs e)
         {
             var form = _servicesProvider.GetRequiredService<StokBalanceInfoForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void InvoiceButton_Click(object sender, EventArgs e)
+        {
+            var form = _servicesProvider.GetRequiredService<InvoiceForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

@@ -1,43 +1,40 @@
 ﻿using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.StokBalanceAgg;
 using btr.domain.BrgContext.BrgAgg;
-using btr.domain.SalesContext.FakturAgg;
+using btr.domain.PurchaseContext.InvoiceAgg;
 using btr.nuna.Application;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace btr.application.SalesContext.FakturAgg.Workers
+namespace btr.application.SalesContext.InvoiceAgg.Workers
 {
-    public class CreateFakturItemRequest : IBrgKey
+    public class CreateInvoiceItemRequest : IBrgKey
     {
-        public CreateFakturItemRequest(string brgId, 
+        public CreateInvoiceItemRequest(string brgId, 
             string qtyInputStr, 
             string discInputStr, 
             decimal ppnProsen, 
-            string hargaTypeId,
             string warehouseId) 
         {
             BrgId = brgId;
             QtyInputStr = qtyInputStr;
             DiscInputStr = discInputStr;
             PpnProsen = ppnProsen;
-            HargaTypeId = hargaTypeId;
             WarehouseId = warehouseId;
         }
         public string BrgId { get; set; }
         public string QtyInputStr { get; set; }
         public string DiscInputStr { get; set; }
         public decimal PpnProsen { get; set; }
-        public string HargaTypeId { get; set; }
         public string WarehouseId { get; set; }
     }
 
-    public interface ICreateFakturItemWorker : INunaService<FakturItemModel, CreateFakturItemRequest>
+    public interface ICreateInvoiceItemWorker : INunaService<InvoiceItemModel, CreateInvoiceItemRequest>
     {
     }
 
-    public class CreateInvoiceItemWorker : ICreateFakturItemWorker
+    public class CreateInvoiceItemWorker : ICreateInvoiceItemWorker
     {
         private readonly IBrgBuilder _brgBuilder;
         private readonly IStokBalanceBuilder _stokBalanceBuilder;
@@ -49,14 +46,14 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             _stokBalanceBuilder = stokBalanceBuilder;
         }
 
-        public FakturItemModel Execute(CreateFakturItemRequest req)
+        public InvoiceItemModel Execute(CreateInvoiceItemRequest req)
         {
             var brg = _brgBuilder.Load(req).Build();
             var stok = _stokBalanceBuilder.Load(brg).Build();
 
             var qtys = ParseStringMultiNumber(req.QtyInputStr, 3);
 
-            var item = new FakturItemModel
+            var item = new InvoiceItemModel
             {
                 BrgId = req.BrgId,
                 BrgName = brg.BrgName,
@@ -66,12 +63,12 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             
             item.QtyKecil = (int)qtys[1];
             item.SatKecil = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty;
-            item.HrgSatKecil = brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == req.HargaTypeId)?.Harga ?? 0;
+            item.HppSatKecil = brg.Hpp;
 
             item.QtyBesar = (int)qtys[0];
             item.SatBesar = brg.ListSatuan.FirstOrDefault(x => x.Conversion > 1)?.Satuan ?? string.Empty;
             item.Conversion = brg.ListSatuan.FirstOrDefault(x => x.Conversion > 1)?.Conversion ?? 0;
-            item.HrgSatBesar = item.HrgSatKecil * item.Conversion;
+            item.HppSatBesar = item.HppSatKecil * item.Conversion;
 
             //  jika cuman punya satu satuan, pindah jadi satuan kecil
             if (item.Conversion == 0)
@@ -87,41 +84,41 @@ namespace btr.application.SalesContext.FakturAgg.Workers
                     }
 
 
-            item.QtyJual = (item.QtyBesar * item.Conversion) + item.QtyKecil;
-            item.HrgSat = item.HrgSatKecil;
-            item.SubTotal = item.QtyJual * item.HrgSat;
+            item.QtyBeli = (item.QtyBesar * item.Conversion) + item.QtyKecil;
+            item.HppSat = item.HppSatKecil;
+            item.SubTotal = item.QtyBeli * item.HppSat;
 
             item.QtyBonus = (int)qtys[2];
-            item.QtyPotStok = item.QtyJual + item.QtyBonus;
+            item.QtyPotStok = item.QtyBeli + item.QtyBonus;
 
             item.QtyDetilStr = GenQtyDetilStr(item);
 
             item.DiscInputStr = req.DiscInputStr ?? string.Empty;
-            var listDisc = GenListDiscount(req.BrgId, item.SubTotal, req.DiscInputStr).ToList();
+            var listDisc = GenListDisc(req.BrgId, item.SubTotal, req.DiscInputStr).ToList();
             item.DiscDetilStr = GenDiscDetilStr(listDisc);
             item.DiscRp = listDisc.Sum(x => x.DiscRp);
-            item.ListDiscount = listDisc;
+            item.ListDisc = listDisc;
 
             item.PpnProsen = req.PpnProsen;
             item.PpnRp = (item.SubTotal - item.DiscRp) * req.PpnProsen / 100;
             item.Total = item.SubTotal - item.DiscRp + item.PpnRp;
 
             var stokKecil = stok.ListWarehouse.FirstOrDefault(x => x.WarehouseId == req.WarehouseId)?.Qty ?? 0;
-            item.StokHargaStr = $"{stokKecil:N0} {item.SatKecil}@{item.HrgSatKecil:N0}";
+            item.StokHargaStr = $"{stokKecil:N0} {item.SatKecil}@{item.HppSatKecil:N0}";
             int stokBesar = 0;
             if (item.Conversion > 0)
             {
                 stokBesar = (int)(stokKecil / item.Conversion);
                 stokKecil -= (stokBesar * item.Conversion);
-                item.StokHargaStr = $"{stokBesar:N0} {item.SatBesar} @{item.HrgSatKecil:N0}{Environment.NewLine}";
-                item.StokHargaStr += $"{stokKecil:N0} {item.SatKecil} @{item.HrgSatBesar:N0}";
+                item.StokHargaStr = $"{stokBesar:N0} {item.SatBesar} @{item.HppSatKecil:N0}{Environment.NewLine}";
+                item.StokHargaStr += $"{stokKecil:N0} {item.SatKecil} @{item.HppSatBesar:N0}";
             }
             item.QtyInputStr = $"{item.QtyBesar};{item.QtyKecil};{item.QtyBonus}";
 
             return item;
         }
 
-        private string GenQtyDetilStr(FakturItemModel item)
+        private string GenQtyDetilStr(InvoiceItemModel item)
         {
             var result = string.Empty;
             //  normalisasi; jika qty kecil lebih dari item.Conversion maka ubah jadi qty besar;
@@ -143,25 +140,17 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             return result.TrimEnd('\n', '\r');
         }
 
-        private static string GenDiscDetilStr(IReadOnlyCollection<FakturDiscountModel> listDisc)
+        private static string GenDiscDetilStr(IReadOnlyCollection<InvoiceDiscModel> listDisc)
         {
             var listString = new List<string>();
             foreach (var item in listDisc)
-            {
                 listString.Add($"{item.DiscRp:N0}");
-            }
-            
-            //{
-            //    $"{listDisc.FirstOrDefault(x => x.NoUrut == 1)?.DiscRp:N0 ?? 0}",
-            //    $"{listDisc.FirstOrDefault(x => x.NoUrut == 2)?.DiscRp:N0 ?? 0}",
-            //    $"{listDisc.FirstOrDefault(x => x.NoUrut == 3)?.DiscRp:N0 ?? 0}",
-            //    $"{listDisc.FirstOrDefault(x => x.NoUrut == 4)?.DiscRp:N0 ?? 0}"
-            //};
+
             var result = string.Join(Environment.NewLine, listString);
             return result;
         }
 
-        private static IEnumerable<FakturDiscountModel> GenListDiscount(string brgId, decimal subTotal,
+        private static IEnumerable<InvoiceDiscModel> GenListDisc(string brgId, decimal subTotal,
             string disccountString)
         {
             var discs = ParseStringMultiNumber(disccountString, 4);
@@ -175,12 +164,12 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             newSubTotal -= discRp[2];
             discRp[3] = newSubTotal * discs[3] / 100;
 
-            var result = new List<FakturDiscountModel>
+            var result = new List<InvoiceDiscModel>
             {
-                new FakturDiscountModel(1, brgId, discs[0], discRp[0]),
-                new FakturDiscountModel(2, brgId, discs[1], discRp[1]),
-                new FakturDiscountModel(3, brgId, discs[2], discRp[2]),
-                new FakturDiscountModel(4, brgId, discs[3], discRp[3])
+                new InvoiceDiscModel(1, brgId, discs[0], discRp[0]),
+                new InvoiceDiscModel(2, brgId, discs[1], discRp[1]),
+                new InvoiceDiscModel(3, brgId, discs[2], discRp[2]),
+                new InvoiceDiscModel(4, brgId, discs[3], discRp[3])
             };
             result.RemoveAll(x => x.DiscProsen == 0);
             return result;

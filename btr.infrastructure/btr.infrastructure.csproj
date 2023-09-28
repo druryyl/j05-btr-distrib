@@ -97,6 +97,9 @@
     <Compile Include="InventoryContext\StokBalanceRpt\StokBalanceReportDal.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\WarehouseDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PurchaseContext\InvoiceAgg\InvoiceDal.cs" />
+    <Compile Include="PurchaseContext\InvoiceAgg\InvoiceDiscDal.cs" />
+    <Compile Include="PurchaseContext\InvoiceAgg\InvoiceItemDal.cs" />
     <Compile Include="PurchaseContext\PurchaseOrderAgg\PurchaseOrderDal.cs" />
     <Compile Include="PurchaseContext\PurchaseOrderAgg\PurchaseOrderItemDal.cs" />
     <Compile Include="PurchaseContext\SupplierAgg\SupplierDal.cs" />
@@ -141,7 +144,6 @@
     <Folder Include="FinanceContext\CreditNoteAgg\" />
     <Folder Include="FinanceContext\HutangAgg\" />
     <Folder Include="FinanceContext\PiutangAgg\" />
-    <Folder Include="PurchaseContext\InvoiceAgg\" />
     <Folder Include="PurchaseContext\KlaimAgg\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

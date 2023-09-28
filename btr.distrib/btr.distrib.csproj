@@ -323,6 +323,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PurchaseContext\InvoiceAgg\InvoiceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PurchaseContext\InvoiceAgg\InvoiceForm.Designer.cs">
+      <DependentUpon>InvoiceForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="PurchaseContext\PurchaseOrderAgg\PurchaseOrderForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -425,6 +431,9 @@
     <None Include="Resources\icons8_stack_overflow_16.png" />
     <EmbeddedResource Include="InventoryContext\KartuStokRpt\KartuStokReportForm.resx">
       <DependentUpon>KartuStokReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PurchaseContext\InvoiceAgg\InvoiceForm.resx">
+      <DependentUpon>InvoiceForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SharedForm\VoidReasonForm.resx">
       <DependentUpon>VoidReasonForm.cs</DependentUpon>

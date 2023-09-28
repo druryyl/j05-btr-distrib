@@ -1,7 +1,156 @@
-﻿namespace btr.infrastructure.PurchaseContext.InvoiceAgg
+﻿using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using btr.application.PurchaseContext.InvoiceAgg;
+using btr.domain.PurchaseContext.InvoiceAgg;
+using btr.infrastructure.Helpers;
+using btr.nuna.Domain;
+using btr.nuna.Infrastructure;
+using Dapper;
+using Microsoft.Extensions.Options;
+
+namespace btr.infrastructure.PurchaseContext.InvoiceAgg
 {
-    public class InvoiceDal
+    public class InvoiceDal : IInvoiceDal
     {
-        
+        private readonly DatabaseOptions _opt;
+
+        public InvoiceDal(IOptions<DatabaseOptions> opt)
+        {
+            _opt = opt.Value;
+        }
+
+        public void Insert(InvoiceModel model)
+        {
+            const string sql = @"
+                INSERT INTO BTR_Invoice (
+                    InvoiceId, InvoiceDate, InvoiceCode, SupplierId,  WarehouseId, 
+                    NoFakturPajak, DueDate, Total, Disc, Tax, GrandTotal)
+                VALUES(
+                    @InvoiceId, @InvoiceDate, @InvoiceCode, @SupplierId,  @WarehouseId, 
+                    @NoFakturPajak, @DueDate, @Total, @Disc, @Tax, @GrandTotal)";
+
+            var dp = new DynamicParameters();
+            dp.AddParam("@InvoiceId", model.InvoiceId, SqlDbType.VarChar); 
+            dp.AddParam("@InvoiceDate", model.InvoiceDate, SqlDbType.DateTime); 
+            dp.AddParam("@InvoiceCode", model.InvoiceCode, SqlDbType.VarChar); 
+            dp.AddParam("@SupplierId", model.SupplierId, SqlDbType.VarChar);  
+            dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar); 
+            dp.AddParam("@NoFakturPajak", model.NoFakturPajak, SqlDbType.VarChar); 
+            dp.AddParam("@DueDate", model.DueDate, SqlDbType.VarChar);
+            dp.AddParam("@Total", model.Total, SqlDbType.Decimal);  
+            dp.AddParam("@Disc", model.Disc, SqlDbType.Decimal);  
+            dp.AddParam("@Tax", model.Tax, SqlDbType.Decimal);  
+            dp.AddParam("@GrandTotal", model.GrandTotal, SqlDbType.Decimal);
+
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                conn.Execute(sql, dp);
+            }
+        }
+
+        public void Update(InvoiceModel model)
+        {
+            const string sql = @"
+                UPDATE  
+                    BTR_Invoice
+                SET
+                    InvoiceDate = @InvoiceDate, 
+                    InvoiceCode = @InvoiceCode, 
+                    SupplierId = @SupplierId,  
+                    WarehouseId = @WarehouseId, 
+                    NoFakturPajak = @NoFakturPajak, 
+                    DueDate = @DueDate, 
+                    Total = @Total, 
+                    Disc = @Disc, 
+                    Tax = @Tax, 
+                    GrandTotal = @GrandTotal
+                WHERE
+                    InvoiceId = @InvoiceId";
+
+            var dp = new DynamicParameters();
+            dp.AddParam("@InvoiceId", model.InvoiceId, SqlDbType.VarChar); 
+            dp.AddParam("@InvoiceDate", model.InvoiceDate, SqlDbType.DateTime); 
+            dp.AddParam("@InvoiceCode", model.InvoiceCode, SqlDbType.VarChar); 
+            dp.AddParam("@SupplierId", model.SupplierId, SqlDbType.VarChar);  
+            dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar); 
+            dp.AddParam("@NoFakturPajak", model.NoFakturPajak, SqlDbType.VarChar); 
+            dp.AddParam("@DueDate", model.DueDate, SqlDbType.VarChar);
+            dp.AddParam("@Total", model.Total, SqlDbType.Decimal);  
+            dp.AddParam("@Disc", model.Disc, SqlDbType.Decimal);  
+            dp.AddParam("@Tax", model.Tax, SqlDbType.Decimal);  
+            dp.AddParam("@GrandTotal", model.GrandTotal, SqlDbType.Decimal);
+
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                conn.Execute(sql, dp);
+            }
+        }
+
+        public void Delete(IInvoiceKey key)
+        {
+            const string sql = @"
+                DELETE FROM  
+                    BTR_Invoice
+                WHERE
+                    InvoiceId = @InvoiceId";
+
+            var dp = new DynamicParameters();
+            dp.AddParam("@InvoiceId", key.InvoiceId, SqlDbType.VarChar); 
+
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                conn.Execute(sql, dp);
+            }
+        }
+
+        public InvoiceModel GetData(IInvoiceKey key)
+        {
+            const string sql = @"
+                SELECT
+                    aa.InvoiceId, aa.InvoiceDate, aa.InvoiceCode, aa.SupplierId,  aa.WarehouseId, 
+                    aa.NoFakturPajak, aa.DueDate, aa.Total, aa.Disc, aa.Tax, aa.GrandTotal,
+                    ISNULL(bb.SupplierName, '') AS SupplierName,
+                    ISNULL(cc.WarehouseName, '') AS WarehouseName
+                FROM
+                    BTR_Invoice aa
+                    LEFT JOIN BTR_SUpplier bb ON aa.SupplierId = bb.SupplierId
+                    LEFT JOIN BTR_Warehouse cc ON aa.WarehouseId = cc.WarehouseId
+                WHERE
+                    InvoiceId = @InvoiceId ";
+
+            var dp = new DynamicParameters();
+            dp.AddParam("@InvoiceId", key.InvoiceId, SqlDbType.VarChar); 
+
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                return conn.ReadSingle<InvoiceModel>(sql, dp);
+            }
+        }
+
+        public IEnumerable<InvoiceModel> ListData(Periode filter)
+        {
+            const string sql = @"
+                SELECT
+                    aa.InvoiceId, aa.InvoiceDate, aa.InvoiceCode, aa.SupplierId,  aa.WarehouseId, 
+                    aa.NoFakturPajak, aa.DueDate, aa.Total, aa.Disc, aa.Tax, aa.GrandTotal,
+                    ISNULL(bb.SupplierName, '') AS SupplierName,
+                    ISNULL(cc.WarehouseName, '') AS WarehouseName
+                FROM
+                    BTR_Invoice aa
+                    LEFT JOIN BTR_SUpplier bb ON aa.SupplierId = bb.SupplierId
+                    LEFT JOIN BTR_Warehouse cc ON aa.WarehouseId = cc.WarehouseId
+                WHERE
+                    InvoiceDate BETWEEN @Tgl1 AND @Tgl2 ";
+
+            var dp = new DynamicParameters();
+            dp.AddParam("@Tgl1", filter.Tgl1, SqlDbType.DateTime); 
+            dp.AddParam("@Tgl2", filter.Tgl2, SqlDbType.DateTime); 
+
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                return conn.Read<InvoiceModel>(sql, dp);
+            }
+        }
     }
 }

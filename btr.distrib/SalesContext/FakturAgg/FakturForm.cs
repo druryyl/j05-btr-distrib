@@ -40,7 +40,6 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly ICustomerDal _customerDal;
         private readonly IWarehouseDal _warehouseDal;
         private readonly IBrgBuilder _brgBuilder;
-        private readonly IStokBalanceBuilder _stokBalanceBuilder;
         private readonly ITglJamDal _dateTime;
         private readonly IBrgDal _brgDal;
         private readonly IFakturBuilder _fakturBuilder;
@@ -60,7 +59,6 @@ namespace btr.distrib.SalesContext.FakturAgg
             ICustomerDal customerDal,
             IWarehouseDal warehouseDal,
             IBrgBuilder brgBuilder,
-            IStokBalanceBuilder stokBalanceBuilder,
             ITglJamDal dateTime,
             IBrgDal brgDal,
             IFakturBuilder fakturBuilder,
@@ -78,7 +76,6 @@ namespace btr.distrib.SalesContext.FakturAgg
             _warehouseDal = warehouseDal;
 
             _brgBuilder = brgBuilder;
-            _stokBalanceBuilder = stokBalanceBuilder;
 
             _dateTime = dateTime;
             _brgDal = brgDal;

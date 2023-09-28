@@ -4,7 +4,6 @@
     {
         public FakturItemDto()
         {
-            //      default ppn 11%
             PpnProsen = 11; 
         }
         public string BrgId { get; set; }

@@ -122,6 +122,7 @@
     <Compile Include="InventoryContext\WarehouseAgg\WarehouseBuilder.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\WarehouseWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PurchaseContext\InvoiceAgg\CreateInvoiceItemWorker.cs" />
     <Compile Include="PurchaseContext\InvoiceAgg\IInvoiceDal.cs" />
     <Compile Include="PurchaseContext\InvoiceAgg\IInvoiceDiscDal.cs" />
     <Compile Include="PurchaseContext\InvoiceAgg\IInvoiceItemDal.cs" />

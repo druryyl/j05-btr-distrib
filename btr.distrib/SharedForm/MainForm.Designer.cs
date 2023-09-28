@@ -44,9 +44,7 @@
             this.PurchaseTab = new System.Windows.Forms.RibbonTab();
             this.PurchaseOrderRibbonPanel = new System.Windows.Forms.RibbonPanel();
             this.PoButton = new System.Windows.Forms.RibbonButton();
-            this.PoReportButton = new System.Windows.Forms.RibbonButton();
             this.InvoiceRibbonPanel = new System.Windows.Forms.RibbonPanel();
-            this.InvoiceButton = new System.Windows.Forms.RibbonButton();
             this.InvoiceReportButton = new System.Windows.Forms.RibbonButton();
             this.MasterPurchaseRibbonPanel = new System.Windows.Forms.RibbonPanel();
             this.SupplierButton = new System.Windows.Forms.RibbonButton();
@@ -71,6 +69,7 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.InvoiceButton = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -207,9 +206,9 @@
             // PurchaseOrderRibbonPanel
             // 
             this.PurchaseOrderRibbonPanel.Items.Add(this.PoButton);
-            this.PurchaseOrderRibbonPanel.Items.Add(this.PoReportButton);
+            this.PurchaseOrderRibbonPanel.Items.Add(this.InvoiceButton);
             this.PurchaseOrderRibbonPanel.Name = "PurchaseOrderRibbonPanel";
-            this.PurchaseOrderRibbonPanel.Text = "";
+            this.PurchaseOrderRibbonPanel.Text = "Transaction";
             // 
             // PoButton
             // 
@@ -220,28 +219,11 @@
             this.PoButton.Text = "PO";
             this.PoButton.Click += new System.EventHandler(this.PoButton_Click);
             // 
-            // PoReportButton
-            // 
-            this.PoReportButton.Image = global::btr.distrib.Properties.Resources.icons8_documents;
-            this.PoReportButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents;
-            this.PoReportButton.Name = "PoReportButton";
-            this.PoReportButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("PoReportButton.SmallImage")));
-            this.PoReportButton.Text = "Reporting";
-            // 
             // InvoiceRibbonPanel
             // 
-            this.InvoiceRibbonPanel.Items.Add(this.InvoiceButton);
             this.InvoiceRibbonPanel.Items.Add(this.InvoiceReportButton);
             this.InvoiceRibbonPanel.Name = "InvoiceRibbonPanel";
             this.InvoiceRibbonPanel.Text = "";
-            // 
-            // InvoiceButton
-            // 
-            this.InvoiceButton.Image = global::btr.distrib.Properties.Resources.icons8_bill;
-            this.InvoiceButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_bill;
-            this.InvoiceButton.Name = "InvoiceButton";
-            this.InvoiceButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("InvoiceButton.SmallImage")));
-            this.InvoiceButton.Text = "Invoice";
             // 
             // InvoiceReportButton
             // 
@@ -433,6 +415,15 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
+            // InvoiceButton
+            // 
+            this.InvoiceButton.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.InvoiceButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.InvoiceButton.Name = "InvoiceButton";
+            this.InvoiceButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("InvoiceButton.SmallImage")));
+            this.InvoiceButton.Text = "Invoice";
+            this.InvoiceButton.Click += new System.EventHandler(this.InvoiceButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -483,8 +474,6 @@
         private System.Windows.Forms.RibbonButton SalesPersonButton;
         private System.Windows.Forms.RibbonButton WilayahButton;
         private System.Windows.Forms.RibbonButton PoButton;
-        private System.Windows.Forms.RibbonButton PoReportButton;
-        private System.Windows.Forms.RibbonButton InvoiceButton;
         private System.Windows.Forms.RibbonButton InvoiceReportButton;
         private System.Windows.Forms.RibbonButton SupplierButton;
         private System.Windows.Forms.RibbonButton BrgButton;
@@ -500,5 +489,6 @@
         private System.Windows.Forms.RibbonButton PrintFakturButton;
         private System.Windows.Forms.RibbonButton PackingButton;
         private System.Windows.Forms.RibbonButton BukuStokButton;
+        private System.Windows.Forms.RibbonButton InvoiceButton;
     }
 }
