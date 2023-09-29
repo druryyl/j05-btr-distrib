@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using btr.application.InventoryContext.StokAgg.GenStokUseCase;
-using btr.application.SalesContext.FakturAgg.Workers;
+using btr.application.SalesContext.InvoiceAgg.Workers;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
+using btr.domain.PurchaseContext.InvoiceAgg;
+using btr.domain.PurchaseContext.SupplierAgg;
 using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.FakturAgg;
 using btr.domain.SalesContext.SalesPersonAgg;
@@ -12,43 +14,41 @@ using btr.nuna.Domain;
 using Dawn;
 using MediatR;
 
-namespace btr.application.SalesContext.FakturAgg.UseCases
+namespace btr.application.SalesContext.InvoiceAgg.UseCases
 {
-    public class SaveFakturRequest : IFakturKey, ICustomerKey, ISalesPersonKey, IWarehouseKey, IUserKey
+    public class SaveInvoiceRequest : IInvoiceKey, ISupplierKey, IWarehouseKey, IUserKey
     {
-        public string FakturId { get; set; }
-        public string FakturDate { get; set; }
+        public string InvoiceId { get; set; }
+        public string InvoiceDate { get; set; }
         public string SupplierId { get; set; }
-        public string SalesPersonId { get; set; }
         public string WarehouseId { get; set; }
-        public string RencanaKirimDate { get; set; }
         public int TermOfPayment { get; set; }
         public string DueDate { get; set; }
         public string UserId { get; set; }
-        public IEnumerable<SaveFakturRequestItem> ListBrg { get; set; }
+        public IEnumerable<SaveInvoiceRequestItem> ListBrg { get; set; }
     }
 
-    public class SaveFakturRequestItem : IBrgKey
+    public class SaveInvoiceRequestItem : IBrgKey
     {
         public string BrgId { get; set; }
-        public string StokHarga { get; set; }
+        public string HrgInputStr { get; set; }
         public string QtyString { get; set; }
         public string DiscountString { get; set; }
         public decimal PpnProsen { get; set; }
     }
 
-    public interface ISaveFakturWorker : INunaService<FakturModel, SaveFakturRequest> { }
+    public interface ISaveInvoiceWorker : INunaService<InvoiceModel, SaveInvoiceRequest> { }
 
-    public class SaveFakturWorker : ISaveFakturWorker
+    public class SaveInvoiceWorker : ISaveInvoiceWorker
     {
-        private readonly IFakturBuilder _fakturBuilder;
-        private readonly IFakturWriter _fakturWriter;
+        private readonly IInvoiceBuilder _fakturBuilder;
+        private readonly IInvoiceWriter _fakturWriter;
         private readonly IMediator _mediator;
-        private readonly IGenStokFakturWorker _genStokWorker;
+        private readonly IGenStokInvoiceWorker _genStokWorker;
 
-        public SaveFakturWorker(IFakturBuilder fakturBuilder,
-            IFakturWriter fakturWriter,
-            IMediator mediator, IGenStokFakturWorker genStokWorker)
+        public SaveInvoiceWorker(IInvoiceBuilder fakturBuilder,
+            IInvoiceWriter fakturWriter,
+            IMediator mediator, IGenStokInvoiceWorker genStokWorker)
         {
             _fakturBuilder = fakturBuilder;
             _fakturWriter = fakturWriter;
@@ -56,36 +56,36 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
             _genStokWorker = genStokWorker;
         }
 
-        public FakturModel Execute(SaveFakturRequest req)
+        public InvoiceModel Execute(SaveInvoiceRequest req)
         {
             //  GUARD
             Guard.Argument(() => req).NotNull()
-                .Member(x => x.FakturDate, y => y.ValidDate("yyyy-MM-dd"))
+                .Member(x => x.InvoiceDate, y => y.ValidDate("yyyy-MM-dd"))
                 .Member(x => x.SupplierId, y => y.NotEmpty())
-                .Member(x => x.SalesPersonId, y => y.NotEmpty())
                 .Member(x => x.WarehouseId, y => y.NotEmpty())
                 .Member(x => x.DueDate, y => y.ValidDate("yyyy-MM-dd"));
 
             //  PROSES FAKTUR
-            FakturModel result;
+            InvoiceModel result;
             using (var trans = TransHelper.NewScope())
             {
-                result = SaveFaktur(req);
-                
-                var genStokReq = new GenStokFakturRequest(result.FakturId);
+                result = SaveInvoice(req);
+
+                var genStokReq = new GenStokInvoiceRequest(result.InvoiceId);
                 _genStokWorker.Execute(genStokReq);
-                
-                trans.Complete();                
+
+                trans.Complete();
             }
 
             //  RESULT
             return result;
         }
-        private FakturModel SaveFaktur(SaveFakturRequest req)
+
+        private InvoiceModel SaveInvoice(SaveInvoiceRequest req)
         {
             //  BUILD
-            FakturModel result;
-            if (req.FakturId.Length == 0)
+            InvoiceModel result;
+            if (req.InvoiceId.Length == 0)
             {
                 result = _fakturBuilder.CreateNew(req).Build();
             }
@@ -97,11 +97,9 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
 
             result = _fakturBuilder
                 .Attach(result)
-                .FakturDate(req.FakturDate.ToDate(DateFormatEnum.YMD))
-                .Customer(req)
-                .SalesPerson(req)
+                .InvoiceDate(req.InvoiceDate.ToDate(DateFormatEnum.YMD))
+                .Supplier(req)
                 .Warehouse(req)
-                .TglRencanaKirim(req.RencanaKirimDate.ToDate(DateFormatEnum.YMD))
                 .User(req)
                 .TermOfPayment((TermOfPaymentEnum)req.TermOfPayment)
                 .DueDate(req.DueDate.ToDate(DateFormatEnum.YMD))
@@ -111,7 +109,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
             {
                 result = _fakturBuilder
                     .Attach(result)
-                    .AddItem(item, item.StokHarga, item.QtyString, item.DiscountString, item.PpnProsen)
+                    .AddItem(item, item.HrgInputStr, item.QtyString, item.DiscountString, item.PpnProsen)
                     .Build();
             }
             result = _fakturBuilder
@@ -121,21 +119,19 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
 
             //  APPLY
             _ = _fakturWriter.Save(result);
-            _mediator.Publish(new SavedFakturEvent(req, result));
+            _mediator.Publish(new SavedInvoiceEvent(req, result));
             return result;
         }
-
-
     }
 
-    public class SavedFakturEvent : INotification
+    public class SavedInvoiceEvent : INotification
     {
-        public SavedFakturEvent(SaveFakturRequest request, FakturModel aggregate)
+        public SavedInvoiceEvent(SaveInvoiceRequest request, InvoiceModel aggregate)
         {
             Request = request;
             Aggregate = aggregate;
         }
-        public SaveFakturRequest Request { get; }
-        public FakturModel Aggregate { get; }
+        public SaveInvoiceRequest Request { get; }
+        public InvoiceModel Aggregate { get; }
     }
 }

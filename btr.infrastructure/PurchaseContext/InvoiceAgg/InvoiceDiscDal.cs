@@ -32,7 +32,7 @@ namespace btr.infrastructure.PurchaseContext.InvoiceAgg
                 bcp.AddMap("NoUrut","NoUrut");
                 bcp.AddMap("BrgId","BrgId");
                 bcp.AddMap("DiscProsen","DiscProsen");
-                bcp.AddMap("DiskRp","DiskRp");
+                bcp.AddMap("DiscRp","DiscRp");
 
                 var fetched = listModel.ToList();
                 bcp.BatchSize = fetched.Count;
@@ -62,8 +62,8 @@ namespace btr.infrastructure.PurchaseContext.InvoiceAgg
         {
             const string sql = @"
                 SELECT
-                    aa.InvoiceId, aa.InvoidItemId, aa.InvoiceDiscId, aa.NoUrut, aa.BrgId, 
-                    aa.DiscProsen, aa.DiskRp
+                    aa.InvoiceId, aa.InvoiceItemId, aa.InvoiceDiscId, aa.NoUrut, aa.BrgId, 
+                    aa.DiscProsen, aa.DiscRp
                 FROM                    
                     BTR_InvoiceDisc aa
                 WHERE

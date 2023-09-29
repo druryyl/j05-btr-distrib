@@ -141,8 +141,8 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         public IFakturBuilder Customer(ICustomerKey customerKey)
         {
             var customer = _customerDal.GetData(customerKey)
-                           ?? throw new KeyNotFoundException($"CustomerId not found ({customerKey.CustomerId})");
-            _aggRoot.CustomerId = customer.CustomerId;
+                           ?? throw new KeyNotFoundException($"CustomerId not found ({customerKey.SupplierId})");
+            _aggRoot.SupplierId = customer.SupplierId;
             _aggRoot.CustomerName = customer.CustomerName;
             _aggRoot.Plafond = customer.Plafond;
             _aggRoot.CreditBalance = customer.CreditBalance;

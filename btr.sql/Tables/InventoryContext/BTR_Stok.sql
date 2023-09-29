@@ -18,3 +18,8 @@ CREATE INDEX IX_BTR_Stok_BrgId_WarehouseId
     ON BTR_Stok(BrgId, WarehouseId, Qty, StokId)
     WITH(FILLFACTOR=60)
 GO
+
+CREATE INDEX IX_BTR_Stok_ReffId
+    ON BTR_Stok(ReffId, StokId)
+    WITH(FILLFACTOR=60)
+GO

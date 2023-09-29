@@ -10,7 +10,8 @@ namespace btr.application.InventoryContext.StokAgg
         IUpdate<StokModel>,
         IDelete<IStokKey>,
         IGetData<StokModel, IStokKey>,
-        IListData<StokModel, IBrgKey, IWarehouseKey>
+        IListData<StokModel, IBrgKey, IWarehouseKey>,
+        IListData<StokModel, IReffKey>
     {
     }
 }

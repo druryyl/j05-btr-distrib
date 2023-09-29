@@ -111,7 +111,7 @@ namespace btr.distrib.SalesContext.CustomerAgg
                 ?? new List<domain.SalesContext.CustomerAgg.CustomerModel>();
 
             _listCust = listCust
-                .Select(x => new CustomerFormGridDto(x.CustomerId,
+                .Select(x => new CustomerFormGridDto(x.SupplierId,
                     x.CustomerName,
                     $"{x.Address1} {x.Kota}",
                     x.Plafond,
@@ -162,7 +162,7 @@ namespace btr.distrib.SalesContext.CustomerAgg
 
         private void ShowData(CustomerModel customer)
         {
-            CustIdText.Text = customer.CustomerId;
+            CustIdText.Text = customer.SupplierId;
             CustNameText.Text = customer.CustomerName;
             CustCodeText.Text = customer.CustomerCode;
             KlasifikasiCombo.SelectedValue = customer.KlasifikasiId;

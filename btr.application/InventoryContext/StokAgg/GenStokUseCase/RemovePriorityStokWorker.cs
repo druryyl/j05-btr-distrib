@@ -117,6 +117,10 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
         private int GetKonversi(IBrgKey brgKey, string satuan, out BrgModel brg)
         {
             brg = _brgBuilder.Load(brgKey).Build();
+
+            if (satuan.Trim().Length == 0)
+                return 1;
+
             var thisSatuan = brg.ListSatuan.FirstOrDefault(x => x.Satuan.ToLower() == satuan.ToLower())
                              ?? throw new KeyNotFoundException($"Satuan {brg.BrgName} invalid : {satuan}");
             return thisSatuan.Conversion;

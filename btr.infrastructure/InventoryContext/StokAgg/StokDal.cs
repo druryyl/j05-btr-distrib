@@ -150,5 +150,30 @@ namespace btr.infrastructure.InventoryContext.StokAgg
                 return conn.Read<StokModel>(sql, dp);
             }
         }
+
+        public IEnumerable<StokModel> ListData(IReffKey reffKey)
+        {
+            const string sql = @"
+            SELECT
+                aa.StokId, aa.StokDate, aa.ReffId,
+                aa.BrgId,  aa.WarehouseId, aa.QtyIn, aa.Qty,
+                aa.NilaiPersediaan,
+                ISNULL(bb.BrgName, '') AS BrgName,
+                ISNULL(cc.WarehouseName, '') AS WarehouseName
+            FROM
+                BTR_Stok aa
+                LEFT JOIN BTR_Brg bb ON aa.BrgId = bb.BrgId
+                LEFT JOIN BTR_Warehouse cc on aa.WarehouseId = cc.WarehouseId
+            WHERE
+                aa.ReffId = @ReffId ";
+
+            var dp = new DynamicParameters();
+            dp.AddParam("@ReffId", reffKey.ReffId, SqlDbType.VarChar);
+
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                return conn.Read<StokModel>(sql, dp);
+            }
+        }
     }
 }

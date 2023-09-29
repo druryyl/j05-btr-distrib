@@ -40,7 +40,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             dp.AddParam("@FakturDate", model.FakturDate, SqlDbType.DateTime);
             dp.AddParam("@FakturCode", model.FakturCode, SqlDbType.VarChar);
             dp.AddParam("@SalesPersonId", model.SalesPersonId, SqlDbType.VarChar);
-            dp.AddParam("@CustomerId", model.CustomerId, SqlDbType.VarChar);
+            dp.AddParam("@CustomerId", model.SupplierId, SqlDbType.VarChar);
             dp.AddParam("@HargaTypeId", model.HargaTypeId, SqlDbType.VarChar);
 
             dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
@@ -109,7 +109,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             dp.AddParam("@FakturCode", model.FakturCode, SqlDbType.VarChar);
 
             dp.AddParam("@SalesPersonId", model.SalesPersonId, SqlDbType.VarChar);
-            dp.AddParam("@CustomerId", model.CustomerId, SqlDbType.VarChar);
+            dp.AddParam("@CustomerId", model.SupplierId, SqlDbType.VarChar);
             dp.AddParam("@HargaTypeId", model.HargaTypeId, SqlDbType.VarChar);
             dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
             dp.AddParam("@TglRencanaKirim", model.TglRencanaKirim, SqlDbType.DateTime);

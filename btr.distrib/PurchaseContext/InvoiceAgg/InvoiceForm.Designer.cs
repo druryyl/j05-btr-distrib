@@ -36,7 +36,7 @@
             this.SupplierNameText = new System.Windows.Forms.TextBox();
             this.SupplierButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.IvvoiceIdText = new System.Windows.Forms.TextBox();
+            this.InvoiceIdText = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.WarehouseIdText = new System.Windows.Forms.TextBox();
             this.WarehouseNameText = new System.Windows.Forms.TextBox();
@@ -176,15 +176,15 @@
             this.label3.TabIndex = 22;
             this.label3.Text = "Supplier ID";
             // 
-            // IvvoiceIdText
+            // InvoiceIdText
             // 
-            this.IvvoiceIdText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.IvvoiceIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.IvvoiceIdText.Location = new System.Drawing.Point(11, 23);
-            this.IvvoiceIdText.Name = "IvvoiceIdText";
-            this.IvvoiceIdText.ReadOnly = true;
-            this.IvvoiceIdText.Size = new System.Drawing.Size(147, 22);
-            this.IvvoiceIdText.TabIndex = 0;
+            this.InvoiceIdText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.InvoiceIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InvoiceIdText.Location = new System.Drawing.Point(11, 23);
+            this.InvoiceIdText.Name = "InvoiceIdText";
+            this.InvoiceIdText.ReadOnly = true;
+            this.InvoiceIdText.Size = new System.Drawing.Size(147, 22);
+            this.InvoiceIdText.TabIndex = 0;
             // 
             // panel3
             // 
@@ -523,7 +523,7 @@
             this.panel1.BackColor = System.Drawing.Color.Honeydew;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.InvoiceNoText);
-            this.panel1.Controls.Add(this.IvvoiceIdText);
+            this.panel1.Controls.Add(this.InvoiceIdText);
             this.panel1.Controls.Add(this.InvoiceDateText);
             this.panel1.Controls.Add(this.InvoiceCodeLabel);
             this.panel1.Controls.Add(this.InvoiceDateLabel);
@@ -655,7 +655,7 @@
         #endregion
         private System.Windows.Forms.ComboBox TermOfPaymentCombo;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.TextBox IvvoiceIdText;
+        private System.Windows.Forms.TextBox InvoiceIdText;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TextBox WarehouseIdText;
         private System.Windows.Forms.TextBox WarehouseNameText;

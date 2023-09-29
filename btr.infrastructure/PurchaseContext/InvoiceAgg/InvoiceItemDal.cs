@@ -33,6 +33,9 @@ namespace btr.infrastructure.PurchaseContext.InvoiceAgg
                 bcp.AddMap("QtyInputStr","QtyInputStr");
                 bcp.AddMap("QtyDetilStr","QtyDetilStr");
 
+                bcp.AddMap("HrgInputStr","HrgInputStr");
+                bcp.AddMap("HrgDetilStr", "HrgDetilStr");
+
                 bcp.AddMap("QtyBesar","QtyBesar");
                 bcp.AddMap("SatBesar","SatBesar");
                 bcp.AddMap("Conversion","Conversion");

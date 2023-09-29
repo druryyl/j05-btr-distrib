@@ -1,8 +1,11 @@
 ﻿CREATE TABLE BTR_InvoiceItem(
     InvoiceId VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_InvoiceItem_InvoiceId DEFAULT(''),
-    InvoiceItemId DATETIME NOT NULL CONSTRAINT DF_BTR_InvoiceItem_InvoiceItemId DEFAULT('3000-01-01'),
+    InvoiceItemId VARCHAR(16) NOT NULL CONSTRAINT DF_BTR_InvoiceItem_InvoiceItemId DEFAULT('3000-01-01'),
     NoUrut INT NOT NULL CONSTRAINT DF_BTR_InvoiceItem_NoUrut DEFAULT(0),
     BrgId VARCHAR(6) NOT NULL CONSTRAINT DF_BTR_InvoiceItem_BrgId DEFAULT(''),
+
+    HrgInputStr VARCHAR(30) NOT NULL CONSTRAINT DF_BTR_InvoiceItem_HrgInputStr DEFAULT(''),
+    HrgDetilStr VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_InvoiceItem_HrgDetilStr DEFAULT(''),
 
     QtyInputStr VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_InvoiceItem_QtyInputStr DEFAULT(''),
     QtyDetilStr VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_InvoiceItem_QtyDetilStr DEFAULT(''),
@@ -13,12 +16,12 @@
     HppSatBesar DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_InvoiceItem_HppSatBesar DEFAULT(0),
     
     QtyKecil INT NOT NULL CONSTRAINT DF_BTR_InvoiceItem_QtyKecil DEFAULT(0),
-    SatKecil INT NOT NULL CONSTRAINT DF_BTR_InvoiceItem_SatKecil DEFAULT(0),
+    SatKecil VARCHAR(10) NOT NULL CONSTRAINT DF_BTR_InvoiceItem_SatKecil DEFAULT(''),
     HppSatKecil DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_InvoiceItem_HppSatKecil DEFAULT(0),
     
     QtyBeli INT NOT NULL CONSTRAINT DF_BTR_InvoiceItem_QtyJual DEFAULT(0),
     HppSat DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_InvoiceItem_HppSat DEFAULT(0),
-    SubTotal INT NOT NULL CONSTRAINT DF_BTR_InvoiceItem_SubTotal DEFAULT(0),
+    SubTotal DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_InvoiceItem_SubTotal DEFAULT(0),
     
     QtyBonus INT NOT NULL CONSTRAINT DF_BTR_InvoiceItem_QtyBonus DEFAULT(0),
     QtyPotStok INT NOT NULL CONSTRAINT DF_BTR_InvoiceItem_QtyPotStok DEFAULT(0),

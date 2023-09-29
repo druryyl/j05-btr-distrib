@@ -12,9 +12,13 @@ namespace btr.domain.PurchaseContext.InvoiceAgg
         public string BrgId { get; set; }
         public string BrgCode { get; set; }
         public string BrgName { get; set; }
-        public string StokHargaStr { get; set; }
+        
+        public string HrgInputStr { get; set; }
+        public string HrgDetilStr { get; set; }
+
         public string QtyInputStr { get; set; }
         public string QtyDetilStr { get; set; }
+
         public int QtyBesar { get; set; }
         public string SatBesar { get; set; }
         public int Conversion { get; set; }

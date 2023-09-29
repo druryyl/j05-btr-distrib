@@ -1,9 +1,12 @@
 ﻿using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.WarehouseAgg;
 using btr.application.PurchaseContext.SupplierAgg.Contracts;
+using btr.application.SalesContext.FakturAgg.UseCases;
+using btr.application.SalesContext.InvoiceAgg.UseCases;
 using btr.application.SalesContext.InvoiceAgg.Workers;
 using btr.distrib.Browsers;
 using btr.distrib.Helpers;
+using btr.distrib.SharedForm;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.PurchaseContext.SupplierAgg;
@@ -29,8 +32,10 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
         private readonly IBrgDal _brgDal;
 
         private readonly ICreateInvoiceItemWorker _createItemWorker;
+        private readonly ISaveInvoiceWorker _saveInvoiceWorker;
 
         private readonly IBrgBuilder _brgBuilder;
+        private readonly IInvoiceBuilder _invoiceBuilder;
         
 
         private readonly BindingList<InvoiceItemDto> _listItem = new BindingList<InvoiceItemDto>();
@@ -43,7 +48,9 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             IWarehouseDal warehouseDal,
             ICreateInvoiceItemWorker createItemWorker,
             IBrgBuilder brgBuilder,
-            IBrgDal brgDal)
+            IBrgDal brgDal,
+            ISaveInvoiceWorker saveInvoiceWorker,
+            IInvoiceBuilder invoiceBuilder)
         {
             InitializeComponent();
 
@@ -60,6 +67,8 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             RegisterEventHandler();
             InitGrid();
             _brgStokBrowser = brgStokBrowser;
+            _saveInvoiceWorker = saveInvoiceWorker;
+            _invoiceBuilder = invoiceBuilder;
         }
 
         private void RegisterEventHandler()
@@ -75,6 +84,8 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             InvoiceItemGrid.CellValidated += InvoiceItemGrid_CellValidated;
             InvoiceItemGrid.KeyDown += InvoiceItemGrid_KeyDown;
             InvoiceItemGrid.EditingControlShowing += InvoiceItemGrid_EditingControlShowing;
+
+            SaveButton.Click += SaveButton_Click;
         }
 
         #region SUPPLIER
@@ -151,21 +162,27 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
                 }
                 ValidateRow(e.RowIndex);
             }
+
             if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("QtyInputStr").Index)
             {
                 if (grid.CurrentCell.Value is null)
                     return;
-
                 ValidateRow(e.RowIndex);
             }
+
+            if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("HrgInputStr").Index)
+            {
+                if (grid.CurrentCell.Value is null)
+                    return;
+                ValidateRow(e.RowIndex);
+            }
+
             if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("DiscInputStr").Index)
             {
                 if (grid.CurrentCell.Value is null)
                     return;
-
                 ValidateRow(e.RowIndex);
             }
-
         }
 
         private void InvoiceItemGrid_KeyDown(object sender, KeyEventArgs e)
@@ -229,10 +246,10 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
 
             var req = new CreateInvoiceItemRequest(
                 _listItem[rowIndex].BrgId,
+                _listItem[rowIndex].HrgInputStr,
                 _listItem[rowIndex].QtyInputStr,
                 _listItem[rowIndex].DiscInputStr,
-                _listItem[rowIndex].PpnProsen,
-                WarehouseIdText.Text);
+                _listItem[rowIndex].PpnProsen);
             var item = _createItemWorker.Execute(req);
             _listItem[rowIndex] = item.Adapt<InvoiceItemDto>();
             InvoiceItemGrid.Refresh();
@@ -307,11 +324,18 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             cols.GetCol("BrgName").Width = 160;
             cols.GetCol("BrgName").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
 
-            cols.GetCol("StokHargaStr").Visible = true;
-            cols.GetCol("StokHargaStr").Width = 110;
-            cols.GetCol("StokHargaStr").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            cols.GetCol("StokHargaStr").HeaderText = "StokHarga";
-            cols.GetCol("StokHargaStr").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
+            cols.GetCol("HrgInputStr").Visible = true;
+            cols.GetCol("HrgInputStr").Width = 110;
+            cols.GetCol("HrgInputStr").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            cols.GetCol("HrgInputStr").HeaderText = "Hrg Beli";
+            cols.GetCol("HrgInputStr").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
+
+            cols.GetCol("HrgDetilStr").Visible = true;
+            cols.GetCol("HrgDetilStr").Width = 110;
+            cols.GetCol("HrgDetilStr").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            cols.GetCol("HrgDetilStr").HeaderText = "Detil Harga";
+            cols.GetCol("HrgDetilStr").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
+
 
             cols.GetCol("QtyInputStr").Visible = true;
             cols.GetCol("QtyInputStr").Width = 50;
@@ -366,6 +390,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             InvoiceItemGrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             InvoiceItemGrid.AutoResizeRows();
         }
+
         private void CalcTotal()
         {
             TotalText.Value = _listItem.Sum(x => x.SubTotal);
@@ -376,6 +401,45 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
         }
 
         #endregion
+
+        #region SAVE
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            var mainform = (MainForm)this.Parent.Parent;
+            var cmd = new SaveInvoiceRequest
+            {
+                InvoiceId = InvoiceIdText.Text,
+                InvoiceDate = InvoiceDateText.Value.ToString("yyyy-MM-dd"),
+                SupplierId = SupplierIdText.Text,
+                WarehouseId = WarehouseIdText.Text,
+                TermOfPayment = TermOfPaymentCombo.SelectedIndex,
+                DueDate = DueDateText.Value.ToString("yyyy-MM-dd"),
+                UserId = mainform.UserId.UserId,
+            };
+
+            var listItem = (
+                from c in _listItem
+                where c.BrgName?.Length > 0
+                select new SaveInvoiceRequestItem
+                {
+                    BrgId = c.BrgId,
+                    HrgInputStr = c.HrgInputStr,
+                    QtyString = c.QtyInputStr,
+                    DiscountString = c.DiscInputStr,
+                    PpnProsen = c.PpnProsen,
+                }).ToList();
+            cmd.ListBrg = listItem;
+            var result = _saveInvoiceWorker.Execute(cmd);
+
+            //ClearForm();
+            var invoiceDb = _invoiceBuilder
+                .Load(result)
+                .Build();
+
+            //LastIdLabel.Text = $"{result.InvoiceId}";
+        }
+        #endregion
+
     }
 
     public class InvoiceItemDto
@@ -387,7 +451,8 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
         public string BrgId { get; set; }
         public string BrgCode { get; private set; }
         public string BrgName { get; private set; }
-        public string StokHargaStr { get; private set; }
+        public string HrgInputStr { get; set; }
+        public string HrgDetilStr { get; private set; }
 
         public string QtyInputStr { get; set; }
         public string QtyDetilStr { get; private set; }

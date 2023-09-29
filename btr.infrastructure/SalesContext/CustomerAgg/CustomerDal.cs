@@ -34,7 +34,7 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
                 @IsSuspend, @Plafond, @CreditBalance)";
 
             var dp = new DynamicParameters();
-            dp.AddParam("@CustomerId", model.CustomerId, SqlDbType.VarChar);
+            dp.AddParam("@CustomerId", model.SupplierId, SqlDbType.VarChar);
             dp.AddParam("@CustomerName", model.CustomerName, SqlDbType.VarChar);
             
             dp.AddParam("@WilayahId", model.WilayahId, SqlDbType.VarChar);
@@ -97,7 +97,7 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
 
             //  TODO; CODING CUSTOMER
             var dp = new DynamicParameters();
-            dp.AddParam("@CustomerId", model.CustomerId, SqlDbType.VarChar);
+            dp.AddParam("@CustomerId", model.SupplierId, SqlDbType.VarChar);
             dp.AddParam("@CustomerName", model.CustomerName, SqlDbType.VarChar);
 
             dp.AddParam("@WilayahId", model.WilayahId, SqlDbType.VarChar);
@@ -136,7 +136,7 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
                 CustomerId = @CustomerId ";
 
             var dp = new DynamicParameters();
-            dp.AddParam("@CustomerId", key.CustomerId, SqlDbType.VarChar);
+            dp.AddParam("@CustomerId", key.SupplierId, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -165,7 +165,7 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
                 aa.CustomerId = @CustomerId ";
 
             var dp = new DynamicParameters();
-            dp.AddParam("@CustomerId", key.CustomerId, SqlDbType.VarChar);
+            dp.AddParam("@CustomerId", key.SupplierId, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {

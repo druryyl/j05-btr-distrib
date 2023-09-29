@@ -9,9 +9,9 @@ namespace btr.domain.SalesContext.CustomerAgg
         public CustomerModel()
         {
         }
-        public CustomerModel(string id) => CustomerId = id;
+        public CustomerModel(string id) => SupplierId = id;
 
-        public string CustomerId {get;set;}
+        public string SupplierId {get;set;}
         public string CustomerName {get;set;}
         public string CustomerCode { get; set; }
         

@@ -40,7 +40,7 @@ namespace btr.distrib.Browsers
                 .OrderBy(x => x.CustomerName)
                 .Select(x => new CustomerBrowserView
                 {
-                    Id = x.CustomerId,
+                    Id = x.SupplierId,
                     Code = x.CustomerCode,
                     CustomerName = $"{x.CustomerName} - {x.Address1} {x.Kota}",
                 }).ToList();

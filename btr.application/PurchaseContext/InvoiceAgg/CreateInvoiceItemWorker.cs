@@ -12,22 +12,22 @@ namespace btr.application.SalesContext.InvoiceAgg.Workers
     public class CreateInvoiceItemRequest : IBrgKey
     {
         public CreateInvoiceItemRequest(string brgId, 
+            string hrgInputStr,
             string qtyInputStr, 
             string discInputStr, 
-            decimal ppnProsen, 
-            string warehouseId) 
+            decimal ppnProsen) 
         {
             BrgId = brgId;
+            HrgInputStr = hrgInputStr;
             QtyInputStr = qtyInputStr;
             DiscInputStr = discInputStr;
             PpnProsen = ppnProsen;
-            WarehouseId = warehouseId;
         }
         public string BrgId { get; set; }
+        public string HrgInputStr { get; set; }
         public string QtyInputStr { get; set; }
         public string DiscInputStr { get; set; }
         public decimal PpnProsen { get; set; }
-        public string WarehouseId { get; set; }
     }
 
     public interface ICreateInvoiceItemWorker : INunaService<InvoiceItemModel, CreateInvoiceItemRequest>
@@ -59,16 +59,26 @@ namespace btr.application.SalesContext.InvoiceAgg.Workers
                 BrgName = brg.BrgName,
                 BrgCode = brg.BrgCode,
                 QtyInputStr = req.QtyInputStr,
+                HrgInputStr = req.HrgInputStr,
+                DiscInputStr = req.DiscInputStr,
             };
-            
+
+            //  harga beli
+            var hrgInputStr = item.HrgInputStr;
+            GenHrgBeli(ref hrgInputStr, ref brg, out string hrgDetilStr,
+                out decimal hppSatKecil, out decimal hppSatBesar);
+            item.HrgDetilStr = hrgDetilStr;
+            item.HppSatKecil = hppSatKecil;
+            item.HppSatBesar = hppSatBesar;
+            item.HppSat = hppSatKecil;
+            item.HrgInputStr = hrgInputStr;
+
             item.QtyKecil = (int)qtys[1];
             item.SatKecil = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty;
-            item.HppSatKecil = brg.Hpp;
 
             item.QtyBesar = (int)qtys[0];
             item.SatBesar = brg.ListSatuan.FirstOrDefault(x => x.Conversion > 1)?.Satuan ?? string.Empty;
             item.Conversion = brg.ListSatuan.FirstOrDefault(x => x.Conversion > 1)?.Conversion ?? 0;
-            item.HppSatBesar = item.HppSatKecil * item.Conversion;
 
             //  jika cuman punya satu satuan, pindah jadi satuan kecil
             if (item.Conversion == 0)
@@ -83,9 +93,7 @@ namespace btr.application.SalesContext.InvoiceAgg.Workers
                         item.QtyBesar = 0;
                     }
 
-
             item.QtyBeli = (item.QtyBesar * item.Conversion) + item.QtyKecil;
-            item.HppSat = item.HppSatKecil;
             item.SubTotal = item.QtyBeli * item.HppSat;
 
             item.QtyBonus = (int)qtys[2];
@@ -103,19 +111,49 @@ namespace btr.application.SalesContext.InvoiceAgg.Workers
             item.PpnRp = (item.SubTotal - item.DiscRp) * req.PpnProsen / 100;
             item.Total = item.SubTotal - item.DiscRp + item.PpnRp;
 
-            var stokKecil = stok.ListWarehouse.FirstOrDefault(x => x.WarehouseId == req.WarehouseId)?.Qty ?? 0;
-            item.StokHargaStr = $"{stokKecil:N0} {item.SatKecil}@{item.HppSatKecil:N0}";
-            int stokBesar = 0;
-            if (item.Conversion > 0)
-            {
-                stokBesar = (int)(stokKecil / item.Conversion);
-                stokKecil -= (stokBesar * item.Conversion);
-                item.StokHargaStr = $"{stokBesar:N0} {item.SatBesar} @{item.HppSatKecil:N0}{Environment.NewLine}";
-                item.StokHargaStr += $"{stokKecil:N0} {item.SatKecil} @{item.HppSatBesar:N0}";
-            }
+            //var stokKecil = stok.ListWarehouse.FirstOrDefault(x => x.WarehouseId == req.WarehouseId)?.Qty ?? 0;
+            //item.HrgInputStr = $"{stokKecil:N0} {item.SatKecil}@{item.HppSatKecil:N0}";
+            //int stokBesar = 0;
+            //if (item.Conversion > 0)
+            //{
+            //    stokBesar = (int)(stokKecil / item.Conversion);
+            //    stokKecil -= (stokBesar * item.Conversion);
+            //    item.HrgInputStr = $"{stokBesar:N0} {item.SatBesar} @{item.HppSatKecil:N0}{Environment.NewLine}";
+            //    item.HrgInputStr += $"{stokKecil:N0} {item.SatKecil} @{item.HppSatBesar:N0}";
+            //}
             item.QtyInputStr = $"{item.QtyBesar};{item.QtyKecil};{item.QtyBonus}";
 
             return item;
+        }
+
+        private void GenHrgBeli(ref string hrgInputStr, ref BrgModel brg,
+            out string hrgDetilStr, out decimal hppSatKecil, out decimal hppSatBesar)
+        {
+            var hrgs = ParseStringMultiNumber(hrgInputStr, 2);
+            var conversion = brg.ListSatuan.Max(x => x.Conversion);
+            var satKecil = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty;
+            var satBesar = brg.ListSatuan.FirstOrDefault(x => x.Conversion > 1)?.Satuan ?? string.Empty;
+
+            //  jika brg cuman punya 1 satuan
+            if (conversion == 1)
+            {
+                //  jika terisi di 2 tempat, ambil yang kanan
+                hppSatKecil = hrgs[1] > 0 ? hrgs[1] : hrgs[0];
+                hppSatBesar = 0;
+                hrgDetilStr = $"{hppSatKecil}/{satKecil}";
+            }
+
+            //  jika brg punya 2 satuan
+            else
+            {
+                //  jika terisi di 2 tempat, ambil acuan satuan besar di kiri
+                //  satuan kecil di-replace
+                hppSatBesar = hrgs[0] > 0 ? hrgs[0] : hrgs[1];
+                hppSatKecil = hppSatBesar / conversion;
+                hrgDetilStr = $"{hppSatBesar}/{satBesar}{Environment.NewLine}";
+                hrgDetilStr += $"{hppSatKecil}/{satKecil}";
+            }
+            hrgInputStr = $"{hppSatBesar};{hppSatKecil}";
         }
 
         private string GenQtyDetilStr(InvoiceItemModel item)
