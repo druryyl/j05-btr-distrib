@@ -4,12 +4,16 @@ using btr.application.PurchaseContext.SupplierAgg.Contracts;
 using btr.application.SalesContext.FakturAgg.UseCases;
 using btr.application.SalesContext.InvoiceAgg.UseCases;
 using btr.application.SalesContext.InvoiceAgg.Workers;
+using btr.application.SupportContext.TglJamAgg;
 using btr.distrib.Browsers;
 using btr.distrib.Helpers;
+using btr.distrib.SalesContext.FakturAgg;
 using btr.distrib.SharedForm;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
+using btr.domain.PurchaseContext.InvoiceAgg;
 using btr.domain.PurchaseContext.SupplierAgg;
+using btr.domain.SalesContext.FakturAgg;
 using Mapster;
 using Polly;
 using System;
@@ -18,6 +22,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using static ClosedXML.Excel.XLPredefinedFormat;
 
 namespace btr.distrib.PurchaseContext.InvoiceAgg
 {
@@ -30,6 +35,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
         private readonly ISupplierDal _supplierDal;
         private readonly IWarehouseDal _warehouseDal;
         private readonly IBrgDal _brgDal;
+        private readonly ITglJamDal _dateTime;
 
         private readonly ICreateInvoiceItemWorker _createItemWorker;
         private readonly ISaveInvoiceWorker _saveInvoiceWorker;
@@ -50,7 +56,8 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             IBrgBuilder brgBuilder,
             IBrgDal brgDal,
             ISaveInvoiceWorker saveInvoiceWorker,
-            IInvoiceBuilder invoiceBuilder)
+            IInvoiceBuilder invoiceBuilder,
+            ITglJamDal dateTime)
         {
             InitializeComponent();
 
@@ -69,6 +76,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             _brgStokBrowser = brgStokBrowser;
             _saveInvoiceWorker = saveInvoiceWorker;
             _invoiceBuilder = invoiceBuilder;
+            _dateTime = dateTime;
         }
 
         private void RegisterEventHandler()
@@ -431,12 +439,52 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             cmd.ListBrg = listItem;
             var result = _saveInvoiceWorker.Execute(cmd);
 
-            //ClearForm();
+            ClearForm();
             var invoiceDb = _invoiceBuilder
                 .Load(result)
                 .Build();
+        }
+        private void ClearForm()
+        {
+            InvoiceIdText.Text = string.Empty;
+            InvoiceDateText.Value = _dateTime.Now;
+            SupplierIdText.Text = string.Empty;
+            SupplierNameText.Text = string.Empty;
+            WarehouseIdText.Text = string.Empty;
+            WarehouseNameText.Text = string.Empty;
+            TermOfPaymentCombo.SelectedIndex = 0;
 
-            //LastIdLabel.Text = $"{result.InvoiceId}";
+            TotalText.Value = 0;
+            DiscountText.Value = 0;
+            TaxText.Value = 0;
+            UangMukaText.Value = 0;
+            SisaText.Value = 0;
+
+            _listItem.Clear();
+            _listItem.Add(new InvoiceItemDto());
+            ShowAsActive();
+        }
+        private void ShowAsVoid(InvoiceModel invoice)
+        {
+            this.BackColor = Color.RosyBrown;
+            foreach (var item in this.Controls)
+                if (item is Panel panel)
+                    panel.BackColor = Color.MistyRose;
+
+            CancelLabel.Text = $"Invoice sudah DIBATALKAN \noleh {invoice.UserIdVoid} \npada {invoice.VoidDate:ddd, dd MMM yyyy}";
+            VoidPanel.Visible = true;
+            SaveButton.Visible = false;
+        }
+
+        private void ShowAsActive()
+        {
+            this.BackColor = Color.DarkSeaGreen;
+            foreach (var item in this.Controls)
+                if (item is Panel panel)
+                    panel.BackColor = Color.Honeydew;
+
+            VoidPanel.Visible = false;
+            SaveButton.Visible = true;
         }
         #endregion
 
