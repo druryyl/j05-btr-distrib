@@ -87,6 +87,8 @@
     <Compile Include="BrgContext\KategoriAgg\KategoriDal.cs" />
     <Compile Include="InventoryContext\DriverAgg\DriverDal.cs" />
     <Compile Include="InventoryContext\KartuStokRpt\KartuStokDal.cs" />
+    <Compile Include="InventoryContext\MutasiAgg\MutasiDal.cs" />
+    <Compile Include="InventoryContext\MutasiAgg\MutasiItemDal.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameDal.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingDal.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingFakturDal.cs" />

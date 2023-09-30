@@ -60,13 +60,14 @@
     <Folder Include="Tables\" />
     <Folder Include="Tables\BrgContext\" />
     <Folder Include="Tables\Helper\" />
-    <Folder Include="Tables\InventoryContext\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\BrgContext\BTR_Brg.sql" />
     <Build Include="Tables\BrgContext\BTR_BrgSatuan.sql" />
     <Build Include="Tables\Helper\BTR_ParamNo.sql" />
     <Build Include="Tables\Helper\BTR_UserParam.sql" />
+    <Build Include="Tables\InventoryContext\BTR_Mutasi.sql" />
+    <Build Include="Tables\InventoryContext\BTR_MutasiItem.sql" />
     <Build Include="Tables\InventoryContext\BTR_Opaname.sql" />
     <Build Include="Tables\InventoryContext\BTR_Stok.sql" />
     <Build Include="Tables\InventoryContext\BTR_StokMutasi.sql" />

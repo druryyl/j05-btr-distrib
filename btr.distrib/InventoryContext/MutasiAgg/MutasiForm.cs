@@ -235,7 +235,6 @@ namespace btr.distrib.InventoryContext.MutasiAgg
 
         private void BrowseBrg(int rowIndex)
         {
-            var grid = MutasiItemGrid;
             var brgId = _listItem[rowIndex].BrgId;
             _brgStokBrowser.Filter.StaticFilter1 = WarehouseIdText.Text;
             _brgStokBrowser.Filter.UserKeyword = _listItem[rowIndex].BrgId;
@@ -323,11 +322,11 @@ namespace btr.distrib.InventoryContext.MutasiAgg
 
             cols.GetCol("QtyInputStr").Visible = true;
             cols.GetCol("QtyInputStr").Width = 50;
-            cols.GetCol("QtyInputStr").HeaderText = "Qty";
+            cols.GetCol("QtyInputStr").HeaderText = @"Qty";
 
             cols.GetCol("QtyDetilStr").Visible = true;
             cols.GetCol("QtyDetilStr").Width = 80;
-            cols.GetCol("QtyDetilStr").HeaderText = "Qty Desc";
+            cols.GetCol("QtyDetilStr").HeaderText = @"Qty Desc";
             cols.GetCol("QtyDetilStr").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             cols.GetCol("QtyDetilStr").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
 
