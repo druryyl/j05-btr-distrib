@@ -90,6 +90,7 @@
     <Compile Include="InventoryContext\DriverAgg\IDriverDal.cs" />
     <Compile Include="InventoryContext\KartuStokRpt\IKartuStokDal.cs" />
     <Compile Include="InventoryContext\KartuStokRpt\IKartuStokSaldoDal.cs" />
+    <Compile Include="InventoryContext\MutasiAgg\CreateMutasiItemWorker.cs" />
     <Compile Include="InventoryContext\OpnameAgg\IOpnameDal.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameBuilder.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameValidator.cs" />

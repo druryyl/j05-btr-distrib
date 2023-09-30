@@ -111,16 +111,6 @@ namespace btr.application.SalesContext.InvoiceAgg.Workers
             item.PpnRp = (item.SubTotal - item.DiscRp) * req.PpnProsen / 100;
             item.Total = item.SubTotal - item.DiscRp + item.PpnRp;
 
-            //var stokKecil = stok.ListWarehouse.FirstOrDefault(x => x.WarehouseId == req.WarehouseId)?.Qty ?? 0;
-            //item.HrgInputStr = $"{stokKecil:N0} {item.SatKecil}@{item.HppSatKecil:N0}";
-            //int stokBesar = 0;
-            //if (item.Conversion > 0)
-            //{
-            //    stokBesar = (int)(stokKecil / item.Conversion);
-            //    stokKecil -= (stokBesar * item.Conversion);
-            //    item.HrgInputStr = $"{stokBesar:N0} {item.SatBesar} @{item.HppSatKecil:N0}{Environment.NewLine}";
-            //    item.HrgInputStr += $"{stokKecil:N0} {item.SatKecil} @{item.HppSatBesar:N0}";
-            //}
             item.QtyInputStr = $"{item.QtyBesar};{item.QtyKecil};{item.QtyBonus}";
 
             return item;
