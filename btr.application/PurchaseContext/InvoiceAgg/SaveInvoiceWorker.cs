@@ -1,20 +1,17 @@
 ﻿using System.Collections.Generic;
 using btr.application.InventoryContext.StokAgg.GenStokUseCase;
-using btr.application.SalesContext.InvoiceAgg.Workers;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.PurchaseContext.InvoiceAgg;
 using btr.domain.PurchaseContext.SupplierAgg;
-using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.FakturAgg;
-using btr.domain.SalesContext.SalesPersonAgg;
 using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
 using Dawn;
 using MediatR;
 
-namespace btr.application.SalesContext.InvoiceAgg.UseCases
+namespace btr.application.PurchaseContext.InvoiceAgg
 {
     public class SaveInvoiceRequest : IInvoiceKey, ISupplierKey, 
         IWarehouseKey, IUserKey

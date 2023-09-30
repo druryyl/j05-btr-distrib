@@ -2,20 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using btr.application.BrgContext.BrgAgg;
-using btr.application.InventoryContext.MutasiAgg;
 using btr.application.InventoryContext.WarehouseAgg;
-using btr.application.PurchaseContext.SupplierAgg.Contracts;
 using btr.application.SupportContext.TglJamAgg;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.MutasiAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
-using btr.domain.PurchaseContext.SupplierAgg;
-using btr.domain.SalesContext.FakturAgg;
 using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
 
-namespace btr.application.SalesContext.MutasiAgg.Workers
+namespace btr.application.InventoryContext.MutasiAgg
 {
     public interface IMutasiBuilder : INunaBuilder<MutasiModel>
     {

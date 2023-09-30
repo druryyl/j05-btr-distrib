@@ -1,12 +1,9 @@
-﻿using System.Linq;
+﻿using btr.domain.InventoryContext.MutasiAgg;
 using btr.nuna.Application;
-using FluentValidation;
 using btr.nuna.Domain;
-using btr.application.SupportContext.UserAgg;
-using btr.domain.InventoryContext.MutasiAgg;
-using btr.application.InventoryContext.MutasiAgg;
+using FluentValidation;
 
-namespace btr.application.SalesContext.MutasiAgg.Workers
+namespace btr.application.InventoryContext.MutasiAgg
 {
     public interface IMutasiWriter : INunaWriter2<MutasiModel>
     {

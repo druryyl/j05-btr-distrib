@@ -1,11 +1,7 @@
-﻿using btr.domain.SalesContext.FakturAgg;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using btr.domain.SalesContext.FakturAgg;
 
-namespace btr.infrastructure.SalesContext.FakturPajakVoidAgg
+namespace btr.domain.SalesContext.FakturPajakVoidAgg
 {
     public class FakturPajakVoidModel : INoFakturPajak
     {

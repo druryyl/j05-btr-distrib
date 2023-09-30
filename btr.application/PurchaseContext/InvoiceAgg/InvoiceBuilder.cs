@@ -3,23 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.WarehouseAgg;
-using btr.application.PurchaseContext.InvoiceAgg;
 using btr.application.PurchaseContext.SupplierAgg.Contracts;
-using btr.application.SalesContext.CustomerAgg.Contracts;
-using btr.application.SalesContext.SalesPersonAgg.Contracts;
 using btr.application.SupportContext.TglJamAgg;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.PurchaseContext.InvoiceAgg;
 using btr.domain.PurchaseContext.SupplierAgg;
-using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.FakturAgg;
-using btr.domain.SalesContext.SalesPersonAgg;
 using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
 
-namespace btr.application.SalesContext.InvoiceAgg.Workers
+namespace btr.application.PurchaseContext.InvoiceAgg
 {
     public interface IInvoiceBuilder : INunaBuilder<InvoiceModel>
     {

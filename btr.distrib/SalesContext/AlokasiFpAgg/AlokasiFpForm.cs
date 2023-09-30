@@ -18,6 +18,7 @@ using btr.application.SupportContext.TglJamAgg;
 using btr.distrib.Helpers;
 using btr.distrib.SharedForm;
 using btr.domain.SalesContext.AlokasiFpAgg;
+using btr.domain.SalesContext.EFakturAgg;
 using btr.domain.SalesContext.FakturAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;

@@ -28,6 +28,7 @@ namespace btr.domain.InventoryContext.MutasiAgg
         public DateTime LastUpdate { get; set; }
         public DateTime VoidDate { get; set; }
         public string UserIdVoid { get; set; }
+        public bool IsVoid { get => VoidDate != new DateTime(3000, 1, 1); }
 
         public List<MutasiItemModel> ListItem { get; set; }
     }

@@ -1,13 +1,13 @@
-﻿using btr.application.BrgContext.BrgAgg;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.StokBalanceAgg;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.PurchaseContext.InvoiceAgg;
 using btr.nuna.Application;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace btr.application.SalesContext.InvoiceAgg.Workers
+namespace btr.application.PurchaseContext.InvoiceAgg
 {
     public class CreateInvoiceItemRequest : IBrgKey
     {

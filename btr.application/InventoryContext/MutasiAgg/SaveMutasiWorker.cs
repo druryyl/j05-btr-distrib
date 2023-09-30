@@ -1,17 +1,13 @@
 ﻿using System.Collections.Generic;
-using btr.application.SalesContext.MutasiAgg.Workers;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.MutasiAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
-using btr.domain.PurchaseContext.SupplierAgg;
-using btr.domain.SalesContext.FakturAgg;
 using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Application;
-using btr.nuna.Domain;
 using Dawn;
 using MediatR;
 
-namespace btr.application.SalesContext.MutasiAgg.UseCases
+namespace btr.application.InventoryContext.MutasiAgg
 {
     public class SaveMutasiRequest : IMutasiKey,
         IWarehouseKey, IUserKey
@@ -27,7 +23,6 @@ namespace btr.application.SalesContext.MutasiAgg.UseCases
     {
         public string BrgId { get; set; }
         public string QtyString { get; set; }
-        public decimal PpnProsen { get; set; }
     }
 
     public interface ISaveMutasiWorker : INunaService<MutasiModel, SaveMutasiRequest> { }

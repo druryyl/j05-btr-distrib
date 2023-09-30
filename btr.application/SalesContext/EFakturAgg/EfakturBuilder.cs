@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using btr.application.SalesContext.CustomerAgg.Contracts;
+using btr.domain.SalesContext.EFakturAgg;
 using btr.domain.SalesContext.FakturAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;

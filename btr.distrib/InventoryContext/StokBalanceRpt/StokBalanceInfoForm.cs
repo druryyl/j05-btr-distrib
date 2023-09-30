@@ -1,22 +1,22 @@
-﻿using btr.application.BrgContext.KategoriAgg;
-using btr.application.InventoryContext.StokBalanceReport;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
+using btr.application.BrgContext.KategoriAgg;
+using btr.application.InventoryContext.StokBalanceRpt;
 using btr.application.InventoryContext.WarehouseAgg;
 using btr.application.PurchaseContext.SupplierAgg.Contracts;
 using btr.distrib.Browsers;
 using btr.distrib.Helpers;
 using btr.domain.BrgContext.KategoriAgg;
-using btr.domain.InventoryContext.StokBalanceReport;
+using btr.domain.InventoryContext.StokBalanceRpt;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.PurchaseContext.SupplierAgg;
 using btr.nuna.Domain;
 using ClosedXML.Excel;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
 
-namespace btr.distrib.InventoryContext.InventoryInfo
+namespace btr.distrib.InventoryContext.StokBalanceRpt
 {
     public partial class StokBalanceInfoForm : Form
     {

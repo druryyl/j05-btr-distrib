@@ -19,8 +19,8 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using btr.distrib.InventoryContext.StokBalanceRpt;
 using btr.distrib.SalesContext.AlokasiFpAgg;
-using btr.distrib.InventoryContext.InventoryInfo;
 using btr.distrib.PurchaseContext.InvoiceAgg;
 
 namespace btr.distrib.SharedForm

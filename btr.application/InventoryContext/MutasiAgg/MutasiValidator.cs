@@ -1,7 +1,7 @@
 ﻿using btr.domain.InventoryContext.MutasiAgg;
 using FluentValidation;
 
-namespace btr.application.PurchaseContext.InvoiceAgg
+namespace btr.application.InventoryContext.MutasiAgg
 {
     public class MutasiValidator : AbstractValidator<MutasiModel>
     {

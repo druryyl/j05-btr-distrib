@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace btr.distrib.PurchaseContext.MutasiAgg
+namespace btr.distrib.InventoryContext.MutasiAgg
 {
     partial class MutasiForm
     {
