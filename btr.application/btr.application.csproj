@@ -91,6 +91,11 @@
     <Compile Include="InventoryContext\KartuStokRpt\IKartuStokDal.cs" />
     <Compile Include="InventoryContext\KartuStokRpt\IKartuStokSaldoDal.cs" />
     <Compile Include="InventoryContext\MutasiAgg\CreateMutasiItemWorker.cs" />
+    <Compile Include="InventoryContext\MutasiAgg\IMutasiDal.cs" />
+    <Compile Include="InventoryContext\MutasiAgg\MutasiBuilder.cs" />
+    <Compile Include="InventoryContext\MutasiAgg\MutasiValidator.cs" />
+    <Compile Include="InventoryContext\MutasiAgg\MutasiWriter.cs" />
+    <Compile Include="InventoryContext\MutasiAgg\SaveMutasiWorker.cs" />
     <Compile Include="InventoryContext\OpnameAgg\IOpnameDal.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameBuilder.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameValidator.cs" />

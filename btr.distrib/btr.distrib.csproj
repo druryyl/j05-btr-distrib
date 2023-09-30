@@ -252,6 +252,7 @@
     <Compile Include="Browsers\FakturBrowser.cs" />
     <Compile Include="Browsers\InvoiceBrowser.cs" />
     <Compile Include="Browsers\KategoriBrowser.cs" />
+    <Compile Include="Browsers\MutasiBrowser.cs" />
     <Compile Include="Browsers\SalesPersonBrowser.cs" />
     <Compile Include="Browsers\WilayahBrowser.cs" />
     <Compile Include="Helpers\BrowseFilter.cs" />

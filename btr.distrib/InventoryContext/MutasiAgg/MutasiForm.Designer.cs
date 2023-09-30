@@ -1,4 +1,6 @@
-﻿namespace btr.distrib.InventoryContext.MutasiAgg
+﻿using System.Windows.Forms;
+
+namespace btr.distrib.PurchaseContext.MutasiAgg
 {
     partial class MutasiForm
     {
@@ -29,27 +31,29 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.InvoiceButton = new System.Windows.Forms.Button();
+            this.LastIdLabel = new System.Windows.Forms.Label();
+            this.MutasiButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.MutasiIdText = new System.Windows.Forms.TextBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.MutasiItemGrid = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.WarehouseNameText = new System.Windows.Forms.TextBox();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.WarehouseButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.WarehouseIdText = new System.Windows.Forms.TextBox();
-            this.LastIdLabel = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.KeteranganText = new System.Windows.Forms.TextBox();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.WarehouseNameText = new System.Windows.Forms.TextBox();
             this.TotalText = new System.Windows.Forms.MaskedTextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.SaveButton = new System.Windows.Forms.Button();
             this.NewButton = new System.Windows.Forms.Button();
+            this.MutasiDateText = new System.Windows.Forms.DateTimePicker();
+            this.MutasiDateLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MutasiItemGrid)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
@@ -58,8 +62,10 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.PowderBlue;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.MutasiDateText);
+            this.panel1.Controls.Add(this.MutasiDateLabel);
             this.panel1.Controls.Add(this.LastIdLabel);
-            this.panel1.Controls.Add(this.InvoiceButton);
+            this.panel1.Controls.Add(this.MutasiButton);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.MutasiIdText);
             this.panel1.Location = new System.Drawing.Point(6, 6);
@@ -67,16 +73,26 @@
             this.panel1.Size = new System.Drawing.Size(200, 117);
             this.panel1.TabIndex = 0;
             // 
-            // InvoiceButton
+            // LastIdLabel
             // 
-            this.InvoiceButton.BackColor = System.Drawing.Color.CadetBlue;
-            this.InvoiceButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.InvoiceButton.Location = new System.Drawing.Point(165, 22);
-            this.InvoiceButton.Name = "InvoiceButton";
-            this.InvoiceButton.Size = new System.Drawing.Size(26, 22);
-            this.InvoiceButton.TabIndex = 2;
-            this.InvoiceButton.Text = "...";
-            this.InvoiceButton.UseVisualStyleBackColor = false;
+            this.LastIdLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LastIdLabel.Location = new System.Drawing.Point(6, 47);
+            this.LastIdLabel.Name = "LastIdLabel";
+            this.LastIdLabel.Size = new System.Drawing.Size(153, 20);
+            this.LastIdLabel.TabIndex = 5;
+            this.LastIdLabel.Text = "[Last ID]";
+            this.LastIdLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // MutasiButton
+            // 
+            this.MutasiButton.BackColor = System.Drawing.Color.CadetBlue;
+            this.MutasiButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.MutasiButton.Location = new System.Drawing.Point(165, 22);
+            this.MutasiButton.Name = "MutasiButton";
+            this.MutasiButton.Size = new System.Drawing.Size(26, 22);
+            this.MutasiButton.TabIndex = 2;
+            this.MutasiButton.Text = "...";
+            this.MutasiButton.UseVisualStyleBackColor = false;
             // 
             // label1
             // 
@@ -96,14 +112,14 @@
             this.MutasiIdText.Size = new System.Drawing.Size(150, 22);
             this.MutasiIdText.TabIndex = 0;
             // 
-            // dataGridView1
+            // MutasiItemGrid
             // 
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.DarkSlateGray;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(6, 129);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(788, 246);
-            this.dataGridView1.TabIndex = 1;
+            this.MutasiItemGrid.BackgroundColor = System.Drawing.Color.DarkSlateGray;
+            this.MutasiItemGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.MutasiItemGrid.Location = new System.Drawing.Point(6, 129);
+            this.MutasiItemGrid.Name = "MutasiItemGrid";
+            this.MutasiItemGrid.Size = new System.Drawing.Size(788, 246);
+            this.MutasiItemGrid.TabIndex = 1;
             // 
             // panel2
             // 
@@ -119,6 +135,37 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(200, 117);
             this.panel2.TabIndex = 2;
+            // 
+            // WarehouseNameText
+            // 
+            this.WarehouseNameText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.WarehouseNameText.Location = new System.Drawing.Point(9, 50);
+            this.WarehouseNameText.Name = "WarehouseNameText";
+            this.WarehouseNameText.ReadOnly = true;
+            this.WarehouseNameText.Size = new System.Drawing.Size(182, 22);
+            this.WarehouseNameText.TabIndex = 5;
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Location = new System.Drawing.Point(100, 82);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(59, 17);
+            this.radioButton3.TabIndex = 4;
+            this.radioButton3.Text = "Masuk";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // radioButton4
+            // 
+            this.radioButton4.AutoSize = true;
+            this.radioButton4.Checked = true;
+            this.radioButton4.Location = new System.Drawing.Point(9, 82);
+            this.radioButton4.Name = "radioButton4";
+            this.radioButton4.Size = new System.Drawing.Size(57, 17);
+            this.radioButton4.TabIndex = 3;
+            this.radioButton4.TabStop = true;
+            this.radioButton4.Text = "Keluar";
+            this.radioButton4.UseVisualStyleBackColor = true;
             // 
             // WarehouseButton
             // 
@@ -147,16 +194,6 @@
             this.WarehouseIdText.Name = "WarehouseIdText";
             this.WarehouseIdText.Size = new System.Drawing.Size(150, 22);
             this.WarehouseIdText.TabIndex = 0;
-            // 
-            // LastIdLabel
-            // 
-            this.LastIdLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LastIdLabel.Location = new System.Drawing.Point(6, 47);
-            this.LastIdLabel.Name = "LastIdLabel";
-            this.LastIdLabel.Size = new System.Drawing.Size(153, 20);
-            this.LastIdLabel.TabIndex = 5;
-            this.LastIdLabel.Text = "[Last ID]";
-            this.LastIdLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // panel3
             // 
@@ -191,37 +228,6 @@
             this.KeteranganText.Size = new System.Drawing.Size(350, 77);
             this.KeteranganText.TabIndex = 0;
             // 
-            // radioButton4
-            // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Checked = true;
-            this.radioButton4.Location = new System.Drawing.Point(9, 82);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(57, 17);
-            this.radioButton4.TabIndex = 3;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "Keluar";
-            this.radioButton4.UseVisualStyleBackColor = true;
-            // 
-            // radioButton3
-            // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(100, 82);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(59, 17);
-            this.radioButton3.TabIndex = 4;
-            this.radioButton3.Text = "Masuk";
-            this.radioButton3.UseVisualStyleBackColor = true;
-            // 
-            // WarehouseNameText
-            // 
-            this.WarehouseNameText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.WarehouseNameText.Location = new System.Drawing.Point(9, 50);
-            this.WarehouseNameText.Name = "WarehouseNameText";
-            this.WarehouseNameText.ReadOnly = true;
-            this.WarehouseNameText.Size = new System.Drawing.Size(182, 22);
-            this.WarehouseNameText.TabIndex = 5;
-            // 
             // TotalText
             // 
             this.TotalText.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -235,7 +241,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(601, 387);
+            this.label5.Location = new System.Drawing.Point(601, 382);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(36, 17);
             this.label5.TabIndex = 5;
@@ -259,6 +265,25 @@
             this.NewButton.Text = "New";
             this.NewButton.UseVisualStyleBackColor = true;
             // 
+            // MutasiDateText
+            // 
+            this.MutasiDateText.CustomFormat = "ddd dd-MM-yyyy HH:mm";
+            this.MutasiDateText.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.MutasiDateText.Location = new System.Drawing.Point(9, 83);
+            this.MutasiDateText.Name = "MutasiDateText";
+            this.MutasiDateText.ShowUpDown = true;
+            this.MutasiDateText.Size = new System.Drawing.Size(176, 22);
+            this.MutasiDateText.TabIndex = 6;
+            // 
+            // MutasiDateLabel
+            // 
+            this.MutasiDateLabel.AutoSize = true;
+            this.MutasiDateLabel.Location = new System.Drawing.Point(6, 67);
+            this.MutasiDateLabel.Name = "MutasiDateLabel";
+            this.MutasiDateLabel.Size = new System.Drawing.Size(72, 13);
+            this.MutasiDateLabel.TabIndex = 7;
+            this.MutasiDateLabel.Text = "Mutasi  Date";
+            // 
             // MutasiForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -271,14 +296,14 @@
             this.Controls.Add(this.TotalText);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.MutasiItemGrid);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "MutasiForm";
             this.Text = "Mutasi Barang";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MutasiItemGrid)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
@@ -293,8 +318,8 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox MutasiIdText;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button InvoiceButton;
+        private System.Windows.Forms.DataGridView MutasiItemGrid;
+        private System.Windows.Forms.Button MutasiButton;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button WarehouseButton;
         private System.Windows.Forms.Label label2;
@@ -310,5 +335,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button NewButton;
+        private DateTimePicker MutasiDateText;
+        private Label MutasiDateLabel;
     }
 }
