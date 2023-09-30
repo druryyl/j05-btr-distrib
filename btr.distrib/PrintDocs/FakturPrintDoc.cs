@@ -85,7 +85,7 @@ namespace btr.distrib.PrintDocs
         public async void CreateDoc(FakturModel model)
         {
             var sb = new StringBuilder();
-            var cust = await _mediator.Send(new GetCustomerQuery(model.SupplierId));
+            var cust = await _mediator.Send(new GetCustomerQuery(model.CustomerId));
 
             var noItem = 1;
             var listItemWithBonus = PindahBonusNewBaris(model.ListItem);
@@ -178,7 +178,7 @@ namespace btr.distrib.PrintDocs
         private static void PrintHeader(FakturModel model, CustomerModel cust, StringBuilder sb)
         {
             var tgl = model.FakturDate.ToString("dd-MM-yyyy");
-            var custId = model.SupplierId.PadRight(12, ' ');
+            var custId = model.CustomerId.PadRight(12, ' ');
             var noFakturrrr = model.FakturCode.FixWidth(13);
             var jnsJl = model.TermOfPayment.ToString().FixWidth(7);
             var salesNameee = model.SalesPersonName.FixWidth(13);

@@ -23,8 +23,8 @@ namespace btr.application.SalesContext.CustomerAgg.Workers
 
         public void Save(ref CustomerModel model)
         {
-            if (model.SupplierId.IsNullOrEmpty())
-                model.SupplierId = _counter.Generate("CS", IDFormatEnum.PFnnnn);
+            if (model.CustomerId.IsNullOrEmpty())
+                model.CustomerId = _counter.Generate("CS", IDFormatEnum.PFnnnn);
 
             var custDb = _customerDal.GetData(model);
             if (custDb is null)

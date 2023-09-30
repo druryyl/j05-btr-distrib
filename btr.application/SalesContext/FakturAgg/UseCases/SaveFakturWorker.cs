@@ -18,7 +18,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
     {
         public string FakturId { get; set; }
         public string FakturDate { get; set; }
-        public string SupplierId { get; set; }
+        public string CustomerId { get; set; }
         public string SalesPersonId { get; set; }
         public string WarehouseId { get; set; }
         public string RencanaKirimDate { get; set; }
@@ -61,7 +61,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
             //  GUARD
             Guard.Argument(() => req).NotNull()
                 .Member(x => x.FakturDate, y => y.ValidDate("yyyy-MM-dd"))
-                .Member(x => x.SupplierId, y => y.NotEmpty())
+                .Member(x => x.CustomerId, y => y.NotEmpty())
                 .Member(x => x.SalesPersonId, y => y.NotEmpty())
                 .Member(x => x.WarehouseId, y => y.NotEmpty())
                 .Member(x => x.DueDate, y => y.ValidDate("yyyy-MM-dd"));

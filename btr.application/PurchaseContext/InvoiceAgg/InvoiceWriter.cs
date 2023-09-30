@@ -45,9 +45,6 @@ namespace btr.application.SalesContext.InvoiceAgg.Workers
             if (model.InvoiceId.IsNullOrEmpty())
                 model.InvoiceId = _counter.Generate("INVC", IDFormatEnum.PREFYYMnnnnnC);
 
-            if (model.InvoiceCode.IsNullOrEmpty())
-                model.InvoiceCode = GenerateInvoiceCode(model);
-
             foreach (var item in model.ListItem)
             {
                 item.InvoiceId = model.InvoiceId;
@@ -79,14 +76,6 @@ namespace btr.application.SalesContext.InvoiceAgg.Workers
                 trans.Complete();
             }
             return model;
-        }
-
-        private string GenerateInvoiceCode(IUserKey userKey)
-        {
-            var user = _userBuilder.Load(userKey).Build();
-            var prefix = user.Prefix;
-            var result = _counter.Generate(prefix, IDFormatEnum.PYYMnnnn);
-            return result;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace btr.distrib.SharedForm
         {
             InitializeComponent();
             OkButton.Click += OkButton_Click;
-            CancelButton.Click += CancelButton_Click;
+            BatalButton.Click += CancelButton_Click;
         }
 
         private void OkButton_Click(object sender, System.EventArgs e)

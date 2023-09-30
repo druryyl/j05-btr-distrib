@@ -33,7 +33,7 @@ namespace btr.distrib.SharedForm
         {
             this.AlasanText = new System.Windows.Forms.TextBox();
             this.OkButton = new System.Windows.Forms.Button();
-            this.CancelButton = new System.Windows.Forms.Button();
+            this.BatalButton = new System.Windows.Forms.Button();
             this.AlasanLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -57,13 +57,13 @@ namespace btr.distrib.SharedForm
             // 
             // CancelButton
             // 
-            this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelButton.Location = new System.Drawing.Point(138, 85);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(75, 23);
-            this.CancelButton.TabIndex = 2;
-            this.CancelButton.Text = "Cancel";
-            this.CancelButton.UseVisualStyleBackColor = true;
+            this.BatalButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.BatalButton.Location = new System.Drawing.Point(138, 85);
+            this.BatalButton.Name = "CancelButton";
+            this.BatalButton.Size = new System.Drawing.Size(75, 23);
+            this.BatalButton.TabIndex = 2;
+            this.BatalButton.Text = "Cancel";
+            this.BatalButton.UseVisualStyleBackColor = true;
             // 
             // AlasanLabel
             // 
@@ -82,7 +82,7 @@ namespace btr.distrib.SharedForm
             this.ClientSize = new System.Drawing.Size(266, 113);
             this.ControlBox = false;
             this.Controls.Add(this.AlasanLabel);
-            this.Controls.Add(this.CancelButton);
+            this.Controls.Add(this.BatalButton);
             this.Controls.Add(this.OkButton);
             this.Controls.Add(this.AlasanText);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -98,7 +98,7 @@ namespace btr.distrib.SharedForm
 
         private System.Windows.Forms.TextBox AlasanText;
         private System.Windows.Forms.Button OkButton;
-        private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Button BatalButton;
         private System.Windows.Forms.Label AlasanLabel;
     }
 }

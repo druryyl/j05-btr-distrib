@@ -250,6 +250,7 @@
     <Compile Include="Browsers\BrgStokBrowser.cs" />
     <Compile Include="Browsers\CustomerBrowser.cs" />
     <Compile Include="Browsers\FakturBrowser.cs" />
+    <Compile Include="Browsers\InvoiceBrowser.cs" />
     <Compile Include="Browsers\KategoriBrowser.cs" />
     <Compile Include="Browsers\SalesPersonBrowser.cs" />
     <Compile Include="Browsers\WilayahBrowser.cs" />
@@ -279,6 +280,12 @@
     <Compile Include="InventoryContext\KartuStokRpt\KartuStokReportForm.cs" />
     <Compile Include="InventoryContext\KartuStokRpt\KartuStokReportForm.Designer.cs">
       <DependentUpon>KartuStokReportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryContext\MutasiAgg\MutasiForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryContext\MutasiAgg\MutasiForm.Designer.cs">
+      <DependentUpon>MutasiForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InventoryContext\StokBalanceRpt\StokBalanceInfoForm.cs">
       <SubType>Form</SubType>
@@ -431,6 +438,9 @@
     <None Include="Resources\icons8_stack_overflow_16.png" />
     <EmbeddedResource Include="InventoryContext\KartuStokRpt\KartuStokReportForm.resx">
       <DependentUpon>KartuStokReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InventoryContext\MutasiAgg\MutasiForm.resx">
+      <DependentUpon>MutasiForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PurchaseContext\InvoiceAgg\InvoiceForm.resx">
       <DependentUpon>InvoiceForm.cs</DependentUpon>

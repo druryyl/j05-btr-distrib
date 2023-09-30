@@ -9,8 +9,8 @@ namespace btr.application.SalesContext.CustomerAgg.UseCases
 {
     public class GetCustomerQuery : IRequest<CustomerModel>, ICustomerKey
     {
-        public GetCustomerQuery(string id) => SupplierId = id;
-        public string SupplierId { get; }
+        public GetCustomerQuery(string id) => CustomerId = id;
+        public string CustomerId { get; }
     }
 
 
@@ -28,7 +28,7 @@ namespace btr.application.SalesContext.CustomerAgg.UseCases
         {
             //  GUARD
             Guard.Argument(() => request).NotNull()
-                .Member(x => x.SupplierId, y => y.NotEmpty());
+                .Member(x => x.CustomerId, y => y.NotEmpty());
 
             //  BUILD
             _aggRoot = _builder

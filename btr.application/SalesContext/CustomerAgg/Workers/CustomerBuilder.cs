@@ -67,7 +67,7 @@ namespace btr.application.SalesContext.CustomerAgg.Workers
             _aggRoot = new CustomerModel
             {
                 CustomerName = string.Empty,
-                SupplierId = string.Empty
+                CustomerId = string.Empty
             };
             return this;
         }
@@ -75,7 +75,7 @@ namespace btr.application.SalesContext.CustomerAgg.Workers
         public ICustomerBuilder Load(ICustomerKey customerKey)
         {
             _aggRoot = _customerDal.GetData(customerKey)
-                       ?? throw new KeyNotFoundException($"CustomerId not found ({customerKey.SupplierId})");
+                       ?? throw new KeyNotFoundException($"CustomerId not found ({customerKey.CustomerId})");
             return this;
         }
 

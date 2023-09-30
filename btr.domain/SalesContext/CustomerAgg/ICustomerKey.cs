@@ -2,7 +2,7 @@
 {
     public interface ICustomerKey
     {
-        string SupplierId { get; }
+        string CustomerId { get; }
     }
 }
 

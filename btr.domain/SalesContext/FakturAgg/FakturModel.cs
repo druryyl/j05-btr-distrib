@@ -26,7 +26,7 @@ namespace btr.domain.SalesContext.FakturAgg
         public string SalesPersonId { get; set; }
         public string SalesPersonName { get; set; }
     
-        public string SupplierId { get; set; }
+        public string CustomerId { get; set; }
         public string CustomerName { get; set; }
         public string CustomerCode { get; set; }
         public string Npwp { get; set; }

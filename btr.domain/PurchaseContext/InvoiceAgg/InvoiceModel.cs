@@ -15,6 +15,7 @@ namespace btr.domain.PurchaseContext.InvoiceAgg
         public InvoiceModel()
         {
         }
+        public InvoiceModel(string id) => InvoiceId = id;
 
         public string InvoiceId { get; set; }   
         public DateTime InvoiceDate { get; set; }
@@ -33,6 +34,9 @@ namespace btr.domain.PurchaseContext.InvoiceAgg
         public decimal Disc { get; set; }
         public decimal Tax { get; set; }
         public decimal GrandTotal { get; set; }
+
+        public decimal UangMuka { get; set; }
+        public decimal KurangBayar { get; set; }
 
         public DateTime CreateTime { get; set; }
         public DateTime LastUpdate { get; set; }

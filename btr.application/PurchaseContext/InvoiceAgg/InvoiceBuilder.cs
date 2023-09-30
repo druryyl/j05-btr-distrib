@@ -28,6 +28,8 @@ namespace btr.application.SalesContext.InvoiceAgg.Workers
         IInvoiceBuilder Attach(InvoiceModel invoice);
 
         IInvoiceBuilder InvoiceDate(DateTime invoiceDate);
+        IInvoiceBuilder InvoiceCode(string invoiceCode);
+
         IInvoiceBuilder Supplier(ISupplierKey supplierKey);
         IInvoiceBuilder Warehouse(IWarehouseKey warehouseKey);
         IInvoiceBuilder TermOfPayment(TermOfPaymentEnum termOfPayment);
@@ -131,6 +133,12 @@ namespace btr.application.SalesContext.InvoiceAgg.Workers
                 .AddHours(timespan.Hours)
                 .AddMinutes(timespan.Minutes)
                 .AddSeconds(timespan.Seconds);
+            return this;
+        }
+
+        public IInvoiceBuilder InvoiceCode(string code)
+        {
+            _aggRoot.InvoiceCode = code;
             return this;
         }
 

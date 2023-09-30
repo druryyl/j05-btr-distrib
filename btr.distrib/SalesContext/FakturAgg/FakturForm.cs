@@ -188,11 +188,12 @@ namespace btr.distrib.SalesContext.FakturAgg
 
             faktur.RemoveNull();
             CustomerNameTextBox.Text = faktur.CustomerName;
+            CustomerIdText.Text = faktur.CustomerId;
 
             FakturDateText.Value = faktur.FakturDate;
             SalesIdText.Text = faktur.SalesPersonId;
             SalesPersonNameTextBox.Text = faktur.SalesPersonName;
-            CustomerIdText.Text = faktur.SupplierId;
+            CustomerIdText.Text = faktur.CustomerId;
             CustomerNameTextBox.Text = faktur.CustomerName;
             _tipeHarga = faktur.HargaTypeId;
             PlafondTextBox.Value = faktur.Plafond;
@@ -621,7 +622,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             {
                 FakturId = FakturIdText.Text,
                 FakturDate = FakturDateText.Value.ToString("yyyy-MM-dd"),
-                SupplierId = CustomerIdText.Text,
+                CustomerId = CustomerIdText.Text,
                 SalesPersonId = SalesIdText.Text,
                 WarehouseId = WarehouseIdText.Text,
                 RencanaKirimDate = TglRencanaKirimTextBox.Value.ToString("yyyy-MM-dd"),

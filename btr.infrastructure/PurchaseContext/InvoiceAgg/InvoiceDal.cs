@@ -25,10 +25,12 @@ namespace btr.infrastructure.PurchaseContext.InvoiceAgg
             const string sql = @"
                 INSERT INTO BTR_Invoice (
                     InvoiceId, InvoiceDate, InvoiceCode, SupplierId,  WarehouseId, 
-                    NoFakturPajak, DueDate, Total, Disc, Tax, GrandTotal)
+                    NoFakturPajak, DueDate, Total, Disc, Tax, GrandTotal,
+                    CreateTime, LastUpdate, UserId, VoidDate, UserIdVoid)
                 VALUES(
                     @InvoiceId, @InvoiceDate, @InvoiceCode, @SupplierId,  @WarehouseId, 
-                    @NoFakturPajak, @DueDate, @Total, @Disc, @Tax, @GrandTotal)";
+                    @NoFakturPajak, @DueDate, @Total, @Disc, @Tax, @GrandTotal,
+                    @CreateTime, @LastUpdate, @UserId, @VoidDate, @UserIdVoid)";
 
             var dp = new DynamicParameters();
             dp.AddParam("@InvoiceId", model.InvoiceId, SqlDbType.VarChar); 
@@ -42,6 +44,12 @@ namespace btr.infrastructure.PurchaseContext.InvoiceAgg
             dp.AddParam("@Disc", model.Disc, SqlDbType.Decimal);  
             dp.AddParam("@Tax", model.Tax, SqlDbType.Decimal);  
             dp.AddParam("@GrandTotal", model.GrandTotal, SqlDbType.Decimal);
+
+            dp.AddParam("@CreateTime", model.CreateTime, SqlDbType.DateTime); 
+            dp.AddParam("@LastUpdate", model.LastUpdate, SqlDbType.DateTime); 
+            dp.AddParam("@UserId", model.UserId, SqlDbType.VarChar); 
+            dp.AddParam("@VoidDate", model.VoidDate, SqlDbType.DateTime); 
+            dp.AddParam("@UserIdVoid", model.UserIdVoid, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -65,21 +73,34 @@ namespace btr.infrastructure.PurchaseContext.InvoiceAgg
                     Disc = @Disc, 
                     Tax = @Tax, 
                     GrandTotal = @GrandTotal
+                    CreateTime = @CreateTime,
+                    LastUpdate = @LastUpdate,
+                    UserId = @UserId,
+                    VoidDate = @VoidDate,
+                    UserIdVoid = @UserIdVoid
                 WHERE
                     InvoiceId = @InvoiceId";
 
             var dp = new DynamicParameters();
+
             dp.AddParam("@InvoiceId", model.InvoiceId, SqlDbType.VarChar); 
             dp.AddParam("@InvoiceDate", model.InvoiceDate, SqlDbType.DateTime); 
             dp.AddParam("@InvoiceCode", model.InvoiceCode, SqlDbType.VarChar); 
             dp.AddParam("@SupplierId", model.SupplierId, SqlDbType.VarChar);  
             dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar); 
             dp.AddParam("@NoFakturPajak", model.NoFakturPajak, SqlDbType.VarChar); 
+            
             dp.AddParam("@DueDate", model.DueDate, SqlDbType.VarChar);
             dp.AddParam("@Total", model.Total, SqlDbType.Decimal);  
             dp.AddParam("@Disc", model.Disc, SqlDbType.Decimal);  
             dp.AddParam("@Tax", model.Tax, SqlDbType.Decimal);  
             dp.AddParam("@GrandTotal", model.GrandTotal, SqlDbType.Decimal);
+
+            dp.AddParam("@CreateTime", model.CreateTime, SqlDbType.DateTime);
+            dp.AddParam("@LastUpdate", model.LastUpdate, SqlDbType.DateTime);
+            dp.AddParam("@UserId", model.UserId, SqlDbType.VarChar);
+            dp.AddParam("@VoidDate", model.VoidDate, SqlDbType.DateTime);
+            dp.AddParam("@UserIdVoid", model.UserIdVoid, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -110,6 +131,7 @@ namespace btr.infrastructure.PurchaseContext.InvoiceAgg
                 SELECT
                     aa.InvoiceId, aa.InvoiceDate, aa.InvoiceCode, aa.SupplierId,  aa.WarehouseId, 
                     aa.NoFakturPajak, aa.DueDate, aa.Total, aa.Disc, aa.Tax, aa.GrandTotal,
+                    aa.CreateTime, aa.LastUpdate, aa.UserId, aa.VoidDate, aa.UserIdVoid,
                     ISNULL(bb.SupplierName, '') AS SupplierName,
                     ISNULL(cc.WarehouseName, '') AS WarehouseName
                 FROM
@@ -134,6 +156,7 @@ namespace btr.infrastructure.PurchaseContext.InvoiceAgg
                 SELECT
                     aa.InvoiceId, aa.InvoiceDate, aa.InvoiceCode, aa.SupplierId,  aa.WarehouseId, 
                     aa.NoFakturPajak, aa.DueDate, aa.Total, aa.Disc, aa.Tax, aa.GrandTotal,
+                    aa.CreateTime, aa.LastUpdate, aa.UserId, aa.VoidDate, aa.UserIdVoid,
                     ISNULL(bb.SupplierName, '') AS SupplierName,
                     ISNULL(cc.WarehouseName, '') AS WarehouseName
                 FROM

@@ -16,10 +16,12 @@ using MediatR;
 
 namespace btr.application.SalesContext.InvoiceAgg.UseCases
 {
-    public class SaveInvoiceRequest : IInvoiceKey, ISupplierKey, IWarehouseKey, IUserKey
+    public class SaveInvoiceRequest : IInvoiceKey, ISupplierKey, 
+        IWarehouseKey, IUserKey
     {
         public string InvoiceId { get; set; }
         public string InvoiceDate { get; set; }
+        public string InvoiceCode { get; set; }
         public string SupplierId { get; set; }
         public string WarehouseId { get; set; }
         public int TermOfPayment { get; set; }
@@ -98,6 +100,7 @@ namespace btr.application.SalesContext.InvoiceAgg.UseCases
             result = _fakturBuilder
                 .Attach(result)
                 .InvoiceDate(req.InvoiceDate.ToDate(DateFormatEnum.YMD))
+                .InvoiceCode(req.InvoiceCode)
                 .Supplier(req)
                 .Warehouse(req)
                 .User(req)

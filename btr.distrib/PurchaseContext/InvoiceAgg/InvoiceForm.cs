@@ -14,6 +14,7 @@ using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.PurchaseContext.InvoiceAgg;
 using btr.domain.PurchaseContext.SupplierAgg;
 using btr.domain.SalesContext.FakturAgg;
+using btr.nuna.Domain;
 using Mapster;
 using Polly;
 using System;
@@ -31,6 +32,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
         private readonly IBrowser<SupplierBrowserView> _supplierBrowser;
         private readonly IBrowser<WarehouseBrowserView> _warehouseBrowser;
         private readonly IBrowser<BrgStokBrowserView> _brgStokBrowser;
+        private readonly IBrowser<InvoiceBrowserView> _invoiceBrowser;
 
         private readonly ISupplierDal _supplierDal;
         private readonly IWarehouseDal _warehouseDal;
@@ -57,7 +59,8 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             IBrgDal brgDal,
             ISaveInvoiceWorker saveInvoiceWorker,
             IInvoiceBuilder invoiceBuilder,
-            ITglJamDal dateTime)
+            ITglJamDal dateTime,
+            IBrowser<InvoiceBrowserView> invoiceBrowser)
         {
             InitializeComponent();
 
@@ -77,10 +80,12 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             _saveInvoiceWorker = saveInvoiceWorker;
             _invoiceBuilder = invoiceBuilder;
             _dateTime = dateTime;
+            _invoiceBrowser = invoiceBrowser;
         }
 
         private void RegisterEventHandler()
         {
+            InvoiceButton.Click += InvoiceButton_Click;
             SupplierButton.Click += SupplierButton_Click;
             SupplierIdText.Validated += SupplierIdText_Validated;
 
@@ -94,6 +99,68 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             InvoiceItemGrid.EditingControlShowing += InvoiceItemGrid_EditingControlShowing;
 
             SaveButton.Click += SaveButton_Click;
+            NewButton.Click += NewButton_Click;
+        }
+
+        private void NewButton_Click(object sender, EventArgs e)
+        {
+            ClearForm();
+        }
+
+        private void InvoiceButton_Click(object sender, EventArgs e)
+        {
+            _invoiceBrowser.Filter.Date = new Periode(_dateTime.Now);
+
+            InvoiceIdText.Text = _invoiceBrowser.Browse(InvoiceIdText.Text);
+            LoadInvoice();
+        }
+        private bool LoadInvoice()
+        {
+            var textbox = InvoiceIdText;
+            var policy = Policy<InvoiceModel>
+                .Handle<KeyNotFoundException>().Or<ArgumentException>()
+                .Fallback(null as InvoiceModel, (r, c) =>
+                {
+                    MessageBox.Show(r.Exception.Message);
+                });
+
+            var invoice = policy.Execute(() => _invoiceBuilder
+                .Load(new InvoiceModel(textbox.Text))
+                .Build());
+            if (invoice is null)
+                return false;
+
+            invoice.RemoveNull();
+            SupplierNameText.Text = invoice.SupplierName;
+            SupplierIdText.Text = invoice.SupplierId;
+
+            InvoiceDateText.Value = invoice.InvoiceDate;
+            InvoiceCodeText.Text = invoice.InvoiceCode;
+            WarehouseIdText.Text = invoice.WarehouseId;
+            WarehouseNameText.Text = invoice.WarehouseName;
+            TermOfPaymentCombo.SelectedIndex = (int)invoice.TermOfPayment;
+            DueDateText.Value = invoice.DueDate;
+            TotalText.Value = invoice.Total;
+            DiscountText.Value = invoice.Disc;
+            TaxText.Value = invoice.Tax;
+            GrandTotalText.Value = invoice.GrandTotal;
+            UangMukaText.Value = invoice.UangMuka;
+            SisaText.Value = invoice.KurangBayar;
+            //LastIdLabel.Text = $"{invoice.InvoiceCode}";
+
+            _listItem.Clear();
+            foreach (var item in invoice.ListItem)
+            {
+                var newItem = item.Adapt<InvoiceItemDto>();
+                _listItem.Add(newItem);
+            }
+
+            if (invoice.IsVoid)
+                ShowAsVoid(invoice);
+            else
+                ShowAsActive();
+            CalcTotal();
+            return true;
         }
 
         #region SUPPLIER
@@ -418,6 +485,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             {
                 InvoiceId = InvoiceIdText.Text,
                 InvoiceDate = InvoiceDateText.Value.ToString("yyyy-MM-dd"),
+                InvoiceCode = InvoiceCodeText.Text,
                 SupplierId = SupplierIdText.Text,
                 WarehouseId = WarehouseIdText.Text,
                 TermOfPayment = TermOfPaymentCombo.SelectedIndex,
@@ -438,16 +506,15 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
                 }).ToList();
             cmd.ListBrg = listItem;
             var result = _saveInvoiceWorker.Execute(cmd);
-
+            LastIdLabel.Text = result.InvoiceId;
             ClearForm();
-            var invoiceDb = _invoiceBuilder
-                .Load(result)
-                .Build();
         }
         private void ClearForm()
         {
             InvoiceIdText.Text = string.Empty;
             InvoiceDateText.Value = _dateTime.Now;
+            InvoiceCodeText.Text = string.Empty;
+
             SupplierIdText.Text = string.Empty;
             SupplierNameText.Text = string.Empty;
             WarehouseIdText.Text = string.Empty;

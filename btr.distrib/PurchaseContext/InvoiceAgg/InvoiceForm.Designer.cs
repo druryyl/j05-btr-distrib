@@ -66,7 +66,8 @@
             this.TotalText = new System.Windows.Forms.NumericUpDown();
             this.TotalLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.InvoiceNoText = new System.Windows.Forms.TextBox();
+            this.LastIdLabel = new System.Windows.Forms.Label();
+            this.InvoiceCodeText = new System.Windows.Forms.TextBox();
             this.InvoiceDateText = new System.Windows.Forms.DateTimePicker();
             this.InvoiceCodeLabel = new System.Windows.Forms.Label();
             this.InvoiceDateLabel = new System.Windows.Forms.Label();
@@ -121,7 +122,7 @@
             this.NoFakturPajakText.BeepOnError = true;
             this.NoFakturPajakText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.NoFakturPajakText.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NoFakturPajakText.Location = new System.Drawing.Point(11, 105);
+            this.NoFakturPajakText.Location = new System.Drawing.Point(11, 91);
             this.NoFakturPajakText.Mask = "000-000-00-00000000";
             this.NoFakturPajakText.Name = "NoFakturPajakText";
             this.NoFakturPajakText.Size = new System.Drawing.Size(176, 20);
@@ -131,7 +132,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 89);
+            this.label1.Location = new System.Drawing.Point(8, 75);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(91, 13);
             this.label1.TabIndex = 23;
@@ -522,7 +523,8 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.Honeydew;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.InvoiceNoText);
+            this.panel1.Controls.Add(this.LastIdLabel);
+            this.panel1.Controls.Add(this.InvoiceCodeText);
             this.panel1.Controls.Add(this.InvoiceIdText);
             this.panel1.Controls.Add(this.InvoiceDateText);
             this.panel1.Controls.Add(this.InvoiceCodeLabel);
@@ -534,19 +536,29 @@
             this.panel1.Size = new System.Drawing.Size(200, 186);
             this.panel1.TabIndex = 49;
             // 
-            // InvoiceNoText
+            // LastIdLabel
             // 
-            this.InvoiceNoText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.InvoiceNoText.Location = new System.Drawing.Point(11, 105);
-            this.InvoiceNoText.Name = "InvoiceNoText";
-            this.InvoiceNoText.Size = new System.Drawing.Size(176, 22);
-            this.InvoiceNoText.TabIndex = 15;
+            this.LastIdLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LastIdLabel.Location = new System.Drawing.Point(11, 48);
+            this.LastIdLabel.Name = "LastIdLabel";
+            this.LastIdLabel.Size = new System.Drawing.Size(175, 13);
+            this.LastIdLabel.TabIndex = 16;
+            this.LastIdLabel.Text = "Invoice ID";
+            this.LastIdLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // InvoiceCodeText
+            // 
+            this.InvoiceCodeText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.InvoiceCodeText.Location = new System.Drawing.Point(8, 132);
+            this.InvoiceCodeText.Name = "InvoiceCodeText";
+            this.InvoiceCodeText.Size = new System.Drawing.Size(176, 22);
+            this.InvoiceCodeText.TabIndex = 15;
             // 
             // InvoiceDateText
             // 
             this.InvoiceDateText.CustomFormat = "ddd dd-MM-yyyy HH:mm";
             this.InvoiceDateText.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.InvoiceDateText.Location = new System.Drawing.Point(11, 64);
+            this.InvoiceDateText.Location = new System.Drawing.Point(8, 91);
             this.InvoiceDateText.Name = "InvoiceDateText";
             this.InvoiceDateText.ShowUpDown = true;
             this.InvoiceDateText.Size = new System.Drawing.Size(176, 22);
@@ -555,7 +567,7 @@
             // InvoiceCodeLabel
             // 
             this.InvoiceCodeLabel.AutoSize = true;
-            this.InvoiceCodeLabel.Location = new System.Drawing.Point(8, 89);
+            this.InvoiceCodeLabel.Location = new System.Drawing.Point(5, 116);
             this.InvoiceCodeLabel.Name = "InvoiceCodeLabel";
             this.InvoiceCodeLabel.Size = new System.Drawing.Size(87, 13);
             this.InvoiceCodeLabel.TabIndex = 14;
@@ -564,7 +576,7 @@
             // InvoiceDateLabel
             // 
             this.InvoiceDateLabel.AutoSize = true;
-            this.InvoiceDateLabel.Location = new System.Drawing.Point(8, 48);
+            this.InvoiceDateLabel.Location = new System.Drawing.Point(5, 75);
             this.InvoiceDateLabel.Name = "InvoiceDateLabel";
             this.InvoiceDateLabel.Size = new System.Drawing.Size(70, 13);
             this.InvoiceDateLabel.TabIndex = 3;
@@ -695,9 +707,10 @@
         private System.Windows.Forms.TextBox SupplierNameText;
         private System.Windows.Forms.Button SupplierButton;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox InvoiceNoText;
+        private System.Windows.Forms.TextBox InvoiceCodeText;
         private System.Windows.Forms.Label InvoiceCodeLabel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.MaskedTextBox NoFakturPajakText;
+        private System.Windows.Forms.Label LastIdLabel;
     }
 }
