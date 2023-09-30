@@ -433,6 +433,7 @@
     </Compile>
     <Compile Include="WinformAssemblyAnchor.cs" />
     <Content Include="icons8_truck.ico" />
+    <None Include="Resources\icons8_python_32.png" />
     <None Include="Resources\icons8_vue_js_32.png" />
     <None Include="Resources\icons8_uninstalling_updates_32.png" />
     <None Include="Resources\icons8_stack_overflow_32.png" />

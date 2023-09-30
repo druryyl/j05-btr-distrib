@@ -120,7 +120,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             MutasiDateText.Value = mutasi.MutasiDate;
             WarehouseIdText.Text = mutasi.WarehouseId;
             WarehouseNameText.Text = mutasi.WarehouseName;
-            TotalText.Text = mutasi.NilaiSediaan.ToString(CultureInfo.InvariantCulture);
+            TotalText.Value = mutasi.NilaiSediaan;
             LastIdLabel.Text = $@"{mutasi.MutasiId}";
 
             _listItem.Clear();
@@ -181,7 +181,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
         {
             if (e.RowIndex < 0) return;
             var grid = (DataGridView)sender;
-            var colHeaderText = grid.Columns[e.ColumnIndex].HeaderText;
+            var colHeaderText = grid.Columns[e.ColumnIndex].Name;
             switch (colHeaderText)
             {
                 case "BrgId":
@@ -351,7 +351,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
 
             cols.GetCol("HppDetilStr").Visible = true;
             cols.GetCol("HppDetilStr").Width = 80;
-            cols.GetCol("HppDetilStr").HeaderText = @"Stok";
+            cols.GetCol("HppDetilStr").HeaderText = @"HPP";
             cols.GetCol("HppDetilStr").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             cols.GetCol("HppDetilStr").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
 
@@ -365,7 +365,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
 
         private void CalcTotal()
         {
-            TotalText.Text = _listItem.Sum(x => x.NilaiSediaan).ToString(CultureInfo.InvariantCulture);
+            TotalText.Value = _listItem.Sum(x => x.NilaiSediaan);
         }
 
         #endregion
@@ -402,7 +402,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             WarehouseIdText.Text = string.Empty;
             WarehouseNameText.Text = string.Empty;
 
-            TotalText.Text = "";
+            TotalText.Value= 0;
 
             _listItem.Clear();
             _listItem.Add(new MutasiItemDto());

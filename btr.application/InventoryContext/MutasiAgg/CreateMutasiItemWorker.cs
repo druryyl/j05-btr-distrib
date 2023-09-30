@@ -105,7 +105,8 @@ namespace btr.application.InventoryContext.MutasiAgg
                 item.HppKecil = item.Hpp;
                 item.HppDetilStr = $"{item.HppBesar:N0}{Environment.NewLine}{item.Hpp:N0}";
             }
-            
+
+            item.Sat = item.SatKecil;
             item.NilaiSediaan = item.Qty * item.Hpp;
             return item;
         }

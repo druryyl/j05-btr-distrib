@@ -31,6 +31,8 @@ namespace btr.distrib.InventoryContext.MutasiAgg
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.MutasiDateText = new System.Windows.Forms.DateTimePicker();
+            this.MutasiDateLabel = new System.Windows.Forms.Label();
             this.LastIdLabel = new System.Windows.Forms.Label();
             this.MutasiButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -46,16 +48,15 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             this.panel3 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.KeteranganText = new System.Windows.Forms.TextBox();
-            this.TotalText = new System.Windows.Forms.MaskedTextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.SaveButton = new System.Windows.Forms.Button();
             this.NewButton = new System.Windows.Forms.Button();
-            this.MutasiDateText = new System.Windows.Forms.DateTimePicker();
-            this.MutasiDateLabel = new System.Windows.Forms.Label();
+            this.TotalText = new System.Windows.Forms.NumericUpDown();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MutasiItemGrid)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TotalText)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -72,6 +73,25 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(200, 117);
             this.panel1.TabIndex = 0;
+            // 
+            // MutasiDateText
+            // 
+            this.MutasiDateText.CustomFormat = "ddd dd-MM-yyyy HH:mm";
+            this.MutasiDateText.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.MutasiDateText.Location = new System.Drawing.Point(9, 83);
+            this.MutasiDateText.Name = "MutasiDateText";
+            this.MutasiDateText.ShowUpDown = true;
+            this.MutasiDateText.Size = new System.Drawing.Size(176, 22);
+            this.MutasiDateText.TabIndex = 6;
+            // 
+            // MutasiDateLabel
+            // 
+            this.MutasiDateLabel.AutoSize = true;
+            this.MutasiDateLabel.Location = new System.Drawing.Point(6, 67);
+            this.MutasiDateLabel.Name = "MutasiDateLabel";
+            this.MutasiDateLabel.Size = new System.Drawing.Size(72, 13);
+            this.MutasiDateLabel.TabIndex = 7;
+            this.MutasiDateLabel.Text = "Mutasi  Date";
             // 
             // LastIdLabel
             // 
@@ -228,22 +248,13 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             this.KeteranganText.Size = new System.Drawing.Size(350, 77);
             this.KeteranganText.TabIndex = 0;
             // 
-            // TotalText
-            // 
-            this.TotalText.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TotalText.Location = new System.Drawing.Point(643, 381);
-            this.TotalText.Name = "TotalText";
-            this.TotalText.ReadOnly = true;
-            this.TotalText.Size = new System.Drawing.Size(151, 23);
-            this.TotalText.TabIndex = 4;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(601, 382);
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(636, 383);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(36, 17);
+            this.label5.Size = new System.Drawing.Size(32, 13);
             this.label5.TabIndex = 5;
             this.label5.Text = "Total";
             // 
@@ -265,24 +276,21 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             this.NewButton.Text = "New";
             this.NewButton.UseVisualStyleBackColor = true;
             // 
-            // MutasiDateText
+            // TotalText
             // 
-            this.MutasiDateText.CustomFormat = "ddd dd-MM-yyyy HH:mm";
-            this.MutasiDateText.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.MutasiDateText.Location = new System.Drawing.Point(9, 83);
-            this.MutasiDateText.Name = "MutasiDateText";
-            this.MutasiDateText.ShowUpDown = true;
-            this.MutasiDateText.Size = new System.Drawing.Size(176, 22);
-            this.MutasiDateText.TabIndex = 6;
-            // 
-            // MutasiDateLabel
-            // 
-            this.MutasiDateLabel.AutoSize = true;
-            this.MutasiDateLabel.Location = new System.Drawing.Point(6, 67);
-            this.MutasiDateLabel.Name = "MutasiDateLabel";
-            this.MutasiDateLabel.Size = new System.Drawing.Size(72, 13);
-            this.MutasiDateLabel.TabIndex = 7;
-            this.MutasiDateLabel.Text = "Mutasi  Date";
+            this.TotalText.InterceptArrowKeys = false;
+            this.TotalText.Location = new System.Drawing.Point(674, 381);
+            this.TotalText.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.TotalText.Name = "TotalText";
+            this.TotalText.ReadOnly = true;
+            this.TotalText.Size = new System.Drawing.Size(120, 22);
+            this.TotalText.TabIndex = 8;
+            this.TotalText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.TotalText.ThousandsSeparator = true;
             // 
             // MutasiForm
             // 
@@ -290,10 +298,10 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(800, 441);
+            this.Controls.Add(this.TotalText);
             this.Controls.Add(this.NewButton);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.TotalText);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.MutasiItemGrid);
@@ -308,6 +316,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TotalText)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -331,11 +340,11 @@ namespace btr.distrib.InventoryContext.MutasiAgg
         private System.Windows.Forms.TextBox WarehouseNameText;
         private System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.RadioButton radioButton4;
-        private System.Windows.Forms.MaskedTextBox TotalText;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button NewButton;
         private DateTimePicker MutasiDateText;
         private Label MutasiDateLabel;
+        private NumericUpDown TotalText;
     }
 }
