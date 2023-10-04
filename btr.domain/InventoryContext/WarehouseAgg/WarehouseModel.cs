@@ -9,5 +9,6 @@
         public WarehouseModel(string id) => WarehouseId = id;
         public string WarehouseId { get; set; }
         public string WarehouseName { get; set; }
+        public bool IsSpecial { get; set; }
     }
 }

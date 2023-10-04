@@ -1,17 +1,14 @@
 ﻿using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.WarehouseAgg;
 using btr.application.PurchaseContext.SupplierAgg.Contracts;
-using btr.application.SalesContext.FakturAgg.UseCases;
 using btr.application.SupportContext.TglJamAgg;
 using btr.distrib.Browsers;
 using btr.distrib.Helpers;
-using btr.distrib.SalesContext.FakturAgg;
 using btr.distrib.SharedForm;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.PurchaseContext.InvoiceAgg;
 using btr.domain.PurchaseContext.SupplierAgg;
-using btr.domain.SalesContext.FakturAgg;
 using btr.nuna.Domain;
 using Mapster;
 using Polly;
@@ -22,7 +19,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using btr.application.PurchaseContext.InvoiceAgg;
-using static ClosedXML.Excel.XLPredefinedFormat;
 
 namespace btr.distrib.PurchaseContext.InvoiceAgg
 {

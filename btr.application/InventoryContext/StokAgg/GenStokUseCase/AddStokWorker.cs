@@ -69,11 +69,11 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                 .Member(x => x.Satuan, y => y.NotEmpty());
 
             //  BUILD
-            var konversi = GetKonversi(request, request.Satuan, out BrgModel brg);
+            var konversi = GetKonversi(request, request.Satuan);
             var qtyKecil = request.Qty * konversi;
             var nilaiKecil = request.Nilai / konversi;
             _aggregate = _stokBuilder
-                .Create(request, request, (int)qtyKecil, nilaiKecil, request.ReffId, request.JenisMutasi)
+                .Create(request, request, qtyKecil, nilaiKecil, request.ReffId, request.JenisMutasi)
                 .Build();
 
             //  WRITE
@@ -91,9 +91,9 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
             return true;
         }
 
-        public int GetKonversi(IBrgKey brgKey, string satuan, out BrgModel brg)
+        private int GetKonversi(IBrgKey brgKey, string satuan)
         {
-            brg = _brgBuilder.Load(brgKey).Build();
+            var brg = _brgBuilder.Load(brgKey).Build();
             var thisSatuan = brg.ListSatuan.FirstOrDefault(x => x.Satuan.ToLower() == satuan.ToLower())
                 ?? throw new KeyNotFoundException("Satuan invalid");
             return thisSatuan.Conversion;

@@ -4,9 +4,6 @@ using btr.domain.SalesContext.FakturAgg;
 using btr.domain.SupportContext.UserAgg;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace btr.domain.PurchaseContext.InvoiceAgg
 {

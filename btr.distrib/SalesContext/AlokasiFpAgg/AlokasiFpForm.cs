@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Media;
 using System.Text;
-using System.Threading;
 using System.Windows.Forms;
 using btr.application.SalesContext.AlokasiFpAgg;
 using btr.application.SalesContext.EFakturAgg;
