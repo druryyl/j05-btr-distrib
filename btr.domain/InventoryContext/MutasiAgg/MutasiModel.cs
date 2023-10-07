@@ -46,8 +46,8 @@ namespace btr.domain.InventoryContext.MutasiAgg
         
         public int QtyBesar { get; set; }
         public string  SatBesar { get; set; }
-        public decimal HppBesar { get; set; }
         public int Conversion { get; set; }
+        public decimal HppBesar { get; set; }
         public int QtyKecil { get; set; }
         public string SatKecil { get; set; }
         public decimal HppKecil { get; set; }

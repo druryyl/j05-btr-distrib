@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using btr.application.InventoryContext.StokAgg.GenStokUseCase;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.MutasiAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
@@ -32,16 +33,17 @@ namespace btr.application.InventoryContext.MutasiAgg
         private readonly IMutasiBuilder _mutasiBuilder;
         private readonly IMutasiWriter _mutasiWriter;
         private readonly IMediator _mediator;
-        //private readonly IGenStokMutasiWorker _genStokWorker;
+        private readonly IGenStokMutasiWorker _genStokMutasiWorker;
 
         public SaveMutasiWorker(IMutasiBuilder mutasiBuilder,
             IMutasiWriter mutasiWriter,
-            IMediator mediator)
+            IMediator mediator,
+            IGenStokMutasiWorker genStokMutasiWorker)
         {
             _mutasiBuilder = mutasiBuilder;
             _mutasiWriter = mutasiWriter;
             _mediator = mediator;
-            //_genStokWorker = genStokWorker;
+            _genStokMutasiWorker = genStokMutasiWorker;
         }
 
         public MutasiModel Execute(SaveMutasiRequest req)
@@ -57,8 +59,8 @@ namespace btr.application.InventoryContext.MutasiAgg
             {
                 result = SaveMutasi(req);
 
-                //var genStokReq = new GenStokMutasiRequest(result.MutasiId);
-                //_genStokWorker.Execute(genStokReq);
+                var genStokReq = new GenStokMutasiRequest(result.MutasiId);
+                _genStokMutasiWorker.Execute(genStokReq);
 
                 trans.Complete();
             }

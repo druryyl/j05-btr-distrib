@@ -82,10 +82,12 @@ namespace btr.infrastructure.InventoryContext.MutasiAgg
         {
             const string sql = @"
                 SELECT
-                    aa.MutasiId, aa.MutasiItemId, aa.NoUrut, aa.BrgId, aa.QtyInputStr, 
+                    aa.MutasiId, aa.MutasiItemId, aa.NoUrut, 
+                    aa.BrgId, aa.QtyInputStr, 
                     aa.QtyBesar, aa.SatBesar, aa.Conversion, aa.HppBesar,
                     aa.QtyKecil, aa.SatKecil, aa.HppKecil, 
-                    aa.QtyBeli, aa.Sat, aa.Hpp,
+                    aa.StokBesar, aa.StokKecil, 
+                    aa.Qty, aa.Sat, aa.Hpp,
                     aa.QtyDetilStr, aa.StokDetilStr, aa.HppDetilStr,
                     aa.NilaiSediaan,
                     ISNULL(bb.BrgName, '') AS BrgName,
