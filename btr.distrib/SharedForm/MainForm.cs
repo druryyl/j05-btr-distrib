@@ -24,6 +24,7 @@ using btr.distrib.SalesContext.AlokasiFpAgg;
 using btr.distrib.PurchaseContext.InvoiceAgg;
 using btr.distrib.InventoryContext.MutasiAgg;
 using btr.distrib.ReportingContext;
+using btr.distrib.InventoryContext.ImportOpnameAgg;
 
 namespace btr.distrib.SharedForm
 {
@@ -157,19 +158,19 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-        private void TestingButton_Click(object sender, EventArgs e)
-        {
-            if (!this.UserId.UserId.ToLower().StartsWith("jude"))
-            {
-                MessageBox.Show("Only for programmer");
-                return;
-            }
+        //private void TestingButton_Click(object sender, EventArgs e)
+        //{
+        //    if (!this.UserId.UserId.ToLower().StartsWith("jude"))
+        //    {
+        //        MessageBox.Show("Only for programmer");
+        //        return;
+        //    }
 
-            var form = _servicesProvider.GetRequiredService<TestPlayground>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
+        //    var form = _servicesProvider.GetRequiredService<TestPlayground>();
+        //    form.StartPosition = FormStartPosition.CenterScreen;
+        //    form.MdiParent = this;
+        //    form.Show();
+        //}
 
         private void AboutButton_Click(object sender, EventArgs e)
         {
@@ -255,6 +256,14 @@ namespace btr.distrib.SharedForm
         private void InvoiceReportButton_Click(object sender, EventArgs e)
         {
             var form = _servicesProvider.GetRequiredService<CustomerChartRpt>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void ImportExcelOpnameButton_Click(object sender, EventArgs e)
+        {
+            var form = _servicesProvider.GetRequiredService<ImportOpnameForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

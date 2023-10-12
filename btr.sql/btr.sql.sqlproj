@@ -60,6 +60,9 @@
     <Folder Include="Tables\" />
     <Folder Include="Tables\BrgContext\" />
     <Folder Include="Tables\Helper\" />
+    <Folder Include="DataSeeds\" />
+    <Folder Include="Tables\InventoryContext\" />
+    <Folder Include="Tables\PurchaseContext\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="DataSeeds\SpecialWarehouse.sql" />
@@ -102,5 +105,6 @@
     <Build Include="Tables\SalesContext\BTR_AlokasiFp.sql" />
     <Build Include="Tables\SalesContext\BTR_AlokasiFpItem.sql" />
     <Build Include="Tables\SalesContext\BTR_FakturPajakVoid.sql" />
+    <Build Include="Tables\InventoryContext\BTR_ImportOpname.sql" />
   </ItemGroup>
 </Project>

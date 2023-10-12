@@ -52,6 +52,7 @@
             this.InventoryTab = new System.Windows.Forms.RibbonTab();
             this.InventoryTrsPanel = new System.Windows.Forms.RibbonPanel();
             this.OpnameButton = new System.Windows.Forms.RibbonButton();
+            this.ImportExcelOpnameButton = new System.Windows.Forms.RibbonButton();
             this.PrintFakturButton = new System.Windows.Forms.RibbonButton();
             this.PackingButton = new System.Windows.Forms.RibbonButton();
             this.MutasiButton = new System.Windows.Forms.RibbonButton();
@@ -270,6 +271,7 @@
             // InventoryTrsPanel
             // 
             this.InventoryTrsPanel.Items.Add(this.OpnameButton);
+            this.InventoryTrsPanel.Items.Add(this.ImportExcelOpnameButton);
             this.InventoryTrsPanel.Items.Add(this.PrintFakturButton);
             this.InventoryTrsPanel.Items.Add(this.PackingButton);
             this.InventoryTrsPanel.Items.Add(this.MutasiButton);
@@ -284,6 +286,15 @@
             this.OpnameButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("OpnameButton.SmallImage")));
             this.OpnameButton.Text = "Opname";
             this.OpnameButton.Click += new System.EventHandler(this.OpnameButton_Click);
+            // 
+            // ImportExcelOpnameButton
+            // 
+            this.ImportExcelOpnameButton.Image = global::btr.distrib.Properties.Resources.icons8_microsoft_excel_32;
+            this.ImportExcelOpnameButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_microsoft_excel_32;
+            this.ImportExcelOpnameButton.Name = "ImportExcelOpnameButton";
+            this.ImportExcelOpnameButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ImportExcelOpnameButton.SmallImage")));
+            this.ImportExcelOpnameButton.Text = "Import Excel";
+            this.ImportExcelOpnameButton.Click += new System.EventHandler(this.ImportExcelOpnameButton_Click);
             // 
             // PrintFakturButton
             // 
@@ -396,7 +407,6 @@
             this.TestingButton.Name = "TestingButton";
             this.TestingButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("TestingButton.SmallImage")));
             this.TestingButton.Text = "Testing";
-            this.TestingButton.Click += new System.EventHandler(this.TestingButton_Click);
             // 
             // ReceivingPanel
             // 
@@ -503,5 +513,6 @@
         private System.Windows.Forms.RibbonButton BukuStokButton;
         private System.Windows.Forms.RibbonButton InvoiceButton;
         private System.Windows.Forms.RibbonButton MutasiButton;
+        private System.Windows.Forms.RibbonButton ImportExcelOpnameButton;
     }
 }
