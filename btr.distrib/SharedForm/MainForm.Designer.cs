@@ -242,6 +242,7 @@
             this.InvoiceReportButton.Name = "InvoiceReportButton";
             this.InvoiceReportButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("InvoiceReportButton.SmallImage")));
             this.InvoiceReportButton.Text = "Reporting";
+            this.InvoiceReportButton.Click += new System.EventHandler(this.InvoiceReportButton_Click);
             // 
             // MasterPurchaseRibbonPanel
             // 

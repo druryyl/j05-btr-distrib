@@ -23,6 +23,7 @@ using btr.distrib.InventoryContext.StokBalanceRpt;
 using btr.distrib.SalesContext.AlokasiFpAgg;
 using btr.distrib.PurchaseContext.InvoiceAgg;
 using btr.distrib.InventoryContext.MutasiAgg;
+using btr.distrib.ReportingContext;
 
 namespace btr.distrib.SharedForm
 {
@@ -246,6 +247,14 @@ namespace btr.distrib.SharedForm
         private void MutasiButton_Click(object sender, EventArgs e)
         {
             var form = _servicesProvider.GetRequiredService<MutasiForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void InvoiceReportButton_Click(object sender, EventArgs e)
+        {
+            var form = _servicesProvider.GetRequiredService<CustomerChartRpt>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
