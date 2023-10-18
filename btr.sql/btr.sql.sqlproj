@@ -61,6 +61,7 @@
     <Folder Include="Tables\BrgContext\" />
     <Folder Include="Tables\Helper\" />
     <Folder Include="Tables\InventoryContext\" />
+    <Folder Include="Tables\PurchaseContext\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\BrgContext\BTR_Brg.sql" />
