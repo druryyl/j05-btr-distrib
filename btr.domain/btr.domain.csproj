@@ -61,8 +61,10 @@
     <Compile Include="InventoryContext\DeliveryAgg\IDeliveryKey.cs" />
     <Compile Include="InventoryContext\DriverAgg\DriverModel.cs" />
     <Compile Include="InventoryContext\DriverAgg\IDriverKey.cs" />
+    <Compile Include="InventoryContext\ImportOpnameAgg\ImportOpnameModel.cs" />
     <Compile Include="InventoryContext\KartuStokRpt\KartuStokSaldoView.cs" />
     <Compile Include="InventoryContext\KartuStokRpt\KartuStokView.cs" />
+    <Compile Include="InventoryContext\MutasiAgg\IMutasiKey.cs" />
     <Compile Include="InventoryContext\MutasiAgg\MutasiModel.cs" />
     <Compile Include="InventoryContext\OpnameAgg\IOpnameKey.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameModel.cs" />

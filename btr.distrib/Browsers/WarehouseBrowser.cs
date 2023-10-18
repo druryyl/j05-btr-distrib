@@ -39,6 +39,7 @@ namespace btr.distrib.Browsers
             var listData = _warehouseDal.ListData()?.ToList() ?? new List<WarehouseModel>();
 
             var result = listData
+                .Where(x => x.IsSpecial == false)
                 .OrderBy(x => x.WarehouseName)
                 .Select(x => new WarehouseBrowserView
                 {

@@ -110,17 +110,17 @@
 //        {
 //            _dataSource = _stokBalanceReportDal.ListData()?.ToList();
 
-//            //      filter supplier
+//            filter supplier
 //            if (SupplierText.Text.Length > 0)
 //                _dataSource = _dataSource
 //                    .Where(x => x.SupplierName.ContainMultiWord(SupplierText.Text)).ToList();
 
-//            //      filter kategori
+//            filter kategori
 //            if (KategoriText.Text.Length > 0)
 //                _dataSource = _dataSource
 //                    .Where(x => x.KategoriName.ContainMultiWord(KategoriText.Text)).ToList();
 
-//            //      filter brg name
+//            filter brg name
 //            if (BrgText.Text.Length > 0)
 //                _dataSource = _dataSource
 //                    .Where(x => x.BrgName.ContainMultiWord(BrgText.Text)

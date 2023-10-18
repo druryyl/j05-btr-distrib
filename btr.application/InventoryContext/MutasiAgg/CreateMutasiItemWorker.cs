@@ -10,14 +10,21 @@ using btr.nuna.Application;
 
 namespace btr.application.InventoryContext.MutasiAgg
 {
-    public class CreateMutasiItemReq : IBrgKey, IWarehouseKey
+    public class CreateMutasiItemRequest : IBrgKey, IWarehouseKey
     {
+        public CreateMutasiItemRequest(string brgId, string warehouseId, string qtyInputStr)
+        {
+            BrgId = brgId;
+            WarehouseId = warehouseId;
+            QtyInputStr = qtyInputStr;
+        }
+
         public string BrgId { get; set; }
         public string WarehouseId { get; set; }
         public string QtyInputStr { get; set; }
     }
 
-    public interface ICreateMutasiItemWorker : INunaService<MutasiItemModel, CreateMutasiItemReq>
+    public interface ICreateMutasiItemWorker : INunaService<MutasiItemModel, CreateMutasiItemRequest>
     {
     }
     public class CreateMutasiItemWorker : ICreateMutasiItemWorker
@@ -32,7 +39,7 @@ namespace btr.application.InventoryContext.MutasiAgg
             _stokBalanceBuilder = stokBalanceBuilder;
         }
 
-        public MutasiItemModel Execute(CreateMutasiItemReq req)
+        public MutasiItemModel Execute(CreateMutasiItemRequest req)
         {
             var brg = _brgBuilder.Load(req).Build();
             var stok = _stokBalanceBuilder.Load(req).Build();
@@ -98,7 +105,8 @@ namespace btr.application.InventoryContext.MutasiAgg
                 item.HppKecil = item.Hpp;
                 item.HppDetilStr = $"{item.HppBesar:N0}{Environment.NewLine}{item.Hpp:N0}";
             }
-            
+
+            item.Sat = item.SatKecil;
             item.NilaiSediaan = item.Qty * item.Hpp;
             return item;
         }

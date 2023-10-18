@@ -38,6 +38,7 @@ namespace btr.distrib.SharedForm
             this.RemovePriorityButton = new System.Windows.Forms.Button();
             this.ImportOpnameButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // AddStokButton
@@ -85,12 +86,13 @@ namespace btr.distrib.SharedForm
             // 
             // ImportOpnameButton
             // 
-            this.ImportOpnameButton.Location = new System.Drawing.Point(12, 95);
+            this.ImportOpnameButton.Location = new System.Drawing.Point(191, 95);
             this.ImportOpnameButton.Name = "ImportOpnameButton";
             this.ImportOpnameButton.Size = new System.Drawing.Size(96, 23);
             this.ImportOpnameButton.TabIndex = 5;
             this.ImportOpnameButton.Text = "Import Opname";
             this.ImportOpnameButton.UseVisualStyleBackColor = true;
+            this.ImportOpnameButton.Click += new System.EventHandler(this.ImportOpnameButton_Click_1);
             // 
             // button1
             // 
@@ -102,11 +104,19 @@ namespace btr.distrib.SharedForm
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(12, 98);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(173, 20);
+            this.textBox1.TabIndex = 7;
+            // 
             // TestPlayground
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(299, 151);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.ImportOpnameButton);
             this.Controls.Add(this.RemovePriorityButton);
@@ -117,6 +127,7 @@ namespace btr.distrib.SharedForm
             this.Name = "TestPlayground";
             this.Text = "TestPlayground";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -130,5 +141,6 @@ namespace btr.distrib.SharedForm
         private System.Windows.Forms.Button RollBackButton;
         private System.Windows.Forms.Button ImportOpnameButton;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

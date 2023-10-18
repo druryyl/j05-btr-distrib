@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[BTR_ImportOpname]
+(
+	BrgCode VARCHAR(10) NOT NULL CONSTRAINT DF_BTR_ImportOpname_BrgId DEFAULT(''),
+	WarehouseId VARCHAR(10) NOT NULL CONSTRAINT DF_BTR_ImportOpname_WarehouseId DEFAULT(''),
+	Qty VARCHAR(10) NOT NULL CONSTRAINT DF_BTR_ImportOpname_Qty DEFAULT(0),
+
+	CONSTRAINT PK_BTR_ImportOpname PRIMARY KEY CLUSTERED(BrgCode, WarehouseId)
+)

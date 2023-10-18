@@ -1,12 +1,12 @@
-﻿using btr.application.InventoryContext.StokBalanceReport;
-using btr.domain.InventoryContext.StokBalanceReport;
+﻿using System.Collections.Generic;
+using System.Data.SqlClient;
+using btr.application.InventoryContext.StokBalanceRpt;
+using btr.domain.InventoryContext.StokBalanceRpt;
 using btr.infrastructure.Helpers;
 using btr.nuna.Infrastructure;
 using Microsoft.Extensions.Options;
-using System.Collections.Generic;
-using System.Data.SqlClient;
 
-namespace btr.infrastructure.InventoryContext.StokBalanceReport
+namespace btr.infrastructure.InventoryContext.StokBalanceRpt
 {
     public class StokBalanceReportDal : IStokBalanceReportDal
     {

@@ -1,4 +1,4 @@
-﻿namespace btr.distrib.InventoryContext.InventoryInfo
+﻿namespace btr.distrib.InventoryContext.StokBalanceRpt
 {
     public class WarehouseRptDto
     {

@@ -1,13 +1,11 @@
 ﻿using System.Linq;
-using btr.nuna.Application;
-using FluentValidation;
-using btr.nuna.Domain;
 using btr.application.SupportContext.UserAgg;
-using btr.domain.SupportContext.UserAgg;
 using btr.domain.PurchaseContext.InvoiceAgg;
-using btr.application.PurchaseContext.InvoiceAgg;
+using btr.nuna.Application;
+using btr.nuna.Domain;
+using FluentValidation;
 
-namespace btr.application.SalesContext.InvoiceAgg.Workers
+namespace btr.application.PurchaseContext.InvoiceAgg
 {
     public interface IInvoiceWriter : INunaWriter2<InvoiceModel>
     {

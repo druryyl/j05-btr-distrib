@@ -44,6 +44,7 @@
             this.PurchaseTab = new System.Windows.Forms.RibbonTab();
             this.PurchaseOrderRibbonPanel = new System.Windows.Forms.RibbonPanel();
             this.PoButton = new System.Windows.Forms.RibbonButton();
+            this.InvoiceButton = new System.Windows.Forms.RibbonButton();
             this.InvoiceRibbonPanel = new System.Windows.Forms.RibbonPanel();
             this.InvoiceReportButton = new System.Windows.Forms.RibbonButton();
             this.MasterPurchaseRibbonPanel = new System.Windows.Forms.RibbonPanel();
@@ -51,8 +52,10 @@
             this.InventoryTab = new System.Windows.Forms.RibbonTab();
             this.InventoryTrsPanel = new System.Windows.Forms.RibbonPanel();
             this.OpnameButton = new System.Windows.Forms.RibbonButton();
+            this.ImportExcelOpnameButton = new System.Windows.Forms.RibbonButton();
             this.PrintFakturButton = new System.Windows.Forms.RibbonButton();
             this.PackingButton = new System.Windows.Forms.RibbonButton();
+            this.MutasiButton = new System.Windows.Forms.RibbonButton();
             this.ReportingPanel = new System.Windows.Forms.RibbonPanel();
             this.StokBalanceButton = new System.Windows.Forms.RibbonButton();
             this.BukuStokButton = new System.Windows.Forms.RibbonButton();
@@ -69,7 +72,6 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.InvoiceButton = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -219,6 +221,15 @@
             this.PoButton.Text = "PO";
             this.PoButton.Click += new System.EventHandler(this.PoButton_Click);
             // 
+            // InvoiceButton
+            // 
+            this.InvoiceButton.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.InvoiceButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.InvoiceButton.Name = "InvoiceButton";
+            this.InvoiceButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("InvoiceButton.SmallImage")));
+            this.InvoiceButton.Text = "Invoice";
+            this.InvoiceButton.Click += new System.EventHandler(this.InvoiceButton_Click);
+            // 
             // InvoiceRibbonPanel
             // 
             this.InvoiceRibbonPanel.Items.Add(this.InvoiceReportButton);
@@ -232,6 +243,7 @@
             this.InvoiceReportButton.Name = "InvoiceReportButton";
             this.InvoiceReportButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("InvoiceReportButton.SmallImage")));
             this.InvoiceReportButton.Text = "Reporting";
+            this.InvoiceReportButton.Click += new System.EventHandler(this.InvoiceReportButton_Click);
             // 
             // MasterPurchaseRibbonPanel
             // 
@@ -259,8 +271,10 @@
             // InventoryTrsPanel
             // 
             this.InventoryTrsPanel.Items.Add(this.OpnameButton);
+            this.InventoryTrsPanel.Items.Add(this.ImportExcelOpnameButton);
             this.InventoryTrsPanel.Items.Add(this.PrintFakturButton);
             this.InventoryTrsPanel.Items.Add(this.PackingButton);
+            this.InventoryTrsPanel.Items.Add(this.MutasiButton);
             this.InventoryTrsPanel.Name = "InventoryTrsPanel";
             this.InventoryTrsPanel.Text = "Transaction";
             // 
@@ -272,6 +286,15 @@
             this.OpnameButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("OpnameButton.SmallImage")));
             this.OpnameButton.Text = "Opname";
             this.OpnameButton.Click += new System.EventHandler(this.OpnameButton_Click);
+            // 
+            // ImportExcelOpnameButton
+            // 
+            this.ImportExcelOpnameButton.Image = global::btr.distrib.Properties.Resources.icons8_microsoft_excel_32;
+            this.ImportExcelOpnameButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_microsoft_excel_32;
+            this.ImportExcelOpnameButton.Name = "ImportExcelOpnameButton";
+            this.ImportExcelOpnameButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ImportExcelOpnameButton.SmallImage")));
+            this.ImportExcelOpnameButton.Text = "Import Excel";
+            this.ImportExcelOpnameButton.Click += new System.EventHandler(this.ImportExcelOpnameButton_Click);
             // 
             // PrintFakturButton
             // 
@@ -290,6 +313,15 @@
             this.PackingButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("PackingButton.SmallImage")));
             this.PackingButton.Text = "Packing";
             this.PackingButton.Click += new System.EventHandler(this.PackingButton_Click);
+            // 
+            // MutasiButton
+            // 
+            this.MutasiButton.Image = global::btr.distrib.Properties.Resources.icons8_python_32;
+            this.MutasiButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_python_32;
+            this.MutasiButton.Name = "MutasiButton";
+            this.MutasiButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("MutasiButton.SmallImage")));
+            this.MutasiButton.Text = "Mutasi";
+            this.MutasiButton.Click += new System.EventHandler(this.MutasiButton_Click);
             // 
             // ReportingPanel
             // 
@@ -375,7 +407,6 @@
             this.TestingButton.Name = "TestingButton";
             this.TestingButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("TestingButton.SmallImage")));
             this.TestingButton.Text = "Testing";
-            this.TestingButton.Click += new System.EventHandler(this.TestingButton_Click);
             // 
             // ReceivingPanel
             // 
@@ -414,15 +445,6 @@
             this.ServerDbStatus.Name = "ServerDbStatus";
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
-            // 
-            // InvoiceButton
-            // 
-            this.InvoiceButton.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
-            this.InvoiceButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
-            this.InvoiceButton.Name = "InvoiceButton";
-            this.InvoiceButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("InvoiceButton.SmallImage")));
-            this.InvoiceButton.Text = "Invoice";
-            this.InvoiceButton.Click += new System.EventHandler(this.InvoiceButton_Click);
             // 
             // MainForm
             // 
@@ -490,5 +512,7 @@
         private System.Windows.Forms.RibbonButton PackingButton;
         private System.Windows.Forms.RibbonButton BukuStokButton;
         private System.Windows.Forms.RibbonButton InvoiceButton;
+        private System.Windows.Forms.RibbonButton MutasiButton;
+        private System.Windows.Forms.RibbonButton ImportExcelOpnameButton;
     }
 }

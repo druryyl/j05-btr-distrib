@@ -6,7 +6,7 @@ using btr.application.SalesContext.FakturPajakVoidAgg;
 using btr.application.SupportContext.TglJamAgg;
 using btr.domain.SalesContext.AlokasiFpAgg;
 using btr.domain.SalesContext.FakturAgg;
-using btr.infrastructure.SalesContext.FakturPajakVoidAgg;
+using btr.domain.SalesContext.FakturPajakVoidAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
 

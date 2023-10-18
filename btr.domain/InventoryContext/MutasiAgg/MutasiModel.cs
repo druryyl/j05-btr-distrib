@@ -1,10 +1,18 @@
-﻿using System;
+﻿using btr.domain.BrgContext.BrgAgg;
+using btr.domain.InventoryContext.WarehouseAgg;
+using btr.domain.SupportContext.UserAgg;
+using System;
 using System.Collections.Generic;
 
 namespace btr.domain.InventoryContext.MutasiAgg
 {
-    public class MutasiModel
+    public class MutasiModel : IMutasiKey, IWarehouseKey, IUserKey
     {
+        public MutasiModel()
+        {
+        }
+        public MutasiModel(string id) => MutasiId = id;
+
         public string MutasiId { get; set; }
         public JenisMutasiEnum JenisMutasi { get; set; }
         
@@ -14,12 +22,21 @@ namespace btr.domain.InventoryContext.MutasiAgg
         public string WarehouseName { get; set; }
         
         public string UserId { get; set; }
+        public decimal NilaiSediaan { get; set; }
+
+        public DateTime CreateTime { get; set; }
+        public DateTime LastUpdate { get; set; }
+        public DateTime VoidDate { get; set; }
+        public string UserIdVoid { get; set; }
+        public bool IsVoid { get => VoidDate != new DateTime(3000, 1, 1); }
+
         public List<MutasiItemModel> ListItem { get; set; }
     }
 
-    public class MutasiItemModel
+    public class MutasiItemModel : IMutasiKey, IBrgKey
     {
         public string MutasiId { get; set; }
+        public string MutasiItemId { get; set; }
         public int NoUrut { get; set; }
         public string BrgId { get; set; }
         public string BrgCode { get; set; }
@@ -29,8 +46,8 @@ namespace btr.domain.InventoryContext.MutasiAgg
         
         public int QtyBesar { get; set; }
         public string  SatBesar { get; set; }
-        public decimal HppBesar { get; set; }
         public int Conversion { get; set; }
+        public decimal HppBesar { get; set; }
         public int QtyKecil { get; set; }
         public string SatKecil { get; set; }
         public decimal HppKecil { get; set; }
