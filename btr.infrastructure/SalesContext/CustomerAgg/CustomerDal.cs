@@ -25,12 +25,12 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
             INSERT INTO BTR_Customer(
                 CustomerId, CustomerName, WilayahId, KlasifikasiId, HargaTypeId, 
                 Address1, Address2, Kota, KodePos, NoTelp, NoFax, 
-                Npwp, Nppkp, NamaWp, AlamatWp, AlamatWp2, IsKenaPajak, 
+                Npwp, Nppkp, NamaWp, AddressWp, AddressWp2, IsKenaPajak, 
                 IsSuspend, Plafond, CreditBalance)
             VALUES (
                 @CustomerId, @CustomerName, @WilayahId, @KlasifikasiId, @HargaTypeId, 
                 @Address1, @Address2, @Kota, @KodePos, @NoTelp, @NoFax, 
-                @Npwp, @Nppkp, @NamaWp, @AlamatWp, @AlamatWp2, @IsKenaPajak, 
+                @Npwp, @Nppkp, @NamaWp, @AddressWp, @AddressWp2, @IsKenaPajak, 
                 @IsSuspend, @Plafond, @CreditBalance)";
 
             var dp = new DynamicParameters();
