@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace btr.distrib.ReportingContext
 {
@@ -45,11 +46,36 @@ namespace btr.distrib.ReportingContext
             CustomerChart.Invalidate();
 
             CustomerChart.Series.Clear(); // Clear any existing series
-            CustomerChart.Series.Add("SeriesName"); // Add a new series
-            CustomerChart.Series["SeriesName"].XValueMember = "Kota"; // Set X-axis data column
-            CustomerChart.Series["SeriesName"].YValueMembers = "JumCustomer"; // Set Y-axis data column
+            CustomerChart.Series.Add("Customer1"); // Add a new series
+            CustomerChart.Series[0].XValueMember = "Kota"; // Set X-axis data column
+            CustomerChart.Series[0].YValueMembers = "JumCustomer"; // Set Y-axis data column
+            CustomerChart.Series[0].ChartType = SeriesChartType.Bar;
+
             CustomerChart.ChartAreas[0].AxisX.Title = "Kota";
             CustomerChart.ChartAreas[0].AxisY.Title = "Jumlah Customer";
+
+            CustomerChart.Titles.Add("Jumlah Customer");
+            CustomerChart.Titles.Add("Per-Kota");
+
+        }
+
+        private void ChartTypeCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (ChartTypeCombo.SelectedIndex)
+            {
+                case 0:
+                    CustomerChart.Series["Customer1"].ChartType = SeriesChartType.Bar;
+                    break;
+                case 1:
+                    CustomerChart.Series["Customer1"].ChartType = SeriesChartType.Pie;
+                    break;
+                case 2:
+                    CustomerChart.Series["Customer1"].ChartType = SeriesChartType.Area;
+                    break;
+                case 3:
+                    CustomerChart.Series["Customer1"].ChartType = SeriesChartType.Line;
+                    break;
+            }
         }
     }
 }
