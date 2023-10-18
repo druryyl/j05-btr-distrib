@@ -1,14 +1,8 @@
 ﻿using btr.application.SupportContext.TglJamAgg;
 using btr.domain.SalesContext.FakturAgg;
 using btr.domain.SupportContext.UserAgg;
-using btr.infrastructure.SalesContext.FakturPajakVoidAgg;
 using btr.nuna.Application;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
+using btr.domain.SalesContext.FakturPajakVoidAgg;
 using btr.nuna.Domain;
 
 namespace btr.application.SalesContext.FakturPajakVoidAgg

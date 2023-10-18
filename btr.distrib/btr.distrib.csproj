@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>60</ApplicationRevision>
+    <ApplicationRevision>62</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -229,6 +229,7 @@
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9, processorArchitecture=MSIL">
       <HintPath>..\packages\RibbonWinForms.5.0.1.1\lib\net48\System.Windows.Forms.Ribbon.dll</HintPath>
     </Reference>
@@ -252,6 +253,7 @@
     <Compile Include="Browsers\FakturBrowser.cs" />
     <Compile Include="Browsers\InvoiceBrowser.cs" />
     <Compile Include="Browsers\KategoriBrowser.cs" />
+    <Compile Include="Browsers\MutasiBrowser.cs" />
     <Compile Include="Browsers\SalesPersonBrowser.cs" />
     <Compile Include="Browsers\WilayahBrowser.cs" />
     <Compile Include="Helpers\BrowseFilter.cs" />
@@ -277,6 +279,12 @@
     <Compile Include="InventoryContext\BrgAgg\BrgFormHargaDto.cs" />
     <Compile Include="InventoryContext\BrgAgg\BrgFormSatuanDto.cs" />
     <Compile Include="InventoryContext\BrgAgg\BrgFormStokDto.cs" />
+    <Compile Include="InventoryContext\ImportOpnameAgg\ImportOpnameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryContext\ImportOpnameAgg\ImportOpnameForm.Designer.cs">
+      <DependentUpon>ImportOpnameForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="InventoryContext\KartuStokRpt\KartuStokReportForm.cs" />
     <Compile Include="InventoryContext\KartuStokRpt\KartuStokReportForm.Designer.cs">
       <DependentUpon>KartuStokReportForm.cs</DependentUpon>
@@ -350,6 +358,12 @@
       <DependentUpon>SupplierForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InventoryContext\StokBalanceRpt\WarehouseRptDto.cs" />
+    <Compile Include="ReportingContext\CustomerChartRpt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportingContext\CustomerChartRpt.Designer.cs">
+      <DependentUpon>CustomerChartRpt.cs</DependentUpon>
+    </Compile>
     <Compile Include="SalesContext\CustomerAgg\CustomerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -412,12 +426,6 @@
     <Compile Include="SharedForm\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SharedForm\TestPlayground.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SharedForm\TestPlayground.Designer.cs">
-      <DependentUpon>TestPlayground.cs</DependentUpon>
-    </Compile>
     <Compile Include="SharedForm\UserForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -432,10 +440,15 @@
     </Compile>
     <Compile Include="WinformAssemblyAnchor.cs" />
     <Content Include="icons8_truck.ico" />
+    <None Include="Resources\icons8_microsoft_excel_32.png" />
+    <None Include="Resources\icons8_python_32.png" />
     <None Include="Resources\icons8_vue_js_32.png" />
     <None Include="Resources\icons8_uninstalling_updates_32.png" />
     <None Include="Resources\icons8_stack_overflow_32.png" />
     <None Include="Resources\icons8_stack_overflow_16.png" />
+    <EmbeddedResource Include="InventoryContext\ImportOpnameAgg\ImportOpnameForm.resx">
+      <DependentUpon>ImportOpnameForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\KartuStokRpt\KartuStokReportForm.resx">
       <DependentUpon>KartuStokReportForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -444,6 +457,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PurchaseContext\InvoiceAgg\InvoiceForm.resx">
       <DependentUpon>InvoiceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportingContext\CustomerChartRpt.resx">
+      <DependentUpon>CustomerChartRpt.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SharedForm\VoidReasonForm.resx">
       <DependentUpon>VoidReasonForm.cs</DependentUpon>
@@ -488,9 +504,6 @@
     <Content Include="Resources\icons8_microscope_32.png" />
     <EmbeddedResource Include="SharedForm\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SharedForm\TestPlayground.resx">
-      <DependentUpon>TestPlayground.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Resources\app-wallpaper-4.jpg" />
     <None Include="Resources\icons8_print.ico" />
@@ -615,8 +628,6 @@
       <Name>btr.nuna</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ReportingContext\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

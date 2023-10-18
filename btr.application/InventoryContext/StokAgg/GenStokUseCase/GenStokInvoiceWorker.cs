@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using btr.application.BrgContext.BrgAgg;
-using btr.application.SalesContext.InvoiceAgg.Workers;
-using btr.domain.InventoryContext.StokAgg;
+using btr.application.PurchaseContext.InvoiceAgg;
 using btr.domain.PurchaseContext.InvoiceAgg;
 using btr.nuna.Application;
 
@@ -28,23 +27,23 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
         private readonly IAddStokWorker _addStokWorker;
         private readonly IStokDal _stokDal;
         private readonly IStokMutasiDal _stokMutasiDal;
-        private readonly IStokBuilder _stokBuilder;
+        private readonly IRemoveRollbackStokWorker _removeRollbackStokWorker;
 
         public GenStokInvoiceWorker(IInvoiceBuilder invoiceBuilder,
             IRemovePriorityStokWorker removePriorityStokWorker,
             IBrgBuilder brgBuilder,
             IAddStokWorker addFifoStokWorker,
             IStokDal stokDal,
-            IStokBuilder stokBuilder,
-            IStokMutasiDal stokMutasiDal)
+            IStokMutasiDal stokMutasiDal, 
+            IRemoveRollbackStokWorker removeRollbackStokWorker)
         {
             _invoiceBuilder = invoiceBuilder;
             _removePriorityStokWorker = removePriorityStokWorker;
             _brgBuilder = brgBuilder;
             _addStokWorker = addFifoStokWorker;
             _stokDal = stokDal;
-            _stokBuilder = stokBuilder;
             _stokMutasiDal = stokMutasiDal;
+            _removeRollbackStokWorker = removeRollbackStokWorker;
         }
 
         public void Execute(GenStokInvoiceRequest req)
@@ -53,7 +52,9 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
 
             using (var trans = TransHelper.NewScope())
             {
-                RemoveStok(invoice);
+                var reqRemove = new RemoveRollbackRequest(invoice.InvoiceId,"INVOICE-VOID");
+                _removeRollbackStokWorker.Execute(reqRemove);
+                
                 foreach (var item in invoice.ListItem)
                 {
                     var brg = _brgBuilder.Load(item).Build();
@@ -72,29 +73,6 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                     _addStokWorker.Execute(reqBonus);
                 }
                 trans.Complete();
-            }
-        }
-        private void RemoveStok(IInvoiceKey invoiceKey)
-        {
-            var listStok = _stokDal.ListData(new StokModel { ReffId = invoiceKey.InvoiceId });
-            if (listStok == null) 
-                return;
-
-            foreach(var item in listStok)
-            {
-                //  jika belum ada barang keluar, maka hapus
-                if (item.Qty == item.QtyIn)
-                {
-                    _stokDal.Delete(item);
-                    _stokMutasiDal.Delete(item);
-                    continue;
-                }
-
-                //  jika sudah ada barang keluar, maka remove priority;
-                var req = new RemovePriorityStokRequest(
-                    item.BrgId, item.WarehouseId, item.Qty, string.Empty, 
-                    item.NilaiPersediaan, invoiceKey.InvoiceId, "INVOICE-VOID", invoiceKey.InvoiceId);
-                _removePriorityStokWorker.Execute(req);
             }
         }
     }

@@ -205,6 +205,12 @@
   <data name="import_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\import_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="icons8_python_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8_python_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8_factory" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8_factory.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="icons8_microscope_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8_microscope_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -229,6 +235,9 @@
   <data name="icons8_map_marker" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8_map_marker.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="icons8_vue_js_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8_vue_js_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="icons8_hashtag_activity_feed_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8_hashtag_activity_feed_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -238,8 +247,8 @@
   <data name="icons8_stack_overflow_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8_stack_overflow_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8_factory" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8_factory.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8_warehouse" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8_warehouse.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8_purchase_order" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8_purchase_order.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -253,16 +262,13 @@
   <data name="app-wallpaper-3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\app-wallpaper-3.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8_warehouse" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8_warehouse.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="icons8_numeric_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8_numeric_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8_graph_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8_graph_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8_vue_js_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8_vue_js_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8_microsoft_excel_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8_microsoft_excel_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

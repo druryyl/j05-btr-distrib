@@ -1,20 +1,17 @@
 ﻿using System.Collections.Generic;
 using btr.application.InventoryContext.StokAgg.GenStokUseCase;
-using btr.application.SalesContext.InvoiceAgg.Workers;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.PurchaseContext.InvoiceAgg;
 using btr.domain.PurchaseContext.SupplierAgg;
-using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.FakturAgg;
-using btr.domain.SalesContext.SalesPersonAgg;
 using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
 using Dawn;
 using MediatR;
 
-namespace btr.application.SalesContext.InvoiceAgg.UseCases
+namespace btr.application.PurchaseContext.InvoiceAgg
 {
     public class SaveInvoiceRequest : IInvoiceKey, ISupplierKey, 
         IWarehouseKey, IUserKey
@@ -43,17 +40,17 @@ namespace btr.application.SalesContext.InvoiceAgg.UseCases
 
     public class SaveInvoiceWorker : ISaveInvoiceWorker
     {
-        private readonly IInvoiceBuilder _fakturBuilder;
-        private readonly IInvoiceWriter _fakturWriter;
+        private readonly IInvoiceBuilder _invoiceBuilder;
+        private readonly IInvoiceWriter _invoiceWriter;
         private readonly IMediator _mediator;
         private readonly IGenStokInvoiceWorker _genStokWorker;
 
-        public SaveInvoiceWorker(IInvoiceBuilder fakturBuilder,
-            IInvoiceWriter fakturWriter,
+        public SaveInvoiceWorker(IInvoiceBuilder invoiceBuilder,
+            IInvoiceWriter invoiceWriter,
             IMediator mediator, IGenStokInvoiceWorker genStokWorker)
         {
-            _fakturBuilder = fakturBuilder;
-            _fakturWriter = fakturWriter;
+            _invoiceBuilder = invoiceBuilder;
+            _invoiceWriter = invoiceWriter;
             _mediator = mediator;
             _genStokWorker = genStokWorker;
         }
@@ -89,15 +86,15 @@ namespace btr.application.SalesContext.InvoiceAgg.UseCases
             InvoiceModel result;
             if (req.InvoiceId.Length == 0)
             {
-                result = _fakturBuilder.CreateNew(req).Build();
+                result = _invoiceBuilder.CreateNew(req).Build();
             }
             else
             {
-                result = _fakturBuilder.Load(req).Build();
+                result = _invoiceBuilder.Load(req).Build();
                 result.ListItem.Clear();
             }
 
-            result = _fakturBuilder
+            result = _invoiceBuilder
                 .Attach(result)
                 .InvoiceDate(req.InvoiceDate.ToDate(DateFormatEnum.YMD))
                 .InvoiceCode(req.InvoiceCode)
@@ -110,18 +107,18 @@ namespace btr.application.SalesContext.InvoiceAgg.UseCases
 
             foreach (var item in req.ListBrg)
             {
-                result = _fakturBuilder
+                result = _invoiceBuilder
                     .Attach(result)
                     .AddItem(item, item.HrgInputStr, item.QtyString, item.DiscountString, item.PpnProsen)
                     .Build();
             }
-            result = _fakturBuilder
+            result = _invoiceBuilder
                 .Attach(result)
                 .CalcTotal()
                 .Build();
 
             //  APPLY
-            _ = _fakturWriter.Save(result);
+            _ = _invoiceWriter.Save(result);
             _mediator.Publish(new SavedInvoiceEvent(req, result));
             return result;
         }

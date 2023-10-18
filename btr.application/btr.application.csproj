@@ -37,6 +37,9 @@
     <Reference Include="FluentValidation, Version=11.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentValidation.11.6.0\lib\netstandard2.0\FluentValidation.dll</HintPath>
     </Reference>
+    <Reference Include="JetBrains.Annotations, Version=4242.42.42.42, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.2023.2.0\lib\net20\JetBrains.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="Mapster, Version=7.3.0.0, Culture=neutral, PublicKeyToken=2f39883af23c29a8, processorArchitecture=MSIL">
       <HintPath>..\packages\Mapster.7.3.0\lib\netstandard2.0\Mapster.dll</HintPath>
     </Reference>
@@ -88,9 +91,15 @@
     <Compile Include="BrgContext\KategoriAgg\KategoriBuilder.cs" />
     <Compile Include="BrgContext\KategoriAgg\KategoriWriter.cs" />
     <Compile Include="InventoryContext\DriverAgg\IDriverDal.cs" />
+    <Compile Include="InventoryContext\ImportOpnameAgg\Contracts\IImportOpnameDal.cs" />
     <Compile Include="InventoryContext\KartuStokRpt\IKartuStokDal.cs" />
     <Compile Include="InventoryContext\KartuStokRpt\IKartuStokSaldoDal.cs" />
     <Compile Include="InventoryContext\MutasiAgg\CreateMutasiItemWorker.cs" />
+    <Compile Include="InventoryContext\MutasiAgg\IMutasiDal.cs" />
+    <Compile Include="InventoryContext\MutasiAgg\MutasiBuilder.cs" />
+    <Compile Include="InventoryContext\MutasiAgg\MutasiValidator.cs" />
+    <Compile Include="InventoryContext\MutasiAgg\MutasiWriter.cs" />
+    <Compile Include="InventoryContext\MutasiAgg\SaveMutasiWorker.cs" />
     <Compile Include="InventoryContext\OpnameAgg\IOpnameDal.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameBuilder.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameValidator.cs" />
@@ -104,7 +113,9 @@
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokBalanceWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokFakturWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokInvoiceWorker.cs" />
+    <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokMutasiWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\RemovePriorityStokWorker.cs" />
+    <Compile Include="InventoryContext\StokAgg\GenStokUseCase\RemoveRollbackStokWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\IStokDal.cs" />
     <Compile Include="InventoryContext\StokAgg\IStokMutasiDal.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\RemoveFifoStokWorker.cs" />
