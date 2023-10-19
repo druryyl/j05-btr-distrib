@@ -33,6 +33,8 @@
             this.SalesTab = new System.Windows.Forms.RibbonTab();
             this.FakturPanel = new System.Windows.Forms.RibbonPanel();
             this.FakturButton = new System.Windows.Forms.RibbonButton();
+            this.InfoFakturJualButton = new System.Windows.Forms.RibbonButton();
+            this.ribbonSeparator2 = new System.Windows.Forms.RibbonSeparator();
             this.ControlFakturButton = new System.Windows.Forms.RibbonButton();
             this.FakturPajakButton = new System.Windows.Forms.RibbonButton();
             this.MasterSalesPanel = new System.Windows.Forms.RibbonPanel();
@@ -113,6 +115,8 @@
             this.FakturPanel.ButtonMoreEnabled = false;
             this.FakturPanel.ButtonMoreVisible = false;
             this.FakturPanel.Items.Add(this.FakturButton);
+            this.FakturPanel.Items.Add(this.InfoFakturJualButton);
+            this.FakturPanel.Items.Add(this.ribbonSeparator2);
             this.FakturPanel.Items.Add(this.ControlFakturButton);
             this.FakturPanel.Items.Add(this.FakturPajakButton);
             this.FakturPanel.Name = "FakturPanel";
@@ -126,6 +130,20 @@
             this.FakturButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FakturButton.SmallImage")));
             this.FakturButton.Text = "Faktur";
             this.FakturButton.Click += new System.EventHandler(this.FakturButton_Click);
+            // 
+            // InfoFakturJualButton
+            // 
+            this.InfoFakturJualButton.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.InfoFakturJualButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.InfoFakturJualButton.Name = "InfoFakturJualButton";
+            this.InfoFakturJualButton.SmallImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.InfoFakturJualButton.Text = "Info Faktur";
+            this.InfoFakturJualButton.Click += new System.EventHandler(this.InfoFakturJualButton_Click);
+            // 
+            // ribbonSeparator2
+            // 
+            this.ribbonSeparator2.Name = "ribbonSeparator2";
+            this.ribbonSeparator2.Text = "";
             // 
             // ControlFakturButton
             // 
@@ -514,5 +532,7 @@
         private System.Windows.Forms.RibbonButton InvoiceButton;
         private System.Windows.Forms.RibbonButton MutasiButton;
         private System.Windows.Forms.RibbonButton ImportExcelOpnameButton;
+        private System.Windows.Forms.RibbonButton InfoFakturJualButton;
+        private System.Windows.Forms.RibbonSeparator ribbonSeparator2;
     }
 }

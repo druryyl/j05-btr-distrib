@@ -1,7 +1,9 @@
 ﻿using btr.application.SalesContext.FakturAgg.UseCases;
 using btr.application.SalesContext.FakturControlAgg;
 using btr.distrib.Helpers;
+using btr.distrib.SalesContext.FakturAgg;
 using btr.distrib.SharedForm;
+using btr.domain.InventoryContext.PackingAgg;
 using btr.domain.SalesContext.FakturAgg;
 using btr.domain.SalesContext.FakturControlAgg;
 using btr.domain.SupportContext.UserAgg;
@@ -28,6 +30,8 @@ namespace btr.distrib.SalesContext.FakturControlAgg
         private readonly IChangeToCreditFakturWorker _changeToCreditFakturWorker;
         private readonly IReactivateFakturWorker _reactivateFakturWorker;
 
+        private ContextMenu _gridContextMenu;
+
         private BindingList<FakturControlView> _listItem = new BindingList<FakturControlView>();
         public FakturControlForm(IListFaktorControlWorker listFaktorControlWorker,
             IFakturControlBuilder builder,
@@ -45,6 +49,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
 
             InitializeComponent();
             InitGrid();
+            InitContextMenu();
             RefreshGrid();
             RegisterEventHandler();
             _voidFakturWorker = voidFakturWorker;
@@ -57,7 +62,38 @@ namespace btr.distrib.SalesContext.FakturControlAgg
         {
             SearchButton.Click += SearchButton_Click;
             FakturGrid.CellContentClick += FakturGrid_CellContentClick;
+            FakturGrid.MouseClick += FakturGrid_MouseClick;
         }
+
+        private void FakturGrid_MouseClick(object sender, MouseEventArgs e)
+        {
+            var grid = (DataGridView)sender;
+            if (e.Button == MouseButtons.Right)
+            {
+                _gridContextMenu.Show(grid, e.Location);
+            }
+        }
+
+        private void InitContextMenu()
+        {
+            _gridContextMenu = new ContextMenu();
+            _gridContextMenu.MenuItems.Add(new MenuItem("Edit Faktur", EditFaktur_OnClick));
+            FakturGrid.ContextMenu = _gridContextMenu;
+        }
+        private void EditFaktur_OnClick(object sender, EventArgs e)
+        {
+            var grid = FakturGrid;
+            if (grid.CurrentRow is null)
+                return;
+
+            var fakturKey = new FakturModel(grid.CurrentRow.Cells["FakturId"].Value.ToString());
+            var mainMenu = (MainForm)this.Parent.Parent;
+            mainMenu.FakturButton_Click(null, null);
+            FakturForm fakturForm = Application.OpenForms.OfType<FakturForm>().FirstOrDefault();
+            fakturForm.ShowFaktur(fakturKey.FakturId);
+
+        }
+
 
         private void FakturGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -164,12 +200,6 @@ namespace btr.distrib.SalesContext.FakturControlAgg
 
         private void SearchButton_Click(object sender, EventArgs e)
         {
-            foreach(DataGridViewRow item in FakturGrid.Rows)
-            //{
-            //    if (Convert.ToBoolean(item.Cells[0].Value) == true)
-
-            //}
-
             RefreshGrid();
         }
 

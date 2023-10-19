@@ -99,7 +99,8 @@ namespace btr.application.InventoryContext.StokAgg
         {
             if (_agg.Qty < qty)
                 throw new ArgumentException("Stok tidak mencukupi");
-            var noUrut = _agg.ListMutasi.Count;
+            var noUrut = _agg.ListMutasi.DefaultIfEmpty(new StokMutasiModel { NoUrut = 0}).Max(x => x.NoUrut);
+            noUrut++;
             var newMutasi = new StokMutasiModel
             {
                 QtyIn = 0,
