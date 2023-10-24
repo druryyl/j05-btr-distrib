@@ -37,6 +37,8 @@ namespace btr.infrastructure.InventoryContext.KartuStokRpt
                 GROUP BY
                     aa.BrgId, aa.WarehouseId, cc.BrgCode, cc.BrgName,
                     dd.WarehouseName ";
+
+
             return null;
         }
     }

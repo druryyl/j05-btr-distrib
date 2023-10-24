@@ -399,6 +399,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             cols.GetCol("HrgInputStr").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             cols.GetCol("HrgInputStr").HeaderText = "Hrg Beli";
             cols.GetCol("HrgInputStr").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
+            cols.GetCol("HrgInputStr").Visible = false;
 
             cols.GetCol("HrgDetilStr").Visible = true;
             cols.GetCol("HrgDetilStr").Width = 110;

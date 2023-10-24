@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>63</ApplicationRevision>
+    <ApplicationRevision>64</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -397,11 +397,11 @@
     <Compile Include="SalesContext\AlokasiFpAgg\AlokasiFpForm.Designer.cs">
       <DependentUpon>AlokasiFpForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SalesContext\InfoFakturAgg\InfoFakturAgg.cs">
+    <Compile Include="SalesContext\InfoFakturAgg\InfoFakturForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SalesContext\InfoFakturAgg\InfoFakturAgg.Designer.cs">
-      <DependentUpon>InfoFakturAgg.cs</DependentUpon>
+    <Compile Include="SalesContext\InfoFakturAgg\InfoFakturForm.Designer.cs">
+      <DependentUpon>InfoFakturForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SalesContext\SalesPersonAgg\SalesPersonForm.cs">
       <SubType>Form</SubType>
@@ -475,8 +475,8 @@
     <EmbeddedResource Include="ReportingContext\CustomerChartRpt.resx">
       <DependentUpon>CustomerChartRpt.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SalesContext\InfoFakturAgg\InfoFakturAgg.resx">
-      <DependentUpon>InfoFakturAgg.cs</DependentUpon>
+    <EmbeddedResource Include="SalesContext\InfoFakturAgg\InfoFakturForm.resx">
+      <DependentUpon>InfoFakturForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SharedForm\VoidReasonForm.resx">
       <DependentUpon>VoidReasonForm.cs</DependentUpon>

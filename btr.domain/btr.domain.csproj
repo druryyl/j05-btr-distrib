@@ -110,6 +110,7 @@
     <Compile Include="SalesContext\FakturControlAgg\StatusFakturEnum.cs" />
     <Compile Include="SalesContext\AlokasiFpAgg\AlokasiFpModel.cs" />
     <Compile Include="SalesContext\FakturPajakVoidAgg\FakturPajakVoidModel.cs" />
+    <Compile Include="SalesContext\FakturInfoAgg\FakturInfoAgg.cs" />
     <Compile Include="SalesContext\KlasifikasiAgg\IKlasifikasiKey.cs" />
     <Compile Include="SalesContext\KlasifikasiAgg\KlasifikasiModel.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\ISalesPersonKey.cs" />
