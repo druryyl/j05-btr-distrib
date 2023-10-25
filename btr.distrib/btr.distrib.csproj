@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>64</ApplicationRevision>
+    <ApplicationRevision>65</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -264,6 +264,18 @@
     <Compile Include="Browsers\MutasiBrowser.cs" />
     <Compile Include="Browsers\SalesPersonBrowser.cs" />
     <Compile Include="Browsers\WilayahBrowser.cs" />
+    <Compile Include="FinanceContext\LunasPiutangAgg\ListLunasPiutang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FinanceContext\LunasPiutangAgg\ListLunasPiutang.Designer.cs">
+      <DependentUpon>ListLunasPiutang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FinanceContext\LunasPiutangAgg\LunasPiutangForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FinanceContext\LunasPiutangAgg\LunasPiutangForm.Designer.cs">
+      <DependentUpon>LunasPiutangForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\BrowseFilter.cs" />
     <Compile Include="Helpers\CodeRedReporting.cs" />
     <Compile Include="Helpers\IBrowseEngine.cs" />
@@ -460,6 +472,12 @@
     <None Include="Resources\icons8_uninstalling_updates_32.png" />
     <None Include="Resources\icons8_stack_overflow_32.png" />
     <None Include="Resources\icons8_stack_overflow_16.png" />
+    <EmbeddedResource Include="FinanceContext\LunasPiutangAgg\ListLunasPiutang.resx">
+      <DependentUpon>ListLunasPiutang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FinanceContext\LunasPiutangAgg\LunasPiutangForm.resx">
+      <DependentUpon>LunasPiutangForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\ImportOpnameAgg\ImportOpnameForm.resx">
       <DependentUpon>ImportOpnameForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -517,6 +535,7 @@
     <None Include="Resources\cancelled-stamp.png" />
     <None Include="Resources\icons8_broadcasting_48.png" />
     <None Include="Resources\icons8_documents_32.png" />
+    <None Include="Resources\icons8_general_ledger_32.png" />
     <Content Include="Resources\icons8_microscope.ico" />
     <Content Include="Resources\icons8_microscope_32.png" />
     <EmbeddedResource Include="SharedForm\AboutForm.resx">
