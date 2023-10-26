@@ -3,7 +3,6 @@ using btr.application.SalesContext.FakturControlAgg;
 using btr.distrib.Helpers;
 using btr.distrib.SalesContext.FakturAgg;
 using btr.distrib.SharedForm;
-using btr.domain.InventoryContext.PackingAgg;
 using btr.domain.SalesContext.FakturAgg;
 using btr.domain.SalesContext.FakturControlAgg;
 using btr.domain.SupportContext.UserAgg;
@@ -89,9 +88,8 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             var fakturKey = new FakturModel(grid.CurrentRow.Cells["FakturId"].Value.ToString());
             var mainMenu = (MainForm)this.Parent.Parent;
             mainMenu.FakturButton_Click(null, null);
-            FakturForm fakturForm = Application.OpenForms.OfType<FakturForm>().FirstOrDefault();
-            fakturForm.ShowFaktur(fakturKey.FakturId);
-
+            var fakturForm = Application.OpenForms.OfType<FakturForm>().FirstOrDefault();
+            fakturForm?.ShowFaktur(fakturKey.FakturId);
         }
 
 
@@ -102,7 +100,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                 return;
 
             FakturGrid.EndEdit();
-            StatusFakturEnum statusFaktur = StatusFakturEnum.Unknown;
+            var statusFaktur = StatusFakturEnum.Unknown;
             switch (grid.Columns[e.ColumnIndex].Name)
             {
                 case "Posted": statusFaktur = StatusFakturEnum.Posted; break;
@@ -153,6 +151,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                     break;
                 case StatusFakturEnum.Pajak:
                     break;
+                case StatusFakturEnum.Unknown:
                 default:
                     break;
             }
@@ -193,6 +192,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                     break;
                 case StatusFakturEnum.Pajak:
                     break;
+                case StatusFakturEnum.Unknown:
                 default:
                     break;
             }
@@ -237,12 +237,12 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             FakturGrid.Columns.GetCol("Bayar").DefaultCellStyle.BackColor = Color.Pink;
             FakturGrid.Columns.GetCol("Sisa").DefaultCellStyle.BackColor = Color.PaleTurquoise;
 
-            FakturGrid.Columns.GetCol("FakturDate").HeaderText = "Tgl";
-            FakturGrid.Columns.GetCol("CustomerName").HeaderText = "Customer";
-            FakturGrid.Columns.GetCol("Npwp").HeaderText = "NPWP";
-            FakturGrid.Columns.GetCol("SalesPersonName").HeaderText = "Sales";
-            FakturGrid.Columns.GetCol("NoFakturPajak").HeaderText = "Faktur Pajak";
-            FakturGrid.Columns.GetCol("UserId").HeaderText = "Admin";
+            FakturGrid.Columns.GetCol("FakturDate").HeaderText = @"Tgl";
+            FakturGrid.Columns.GetCol("CustomerName").HeaderText = @"Customer";
+            FakturGrid.Columns.GetCol("Npwp").HeaderText = @"NPWP";
+            FakturGrid.Columns.GetCol("SalesPersonName").HeaderText = @"Sales";
+            FakturGrid.Columns.GetCol("NoFakturPajak").HeaderText = @"Faktur Pajak";
+            FakturGrid.Columns.GetCol("UserId").HeaderText = @"Admin";
         }
 
         private void RefreshGrid()
@@ -251,7 +251,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             var diffDate = periode.Tgl2 - periode.Tgl1;
             if (diffDate.Days > 31)
             {
-                MessageBox.Show("Periode max 31 hari");
+                MessageBox.Show(@"Periode max 31 hari");
                 return;
             }    
 
@@ -259,22 +259,22 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             if (SearchText.Text.Length > 0)
                 listData = FilterFaktur(listData, SearchText.Text);
 
-            var _listTemp = listData.Select(x => x.Adapt<FakturControlView>()).ToList();
-            _listItem = new BindingList<FakturControlView>(_listTemp);
+            var listTemp = listData.Select(x => x.Adapt<FakturControlView>()).ToList();
+            _listItem = new BindingList<FakturControlView>(listTemp);
 
             var listStatus = _fakturControlStatusDal.ListData(periode)?.ToList() ?? new List<FakturControlStatusModel>();
             foreach(var item in _listItem)
             {
                 item.Posted = listStatus
                     .Where(x => x.FakturId == item.FakturId)
-                    .FirstOrDefault(x => x.StatusFaktur == StatusFakturEnum.Posted) != null ? true : false;
+                    .FirstOrDefault(x => x.StatusFaktur == StatusFakturEnum.Posted) != null;
 
                 item.Kirim = listStatus
                     .Where(x => x.FakturId == item.FakturId)
-                    .FirstOrDefault(x => x.StatusFaktur == StatusFakturEnum.Kirim) != null ? true : false;
+                    .FirstOrDefault(x => x.StatusFaktur == StatusFakturEnum.Kirim) != null;
                 item.Kembali = listStatus
                     .Where(x => x.FakturId == item.FakturId)
-                    .FirstOrDefault(x => x.StatusFaktur == StatusFakturEnum.KembaliFaktur) != null ? true : false;
+                    .FirstOrDefault(x => x.StatusFaktur == StatusFakturEnum.KembaliFaktur) != null;
             }
 
             var binding = new BindingSource();
@@ -286,24 +286,25 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             
         }
 
-        private List<FakturControlModel> FilterFaktur(IEnumerable<FakturControlModel> listData, string keywork)
+        private IEnumerable<FakturControlModel> FilterFaktur(IEnumerable<FakturControlModel> listFaktur, string keyword)
         {
-            var listCustomerName = listData.Where(x => x.CustomerName.ToLower().ContainMultiWord(SearchText.Text.ToLower()))?.ToList();
-            var listCustomerId = listData.Where(x => x.CustomerCode.ToLower().StartsWith(SearchText.Text.ToLower())).ToList();
-            var listFakturCode = listData.Where(x => x.FakturCode.ToLower().StartsWith(SearchText.Text.ToLower())).ToList();
-            var listSales = listData.Where(x => x.SalesPersonName.ToLower().StartsWith(SearchText.Text.ToLower())).ToList();
-            var listAdmin = listData.Where(x => x.UserId.ToLower() == SearchText.Text.ToLower());
-            listData = listCustomerName
+            var listData = listFaktur.ToList();
+            var listCustomerName = listData.Where(x => x.CustomerName.ToLower().ContainMultiWord(SearchText.Text.ToLower())).ToList();
+            var listCustomerId = listData.Where(x => x.CustomerCode.ToLower().StartsWith(keyword.ToLower())).ToList();
+            var listFakturCode = listData.Where(x => x.FakturCode.ToLower().StartsWith(keyword.ToLower())).ToList();
+            var listSales = listData.Where(x => x.SalesPersonName.ToLower().StartsWith(keyword.ToLower())).ToList();
+            var listAdmin = listData.Where(x => string.Equals(x.UserId, keyword, StringComparison.CurrentCultureIgnoreCase));
+            var result = listCustomerName
                 .Concat(listCustomerId)
                 .Concat(listFakturCode)
                 .Concat(listSales)
                 .Concat(listAdmin)
                 .OrderBy(x => x.FakturDate);
 
-            return listData.ToList();
+            return result.ToList();
         }
     }
-
+    
     public class FakturControlView
     {
         public string FakturId { get; private set; }
@@ -326,7 +327,5 @@ namespace btr.distrib.SalesContext.FakturControlAgg
 
         public void SetLunas(bool val) => Lunas = val;
         public void SetPajak(bool val) => Pajak = val;
-
-
     }
 }

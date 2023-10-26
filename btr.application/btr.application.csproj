@@ -90,6 +90,11 @@
     <Compile Include="BrgContext\KategoriAgg\IKategoriDal.cs" />
     <Compile Include="BrgContext\KategoriAgg\KategoriBuilder.cs" />
     <Compile Include="BrgContext\KategoriAgg\KategoriWriter.cs" />
+    <Compile Include="FinanceContext\PiutangAgg\Contracts\IPiutangDal.cs" />
+    <Compile Include="FinanceContext\PiutangAgg\Contracts\IPIutangElementModel.cs" />
+    <Compile Include="FinanceContext\PiutangAgg\Contracts\IPiutangLunasDal.cs" />
+    <Compile Include="FinanceContext\PiutangAgg\UseCases\CreatePiutangCommand.cs" />
+    <Compile Include="FinanceContext\PiutangAgg\Workers\PiutangBuilder.cs" />
     <Compile Include="InventoryContext\DriverAgg\IDriverDal.cs" />
     <Compile Include="InventoryContext\ImportOpnameAgg\Contracts\IImportOpnameDal.cs" />
     <Compile Include="InventoryContext\KartuStokRpt\IKartuStokDal.cs" />
@@ -218,7 +223,6 @@
   <ItemGroup>
     <Folder Include="FinanceContext\CreditNoteAgg\" />
     <Folder Include="FinanceContext\HutangAgg\" />
-    <Folder Include="FinanceContext\PiutangAgg\" />
     <Folder Include="InventoryContext\DeliveryAgg\Contracts\" />
     <Folder Include="InventoryContext\DeliveryAgg\UseCases\" />
     <Folder Include="InventoryContext\DeliveryAgg\Workers\" />
