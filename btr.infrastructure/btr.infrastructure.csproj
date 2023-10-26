@@ -75,6 +75,9 @@
   <ItemGroup>
     <Compile Include="BrgContext\HargaTypeAgg\HargaTypeDal.cs" />
     <Compile Include="BrgContext\JenisBrgAgg\JenisBrgDal.cs" />
+    <Compile Include="FinanceContext\PiutangAgg\PiutangDal.cs" />
+    <Compile Include="FinanceContext\PiutangAgg\PiutangElementDal.cs" />
+    <Compile Include="FinanceContext\PiutangAgg\PiutangLunasDal.cs" />
     <Compile Include="Helpers\ConnStringHelper.cs" />
     <Compile Include="Helpers\DatabaseOptions.cs" />
     <Compile Include="Helpers\ParamNoDal.cs" />
@@ -147,7 +150,6 @@
   <ItemGroup>
     <Folder Include="FinanceContext\CreditNoteAgg\" />
     <Folder Include="FinanceContext\HutangAgg\" />
-    <Folder Include="FinanceContext\PiutangAgg\" />
     <Folder Include="PurchaseContext\KlaimAgg\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

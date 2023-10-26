@@ -1,4 +1,5 @@
-﻿using btr.application.SalesContext.FakturAgg.UseCases;
+﻿using btr.application.FinanceContext.PiutangAgg.UseCases;
+using btr.application.SalesContext.FakturAgg.UseCases;
 using btr.application.SalesContext.FakturControlAgg;
 using btr.distrib.Helpers;
 using btr.distrib.SalesContext.FakturAgg;
@@ -28,6 +29,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
         private readonly IChangeToCashFakturWorker _changeToCashFakturWorker;
         private readonly IChangeToCreditFakturWorker _changeToCreditFakturWorker;
         private readonly IReactivateFakturWorker _reactivateFakturWorker;
+        private readonly ICreatePiutangWorker _createPiutangWorker;
 
         private ContextMenu _gridContextMenu;
 
@@ -38,8 +40,9 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             IFakturControlStatusDal fakturControlStatusDal,
             IVoidFakturWorker voidFakturWorker,
             IChangeToCashFakturWorker changeToCashFakturWorker,
-            IChangeToCreditFakturWorker changeToCreditFakturWorker, 
-            IReactivateFakturWorker reactivateFakturWorker)
+            IChangeToCreditFakturWorker changeToCreditFakturWorker,
+            IReactivateFakturWorker reactivateFakturWorker,
+            ICreatePiutangWorker createPiutangWorker)
         {
             _listFaktorControlWorker = listFaktorControlWorker;
             _fakturControlStatusDal = fakturControlStatusDal;
@@ -55,6 +58,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             _changeToCashFakturWorker = changeToCashFakturWorker;
             _changeToCreditFakturWorker = changeToCreditFakturWorker;
             _reactivateFakturWorker = reactivateFakturWorker;
+            _createPiutangWorker = createPiutangWorker;
         }
 
         private void RegisterEventHandler()
@@ -131,19 +135,20 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                     break;
                 //  
                 case StatusFakturEnum.Kirim:
-                    var faktur = _builder
+                    var fakturControl = _builder
                         .LoadOrCreate(fakturKey)
                         .Kirim(userKey)
                         .Build();
-                    _writer.Save(faktur);
+                    _writer.Save(fakturControl);
 
                     break;
                 case StatusFakturEnum.KembaliFaktur:
-                    faktur = _builder
+                    fakturControl = _builder
                         .LoadOrCreate(fakturKey)
                         .KembaliFaktur(userKey)
                         .Build();
-                    _writer.Save(faktur);
+                    _writer.Save(fakturControl);
+                    _createPiutangWorker.Execute(fakturControl);
                     break;
                 case StatusFakturEnum.Lunas:
                     var changeToCashReq = new ChangeToCashFakturRequest(fakturKey.FakturId, userKey.UserId);
@@ -183,7 +188,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                         .LoadOrCreate(fakturKey)
                         .CancelKembaliFaktur()
                         .Build();
-                    _writer.Save(faktur); 
+                    _writer.Save(faktur);
                     break;
                 
                 case StatusFakturEnum.Lunas:
