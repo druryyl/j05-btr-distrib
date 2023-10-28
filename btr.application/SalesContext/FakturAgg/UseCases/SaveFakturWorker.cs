@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using btr.application.InventoryContext.StokAgg.GenStokUseCase;
 using btr.application.SalesContext.FakturAgg.Workers;
 using btr.domain.BrgContext.BrgAgg;
@@ -11,6 +12,8 @@ using btr.nuna.Application;
 using btr.nuna.Domain;
 using Dawn;
 using MediatR;
+using Newtonsoft.Json;
+using Polly;
 
 namespace btr.application.SalesContext.FakturAgg.UseCases
 {
@@ -68,19 +71,58 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
 
             //  PROSES FAKTUR
             FakturModel result;
+            var fallback = Policy<FakturModel>
+                .Handle<KeyNotFoundException>()
+                .Fallback(() => null);
+            var existingFaktur = fallback.Execute(() => _fakturBuilder.Load(req).Build());
+
             using (var trans = TransHelper.NewScope())
             {
                 result = SaveFaktur(req);
                 
+                //      generate stok dilakukan jika data baru atau...
+                //      edit faktur dan item berubah (jika hanya edit header,
+                //      maka tidak usah gen stok
                 var genStokReq = new GenStokFakturRequest(result.FakturId);
-                _genStokWorker.Execute(genStokReq);
-                
-                trans.Complete();                
+                if (existingFaktur is null)
+                { 
+                    _genStokWorker.Execute(genStokReq);
+                    trans.Complete();
+                    return result;
+                }
+
+                if (IsItemBerubah(existingFaktur, result))
+                {
+                    _genStokWorker.Execute(genStokReq);
+                    trans.Complete();
+                }
             }
 
             //  RESULT
             return result;
         }
+
+        private bool IsItemBerubah(FakturModel before, FakturModel after)
+        {
+            foreach (var item in before.ListItem)
+            {
+                item.DiscRp = Math.Round(item.DiscRp, 0);
+                item.PpnRp = Math.Round(item.PpnRp, 0);
+                item.Total = Math.Round(item.Total, 0);
+            }
+            var x = JsonConvert.SerializeObject(before.ListItem);
+
+            foreach (var item in after.ListItem)
+            {
+                item.DiscRp = Math.Round(item.DiscRp, 0);
+                item.PpnRp = Math.Round(item.PpnRp, 0);
+                item.Total =  Math.Round(item.Total, 0);
+            }
+            var y = JsonConvert.SerializeObject(after.ListItem);
+            var result = x != y;
+            return result;
+        }
+
         private FakturModel SaveFaktur(SaveFakturRequest req)
         {
             //  BUILD
@@ -124,8 +166,6 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
             _mediator.Publish(new SavedFakturEvent(req, result));
             return result;
         }
-
-
     }
 
     public class SavedFakturEvent : INotification
