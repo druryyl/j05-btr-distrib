@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.ProsesButton = new System.Windows.Forms.Button();
+            this.WarehouseCombo = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.AdminCombo = new System.Windows.Forms.ComboBox();
+            this.SalesCombo = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.CustomerText = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.Tgl2Date = new System.Windows.Forms.DateTimePicker();
             this.Tgl1Date = new System.Windows.Forms.DateTimePicker();
             this.InfoGrid = new Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl();
-            this.ProsesButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InfoGrid)).BeginInit();
             this.SuspendLayout();
@@ -51,13 +51,13 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.panel1.BackColor = System.Drawing.Color.PowderBlue;
             this.panel1.Controls.Add(this.ProsesButton);
-            this.panel1.Controls.Add(this.comboBox3);
+            this.panel1.Controls.Add(this.WarehouseCombo);
             this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.comboBox2);
-            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Controls.Add(this.AdminCombo);
+            this.panel1.Controls.Add(this.SalesCombo);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Controls.Add(this.CustomerText);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.Tgl2Date);
             this.panel1.Controls.Add(this.Tgl1Date);
@@ -66,13 +66,23 @@
             this.panel1.Size = new System.Drawing.Size(168, 436);
             this.panel1.TabIndex = 0;
             // 
-            // comboBox3
+            // ProsesButton
             // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(6, 197);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(156, 21);
-            this.comboBox3.TabIndex = 11;
+            this.ProsesButton.Location = new System.Drawing.Point(6, 409);
+            this.ProsesButton.Name = "ProsesButton";
+            this.ProsesButton.Size = new System.Drawing.Size(156, 23);
+            this.ProsesButton.TabIndex = 2;
+            this.ProsesButton.Text = "Proses";
+            this.ProsesButton.UseVisualStyleBackColor = true;
+            this.ProsesButton.Click += new System.EventHandler(this.ProsesButton_Click);
+            // 
+            // WarehouseCombo
+            // 
+            this.WarehouseCombo.FormattingEnabled = true;
+            this.WarehouseCombo.Location = new System.Drawing.Point(6, 197);
+            this.WarehouseCombo.Name = "WarehouseCombo";
+            this.WarehouseCombo.Size = new System.Drawing.Size(156, 21);
+            this.WarehouseCombo.TabIndex = 11;
             // 
             // label4
             // 
@@ -83,21 +93,21 @@
             this.label4.TabIndex = 10;
             this.label4.Text = "Warehouse";
             // 
-            // comboBox2
+            // AdminCombo
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(6, 157);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(156, 21);
-            this.comboBox2.TabIndex = 9;
+            this.AdminCombo.FormattingEnabled = true;
+            this.AdminCombo.Location = new System.Drawing.Point(6, 157);
+            this.AdminCombo.Name = "AdminCombo";
+            this.AdminCombo.Size = new System.Drawing.Size(156, 21);
+            this.AdminCombo.TabIndex = 9;
             // 
-            // comboBox1
+            // SalesCombo
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(6, 117);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(156, 21);
-            this.comboBox1.TabIndex = 8;
+            this.SalesCombo.FormattingEnabled = true;
+            this.SalesCombo.Location = new System.Drawing.Point(6, 117);
+            this.SalesCombo.Name = "SalesCombo";
+            this.SalesCombo.Size = new System.Drawing.Size(156, 21);
+            this.SalesCombo.TabIndex = 8;
             // 
             // label3
             // 
@@ -117,12 +127,12 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Sales";
             // 
-            // textBox1
+            // CustomerText
             // 
-            this.textBox1.Location = new System.Drawing.Point(6, 75);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(156, 22);
-            this.textBox1.TabIndex = 3;
+            this.CustomerText.Location = new System.Drawing.Point(6, 75);
+            this.CustomerText.Name = "CustomerText";
+            this.CustomerText.Size = new System.Drawing.Size(156, 22);
+            this.CustomerText.TabIndex = 3;
             // 
             // label1
             // 
@@ -158,6 +168,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.InfoGrid.BackColor = System.Drawing.SystemColors.Window;
+            this.InfoGrid.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.InfoGrid.Location = new System.Drawing.Point(180, 6);
             this.InfoGrid.Name = "InfoGrid";
             this.InfoGrid.ShowCurrentCellBorderBehavior = Syncfusion.Windows.Forms.Grid.GridShowCurrentCellBorder.GrayWhenLostFocus;
@@ -166,15 +177,6 @@
             this.InfoGrid.Text = "gridGroupingControl1";
             this.InfoGrid.UseRightToLeftCompatibleTextBox = true;
             this.InfoGrid.VersionInfo = "22.1460.34";
-            // 
-            // ProsesButton
-            // 
-            this.ProsesButton.Location = new System.Drawing.Point(6, 409);
-            this.ProsesButton.Name = "ProsesButton";
-            this.ProsesButton.Size = new System.Drawing.Size(156, 23);
-            this.ProsesButton.TabIndex = 2;
-            this.ProsesButton.Text = "Proses";
-            this.ProsesButton.UseVisualStyleBackColor = true;
             // 
             // InfoFakturForm
             // 
@@ -201,13 +203,13 @@
         private System.Windows.Forms.DateTimePicker Tgl2Date;
         private System.Windows.Forms.DateTimePicker Tgl1Date;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox CustomerText;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ComboBox WarehouseCombo;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox AdminCombo;
+        private System.Windows.Forms.ComboBox SalesCombo;
         private System.Windows.Forms.Button ProsesButton;
     }
 }

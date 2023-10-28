@@ -31,13 +31,15 @@ namespace btr.infrastructure.SalesContext.FakturInfoAgg
                     ISNULL(cc.CustomerCode, '') AS CustomerCode,
                     ISNULL(cc.Address1, '') AS Address,
                     ISNULL(dd.WilayahName , '') AS WilayahName,
-                    ISNULL(ee.SalesPersonName, '') SalesPersonName
+                    ISNULL(ee.SalesPersonName, '') SalesPersonName,
+                    ISNULL(ff.WarehouseName, '') AS WarehouseName
                 FROM
                     BTR_Faktur aa
                     LEFT JOIN BTR_User bb ON aa.UserId = bb.UserId
                     LEFT JOIN BTR_Customer cc ON aa.CustomerId = cc.CustomerId 
                     LEFT JOIN BTR_Wilayah dd ON cc.WilayahId = dd.WilayahId 
                     LEFT JOIN BTR_SalesPerson ee ON aa.SalesPersonId = ee.SalesPersonId 
+                    LEFT JOIN BTR_Warehouse ff ON aa.WarehouseId = ff.WarehouseId
                 WHERE
                     aa.FakturDate BETWEEN @Tgl1 AND @Tgl2 ";
 
@@ -47,7 +49,7 @@ namespace btr.infrastructure.SalesContext.FakturInfoAgg
 
             using(var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
-                return conn.Read<FakturInfoDto>(sql);
+                return conn.Read<FakturInfoDto>(sql, dp);
             }
         }
     }

@@ -12,11 +12,12 @@ namespace btr.domain.SalesContext.InfoFakturAgg
         public string FakturCode { get; set; }
         public string Tgl { get; set; }
         public string Admin { get; set; }
-        public string CustomerName { get; set; }
+        public string Customer { get; set; }
         public string CustomerCode { get; set; }
         public string Address { get; set; }
         public string WilayahName { get; set; }
         public string SalesPersonName { get; set; }
+        public string WarehouseName { get; set; }
         public decimal Total { get; set; }
         public decimal Diskon { get; set; }
         public decimal Tax { get; set; }
