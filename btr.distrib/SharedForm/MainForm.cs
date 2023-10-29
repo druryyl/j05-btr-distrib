@@ -27,6 +27,7 @@ using btr.distrib.ReportingContext;
 using btr.distrib.InventoryContext.ImportOpnameAgg;
 using btr.distrib.SalesContext.InfoFakturAgg;
 using btr.distrib.FinanceContext.LunasPiutangAgg;
+using btr.distrib.SalesContext.StokBalanceInfo2Agg;
 
 namespace btr.distrib.SharedForm
 {
@@ -219,7 +220,7 @@ namespace btr.distrib.SharedForm
 
         private void StokBalanceButton_Click(object sender, EventArgs e)
         {
-            var form = _servicesProvider.GetRequiredService<StokBalanceInfoForm>();
+            var form = _servicesProvider.GetRequiredService<StokBalanceInfo2Form>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

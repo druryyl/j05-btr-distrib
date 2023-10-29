@@ -1,7 +1,4 @@
-﻿using btr.application.InventoryContext.WarehouseAgg;
-using btr.application.SalesContext.FakturInfoAgg;
-using btr.application.SalesContext.SalesPersonAgg.Contracts;
-using btr.application.SupportContext.UserAgg;
+﻿using btr.application.SalesContext.FakturInfoAgg;
 using btr.domain.SalesContext.InfoFakturAgg;
 using btr.nuna.Domain;
 using Syncfusion.Drawing;
@@ -20,20 +17,11 @@ namespace btr.distrib.SalesContext.InfoFakturAgg
     public partial class InfoFakturForm : Form
     {
         private readonly IFakturInfoDal _fakturInfoDal;
-        private readonly ISalesPersonDal _salesDal;
-        private readonly IUserDal _userDal;
-        private readonly IWarehouseDal _warehouseDal;
 
-        public InfoFakturForm(IFakturInfoDal fakturInfoDal, 
-            ISalesPersonDal salesDal, 
-            IUserDal userDal, 
-            IWarehouseDal warehouseDal)
+        public InfoFakturForm(IFakturInfoDal fakturInfoDal)
         {
             InitializeComponent();
             _fakturInfoDal = fakturInfoDal;
-            _salesDal = salesDal;
-            _userDal = userDal;
-            _warehouseDal = warehouseDal;
             InfoGrid.QueryCellStyleInfo += InfoGrid_QueryCellStyleInfo;
             InitGrid();
         }

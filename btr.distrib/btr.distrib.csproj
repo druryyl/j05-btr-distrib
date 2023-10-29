@@ -321,6 +321,12 @@
     <Compile Include="InventoryContext\MutasiAgg\MutasiForm.Designer.cs">
       <DependentUpon>MutasiForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InventoryContext\StokBalanceRpt\StokBalanceInfo2Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryContext\StokBalanceRpt\StokBalanceInfo2Form.Designer.cs">
+      <DependentUpon>StokBalanceInfo2Form.cs</DependentUpon>
+    </Compile>
     <Compile Include="InventoryContext\StokBalanceRpt\StokBalanceInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -415,10 +421,10 @@
     <Compile Include="SalesContext\AlokasiFpAgg\AlokasiFpForm.Designer.cs">
       <DependentUpon>AlokasiFpForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SalesContext\InfoFakturAgg\InfoFakturForm.cs">
+    <Compile Include="SalesContext\InfoFakturRpt\InfoFakturForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SalesContext\InfoFakturAgg\InfoFakturForm.Designer.cs">
+    <Compile Include="SalesContext\InfoFakturRpt\InfoFakturForm.Designer.cs">
       <DependentUpon>InfoFakturForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SalesContext\SalesPersonAgg\SalesPersonForm.cs">
@@ -493,13 +499,16 @@
     <EmbeddedResource Include="InventoryContext\MutasiAgg\MutasiForm.resx">
       <DependentUpon>MutasiForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="InventoryContext\StokBalanceRpt\StokBalanceInfo2Form.resx">
+      <DependentUpon>StokBalanceInfo2Form.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PurchaseContext\InvoiceAgg\InvoiceForm.resx">
       <DependentUpon>InvoiceForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReportingContext\CustomerChartRpt.resx">
       <DependentUpon>CustomerChartRpt.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SalesContext\InfoFakturAgg\InfoFakturForm.resx">
+    <EmbeddedResource Include="SalesContext\InfoFakturRpt\InfoFakturForm.resx">
       <DependentUpon>InfoFakturForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SharedForm\VoidReasonForm.resx">
