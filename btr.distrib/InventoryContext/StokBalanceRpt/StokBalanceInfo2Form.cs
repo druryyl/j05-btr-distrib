@@ -52,17 +52,12 @@ namespace btr.distrib.SalesContext.StokBalanceInfo2Agg
             }
 
             var sumColNilaiSediaan = new GridSummaryColumnDescriptor("NilaiSediaan", SummaryType.DoubleAggregate, "NilaiSediaan", "{Sum}");
-            sumColNilaiSediaan.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
+            sumColNilaiSediaan.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.Yellow);
             sumColNilaiSediaan.Appearance.AnySummaryCell.Format = "N0";
             sumColNilaiSediaan.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
 
-            var sumColQty = new GridSummaryColumnDescriptor("InPcs", SummaryType.DoubleAggregate, "InPcs", "{Sum}");
-            sumColQty.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
-            sumColQty.Appearance.AnySummaryCell.Format = "N0";
-            sumColQty.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
-
             var sumRowDescriptor = new GridSummaryRowDescriptor();
-            sumRowDescriptor.SummaryColumns.AddRange(new GridSummaryColumnDescriptor[] { sumColNilaiSediaan, sumColQty});
+            sumRowDescriptor.SummaryColumns.AddRange(new GridSummaryColumnDescriptor[] { sumColNilaiSediaan });
             InfoGrid.TableDescriptor.SummaryRows.Add(sumRowDescriptor);
 
 
