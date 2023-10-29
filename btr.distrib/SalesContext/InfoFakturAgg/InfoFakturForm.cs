@@ -4,6 +4,9 @@ using btr.application.SalesContext.SalesPersonAgg.Contracts;
 using btr.application.SupportContext.UserAgg;
 using btr.domain.SalesContext.InfoFakturAgg;
 using btr.nuna.Domain;
+using Syncfusion.Drawing;
+using Syncfusion.Grouping;
+using Syncfusion.Windows.Forms.Grid;
 using Syncfusion.Windows.Forms.Grid.Grouping;
 using System;
 using System.Collections.Generic;
@@ -53,16 +56,44 @@ namespace btr.distrib.SalesContext.InfoFakturAgg
             InfoGrid.TableDescriptor.AllowNew = false;
             InfoGrid.TableDescriptor.AllowRemove = false;
             InfoGrid.ShowGroupDropArea = true;
+
             InfoGrid.TopLevelGroupOptions.ShowFilterBar = true;
             foreach (GridColumnDescriptor column in this.InfoGrid.TableDescriptor.Columns)
             {
                 column.AllowFilter = true;
             }
+
+            var sumColTotal = new GridSummaryColumnDescriptor("Total", SummaryType.DoubleAggregate, "Total", "{Sum}");
+            sumColTotal.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
+            sumColTotal.Appearance.AnySummaryCell.Format= "N0";
+            sumColTotal.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
+
+            var sumColDiskon = new GridSummaryColumnDescriptor("Diskon", SummaryType.DoubleAggregate, "Diskon", "{Sum}");
+            sumColDiskon.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
+            sumColDiskon.Appearance.AnySummaryCell.Format = "N0";
+            sumColDiskon.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
+            
+
+            var sumColTax = new GridSummaryColumnDescriptor("Tax", SummaryType.DoubleAggregate, "Tax", "{Sum}");
+            sumColTax.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
+            sumColTax.Appearance.AnySummaryCell.Format = "N0";
+            sumColTax.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
+
+            var sumColGrandTot = new GridSummaryColumnDescriptor("GrandTotal", SummaryType.DoubleAggregate, "GrandTotal", "{Sum}");
+            sumColGrandTot.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
+            sumColGrandTot.Appearance.AnySummaryCell.Format = "N0";
+            sumColGrandTot.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
+
+            var sumRowDescriptor = new GridSummaryRowDescriptor();
+            sumRowDescriptor.SummaryColumns.AddRange(new GridSummaryColumnDescriptor[] { sumColTotal, sumColDiskon, sumColTax, sumColGrandTot});
+            InfoGrid.TableDescriptor.SummaryRows.Add(sumRowDescriptor);
+
+
             InfoGrid.TableDescriptor.Columns["Total"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["Diskon"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["Tax"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["GrandTotal"].Appearance.AnyRecordFieldCell.Format = "N0";
-            InfoGrid.TableDescriptor.Columns["Tgl"].Appearance.AnyRecordFieldCell.Format = "dd-MMM-yyyy";
+            InfoGrid.TableDescriptor.Columns["Tgl"].Appearance.AnyRecordFieldCell.Format= "dd-MMM-yyyy";
             InfoGrid.Refresh();
         }
 
@@ -108,6 +139,7 @@ namespace btr.distrib.SalesContext.InfoFakturAgg
             result = FilterAdmin(result, AdminCombo.SelectedItem?.ToString()??string.Empty);
             result = FilterSales(result, SalesCombo.SelectedItem?.ToString() ?? string.Empty);
             result = FilterWarehouse(result, WarehouseCombo.SelectedItem?.ToString() ?? string.Empty);
+            result.ForEach(x => x.Tgl = x.Tgl.Date);
             InfoGrid.DataSource = result;
         }
 

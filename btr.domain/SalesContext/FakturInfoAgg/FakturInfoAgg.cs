@@ -10,7 +10,7 @@ namespace btr.domain.SalesContext.InfoFakturAgg
     {
         public string FakturId { get; set; }
         public string FakturCode { get; set; }
-        public string Tgl { get; set; }
+        public DateTime Tgl { get; set; }
         public string Admin { get; set; }
         public string Customer { get; set; }
         public string CustomerCode { get; set; }
