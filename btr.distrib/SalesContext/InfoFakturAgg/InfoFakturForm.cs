@@ -35,7 +35,6 @@ namespace btr.distrib.SalesContext.InfoFakturAgg
             _userDal = userDal;
             _warehouseDal = warehouseDal;
             InfoGrid.QueryCellStyleInfo += InfoGrid_QueryCellStyleInfo;
-            InitComboValue();
             InitGrid();
         }
 
@@ -58,7 +57,7 @@ namespace btr.distrib.SalesContext.InfoFakturAgg
             InfoGrid.ShowGroupDropArea = true;
 
             InfoGrid.TopLevelGroupOptions.ShowFilterBar = true;
-            foreach (GridColumnDescriptor column in this.InfoGrid.TableDescriptor.Columns)
+            foreach (GridColumnDescriptor column in InfoGrid.TableDescriptor.Columns)
             {
                 column.AllowFilter = true;
             }
@@ -95,26 +94,7 @@ namespace btr.distrib.SalesContext.InfoFakturAgg
             InfoGrid.TableDescriptor.Columns["GrandTotal"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["Tgl"].Appearance.AnyRecordFieldCell.Format= "dd-MMM-yyyy";
             InfoGrid.Refresh();
-        }
-
-        private void InitComboValue()
-        {
-            var listSales = _salesDal.ListData()?.Select(x => x.SalesPersonName).ToList() ?? new List<string>();
-            listSales.Add(string.Empty);
-            SalesCombo.DataSource = listSales;
-            SalesCombo.SelectedIndex = -1;
-
-            var listAdmin = _userDal.ListData()?.Select(x => x.UserName).ToList() ?? new List<string>();
-            listAdmin.Add(string.Empty);
-            AdminCombo.DataSource = listAdmin;
-            AdminCombo.SelectedIndex = -1;
-            AdminCombo.SelectedIndex = -1;
-
-            var listWarehouse = _warehouseDal.ListData()?.Select(x => x.WarehouseName).ToList() ?? new List<string>();
-            listWarehouse.Add(string.Empty);
-            WarehouseCombo.DataSource = listWarehouse;
-            WarehouseCombo.SelectedIndex = -1;
-            WarehouseCombo.SelectedIndex = -1;
+            Proses();
         }
 
         private void ProsesButton_Click(object sender, EventArgs e)
@@ -135,52 +115,24 @@ namespace btr.distrib.SalesContext.InfoFakturAgg
                 return;
             }
             var listFaktur = _fakturInfoDal.ListData(periode)?.ToList() ?? new List<FakturInfoDto>();
-            var result = FilterCustomer(listFaktur, CustomerText.Text);
-            result = FilterAdmin(result, AdminCombo.SelectedItem?.ToString()??string.Empty);
-            result = FilterSales(result, SalesCombo.SelectedItem?.ToString() ?? string.Empty);
-            result = FilterWarehouse(result, WarehouseCombo.SelectedItem?.ToString() ?? string.Empty);
+            var result = Filter(listFaktur, CustomerText.Text);
             result.ForEach(x => x.Tgl = x.Tgl.Date);
             InfoGrid.DataSource = result;
         }
 
-        private List<FakturInfoDto> FilterCustomer(List<FakturInfoDto> source, string keyword)
+        private List<FakturInfoDto> Filter(List<FakturInfoDto> source, string keyword)
         {
             if (keyword.Trim().Length == 0)
                 return source;
+            var listFilteredCustomer = source.Where(x => x.Customer.ToLower().ContainMultiWord(keyword)).ToList();
+            var listFilteredAddress = source.Where(x => x.Address.ToLower().ContainMultiWord(keyword)).ToList();
+            var listFilteredNoFaktur = source.Where(x => x.FakturCode.ToLower() == keyword.ToLower()).ToList();
 
-            var customerCodeResult = source.Where(x => x.CustomerCode.ToLower().StartsWith(keyword.ToLower())).ToList();
-            var customerNameResult = source.Where(x => x.Customer.ToLower().ContainMultiWord(keyword)).ToList();
-            var result = customerCodeResult.Union(customerNameResult);
+
+            var result = listFilteredCustomer
+                .Union(listFilteredNoFaktur)
+                .Union(listFilteredAddress);
             return result.ToList();
         }
-        private List<FakturInfoDto> FilterAdmin(List<FakturInfoDto> source, string keyword)
-        {
-            if (keyword.Trim().Length == 0)
-                return source;
-
-            var result = source.Where(x => x.Admin.ToLower().ContainMultiWord(keyword)).ToList();
-            return result;
-        }
-        private List<FakturInfoDto> FilterSales(List<FakturInfoDto> source, string keyword)
-        {
-            if (keyword.Trim().Length == 0)
-                return source;
-
-            var result = source.Where(x => x.SalesPersonName.ToLower().ContainMultiWord(keyword)).ToList();
-            return result;
-        }
-        private List<FakturInfoDto> FilterWarehouse(List<FakturInfoDto> source, string keyword)
-        {
-            if (keyword.Trim().Length == 0)
-                return source;
-
-             var result = source.Where(x => x.WarehouseName.ToLower().ContainMultiWord(keyword)).ToList();
-            return result;
-        }
-
     }
-
-
-
-
 }

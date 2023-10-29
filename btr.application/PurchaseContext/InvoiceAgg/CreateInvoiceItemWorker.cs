@@ -6,6 +6,7 @@ using btr.application.InventoryContext.StokBalanceAgg;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.PurchaseContext.InvoiceAgg;
 using btr.nuna.Application;
+using btr.nuna.Domain;
 
 namespace btr.application.PurchaseContext.InvoiceAgg
 {
@@ -64,6 +65,11 @@ namespace btr.application.PurchaseContext.InvoiceAgg
             };
 
             //  harga beli
+            if (item.HrgInputStr.IsNullOrEmpty())
+                item.HrgInputStr = "0;0";
+            if (item.HrgInputStr == "0;0")
+                item.HrgInputStr = GetCurrentHpp(brg);
+
             var hrgInputStr = item.HrgInputStr;
             GenHrgBeli(ref hrgInputStr, ref brg, out string hrgDetilStr,
                 out decimal hppSatKecil, out decimal hppSatBesar);
@@ -116,6 +122,22 @@ namespace btr.application.PurchaseContext.InvoiceAgg
             return item;
         }
 
+        private string GetCurrentHpp(BrgModel brg)
+        {
+            var hpp = Math.Floor(brg.Hpp);
+            var konversiSatuan = brg.ListSatuan
+                .DefaultIfEmpty(new BrgSatuanModel { Conversion = 0 })
+                .Max(x => x.Conversion);
+            var hppBesar = Math.Floor(hpp * konversiSatuan);
+            string result = $"{hppBesar:N0};{hpp:N0}"; 
+            //if (hppBesar > 0)
+            //    result = $"{hppBesar:N0};{0}";
+            //else
+            //    result = $"{0};{hpp:N0}";
+
+            return result;
+        }
+
         private void GenHrgBeli(ref string hrgInputStr, ref BrgModel brg,
             out string hrgDetilStr, out decimal hppSatKecil, out decimal hppSatBesar)
         {
@@ -143,7 +165,7 @@ namespace btr.application.PurchaseContext.InvoiceAgg
                 hrgDetilStr = $"{hppSatBesar}/{satBesar}{Environment.NewLine}";
                 hrgDetilStr += $"{hppSatKecil}/{satKecil}";
             }
-            hrgInputStr = $"{hppSatBesar};{hppSatKecil}";
+            hrgInputStr = $"{hppSatBesar:N0};{hppSatKecil:N0}";
         }
 
         private string GenQtyDetilStr(InvoiceItemModel item)
