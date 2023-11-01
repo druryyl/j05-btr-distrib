@@ -8,11 +8,17 @@ using btr.domain.SalesContext.FakturAgg;
 using btr.domain.SalesContext.FakturControlAgg;
 using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Domain;
+using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Office2010.ExcelAc;
+using DocumentFormat.OpenXml.Presentation;
+using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Mapster;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -81,8 +87,136 @@ namespace btr.distrib.SalesContext.FakturControlAgg
         {
             _gridContextMenu = new ContextMenu();
             _gridContextMenu.MenuItems.Add(new MenuItem("Edit Faktur", EditFaktur_OnClick));
+            _gridContextMenu.MenuItems.Add(new MenuItem("-", Separator_OnClick));
+            _gridContextMenu.MenuItems.Add(new MenuItem("Print All", PrintAll_OnClick));
+            _gridContextMenu.MenuItems.Add(new MenuItem("Print Kembali", PrintKembali_OnClick));
+            _gridContextMenu.MenuItems.Add(new MenuItem("Print Belum Kembali", PrintBelumKembali_OnClick));
+
+
             FakturGrid.ContextMenu = _gridContextMenu;
         }
+
+        private void PrintBelumKembali_OnClick(object sender, EventArgs e)
+        {
+            var listPrint = _listItem
+                .Where(x => x.Kembali == false)
+                .ToList();
+            PrintFakturControl(listPrint, "FAKTUR CONTROL LIST - BELUM KEMBALI");
+        }
+
+        private void PrintAll_OnClick(object sender, EventArgs e)
+        {
+            var listPrint = _listItem.ToList();
+            PrintFakturControl(listPrint, "FAKTUR CONTROL LIST - ALL");
+        }
+
+        private void PrintKembali_OnClick(object sender, EventArgs e)
+        {
+            var listPrint = _listItem
+            .Where(x => x.Kembali == true)
+                .ToList();
+            PrintFakturControl(listPrint, "FAKTUR CONTROL LIST - KEMBALI");
+        }
+
+        private void PrintFakturControl(IEnumerable<FakturControlView> listData, string header)
+        {
+            var path = Path.GetTempPath();
+            var filename = $"{path}\\FakturControl_{DateTime.Now:yymmdd_HHmmss}.xlsx";
+
+            using (var workbook = new XLWorkbook())
+            {
+                var ws = workbook.Worksheets.Add("FakturControl");
+                var baris = 1;
+                ws.Cell($"A{baris}").Value = "CV BINTANG TIMUR RAHAYU";
+                ws.Cell($"A{baris}").Style
+                    .Font.SetFontSize(12)
+                    .Font.SetBold(false)
+                    .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"E{baris}")).Merge();
+                baris++;
+
+                ws.Cell($"A{baris}").Value = "Jl.Kaliurang Km 5.5 Gg. Durmo No.18";
+                ws.Cell($"A{baris}").Style
+                    .Font.SetFontSize(10)
+                    .Font.SetBold(false)
+                    .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"E{baris}")).Merge();
+                baris++;
+
+                ws.Cell($"A{baris}").Value = header; // "FAKTUR CONTROL LIST";
+                ws.Cell($"A{baris}").Style
+                    .Font.SetFontSize(16)
+                    .Font.SetBold(true)
+                    .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"E{baris}")).Merge();
+                baris++;
+
+                ws.Cell($"A{baris}").Value = $"{Tgl1Text.Value:dd MMMM yyyy} s/d {Tgl2Text.Value:dd MMMM yyyy}";
+                ws.Cell($"A{baris}").Style
+                    .Font.SetFontSize(10)
+                    .Font.SetBold(false)
+                    .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"E{baris}")).Merge();
+                baris++;
+                baris++;
+
+                var barisStart = baris;
+                ws.Cell($"A{baris}").Value = "No";
+                ws.Cell($"B{baris}").Value = "Tgl";
+                ws.Cell($"C{baris}").Value = "FakturCode";
+                ws.Cell($"D{baris}").Value = "Sales";
+                ws.Cell($"E{baris}").Value = "Customer";
+                ws.Cell($"F{baris}").Value = "Nilai Penjualan";
+                baris++;
+
+                int i = 1;
+                foreach (var item in listData)
+                {
+                    ws.Cell($"A{baris}").Value = i;
+                    ws.Cell($"B{baris}").Value = item.FakturDate.Date;
+                    ws.Cell($"C{baris}").Value = $"{item.FakturCode}";
+                    ws.Cell($"D{baris}").Value = $"{item.SalesPersonName}";
+                    ws.Cell($"E{baris}").Value = $"{item.CustomerName}";
+                    ws.Cell($"F{baris}").Value = item.GrandTotal;
+                    baris++;
+                    i++;
+                }
+                ws.Cell($"E{baris}").Value = $"Grand Total";
+                ws.Cell($"F{baris}").Value = listData.Sum(x => x.GrandTotal);
+
+                ws.Range(ws.Cell($"A{barisStart}"), ws.Cell($"F{baris-1}")).Style
+                    .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
+                    .Border.SetInsideBorder(XLBorderStyleValues.Hair);
+                ws.Range(ws.Cell($"A{barisStart}"), ws.Cell($"F{barisStart}")).Style
+                    .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
+                    .Font.SetBold(true);
+                ws.Range(ws.Cell($"F{barisStart + 1}"), ws.Cell($"F{baris}")).Style.NumberFormat.NumberFormatId = 3;
+
+                ws.Range(ws.Cell($"E{baris}"), ws.Cell($"F{baris}")).Style
+                    .Border.SetOutsideBorder(XLBorderStyleValues.Double)
+                    .Border.SetInsideBorder(XLBorderStyleValues.Hair)
+                    .Font.SetBold(true);
+
+                ws.Cell($"E{baris}").Value = $"Grand Total";
+                ws.Cell($"F{baris}").Value = listData.Sum(x => x.GrandTotal);
+
+                ws.Column("A").Width = 4;
+                ws.Column("B").Width = 10;
+                ws.Column("C").Width = 10;
+                ws.Column("D").Width = 10;
+                ws.Column("E").Width = 35;
+                ws.Column("F").Width = 15;
+                workbook.SaveAs(filename);
+            }
+            System.Diagnostics.Process.Start(filename);
+
+        }
+
+        private void Separator_OnClick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         private void EditFaktur_OnClick(object sender, EventArgs e)
         {
             var grid = FakturGrid;
@@ -214,7 +348,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             binding.DataSource = _listItem;
             FakturGrid.DataSource = binding;
             FakturGrid.Refresh();
-            FakturGrid.Columns.SetDefaultCellStyle(Color.Beige);
+            FakturGrid.Columns.SetDefaultCellStyle(System.Drawing.Color.Beige);
             FakturGrid.Columns.GetCol("FakturId").Visible = false;
             FakturGrid.Columns.GetCol("FakturDate").DefaultCellStyle.Format = "ddd dd MMM yyyy";
 
@@ -238,9 +372,9 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             FakturGrid.Columns.GetCol("UserId").Width = 80;
             FakturGrid.RowHeadersWidth = 55;
 
-            FakturGrid.Columns.GetCol("GrandTotal").DefaultCellStyle.BackColor = Color.PaleTurquoise;
-            FakturGrid.Columns.GetCol("Bayar").DefaultCellStyle.BackColor = Color.Pink;
-            FakturGrid.Columns.GetCol("Sisa").DefaultCellStyle.BackColor = Color.PaleTurquoise;
+            FakturGrid.Columns.GetCol("GrandTotal").DefaultCellStyle.BackColor = System.Drawing.Color.PaleTurquoise;
+            FakturGrid.Columns.GetCol("Bayar").DefaultCellStyle.BackColor = System.Drawing.Color.Pink;
+            FakturGrid.Columns.GetCol("Sisa").DefaultCellStyle.BackColor = System.Drawing.Color.PaleTurquoise;
 
             FakturGrid.Columns.GetCol("FakturDate").HeaderText = @"Tgl";
             FakturGrid.Columns.GetCol("CustomerName").HeaderText = @"Customer";
