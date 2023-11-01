@@ -9,15 +9,10 @@ using btr.domain.SalesContext.FakturControlAgg;
 using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Domain;
 using ClosedXML.Excel;
-using DocumentFormat.OpenXml.Office2010.ExcelAc;
-using DocumentFormat.OpenXml.Presentation;
-using DocumentFormat.OpenXml.Spreadsheet;
-using DocumentFormat.OpenXml.Wordprocessing;
 using Mapster;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -101,13 +96,13 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             var listPrint = _listItem
                 .Where(x => x.Kembali == false)
                 .ToList();
-            PrintFakturControl(listPrint, "FAKTUR CONTROL LIST - BELUM KEMBALI");
+            PrintFakturControl(listPrint, "FAKTUR CONTROL - LIST BELUM KEMBALI");
         }
 
         private void PrintAll_OnClick(object sender, EventArgs e)
         {
             var listPrint = _listItem.ToList();
-            PrintFakturControl(listPrint, "FAKTUR CONTROL LIST - ALL");
+            PrintFakturControl(listPrint, "FAKTUR CONTROL - LIST ALL");
         }
 
         private void PrintKembali_OnClick(object sender, EventArgs e)
@@ -115,7 +110,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             var listPrint = _listItem
             .Where(x => x.Kembali == true)
                 .ToList();
-            PrintFakturControl(listPrint, "FAKTUR CONTROL LIST - KEMBALI");
+            PrintFakturControl(listPrint, "FAKTUR CONTROL - LIST KEMBALI");
         }
 
         private void PrintFakturControl(IEnumerable<FakturControlView> listData, string header)
@@ -132,7 +127,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                     .Font.SetFontSize(12)
                     .Font.SetBold(false)
                     .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
-                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"E{baris}")).Merge();
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"F{baris}")).Merge();
                 baris++;
 
                 ws.Cell($"A{baris}").Value = "Jl.Kaliurang Km 5.5 Gg. Durmo No.18";
@@ -140,7 +135,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                     .Font.SetFontSize(10)
                     .Font.SetBold(false)
                     .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
-                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"E{baris}")).Merge();
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"F{baris}")).Merge();
                 baris++;
 
                 ws.Cell($"A{baris}").Value = header; // "FAKTUR CONTROL LIST";
@@ -148,7 +143,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                     .Font.SetFontSize(16)
                     .Font.SetBold(true)
                     .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
-                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"E{baris}")).Merge();
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"F{baris}")).Merge();
                 baris++;
 
                 ws.Cell($"A{baris}").Value = $"{Tgl1Text.Value:dd MMMM yyyy} s/d {Tgl2Text.Value:dd MMMM yyyy}";
@@ -156,7 +151,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                     .Font.SetFontSize(10)
                     .Font.SetBold(false)
                     .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
-                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"E{baris}")).Merge();
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"F{baris}")).Merge();
                 baris++;
                 baris++;
 
@@ -365,6 +360,8 @@ namespace btr.distrib.SalesContext.FakturControlAgg
 
             FakturGrid.Columns.GetCol("Posted").Width = 50;
             FakturGrid.Columns.GetCol("Kirim").Width = 50;
+            FakturGrid.Columns.GetCol("Kirim").Visible  = false;
+
             FakturGrid.Columns.GetCol("Kembali").Width = 50;
             FakturGrid.Columns.GetCol("Lunas").Width = 50;
             FakturGrid.Columns.GetCol("Pajak").Width = 50;

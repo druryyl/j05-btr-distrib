@@ -116,8 +116,8 @@ namespace btr.application.SalesContext.FakturControlAgg
         public IFakturControlBuilder KembaliFaktur(IUserKey user)
         {
             //  jika belum KIRIM, maka tidak bisa KEMBALI
-            if (_aggregate.ListStatus.FirstOrDefault(x => x.StatusFaktur == StatusFakturEnum.Kirim) == null)
-                throw new ArgumentException("Faktur belum KIRIM, Status KEMBALI gagal");
+            //if (_aggregate.ListStatus.FirstOrDefault(x => x.StatusFaktur == StatusFakturEnum.Kirim) == null)
+            //    throw new ArgumentException("Faktur belum KIRIM, Status KEMBALI gagal");
             SetStatus(StatusFakturEnum.KembaliFaktur, user);
             return this;
         }
