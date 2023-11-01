@@ -421,11 +421,17 @@
     <Compile Include="SalesContext\AlokasiFpAgg\AlokasiFpForm.Designer.cs">
       <DependentUpon>AlokasiFpForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SalesContext\InfoFakturRpt\InfoFakturForm.cs">
+    <Compile Include="SalesContext\FakturInfoRpt\FakturBrgInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SalesContext\InfoFakturRpt\InfoFakturForm.Designer.cs">
-      <DependentUpon>InfoFakturForm.cs</DependentUpon>
+    <Compile Include="SalesContext\FakturInfoRpt\FakturBrgInfoForm.Designer.cs">
+      <DependentUpon>FakturBrgInfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SalesContext\FakturInfoRpt\FakturInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SalesContext\FakturInfoRpt\FakturInfoForm.Designer.cs">
+      <DependentUpon>FakturInfoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SalesContext\SalesPersonAgg\SalesPersonForm.cs">
       <SubType>Form</SubType>
@@ -478,6 +484,7 @@
     </Compile>
     <Compile Include="WinformAssemblyAnchor.cs" />
     <Content Include="icons8_truck.ico" />
+    <None Include="Resources\icons8_page_16.png" />
     <None Include="Resources\icons8_microsoft_excel_32.png" />
     <None Include="Resources\icons8_python_32.png" />
     <None Include="Resources\icons8_vue_js_32.png" />
@@ -508,8 +515,11 @@
     <EmbeddedResource Include="ReportingContext\CustomerChartRpt.resx">
       <DependentUpon>CustomerChartRpt.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SalesContext\InfoFakturRpt\InfoFakturForm.resx">
-      <DependentUpon>InfoFakturForm.cs</DependentUpon>
+    <EmbeddedResource Include="SalesContext\FakturInfoRpt\FakturBrgInfoForm.resx">
+      <DependentUpon>FakturBrgInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SalesContext\FakturInfoRpt\FakturInfoForm.resx">
+      <DependentUpon>FakturInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SharedForm\VoidReasonForm.resx">
       <DependentUpon>VoidReasonForm.cs</DependentUpon>

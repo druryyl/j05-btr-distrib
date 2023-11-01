@@ -205,6 +205,7 @@
     <Compile Include="SalesContext\FakturControlAgg\FakturControlWriter.cs" />
     <Compile Include="SalesContext\FakturControlAgg\IFakturControlStatusDal.cs" />
     <Compile Include="SalesContext\FakturControlAgg\ListFakturControlWorker.cs" />
+    <Compile Include="SalesContext\FakturInfoAgg\IFakturBrgInfoDal.cs" />
     <Compile Include="SalesContext\FakturInfoAgg\IFakturInfoDal.cs" />
     <Compile Include="SalesContext\FakturPajakVoidAgg\FaktuPajakVoidWriter.cs" />
     <Compile Include="SalesContext\FakturPajakVoidAgg\FakturPajakVoidBuilder.cs" />

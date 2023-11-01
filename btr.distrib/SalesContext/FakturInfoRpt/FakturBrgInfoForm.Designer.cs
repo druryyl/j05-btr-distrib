@@ -1,6 +1,6 @@
-﻿namespace btr.distrib.SalesContext.InfoFakturAgg
+﻿namespace btr.distrib.SalesContext.FakturInfoRpt
 {
-    partial class InfoFakturForm
+    partial class FakturBrgInfoForm
     {
         /// <summary>
         /// Required designer variable.
@@ -47,10 +47,11 @@
             this.panel1.Controls.Add(this.CustomerText);
             this.panel1.Controls.Add(this.Tgl2Date);
             this.panel1.Controls.Add(this.Tgl1Date);
-            this.panel1.Location = new System.Drawing.Point(6, 6);
+            this.panel1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel1.Location = new System.Drawing.Point(7, 7);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(787, 34);
-            this.panel1.TabIndex = 0;
+            this.panel1.TabIndex = 2;
             // 
             // ProsesButton
             // 
@@ -60,7 +61,6 @@
             this.ProsesButton.TabIndex = 2;
             this.ProsesButton.Text = "Proses";
             this.ProsesButton.UseVisualStyleBackColor = true;
-            this.ProsesButton.Click += new System.EventHandler(this.ProsesButton_Click);
             // 
             // CustomerText
             // 
@@ -94,27 +94,27 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.InfoGrid.BackColor = System.Drawing.SystemColors.Window;
-            this.InfoGrid.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InfoGrid.Location = new System.Drawing.Point(6, 46);
+            this.InfoGrid.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InfoGrid.Location = new System.Drawing.Point(7, 47);
             this.InfoGrid.Name = "InfoGrid";
             this.InfoGrid.ShowCurrentCellBorderBehavior = Syncfusion.Windows.Forms.Grid.GridShowCurrentCellBorder.GrayWhenLostFocus;
             this.InfoGrid.Size = new System.Drawing.Size(787, 397);
-            this.InfoGrid.TabIndex = 1;
+            this.InfoGrid.TabIndex = 3;
             this.InfoGrid.Text = "gridGroupingControl1";
             this.InfoGrid.UseRightToLeftCompatibleTextBox = true;
             this.InfoGrid.VersionInfo = "22.1460.34";
             // 
-            // InfoFakturForm
+            // FakturInfoDetilForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.InfoGrid);
             this.Controls.Add(this.panel1);
-            this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Name = "InfoFakturForm";
-            this.Text = "InfoFakturAgg";
+            this.Controls.Add(this.InfoGrid);
+            this.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Name = "FakturInfoDetilForm";
+            this.Text = "Faktur Info Detil";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InfoGrid)).EndInit();
@@ -125,10 +125,10 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl InfoGrid;
+        private System.Windows.Forms.Button ProsesButton;
+        private System.Windows.Forms.TextBox CustomerText;
         private System.Windows.Forms.DateTimePicker Tgl2Date;
         private System.Windows.Forms.DateTimePicker Tgl1Date;
-        private System.Windows.Forms.TextBox CustomerText;
-        private System.Windows.Forms.Button ProsesButton;
+        private Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl InfoGrid;
     }
 }

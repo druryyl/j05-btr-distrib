@@ -12,13 +12,13 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace btr.distrib.SalesContext.InfoFakturAgg
+namespace btr.distrib.SalesContext.FakturInfoRpt
 {
-    public partial class InfoFakturForm : Form
+    public partial class FakturInfoForm : Form
     {
         private readonly IFakturInfoDal _fakturInfoDal;
 
-        public InfoFakturForm(IFakturInfoDal fakturInfoDal)
+        public FakturInfoForm(IFakturInfoDal fakturInfoDal)
         {
             InitializeComponent();
             _fakturInfoDal = fakturInfoDal;

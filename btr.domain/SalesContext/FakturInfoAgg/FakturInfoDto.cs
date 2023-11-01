@@ -13,7 +13,6 @@ namespace btr.domain.SalesContext.InfoFakturAgg
         public DateTime Tgl { get; set; }
         public string Admin { get; set; }
         public string Customer { get; set; }
-        //public string CustomerCode { get; set; }
         public string Address { get; set; }
         public string WilayahName { get; set; }
         public string SalesPersonName { get; set; }

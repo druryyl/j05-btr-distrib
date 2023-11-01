@@ -28,6 +28,8 @@ using btr.distrib.InventoryContext.ImportOpnameAgg;
 using btr.distrib.SalesContext.InfoFakturAgg;
 using btr.distrib.FinanceContext.LunasPiutangAgg;
 using btr.distrib.SalesContext.StokBalanceInfo2Agg;
+using btr.distrib.SalesContext;
+using btr.distrib.SalesContext.FakturInfoRpt;
 
 namespace btr.distrib.SharedForm
 {
@@ -258,9 +260,9 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-        private void InfoFakturJualButton_Click(object sender, EventArgs e)
+        private void FakturInfoButton_Click(object sender, EventArgs e)
         {
-            var form = _servicesProvider.GetRequiredService<InfoFakturForm>();
+            var form = _servicesProvider.GetRequiredService<FakturInfoForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -269,6 +271,14 @@ namespace btr.distrib.SharedForm
         private void LunasPiutangButton_Click(object sender, EventArgs e)
         {
             var form = _servicesProvider.GetRequiredService<LunasPiutangForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void FakturBrgInfoButton_Click(object sender, EventArgs e)
+        {
+            var form = _servicesProvider.GetRequiredService<FakturBrgInfoForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
