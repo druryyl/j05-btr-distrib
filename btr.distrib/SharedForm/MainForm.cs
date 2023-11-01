@@ -19,16 +19,13 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using btr.distrib.InventoryContext.StokBalanceRpt;
 using btr.distrib.SalesContext.AlokasiFpAgg;
 using btr.distrib.PurchaseContext.InvoiceAgg;
 using btr.distrib.InventoryContext.MutasiAgg;
 using btr.distrib.ReportingContext;
 using btr.distrib.InventoryContext.ImportOpnameAgg;
-using btr.distrib.SalesContext.InfoFakturAgg;
 using btr.distrib.FinanceContext.LunasPiutangAgg;
 using btr.distrib.SalesContext.StokBalanceInfo2Agg;
-using btr.distrib.SalesContext;
 using btr.distrib.SalesContext.FakturInfoRpt;
 
 namespace btr.distrib.SharedForm

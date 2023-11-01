@@ -1,4 +1,5 @@
-﻿using btr.nuna.Domain;
+﻿using btr.domain.SalesContext.FakturInfoAgg;
+using btr.nuna.Domain;
 using btr.nuna.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace btr.application.SalesContext.FakturInfoAgg
 {
-    internal class IFakturBrgInfoDal : IListData<FakturBrgInfoDto, Periode>
+    public interface IFakturBrgInfoDal 
+        : IListData<FakturBrgInfoDto, Periode>
     {
     }
 }
