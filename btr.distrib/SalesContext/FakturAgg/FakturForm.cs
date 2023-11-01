@@ -113,6 +113,12 @@ namespace btr.distrib.SalesContext.FakturAgg
             NewButton.Click += NewButton_Click;
         }
 
+        public void ShowFaktur(string fakturId)
+        {
+            FakturIdText.Text = fakturId;
+            ValidateFaktur();
+        }
+
         #region NEW
         private void NewButton_Click(object sender, EventArgs e)
         {

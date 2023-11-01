@@ -19,6 +19,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using btr.application.PurchaseContext.InvoiceAgg;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace btr.distrib.PurchaseContext.InvoiceAgg
 {
@@ -90,11 +91,24 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             InvoiceItemGrid.CellContentClick += InvoiceItemGrid_CellContentClick;
             InvoiceItemGrid.CellValueChanged += InvoiceItemGrid_CellValueChanged;
             InvoiceItemGrid.CellValidated += InvoiceItemGrid_CellValidated;
+            InvoiceItemGrid.CellValidating += InvoiceItemGrid_CellValidating; ;
             InvoiceItemGrid.KeyDown += InvoiceItemGrid_KeyDown;
             InvoiceItemGrid.EditingControlShowing += InvoiceItemGrid_EditingControlShowing;
 
             SaveButton.Click += SaveButton_Click;
             NewButton.Click += NewButton_Click;
+        }
+
+        private void InvoiceItemGrid_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            var grid = (DataGridView)sender;
+            if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("BrgId").Index)
+            {
+                var x = _listItem[e.RowIndex].BrgId;
+                var y = grid.CurrentRow.Cells["BrgId"].Value?.ToString()??string.Empty;
+                if (x != y)
+                    _listItem[e.RowIndex].HrgInputStr = string.Empty;
+            }
         }
 
         private void NewButton_Click(object sender, EventArgs e)
@@ -400,7 +414,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             cols.GetCol("HrgInputStr").HeaderText = "Hrg Beli";
             cols.GetCol("HrgInputStr").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
 
-            cols.GetCol("HrgDetilStr").Visible = true;
+            cols.GetCol("HrgDetilStr").Visible = false;
             cols.GetCol("HrgDetilStr").Width = 110;
             cols.GetCol("HrgDetilStr").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             cols.GetCol("HrgDetilStr").HeaderText = "Detil Harga";

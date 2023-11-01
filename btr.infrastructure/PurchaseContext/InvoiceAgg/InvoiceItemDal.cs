@@ -88,6 +88,7 @@ namespace btr.infrastructure.PurchaseContext.InvoiceAgg
             const string sql = @"
                 SELECT
                     aa.InvoiceId, aa.InvoiceItemId, aa.NoUrut, aa.BrgId, 
+                    aa.HrgInputStr, aa.HrgDetilStr,
                     aa.QtyInputStr, aa.QtyDetilStr, aa.QtyBesar, aa.SatBesar, aa.Conversion, aa.HppSatBesar,
                     aa.QtyKecil, aa.SatKecil, aa.HppSatKecil, aa.QtyBeli, aa.HppSat, aa.SubTotal,
                     aa.QtyBonus, aa.QtyPotStok, aa.DiscInputStr, aa.DiscDetilStr, aa.DiscRp,

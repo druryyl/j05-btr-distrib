@@ -72,7 +72,7 @@ namespace btr.infrastructure.PurchaseContext.InvoiceAgg
                     Total = @Total, 
                     Disc = @Disc, 
                     Tax = @Tax, 
-                    GrandTotal = @GrandTotal
+                    GrandTotal = @GrandTotal,
                     CreateTime = @CreateTime,
                     LastUpdate = @LastUpdate,
                     UserId = @UserId,

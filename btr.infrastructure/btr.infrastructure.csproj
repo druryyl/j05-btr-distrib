@@ -75,6 +75,9 @@
   <ItemGroup>
     <Compile Include="BrgContext\HargaTypeAgg\HargaTypeDal.cs" />
     <Compile Include="BrgContext\JenisBrgAgg\JenisBrgDal.cs" />
+    <Compile Include="FinanceContext\PiutangAgg\PiutangDal.cs" />
+    <Compile Include="FinanceContext\PiutangAgg\PiutangElementDal.cs" />
+    <Compile Include="FinanceContext\PiutangAgg\PiutangLunasDal.cs" />
     <Compile Include="Helpers\ConnStringHelper.cs" />
     <Compile Include="Helpers\DatabaseOptions.cs" />
     <Compile Include="Helpers\ParamNoDal.cs" />
@@ -114,6 +117,8 @@
     <Compile Include="SalesContext\FakturAgg\FakturDiscountDal.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturItemDal.cs" />
     <Compile Include="SalesContext\FakturControlAgg\FakturControlStatusDal.cs" />
+    <Compile Include="SalesContext\FakturInfoAgg\FakturBrgInfoDal.cs" />
+    <Compile Include="SalesContext\FakturInfoAgg\FakturInfoDal.cs" />
     <Compile Include="SalesContext\FakturPajakVoidAgg\FakturPajakVoidDal.cs" />
     <Compile Include="SalesContext\KlasifikasiAgg\KlasifikasiDal.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\SalesPersonDal.cs" />
@@ -146,7 +151,6 @@
   <ItemGroup>
     <Folder Include="FinanceContext\CreditNoteAgg\" />
     <Folder Include="FinanceContext\HutangAgg\" />
-    <Folder Include="FinanceContext\PiutangAgg\" />
     <Folder Include="PurchaseContext\KlaimAgg\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

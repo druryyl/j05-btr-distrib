@@ -19,12 +19,14 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using btr.distrib.InventoryContext.StokBalanceRpt;
 using btr.distrib.SalesContext.AlokasiFpAgg;
 using btr.distrib.PurchaseContext.InvoiceAgg;
 using btr.distrib.InventoryContext.MutasiAgg;
 using btr.distrib.ReportingContext;
 using btr.distrib.InventoryContext.ImportOpnameAgg;
+using btr.distrib.FinanceContext.LunasPiutangAgg;
+using btr.distrib.SalesContext.StokBalanceInfo2Agg;
+using btr.distrib.SalesContext.FakturInfoRpt;
 
 namespace btr.distrib.SharedForm
 {
@@ -59,7 +61,7 @@ namespace btr.distrib.SharedForm
             return false;
         }
 
-        private void FakturButton_Click(object sender, EventArgs e)
+        public void FakturButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<FakturForm>())
                 return;
@@ -158,20 +160,6 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-        //private void TestingButton_Click(object sender, EventArgs e)
-        //{
-        //    if (!this.UserId.UserId.ToLower().StartsWith("jude"))
-        //    {
-        //        MessageBox.Show("Only for programmer");
-        //        return;
-        //    }
-
-        //    var form = _servicesProvider.GetRequiredService<TestPlayground>();
-        //    form.StartPosition = FormStartPosition.CenterScreen;
-        //    form.MdiParent = this;
-        //    form.Show();
-        //}
-
         private void AboutButton_Click(object sender, EventArgs e)
         {
             var form = _servicesProvider.GetRequiredService<AboutForm>();
@@ -231,7 +219,7 @@ namespace btr.distrib.SharedForm
 
         private void StokBalanceButton_Click(object sender, EventArgs e)
         {
-            var form = _servicesProvider.GetRequiredService<StokBalanceInfoForm>();
+            var form = _servicesProvider.GetRequiredService<StokBalanceInfo2Form>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -264,6 +252,30 @@ namespace btr.distrib.SharedForm
         private void ImportExcelOpnameButton_Click(object sender, EventArgs e)
         {
             var form = _servicesProvider.GetRequiredService<ImportOpnameForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void FakturInfoButton_Click(object sender, EventArgs e)
+        {
+            var form = _servicesProvider.GetRequiredService<FakturInfoForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void LunasPiutangButton_Click(object sender, EventArgs e)
+        {
+            var form = _servicesProvider.GetRequiredService<LunasPiutangForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void FakturBrgInfoButton_Click(object sender, EventArgs e)
+        {
+            var form = _servicesProvider.GetRequiredService<FakturBrgInfoForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

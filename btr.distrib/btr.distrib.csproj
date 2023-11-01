@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>62</ApplicationRevision>
+    <ApplicationRevision>66</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -145,19 +145,31 @@
     <Reference Include="Polly, Version=7.0.0.0, Culture=neutral, PublicKeyToken=c8a3ffc3f8f825cc, processorArchitecture=MSIL">
       <HintPath>..\packages\Polly.7.2.4\lib\net472\Polly.dll</HintPath>
     </Reference>
+    <Reference Include="Polly.Core, Version=8.0.0.0, Culture=neutral, PublicKeyToken=c8a3ffc3f8f825cc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Polly.Core.8.0.0\lib\net472\Polly.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Scrutor, Version=4.0.0.0, Culture=neutral, PublicKeyToken=167d3117ac9a6821, processorArchitecture=MSIL">
       <HintPath>..\packages\Scrutor.4.2.2\lib\net461\Scrutor.dll</HintPath>
     </Reference>
     <Reference Include="SixLabors.Fonts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d998eea7b14cab13, processorArchitecture=MSIL">
       <HintPath>..\packages\SixLabors.Fonts.1.0.0\lib\netstandard2.0\SixLabors.Fonts.dll</HintPath>
     </Reference>
+    <Reference Include="Syncfusion.Grid.Grouping.Windows, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.Grid.Windows, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Grouping.Base, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Shared.Base, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Shared.Windows, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.5.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
     <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
       <Private>True</Private>
@@ -241,6 +253,8 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
     <Reference Include="XLParser, Version=1.5.2.0, Culture=neutral, PublicKeyToken=63397e1e46bb91b4, processorArchitecture=MSIL">
       <HintPath>..\packages\XLParser.1.5.2\lib\net461\XLParser.dll</HintPath>
@@ -256,6 +270,18 @@
     <Compile Include="Browsers\MutasiBrowser.cs" />
     <Compile Include="Browsers\SalesPersonBrowser.cs" />
     <Compile Include="Browsers\WilayahBrowser.cs" />
+    <Compile Include="FinanceContext\LunasPiutangAgg\ListLunasPiutang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FinanceContext\LunasPiutangAgg\ListLunasPiutang.Designer.cs">
+      <DependentUpon>ListLunasPiutang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FinanceContext\LunasPiutangAgg\LunasPiutangForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FinanceContext\LunasPiutangAgg\LunasPiutangForm.Designer.cs">
+      <DependentUpon>LunasPiutangForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\BrowseFilter.cs" />
     <Compile Include="Helpers\CodeRedReporting.cs" />
     <Compile Include="Helpers\IBrowseEngine.cs" />
@@ -294,6 +320,12 @@
     </Compile>
     <Compile Include="InventoryContext\MutasiAgg\MutasiForm.Designer.cs">
       <DependentUpon>MutasiForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryContext\StokBalanceRpt\StokBalanceInfo2Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryContext\StokBalanceRpt\StokBalanceInfo2Form.Designer.cs">
+      <DependentUpon>StokBalanceInfo2Form.cs</DependentUpon>
     </Compile>
     <Compile Include="InventoryContext\StokBalanceRpt\StokBalanceInfoForm.cs">
       <SubType>Form</SubType>
@@ -389,6 +421,18 @@
     <Compile Include="SalesContext\AlokasiFpAgg\AlokasiFpForm.Designer.cs">
       <DependentUpon>AlokasiFpForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SalesContext\FakturInfoRpt\FakturBrgInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SalesContext\FakturInfoRpt\FakturBrgInfoForm.Designer.cs">
+      <DependentUpon>FakturBrgInfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SalesContext\FakturInfoRpt\FakturInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SalesContext\FakturInfoRpt\FakturInfoForm.Designer.cs">
+      <DependentUpon>FakturInfoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SalesContext\SalesPersonAgg\SalesPersonForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -440,12 +484,19 @@
     </Compile>
     <Compile Include="WinformAssemblyAnchor.cs" />
     <Content Include="icons8_truck.ico" />
+    <None Include="Resources\icons8_page_16.png" />
     <None Include="Resources\icons8_microsoft_excel_32.png" />
     <None Include="Resources\icons8_python_32.png" />
     <None Include="Resources\icons8_vue_js_32.png" />
     <None Include="Resources\icons8_uninstalling_updates_32.png" />
     <None Include="Resources\icons8_stack_overflow_32.png" />
     <None Include="Resources\icons8_stack_overflow_16.png" />
+    <EmbeddedResource Include="FinanceContext\LunasPiutangAgg\ListLunasPiutang.resx">
+      <DependentUpon>ListLunasPiutang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FinanceContext\LunasPiutangAgg\LunasPiutangForm.resx">
+      <DependentUpon>LunasPiutangForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\ImportOpnameAgg\ImportOpnameForm.resx">
       <DependentUpon>ImportOpnameForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -455,11 +506,20 @@
     <EmbeddedResource Include="InventoryContext\MutasiAgg\MutasiForm.resx">
       <DependentUpon>MutasiForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="InventoryContext\StokBalanceRpt\StokBalanceInfo2Form.resx">
+      <DependentUpon>StokBalanceInfo2Form.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PurchaseContext\InvoiceAgg\InvoiceForm.resx">
       <DependentUpon>InvoiceForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReportingContext\CustomerChartRpt.resx">
       <DependentUpon>CustomerChartRpt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SalesContext\FakturInfoRpt\FakturBrgInfoForm.resx">
+      <DependentUpon>FakturBrgInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SalesContext\FakturInfoRpt\FakturInfoForm.resx">
+      <DependentUpon>FakturInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SharedForm\VoidReasonForm.resx">
       <DependentUpon>VoidReasonForm.cs</DependentUpon>
@@ -500,6 +560,7 @@
     <None Include="Resources\cancelled-stamp.png" />
     <None Include="Resources\icons8_broadcasting_48.png" />
     <None Include="Resources\icons8_documents_32.png" />
+    <None Include="Resources\icons8_general_ledger_32.png" />
     <Content Include="Resources\icons8_microscope.ico" />
     <Content Include="Resources\icons8_microscope_32.png" />
     <EmbeddedResource Include="SharedForm\AboutForm.resx">
