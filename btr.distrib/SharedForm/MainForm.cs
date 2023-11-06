@@ -267,7 +267,7 @@ namespace btr.distrib.SharedForm
 
         private void LunasPiutangButton_Click(object sender, EventArgs e)
         {
-            var form = _servicesProvider.GetRequiredService<LunasPiutangForm>();
+            var form = _servicesProvider.GetRequiredService<LunasPiutang2Form>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

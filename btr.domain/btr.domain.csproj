@@ -56,6 +56,7 @@
     <Compile Include="FinanceContext\HutangAgg\HutangModel.cs" />
     <Compile Include="FinanceContext\HutangAgg\IHutangKey.cs" />
     <Compile Include="FinanceContext\PiutangAgg\IPiutangKey.cs" />
+    <Compile Include="FinanceContext\PiutangAgg\PiutangLunasView.cs" />
     <Compile Include="FinanceContext\PiutangAgg\PiutangModel.cs" />
     <Compile Include="InventoryContext\DeliveryAgg\DeliveryModel.cs" />
     <Compile Include="InventoryContext\DeliveryAgg\IDeliveryKey.cs" />

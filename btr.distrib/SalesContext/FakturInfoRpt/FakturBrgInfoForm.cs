@@ -25,6 +25,7 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
             _fakturBrgInfoDal = fakturBrgInfoDal;
             InfoGrid.QueryCellStyleInfo += InfoGrid_QueryCellStyleInfo;
             ProsesButton.Click += ProsesButton_Click;
+
             InitGrid();
         }
         private void InfoGrid_QueryCellStyleInfo(object sender, GridTableCellStyleInfoEventArgs e)
