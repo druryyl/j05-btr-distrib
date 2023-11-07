@@ -34,9 +34,12 @@
             this.FakturPanel = new System.Windows.Forms.RibbonPanel();
             this.FakturButton = new System.Windows.Forms.RibbonButton();
             this.FakturInfoButton = new System.Windows.Forms.RibbonButton();
+            this.FakturBrgInfoButton = new System.Windows.Forms.RibbonButton();
             this.ribbonSeparator2 = new System.Windows.Forms.RibbonSeparator();
             this.ControlFakturButton = new System.Windows.Forms.RibbonButton();
             this.FakturPajakButton = new System.Windows.Forms.RibbonButton();
+            this.ribbonSeparator3 = new System.Windows.Forms.RibbonSeparator();
+            this.ReturJualButton = new System.Windows.Forms.RibbonButton();
             this.MasterSalesPanel = new System.Windows.Forms.RibbonPanel();
             this.OutletButton = new System.Windows.Forms.RibbonButton();
             this.KategoriButton = new System.Windows.Forms.RibbonButton();
@@ -77,7 +80,6 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.FakturBrgInfoButton = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -124,6 +126,8 @@
             this.FakturPanel.Items.Add(this.ribbonSeparator2);
             this.FakturPanel.Items.Add(this.ControlFakturButton);
             this.FakturPanel.Items.Add(this.FakturPajakButton);
+            this.FakturPanel.Items.Add(this.ribbonSeparator3);
+            this.FakturPanel.Items.Add(this.ReturJualButton);
             this.FakturPanel.Name = "FakturPanel";
             this.FakturPanel.Text = "";
             // 
@@ -144,6 +148,15 @@
             this.FakturInfoButton.SmallImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
             this.FakturInfoButton.Text = "Faktur Info";
             this.FakturInfoButton.Click += new System.EventHandler(this.FakturInfoButton_Click);
+            // 
+            // FakturBrgInfoButton
+            // 
+            this.FakturBrgInfoButton.Image = global::btr.distrib.Properties.Resources.icons8_documents;
+            this.FakturBrgInfoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents;
+            this.FakturBrgInfoButton.Name = "FakturBrgInfoButton";
+            this.FakturBrgInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FakturBrgInfoButton.SmallImage")));
+            this.FakturBrgInfoButton.Text = "FakturBrg Info";
+            this.FakturBrgInfoButton.Click += new System.EventHandler(this.FakturBrgInfoButton_Click);
             // 
             // ribbonSeparator2
             // 
@@ -167,6 +180,19 @@
             this.FakturPajakButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FakturPajakButton.SmallImage")));
             this.FakturPajakButton.Text = "Faktur-Pajak";
             this.FakturPajakButton.Click += new System.EventHandler(this.FakturPajakButton_Click);
+            // 
+            // ribbonSeparator3
+            // 
+            this.ribbonSeparator3.Name = "ribbonSeparator3";
+            // 
+            // ReturJualButton
+            // 
+            this.ReturJualButton.Image = global::btr.distrib.Properties.Resources.icons8_return_purchase_32;
+            this.ReturJualButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_return_purchase_32;
+            this.ReturJualButton.Name = "ReturJualButton";
+            this.ReturJualButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ReturJualButton.SmallImage")));
+            this.ReturJualButton.Text = "Retur-Jual";
+            this.ReturJualButton.Click += new System.EventHandler(this.ReturJualButton_Click);
             // 
             // MasterSalesPanel
             // 
@@ -494,15 +520,6 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
-            // FakturBrgInfoButton
-            // 
-            this.FakturBrgInfoButton.Image = global::btr.distrib.Properties.Resources.icons8_documents;
-            this.FakturBrgInfoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents;
-            this.FakturBrgInfoButton.Name = "FakturBrgInfoButton";
-            this.FakturBrgInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FakturBrgInfoButton.SmallImage")));
-            this.FakturBrgInfoButton.Text = "FakturBrg Info";
-            this.FakturBrgInfoButton.Click += new System.EventHandler(this.FakturBrgInfoButton_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -577,5 +594,7 @@
         private System.Windows.Forms.RibbonButton LunasPiutangButton;
         private System.Windows.Forms.RibbonButton ribbonButton2;
         private System.Windows.Forms.RibbonButton FakturBrgInfoButton;
+        private System.Windows.Forms.RibbonSeparator ribbonSeparator3;
+        private System.Windows.Forms.RibbonButton ReturJualButton;
     }
 }

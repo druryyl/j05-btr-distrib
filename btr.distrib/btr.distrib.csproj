@@ -334,6 +334,12 @@
     <Compile Include="InventoryContext\MutasiAgg\MutasiForm.Designer.cs">
       <DependentUpon>MutasiForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InventoryContext\ReturJualAgg\ReturJualForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryContext\ReturJualAgg\ReturJualForm.Designer.cs">
+      <DependentUpon>ReturJualForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="InventoryContext\StokBalanceRpt\StokBalanceInfo2Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -497,6 +503,7 @@
     </Compile>
     <Compile Include="WinformAssemblyAnchor.cs" />
     <Content Include="icons8_truck.ico" />
+    <None Include="Resources\icons8_return_purchase_32.png" />
     <None Include="Resources\icons8_page_16.png" />
     <None Include="Resources\icons8_microsoft_excel_32.png" />
     <None Include="Resources\icons8_python_32.png" />
@@ -521,6 +528,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\MutasiAgg\MutasiForm.resx">
       <DependentUpon>MutasiForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InventoryContext\ReturJualAgg\ReturJualForm.resx">
+      <DependentUpon>ReturJualForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\StokBalanceRpt\StokBalanceInfo2Form.resx">
       <DependentUpon>StokBalanceInfo2Form.cs</DependentUpon>
@@ -705,8 +715,6 @@
       <Name>btr.nuna</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="InventoryContext\ReturJualAgg\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

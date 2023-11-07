@@ -99,6 +99,7 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
                     ReturJualId = @ReturJualId
                 ORDER BY 
                     NoUrut ASC";
+            return null;
         }
     }
 }

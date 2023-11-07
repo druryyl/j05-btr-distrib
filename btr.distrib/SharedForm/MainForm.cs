@@ -27,6 +27,7 @@ using btr.distrib.InventoryContext.ImportOpnameAgg;
 using btr.distrib.FinanceContext.LunasPiutangAgg;
 using btr.distrib.InventoryContext.StokBalanceRpt;
 using btr.distrib.SalesContext.FakturInfoRpt;
+using btr.distrib.InventoryContext.ReturJualAgg;
 
 namespace btr.distrib.SharedForm
 {
@@ -219,6 +220,8 @@ namespace btr.distrib.SharedForm
 
         private void StokBalanceButton_Click(object sender, EventArgs e)
         {
+            if (BringMdiChildToFrontIfLoaded<StokBalanceInfo2Form>())
+                return;
             var form = _servicesProvider.GetRequiredService<StokBalanceInfo2Form>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
@@ -227,6 +230,8 @@ namespace btr.distrib.SharedForm
 
         private void InvoiceButton_Click(object sender, EventArgs e)
         {
+            if (BringMdiChildToFrontIfLoaded<InvoiceForm>())
+                return;
             var form = _servicesProvider.GetRequiredService<InvoiceForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
@@ -235,6 +240,8 @@ namespace btr.distrib.SharedForm
 
         private void MutasiButton_Click(object sender, EventArgs e)
         {
+            if (BringMdiChildToFrontIfLoaded<MutasiForm>())
+                return;
             var form = _servicesProvider.GetRequiredService<MutasiForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
@@ -243,6 +250,8 @@ namespace btr.distrib.SharedForm
 
         private void InvoiceReportButton_Click(object sender, EventArgs e)
         {
+            if (BringMdiChildToFrontIfLoaded<CustomerChartRpt>())
+                return;
             var form = _servicesProvider.GetRequiredService<CustomerChartRpt>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
@@ -251,6 +260,8 @@ namespace btr.distrib.SharedForm
 
         private void ImportExcelOpnameButton_Click(object sender, EventArgs e)
         {
+            if (BringMdiChildToFrontIfLoaded<ImportOpnameForm>())
+                return;
             var form = _servicesProvider.GetRequiredService<ImportOpnameForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
@@ -259,6 +270,8 @@ namespace btr.distrib.SharedForm
 
         private void FakturInfoButton_Click(object sender, EventArgs e)
         {
+            if (BringMdiChildToFrontIfLoaded<FakturInfoForm>())
+                return;
             var form = _servicesProvider.GetRequiredService<FakturInfoForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
@@ -267,6 +280,8 @@ namespace btr.distrib.SharedForm
 
         private void LunasPiutangButton_Click(object sender, EventArgs e)
         {
+            if (BringMdiChildToFrontIfLoaded<LunasPiutang2Form>())
+                return;
             var form = _servicesProvider.GetRequiredService<LunasPiutang2Form>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
@@ -275,7 +290,19 @@ namespace btr.distrib.SharedForm
 
         private void FakturBrgInfoButton_Click(object sender, EventArgs e)
         {
+            if (BringMdiChildToFrontIfLoaded<FakturBrgInfoForm>())
+                return;
             var form = _servicesProvider.GetRequiredService<FakturBrgInfoForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void ReturJualButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<ReturJualForm>())
+                return;
+            var form = _servicesProvider.GetRequiredService<ReturJualForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
