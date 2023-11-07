@@ -1,19 +1,17 @@
-﻿using btr.application.InventoryContext.StokBalanceRpt;
-using btr.application.SalesContext.FakturInfoAgg;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
+using btr.application.InventoryContext.StokBalanceRpt;
 using btr.domain.InventoryContext.StokBalanceRpt;
 using btr.nuna.Domain;
 using Syncfusion.Drawing;
 using Syncfusion.Grouping;
 using Syncfusion.Windows.Forms.Grid;
 using Syncfusion.Windows.Forms.Grid.Grouping;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
 
-namespace btr.distrib.SalesContext.StokBalanceInfo2Agg
+namespace btr.distrib.InventoryContext.StokBalanceRpt
 {
     public partial class StokBalanceInfo2Form : Form
     {

@@ -1,5 +1,4 @@
 ﻿using btr.application.SalesContext.FakturInfoAgg;
-using btr.domain.SalesContext.InfoFakturAgg;
 using btr.nuna.Domain;
 using Syncfusion.Drawing;
 using Syncfusion.Grouping;
@@ -7,23 +6,53 @@ using Syncfusion.Windows.Forms.Grid;
 using Syncfusion.Windows.Forms.Grid.Grouping;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using btr.domain.SalesContext.FakturInfoAgg;
+using ClosedXML.Excel;
 
 namespace btr.distrib.SalesContext.FakturInfoRpt
 {
     public partial class FakturInfoForm : Form
     {
         private readonly IFakturInfoDal _fakturInfoDal;
+        private List<FakturInfoDto> _dataSource;
 
         public FakturInfoForm(IFakturInfoDal fakturInfoDal)
         {
             InitializeComponent();
             _fakturInfoDal = fakturInfoDal;
             InfoGrid.QueryCellStyleInfo += InfoGrid_QueryCellStyleInfo;
+            ExcelButton.Click += ExcelButton_Click;
             InitGrid();
+            _dataSource = new List<FakturInfoDto>();
+        }
+
+        private void ExcelButton_Click(object sender, EventArgs e)
+        {
+            //  export _dataSource to excel
+            string filePath;
+            using (var saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = @"Excel Files|*.xlsx";
+                saveFileDialog.Title = @"Save Excel File";
+                saveFileDialog.DefaultExt = "xlsx";
+                saveFileDialog.AddExtension = true;
+                saveFileDialog.FileName = $"faktur-info-{DateTime.Now:yyyy-MM-dd-HHmm}";
+                if (saveFileDialog.ShowDialog() != DialogResult.OK)
+                    return;
+                filePath = saveFileDialog.FileName;
+            }
+
+            using (IXLWorkbook wb = new XLWorkbook())
+            {
+                wb.AddWorksheet("Faktu-Info")
+                    .FirstCell()
+                    .InsertTable(_dataSource, false);
+                wb.SaveAs(filePath);
+            }
+            System.Diagnostics.Process.Start(filePath);
         }
 
         private void InfoGrid_QueryCellStyleInfo(object sender, GridTableCellStyleInfoEventArgs e)
@@ -103,9 +132,9 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
                 return;
             }
             var listFaktur = _fakturInfoDal.ListData(periode)?.ToList() ?? new List<FakturInfoDto>();
-            var result = Filter(listFaktur, CustomerText.Text);
-            result.ForEach(x => x.Tgl = x.Tgl.Date);
-            InfoGrid.DataSource = result;
+            _dataSource = Filter(listFaktur, CustomerText.Text);
+            _dataSource.ForEach(x => x.Tgl = x.Tgl.Date);
+            InfoGrid.DataSource = _dataSource;
         }
 
         private List<FakturInfoDto> Filter(List<FakturInfoDto> source, string keyword)

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace btr.domain.SalesContext.InfoFakturAgg
+namespace btr.domain.SalesContext.FakturInfoAgg
 {
     public class FakturInfoDto
     {

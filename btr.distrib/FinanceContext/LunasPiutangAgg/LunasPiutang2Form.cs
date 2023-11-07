@@ -4,11 +4,6 @@ using btr.application.SalesContext.FakturAgg.Workers;
 using btr.domain.FinanceContext.PiutangAgg;
 using btr.domain.SalesContext.FakturAgg;
 using btr.nuna.Domain;
-using ClosedXML.Excel;
-using DocumentFormat.OpenXml.Office2010.CustomUI;
-using DocumentFormat.OpenXml.Spreadsheet;
-using DocumentFormat.OpenXml.Wordprocessing;
-using Syncfusion.DataSource;
 using Syncfusion.Drawing;
 using Syncfusion.Grouping;
 using Syncfusion.Windows.Forms.Grid;
@@ -16,12 +11,8 @@ using Syncfusion.Windows.Forms.Grid.Grouping;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace btr.distrib.FinanceContext.LunasPiutangAgg
@@ -183,19 +174,9 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             listPiutang.ForEach(x => x.PiutangDate = x.PiutangDate.Date);
             _listPiutangLunasView = new BindingList<PiutangLunasView>(listPiutang);
             _bindingSource.DataSource = _listPiutangLunasView;
-            //ListPiutangGrid.DataSource = listPiutang;
             ListPiutangGrid.Refresh();
         }
         #endregion
 
-        private void CustomerText_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

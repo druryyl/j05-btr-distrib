@@ -69,6 +69,8 @@
     <Compile Include="InventoryContext\MutasiAgg\MutasiModel.cs" />
     <Compile Include="InventoryContext\OpnameAgg\IOpnameKey.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameModel.cs" />
+    <Compile Include="InventoryContext\ReturJualAgg\ReturJualItemModel.cs" />
+    <Compile Include="InventoryContext\ReturJualAgg\ReturJualModel.cs" />
     <Compile Include="InventoryContext\StokBalanceAgg\StokBalanceWarehouseModel.cs" />
     <Compile Include="InventoryContext\StokBalanceRpt\StokBalanceView.cs" />
     <Compile Include="PurchaseContext\InvoiceAgg\IInvoiceKey.cs" />

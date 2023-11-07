@@ -1,6 +1,5 @@
 ﻿using btr.application.SalesContext.FakturInfoAgg;
 using btr.domain.SalesContext.FakturInfoAgg;
-using btr.domain.SalesContext.InfoFakturAgg;
 using btr.infrastructure.Helpers;
 using btr.nuna.Domain;
 using btr.nuna.Infrastructure;

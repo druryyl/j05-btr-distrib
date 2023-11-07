@@ -133,6 +133,8 @@
     <Compile Include="InventoryContext\PackingAgg\IPackingBrgDal.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingBuilder.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingWriter.cs" />
+    <Compile Include="InventoryContext\ReturJualAgg\Contracts\IReturJualDal.cs" />
+    <Compile Include="InventoryContext\ReturJualAgg\Contracts\IReturJualItemDal.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\AddStokWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokBalanceWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokFakturWorker.cs" />
@@ -249,6 +251,7 @@
     <Folder Include="InventoryContext\GoodReceiptAgg\Contracts\" />
     <Folder Include="InventoryContext\GoodReceiptAgg\UseCases\" />
     <Folder Include="InventoryContext\GoodReceiptAgg\Workers\" />
+    <Folder Include="InventoryContext\ReturJualAgg\" />
     <Folder Include="PurchaseContext\KlaimAgg\" />
   </ItemGroup>
   <ItemGroup>

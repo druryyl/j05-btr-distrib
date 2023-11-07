@@ -1,4 +1,4 @@
-﻿namespace btr.distrib.SalesContext.StokBalanceInfo2Agg
+﻿namespace btr.distrib.InventoryContext.StokBalanceRpt
 {
     partial class StokBalanceInfo2Form
     {

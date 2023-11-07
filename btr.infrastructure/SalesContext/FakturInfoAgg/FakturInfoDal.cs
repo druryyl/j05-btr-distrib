@@ -1,5 +1,4 @@
 ﻿using btr.application.SalesContext.FakturInfoAgg;
-using btr.domain.SalesContext.InfoFakturAgg;
 using btr.infrastructure.Helpers;
 using btr.nuna.Domain;
 using btr.nuna.Infrastructure;
@@ -8,6 +7,7 @@ using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using btr.domain.SalesContext.FakturInfoAgg;
 
 namespace btr.infrastructure.SalesContext.FakturInfoAgg
 {
