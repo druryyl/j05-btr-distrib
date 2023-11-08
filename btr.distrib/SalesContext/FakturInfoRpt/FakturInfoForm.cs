@@ -48,8 +48,27 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
             using (IXLWorkbook wb = new XLWorkbook())
             {
                 wb.AddWorksheet("Faktu-Info")
-                    .FirstCell()
+                    .Cell($"B1")
                     .InsertTable(_dataSource, false);
+                var ws = wb.Worksheets.First();
+                //  set border and font
+                ws.Range(ws.Cell($"A{1}"), ws.Cell($"N{_dataSource.Count + 1}")).Style
+                    .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
+                    .Border.SetInsideBorder(XLBorderStyleValues.Hair);
+                ws.Range(ws.Cell($"A{1}"), ws.Cell($"N{_dataSource.Count + 1}")).Style
+                    .Font.SetFontName("Consolas")
+                    .Font.SetFontSize(9);
+
+                //  set format number for column K, L, M, N to N0
+                ws.Range(ws.Cell($"K{2}"), ws.Cell($"N{_dataSource.Count + 1}"))
+                    .Style.NumberFormat.Format = "#,##";
+                ws.Range(ws.Cell($"A{2}"), ws.Cell($"A{_dataSource.Count + 1}"))
+                    .Style.NumberFormat.Format = "#,##";
+                //  add rownumbering
+                ws.Cell($"A1").Value = "No";
+                for (var i = 0; i < _dataSource.Count; i++)
+                    ws.Cell($"A{i + 2}").Value = i + 1;
+                ws.Columns().AdjustToContents();
                 wb.SaveAs(filePath);
             }
             System.Diagnostics.Process.Start(filePath);
@@ -84,7 +103,7 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
             sumColTotal.Appearance.AnySummaryCell.Format= "N0";
             sumColTotal.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
 
-            var sumColDiskon = new GridSummaryColumnDescriptor("Diskon", SummaryType.DoubleAggregate, "Diskon", "{Sum}");
+            var sumColDiskon = new GridSummaryColumnDescriptor("Discount", SummaryType.DoubleAggregate, "Discount", "{Sum}");
             sumColDiskon.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
             sumColDiskon.Appearance.AnySummaryCell.Format = "N0";
             sumColDiskon.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
@@ -106,7 +125,7 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
 
 
             InfoGrid.TableDescriptor.Columns["Total"].Appearance.AnyRecordFieldCell.Format = "N0";
-            InfoGrid.TableDescriptor.Columns["Diskon"].Appearance.AnyRecordFieldCell.Format = "N0";
+            InfoGrid.TableDescriptor.Columns["Discount"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["Tax"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["GrandTotal"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["Tgl"].Appearance.AnyRecordFieldCell.Format= "dd-MMM-yyyy";

@@ -50,8 +50,27 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
             using (IXLWorkbook wb = new XLWorkbook())
             {
                 wb.AddWorksheet("Faktu-Brg-Info")
-                    .FirstCell()
+                    .Cell($"B1")
                     .InsertTable(_dataSource, false);
+                var ws = wb.Worksheets.First();
+                //  set border and font
+                ws.Range(ws.Cell($"A{1}"), ws.Cell($"O{_dataSource.Count + 1}")).Style
+                    .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
+                    .Border.SetInsideBorder(XLBorderStyleValues.Hair);
+                ws.Range(ws.Cell($"A{1}"), ws.Cell($"O{_dataSource.Count + 1}")).Style
+                    .Font.SetFontName("Consolas")
+                    .Font.SetFontSize(9);
+
+                //  set format number for column K, L, M, N to N0
+                ws.Range(ws.Cell($"J{2}"), ws.Cell($"O{_dataSource.Count + 1}"))
+                    .Style.NumberFormat.Format = "#,##";
+                ws.Range(ws.Cell($"A{2}"), ws.Cell($"A{_dataSource.Count + 1}"))
+                    .Style.NumberFormat.Format = "#,##";
+                //  add rownumbering
+                ws.Cell($"A1").Value = "No";
+                for (var i = 0; i < _dataSource.Count; i++)
+                    ws.Cell($"A{i + 2}").Value = i + 1;
+                ws.Columns().AdjustToContents();
                 wb.SaveAs(filePath);
             }
             System.Diagnostics.Process.Start(filePath);

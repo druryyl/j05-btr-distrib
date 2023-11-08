@@ -14,7 +14,7 @@ namespace btr.domain.SalesContext.FakturInfoAgg
         public string SalesPersonName { get; set; }
         public string WarehouseName { get; set; }
         public decimal Total { get; set; }
-        public decimal Diskon { get; set; }
+        public decimal Discount { get; set; }
         public decimal Tax { get; set; }
         public decimal GrandTotal { get; set; }
     }
