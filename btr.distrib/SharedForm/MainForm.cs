@@ -28,6 +28,7 @@ using btr.distrib.FinanceContext.LunasPiutangAgg;
 using btr.distrib.InventoryContext.StokBalanceRpt;
 using btr.distrib.SalesContext.FakturInfoRpt;
 using btr.distrib.InventoryContext.ReturJualAgg;
+using btr.distrib.SalesContext.InvoiceInfoRpt;
 
 namespace btr.distrib.SharedForm
 {
@@ -303,6 +304,16 @@ namespace btr.distrib.SharedForm
             if (BringMdiChildToFrontIfLoaded<ReturJualForm>())
                 return;
             var form = _servicesProvider.GetRequiredService<ReturJualForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void PurchaseOrderRibbonPanel_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<InvoiceInfoForm>())
+                return;
+            var form = _servicesProvider.GetRequiredService<InvoiceInfoForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

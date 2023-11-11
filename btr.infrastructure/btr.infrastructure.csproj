@@ -109,6 +109,7 @@
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceDal.cs" />
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceDiscDal.cs" />
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceItemDal.cs" />
+    <Compile Include="PurchaseContext\InvoiceInfoRpt\InvoiceInfoDal.cs" />
     <Compile Include="PurchaseContext\PurchaseOrderAgg\PurchaseOrderDal.cs" />
     <Compile Include="PurchaseContext\PurchaseOrderAgg\PurchaseOrderItemDal.cs" />
     <Compile Include="PurchaseContext\SupplierAgg\SupplierDal.cs" />

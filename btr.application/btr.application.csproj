@@ -168,6 +168,7 @@
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceValidator.cs" />
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceWriter.cs" />
     <Compile Include="PurchaseContext\InvoiceAgg\SaveInvoiceWorker.cs" />
+    <Compile Include="PurchaseContext\InvoiceInfoRpt\IInvoiceInfoDal.cs" />
     <Compile Include="PurchaseContext\PurchaseOrderAgg\Contracts\IPurchaseOrderDal.cs" />
     <Compile Include="PurchaseContext\PurchaseOrderAgg\Contracts\IPurchaseOrderItemDal.cs" />
     <Compile Include="PurchaseContext\PurchaseOrderAgg\UseCases\CreatePurchaseOrderCommand.cs" />
@@ -251,7 +252,6 @@
     <Folder Include="InventoryContext\GoodReceiptAgg\Contracts\" />
     <Folder Include="InventoryContext\GoodReceiptAgg\UseCases\" />
     <Folder Include="InventoryContext\GoodReceiptAgg\Workers\" />
-    <Folder Include="InventoryContext\ReturJualAgg\" />
     <Folder Include="PurchaseContext\KlaimAgg\" />
   </ItemGroup>
   <ItemGroup>

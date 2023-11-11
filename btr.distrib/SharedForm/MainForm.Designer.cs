@@ -80,6 +80,7 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.InvoiceInfoButton = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -258,8 +259,10 @@
             // 
             this.PurchaseOrderRibbonPanel.Items.Add(this.PoButton);
             this.PurchaseOrderRibbonPanel.Items.Add(this.InvoiceButton);
+            this.PurchaseOrderRibbonPanel.Items.Add(this.InvoiceInfoButton);
             this.PurchaseOrderRibbonPanel.Name = "PurchaseOrderRibbonPanel";
             this.PurchaseOrderRibbonPanel.Text = "Transaction";
+            this.PurchaseOrderRibbonPanel.Click += new System.EventHandler(this.PurchaseOrderRibbonPanel_Click);
             // 
             // PoButton
             // 
@@ -520,6 +523,14 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
+            // InvoiceInfoButton
+            // 
+            this.InvoiceInfoButton.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.InvoiceInfoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.InvoiceInfoButton.Name = "InvoiceInfoButton";
+            this.InvoiceInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("InvoiceInfoButton.SmallImage")));
+            this.InvoiceInfoButton.Text = "Invoice Info";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -596,5 +607,6 @@
         private System.Windows.Forms.RibbonButton FakturBrgInfoButton;
         private System.Windows.Forms.RibbonSeparator ribbonSeparator3;
         private System.Windows.Forms.RibbonButton ReturJualButton;
+        private System.Windows.Forms.RibbonButton InvoiceInfoButton;
     }
 }

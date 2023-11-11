@@ -401,6 +401,12 @@
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceForm.Designer.cs">
       <DependentUpon>InvoiceForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PurchaseContext\InvoiceInfo\InvoiceInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PurchaseContext\InvoiceInfo\InvoiceInfoForm.Designer.cs">
+      <DependentUpon>InvoiceInfoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="PurchaseContext\PurchaseOrderAgg\PurchaseOrderForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -546,6 +552,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PurchaseContext\InvoiceAgg\InvoiceForm.resx">
       <DependentUpon>InvoiceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PurchaseContext\InvoiceInfo\InvoiceInfoForm.resx">
+      <DependentUpon>InvoiceInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReportingContext\CustomerChartRpt.resx">
       <DependentUpon>CustomerChartRpt.cs</DependentUpon>

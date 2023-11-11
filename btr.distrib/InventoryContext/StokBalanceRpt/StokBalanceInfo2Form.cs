@@ -77,7 +77,7 @@ namespace btr.distrib.InventoryContext.StokBalanceRpt
         {
             Proses();
         }
-
+        
         private void Proses()
         {
             var listFaktur = _stokBalanceReportDal.ListData()?.ToList() ?? new List<StokBalanceView>();
@@ -104,6 +104,7 @@ namespace btr.distrib.InventoryContext.StokBalanceRpt
                 }).ToList();
             InfoGrid.DataSource = _dataSource;
         }
+
         private void ExcelButton_Click(object sender, EventArgs e)
         {
             string filePath;
@@ -118,6 +119,9 @@ namespace btr.distrib.InventoryContext.StokBalanceRpt
                     return;
                 filePath = saveFileDialog.FileName;
             }
+
+            
+
 
             using (IXLWorkbook wb = new XLWorkbook())
             {
