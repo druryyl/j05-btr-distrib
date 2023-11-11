@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -72,34 +73,35 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
         }
 
         public IEnumerable<ReturJualItemModel> ListData(IReturJualKey filter)
-        {   
+        {
+            throw new NotImplementedException();
             //  create query select for ReturJualItemModel from table BTR_ReturJualItem
-            const string sql = @"
-                SELECT 
-                    ReturJualId, 
-                    NoUrut, 
-                    BrgId, 
-                    QtyInputStr, 
-                    QtyBesar, 
-                    SatBesar, 
-                    HrgSatBesar, 
-                    Conversion, 
-                    QtyKecil, 
-                    SatKecil, 
-                    HrgSatKecil, 
-                    Qty, 
-                    HrgSat, 
-                    SubTotal, 
-                    DiscRp, 
-                    PpnRp, 
-                    Total
-                FROM 
-                    BTR_ReturJualItem
-                WHERE 
-                    ReturJualId = @ReturJualId
-                ORDER BY 
-                    NoUrut ASC";
-            return null;
+            //    const string sql = @"
+            //        SELECT 
+            //            ReturJualId, 
+            //            NoUrut, 
+            //            BrgId, 
+            //            QtyInputStr, 
+            //            QtyBesar, 
+            //            SatBesar, 
+            //            HrgSatBesar, 
+            //            Conversion, 
+            //            QtyKecil, 
+            //            SatKecil, 
+            //            HrgSatKecil, 
+            //            Qty, 
+            //            HrgSat, 
+            //            SubTotal, 
+            //            DiscRp, 
+            //            PpnRp, 
+            //            Total
+            //        FROM 
+            //            BTR_ReturJualItem
+            //        WHERE 
+            //            ReturJualId = @ReturJualId
+            //        ORDER BY 
+            //            NoUrut ASC";
+            //    return null;
         }
     }
 }
