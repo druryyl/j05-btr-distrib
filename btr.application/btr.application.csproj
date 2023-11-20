@@ -168,6 +168,7 @@
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceValidator.cs" />
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceWriter.cs" />
     <Compile Include="PurchaseContext\InvoiceAgg\SaveInvoiceWorker.cs" />
+    <Compile Include="PurchaseContext\InvoiceInfoRpt\IInvoiceBrgInfoDal.cs" />
     <Compile Include="PurchaseContext\InvoiceInfoRpt\IInvoiceInfoDal.cs" />
     <Compile Include="PurchaseContext\PurchaseOrderAgg\Contracts\IPurchaseOrderDal.cs" />
     <Compile Include="PurchaseContext\PurchaseOrderAgg\Contracts\IPurchaseOrderItemDal.cs" />

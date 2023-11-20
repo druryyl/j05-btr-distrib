@@ -1,39 +1,37 @@
 ﻿using btr.nuna.Domain;
+using Syncfusion.Drawing;
 using Syncfusion.Grouping;
-using Syncfusion.Windows.Forms.Grid.Grouping;
 using Syncfusion.Windows.Forms.Grid;
+using Syncfusion.Windows.Forms.Grid.Grouping;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Syncfusion.Drawing;
-using btr.application.SalesContext.FakturInfoAgg;
-using btr.domain.SalesContext.FakturInfoAgg;
 using ClosedXML.Excel;
+using btr.application.PurchaseContext.PuchaseInfoRpt;
 
-namespace btr.distrib.SalesContext.FakturInfoRpt
+namespace btr.distrib.SalesContext.InvoiceInfoRpt
 {
-    public partial class FakturBrgInfoForm : Form
+    public partial class InvoiceBrgInfoForm : Form
     {
-        private readonly IFakturBrgInfoDal _fakturBrgInfoDal;
-        private List<FakturBrgInfoDto> _dataSource;
+        private readonly IInvoiceBrgInfoDal _invoiceBrgInfoDal;
+        private List<InvoiceBrgInfoDto> _dataSource;
 
-        public FakturBrgInfoForm(IFakturBrgInfoDal fakturBrgInfoDal)
+        public InvoiceBrgInfoForm(IInvoiceBrgInfoDal fakturInfoDal)
         {
             InitializeComponent();
-            _fakturBrgInfoDal = fakturBrgInfoDal;
+            _invoiceBrgInfoDal = fakturInfoDal;
             InfoGrid.QueryCellStyleInfo += InfoGrid_QueryCellStyleInfo;
             ProsesButton.Click += ProsesButton_Click;
             ExcelButton.Click += ExcelButton_Click;
-
             InitGrid();
-            _dataSource = new List<FakturBrgInfoDto>();
+            _dataSource = new List<InvoiceBrgInfoDto>();
         }
 
         private void ExcelButton_Click(object sender, EventArgs e)
         {
+            //  export _dataSource to excel
             string filePath;
             using (var saveFileDialog = new SaveFileDialog())
             {
@@ -41,7 +39,7 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
                 saveFileDialog.Title = @"Save Excel File";
                 saveFileDialog.DefaultExt = "xlsx";
                 saveFileDialog.AddExtension = true;
-                saveFileDialog.FileName = $"faktur-brg-info-{DateTime.Now:yyyy-MM-dd-HHmm}";
+                saveFileDialog.FileName = $"invoice-brg-info-{DateTime.Now:yyyy-MM-dd-HHmm}";
                 if (saveFileDialog.ShowDialog() != DialogResult.OK)
                     return;
                 filePath = saveFileDialog.FileName;
@@ -49,7 +47,7 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
 
             using (IXLWorkbook wb = new XLWorkbook())
             {
-                wb.AddWorksheet("Faktu-Brg-Info")
+                wb.AddWorksheet("invoice-brg-info")
                     .Cell($"B1")
                     .InsertTable(_dataSource, false);
                 var ws = wb.Worksheets.First();
@@ -61,7 +59,7 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
                     .Font.SetFontName("Consolas")
                     .Font.SetFontSize(9);
 
-                //  set format number for column K, L, M, N to N0
+                //  set format number for columnto N0
                 ws.Range(ws.Cell($"J{2}"), ws.Cell($"O{_dataSource.Count + 1}"))
                     .Style.NumberFormat.Format = "#,##";
                 ws.Range(ws.Cell($"A{2}"), ws.Cell($"A{_dataSource.Count + 1}"))
@@ -87,7 +85,7 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
 
         private void InitGrid()
         {
-            InfoGrid.DataSource = new List<FakturBrgInfoDto>();
+            InfoGrid.DataSource = new List<InvoiceBrgInfoDto>();
 
             InfoGrid.TableDescriptor.AllowEdit = false;
             InfoGrid.TableDescriptor.AllowNew = false;
@@ -100,39 +98,41 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
                 column.AllowFilter = true;
             }
 
-            var sumColSubTotal = new GridSummaryColumnDescriptor("SubTotal", SummaryType.DoubleAggregate, "SubTotal", "{Sum}");
-            sumColSubTotal.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
-            sumColSubTotal.Appearance.AnySummaryCell.Format = "N0";
-            sumColSubTotal.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
+            var sumColTotal = new GridSummaryColumnDescriptor("SubTotal", SummaryType.DoubleAggregate, "SubTotal", "{Sum}");
+            sumColTotal.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
+            sumColTotal.Appearance.AnySummaryCell.Format = "N0";
+            sumColTotal.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
 
-            var sumColDiskon = new GridSummaryColumnDescriptor("DiscRp", SummaryType.DoubleAggregate, "DiscRp", "{Sum}");
+            var sumColDiskon = new GridSummaryColumnDescriptor("Disc", SummaryType.DoubleAggregate, "Disc", "{Sum}");
             sumColDiskon.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
             sumColDiskon.Appearance.AnySummaryCell.Format = "N0";
             sumColDiskon.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
 
 
-            var sumColTax = new GridSummaryColumnDescriptor("PpnRp", SummaryType.DoubleAggregate, "PpnRp", "{Sum}");
+            var sumColTax = new GridSummaryColumnDescriptor("Tax", SummaryType.DoubleAggregate, "Tax", "{Sum}");
             sumColTax.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
             sumColTax.Appearance.AnySummaryCell.Format = "N0";
             sumColTax.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
 
-            var sumColTotal = new GridSummaryColumnDescriptor("Total", SummaryType.DoubleAggregate, "Total", "{Sum}");
-            sumColTotal.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
-            sumColTotal.Appearance.AnySummaryCell.Format = "N0";
-            sumColTotal.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
+            var sumColGrandTot = new GridSummaryColumnDescriptor("Total", SummaryType.DoubleAggregate, "Total", "{Sum}");
+            sumColGrandTot.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
+            sumColGrandTot.Appearance.AnySummaryCell.Format = "N0";
+            sumColGrandTot.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
 
             var sumRowDescriptor = new GridSummaryRowDescriptor();
-            sumRowDescriptor.SummaryColumns.AddRange(new GridSummaryColumnDescriptor[] { sumColSubTotal, sumColDiskon, sumColTax, sumColTotal });
+            sumRowDescriptor.SummaryColumns.AddRange(new GridSummaryColumnDescriptor[] { sumColTotal, sumColDiskon, sumColTax, sumColGrandTot });
             InfoGrid.TableDescriptor.SummaryRows.Add(sumRowDescriptor);
 
 
-            InfoGrid.TableDescriptor.Columns["QtyJual"].Appearance.AnyRecordFieldCell.Format = "N0";
-            InfoGrid.TableDescriptor.Columns["HrgSat"].Appearance.AnyRecordFieldCell.Format = "N0";
+            InfoGrid.TableDescriptor.Columns["Hpp"].Appearance.AnyRecordFieldCell.Format = "N0";
+            InfoGrid.TableDescriptor.Columns["Qty"].Appearance.AnyRecordFieldCell.Format = "N0";
+
+
             InfoGrid.TableDescriptor.Columns["SubTotal"].Appearance.AnyRecordFieldCell.Format = "N0";
-            InfoGrid.TableDescriptor.Columns["DiscRp"].Appearance.AnyRecordFieldCell.Format = "N0";
-            InfoGrid.TableDescriptor.Columns["PpnRp"].Appearance.AnyRecordFieldCell.Format = "N0";
+            InfoGrid.TableDescriptor.Columns["Disc"].Appearance.AnyRecordFieldCell.Format = "N0";
+            InfoGrid.TableDescriptor.Columns["Tax"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["Total"].Appearance.AnyRecordFieldCell.Format = "N0";
-            InfoGrid.TableDescriptor.Columns["FakturDate"].Appearance.AnyRecordFieldCell.Format = "dd-MMM-yyyy";
+            InfoGrid.TableDescriptor.Columns["Tgl"].Appearance.AnyRecordFieldCell.Format = "dd-MMM-yyyy";
             InfoGrid.Refresh();
             Proses();
         }
@@ -154,26 +154,22 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
                 MessageBox.Show("Periode informasi maximal 3 bulan");
                 return;
             }
-            var listFaktur = _fakturBrgInfoDal.ListData(periode)?.ToList() ?? new List<FakturBrgInfoDto>();
-            listFaktur = listFaktur.OrderBy(x => x.FakturCode).ToList();
-            _dataSource = Filter(listFaktur, CustomerText.Text);
-            _dataSource.ForEach(x => x.FakturDate= x.FakturDate.Date);
-
+            var listInvoice = _invoiceBrgInfoDal.ListData(periode)?.ToList() ?? new List<InvoiceBrgInfoDto>();
+            _dataSource = Filter(listInvoice, CustomerText.Text);
+            _dataSource.ForEach(x => x.Tgl = x.Tgl.Date);
             InfoGrid.DataSource = _dataSource;
         }
 
-        private List<FakturBrgInfoDto> Filter(List<FakturBrgInfoDto> source, string keyword)
+        private List<InvoiceBrgInfoDto> Filter(List<InvoiceBrgInfoDto> source, string keyword)
         {
             if (keyword.Trim().Length == 0)
                 return source;
-            var listFilteredCustomer = source.Where(x => x.CustomerName.ToLower().ContainMultiWord(keyword)).ToList();
-            var listFilteredAddress = source.Where(x => x.BrgName.ToLower().ContainMultiWord(keyword)).ToList();
-            var listFilteredNoFaktur = source.Where(x => x.FakturCode.ToLower() == keyword.ToLower()).ToList();
+            var listFilteredCustomer = source.Where(x => x.SupplierName.ToLower().ContainMultiWord(keyword)).ToList();
+            var listFilteredNoInvoice = source.Where(x => x.InvoiceCode.ToLower() == keyword.ToLower()).ToList();
 
 
             var result = listFilteredCustomer
-                .Union(listFilteredNoFaktur)
-                .Union(listFilteredAddress);
+                .Union(listFilteredNoInvoice);
             return result.ToList();
         }
     }

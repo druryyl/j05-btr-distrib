@@ -2,7 +2,7 @@
 
 namespace btr.distrib.SalesContext.InvoiceInfoRpt
 {
-    partial class InvoiceInfoForm : Form
+    partial class InvoiceBrgInfoForm : Form
     {
         /// <summary>
         /// Required designer variable.
@@ -43,7 +43,7 @@ namespace btr.distrib.SalesContext.InvoiceInfoRpt
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.PowderBlue;
             this.panel1.Controls.Add(this.ExcelButton);
@@ -54,7 +54,7 @@ namespace btr.distrib.SalesContext.InvoiceInfoRpt
             this.panel1.Location = new System.Drawing.Point(7, 7);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(787, 34);
-            this.panel1.TabIndex = 2;
+            this.panel1.TabIndex = 4;
             // 
             // ExcelButton
             // 
@@ -78,7 +78,7 @@ namespace btr.distrib.SalesContext.InvoiceInfoRpt
             // 
             this.CustomerText.Location = new System.Drawing.Point(330, 6);
             this.CustomerText.Name = "CustomerText";
-            this.CustomerText.Size = new System.Drawing.Size(156, 20);
+            this.CustomerText.Size = new System.Drawing.Size(156, 22);
             this.CustomerText.TabIndex = 3;
             // 
             // Tgl2Date
@@ -87,7 +87,7 @@ namespace btr.distrib.SalesContext.InvoiceInfoRpt
             this.Tgl2Date.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.Tgl2Date.Location = new System.Drawing.Point(168, 6);
             this.Tgl2Date.Name = "Tgl2Date";
-            this.Tgl2Date.Size = new System.Drawing.Size(156, 20);
+            this.Tgl2Date.Size = new System.Drawing.Size(156, 22);
             this.Tgl2Date.TabIndex = 1;
             // 
             // Tgl1Date
@@ -96,14 +96,14 @@ namespace btr.distrib.SalesContext.InvoiceInfoRpt
             this.Tgl1Date.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.Tgl1Date.Location = new System.Drawing.Point(6, 6);
             this.Tgl1Date.Name = "Tgl1Date";
-            this.Tgl1Date.Size = new System.Drawing.Size(156, 20);
+            this.Tgl1Date.Size = new System.Drawing.Size(156, 22);
             this.Tgl1Date.TabIndex = 0;
             // 
             // InfoGrid
             // 
             this.InfoGrid.AlphaBlendSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.InfoGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.InfoGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.InfoGrid.BackColor = System.Drawing.SystemColors.Window;
             this.InfoGrid.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -111,12 +111,12 @@ namespace btr.distrib.SalesContext.InvoiceInfoRpt
             this.InfoGrid.Name = "InfoGrid";
             this.InfoGrid.ShowCurrentCellBorderBehavior = Syncfusion.Windows.Forms.Grid.GridShowCurrentCellBorder.GrayWhenLostFocus;
             this.InfoGrid.Size = new System.Drawing.Size(787, 397);
-            this.InfoGrid.TabIndex = 3;
+            this.InfoGrid.TabIndex = 5;
             this.InfoGrid.Text = "gridGroupingControl1";
             this.InfoGrid.UseRightToLeftCompatibleTextBox = true;
             this.InfoGrid.VersionInfo = "22.1460.34";
             // 
-            // InvoiceInfoForm
+            // InvoiceBrgInfoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -124,8 +124,9 @@ namespace btr.distrib.SalesContext.InvoiceInfoRpt
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.InfoGrid);
-            this.Name = "InvoiceInfoForm";
-            this.Text = "Invoice Info";
+            this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Name = "InvoiceBrgInfoForm";
+            this.Text = "InvoiceBrgInfoForm";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InfoGrid)).EndInit();

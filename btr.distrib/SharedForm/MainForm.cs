@@ -318,5 +318,15 @@ namespace btr.distrib.SharedForm
             form.MdiParent = this;
             form.Show();
         }
+
+        private void InvoiceBrgInfoButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<InvoiceBrgInfoForm>())
+                return;
+            var form = _servicesProvider.GetRequiredService<InvoiceBrgInfoForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
     }
 }
