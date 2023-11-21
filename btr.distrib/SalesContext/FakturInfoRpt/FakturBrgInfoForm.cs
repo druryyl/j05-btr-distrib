@@ -1,5 +1,4 @@
-﻿using btr.domain.SalesContext.InfoFakturAgg;
-using btr.nuna.Domain;
+﻿using btr.nuna.Domain;
 using Syncfusion.Grouping;
 using Syncfusion.Windows.Forms.Grid.Grouping;
 using Syncfusion.Windows.Forms.Grid;
@@ -9,24 +8,73 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using btr.application.SalesContext.FakturBrgInfo;
 using Syncfusion.Drawing;
-using btr.application.SalesContext.FakturInfoAgg;
-using btr.domain.SalesContext.FakturInfoAgg;
+using ClosedXML.Excel;
 
 namespace btr.distrib.SalesContext.FakturInfoRpt
 {
     public partial class FakturBrgInfoForm : Form
     {
-        private readonly IFakturBrgInfoDal _fakturBrgInfoDal;
+        private readonly IFakturBrgViewDal _fakturBrgViewDal;
+        private List<FakturBrgView> _dataSource;
 
-        public FakturBrgInfoForm(IFakturBrgInfoDal fakturBrgInfoDal)
+        public FakturBrgInfoForm(IFakturBrgViewDal fakturBrgViewDal)
         {
             InitializeComponent();
-            _fakturBrgInfoDal = fakturBrgInfoDal;
+            _fakturBrgViewDal = fakturBrgViewDal;
             InfoGrid.QueryCellStyleInfo += InfoGrid_QueryCellStyleInfo;
             ProsesButton.Click += ProsesButton_Click;
+            ExcelButton.Click += ExcelButton_Click;
+
             InitGrid();
+            _dataSource = new List<FakturBrgView>();
         }
+
+        private void ExcelButton_Click(object sender, EventArgs e)
+        {
+            string filePath;
+            using (var saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = @"Excel Files|*.xlsx";
+                saveFileDialog.Title = @"Save Excel File";
+                saveFileDialog.DefaultExt = "xlsx";
+                saveFileDialog.AddExtension = true;
+                saveFileDialog.FileName = $"faktur-brg-info-{DateTime.Now:yyyy-MM-dd-HHmm}";
+                if (saveFileDialog.ShowDialog() != DialogResult.OK)
+                    return;
+                filePath = saveFileDialog.FileName;
+            }
+
+            using (IXLWorkbook wb = new XLWorkbook())
+            {
+                wb.AddWorksheet("Faktu-Brg-Info")
+                    .Cell($"B1")
+                    .InsertTable(_dataSource, false);
+                var ws = wb.Worksheets.First();
+                //  set border and font
+                ws.Range(ws.Cell($"A{1}"), ws.Cell($"O{_dataSource.Count + 1}")).Style
+                    .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
+                    .Border.SetInsideBorder(XLBorderStyleValues.Hair);
+                ws.Range(ws.Cell($"A{1}"), ws.Cell($"O{_dataSource.Count + 1}")).Style
+                    .Font.SetFontName("Consolas")
+                    .Font.SetFontSize(9);
+
+                //  set format number for column K, L, M, N to N0
+                ws.Range(ws.Cell($"J{2}"), ws.Cell($"O{_dataSource.Count + 1}"))
+                    .Style.NumberFormat.Format = "#,##";
+                ws.Range(ws.Cell($"A{2}"), ws.Cell($"A{_dataSource.Count + 1}"))
+                    .Style.NumberFormat.Format = "#,##";
+                //  add rownumbering
+                ws.Cell($"A1").Value = "No";
+                for (var i = 0; i < _dataSource.Count; i++)
+                    ws.Cell($"A{i + 2}").Value = i + 1;
+                ws.Columns().AdjustToContents();
+                wb.SaveAs(filePath);
+            }
+            System.Diagnostics.Process.Start(filePath);
+        }
+
         private void InfoGrid_QueryCellStyleInfo(object sender, GridTableCellStyleInfoEventArgs e)
         {
             if (e.TableCellIdentity.TableCellType == GridTableCellType.GroupCaptionCell)
@@ -38,7 +86,7 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
 
         private void InitGrid()
         {
-            InfoGrid.DataSource = new List<FakturBrgInfoDto>();
+            InfoGrid.DataSource = new List<FakturBrgView>();
 
             InfoGrid.TableDescriptor.AllowEdit = false;
             InfoGrid.TableDescriptor.AllowNew = false;
@@ -105,13 +153,18 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
                 MessageBox.Show("Periode informasi maximal 3 bulan");
                 return;
             }
-            var listFaktur = _fakturBrgInfoDal.ListData(periode)?.ToList() ?? new List<FakturBrgInfoDto>();
-            var result = Filter(listFaktur, CustomerText.Text);
-            result.ForEach(x => x.FakturDate= x.FakturDate.Date);
-            InfoGrid.DataSource = result;
+            var listFaktur = _fakturBrgViewDal.ListData(periode)?.ToList() ?? new List<FakturBrgView>();
+            listFaktur = listFaktur
+                .OrderBy(x => x.FakturCode)
+                .OrderBy(x => x.FakturDate.Date)
+                .ToList();
+            _dataSource = Filter(listFaktur, CustomerText.Text);
+            _dataSource.ForEach(x => x.FakturDate= x.FakturDate.Date);
+
+            InfoGrid.DataSource = _dataSource;
         }
 
-        private List<FakturBrgInfoDto> Filter(List<FakturBrgInfoDto> source, string keyword)
+        private List<FakturBrgView> Filter(List<FakturBrgView> source, string keyword)
         {
             if (keyword.Trim().Length == 0)
                 return source;

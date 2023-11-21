@@ -281,6 +281,10 @@ namespace btr.distrib.SalesContext.FakturAgg
                 if (SalesPersonNameTextBox.Text.Length > 0)
                     CustomerIdText.Focus();
             }
+            if (e.KeyCode == Keys.Enter)
+            {
+                SelectNextControl((Control)sender, true, true, true, true);
+            }
         }
         #endregion
 

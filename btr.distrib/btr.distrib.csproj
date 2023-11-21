@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>66</ApplicationRevision>
+    <ApplicationRevision>73</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -154,9 +154,15 @@
     <Reference Include="SixLabors.Fonts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d998eea7b14cab13, processorArchitecture=MSIL">
       <HintPath>..\packages\SixLabors.Fonts.1.0.0\lib\netstandard2.0\SixLabors.Fonts.dll</HintPath>
     </Reference>
+    <Reference Include="Syncfusion.Core.WinForms, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.DataSource.WinForms, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Diagram.Base, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Diagram.Windows, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.Grid.Grouping.Windows, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.Grid.Windows, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.GridCommon.WinForms, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.Grouping.Base, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.SfListView.WinForms, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.Shared.Base, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.Shared.Windows, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="System" />
@@ -203,6 +209,7 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
       <Private>True</Private>
@@ -276,6 +283,12 @@
     <Compile Include="FinanceContext\LunasPiutangAgg\ListLunasPiutang.Designer.cs">
       <DependentUpon>ListLunasPiutang.cs</DependentUpon>
     </Compile>
+    <Compile Include="FinanceContext\LunasPiutangAgg\LunasPiutang2Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FinanceContext\LunasPiutangAgg\LunasPiutang2Form.Designer.cs">
+      <DependentUpon>LunasPiutang2Form.cs</DependentUpon>
+    </Compile>
     <Compile Include="FinanceContext\LunasPiutangAgg\LunasPiutangForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -320,6 +333,26 @@
     </Compile>
     <Compile Include="InventoryContext\MutasiAgg\MutasiForm.Designer.cs">
       <DependentUpon>MutasiForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryContext\OmzetSupplierRpt\OmzetSupplierBulananDto.cs" />
+    <Compile Include="InventoryContext\OmzetSupplierRpt\OmzetSupplierHarianDto.cs" />
+    <Compile Include="InventoryContext\OmzetSupplierRpt\OmzetSupplierInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryContext\OmzetSupplierRpt\OmzetSupplierInfoForm.Designer.cs">
+      <DependentUpon>OmzetSupplierInfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryContext\ReturJualAgg\ReturJual2Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryContext\ReturJualAgg\ReturJual2Form.Designer.cs">
+      <DependentUpon>ReturJual2Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryContext\ReturJualAgg\ReturJualForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryContext\ReturJualAgg\ReturJualForm.Designer.cs">
+      <DependentUpon>ReturJualForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InventoryContext\StokBalanceRpt\StokBalanceInfo2Form.cs">
       <SubType>Form</SubType>
@@ -375,6 +408,18 @@
     </Compile>
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceForm.Designer.cs">
       <DependentUpon>InvoiceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PurchaseContext\InvoiceInfo\InvoiceBrgInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PurchaseContext\InvoiceInfo\InvoiceBrgInfoForm.Designer.cs">
+      <DependentUpon>InvoiceBrgInfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PurchaseContext\InvoiceInfo\InvoiceInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PurchaseContext\InvoiceInfo\InvoiceInfoForm.Designer.cs">
+      <DependentUpon>InvoiceInfoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PurchaseContext\PurchaseOrderAgg\PurchaseOrderForm.cs">
       <SubType>Form</SubType>
@@ -484,6 +529,7 @@
     </Compile>
     <Compile Include="WinformAssemblyAnchor.cs" />
     <Content Include="icons8_truck.ico" />
+    <None Include="Resources\icons8_return_purchase_32.png" />
     <None Include="Resources\icons8_page_16.png" />
     <None Include="Resources\icons8_microsoft_excel_32.png" />
     <None Include="Resources\icons8_python_32.png" />
@@ -493,6 +539,9 @@
     <None Include="Resources\icons8_stack_overflow_16.png" />
     <EmbeddedResource Include="FinanceContext\LunasPiutangAgg\ListLunasPiutang.resx">
       <DependentUpon>ListLunasPiutang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FinanceContext\LunasPiutangAgg\LunasPiutang2Form.resx">
+      <DependentUpon>LunasPiutang2Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FinanceContext\LunasPiutangAgg\LunasPiutangForm.resx">
       <DependentUpon>LunasPiutangForm.cs</DependentUpon>
@@ -506,11 +555,26 @@
     <EmbeddedResource Include="InventoryContext\MutasiAgg\MutasiForm.resx">
       <DependentUpon>MutasiForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="InventoryContext\OmzetSupplierRpt\OmzetSupplierInfoForm.resx">
+      <DependentUpon>OmzetSupplierInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InventoryContext\ReturJualAgg\ReturJual2Form.resx">
+      <DependentUpon>ReturJual2Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InventoryContext\ReturJualAgg\ReturJualForm.resx">
+      <DependentUpon>ReturJualForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\StokBalanceRpt\StokBalanceInfo2Form.resx">
       <DependentUpon>StokBalanceInfo2Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PurchaseContext\InvoiceAgg\InvoiceForm.resx">
       <DependentUpon>InvoiceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PurchaseContext\InvoiceInfo\InvoiceBrgInfoForm.resx">
+      <DependentUpon>InvoiceBrgInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PurchaseContext\InvoiceInfo\InvoiceInfoForm.resx">
+      <DependentUpon>InvoiceInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReportingContext\CustomerChartRpt.resx">
       <DependentUpon>CustomerChartRpt.cs</DependentUpon>
@@ -561,6 +625,7 @@
     <None Include="Resources\icons8_broadcasting_48.png" />
     <None Include="Resources\icons8_documents_32.png" />
     <None Include="Resources\icons8_general_ledger_32.png" />
+    <None Include="Resources\icons8_harvester_32.png" />
     <Content Include="Resources\icons8_microscope.ico" />
     <Content Include="Resources\icons8_microscope_32.png" />
     <EmbeddedResource Include="SharedForm\AboutForm.resx">

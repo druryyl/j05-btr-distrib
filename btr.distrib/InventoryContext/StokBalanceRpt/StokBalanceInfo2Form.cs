@@ -1,29 +1,30 @@
-﻿using btr.application.InventoryContext.StokBalanceRpt;
-using btr.application.SalesContext.FakturInfoAgg;
-using btr.domain.InventoryContext.StokBalanceRpt;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
+using btr.application.InventoryContext.StokBalanceInfo;
 using btr.nuna.Domain;
+using ClosedXML.Excel;
+using Syncfusion.DataSource;
 using Syncfusion.Drawing;
 using Syncfusion.Grouping;
 using Syncfusion.Windows.Forms.Grid;
 using Syncfusion.Windows.Forms.Grid.Grouping;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
 
-namespace btr.distrib.SalesContext.StokBalanceInfo2Agg
+namespace btr.distrib.InventoryContext.StokBalanceRpt
 {
     public partial class StokBalanceInfo2Form : Form
     {
-        private readonly IStokBalanceReportDal _stokBalanceReportDal;
+        private readonly IStokBalanceViewDal _stokBalanceViewDal;
+        private List<StokBalanceInfoDto> _dataSource;
 
-        public StokBalanceInfo2Form(IStokBalanceReportDal stokBalanceReportDal)
+        public StokBalanceInfo2Form(IStokBalanceViewDal stokBalanceViewDal)
         {
             InitializeComponent();
-            _stokBalanceReportDal = stokBalanceReportDal;
+            _stokBalanceViewDal = stokBalanceViewDal;
             InfoGrid.QueryCellStyleInfo += InfoGrid_QueryCellStyleInfo;
+            ExcelButton.Click += ExcelButton_Click;
             InitGrid();
         }
 
@@ -74,15 +75,15 @@ namespace btr.distrib.SalesContext.StokBalanceInfo2Agg
         {
             Proses();
         }
-
+        
         private void Proses()
         {
-            var listFaktur = _stokBalanceReportDal.ListData()?.ToList() ?? new List<StokBalanceView>();
+            var listFaktur = _stokBalanceViewDal.ListData()?.ToList() ?? new List<StokBalanceView>();
             listFaktur.ForEach(x => x.NilaiSediaan = x.Hpp * x.Qty);
             var filtered = Filter(listFaktur, SearchText.Text);
-            var projection =
+            _dataSource = (
                 from c in filtered
-                select new
+                select new StokBalanceInfoDto
                 {
                     Supplier = c.SupplierName,
                     Kategori = c.KategoriName,
@@ -98,8 +99,55 @@ namespace btr.distrib.SalesContext.StokBalanceInfo2Agg
                     InPcs = c.Qty,
                     Hpp = c.Hpp,
                     NilaiSediaan = c.NilaiSediaan,
-                };
-            InfoGrid.DataSource = projection.ToList();
+                }).ToList();
+            InfoGrid.DataSource = _dataSource;
+        }
+
+        private void ExcelButton_Click(object sender, EventArgs e)
+        {
+            string filePath;
+            using (var saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = @"Excel Files|*.xlsx";
+                saveFileDialog.Title = @"Save Excel File";
+                saveFileDialog.DefaultExt = "xlsx";
+                saveFileDialog.AddExtension = true;
+                saveFileDialog.FileName = $"stok-balance-info-{DateTime.Now:yyyy-MM-dd-HHmm}";
+                if (saveFileDialog.ShowDialog() != DialogResult.OK)
+                    return;
+                filePath = saveFileDialog.FileName;
+            }
+
+            
+
+
+            using (IXLWorkbook wb = new XLWorkbook())
+            {
+                wb.AddWorksheet("stok-balance-info")
+                .Cell($"B1")
+                    .InsertTable(_dataSource, false);
+                var ws = wb.Worksheets.First();
+                //  set border and font
+                ws.Range(ws.Cell($"A{1}"), ws.Cell($"O{_dataSource.Count + 1}")).Style
+                    .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
+                    .Border.SetInsideBorder(XLBorderStyleValues.Hair);
+                ws.Range(ws.Cell($"A{1}"), ws.Cell($"O{_dataSource.Count + 1}")).Style
+                    .Font.SetFontName("Consolas")
+                    .Font.SetFontSize(9);
+
+                //  set format for  column  number 
+                ws.Range(ws.Cell($"H{2}"), ws.Cell($"O{_dataSource.Count + 1}"))
+                    .Style.NumberFormat.Format = "#,##";
+                ws.Range(ws.Cell($"A{2}"), ws.Cell($"A{_dataSource.Count + 1}"))
+                    .Style.NumberFormat.Format = "#,##";
+                //  add rownumbering
+                ws.Cell($"A1").Value = "No";
+                for (var i = 0; i < _dataSource.Count; i++)
+                    ws.Cell($"A{i + 2}").Value = i + 1;
+                ws.Columns().AdjustToContents();
+                wb.SaveAs(filePath);
+            }
+            System.Diagnostics.Process.Start(filePath);
         }
 
         private List<StokBalanceView> Filter(List<StokBalanceView> source, string keyword)
@@ -117,5 +165,24 @@ namespace btr.distrib.SalesContext.StokBalanceInfo2Agg
                 .Union(listFilteredSupplier);
             return result.ToList();
         }
+    }
+
+    // create class to hold data for projection in method Proses()
+    public class StokBalanceInfoDto
+    {
+        public string Supplier { get; set; }
+        public string Kategori { get; set; }
+        public string BrgId { get; set; }
+        public string BrgCode { get; set; }
+        public string BrgName { get; set; }
+        public string Warehouse{ get; set; }
+        public int QtyBesar { get; set; }
+        public string SatBesar { get; set; }
+        public int Conversion { get; set; }
+        public int QtyKecil { get; set; }
+        public string SatKecil { get; set; }
+        public int InPcs { get; set; }
+        public decimal Hpp { get; set; }
+        public decimal NilaiSediaan { get; set; }
     }
 }

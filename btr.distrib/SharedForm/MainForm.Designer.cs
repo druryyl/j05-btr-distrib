@@ -34,9 +34,12 @@
             this.FakturPanel = new System.Windows.Forms.RibbonPanel();
             this.FakturButton = new System.Windows.Forms.RibbonButton();
             this.FakturInfoButton = new System.Windows.Forms.RibbonButton();
+            this.FakturBrgInfoButton = new System.Windows.Forms.RibbonButton();
             this.ribbonSeparator2 = new System.Windows.Forms.RibbonSeparator();
             this.ControlFakturButton = new System.Windows.Forms.RibbonButton();
             this.FakturPajakButton = new System.Windows.Forms.RibbonButton();
+            this.ribbonSeparator3 = new System.Windows.Forms.RibbonSeparator();
+            this.ReturJualButton = new System.Windows.Forms.RibbonButton();
             this.MasterSalesPanel = new System.Windows.Forms.RibbonPanel();
             this.OutletButton = new System.Windows.Forms.RibbonButton();
             this.KategoriButton = new System.Windows.Forms.RibbonButton();
@@ -47,6 +50,8 @@
             this.PurchaseOrderRibbonPanel = new System.Windows.Forms.RibbonPanel();
             this.PoButton = new System.Windows.Forms.RibbonButton();
             this.InvoiceButton = new System.Windows.Forms.RibbonButton();
+            this.InvoiceInfoButton = new System.Windows.Forms.RibbonButton();
+            this.InvoiceBrgInfoButton = new System.Windows.Forms.RibbonButton();
             this.InvoiceRibbonPanel = new System.Windows.Forms.RibbonPanel();
             this.InvoiceReportButton = new System.Windows.Forms.RibbonButton();
             this.MasterPurchaseRibbonPanel = new System.Windows.Forms.RibbonPanel();
@@ -61,6 +66,7 @@
             this.ReportingPanel = new System.Windows.Forms.RibbonPanel();
             this.StokBalanceButton = new System.Windows.Forms.RibbonButton();
             this.BukuStokButton = new System.Windows.Forms.RibbonButton();
+            this.OmzetPerSupplierButton = new System.Windows.Forms.RibbonButton();
             this.InventoryMasterPanel = new System.Windows.Forms.RibbonPanel();
             this.BrgButton = new System.Windows.Forms.RibbonButton();
             this.WarehouseButton = new System.Windows.Forms.RibbonButton();
@@ -77,7 +83,6 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.FakturBrgInfoButton = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -124,6 +129,8 @@
             this.FakturPanel.Items.Add(this.ribbonSeparator2);
             this.FakturPanel.Items.Add(this.ControlFakturButton);
             this.FakturPanel.Items.Add(this.FakturPajakButton);
+            this.FakturPanel.Items.Add(this.ribbonSeparator3);
+            this.FakturPanel.Items.Add(this.ReturJualButton);
             this.FakturPanel.Name = "FakturPanel";
             this.FakturPanel.Text = "";
             // 
@@ -144,6 +151,15 @@
             this.FakturInfoButton.SmallImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
             this.FakturInfoButton.Text = "Faktur Info";
             this.FakturInfoButton.Click += new System.EventHandler(this.FakturInfoButton_Click);
+            // 
+            // FakturBrgInfoButton
+            // 
+            this.FakturBrgInfoButton.Image = global::btr.distrib.Properties.Resources.icons8_documents;
+            this.FakturBrgInfoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents;
+            this.FakturBrgInfoButton.Name = "FakturBrgInfoButton";
+            this.FakturBrgInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FakturBrgInfoButton.SmallImage")));
+            this.FakturBrgInfoButton.Text = "FakturBrg Info";
+            this.FakturBrgInfoButton.Click += new System.EventHandler(this.FakturBrgInfoButton_Click);
             // 
             // ribbonSeparator2
             // 
@@ -167,6 +183,19 @@
             this.FakturPajakButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FakturPajakButton.SmallImage")));
             this.FakturPajakButton.Text = "Faktur-Pajak";
             this.FakturPajakButton.Click += new System.EventHandler(this.FakturPajakButton_Click);
+            // 
+            // ribbonSeparator3
+            // 
+            this.ribbonSeparator3.Name = "ribbonSeparator3";
+            // 
+            // ReturJualButton
+            // 
+            this.ReturJualButton.Image = global::btr.distrib.Properties.Resources.icons8_return_purchase_32;
+            this.ReturJualButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_return_purchase_32;
+            this.ReturJualButton.Name = "ReturJualButton";
+            this.ReturJualButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ReturJualButton.SmallImage")));
+            this.ReturJualButton.Text = "Retur-Jual";
+            this.ReturJualButton.Click += new System.EventHandler(this.ReturJualButton_Click);
             // 
             // MasterSalesPanel
             // 
@@ -232,8 +261,11 @@
             // 
             this.PurchaseOrderRibbonPanel.Items.Add(this.PoButton);
             this.PurchaseOrderRibbonPanel.Items.Add(this.InvoiceButton);
+            this.PurchaseOrderRibbonPanel.Items.Add(this.InvoiceInfoButton);
+            this.PurchaseOrderRibbonPanel.Items.Add(this.InvoiceBrgInfoButton);
             this.PurchaseOrderRibbonPanel.Name = "PurchaseOrderRibbonPanel";
             this.PurchaseOrderRibbonPanel.Text = "Transaction";
+            this.PurchaseOrderRibbonPanel.Click += new System.EventHandler(this.PurchaseOrderRibbonPanel_Click);
             // 
             // PoButton
             // 
@@ -252,6 +284,23 @@
             this.InvoiceButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("InvoiceButton.SmallImage")));
             this.InvoiceButton.Text = "Invoice";
             this.InvoiceButton.Click += new System.EventHandler(this.InvoiceButton_Click);
+            // 
+            // InvoiceInfoButton
+            // 
+            this.InvoiceInfoButton.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.InvoiceInfoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.InvoiceInfoButton.Name = "InvoiceInfoButton";
+            this.InvoiceInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("InvoiceInfoButton.SmallImage")));
+            this.InvoiceInfoButton.Text = "Invoice Info";
+            // 
+            // InvoiceBrgInfoButton
+            // 
+            this.InvoiceBrgInfoButton.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.InvoiceBrgInfoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.InvoiceBrgInfoButton.Name = "InvoiceBrgInfoButton";
+            this.InvoiceBrgInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("InvoiceBrgInfoButton.SmallImage")));
+            this.InvoiceBrgInfoButton.Text = "Invoice-Brg Info";
+            this.InvoiceBrgInfoButton.Click += new System.EventHandler(this.InvoiceBrgInfoButton_Click);
             // 
             // InvoiceRibbonPanel
             // 
@@ -317,6 +366,7 @@
             this.ImportExcelOpnameButton.Name = "ImportExcelOpnameButton";
             this.ImportExcelOpnameButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ImportExcelOpnameButton.SmallImage")));
             this.ImportExcelOpnameButton.Text = "Import-Excel";
+            this.ImportExcelOpnameButton.Visible = false;
             this.ImportExcelOpnameButton.Click += new System.EventHandler(this.ImportExcelOpnameButton_Click);
             // 
             // PrintFakturButton
@@ -350,6 +400,7 @@
             // 
             this.ReportingPanel.Items.Add(this.StokBalanceButton);
             this.ReportingPanel.Items.Add(this.BukuStokButton);
+            this.ReportingPanel.Items.Add(this.OmzetPerSupplierButton);
             this.ReportingPanel.Name = "ReportingPanel";
             this.ReportingPanel.Text = "Reporting";
             // 
@@ -369,6 +420,15 @@
             this.BukuStokButton.Name = "BukuStokButton";
             this.BukuStokButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("BukuStokButton.SmallImage")));
             this.BukuStokButton.Text = "Kartu-Stok";
+            // 
+            // OmzetPerSupplierButton
+            // 
+            this.OmzetPerSupplierButton.Image = global::btr.distrib.Properties.Resources.icons8_harvester_32;
+            this.OmzetPerSupplierButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_harvester_32;
+            this.OmzetPerSupplierButton.Name = "OmzetPerSupplierButton";
+            this.OmzetPerSupplierButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("OmzetPerSupplierButton.SmallImage")));
+            this.OmzetPerSupplierButton.Text = "Omzet Per-Supplier";
+            this.OmzetPerSupplierButton.Click += new System.EventHandler(this.OmzetPerSupplierButton_Click);
             // 
             // InventoryMasterPanel
             // 
@@ -494,15 +554,6 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
-            // FakturBrgInfoButton
-            // 
-            this.FakturBrgInfoButton.Image = global::btr.distrib.Properties.Resources.icons8_documents;
-            this.FakturBrgInfoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents;
-            this.FakturBrgInfoButton.Name = "FakturBrgInfoButton";
-            this.FakturBrgInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FakturBrgInfoButton.SmallImage")));
-            this.FakturBrgInfoButton.Text = "FakturBrg Info";
-            this.FakturBrgInfoButton.Click += new System.EventHandler(this.FakturBrgInfoButton_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -577,5 +628,10 @@
         private System.Windows.Forms.RibbonButton LunasPiutangButton;
         private System.Windows.Forms.RibbonButton ribbonButton2;
         private System.Windows.Forms.RibbonButton FakturBrgInfoButton;
+        private System.Windows.Forms.RibbonSeparator ribbonSeparator3;
+        private System.Windows.Forms.RibbonButton ReturJualButton;
+        private System.Windows.Forms.RibbonButton InvoiceInfoButton;
+        private System.Windows.Forms.RibbonButton InvoiceBrgInfoButton;
+        private System.Windows.Forms.RibbonButton OmzetPerSupplierButton;
     }
 }

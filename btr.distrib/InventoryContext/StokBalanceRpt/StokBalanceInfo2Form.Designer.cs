@@ -1,4 +1,4 @@
-﻿namespace btr.distrib.SalesContext.StokBalanceInfo2Agg
+﻿namespace btr.distrib.InventoryContext.StokBalanceRpt
 {
     partial class StokBalanceInfo2Form
     {
@@ -32,6 +32,7 @@
             this.ProsesButton = new System.Windows.Forms.Button();
             this.SearchText = new System.Windows.Forms.TextBox();
             this.InfoGrid = new Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl();
+            this.ExcelButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InfoGrid)).BeginInit();
             this.SuspendLayout();
@@ -41,6 +42,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.PowderBlue;
+            this.panel1.Controls.Add(this.ExcelButton);
             this.panel1.Controls.Add(this.ProsesButton);
             this.panel1.Controls.Add(this.SearchText);
             this.panel1.Location = new System.Drawing.Point(7, 7);
@@ -81,6 +83,15 @@
             this.InfoGrid.UseRightToLeftCompatibleTextBox = true;
             this.InfoGrid.VersionInfo = "22.1460.34";
             // 
+            // ExcelButton
+            // 
+            this.ExcelButton.Location = new System.Drawing.Point(339, 6);
+            this.ExcelButton.Name = "ExcelButton";
+            this.ExcelButton.Size = new System.Drawing.Size(119, 23);
+            this.ExcelButton.TabIndex = 4;
+            this.ExcelButton.Text = "Excel";
+            this.ExcelButton.UseVisualStyleBackColor = true;
+            // 
             // StokBalanceInfo2Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -105,5 +116,6 @@
         private System.Windows.Forms.Button ProsesButton;
         private System.Windows.Forms.TextBox SearchText;
         private Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl InfoGrid;
+        private System.Windows.Forms.Button ExcelButton;
     }
 }

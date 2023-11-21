@@ -1,29 +1,76 @@
-﻿using btr.application.SalesContext.FakturInfoAgg;
-using btr.domain.SalesContext.InfoFakturAgg;
-using btr.nuna.Domain;
+﻿using btr.nuna.Domain;
 using Syncfusion.Drawing;
 using Syncfusion.Grouping;
 using Syncfusion.Windows.Forms.Grid;
 using Syncfusion.Windows.Forms.Grid.Grouping;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using btr.application.SalesContext.FakturInfo;
+using ClosedXML.Excel;
 
 namespace btr.distrib.SalesContext.FakturInfoRpt
 {
     public partial class FakturInfoForm : Form
     {
-        private readonly IFakturInfoDal _fakturInfoDal;
+        private readonly IFakturViewDal _fakturViewDal;
+        private List<FakturView> _dataSource;
 
-        public FakturInfoForm(IFakturInfoDal fakturInfoDal)
+        public FakturInfoForm(IFakturViewDal fakturViewDal)
         {
             InitializeComponent();
-            _fakturInfoDal = fakturInfoDal;
+            _fakturViewDal = fakturViewDal;
             InfoGrid.QueryCellStyleInfo += InfoGrid_QueryCellStyleInfo;
+            ExcelButton.Click += ExcelButton_Click;
             InitGrid();
+            _dataSource = new List<FakturView>();
+        }
+
+        private void ExcelButton_Click(object sender, EventArgs e)
+        {
+            //  export _dataSource to excel
+            string filePath;
+            using (var saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = @"Excel Files|*.xlsx";
+                saveFileDialog.Title = @"Save Excel File";
+                saveFileDialog.DefaultExt = "xlsx";
+                saveFileDialog.AddExtension = true;
+                saveFileDialog.FileName = $"faktur-info-{DateTime.Now:yyyy-MM-dd-HHmm}";
+                if (saveFileDialog.ShowDialog() != DialogResult.OK)
+                    return;
+                filePath = saveFileDialog.FileName;
+            }
+
+            using (IXLWorkbook wb = new XLWorkbook())
+            {
+                wb.AddWorksheet("Faktu-Info")
+                    .Cell($"B1")
+                    .InsertTable(_dataSource, false);
+                var ws = wb.Worksheets.First();
+                //  set border and font
+                ws.Range(ws.Cell($"A{1}"), ws.Cell($"N{_dataSource.Count + 1}")).Style
+                    .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
+                    .Border.SetInsideBorder(XLBorderStyleValues.Hair);
+                ws.Range(ws.Cell($"A{1}"), ws.Cell($"N{_dataSource.Count + 1}")).Style
+                    .Font.SetFontName("Consolas")
+                    .Font.SetFontSize(9);
+
+                //  set format number for column K, L, M, N to N0
+                ws.Range(ws.Cell($"K{2}"), ws.Cell($"N{_dataSource.Count + 1}"))
+                    .Style.NumberFormat.Format = "#,##";
+                ws.Range(ws.Cell($"A{2}"), ws.Cell($"A{_dataSource.Count + 1}"))
+                    .Style.NumberFormat.Format = "#,##";
+                //  add rownumbering
+                ws.Cell($"A1").Value = "No";
+                for (var i = 0; i < _dataSource.Count; i++)
+                    ws.Cell($"A{i + 2}").Value = i + 1;
+                ws.Columns().AdjustToContents();
+                wb.SaveAs(filePath);
+            }
+            System.Diagnostics.Process.Start(filePath);
         }
 
         private void InfoGrid_QueryCellStyleInfo(object sender, GridTableCellStyleInfoEventArgs e)
@@ -37,7 +84,7 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
 
         private void InitGrid()
         {
-            InfoGrid.DataSource = new List<FakturInfoDto>();
+            InfoGrid.DataSource = new List<FakturView>();
 
             InfoGrid.TableDescriptor.AllowEdit = false;
             InfoGrid.TableDescriptor.AllowNew = false;
@@ -55,7 +102,7 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
             sumColTotal.Appearance.AnySummaryCell.Format= "N0";
             sumColTotal.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
 
-            var sumColDiskon = new GridSummaryColumnDescriptor("Diskon", SummaryType.DoubleAggregate, "Diskon", "{Sum}");
+            var sumColDiskon = new GridSummaryColumnDescriptor("Discount", SummaryType.DoubleAggregate, "Discount", "{Sum}");
             sumColDiskon.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
             sumColDiskon.Appearance.AnySummaryCell.Format = "N0";
             sumColDiskon.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
@@ -77,7 +124,7 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
 
 
             InfoGrid.TableDescriptor.Columns["Total"].Appearance.AnyRecordFieldCell.Format = "N0";
-            InfoGrid.TableDescriptor.Columns["Diskon"].Appearance.AnyRecordFieldCell.Format = "N0";
+            InfoGrid.TableDescriptor.Columns["Discount"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["Tax"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["GrandTotal"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["Tgl"].Appearance.AnyRecordFieldCell.Format= "dd-MMM-yyyy";
@@ -102,13 +149,13 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
                 MessageBox.Show("Periode informasi maximal 3 bulan");
                 return;
             }
-            var listFaktur = _fakturInfoDal.ListData(periode)?.ToList() ?? new List<FakturInfoDto>();
-            var result = Filter(listFaktur, CustomerText.Text);
-            result.ForEach(x => x.Tgl = x.Tgl.Date);
-            InfoGrid.DataSource = result;
+            var listFaktur = _fakturViewDal.ListData(periode)?.ToList() ?? new List<FakturView>();
+            _dataSource = Filter(listFaktur, CustomerText.Text);
+            _dataSource.ForEach(x => x.Tgl = x.Tgl.Date);
+            InfoGrid.DataSource = _dataSource;
         }
 
-        private List<FakturInfoDto> Filter(List<FakturInfoDto> source, string keyword)
+        private List<FakturView> Filter(List<FakturView> source, string keyword)
         {
             if (keyword.Trim().Length == 0)
                 return source;

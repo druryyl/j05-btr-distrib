@@ -109,6 +109,7 @@
     <Compile Include="FinanceContext\PiutangAgg\Contracts\IPiutangDal.cs" />
     <Compile Include="FinanceContext\PiutangAgg\Contracts\IPIutangElementDal.cs" />
     <Compile Include="FinanceContext\PiutangAgg\Contracts\IPiutangLunasDal.cs" />
+    <Compile Include="FinanceContext\PiutangAgg\Contracts\IPIutangLunasViewDal.cs" />
     <Compile Include="FinanceContext\PiutangAgg\UseCases\CancelPiutangWorker.cs" />
     <Compile Include="FinanceContext\PiutangAgg\UseCases\CreatePiutangWorker.cs" />
     <Compile Include="FinanceContext\PiutangAgg\Workers\PiutangBuilder.cs" />
@@ -132,6 +133,8 @@
     <Compile Include="InventoryContext\PackingAgg\IPackingBrgDal.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingBuilder.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingWriter.cs" />
+    <Compile Include="InventoryContext\ReturJualAgg\Contracts\IReturJualDal.cs" />
+    <Compile Include="InventoryContext\ReturJualAgg\Contracts\IReturJualItemDal.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\AddStokWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokBalanceWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokFakturWorker.cs" />
@@ -150,7 +153,8 @@
     <Compile Include="InventoryContext\StokBalanceAgg\IStokBalanceDal.cs" />
     <Compile Include="InventoryContext\StokBalanceAgg\StokBalanceBuilder.cs" />
     <Compile Include="InventoryContext\StokBalanceAgg\StokBalanceWriter.cs" />
-    <Compile Include="InventoryContext\StokBalanceRpt\IStokBalanceReportDal.cs" />
+    <Compile Include="InventoryContext\StokBalanceInfo\IStokBalanceViewDal.cs" />
+    <Compile Include="InventoryContext\StokBalanceInfo\StokBalanceView.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\IWarehouseDal.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\GetWarehouseQuery.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\ListWarehouseQuery.cs" />
@@ -165,6 +169,10 @@
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceValidator.cs" />
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceWriter.cs" />
     <Compile Include="PurchaseContext\InvoiceAgg\SaveInvoiceWorker.cs" />
+    <Compile Include="PurchaseContext\InvoiceBrgInfo\IInvoiceBrgViewDal.cs" />
+    <Compile Include="PurchaseContext\InvoiceBrgInfo\InvoiceBrgViewDto.cs" />
+    <Compile Include="PurchaseContext\InvoiceInfo\IInvoiceViewDal.cs" />
+    <Compile Include="PurchaseContext\InvoiceInfo\InvoiceView.cs" />
     <Compile Include="PurchaseContext\PurchaseOrderAgg\Contracts\IPurchaseOrderDal.cs" />
     <Compile Include="PurchaseContext\PurchaseOrderAgg\Contracts\IPurchaseOrderItemDal.cs" />
     <Compile Include="PurchaseContext\PurchaseOrderAgg\UseCases\CreatePurchaseOrderCommand.cs" />
@@ -200,13 +208,15 @@
     <Compile Include="SalesContext\FakturAgg\Workers\FakturValidator.cs" />
     <Compile Include="SalesContext\FakturAgg\Workers\FakturWriter.cs" />
     <Compile Include="SalesContext\FakturAgg\UseCases\SaveFakturWorker.cs" />
+    <Compile Include="SalesContext\FakturBrgInfo\FakturBrgView.cs" />
+    <Compile Include="SalesContext\FakturBrgInfo\IFakturBrgViewDal.cs" />
     <Compile Include="SalesContext\FakturControlAgg\CreatePostOnSavedFakturEventHandler.cs" />
     <Compile Include="SalesContext\FakturControlAgg\FakturControlBuilder.cs" />
     <Compile Include="SalesContext\FakturControlAgg\FakturControlWriter.cs" />
     <Compile Include="SalesContext\FakturControlAgg\IFakturControlStatusDal.cs" />
     <Compile Include="SalesContext\FakturControlAgg\ListFakturControlWorker.cs" />
-    <Compile Include="SalesContext\FakturInfoAgg\IFakturBrgInfoDal.cs" />
-    <Compile Include="SalesContext\FakturInfoAgg\IFakturInfoDal.cs" />
+    <Compile Include="SalesContext\FakturInfo\FakturView.cs" />
+    <Compile Include="SalesContext\FakturInfo\IFakturViewDal.cs" />
     <Compile Include="SalesContext\FakturPajakVoidAgg\FaktuPajakVoidWriter.cs" />
     <Compile Include="SalesContext\FakturPajakVoidAgg\FakturPajakVoidBuilder.cs" />
     <Compile Include="SalesContext\FakturPajakVoidAgg\IFakturPajakVoidDal.cs" />
@@ -214,6 +224,8 @@
     <Compile Include="SalesContext\AlokasiFpAgg\IAlokasiFpDal.cs" />
     <Compile Include="SalesContext\AlokasiFpAgg\AlokasiFpBuilder.cs" />
     <Compile Include="SalesContext\AlokasiFpAgg\AlokasiFpWriter.cs" />
+    <Compile Include="SalesContext\OmzetSupplierInfo\IOmzetSupplierViewDal.cs" />
+    <Compile Include="SalesContext\OmzetSupplierInfo\OmzetSupplierView.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\Contracts\ISalesPersonDal.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\UseCases\CreateSalesPersonCommand.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\UseCases\GetDataSalesPersonQuery.cs" />
@@ -245,9 +257,6 @@
     <Folder Include="InventoryContext\DeliveryAgg\Contracts\" />
     <Folder Include="InventoryContext\DeliveryAgg\UseCases\" />
     <Folder Include="InventoryContext\DeliveryAgg\Workers\" />
-    <Folder Include="InventoryContext\GoodReceiptAgg\Contracts\" />
-    <Folder Include="InventoryContext\GoodReceiptAgg\UseCases\" />
-    <Folder Include="InventoryContext\GoodReceiptAgg\Workers\" />
     <Folder Include="PurchaseContext\KlaimAgg\" />
   </ItemGroup>
   <ItemGroup>

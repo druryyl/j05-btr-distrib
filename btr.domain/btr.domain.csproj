@@ -56,6 +56,7 @@
     <Compile Include="FinanceContext\HutangAgg\HutangModel.cs" />
     <Compile Include="FinanceContext\HutangAgg\IHutangKey.cs" />
     <Compile Include="FinanceContext\PiutangAgg\IPiutangKey.cs" />
+    <Compile Include="FinanceContext\PiutangAgg\PiutangLunasView.cs" />
     <Compile Include="FinanceContext\PiutangAgg\PiutangModel.cs" />
     <Compile Include="InventoryContext\DeliveryAgg\DeliveryModel.cs" />
     <Compile Include="InventoryContext\DeliveryAgg\IDeliveryKey.cs" />
@@ -68,8 +69,9 @@
     <Compile Include="InventoryContext\MutasiAgg\MutasiModel.cs" />
     <Compile Include="InventoryContext\OpnameAgg\IOpnameKey.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameModel.cs" />
+    <Compile Include="InventoryContext\ReturJualAgg\ReturJualItemModel.cs" />
+    <Compile Include="InventoryContext\ReturJualAgg\ReturJualModel.cs" />
     <Compile Include="InventoryContext\StokBalanceAgg\StokBalanceWarehouseModel.cs" />
-    <Compile Include="InventoryContext\StokBalanceRpt\StokBalanceView.cs" />
     <Compile Include="PurchaseContext\InvoiceAgg\IInvoiceKey.cs" />
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceDiscModel.cs" />
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceItemModel.cs" />
@@ -109,9 +111,7 @@
     <Compile Include="SalesContext\FakturControlAgg\FakturControlStatusModel.cs" />
     <Compile Include="SalesContext\FakturControlAgg\StatusFakturEnum.cs" />
     <Compile Include="SalesContext\AlokasiFpAgg\AlokasiFpModel.cs" />
-    <Compile Include="SalesContext\FakturInfoAgg\FakturBrgInfoDto.cs" />
     <Compile Include="SalesContext\FakturPajakVoidAgg\FakturPajakVoidModel.cs" />
-    <Compile Include="SalesContext\FakturInfoAgg\FakturInfoDto.cs" />
     <Compile Include="SalesContext\KlasifikasiAgg\IKlasifikasiKey.cs" />
     <Compile Include="SalesContext\KlasifikasiAgg\KlasifikasiModel.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\ISalesPersonKey.cs" />
@@ -129,6 +129,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="FinanceContext\CreditNoteAgg\" />
+    <Folder Include="InventoryContext\StokBalanceRpt\" />
+    <Folder Include="SalesContext\FakturInfoAgg\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

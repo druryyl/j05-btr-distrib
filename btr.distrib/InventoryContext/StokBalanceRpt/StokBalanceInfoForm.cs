@@ -4,13 +4,12 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using btr.application.BrgContext.KategoriAgg;
-using btr.application.InventoryContext.StokBalanceRpt;
+using btr.application.InventoryContext.StokBalanceInfo;
 using btr.application.InventoryContext.WarehouseAgg;
 using btr.application.PurchaseContext.SupplierAgg.Contracts;
 using btr.distrib.Browsers;
 using btr.distrib.Helpers;
 using btr.domain.BrgContext.KategoriAgg;
-using btr.domain.InventoryContext.StokBalanceRpt;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.PurchaseContext.SupplierAgg;
 using btr.nuna.Domain;
@@ -22,7 +21,7 @@ namespace btr.distrib.InventoryContext.StokBalanceRpt
     {
         private readonly IWarehouseDal _warehouseDal;
         private List<StokBalanceView> _dataSource;
-        private readonly IStokBalanceReportDal _stokBalanceReportDal;
+        private readonly IStokBalanceViewDal _stokBalanceViewDal;
         private readonly IBrowser<SupplierBrowserView> _supplierBrowser;
         private readonly IBrowser<KategoriBrowserView> _kategoriBrowser;
 
@@ -30,7 +29,7 @@ namespace btr.distrib.InventoryContext.StokBalanceRpt
         private readonly IKategoriDal _kategoriDal;
 
         public StokBalanceInfoForm(IWarehouseDal warehouseDal,
-            IStokBalanceReportDal stokBalanceReportDal,
+            IStokBalanceViewDal stokBalanceViewDal,
             IBrowser<SupplierBrowserView> supplierBrowser,
             ISupplierDal supplierDal,
             IBrowser<KategoriBrowserView> kategoriBrowser,
@@ -39,7 +38,7 @@ namespace btr.distrib.InventoryContext.StokBalanceRpt
             InitializeComponent();
 
             _warehouseDal = warehouseDal;
-            _stokBalanceReportDal = stokBalanceReportDal;
+            _stokBalanceViewDal = stokBalanceViewDal;
 
             InitGridWarehouse();
             InitGridResult();
@@ -110,7 +109,7 @@ namespace btr.distrib.InventoryContext.StokBalanceRpt
 
         private void Proses()
         {
-            _dataSource = _stokBalanceReportDal.ListData()?.ToList();
+            _dataSource = _stokBalanceViewDal.ListData()?.ToList();
 
             //      filter supplier
             if (SupplierText.Text.Length > 0)
