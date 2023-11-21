@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace btr.domain.SalesContext.FakturInfoAgg
+namespace btr.application.SalesContext.FakturBrgInfo
 {
-    public class FakturBrgInfoDto
+    public class FakturBrgView
     {
         public string FakturId { get; set; }
         public string FakturCode { get; set; }

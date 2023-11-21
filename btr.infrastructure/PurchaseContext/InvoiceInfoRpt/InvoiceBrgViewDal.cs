@@ -1,5 +1,4 @@
-﻿using btr.application.PurchaseContext.PuchaseInfoRpt;
-using btr.infrastructure.Helpers;
+﻿using btr.infrastructure.Helpers;
 using btr.nuna.Domain;
 using Dapper;
 using Microsoft.Extensions.Options;
@@ -10,20 +9,21 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using btr.application.PurchaseContext.InvoiceBrgInfo;
 using btr.nuna.Infrastructure;
 
 namespace btr.infrastructure.PurchaseContext.InvoiceInfoRpt
 {
-    public class InvoiceBrgInfoDal : IInvoiceBrgInfoDal
+    public class InvoiceBrgViewDal : IInvoiceBrgViewDal
     {
         private readonly DatabaseOptions _opt;
 
-        public InvoiceBrgInfoDal(IOptions<DatabaseOptions> opt)
+        public InvoiceBrgViewDal(IOptions<DatabaseOptions> opt)
         {
             _opt = opt.Value;
         }
 
-        public IEnumerable<InvoiceBrgInfoDto> ListData(Periode filter)
+        public IEnumerable<InvoiceBrgViewDto> ListData(Periode filter)
         {
             const string sql = @"
                 SELECT
@@ -54,7 +54,7 @@ namespace btr.infrastructure.PurchaseContext.InvoiceInfoRpt
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
-                return conn.Read<InvoiceBrgInfoDto>(sql, dp);
+                return conn.Read<InvoiceBrgViewDto>(sql, dp);
             }
         }
     }

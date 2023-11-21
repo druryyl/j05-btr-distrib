@@ -94,6 +94,7 @@
     <Compile Include="InventoryContext\KartuStokRpt\KartuStokDal.cs" />
     <Compile Include="InventoryContext\MutasiAgg\MutasiDal.cs" />
     <Compile Include="InventoryContext\MutasiAgg\MutasiItemDal.cs" />
+    <Compile Include="InventoryContext\OmzetSupplierAgg\OmzetSupplierViewDal.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameDal.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingDal.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingFakturDal.cs" />
@@ -103,14 +104,14 @@
     <Compile Include="InventoryContext\StokAgg\StokDal.cs" />
     <Compile Include="InventoryContext\StokAgg\StokMutasiDal.cs" />
     <Compile Include="InventoryContext\StokBalanceAgg\StokBalanceWarehouseDal.cs" />
-    <Compile Include="InventoryContext\StokBalanceRpt\StokBalanceReportDal.cs" />
+    <Compile Include="InventoryContext\StokBalanceRpt\StokBalanceViewDal.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\WarehouseDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceDal.cs" />
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceDiscDal.cs" />
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceItemDal.cs" />
-    <Compile Include="PurchaseContext\InvoiceInfoRpt\InvoiceBrgInfoDal.cs" />
-    <Compile Include="PurchaseContext\InvoiceInfoRpt\InvoiceInfoDal.cs" />
+    <Compile Include="PurchaseContext\InvoiceInfoRpt\InvoiceBrgViewDal.cs" />
+    <Compile Include="PurchaseContext\InvoiceInfoRpt\InvoiceViewDal.cs" />
     <Compile Include="PurchaseContext\PurchaseOrderAgg\PurchaseOrderDal.cs" />
     <Compile Include="PurchaseContext\PurchaseOrderAgg\PurchaseOrderItemDal.cs" />
     <Compile Include="PurchaseContext\SupplierAgg\SupplierDal.cs" />
@@ -122,8 +123,8 @@
     <Compile Include="SalesContext\FakturAgg\FakturDiscountDal.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturItemDal.cs" />
     <Compile Include="SalesContext\FakturControlAgg\FakturControlStatusDal.cs" />
-    <Compile Include="SalesContext\FakturInfoAgg\FakturBrgInfoDal.cs" />
-    <Compile Include="SalesContext\FakturInfoAgg\FakturInfoDal.cs" />
+    <Compile Include="SalesContext\FakturInfoAgg\FakturBrgViewDal.cs" />
+    <Compile Include="SalesContext\FakturInfoAgg\FakturViewDal.cs" />
     <Compile Include="SalesContext\FakturPajakVoidAgg\FakturPajakVoidDal.cs" />
     <Compile Include="SalesContext\KlasifikasiAgg\KlasifikasiDal.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\SalesPersonDal.cs" />

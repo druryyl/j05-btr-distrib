@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>71</ApplicationRevision>
+    <ApplicationRevision>73</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -334,6 +334,14 @@
     <Compile Include="InventoryContext\MutasiAgg\MutasiForm.Designer.cs">
       <DependentUpon>MutasiForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InventoryContext\OmzetSupplierRpt\OmzetSupplierBulananDto.cs" />
+    <Compile Include="InventoryContext\OmzetSupplierRpt\OmzetSupplierHarianDto.cs" />
+    <Compile Include="InventoryContext\OmzetSupplierRpt\OmzetSupplierInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryContext\OmzetSupplierRpt\OmzetSupplierInfoForm.Designer.cs">
+      <DependentUpon>OmzetSupplierInfoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="InventoryContext\ReturJualAgg\ReturJual2Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -547,6 +555,9 @@
     <EmbeddedResource Include="InventoryContext\MutasiAgg\MutasiForm.resx">
       <DependentUpon>MutasiForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="InventoryContext\OmzetSupplierRpt\OmzetSupplierInfoForm.resx">
+      <DependentUpon>OmzetSupplierInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\ReturJualAgg\ReturJual2Form.resx">
       <DependentUpon>ReturJual2Form.cs</DependentUpon>
     </EmbeddedResource>
@@ -614,6 +625,7 @@
     <None Include="Resources\icons8_broadcasting_48.png" />
     <None Include="Resources\icons8_documents_32.png" />
     <None Include="Resources\icons8_general_ledger_32.png" />
+    <None Include="Resources\icons8_harvester_32.png" />
     <Content Include="Resources\icons8_microscope.ico" />
     <Content Include="Resources\icons8_microscope_32.png" />
     <EmbeddedResource Include="SharedForm\AboutForm.resx">

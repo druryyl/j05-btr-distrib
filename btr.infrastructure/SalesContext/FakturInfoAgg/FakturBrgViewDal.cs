@@ -1,6 +1,4 @@
-﻿using btr.application.SalesContext.FakturInfoAgg;
-using btr.domain.SalesContext.FakturInfoAgg;
-using btr.infrastructure.Helpers;
+﻿using btr.infrastructure.Helpers;
 using btr.nuna.Domain;
 using btr.nuna.Infrastructure;
 using Dapper;
@@ -8,19 +6,20 @@ using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using btr.application.SalesContext.FakturBrgInfo;
 
 namespace btr.infrastructure.SalesContext.FakturInfoAgg
 {
-    public class FakturBrgInfoDal : IFakturBrgInfoDal
+    public class FakturBrgViewDal : IFakturBrgViewDal
     {
         private readonly DatabaseOptions _opt;
 
-        public FakturBrgInfoDal(IOptions<DatabaseOptions> opt)
+        public FakturBrgViewDal(IOptions<DatabaseOptions> opt)
         {
             _opt = opt.Value;
         }
 
-        public IEnumerable<FakturBrgInfoDto> ListData(Periode filter)
+        public IEnumerable<FakturBrgView> ListData(Periode filter)
         {
             const string sql = @"
                 SELECT 
@@ -53,7 +52,7 @@ namespace btr.infrastructure.SalesContext.FakturInfoAgg
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
-                return conn.Read<FakturBrgInfoDto>(sql, dp);
+                return conn.Read<FakturBrgView>(sql, dp);
             }
         }
     }

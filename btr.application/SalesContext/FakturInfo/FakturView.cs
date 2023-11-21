@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace btr.domain.SalesContext.FakturInfoAgg
+namespace btr.application.SalesContext.FakturInfo
 {
-    public class FakturInfoDto
+    public class FakturView
     {
         public string FakturId { get; set; }
         public string FakturCode { get; set; }

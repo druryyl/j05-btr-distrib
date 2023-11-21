@@ -1,32 +1,32 @@
-﻿using btr.nuna.Domain;
-using Syncfusion.Drawing;
-using Syncfusion.Grouping;
-using Syncfusion.Windows.Forms.Grid;
-using Syncfusion.Windows.Forms.Grid.Grouping;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using btr.application.PurchaseContext.InvoiceBrgInfo;
+using btr.nuna.Domain;
 using ClosedXML.Excel;
-using btr.application.PurchaseContext.PuchaseInfoRpt;
+using Syncfusion.Drawing;
+using Syncfusion.Grouping;
+using Syncfusion.Windows.Forms.Grid;
+using Syncfusion.Windows.Forms.Grid.Grouping;
 
-namespace btr.distrib.SalesContext.InvoiceInfoRpt
+namespace btr.distrib.PurchaseContext.InvoiceInfo
 {
     public partial class InvoiceBrgInfoForm : Form
     {
-        private readonly IInvoiceBrgInfoDal _invoiceBrgInfoDal;
-        private List<InvoiceBrgInfoDto> _dataSource;
+        private readonly IInvoiceBrgViewDal _invoiceBrgViewDal;
+        private List<InvoiceBrgViewDto> _dataSource;
 
-        public InvoiceBrgInfoForm(IInvoiceBrgInfoDal fakturInfoDal)
+        public InvoiceBrgInfoForm(IInvoiceBrgViewDal fakturViewDal)
         {
             InitializeComponent();
-            _invoiceBrgInfoDal = fakturInfoDal;
+            _invoiceBrgViewDal = fakturViewDal;
             InfoGrid.QueryCellStyleInfo += InfoGrid_QueryCellStyleInfo;
             ProsesButton.Click += ProsesButton_Click;
             ExcelButton.Click += ExcelButton_Click;
             InitGrid();
-            _dataSource = new List<InvoiceBrgInfoDto>();
+            _dataSource = new List<InvoiceBrgViewDto>();
         }
 
         private void ExcelButton_Click(object sender, EventArgs e)
@@ -85,7 +85,7 @@ namespace btr.distrib.SalesContext.InvoiceInfoRpt
 
         private void InitGrid()
         {
-            InfoGrid.DataSource = new List<InvoiceBrgInfoDto>();
+            InfoGrid.DataSource = new List<InvoiceBrgViewDto>();
 
             InfoGrid.TableDescriptor.AllowEdit = false;
             InfoGrid.TableDescriptor.AllowNew = false;
@@ -154,13 +154,13 @@ namespace btr.distrib.SalesContext.InvoiceInfoRpt
                 MessageBox.Show("Periode informasi maximal 3 bulan");
                 return;
             }
-            var listInvoice = _invoiceBrgInfoDal.ListData(periode)?.ToList() ?? new List<InvoiceBrgInfoDto>();
+            var listInvoice = _invoiceBrgViewDal.ListData(periode)?.ToList() ?? new List<InvoiceBrgViewDto>();
             _dataSource = Filter(listInvoice, CustomerText.Text);
             _dataSource.ForEach(x => x.Tgl = x.Tgl.Date);
             InfoGrid.DataSource = _dataSource;
         }
 
-        private List<InvoiceBrgInfoDto> Filter(List<InvoiceBrgInfoDto> source, string keyword)
+        private List<InvoiceBrgViewDto> Filter(List<InvoiceBrgViewDto> source, string keyword)
         {
             if (keyword.Trim().Length == 0)
                 return source;

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace btr.distrib.SalesContext.InvoiceInfoRpt
+namespace btr.distrib.PurchaseContext.InvoiceInfo
 {
     partial class InvoiceInfoForm : Form
     {

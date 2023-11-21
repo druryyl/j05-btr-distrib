@@ -8,28 +8,27 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using btr.application.SalesContext.FakturBrgInfo;
 using Syncfusion.Drawing;
-using btr.application.SalesContext.FakturInfoAgg;
-using btr.domain.SalesContext.FakturInfoAgg;
 using ClosedXML.Excel;
 
 namespace btr.distrib.SalesContext.FakturInfoRpt
 {
     public partial class FakturBrgInfoForm : Form
     {
-        private readonly IFakturBrgInfoDal _fakturBrgInfoDal;
-        private List<FakturBrgInfoDto> _dataSource;
+        private readonly IFakturBrgViewDal _fakturBrgViewDal;
+        private List<FakturBrgView> _dataSource;
 
-        public FakturBrgInfoForm(IFakturBrgInfoDal fakturBrgInfoDal)
+        public FakturBrgInfoForm(IFakturBrgViewDal fakturBrgViewDal)
         {
             InitializeComponent();
-            _fakturBrgInfoDal = fakturBrgInfoDal;
+            _fakturBrgViewDal = fakturBrgViewDal;
             InfoGrid.QueryCellStyleInfo += InfoGrid_QueryCellStyleInfo;
             ProsesButton.Click += ProsesButton_Click;
             ExcelButton.Click += ExcelButton_Click;
 
             InitGrid();
-            _dataSource = new List<FakturBrgInfoDto>();
+            _dataSource = new List<FakturBrgView>();
         }
 
         private void ExcelButton_Click(object sender, EventArgs e)
@@ -87,7 +86,7 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
 
         private void InitGrid()
         {
-            InfoGrid.DataSource = new List<FakturBrgInfoDto>();
+            InfoGrid.DataSource = new List<FakturBrgView>();
 
             InfoGrid.TableDescriptor.AllowEdit = false;
             InfoGrid.TableDescriptor.AllowNew = false;
@@ -154,15 +153,18 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
                 MessageBox.Show("Periode informasi maximal 3 bulan");
                 return;
             }
-            var listFaktur = _fakturBrgInfoDal.ListData(periode)?.ToList() ?? new List<FakturBrgInfoDto>();
-            listFaktur = listFaktur.OrderBy(x => x.FakturCode).ToList();
+            var listFaktur = _fakturBrgViewDal.ListData(periode)?.ToList() ?? new List<FakturBrgView>();
+            listFaktur = listFaktur
+                .OrderBy(x => x.FakturCode)
+                .OrderBy(x => x.FakturDate.Date)
+                .ToList();
             _dataSource = Filter(listFaktur, CustomerText.Text);
             _dataSource.ForEach(x => x.FakturDate= x.FakturDate.Date);
 
             InfoGrid.DataSource = _dataSource;
         }
 
-        private List<FakturBrgInfoDto> Filter(List<FakturBrgInfoDto> source, string keyword)
+        private List<FakturBrgView> Filter(List<FakturBrgView> source, string keyword)
         {
             if (keyword.Trim().Length == 0)
                 return source;

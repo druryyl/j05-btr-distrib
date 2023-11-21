@@ -66,6 +66,7 @@
             this.ReportingPanel = new System.Windows.Forms.RibbonPanel();
             this.StokBalanceButton = new System.Windows.Forms.RibbonButton();
             this.BukuStokButton = new System.Windows.Forms.RibbonButton();
+            this.OmzetPerSupplierButton = new System.Windows.Forms.RibbonButton();
             this.InventoryMasterPanel = new System.Windows.Forms.RibbonPanel();
             this.BrgButton = new System.Windows.Forms.RibbonButton();
             this.WarehouseButton = new System.Windows.Forms.RibbonButton();
@@ -365,6 +366,7 @@
             this.ImportExcelOpnameButton.Name = "ImportExcelOpnameButton";
             this.ImportExcelOpnameButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ImportExcelOpnameButton.SmallImage")));
             this.ImportExcelOpnameButton.Text = "Import-Excel";
+            this.ImportExcelOpnameButton.Visible = false;
             this.ImportExcelOpnameButton.Click += new System.EventHandler(this.ImportExcelOpnameButton_Click);
             // 
             // PrintFakturButton
@@ -398,6 +400,7 @@
             // 
             this.ReportingPanel.Items.Add(this.StokBalanceButton);
             this.ReportingPanel.Items.Add(this.BukuStokButton);
+            this.ReportingPanel.Items.Add(this.OmzetPerSupplierButton);
             this.ReportingPanel.Name = "ReportingPanel";
             this.ReportingPanel.Text = "Reporting";
             // 
@@ -417,6 +420,15 @@
             this.BukuStokButton.Name = "BukuStokButton";
             this.BukuStokButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("BukuStokButton.SmallImage")));
             this.BukuStokButton.Text = "Kartu-Stok";
+            // 
+            // OmzetPerSupplierButton
+            // 
+            this.OmzetPerSupplierButton.Image = global::btr.distrib.Properties.Resources.icons8_harvester_32;
+            this.OmzetPerSupplierButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_harvester_32;
+            this.OmzetPerSupplierButton.Name = "OmzetPerSupplierButton";
+            this.OmzetPerSupplierButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("OmzetPerSupplierButton.SmallImage")));
+            this.OmzetPerSupplierButton.Text = "Omzet Per-Supplier";
+            this.OmzetPerSupplierButton.Click += new System.EventHandler(this.OmzetPerSupplierButton_Click);
             // 
             // InventoryMasterPanel
             // 
@@ -620,5 +632,6 @@
         private System.Windows.Forms.RibbonButton ReturJualButton;
         private System.Windows.Forms.RibbonButton InvoiceInfoButton;
         private System.Windows.Forms.RibbonButton InvoiceBrgInfoButton;
+        private System.Windows.Forms.RibbonButton OmzetPerSupplierButton;
     }
 }

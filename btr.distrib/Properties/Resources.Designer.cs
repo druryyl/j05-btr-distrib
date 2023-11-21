@@ -293,6 +293,16 @@ namespace btr.distrib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_harvester_32 {
+            get {
+                object obj = ResourceManager.GetObject("icons8_harvester_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_hashtag_activity_feed_32 {
             get {
                 object obj = ResourceManager.GetObject("icons8_hashtag_activity_feed_32", resourceCulture);

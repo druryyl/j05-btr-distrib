@@ -1,4 +1,4 @@
-﻿namespace btr.domain.InventoryContext.StokBalanceRpt
+﻿namespace btr.application.InventoryContext.StokBalanceInfo
 {
     public class StokBalanceView
     {

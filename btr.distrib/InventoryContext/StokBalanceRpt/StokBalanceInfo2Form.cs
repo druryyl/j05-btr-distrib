@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using btr.application.InventoryContext.StokBalanceRpt;
-using btr.domain.InventoryContext.StokBalanceRpt;
-using btr.domain.SalesContext.FakturInfoAgg;
+using btr.application.InventoryContext.StokBalanceInfo;
 using btr.nuna.Domain;
 using ClosedXML.Excel;
 using Syncfusion.DataSource;
@@ -18,13 +16,13 @@ namespace btr.distrib.InventoryContext.StokBalanceRpt
 {
     public partial class StokBalanceInfo2Form : Form
     {
-        private readonly IStokBalanceReportDal _stokBalanceReportDal;
+        private readonly IStokBalanceViewDal _stokBalanceViewDal;
         private List<StokBalanceInfoDto> _dataSource;
 
-        public StokBalanceInfo2Form(IStokBalanceReportDal stokBalanceReportDal)
+        public StokBalanceInfo2Form(IStokBalanceViewDal stokBalanceViewDal)
         {
             InitializeComponent();
-            _stokBalanceReportDal = stokBalanceReportDal;
+            _stokBalanceViewDal = stokBalanceViewDal;
             InfoGrid.QueryCellStyleInfo += InfoGrid_QueryCellStyleInfo;
             ExcelButton.Click += ExcelButton_Click;
             InitGrid();
@@ -80,7 +78,7 @@ namespace btr.distrib.InventoryContext.StokBalanceRpt
         
         private void Proses()
         {
-            var listFaktur = _stokBalanceReportDal.ListData()?.ToList() ?? new List<StokBalanceView>();
+            var listFaktur = _stokBalanceViewDal.ListData()?.ToList() ?? new List<StokBalanceView>();
             listFaktur.ForEach(x => x.NilaiSediaan = x.Hpp * x.Qty);
             var filtered = Filter(listFaktur, SearchText.Text);
             _dataSource = (

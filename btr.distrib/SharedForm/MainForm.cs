@@ -28,7 +28,8 @@ using btr.distrib.FinanceContext.LunasPiutangAgg;
 using btr.distrib.InventoryContext.StokBalanceRpt;
 using btr.distrib.SalesContext.FakturInfoRpt;
 using btr.distrib.InventoryContext.ReturJualAgg;
-using btr.distrib.SalesContext.InvoiceInfoRpt;
+using btr.distrib.InventoryContext.OmzetSupplierRpt;
+using btr.distrib.PurchaseContext.InvoiceInfo;
 
 namespace btr.distrib.SharedForm
 {
@@ -324,6 +325,16 @@ namespace btr.distrib.SharedForm
             if (BringMdiChildToFrontIfLoaded<InvoiceBrgInfoForm>())
                 return;
             var form = _servicesProvider.GetRequiredService<InvoiceBrgInfoForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void OmzetPerSupplierButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<OmzetSupplierInfoForm>())
+                return;
+            var form = _servicesProvider.GetRequiredService<OmzetSupplierInfoForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

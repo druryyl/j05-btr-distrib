@@ -1,18 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
-using btr.application.InventoryContext.StokBalanceRpt;
-using btr.domain.InventoryContext.StokBalanceRpt;
+using btr.application.InventoryContext.StokBalanceInfo;
 using btr.infrastructure.Helpers;
 using btr.nuna.Infrastructure;
 using Microsoft.Extensions.Options;
 
 namespace btr.infrastructure.InventoryContext.StokBalanceRpt
 {
-    public class StokBalanceReportDal : IStokBalanceReportDal
+    public class StokBalanceViewDal : IStokBalanceViewDal
     {
         public readonly DatabaseOptions _opt;
 
-        public StokBalanceReportDal(IOptions<DatabaseOptions> opt)
+        public StokBalanceViewDal(IOptions<DatabaseOptions> opt)
         {
             _opt = opt.Value;
         }

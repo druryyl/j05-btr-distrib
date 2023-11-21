@@ -1,20 +1,8 @@
-﻿using btr.nuna.Domain;
-using btr.nuna.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
-namespace btr.application.PurchaseContext.PuchaseInfoRpt
+namespace btr.application.PurchaseContext.InvoiceInfo
 {
-    // create interface for IPurchaseInfoDal
-    public interface IInvoiceInfoDal
-        : IListData<InvoiceInfoDto, Periode>
-    {
-    }
-
-    public class InvoiceInfoDto
+    public class InvoiceView
     {
         public string InvoiceId { get; set; }
         public string InvoiceCode { get; set; }
