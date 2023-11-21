@@ -52,19 +52,34 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
                     .Cell($"B1")
                     .InsertTable(_dataSource, false);
                 var ws = wb.Worksheets.First();
+
                 //  set border and font
-                ws.Range(ws.Cell($"A{1}"), ws.Cell($"O{_dataSource.Count + 1}")).Style
+                ws.Range(ws.Cell("A1"), ws.Cell($"O{_dataSource.Count + 1}")).Style
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair);
-                ws.Range(ws.Cell($"A{1}"), ws.Cell($"O{_dataSource.Count + 1}")).Style
+                ws.Cell($"K{_dataSource.Count + 2}").Value= "Total";
+                ws.Range(ws.Cell($"K{_dataSource.Count + 2}"), ws.Cell($"O{_dataSource.Count + 2}")).Style
+                    .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
+                    .Font.SetFontName("Consolas")
+                    .Font.SetFontSize(11)
+                    .Font.SetBold();
+
+                ws.Range(ws.Cell("A1"), ws.Cell($"O{_dataSource.Count + 2}")).Style
                     .Font.SetFontName("Consolas")
                     .Font.SetFontSize(9);
 
-                //  set format number for column K, L, M, N to N0
-                ws.Range(ws.Cell($"J{2}"), ws.Cell($"O{_dataSource.Count + 1}"))
+                //  add row total L,M,N,O
+                ws.Cell($"L{_dataSource.Count + 2}").FormulaA1 = $"=SUM(L2:L{_dataSource.Count + 1})";
+                ws.Cell($"M{_dataSource.Count + 2}").FormulaA1 = $"=SUM(M2:M{_dataSource.Count + 1})";
+                ws.Cell($"N{_dataSource.Count + 2}").FormulaA1 = $"=SUM(N2:N{_dataSource.Count + 1})";
+                ws.Cell($"O{_dataSource.Count + 2}").FormulaA1 = $"=SUM(O2:O{_dataSource.Count + 1})";
+                
+                //  set format number for column A, J, K, L, M, N, O to N0
+                ws.Range(ws.Cell("J2"), ws.Cell($"O{_dataSource.Count + 2}"))
                     .Style.NumberFormat.Format = "#,##";
-                ws.Range(ws.Cell($"A{2}"), ws.Cell($"A{_dataSource.Count + 1}"))
+                ws.Range(ws.Cell("A2"), ws.Cell($"A{_dataSource.Count + 2}"))
                     .Style.NumberFormat.Format = "#,##";
+                
                 //  add rownumbering
                 ws.Cell($"A1").Value = "No";
                 for (var i = 0; i < _dataSource.Count; i++)
