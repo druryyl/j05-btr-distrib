@@ -135,6 +135,8 @@
     <Compile Include="InventoryContext\PackingAgg\PackingWriter.cs" />
     <Compile Include="InventoryContext\ReturJualAgg\Contracts\IReturJualDal.cs" />
     <Compile Include="InventoryContext\ReturJualAgg\Contracts\IReturJualItemDal.cs" />
+    <Compile Include="InventoryContext\ReturJualAgg\Contracts\IReturJualItemDiscDal.cs" />
+    <Compile Include="InventoryContext\ReturJualAgg\Contracts\IReturJualItemQtyHrgDal.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\AddStokWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokBalanceWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokFakturWorker.cs" />

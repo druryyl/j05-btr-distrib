@@ -23,80 +23,57 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
 
         public void Insert(ReturJualModel model)
         {
-            //  create insert query for ReturJualModel to table BTR_ReturJual
-            const string  sql = @"
-                INSERT INTO BTR_ReturJual (
-                    ReturJualId, ReturJualDate, FakturId, FakturCode,
-                    CustomerId, SalesPersonId, WarehouseId, UserId,
-                    Total, DiscRp, PpnRp, GrandTotal)
+            // create insert query for ReturJualModel to table BTR_ReturJual
+            const string sql = @"
+                INSERT INTO 
+                    BTR_ReturJual (
+                        ReturJualId, ReturJualDate, 
+                        CustomerId, WarehouseId, UserId,
+                        Total, DiscRp, PpnRp, GrandTotal
+                    )
                 VALUES (
-                    @ReturJualId, @ReturJualDate, @FakturId, @FakturCode,
-                    @CustomerId, @SalesPersonId, @WarehouseId, @UserId,
-                    @Total, @DiscRp, @PpnRp, @GrandTotal)";
-            
+                        @ReturJualId, @ReturJualDate,
+                        @CustomerId, @WarehouseId, @UserId,
+                        @Total, @DiscRp, @PpnRp, @GrandTotal
+                    )";
+
             //  assign parameter in query to model using dapper
             var dp = new DynamicParameters();
             dp.AddParam("@ReturJualId", model.ReturJualId, SqlDbType.VarChar);
             dp.AddParam("@ReturJualDate", model.ReturJualDate, SqlDbType.DateTime);
-            dp.AddParam("@FakturId", model.FakturId, SqlDbType.VarChar);
-            dp.AddParam("@FakturCode", model.FakturCode, SqlDbType.VarChar);
             dp.AddParam("@CustomerId", model.CustomerId, SqlDbType.VarChar);
-            dp.AddParam("@SalesPersonId", model.SalesPersonId, SqlDbType.VarChar);
             dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
             dp.AddParam("@UserId", model.UserId, SqlDbType.VarChar);
             dp.AddParam("@Total", model.Total, SqlDbType.Decimal);
             dp.AddParam("@DiscRp", model.DiscRp, SqlDbType.Decimal);
             dp.AddParam("@PpnRp", model.PpnRp, SqlDbType.Decimal);
             dp.AddParam("@GrandTotal", model.GrandTotal, SqlDbType.Decimal);
-            
+
             //  execute query using dapper
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
                 conn.Execute(sql, dp);
             }
+
         }
 
         public void Update(ReturJualModel model)
         {
-            //  create update query for ReturJualModel to table BTR_ReturJual
+            // create table update query for ReturJualModel to table BTR_ReturJual
             const string sql = @"
                 UPDATE 
                     BTR_ReturJual 
-                SET
-                    ReturJualDate = @ReturJualDate, 
-                    FakturId = @FakturId, 
-                    FakturCode = @FakturCode,
-                    CustomerId = @CustomerId, 
-                    SalesPersonId = @SalesPersonId, 
-                    WarehouseId = @WarehouseId, 
+                SET 
+                    ReturJualDate = @ReturJualDate,
+                    CustomerId = @CustomerId,
+                    WarehouseId = @WarehouseId,
                     UserId = @UserId,
-                    Total = @Total, 
-                    DiscRp = @DiscRp, 
-                    PpnRp = @PpnRp, 
+                    Total = @Total,
+                    DiscRp = @DiscRp,
+                    PpnRp = @PpnRp,
                     GrandTotal = @GrandTotal
                 WHERE 
                     ReturJualId = @ReturJualId";
-            
-            //  assign parameter in query to model using dapper
-            var dp = new DynamicParameters();
-            dp.AddParam("@ReturJualId", model.ReturJualId, SqlDbType.VarChar);
-            dp.AddParam("@ReturJualDate", model.ReturJualDate, SqlDbType.DateTime);
-            dp.AddParam("@FakturId", model.FakturId, SqlDbType.VarChar);
-            dp.AddParam("@FakturCode", model.FakturCode, SqlDbType.VarChar);
-            dp.AddParam("@CustomerId", model.CustomerId, SqlDbType.VarChar);
-            dp.AddParam("@SalesPersonId", model.SalesPersonId, SqlDbType.VarChar);
-            dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
-            dp.AddParam("@UserId", model.UserId, SqlDbType.VarChar);
-            dp.AddParam("@Total", model.Total, SqlDbType.Decimal);
-            dp.AddParam("@DiscRp", model.DiscRp, SqlDbType.Decimal);
-            dp.AddParam("@PpnRp", model.PpnRp, SqlDbType.Decimal);
-            dp.AddParam("@GrandTotal", model.GrandTotal, SqlDbType.Decimal);
-            
-            //  execute query using dapper
-            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
-            {
-                conn.Execute(sql, dp);
-            }
         }
 
         public void Delete(IReturJualKey key)
@@ -124,17 +101,14 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
             //  create query select for ReturJualModel from table BTR_ReturJual
             const string sql = @"
                 SELECT 
-                    aa.ReturJualId, aa.ReturJualDate, aa.FakturId, aa.FakturCode,
-                    aa.CustomerId, aa.SalesPersonId, aa.WarehouseId, aa.UserId,
+                    aa.ReturJualId, aa.ReturJualDate,
+                    aa.CustomerId, aa.WarehouseId, aa.UserId,
                     aa.Total, aa.DiscRp, aa.PpnRp, aa.GrandTotal,
                     ISNULL(cc.CustomerName, '') AS CustomerName,
-                    ISNULL(dd.SalesPersonName, '') AS SalesPersonName,
                     ISNULL(ee.WarehouseName, '') AS WarehouseName
                 FROM 
                     BTR_ReturJual aa
-                    LEFT JOIN BTR_Faktur bb ON aa.FakturId = bb.FakturId
                     LEFT JOIN BTR_Customer cc ON aa.CustomerId = cc.CustomerId
-                    LEFT JOIN BTR_SalesPerson dd ON aa.SalesPersonId = dd.SalesPersonId
                     LEFT JOIN BTR_Warehouse ee ON aa.WarehouseId = ee.WarehouseId
                 WHERE 
                     ReturJualId = @ReturJualId";
@@ -155,33 +129,29 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
             //  create query select for ReturJualModel from table BTR_ReturJual with filter ReturJualDate
             const string sql = @"
                 SELECT 
-                    aa.ReturJualId, aa.ReturJualDate, aa.FakturId, aa.FakturCode,
-                    aa.CustomerId, aa.SalesPersonId, aa.WarehouseId, aa.UserId,
+                    aa.ReturJualId, aa.ReturJualDate,
+                    aa.CustomerId, aa.WarehouseId, aa.UserId,
                     aa.Total, aa.DiscRp, aa.PpnRp, aa.GrandTotal,
                     ISNULL(cc.CustomerName, '') AS CustomerName,
-                    ISNULL(dd.SalesPersonName, '') AS SalesPersonName,
                     ISNULL(ee.WarehouseName, '') AS WarehouseName
                 FROM 
                     BTR_ReturJual aa
-                    LEFT JOIN BTR_Faktur bb ON aa.FakturId = bb.FakturId
                     LEFT JOIN BTR_Customer cc ON aa.CustomerId = cc.CustomerId
-                    LEFT JOIN BTR_SalesPerson dd ON aa.SalesPersonId = dd.SalesPersonId
                     LEFT JOIN BTR_Warehouse ee ON aa.WarehouseId = ee.WarehouseId
                 WHERE 
-                    ReturJualDate BETWEEN @Tgl1 AND @Tgl2
+                    ReturJualDate BETWEEN @StartDate AND @EndDate
                 ORDER BY 
                     ReturJualDate DESC";
             
-            //  assign parameter in query to filter using dapper
             var dp = new DynamicParameters();
-            dp.AddParam("@Tgl1", filter.Tgl1, SqlDbType.DateTime);
-            dp.AddParam("@Tgl2", filter.Tgl2, SqlDbType.DateTime);
+            dp.AddParam("@StartDate", filter.Tgl1, SqlDbType.DateTime);
+            dp.AddParam("@EndDate", filter.Tgl2, SqlDbType.DateTime);
             
-            //  execute query using dapper
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
                 return conn.Read<ReturJualModel>(sql, dp);
             }
+
         }
     }
 }

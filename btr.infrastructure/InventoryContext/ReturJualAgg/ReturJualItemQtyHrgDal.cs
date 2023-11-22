@@ -1,29 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using btr.application.InventoryContext.ReturJualAgg.Contracts;
+﻿using btr.application.InventoryContext.ReturJualAgg.Contracts;
 using btr.domain.InventoryContext.ReturJualAgg;
 using btr.infrastructure.Helpers;
 using btr.nuna.Infrastructure;
 using Dapper;
 using Microsoft.Extensions.Options;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace btr.infrastructure.InventoryContext.ReturJualAgg
 {
-    public class ReturJualItemDal : IReturJualItemDal
+    public class ReturJualItemQtyHrgDal : IReturJualItemQtyHrgDal
     {
         private readonly DatabaseOptions _opt;
 
-        public ReturJualItemDal(IOptions<DatabaseOptions> opt)
+        public ReturJualItemQtyHrgDal(IOptions<DatabaseOptions> opt)
         {
             _opt = opt.Value;
         }
 
-        public void Insert(IEnumerable<ReturJualItemModel> listModel)
+        public void Insert(ReturJualItemQtyHrgModel model)
         {
-            //  create insert using sql bulk copy
+            //  create bulk insert ReturJualItemQtyHarModel
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             using (var bcp = new SqlBulkCopy(conn))
             {
@@ -31,22 +32,17 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
 
                 bcp.ColumnMappings.Add("ReturJualId", "ReturJualId");
                 bcp.ColumnMappings.Add("ReturJualItemId", "ReturJualItemId");
+                bcp.ColumnMappings.Add("ReturJualItemQtyHrgId", "ReturJualItemQtyHrgId");
                 bcp.ColumnMappings.Add("NoUrut", "NoUrut");
                 bcp.ColumnMappings.Add("BrgId", "BrgId");
-
-                bcp.ColumnMappings.Add("QtyInputStr", "QtyInputStr");
-                bcp.ColumnMappings.Add("HrgInputStr", "HrgInputStr");
-                bcp.ColumnMappings.Add("DiscInputStr", "DiscInputStr");
-
+                bcp.ColumnMappings.Add("JenisQty", "JenisQty");
+                bcp.ColumnMappings.Add("Conversion", "Conversion");
                 bcp.ColumnMappings.Add("Qty", "Qty");
                 bcp.ColumnMappings.Add("HrgSat", "HrgSat");
                 bcp.ColumnMappings.Add("SubTotal", "SubTotal");
-                bcp.ColumnMappings.Add("DiscRp", "DiscRp");
-                bcp.ColumnMappings.Add("PpnRp", "PpnRp");
-                bcp.ColumnMappings.Add("Total", "Total");
 
-                var fetched = listModel.ToList();
-                bcp.DestinationTableName = "BTR_ReturJualItem";
+                var fetched = new List<ReturJualItemQtyHrgModel> { model };
+                bcp.DestinationTableName = "BTR_ReturJualItemQtyHrg";
                 bcp.BatchSize = fetched.Count;
                 bcp.WriteToServer(fetched.AsDataTable());
             }
@@ -54,46 +50,42 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
 
         public void Delete(IReturJualKey key)
         {
-            //  QUERY
+            // QUERY
             const string sql = @"
-                DELETE FROM BTR_ReturJualItem
+                DELETE FROM BTR_ReturJualItemQtyHrg
                 WHERE ReturJualId = @ReturJualId";
-            
+
             //  PARAMETER
             var dp = new DynamicParameters();
-            dp.AddParam("@ReturJualId", key.ReturJualId, SqlDbType.VarChar);
-            
+            dp.AddParam("@ReturJualId", key.ReturJualId, System.Data.SqlDbType.VarChar);
+
             //  EXECUTE
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
                 conn.Execute(sql, dp);
             }
-            
         }
 
-        public IEnumerable<ReturJualItemModel> ListData(IReturJualKey filter)
+        public IEnumerable<ReturJualItemQtyHrgModel> ListData(IReturJualKey filter)
         {
-            //  QUERY
+            // QUERY
             const string sql = @"
                 SELECT 
-                    ReturJualId, ReturJualItemId, NoUrut, BrgId, 
-                    QtyInputStr, HrgInputStr, DiscInputStr, 
-                    Qty, HrgSat, SubTotal, DiscRp, PpnRp, Total
+                    ReturJualId, ReturJualItemId, ReturJualItemQtyHrgId, NoUrut, 
+                    BrgId, JenisQty, Conversion, Qty, HrgSat, SubTotal
                 FROM 
-                    BTR_ReturJualItem
+                    BTR_ReturJualItemQtyHrg
                 WHERE 
-                    ReturJualId = @ReturJualId
-                ORDER BY 
-                    NoUrut";
-            
+                    ReturJualId = @ReturJualId";
+
             //  PARAMETER
             var dp = new DynamicParameters();
-            dp.AddParam("@ReturJualId", filter.ReturJualId, SqlDbType.VarChar);
+            dp.AddParam("@ReturJualId", filter.ReturJualId, System.Data.SqlDbType.VarChar);
 
             //  LOAD
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
-                return conn.Read<ReturJualItemModel>(sql, dp);
+                return conn.Read<ReturJualItemQtyHrgModel>(sql, dp);
             }
         }
     }
