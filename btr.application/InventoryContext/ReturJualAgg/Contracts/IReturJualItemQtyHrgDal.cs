@@ -4,7 +4,7 @@ using btr.nuna.Infrastructure;
 namespace btr.application.InventoryContext.ReturJualAgg.Contracts
 {
     public interface IReturJualItemQtyHrgDal :
-        IInsert<ReturJualItemQtyHrgModel>,
+        IInsertBulk<ReturJualItemQtyHrgModel>,
         IDelete<IReturJualKey>,
         IListData<ReturJualItemQtyHrgModel, IReturJualKey>
     {

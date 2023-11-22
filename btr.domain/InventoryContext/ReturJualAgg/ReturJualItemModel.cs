@@ -1,4 +1,5 @@
 ﻿using btr.domain.BrgContext.BrgAgg;
+using System.Collections.Generic;
 
 namespace btr.domain.InventoryContext.ReturJualAgg
 {
@@ -23,5 +24,8 @@ namespace btr.domain.InventoryContext.ReturJualAgg
         public decimal DiscRp { get; set; }
         public decimal PpnRp { get; set; }
         public decimal Total { get; set; }
+
+        public List<ReturJualItemQtyHrgModel> ListQtyHrg { get; set; }
+        public List<ReturJualItemDiscModel> ListDisc { get; set; }
     }
 }

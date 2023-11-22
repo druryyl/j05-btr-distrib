@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.SalesPersonAgg;
@@ -18,6 +19,8 @@ namespace btr.domain.InventoryContext.ReturJualAgg
         public decimal DiscRp { get; set; }
         public decimal PpnRp { get; set; }
         public decimal GrandTotal { get; set; }
+
+        public List<ReturJualItemModel> ListItem { get; set; }
     }
 
     public interface IReturJualKey
