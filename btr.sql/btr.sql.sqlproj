@@ -111,6 +111,8 @@
     <Build Include="Tables\Finance\BTR_PiutangElement.sql" />
     <Build Include="Tables\Finance\BTR_PiutangLunas.sql" />
     <Build Include="Tables\InventoryContext\BTR_ReturJual.sql" />
-    <Build Include="Tables\InventoryContext\BTR_ReturJualBrg.sql" />
+    <Build Include="Tables\InventoryContext\BTR_ReturJualItem.sql" />
+    <Build Include="Tables\InventoryContext\BTR_ReturJualItemQtyHrg.sql" />
+    <Build Include="Tables\InventoryContext\BTR_ReturJualItemDisc.sql" />
   </ItemGroup>
 </Project>

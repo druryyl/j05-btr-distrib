@@ -1,0 +1,15 @@
+﻿-- create table for ReturJualItemDiscModel
+CREATE TABLE BTR_ReturJualItemDisc(
+	ReturJualId VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_ReturJualItemDisc_ReturJualId DEFAULT(''),
+	ReturJualItemId VARCHAR(16) NOT NULL CONSTRAINT DF_BTR_ReturJualItemDisc_ReturJualItemId DEFAULT(''),
+	ReturJualItemDiscId VARCHAR(16) NOT NULL CONSTRAINT DF_BTR_ReturJualItemDisc_ReturJualItemDiscId DEFAULT(''),
+	NoUrut INT NOT NULL CONSTRAINT DF_BTR_ReturJualItemDisc_NoUrut DEFAULT(0),
+	BrgId VARCHAR(6) NOT NULL CONSTRAINT DF_BTR_ReturJualItemDisc_BrgId DEFAULT(''),
+	
+	DiscNo INT NOT NULL CONSTRAINT DF_BTR_ReturJualItemDisc_DiscNo DEFAULT(0),
+	BaseHrg DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturJualItemDisc_BaseHrg DEFAULT(0),
+	DiscRp DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturJualItemDisc_DiscRp DEFAULT(0),
+	Total DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturJualItemDisc_Total DEFAULT(0),
+
+	CONSTRAINT PK_BTR_ReturJualItemDisc PRIMARY KEY CLUSTERED(ReturJualItemDiscId)
+)

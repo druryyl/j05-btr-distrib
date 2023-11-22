@@ -1,0 +1,21 @@
+﻿-- create table for ReturJualItemModel
+CREATE TABLE BTR_ReturJualItem(
+    ReturJualId VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_ReturJualItem_ReturJualId DEFAULT(''),
+    ReturJualItemId VARCHAR(16) NOT NULL CONSTRAINT DF_BTR_ReturJualItem_ReturJualItemId DEFAULT(''),
+    NoUrut INT NOT NULL CONSTRAINT DF_BTR_ReturJualItem_NoUrut DEFAULT(0),
+    BrgId VARCHAR(6) NOT NULL CONSTRAINT DF_BTR_ReturJualItem_BrgId DEFAULT(''),
+    BrgCode VARCHAR(20) NOT NULL CONSTRAINT DF_BTR_ReturJualItem_BrgCode DEFAULT(''),
+
+    QtyInputStr VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_ReturJualItem_QtyInputStr DEFAULT(''),
+    HrgInputStr VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_ReturJualItem_HrgInputStr DEFAULT(''),
+    DiscInputStr VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_ReturJualItem_DiscInputStr DEFAULT(''),
+
+    Qty INT NOT NULL CONSTRAINT DF_BTR_ReturJualItem_Qty DEFAULT(0),
+    HrgSat DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturJualItem_HrgSat DEFAULT(0),
+    SubTotal DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturJualItem_SubTotal DEFAULT(0),
+    DiscRp DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturJualItem_DiscRp DEFAULT(0),
+    PpnRp DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturJualItem_PpnRp DEFAULT(0),
+    Total DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturJualItem_Total DEFAULT(0),
+
+    CONSTRAINT PK_BTR_ReturJualItem PRIMARY KEY CLUSTERED(ReturJualItemId),
+)

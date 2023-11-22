@@ -80,12 +80,12 @@ namespace btr.distrib.InventoryContext.OmzetSupplierRpt
                 ws.Range(ws.Cell($"A{1}"), ws.Cell($"O{_dataSourceBulanan.Count + 1}")).Style
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair);
-                ws.Range(ws.Cell($"A{1}"), ws.Cell($"O{_dataSourceBulanan.Count + 1}")).Style
+                ws.Range(ws.Cell($"A{1}"), ws.Cell($"O{_dataSourceBulanan.Count + 2}")).Style
                     .Font.SetFontName("Consolas")
                     .Font.SetFontSize(9);
 
                 //  set format number for column K, L, M, N to N0
-                ws.Range(ws.Cell($"C{2}"), ws.Cell($"O{_dataSourceBulanan.Count + 1}"))
+                ws.Range(ws.Cell($"C{2}"), ws.Cell($"O{_dataSourceBulanan.Count + 2}"))
                     .Style.NumberFormat.Format = "#,##";
                 ws.Range(ws.Cell($"A{2}"), ws.Cell($"A{_dataSourceBulanan.Count + 1}"))
                     .Style.NumberFormat.Format = "#,##";
@@ -93,6 +93,29 @@ namespace btr.distrib.InventoryContext.OmzetSupplierRpt
                 ws.Cell($"A1").Value = "No";
                 for (var i = 0; i < _dataSourceBulanan.Count; i++)
                     ws.Cell($"A{i + 2}").Value = i + 1;
+                //  add total row for columns C to O
+                ws.Cell($"A{_dataSourceBulanan.Count + 2}").Value = "Total";
+                ws.Cell($"B{_dataSourceBulanan.Count + 2}").FormulaA1 = $"=SUM(B2:B{_dataSourceBulanan.Count + 1})";
+                ws.Cell($"C{_dataSourceBulanan.Count + 2}").FormulaA1 = $"=SUM(C2:C{_dataSourceBulanan.Count + 1})";
+                ws.Cell($"D{_dataSourceBulanan.Count + 2}").FormulaA1 = $"=SUM(D2:D{_dataSourceBulanan.Count + 1})";
+                ws.Cell($"E{_dataSourceBulanan.Count + 2}").FormulaA1 = $"=SUM(E2:E{_dataSourceBulanan.Count + 1})";
+                ws.Cell($"F{_dataSourceBulanan.Count + 2}").FormulaA1 = $"=SUM(F2:F{_dataSourceBulanan.Count + 1})";
+                ws.Cell($"G{_dataSourceBulanan.Count + 2}").FormulaA1 = $"=SUM(G2:G{_dataSourceBulanan.Count + 1})";
+                ws.Cell($"H{_dataSourceBulanan.Count + 2}").FormulaA1 = $"=SUM(H2:H{_dataSourceBulanan.Count + 1})";
+                ws.Cell($"I{_dataSourceBulanan.Count + 2}").FormulaA1 = $"=SUM(I2:I{_dataSourceBulanan.Count + 1})";
+                ws.Cell($"J{_dataSourceBulanan.Count + 2}").FormulaA1 = $"=SUM(J2:J{_dataSourceBulanan.Count + 1})";
+                ws.Cell($"K{_dataSourceBulanan.Count + 2}").FormulaA1 = $"=SUM(K2:K{_dataSourceBulanan.Count + 1})";
+                ws.Cell($"L{_dataSourceBulanan.Count + 2}").FormulaA1 = $"=SUM(L2:L{_dataSourceBulanan.Count + 1})";
+                ws.Cell($"M{_dataSourceBulanan.Count + 2}").FormulaA1 = $"=SUM(M2:M{_dataSourceBulanan.Count + 1})";
+                ws.Cell($"N{_dataSourceBulanan.Count + 2}").FormulaA1 = $"=SUM(N2:N{_dataSourceBulanan.Count + 1})";
+                ws.Cell($"O{_dataSourceBulanan.Count + 2}").FormulaA1 = $"=SUM(O2:O{_dataSourceBulanan.Count + 1})";
+
+
+                //  border total row
+                ws.Range(ws.Cell($"A{_dataSourceBulanan.Count + 2}"), ws.Cell($"O{_dataSourceBulanan.Count + 2}")).Style
+                    .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
+                    .Border.SetInsideBorder(XLBorderStyleValues.Hair);
+
                 ws.Columns().AdjustToContents();
                 wb.SaveAs(filePath);
             }
@@ -108,22 +131,65 @@ namespace btr.distrib.InventoryContext.OmzetSupplierRpt
                     .InsertTable(_dataSourceHarian, false);
                 var ws = wb.Worksheets.First();
                 //  set border and font
-                ws.Range(ws.Cell($"A{1}"), ws.Cell($"AH{_dataSourceHarian.Count + 1}")).Style
+                ws.Range(ws.Cell($"A1"), ws.Cell($"AH{_dataSourceHarian.Count + 1}")).Style
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair);
-                ws.Range(ws.Cell($"A{1}"), ws.Cell($"AH{_dataSourceHarian.Count + 1}")).Style
+                ws.Range(ws.Cell($"A1"), ws.Cell($"AH{_dataSourceHarian.Count + 1}")).Style
                     .Font.SetFontName("Consolas")
                     .Font.SetFontSize(9);
 
                 //  set format number for column K, L, M, N to N0
-                ws.Range(ws.Cell($"C{2}"), ws.Cell($"AH{_dataSourceHarian.Count + 1}"))
+                ws.Range(ws.Cell($"C2"), ws.Cell($"AH{_dataSourceHarian.Count + 2}"))
                     .Style.NumberFormat.Format = "#,##";
-                ws.Range(ws.Cell($"A{2}"), ws.Cell($"A{_dataSourceHarian.Count + 1}"))
+                ws.Range(ws.Cell($"A2"), ws.Cell($"A{_dataSourceHarian.Count + 1}"))
                     .Style.NumberFormat.Format = "#,##";
                 //  add rownumbering
                 ws.Cell($"A1").Value = "No";
                 for (var i = 0; i < _dataSourceHarian.Count; i++)
                     ws.Cell($"A{i + 2}").Value = i + 1;
+                //  add total row for columns C to AH
+                ws.Cell($"A{_dataSourceHarian.Count + 2}").Value = "Total";
+                ws.Cell($"B{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(B2:B{_dataSourceHarian.Count + 1})";
+                ws.Cell($"C{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(C2:C{_dataSourceHarian.Count + 1})";
+                ws.Cell($"D{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(D2:D{_dataSourceHarian.Count + 1})";
+                ws.Cell($"E{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(E2:E{_dataSourceHarian.Count + 1})";
+                ws.Cell($"F{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(F2:F{_dataSourceHarian.Count + 1})";
+                ws.Cell($"G{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(G2:G{_dataSourceHarian.Count + 1})";
+                ws.Cell($"H{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(H2:H{_dataSourceHarian.Count + 1})";
+                ws.Cell($"I{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(I2:I{_dataSourceHarian.Count + 1})";
+                ws.Cell($"J{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(J2:J{_dataSourceHarian.Count + 1})";
+                ws.Cell($"K{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(K2:K{_dataSourceHarian.Count + 1})";
+                ws.Cell($"L{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(L2:L{_dataSourceHarian.Count + 1})";
+                ws.Cell($"M{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(M2:M{_dataSourceHarian.Count + 1})";
+                ws.Cell($"N{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(N2:N{_dataSourceHarian.Count + 1})";
+                ws.Cell($"O{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(O2:O{_dataSourceHarian.Count + 1})";
+                ws.Cell($"P{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(P2:P{_dataSourceHarian.Count + 1})";
+                ws.Cell($"Q{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(Q2:Q{_dataSourceHarian.Count + 1})";
+                ws.Cell($"R{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(R2:R{_dataSourceHarian.Count + 1})";
+                ws.Cell($"S{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(S2:S{_dataSourceHarian.Count + 1})";
+                ws.Cell($"T{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(T2:T{_dataSourceHarian.Count + 1})";
+                ws.Cell($"U{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(U2:U{_dataSourceHarian.Count + 1})";
+                ws.Cell($"V{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(V2:V{_dataSourceHarian.Count + 1})";
+                ws.Cell($"W{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(W2:W{_dataSourceHarian.Count + 1})";
+                ws.Cell($"X{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(X2:X{_dataSourceHarian.Count + 1})";
+                ws.Cell($"Y{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(Y2:Y{_dataSourceHarian.Count + 1})";
+                ws.Cell($"Z{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(Z2:Z{_dataSourceHarian.Count + 1})";
+                ws.Cell($"AA{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(AA2:AA{_dataSourceHarian.Count + 1})";
+                ws.Cell($"AB{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(AB2:AB{_dataSourceHarian.Count + 1})";
+                ws.Cell($"AC{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(AC2:AC{_dataSourceHarian.Count + 1})";
+                ws.Cell($"AD{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(AD2:AD{_dataSourceHarian.Count + 1})";
+                ws.Cell($"AE{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(AE2:AE{_dataSourceHarian.Count + 1})";
+                ws.Cell($"AF{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(AF2:AF{_dataSourceHarian.Count + 1})";
+                ws.Cell($"AG{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(AG2:AG{_dataSourceHarian.Count + 1})";
+                ws.Cell($"AH{_dataSourceHarian.Count + 2}").FormulaA1 = $"=SUM(AH2:AH{_dataSourceHarian.Count + 1})";
+
+
+
+                //  border total row
+                ws.Range(ws.Cell($"A{_dataSourceHarian.Count + 2}"), ws.Cell($"AH{_dataSourceHarian.Count + 2}")).Style
+                    .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
+                    .Border.SetInsideBorder(XLBorderStyleValues.Hair);
+
                 ws.Columns().AdjustToContents();
                 wb.SaveAs(filePath);
             }
@@ -180,9 +246,11 @@ namespace btr.distrib.InventoryContext.OmzetSupplierRpt
             InfoGridBulanan.TableDescriptor.AllowRemove = false;
 
             var listSumCol = new List<GridSummaryColumnDescriptor>();
+            var monthName = new List<string> { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep",
+                           "Oct", "Nov", "Dec" };
             for (var i = 1; i <= 12; i++)
             {
-                var colName = $"B{i:D2}";
+                var colName = monthName[i-1] ;
                 var sumColT = new GridSummaryColumnDescriptor(colName, SummaryType.DoubleAggregate, colName, "{Sum}");
                 sumColT.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
                 sumColT.Appearance.AnySummaryCell.Format = "N0";
@@ -231,18 +299,18 @@ namespace btr.distrib.InventoryContext.OmzetSupplierRpt
                 .Select(x => new OmzetSupplierBulananDto
                 {
                     SupplierName = x.Key,
-                    B01 = x.Where(y => y.FakturDate.Month == 1).Sum(y => y.Total),
-                    B02 = x.Where(y => y.FakturDate.Month == 2).Sum(y => y.Total),
-                    B03 = x.Where(y => y.FakturDate.Month == 3).Sum(y => y.Total),
-                    B04 = x.Where(y => y.FakturDate.Month == 4).Sum(y => y.Total),
-                    B05 = x.Where(y => y.FakturDate.Month == 5).Sum(y => y.Total),
-                    B06 = x.Where(y => y.FakturDate.Month == 6).Sum(y => y.Total),
-                    B07 = x.Where(y => y.FakturDate.Month == 7).Sum(y => y.Total),
-                    B08 = x.Where(y => y.FakturDate.Month == 8).Sum(y => y.Total),
-                    B09 = x.Where(y => y.FakturDate.Month == 9).Sum(y => y.Total),
-                    B10 = x.Where(y => y.FakturDate.Month == 10).Sum(y => y.Total),
-                    B11 = x.Where(y => y.FakturDate.Month == 11).Sum(y => y.Total),
-                    B12 = x.Where(y => y.FakturDate.Month == 12).Sum(y => y.Total),
+                    Jan = x.Where(y => y.FakturDate.Month == 1).Sum(y => y.Total),
+                    Feb = x.Where(y => y.FakturDate.Month == 2).Sum(y => y.Total),
+                    Mar = x.Where(y => y.FakturDate.Month == 3).Sum(y => y.Total),
+                    Apr = x.Where(y => y.FakturDate.Month == 4).Sum(y => y.Total),
+                    May = x.Where(y => y.FakturDate.Month == 5).Sum(y => y.Total),
+                    Jun = x.Where(y => y.FakturDate.Month == 6).Sum(y => y.Total),
+                    Jul = x.Where(y => y.FakturDate.Month == 7).Sum(y => y.Total),
+                    Aug = x.Where(y => y.FakturDate.Month == 8).Sum(y => y.Total),
+                    Sep = x.Where(y => y.FakturDate.Month == 9).Sum(y => y.Total),
+                    Oct = x.Where(y => y.FakturDate.Month == 10).Sum(y => y.Total),
+                    Nov = x.Where(y => y.FakturDate.Month == 11).Sum(y => y.Total),
+                    Dec = x.Where(y => y.FakturDate.Month == 12).Sum(y => y.Total),
                     Total = x.Sum(y => y.Total)
                 })
                 .ToList();
