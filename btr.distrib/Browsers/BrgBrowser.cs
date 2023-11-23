@@ -15,8 +15,10 @@ namespace btr.distrib.Browsers
         public BrgBrowser(IBrgDal brgDal)
         {
             _brgDal = brgDal;
-            Filter = new BrowseFilter();
-            Filter.IsDate = false;
+            Filter = new BrowseFilter
+            {
+                IsDate = false
+            };
         }
 
         public string Browse(string defaultValue)
@@ -24,10 +26,9 @@ namespace btr.distrib.Browsers
             var form = new BrowserForm<BrgBrowserView>(this);
 
             var dialogResult = form.ShowDialog();
-            if (dialogResult == System.Windows.Forms.DialogResult.OK)
-                return form.Result;
-            else
-                return defaultValue;
+            return dialogResult == System.Windows.Forms.DialogResult.OK 
+                ? form.Result 
+                : defaultValue;
         }
 
         public BrowseFilter Filter { get; set; }

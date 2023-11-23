@@ -137,6 +137,8 @@
     <Compile Include="InventoryContext\ReturJualAgg\Contracts\IReturJualItemDal.cs" />
     <Compile Include="InventoryContext\ReturJualAgg\Contracts\IReturJualItemDiscDal.cs" />
     <Compile Include="InventoryContext\ReturJualAgg\Contracts\IReturJualItemQtyHrgDal.cs" />
+    <Compile Include="InventoryContext\ReturJualAgg\Workers\CreateReturJualItemWorker.cs" />
+    <Compile Include="InventoryContext\ReturJualAgg\Workers\FindHrgReturJualWorker.cs" />
     <Compile Include="InventoryContext\ReturJualAgg\Workers\ReturJualBuilder.cs" />
     <Compile Include="InventoryContext\ReturJualAgg\Workers\ReturJualWriter.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\AddStokWorker.cs" />

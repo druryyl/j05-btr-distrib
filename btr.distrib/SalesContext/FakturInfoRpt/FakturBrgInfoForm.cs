@@ -4,7 +4,6 @@ using Syncfusion.Windows.Forms.Grid.Grouping;
 using Syncfusion.Windows.Forms.Grid;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -136,7 +135,7 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
             sumColTotal.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
 
             var sumRowDescriptor = new GridSummaryRowDescriptor();
-            sumRowDescriptor.SummaryColumns.AddRange(new GridSummaryColumnDescriptor[] { sumColSubTotal, sumColDiskon, sumColTax, sumColTotal });
+            sumRowDescriptor.SummaryColumns.AddRange(new[] { sumColSubTotal, sumColDiskon, sumColTax, sumColTotal });
             InfoGrid.TableDescriptor.SummaryRows.Add(sumRowDescriptor);
 
 
@@ -165,21 +164,20 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
             var dayCount = timeSpan.Days;
             if (dayCount > 122)
             {
-                MessageBox.Show("Periode informasi maximal 3 bulan");
+                MessageBox.Show(@"Periode informasi maximal 3 bulan");
                 return;
             }
             var listFaktur = _fakturBrgViewDal.ListData(periode)?.ToList() ?? new List<FakturBrgView>();
             listFaktur = listFaktur
-                .OrderBy(x => x.FakturCode)
                 .OrderBy(x => x.FakturDate.Date)
+                .ThenBy(x => x.FakturCode)
                 .ToList();
             _dataSource = Filter(listFaktur, CustomerText.Text);
             _dataSource.ForEach(x => x.FakturDate= x.FakturDate.Date);
-
             InfoGrid.DataSource = _dataSource;
         }
 
-        private List<FakturBrgView> Filter(List<FakturBrgView> source, string keyword)
+        private static List<FakturBrgView> Filter(List<FakturBrgView> source, string keyword)
         {
             if (keyword.Trim().Length == 0)
                 return source;

@@ -10,17 +10,18 @@ using btr.distrib.Helpers;
 namespace btr.distrib.Browsers
 {
     public class BrgStokBrowser :
-        IBrowser<BrgStokBrowserView>,
-        IBrowseEngine<BrgStokBrowserView>
+        IBrowser<BrgStokBrowserView>
     {
         private readonly IBrgStokViewDal _brgStokViewDal;
 
         public BrgStokBrowser(IBrgStokViewDal brgStokViewDal)
         {
             _brgStokViewDal = brgStokViewDal;
-            Filter = new BrowseFilter();
-            Filter.IsDate = false;
-            Filter.HideAllRows = true;
+            Filter = new BrowseFilter
+            {
+                IsDate = false,
+                HideAllRows = true
+            };
         }
 
         public string Browse(string defaultValue)
@@ -28,10 +29,9 @@ namespace btr.distrib.Browsers
             var form = new BrowserForm<BrgStokBrowserView>(this);
 
             var dialogResult = form.ShowDialog();
-            if (dialogResult == System.Windows.Forms.DialogResult.OK)
-                return form.Result;
-            else
-                return defaultValue;
+            return dialogResult == System.Windows.Forms.DialogResult.OK 
+                ? form.Result 
+                : defaultValue;
         }
 
         public BrowseFilter Filter { get; set; }
@@ -52,13 +52,12 @@ namespace btr.distrib.Browsers
                     Stok = x.Stok,
                 }).ToList();
 
-            if (Filter.UserKeyword.Length > 0)
-            {
-                var resultName = result.Where(x => x.BrgName.ContainMultiWord(Filter.UserKeyword)).ToList();
-                var resultId = result.Where(x => x.Id.ToLower().StartsWith(Filter.UserKeyword.ToLower())).ToList();
-                var resultCode = result.Where(x => x.Code.ToLower().StartsWith(Filter.UserKeyword.ToLower())).ToList();
-                result = resultName.Concat(resultId).Concat(resultCode).ToList();
-            }
+            if (Filter.UserKeyword.Length <= 0) return result;
+
+            var resultName = result.Where(x => x.BrgName.ContainMultiWord(Filter.UserKeyword)).ToList();
+            var resultId = result.Where(x => x.Id.ToLower().StartsWith(Filter.UserKeyword.ToLower())).ToList();
+            var resultCode = result.Where(x => x.Code.ToLower().StartsWith(Filter.UserKeyword.ToLower())).ToList();
+            result = resultName.Concat(resultId).Concat(resultCode).ToList();
 
             return result;
         }

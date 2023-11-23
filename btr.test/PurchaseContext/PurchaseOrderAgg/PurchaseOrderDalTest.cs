@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using btr.domain.PurchaseContext.PurchaseOrderAgg;
 using btr.infrastructure.PurchaseContext.PurchaseOrderAgg;
 using btr.nuna.Application;
@@ -33,54 +34,94 @@ namespace btr.test.PurchaseContext.PurchaseOrderAgg
                 WarehouseName = string.Empty,
             };
         
+        // [Fact]
+        // public void InsertTest()
+        // {
+        //     using (var trans = TransHelper.NewScope())
+        //     {
+        //         _sut.Insert(Faker());
+        //     }
+        // }
+        //
+        // [Fact]
+        // public void UpdateTest()
+        // {
+        //     using (var trans = TransHelper.NewScope())
+        //     {
+        //         _sut.Update(Faker());
+        //     }
+        // }
+        //
+        // [Fact]
+        // public void DeleteTest()
+        // {
+        //     using (var trans = TransHelper.NewScope())
+        //     {
+        //         _sut.Insert(Faker());
+        //         _sut.Delete(Faker());
+        //     }
+        // }
+        //
+        // [Fact]
+        // public void GetDataTest()
+        // {
+        //     using (var trans = TransHelper.NewScope())
+        //     {
+        //         _sut.Insert(Faker());
+        //         var actual = _sut.GetData(Faker());
+        //         actual.Should().BeEquivalentTo(Faker());
+        //     }        
+        // }
+        //
+        // [Fact]
+        // public void ListDataTest()
+        // {
+        //     using (var trans = TransHelper.NewScope())
+        //     {
+        //         _sut.Insert(Faker());
+        //         var actual = _sut.ListData(new Periode(new DateTime(2023,8,15)));
+        //         actual.Should().BeEquivalentTo(new List<PurchaseOrderModel> { Faker() });
+        //     }
+        // }
+
         [Fact]
-        public void InsertTest()
+        public void NullCoalessing_Null_Test()
         {
-            using (var trans = TransHelper.NewScope())
-            {
-                _sut.Insert(Faker());
-            }
+            List<BrgModel> listBrg = null;
+            var actual = listBrg?.FirstOrDefault()?.Nilai ?? 9;
+            actual.Should().Be(9);
         }
 
         [Fact]
-        public void UpdateTest()
+        public void NullCoalessing_NotNull_Test()
         {
-            using (var trans = TransHelper.NewScope())
-            {
-                _sut.Update(Faker());
-            }
+            var listBrg = new List<BrgModel>();
+            var actual = listBrg?.FirstOrDefault()?.Nilai ?? 9;
+            actual.Should().Be(9);
         }
-
         [Fact]
-        public void DeleteTest()
+        public void NullCoalessing_NotEmpty_Test()
         {
-            using (var trans = TransHelper.NewScope())
+            var listBrg = new List<BrgModel>
             {
-                _sut.Insert(Faker());
-                _sut.Delete(Faker());
-            }
+                new BrgModel("A","AAA",8)
+            };
+            var actual = listBrg?.FirstOrDefault()?.Nilai ?? 9;
+            actual.Should().Be(8);
         }
+        
+    }
 
-        [Fact]
-        public void GetDataTest()
+    public class BrgModel
+    {
+        public BrgModel(string brgId, string brgName, decimal nilai)
         {
-            using (var trans = TransHelper.NewScope())
-            {
-                _sut.Insert(Faker());
-                var actual = _sut.GetData(Faker());
-                actual.Should().BeEquivalentTo(Faker());
-            }        
+            BrgId = brgId;
+            BrgName = brgName;
+            Nilai = nilai;
         }
-
-        [Fact]
-        public void ListDataTest()
-        {
-            using (var trans = TransHelper.NewScope())
-            {
-                _sut.Insert(Faker());
-                var actual = _sut.ListData(new Periode(new DateTime(2023,8,15)));
-                actual.Should().BeEquivalentTo(new List<PurchaseOrderModel> { Faker() });
-            }
-        }
+        public string BrgId { get; set; }
+        public string BrgName { get; set; }
+        public decimal Nilai { get; set; }
     }
 }

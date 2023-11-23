@@ -22,7 +22,7 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
             _opt = opt.Value;
         }
 
-        public void Insert(ReturJualItemDiscModel model)
+        public void Insert(IEnumerable<ReturJualItemDiscModel> model)
         {
             //  create bulk insert ReturJualItemDiscModel
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
@@ -40,7 +40,7 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
                 bcp.ColumnMappings.Add("DiscProsen", "DiscProsen");
                 bcp.ColumnMappings.Add("DiscRp", "DiscRp");
 
-                var fetched = new List<ReturJualItemDiscModel> { model };
+                var fetched = model.ToList();
                 bcp.DestinationTableName = "BTR_ReturJualItemDisc";
                 bcp.BatchSize = fetched.Count;
                 bcp.WriteToServer(fetched.AsDataTable());

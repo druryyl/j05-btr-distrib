@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>73</ApplicationRevision>
+    <ApplicationRevision>74</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -271,6 +271,7 @@
     <Compile Include="Browsers\BrgBrowser.cs" />
     <Compile Include="Browsers\BrgStokBrowser.cs" />
     <Compile Include="Browsers\CustomerBrowser.cs" />
+    <Compile Include="Browsers\DriverBrowser.cs" />
     <Compile Include="Browsers\FakturBrowser.cs" />
     <Compile Include="Browsers\InvoiceBrowser.cs" />
     <Compile Include="Browsers\KategoriBrowser.cs" />
@@ -354,6 +355,7 @@
     <Compile Include="InventoryContext\ReturJualAgg\ReturJualForm.Designer.cs">
       <DependentUpon>ReturJualForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InventoryContext\ReturJualAgg\ReturJualItemDto.cs" />
     <Compile Include="InventoryContext\StokBalanceRpt\StokBalanceInfo2Form.cs">
       <SubType>Form</SubType>
     </Compile>

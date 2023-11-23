@@ -22,7 +22,7 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
             _opt = opt.Value;
         }
 
-        public void Insert(ReturJualItemQtyHrgModel model)
+        public void Insert(IEnumerable<ReturJualItemQtyHrgModel> model)
         {
             //  create bulk insert ReturJualItemQtyHarModel
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
@@ -41,7 +41,7 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
                 bcp.ColumnMappings.Add("HrgSat", "HrgSat");
                 bcp.ColumnMappings.Add("SubTotal", "SubTotal");
 
-                var fetched = new List<ReturJualItemQtyHrgModel> { model };
+                var fetched = model.ToList();
                 bcp.DestinationTableName = "BTR_ReturJualItemQtyHrg";
                 bcp.BatchSize = fetched.Count;
                 bcp.WriteToServer(fetched.AsDataTable());
