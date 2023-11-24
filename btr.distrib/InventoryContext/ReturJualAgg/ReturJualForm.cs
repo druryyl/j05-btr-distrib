@@ -16,6 +16,7 @@ using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.ReturJualAgg.Workers;
 using btr.distrib.Helpers;
 using btr.domain.BrgContext.BrgAgg;
+using Mapster;
 using Polly;
 
 namespace btr.distrib.InventoryContext.ReturJualAgg
@@ -131,12 +132,8 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             var req = new CreateReturJualItemRequest(item.BrgId, CustomerIdText.Text, item.HrgInputStr, item.QtyInputStr, item.DiscInputStr, 11);
             var newItem = _createReturJualItemWorker.Execute(req);
             
-            // TODO: Sampai di sinilah untuk validasi item di grid (ReturJualForm.cs) 
-            var brg = BuildBrg(rowIndex);
-            _listItem[rowIndex].BrgId = brg?.BrgId ?? string.Empty;
-            _listItem[rowIndex].BrgCode = brg?.BrgCode ?? string.Empty;
-            _listItem[rowIndex].BrgName = brg?.BrgName ?? string.Empty;
-
+            _listItem[rowIndex] = newItem.Adapt<ReturJualItemDto>();
+            FakturItemGrid.Refresh();
         }
 
         private BrgModel BuildBrg(int rowIndex)

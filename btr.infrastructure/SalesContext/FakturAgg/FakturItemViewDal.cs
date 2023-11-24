@@ -28,7 +28,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             //  QUERY
             const string sql = @"
                 SELECT
-                    aa.FakturId, bb.FakturDate, aa.BrgId, aa.HargaJual
+                    aa.FakturId, bb.FakturDate, aa.BrgId, aa.HrgSat
                 FROM
                     BTR_FakturItem aa
                     INNER JOIN BTR_Faktur bb ON aa.FakturId = bb.FakturId

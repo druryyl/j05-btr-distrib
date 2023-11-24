@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using btr.application.BrgContext.BrgAgg;
-using btr.application.SalesContext.FakturAgg.Contracts;
-using btr.application.SupportContext.TglJamAgg;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.ReturJualAgg;
 using btr.domain.SalesContext.CustomerAgg;
@@ -44,16 +42,13 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
     public class CreateReturJualItemWorker : ICreateReturJualItemWorker
     {
         private readonly IBrgBuilder _brgBuilder;
-        private readonly ITglJamDal _dateTime;
-        private readonly IFakturItemViewDal _fakturItemViewDal;
+        private readonly IFindHrgReturJualHandler _findHrgReturJualHandler;
 
         public CreateReturJualItemWorker(IBrgBuilder brgBuilder, 
-            ITglJamDal dataTime, 
-            IFakturItemViewDal fakturItemViewDal)
+            IFindHrgReturJualHandler findHrgReturJualHandler)
         {
             _brgBuilder = brgBuilder;
-            _dateTime = dataTime;
-            _fakturItemViewDal = fakturItemViewDal;
+            _findHrgReturJualHandler = findHrgReturJualHandler;
         }
 
         public ReturJualItemModel Execute(CreateReturJualItemRequest req)
@@ -80,9 +75,11 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
             result.QtyHrgDetilStr = result.ListQtyHrg
                 .Select(x => $"{x.Qty:N0} {x.JenisQty} @ {x.HrgSat:N0}")
                 .Aggregate((x, y) => $"{x}{Environment.NewLine}{y}");
-            result.DiscDetilStr = result.ListDisc
-                .Select(x => $"{x.DiscProsen:N0}% = {x.DiscRp:N0}")
-                .Aggregate((x, y) => $"{x}{Environment.NewLine}{y}");
+            result.DiscDetilStr = result.ListDisc.Count > 0 ?
+                result.ListDisc
+                    .Select(x => $"{x.DiscProsen:N0}% = {x.DiscRp:N0}")
+                    .Aggregate((x, y) => $"{x}{Environment.NewLine}{y}"):
+                string.Empty;
 
             result.Qty = result.ListQtyHrg.Sum(x => x.Qty * x.Conversion);
             result.HrgSat = result.ListQtyHrg.First(x => x.Conversion == 1).HrgSat;
@@ -122,7 +119,7 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
             return result;
         }
 
-        private IEnumerable<ReturJualItemDiscModel> GenListDisc(string disccountString, 
+        private static IEnumerable<ReturJualItemDiscModel> GenListDisc(string disccountString, 
             decimal subTotal, IBrgKey brg)
         {
             var discs = ParseStringMultiNumber(disccountString, 4);
@@ -188,18 +185,7 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
 
         private string GetHargaJualStr(BrgModel brg, ICustomerKey customerKey)
         {
-            //  get history for the last 1 year
-            var startDate =  _dateTime.Now.AddYears(-1);
-            var endDate = _dateTime.Now;
-            var periode = new Periode(startDate, endDate);
-            var listFakturItem = _fakturItemViewDal.ListData(customerKey, brg, periode)
-                ?? new List<FakturItemView>();
-            var lastHargaJual = listFakturItem
-                .DefaultIfEmpty(new FakturItemView{HrgSatuan = 0})
-                .OrderByDescending(x => x.FakturDate)
-                .FirstOrDefault()?.HrgSatuan ?? 0;
-            if (lastHargaJual == 0)
-                lastHargaJual = brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == "1")?.Harga ?? 0;
+            var hrg = _findHrgReturJualHandler.Execute(new FindHrgReturJualRequest(brg.BrgId, customerKey.CustomerId));
 
             var conversion = brg.ListSatuan
                 .DefaultIfEmpty(new BrgSatuanModel{ Conversion = 1})
@@ -207,8 +193,8 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
             if (conversion == 0) conversion = 1;
 
             return conversion == 1 
-                ? $"0;{lastHargaJual:N0}" 
-                : $"{lastHargaJual:N0} * conversion;{lastHargaJual:N0}";
+                ? $"0;{hrg.Harga:N0}" 
+                : $"{hrg.Harga:N0} * conversion;{hrg.Harga:N0}";
         }
 
         private static string ParsingHrg(string hargaInputStr)

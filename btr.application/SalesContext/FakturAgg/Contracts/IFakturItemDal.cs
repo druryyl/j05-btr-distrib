@@ -24,6 +24,6 @@ namespace btr.application.SalesContext.FakturAgg.Contracts
         public string FakturId { get; set; }
         public DateTime FakturDate { get; set; }
         public string BrgId { get; set; }
-        public decimal HrgSatuan { get; set; }
+        public decimal HrgSat { get; set; }
     }
 }
