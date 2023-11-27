@@ -82,6 +82,9 @@
     <Reference Include="Irony, Version=1.0.11.0, Culture=neutral, PublicKeyToken=ca48ace7223ead47, processorArchitecture=MSIL">
       <HintPath>..\packages\Irony.NetCore.1.0.11\lib\net461\Irony.dll</HintPath>
     </Reference>
+    <Reference Include="JetBrains.Annotations, Version=4242.42.42.42, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.2023.2.0\lib\net20\JetBrains.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="Mapster, Version=7.3.0.0, Culture=neutral, PublicKeyToken=2f39883af23c29a8, processorArchitecture=MSIL">
       <HintPath>..\packages\Mapster.7.3.0\lib\netstandard2.0\Mapster.dll</HintPath>
     </Reference>
@@ -468,6 +471,7 @@
     <Compile Include="SalesContext\AlokasiFpAgg\AlokasiFpForm.Designer.cs">
       <DependentUpon>AlokasiFpForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SalesContext\FakturControlAgg\FakturControlView.cs" />
     <Compile Include="SalesContext\FakturInfoRpt\FakturBrgInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>

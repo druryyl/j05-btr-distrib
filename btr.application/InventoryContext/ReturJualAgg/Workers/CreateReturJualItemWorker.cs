@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using btr.application.BrgContext.BrgAgg;
 using btr.domain.BrgContext.BrgAgg;
@@ -78,11 +79,11 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
                 brg).ToList();
 
             result.QtyHrgDetilStr = result.ListQtyHrg
-                .Select(x => $"{x.Qty:N0} {x.JenisQty} @ {x.HrgSat:N0}")
+                .Select(x => $"{x.Qty:N0} {x.Satuan} @{x.HrgSat:N0}")
                 .Aggregate((x, y) => $"{x}{Environment.NewLine}{y}");
             result.DiscDetilStr = result.ListDisc.Count > 0 ?
                 result.ListDisc
-                    .Select(x => $"{x.DiscProsen:N0}% = {x.DiscRp:N0}")
+                    .Select(x => $"{x.DiscProsen}% = {x.DiscRp:N0}")
                     .Aggregate((x, y) => $"{x}{Environment.NewLine}{y}"):
                 string.Empty;
 
@@ -112,6 +113,7 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
                 Conversion = brgModel.ListSatuan.Max(x => x.Conversion),
                 Qty = int.Parse(listQty[0]),
                 HrgSat = decimal.Parse(listHrg[0]),
+                Satuan = brgModel.ListSatuan.FirstOrDefault(x => x.Conversion > 1)?.Satuan ?? string.Empty,
             };
             var item2 = new ReturJualItemQtyHrgModel
             {
@@ -120,9 +122,13 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
                 JenisQty = JenisQtyEnum.SatuanKecil,
                 Conversion = 1,
                 Qty = int.Parse(listQty[1]),
-                HrgSat = decimal.Parse(listHrg[1])
+                HrgSat = decimal.Parse(listHrg[1]),
+                Satuan = brgModel.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty,
             };
             var result = new List<ReturJualItemQtyHrgModel> { item1, item2 };
+            if (item1.Satuan == string.Empty)
+                result.RemoveAt(0);
+            
             result.ForEach(x => x.SubTotal = x.Qty * x.HrgSat);
             return result;
 
@@ -150,15 +156,15 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
             var item1 = new ReturJualItemDiscModel(1, brg.BrgId, subTotal, discs[0], discRp[0]);
 
             discRp[1] = newSubTotal * discs[1] / 100;
-            var item2 = new ReturJualItemDiscModel(1, brg.BrgId, newSubTotal, discs[0], discRp[0]);
+            var item2 = new ReturJualItemDiscModel(2, brg.BrgId, newSubTotal, discs[1], discRp[1]);
             newSubTotal -= discRp[1];
 
             discRp[2] = newSubTotal * discs[2] / 100;
-            var item3 = new ReturJualItemDiscModel(1, brg.BrgId, newSubTotal, discs[0], discRp[0]);
+            var item3 = new ReturJualItemDiscModel(3, brg.BrgId, newSubTotal, discs[2], discRp[2]);
             newSubTotal -= discRp[2];
 
             discRp[3] = newSubTotal * discs[3] / 100;
-            var item4 = new ReturJualItemDiscModel(1, brg.BrgId, newSubTotal, discs[0], discRp[0]);
+            var item4 = new ReturJualItemDiscModel(4, brg.BrgId, newSubTotal, discs[3], discRp[3]);
 
 
             var result = new List<ReturJualItemDiscModel>
@@ -177,12 +183,12 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
                 inputStr.HrgInputStr = "0;0";
             inputStr.HrgInputStr = inputStr.HrgInputStr == "0;0" 
                 ? GetHargaJualStr(brg, new CustomerModel(customerId)) 
-                : ParsingHrg(inputStr.HrgInputStr);
+                : ParsingHrg(inputStr.HrgInputStr, brg);
 
             //      qtyInput
             if (inputStr.HrgInputStr.IsNullOrEmpty())
                 inputStr.HrgInputStr = "0;0";
-            inputStr.QtyInputStr = ParsingQty(inputStr.QtyInputStr);
+            inputStr.QtyInputStr = ParsingQty(inputStr.QtyInputStr, brg);
 
             //      discInput
             if (inputStr.DiscInputStr.IsNullOrEmpty())
@@ -195,12 +201,25 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
         private static string ParsingDisc(string discInputStr)
         {
             var listNumber = ParseStringMultiNumber(discInputStr, 4);
-            var disc1 = listNumber[0];
-            var disc2 = listNumber[1];
-            var disc3 = listNumber[2];
-            var disc4 = listNumber[3];
-            var result = $"{disc1:N0};{disc2:N0};{disc3:N0};{disc4:N0}";
+            var disc1 = ConvertToString(listNumber[0]);
+            var disc2 = ConvertToString(listNumber[1]);;
+            var disc3 = ConvertToString(listNumber[2]);;
+            var disc4 = ConvertToString(listNumber[3]);;
+            
+            var result = $"{disc1};{disc2};{disc3};{disc4}";
             return result;
+
+            string ConvertToString(decimal valDecimal)
+            {
+                if (valDecimal % 1 == 0)
+                    return $"{valDecimal:N0}";
+                
+                // determining how many decimal places is valDecimal
+                var str = valDecimal.ToString(CultureInfo.InvariantCulture);
+                var decimalPlaces = str.Substring(str.IndexOf('.') + 1).Length;
+                var format = decimalPlaces == 1 ? "N1" : "N2";
+                return $"{valDecimal.ToString(format)}";
+            }
         }
 
         private string GetHargaJualStr(BrgModel brg, ICustomerKey customerKey)
@@ -214,25 +233,82 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
 
             return conversion == 1 
                 ? $"0;{hrg.Harga:N0}" 
-                : $"{hrg.Harga:N0} * conversion;{hrg.Harga:N0}";
+                : $"{(hrg.Harga * conversion):N0} ;{hrg.Harga:N0}";
         }
 
-        private static string ParsingHrg(string hargaInputStr)
+        private static string ParsingHrg(string hargaInputStr, BrgModel brg)
         {
             var listNumber = ParseStringMultiNumber(hargaInputStr, 2);
-            var hrgBesar = listNumber.OrderBy(x => x).First();
-            var hrgKecil = listNumber.OrderBy(x => x).Last();
-            var result = $"{hrgBesar:N0};{hrgKecil:N0}";
+            var hrgBesar = listNumber.OrderByDescending(x => x).First();
+            var hrgKecil = listNumber.OrderByDescending(x => x).Last();
+            
+            var maxConv = brg.ListSatuan.Max(x => x.Conversion);
+            var result = maxConv > 1
+                ? GenDuaSatuan() 
+                : GenSatuSatuan();
             return result;
+
+            string GenDuaSatuan()
+            {
+                //  nilai lebih besar dianggap hrg besar
+                hrgBesar = hrgKecil > hrgBesar ? hrgKecil : hrgBesar;
+                //  hrg kecil dihitung berdasarkan hrg kecil-nya
+                hrgKecil = hrgBesar / maxConv;
+            
+                return  $"{hrgBesar:N0};{hrgKecil:N0}";
+            }
+
+            string GenSatuSatuan()
+            {
+                //  jika terisi salah satu, ambil yang bukan nol
+                hrgKecil = listNumber[0] != 0 
+                    ? listNumber[0] 
+                    : listNumber[1];
+                
+                //  jika terisi keduanya, ambil yang kecil
+                if (listNumber[0] != 0 && listNumber[1] != 0)
+                {
+                    hrgKecil = listNumber[0] < listNumber[1] 
+                        ? listNumber[0] 
+                        : listNumber[1];
+                }
+
+                hrgBesar = 0;
+                
+                return  $"{hrgBesar:N0};{hrgKecil:N0}";
+            }
         }
 
-        private static string ParsingQty(string qtyInputStr)
+        private static string ParsingQty(string qtyInputStr, BrgModel brg)
         {
             var listNumber = ParseStringMultiNumber(qtyInputStr, 2);
-            var qtyBesar = listNumber.OrderBy(x => x).First();
-            var qtyKecil = listNumber.OrderBy(x => x).Last();
-            var result = $"{qtyBesar:N0};{qtyKecil:N0}";
+            var qtyBesar = (int)listNumber[0];
+            var qtyKecil = (int)listNumber[1];
+
+            var maxConv = brg.ListSatuan.Max(x => x.Conversion);
+            var result = maxConv > 1 
+                ? GenDuaSatuan() 
+                : GenSatuSatuan();
             return result;
+            
+            string GenDuaSatuan()
+            {
+                //  qty kecil yang melebihi conversion akan diubah ke qty besar   
+                if (qtyKecil <= maxConv) 
+                    return $"{qtyBesar};{qtyKecil}";
+                
+                var toQtyBesar = qtyKecil / maxConv;
+                qtyKecil = qtyKecil - (toQtyBesar * maxConv);
+                qtyBesar += toQtyBesar;
+                return $"{qtyBesar};{qtyKecil}";
+            }
+
+            string GenSatuSatuan()
+            {
+                qtyKecil = qtyBesar;
+                qtyBesar = 0;
+                return $"{qtyBesar};{qtyKecil}";
+            }
         }
 
         private static List<decimal> ParseStringMultiNumber(string str, int size)

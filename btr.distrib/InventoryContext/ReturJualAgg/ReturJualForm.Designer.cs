@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.panel2 = new System.Windows.Forms.Panel();
+            this.WarehouseIdText = new System.Windows.Forms.TextBox();
+            this.WarehouseButton = new System.Windows.Forms.Button();
+            this.WarehouseNameText = new System.Windows.Forms.TextBox();
+            this.WarehouseLabel = new System.Windows.Forms.Label();
             this.CustomerAddressText = new System.Windows.Forms.TextBox();
             this.CustomerIdText = new System.Windows.Forms.TextBox();
             this.CustomerNameText = new System.Windows.Forms.TextBox();
@@ -36,6 +40,14 @@
             this.label6 = new System.Windows.Forms.Label();
             this.ReturJualIdText = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.DriverIdText = new System.Windows.Forms.TextBox();
+            this.DriverNameText = new System.Windows.Forms.TextBox();
+            this.DriverButton = new System.Windows.Forms.Button();
+            this.DriverLabel = new System.Windows.Forms.Label();
+            this.SalesIdText = new System.Windows.Forms.TextBox();
+            this.SalesNameText = new System.Windows.Forms.TextBox();
+            this.SalesButton = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.PanelAtas4 = new System.Windows.Forms.Panel();
             this.VoidPanel = new System.Windows.Forms.Panel();
             this.CancelLabel = new System.Windows.Forms.Label();
@@ -59,18 +71,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.SaveButton = new System.Windows.Forms.Button();
             this.NewButton = new System.Windows.Forms.Button();
-            this.WarehouseIdText = new System.Windows.Forms.TextBox();
-            this.WarehouseButton = new System.Windows.Forms.Button();
-            this.WarehouseNameText = new System.Windows.Forms.TextBox();
-            this.WarehouseLabel = new System.Windows.Forms.Label();
-            this.SalesIdText = new System.Windows.Forms.TextBox();
-            this.SalesNameText = new System.Windows.Forms.TextBox();
-            this.SalesButton = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.DriverIdText = new System.Windows.Forms.TextBox();
-            this.DriverNameText = new System.Windows.Forms.TextBox();
-            this.DriverButton = new System.Windows.Forms.Button();
-            this.DriverLabel = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.PanelAtas4.SuspendLayout();
@@ -101,6 +101,42 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(200, 202);
             this.panel2.TabIndex = 50;
+            // 
+            // WarehouseIdText
+            // 
+            this.WarehouseIdText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.WarehouseIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.WarehouseIdText.Location = new System.Drawing.Point(11, 122);
+            this.WarehouseIdText.Name = "WarehouseIdText";
+            this.WarehouseIdText.Size = new System.Drawing.Size(147, 22);
+            this.WarehouseIdText.TabIndex = 8;
+            // 
+            // WarehouseButton
+            // 
+            this.WarehouseButton.Location = new System.Drawing.Point(164, 121);
+            this.WarehouseButton.Name = "WarehouseButton";
+            this.WarehouseButton.Size = new System.Drawing.Size(28, 20);
+            this.WarehouseButton.TabIndex = 9;
+            this.WarehouseButton.Text = "...";
+            this.WarehouseButton.UseVisualStyleBackColor = true;
+            // 
+            // WarehouseNameText
+            // 
+            this.WarehouseNameText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.WarehouseNameText.Location = new System.Drawing.Point(11, 150);
+            this.WarehouseNameText.Name = "WarehouseNameText";
+            this.WarehouseNameText.ReadOnly = true;
+            this.WarehouseNameText.Size = new System.Drawing.Size(176, 22);
+            this.WarehouseNameText.TabIndex = 10;
+            // 
+            // WarehouseLabel
+            // 
+            this.WarehouseLabel.AutoSize = true;
+            this.WarehouseLabel.Location = new System.Drawing.Point(8, 105);
+            this.WarehouseLabel.Name = "WarehouseLabel";
+            this.WarehouseLabel.Size = new System.Drawing.Size(66, 13);
+            this.WarehouseLabel.TabIndex = 16;
+            this.WarehouseLabel.Text = "Warehouse";
             // 
             // CustomerAddressText
             // 
@@ -173,10 +209,81 @@
             this.panel3.Size = new System.Drawing.Size(200, 202);
             this.panel3.TabIndex = 51;
             // 
+            // DriverIdText
+            // 
+            this.DriverIdText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DriverIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DriverIdText.Location = new System.Drawing.Point(6, 93);
+            this.DriverIdText.Name = "DriverIdText";
+            this.DriverIdText.Size = new System.Drawing.Size(147, 22);
+            this.DriverIdText.TabIndex = 14;
+            // 
+            // DriverNameText
+            // 
+            this.DriverNameText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DriverNameText.Location = new System.Drawing.Point(6, 121);
+            this.DriverNameText.Name = "DriverNameText";
+            this.DriverNameText.ReadOnly = true;
+            this.DriverNameText.Size = new System.Drawing.Size(176, 22);
+            this.DriverNameText.TabIndex = 16;
+            // 
+            // DriverButton
+            // 
+            this.DriverButton.Location = new System.Drawing.Point(159, 95);
+            this.DriverButton.Name = "DriverButton";
+            this.DriverButton.Size = new System.Drawing.Size(28, 20);
+            this.DriverButton.TabIndex = 15;
+            this.DriverButton.Text = "...";
+            this.DriverButton.UseVisualStyleBackColor = true;
+            // 
+            // DriverLabel
+            // 
+            this.DriverLabel.AutoSize = true;
+            this.DriverLabel.Location = new System.Drawing.Point(3, 77);
+            this.DriverLabel.Name = "DriverLabel";
+            this.DriverLabel.Size = new System.Drawing.Size(37, 13);
+            this.DriverLabel.TabIndex = 13;
+            this.DriverLabel.Text = "Driver";
+            // 
+            // SalesIdText
+            // 
+            this.SalesIdText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.SalesIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SalesIdText.Location = new System.Drawing.Point(6, 24);
+            this.SalesIdText.Name = "SalesIdText";
+            this.SalesIdText.Size = new System.Drawing.Size(147, 22);
+            this.SalesIdText.TabIndex = 11;
+            // 
+            // SalesNameText
+            // 
+            this.SalesNameText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.SalesNameText.Location = new System.Drawing.Point(6, 52);
+            this.SalesNameText.Name = "SalesNameText";
+            this.SalesNameText.ReadOnly = true;
+            this.SalesNameText.Size = new System.Drawing.Size(176, 22);
+            this.SalesNameText.TabIndex = 13;
+            // 
+            // SalesButton
+            // 
+            this.SalesButton.Location = new System.Drawing.Point(159, 26);
+            this.SalesButton.Name = "SalesButton";
+            this.SalesButton.Size = new System.Drawing.Size(28, 20);
+            this.SalesButton.TabIndex = 12;
+            this.SalesButton.Text = "...";
+            this.SalesButton.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 8);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(33, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Sales";
+            // 
             // PanelAtas4
             // 
-            this.PanelAtas4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PanelAtas4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.PanelAtas4.BackColor = System.Drawing.Color.Cornsilk;
             this.PanelAtas4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PanelAtas4.Controls.Add(this.VoidPanel);
@@ -184,7 +291,7 @@
             this.PanelAtas4.Controls.Add(this.NoteLabel);
             this.PanelAtas4.Location = new System.Drawing.Point(624, 9);
             this.PanelAtas4.Name = "PanelAtas4";
-            this.PanelAtas4.Size = new System.Drawing.Size(301, 202);
+            this.PanelAtas4.Size = new System.Drawing.Size(478, 202);
             this.PanelAtas4.TabIndex = 52;
             // 
             // VoidPanel
@@ -193,7 +300,7 @@
             this.VoidPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.VoidPanel.Location = new System.Drawing.Point(0, 0);
             this.VoidPanel.Name = "VoidPanel";
-            this.VoidPanel.Size = new System.Drawing.Size(299, 200);
+            this.VoidPanel.Size = new System.Drawing.Size(476, 200);
             this.VoidPanel.TabIndex = 46;
             this.VoidPanel.Visible = false;
             // 
@@ -204,22 +311,20 @@
             this.CancelLabel.ForeColor = System.Drawing.Color.Red;
             this.CancelLabel.Location = new System.Drawing.Point(0, 0);
             this.CancelLabel.Name = "CancelLabel";
-            this.CancelLabel.Size = new System.Drawing.Size(299, 200);
+            this.CancelLabel.Size = new System.Drawing.Size(476, 200);
             this.CancelLabel.TabIndex = 23;
             this.CancelLabel.Text = "CANCELLED";
             this.CancelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // NoteTextBox
             // 
-            this.NoteTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.NoteTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.NoteTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.NoteTextBox.Location = new System.Drawing.Point(11, 24);
             this.NoteTextBox.Multiline = true;
             this.NoteTextBox.Name = "NoteTextBox";
             this.NoteTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.NoteTextBox.Size = new System.Drawing.Size(278, 160);
+            this.NoteTextBox.Size = new System.Drawing.Size(455, 160);
             this.NoteTextBox.TabIndex = 17;
             // 
             // NoteLabel
@@ -233,19 +338,16 @@
             // 
             // FakturItemGrid
             // 
-            this.FakturItemGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FakturItemGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.FakturItemGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.FakturItemGrid.Location = new System.Drawing.Point(6, 217);
             this.FakturItemGrid.Name = "FakturItemGrid";
-            this.FakturItemGrid.Size = new System.Drawing.Size(775, 292);
+            this.FakturItemGrid.Size = new System.Drawing.Size(952, 292);
             this.FakturItemGrid.TabIndex = 17;
             // 
             // PanelTengah
             // 
-            this.PanelTengah.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PanelTengah.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Right)));
             this.PanelTengah.BackColor = System.Drawing.Color.Cornsilk;
             this.PanelTengah.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PanelTengah.Controls.Add(this.TaxText);
@@ -256,7 +358,7 @@
             this.PanelTengah.Controls.Add(this.DisconutLainLabel);
             this.PanelTengah.Controls.Add(this.TotalText);
             this.PanelTengah.Controls.Add(this.TotalLabel);
-            this.PanelTengah.Location = new System.Drawing.Point(787, 217);
+            this.PanelTengah.Location = new System.Drawing.Point(964, 217);
             this.PanelTengah.Name = "PanelTengah";
             this.PanelTengah.Size = new System.Drawing.Size(138, 292);
             this.PanelTengah.TabIndex = 53;
@@ -265,11 +367,7 @@
             // 
             this.TaxText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TaxText.Location = new System.Drawing.Point(11, 102);
-            this.TaxText.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
+            this.TaxText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
             this.TaxText.Name = "TaxText";
             this.TaxText.ReadOnly = true;
             this.TaxText.Size = new System.Drawing.Size(117, 20);
@@ -290,11 +388,7 @@
             // 
             this.GrandTotalText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GrandTotalText.Location = new System.Drawing.Point(9, 141);
-            this.GrandTotalText.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
+            this.GrandTotalText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
             this.GrandTotalText.Name = "GrandTotalText";
             this.GrandTotalText.ReadOnly = true;
             this.GrandTotalText.Size = new System.Drawing.Size(117, 20);
@@ -315,11 +409,7 @@
             // 
             this.DiscountText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DiscountText.Location = new System.Drawing.Point(11, 63);
-            this.DiscountText.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
+            this.DiscountText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
             this.DiscountText.Name = "DiscountText";
             this.DiscountText.ReadOnly = true;
             this.DiscountText.Size = new System.Drawing.Size(117, 20);
@@ -340,11 +430,7 @@
             // 
             this.TotalText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalText.Location = new System.Drawing.Point(11, 24);
-            this.TotalText.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
+            this.TotalText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
             this.TotalText.Name = "TotalText";
             this.TotalText.ReadOnly = true;
             this.TotalText.Size = new System.Drawing.Size(117, 20);
@@ -425,7 +511,7 @@
             // SaveButton
             // 
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveButton.Location = new System.Drawing.Point(850, 515);
+            this.SaveButton.Location = new System.Drawing.Point(1027, 515);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
             this.SaveButton.TabIndex = 22;
@@ -442,120 +528,12 @@
             this.NewButton.Text = "New";
             this.NewButton.UseVisualStyleBackColor = true;
             // 
-            // WarehouseIdText
-            // 
-            this.WarehouseIdText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.WarehouseIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WarehouseIdText.Location = new System.Drawing.Point(11, 122);
-            this.WarehouseIdText.Name = "WarehouseIdText";
-            this.WarehouseIdText.Size = new System.Drawing.Size(147, 22);
-            this.WarehouseIdText.TabIndex = 8;
-            // 
-            // WarehouseButton
-            // 
-            this.WarehouseButton.Location = new System.Drawing.Point(164, 121);
-            this.WarehouseButton.Name = "WarehouseButton";
-            this.WarehouseButton.Size = new System.Drawing.Size(28, 20);
-            this.WarehouseButton.TabIndex = 9;
-            this.WarehouseButton.Text = "...";
-            this.WarehouseButton.UseVisualStyleBackColor = true;
-            // 
-            // WarehouseNameText
-            // 
-            this.WarehouseNameText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.WarehouseNameText.Location = new System.Drawing.Point(11, 150);
-            this.WarehouseNameText.Name = "WarehouseNameText";
-            this.WarehouseNameText.ReadOnly = true;
-            this.WarehouseNameText.Size = new System.Drawing.Size(176, 22);
-            this.WarehouseNameText.TabIndex = 10;
-            // 
-            // WarehouseLabel
-            // 
-            this.WarehouseLabel.AutoSize = true;
-            this.WarehouseLabel.Location = new System.Drawing.Point(8, 105);
-            this.WarehouseLabel.Name = "WarehouseLabel";
-            this.WarehouseLabel.Size = new System.Drawing.Size(66, 13);
-            this.WarehouseLabel.TabIndex = 16;
-            this.WarehouseLabel.Text = "Warehouse";
-            // 
-            // SalesIdText
-            // 
-            this.SalesIdText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.SalesIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SalesIdText.Location = new System.Drawing.Point(6, 24);
-            this.SalesIdText.Name = "SalesIdText";
-            this.SalesIdText.Size = new System.Drawing.Size(147, 22);
-            this.SalesIdText.TabIndex = 11;
-            // 
-            // SalesNameText
-            // 
-            this.SalesNameText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.SalesNameText.Location = new System.Drawing.Point(6, 52);
-            this.SalesNameText.Name = "SalesNameText";
-            this.SalesNameText.ReadOnly = true;
-            this.SalesNameText.Size = new System.Drawing.Size(176, 22);
-            this.SalesNameText.TabIndex = 13;
-            // 
-            // SalesButton
-            // 
-            this.SalesButton.Location = new System.Drawing.Point(159, 26);
-            this.SalesButton.Name = "SalesButton";
-            this.SalesButton.Size = new System.Drawing.Size(28, 20);
-            this.SalesButton.TabIndex = 12;
-            this.SalesButton.Text = "...";
-            this.SalesButton.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 8);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(33, 13);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Sales";
-            // 
-            // DriverIdText
-            // 
-            this.DriverIdText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.DriverIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DriverIdText.Location = new System.Drawing.Point(6, 93);
-            this.DriverIdText.Name = "DriverIdText";
-            this.DriverIdText.Size = new System.Drawing.Size(147, 22);
-            this.DriverIdText.TabIndex = 14;
-            // 
-            // DriverNameText
-            // 
-            this.DriverNameText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.DriverNameText.Location = new System.Drawing.Point(6, 121);
-            this.DriverNameText.Name = "DriverNameText";
-            this.DriverNameText.ReadOnly = true;
-            this.DriverNameText.Size = new System.Drawing.Size(176, 22);
-            this.DriverNameText.TabIndex = 16;
-            // 
-            // DriverButton
-            // 
-            this.DriverButton.Location = new System.Drawing.Point(159, 95);
-            this.DriverButton.Name = "DriverButton";
-            this.DriverButton.Size = new System.Drawing.Size(28, 20);
-            this.DriverButton.TabIndex = 15;
-            this.DriverButton.Text = "...";
-            this.DriverButton.UseVisualStyleBackColor = true;
-            // 
-            // DriverLabel
-            // 
-            this.DriverLabel.AutoSize = true;
-            this.DriverLabel.Location = new System.Drawing.Point(3, 77);
-            this.DriverLabel.Name = "DriverLabel";
-            this.DriverLabel.Size = new System.Drawing.Size(37, 13);
-            this.DriverLabel.TabIndex = 13;
-            this.DriverLabel.Text = "Driver";
-            // 
             // ReturJualForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Khaki;
-            this.ClientSize = new System.Drawing.Size(931, 542);
+            this.ClientSize = new System.Drawing.Size(1108, 542);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.PanelAtas4);
@@ -584,7 +562,6 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
-
         }
 
         #endregion

@@ -22,6 +22,7 @@ namespace btr.domain.InventoryContext.ReturJualAgg
         public JenisQtyEnum JenisQty { get; set; }
         public int Conversion { get; set; }
         public int Qty { get; set; }
+        public string Satuan { get; set; }
         public decimal HrgSat { get; set; }
         public decimal SubTotal { get; set; }
     }

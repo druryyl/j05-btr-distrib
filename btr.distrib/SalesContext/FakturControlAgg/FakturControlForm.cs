@@ -8,7 +8,6 @@ using btr.domain.SalesContext.FakturAgg;
 using btr.domain.SalesContext.FakturControlAgg;
 using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Domain;
-using btr.nuna.Infrastructure;
 using ClosedXML.Excel;
 using Mapster;
 using System;
@@ -17,9 +16,11 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using JetBrains.Annotations;
 
 namespace btr.distrib.SalesContext.FakturControlAgg
 {
+    [UsedImplicitly]
     public partial class FakturControlForm : Form
     {
         private readonly IListFaktorControlWorker _listFaktorControlWorker;
@@ -116,13 +117,13 @@ namespace btr.distrib.SalesContext.FakturControlAgg
         private void PrintKembali_OnClick(object sender, EventArgs e)
         {
             var listPrint = _listItem
-            .Where(x => x.Kembali == true)
-                .ToList();
+            .Where(x => x.Kembali).ToList();
             PrintFakturControl(listPrint, "FAKTUR CONTROL - LIST KEMBALI");
         }
 
         private void PrintFakturControl(IEnumerable<FakturControlView> listData, string header)
         {
+            var fetched = listData.ToList();
             var path = Path.GetTempPath();
             var filename = $"{path}\\FakturControl_{DateTime.Now:yymmdd_HHmmss}.xlsx";
 
@@ -173,7 +174,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                 baris++;
 
                 int i = 1;
-                foreach (var item in listData)
+                foreach (var item in fetched)
                 {
                     ws.Cell($"A{baris}").Value = i;
                     ws.Cell($"B{baris}").Value = item.FakturDate.Date;
@@ -185,7 +186,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                     i++;
                 }
                 ws.Cell($"E{baris}").Value = $"Grand Total";
-                ws.Cell($"F{baris}").Value = listData.Sum(x => x.GrandTotal);
+                ws.Cell($"F{baris}").Value = fetched.Sum(x => x.GrandTotal);
 
                 ws.Range(ws.Cell($"A{barisStart}"), ws.Cell($"F{baris-1}")).Style
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
@@ -201,7 +202,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                     .Font.SetBold(true);
 
                 ws.Cell($"E{baris}").Value = $"Grand Total";
-                ws.Cell($"F{baris}").Value = listData.Sum(x => x.GrandTotal);
+                ws.Cell($"F{baris}").Value = fetched.Sum(x => x.GrandTotal);
 
                 ws.Column("A").Width = 4;
                 ws.Column("B").Width = 10;
@@ -474,25 +475,6 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                 .ToList();
             
             return result;
-            
-            string DateToPrefixPeriode(DateTime date)
-            {
-                var yy = date.Year.ToString().Substring(2, 2);
-                string m;
-                switch (date.Month)
-                {
-                    case 10: m = "A";
-                        break;
-                    case 11: m = "B";
-                        break;
-                    case 12: m = "C";
-                        break;
-                    default: m = date.Month.ToString();
-                        break;
-                }
-                var retval1 = $"{yy}{m}";
-                return retval1;
-            }
         }
 
         private void ClearButton_Click(object sender, EventArgs e)
@@ -500,32 +482,5 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             SearchText.Clear();
             RefreshGrid();
         }
-    }
-    
-    public class FakturControlView
-    {
-        public string FakturId { get; private set; }
-        public string FakturCode { get; private set; }
-        public DateTime FakturDate { get; private set; }
-        public string CustomerName { get; private set; }
-        public string Npwp { get; private set; }
-        public string SalesPersonName { get; private set; }
-        public decimal GrandTotal { get; private set; }
-        public decimal Bayar { get; private set; }
-        public decimal Sisa { get; private set; }
-
-        public bool Posted { get; set; }
-        public bool Kirim { get; set; }
-        public bool Kembali { get; set; }
-        public bool Lunas { get; private set; }
-        public bool Pajak { get; private set; }
-        public string NoFakturPajak { get; private set; }
-        public string UserId { get; private set; }
-
-        public void SetLunas(bool val) => Lunas = val;
-        public void SetPajak(bool val) => Pajak = val;
-        
-        //public void FormatFakturCode() => FakturCode = $"{FakturCode.Substring(0, 4)}-{FakturCode.Substring(4, 4)}";
-        public void FormatFakturCode()=> FakturCode = $"{FakturCode.Substring(0, 1)}-{FakturCode.Substring(1, 3)}-{FakturCode.Substring(4, 4)}";
     }
 }

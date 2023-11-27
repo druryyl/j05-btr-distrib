@@ -38,20 +38,26 @@ namespace btr.distrib.SharedForm
         private readonly ServiceProvider _servicesProvider;
         public IUserKey UserId { get; private set; }
 
-        public MainForm(ServiceCollection servicesCollection)
+        public MainForm(IServiceCollection servicesCollection)
         {
             InitializeComponent();
-            Controls.OfType<MdiClient>().FirstOrDefault().BackColor = Color.White;
+            var mdi = Controls.OfType<MdiClient>().FirstOrDefault();
+            if (mdi != null)
+                mdi.BackColor = Color.White;
+            
             _servicesProvider = servicesCollection.BuildServiceProvider();
+            
         }
 
         public void SetUser(string user)
         {
             var dbOpt =  _servicesProvider.GetRequiredService<IOptions<DatabaseOptions>>();
 
-            LoginStatus.Text = $"User ID: {user}";
-            ServerDbStatus.Text = $"Connected Database: {dbOpt.Value.DbName}@{dbOpt.Value.ServerName}";
+            LoginStatus.Text = $@"User ID: {user}";
+            ServerDbStatus.Text = $@"Connected Database: {dbOpt.Value.DbName}@{dbOpt.Value.ServerName}";
             UserId = new UserModel(user);
+            if (dbOpt.Value.ServerName == "JUDE7")
+                this.BackgroundImage = null;
         }
         private bool BringMdiChildToFrontIfLoaded<T>() where T : Form
         {

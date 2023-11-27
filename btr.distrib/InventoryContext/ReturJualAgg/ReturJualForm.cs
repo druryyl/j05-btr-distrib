@@ -16,11 +16,13 @@ using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.ReturJualAgg.Workers;
 using btr.distrib.Helpers;
 using btr.domain.BrgContext.BrgAgg;
+using JetBrains.Annotations;
 using Mapster;
 using Polly;
 
 namespace btr.distrib.InventoryContext.ReturJualAgg
 {
+    [UsedImplicitly]
     public partial class ReturJualForm : Form
     {
         private readonly BindingList<ReturJualItemDto> _listItem = new BindingList<ReturJualItemDto>();
@@ -125,6 +127,14 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
 
                 ValidateRow(e.RowIndex);
             }
+            if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("HrgInputStr").Index)
+            {
+                if (grid.CurrentCell.Value is null)
+                    return;
+
+                ValidateRow(e.RowIndex);
+            }
+
             if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("DiscInputStr").Index)
             {
                 if (grid.CurrentCell.Value is null)
@@ -137,7 +147,8 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
         private void FakturItemGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var grid = (DataGridView)sender;
-            if (e.ColumnIndex != grid.Columns["Find"].Index)
+            
+            if (e.ColumnIndex != grid.Columns["Find"]?.Index)
                 return;
 
             BrowseBrg(e.RowIndex);
@@ -361,7 +372,21 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             cols.GetCol("HrgInputStr").HeaderText = @"Hrg Retur";
             cols.GetCol("HrgInputStr").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
 
+            cols.GetCol("QtyHrgDetilStr").Visible = true;
+            cols.GetCol("QtyHrgDetilStr").Width = 110;
+            cols.GetCol("QtyHrgDetilStr").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            cols.GetCol("QtyHrgDetilStr").HeaderText = @"Qty-Harga";
+            cols.GetCol("QtyHrgDetilStr").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
 
+            cols.GetCol("DiscDetilStr").Visible = true;
+            cols.GetCol("DiscDetilStr").Width = 110;
+            cols.GetCol("DiscDetilStr").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            cols.GetCol("DiscDetilStr").HeaderText = @"Discount";
+            cols.GetCol("DiscDetilStr").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
+
+            cols.GetCol("Qty").Visible = false;
+            cols.GetCol("HrgSat").Visible = false;
+            
             cols.GetCol("SubTotal").Visible = true;
             cols.GetCol("SubTotal").Width = 70;
 
