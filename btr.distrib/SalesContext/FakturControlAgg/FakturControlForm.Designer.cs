@@ -35,6 +35,7 @@
             this.Tgl2Text = new System.Windows.Forms.DateTimePicker();
             this.Tgl1Text = new System.Windows.Forms.DateTimePicker();
             this.FakturGrid = new System.Windows.Forms.DataGridView();
+            this.ClearButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturGrid)).BeginInit();
@@ -60,6 +61,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.panel1.Controls.Add(this.ClearButton);
             this.panel1.Controls.Add(this.SearchButton);
             this.panel1.Controls.Add(this.SearchText);
             this.panel1.Controls.Add(this.Tgl2Text);
@@ -116,6 +118,16 @@
             this.FakturGrid.Size = new System.Drawing.Size(1002, 394);
             this.FakturGrid.TabIndex = 1;
             // 
+            // ClearButton
+            // 
+            this.ClearButton.Location = new System.Drawing.Point(641, 7);
+            this.ClearButton.Name = "ClearButton";
+            this.ClearButton.Size = new System.Drawing.Size(75, 23);
+            this.ClearButton.TabIndex = 4;
+            this.ClearButton.Text = "Clear";
+            this.ClearButton.UseVisualStyleBackColor = true;
+            this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
+            // 
             // FakturControlForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -130,8 +142,9 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturGrid)).EndInit();
             this.ResumeLayout(false);
-
         }
+
+        private System.Windows.Forms.Button ClearButton;
 
         #endregion
 

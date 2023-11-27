@@ -100,10 +100,38 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             // register event handler for grid
             FakturItemGrid.CellContentClick += FakturItemGrid_CellContentClick;
             // FakturItemGrid.CellValueChanged += FakturItemGrid_CellValueChanged;
-            // FakturItemGrid.CellValidated += FakturItemGrid_CellValidated;
+            FakturItemGrid.CellValidated += FakturItemGrid_CellValidated;
             // FakturItemGrid.KeyDown += FakturItemGrid_KeyDown;
             // FakturItemGrid.EditingControlShowing += FakturItemGrid_EditingControlShowing;
+        }
 
+        private void FakturItemGrid_CellValidated(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex <0 ) return;
+            var grid = (DataGridView)sender;
+            if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("BrgId").Index)
+            {
+                if (grid.CurrentCell.Value is null)
+                {
+                    //CleanRow(e.RowIndex);
+                    return;
+                }
+                ValidateRow(e.RowIndex);
+            }
+            if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("QtyInputStr").Index)
+            {
+                if (grid.CurrentCell.Value is null)
+                    return;
+
+                ValidateRow(e.RowIndex);
+            }
+            if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("DiscInputStr").Index)
+            {
+                if (grid.CurrentCell.Value is null)
+                    return;
+
+                ValidateRow(e.RowIndex);
+            }
         }
 
         private void FakturItemGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)

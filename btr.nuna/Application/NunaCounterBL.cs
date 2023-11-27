@@ -19,7 +19,8 @@ namespace btr.nuna.Application
         PFnnn,         //  format-B1 ( 5 digit) : PF321         => Max 4k global
         Pnn,           //  format-B2 ( 3 digit) : P7A           => Max 255 global
         PREFYYMnnnnnC, //  format-A3 (13 digit) : PFFF21A00001F => Max 1jt per bulan 
-        PYYMnnnn       //  format-A3 (8 digit)  : P23A0001      => Max 65k per bulan 
+        PYYMnnnn,       //  format-A4 (8 digit)  : P23A0001      => Max 65k per bulan 
+        PYYMnnnnD       //  format-A5 (8 digit)  : P23A0001      => Max 9999 per bulan (decimal)
     }
 
     public class NunaCounterBL : INunaCounterBL

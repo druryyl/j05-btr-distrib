@@ -15,10 +15,10 @@ namespace btr.domain.InventoryContext.ReturJualAgg
         //  input
         public string QtyInputStr { get; set; }
         public string HrgInputStr { get; set; }
+        public string QtyHrgDetilStr { get; set; }
         public string DiscInputStr { get; set; }
 
         //  detil tampilan
-        public string QtyHrgDetilStr { get; set; }
         public string DiscDetilStr { get; set; }
         
         //  in-pcs (satuan kecil)

@@ -27,8 +27,8 @@ namespace btr.infrastructure.PurchaseContext.SupplierAgg
                     Address1, Address2, Kota, KodePos, NoTelp,
                     NoFax, ContactPerson, Npwp, NoPkp)
                 VALUES(
-                    @SupplierId, @SupplierName, @Address1,
-                    @Address2, @Kota, @KodePos, @NoTelp,
+                    @SupplierId, @SupplierName, @SupplierCode,
+                    @Address1, @Address2, @Kota, @KodePos, @NoTelp,
                     @NoFax, @ContactPerson, @Npwp, @NoPkp) ";
 
             var dp = new DynamicParameters();

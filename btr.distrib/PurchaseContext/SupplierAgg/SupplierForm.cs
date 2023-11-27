@@ -189,6 +189,7 @@ namespace btr.distrib.PurchaseContext.SupplierAgg
 
             _supplierWriter.Save(ref supplier);
             ClearForm();
+            InitGrid();
         }
         #endregion
     }

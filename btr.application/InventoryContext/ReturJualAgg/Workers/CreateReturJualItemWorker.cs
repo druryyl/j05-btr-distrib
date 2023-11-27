@@ -7,6 +7,7 @@ using btr.domain.InventoryContext.ReturJualAgg;
 using btr.domain.SalesContext.CustomerAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
+using Polly;
 
 namespace btr.application.InventoryContext.ReturJualAgg.Workers
 {
@@ -62,11 +63,15 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
             };
             
             //      load brg
-            var brg = _brgBuilder.Load(req).Build();
+            var fallback = Policy<BrgModel>
+                .Handle<KeyNotFoundException>()
+                .Fallback(() => new BrgModel());
+            var brg = fallback.Execute(() => _brgBuilder.Load(req).Build());
 
-            result.BrgCode = brg.BrgCode;
-            result.BrgName = brg.BrgName;
+            result.BrgCode = brg.BrgCode ?? string.Empty;
+            result.BrgName = brg.BrgName ?? string.Empty;
             result = NormalizeInput(result, brg, req.CustomerId);
+            
             result.ListQtyHrg = GetQtyHrg(result.QtyInputStr, result.HrgInputStr, brg).ToList();
             result.ListDisc = GenListDisc(result.DiscInputStr,
                 result.ListQtyHrg.Sum(x => x.SubTotal),
@@ -91,11 +96,14 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
             return result;
         }
 
-        private IEnumerable<ReturJualItemQtyHrgModel> GetQtyHrg(string qtyInputStr,
+        private static IEnumerable<ReturJualItemQtyHrgModel> GetQtyHrg(string qtyInputStr,
             string hrgInputStr, BrgModel brgModel)
         {
             var listQty = qtyInputStr.Split(';').ToList();
             var listHrg = hrgInputStr.Split(';').ToList();
+            listQty.ForEach(x => x = HilangkanKomaRibuan(x));
+            listHrg.ForEach(x => x = HilangkanKomaRibuan(x));
+            
             var item1 = new ReturJualItemQtyHrgModel
             {
                 NoUrut = 1,
@@ -117,8 +125,20 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
             var result = new List<ReturJualItemQtyHrgModel> { item1, item2 };
             result.ForEach(x => x.SubTotal = x.Qty * x.HrgSat);
             return result;
-        }
 
+            string HilangkanKomaRibuan(string str)
+            {
+                // check current culture
+                var culture = System.Globalization.CultureInfo.CurrentCulture;
+                var decimalSeparator = culture.NumberFormat.NumberDecimalSeparator;
+                var groupSeparator = culture.NumberFormat.NumberGroupSeparator;
+                // remove group separator            
+                var thisResult = str.Replace(groupSeparator, "");
+                return thisResult;
+            }
+        }
+        
+        
         private static IEnumerable<ReturJualItemDiscModel> GenListDisc(string disccountString, 
             decimal subTotal, IBrgKey brg)
         {

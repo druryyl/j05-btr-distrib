@@ -8,6 +8,7 @@ using btr.domain.SalesContext.FakturAgg;
 using btr.domain.SalesContext.FakturControlAgg;
 using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Domain;
+using btr.nuna.Infrastructure;
 using ClosedXML.Excel;
 using Mapster;
 using System;
@@ -64,9 +65,16 @@ namespace btr.distrib.SalesContext.FakturControlAgg
 
         private void RegisterEventHandler()
         {
+            SearchText.KeyDown += SearchText_KeyDown;
             SearchButton.Click += SearchButton_Click;
             FakturGrid.CellContentClick += FakturGrid_CellContentClick;
             FakturGrid.MouseClick += FakturGrid_MouseClick;
+        }
+
+        private void SearchText_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                RefreshGrid();
         }
 
         private void FakturGrid_MouseClick(object sender, MouseEventArgs e)
@@ -411,6 +419,8 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                 item.Kembali = listStatus
                     .Where(x => x.FakturId == item.FakturId)
                     .FirstOrDefault(x => x.StatusFaktur == StatusFakturEnum.KembaliFaktur) != null;
+                item.FormatFakturCode();
+
             }
 
             var binding = new BindingSource();
@@ -425,9 +435,17 @@ namespace btr.distrib.SalesContext.FakturControlAgg
         private IEnumerable<FakturControlModel> FilterFaktur(IEnumerable<FakturControlModel> listFaktur, string keyword)
         {
             var listData = listFaktur.ToList();
+            // if keyword 2nd char is '-', then search by faktur code
+            if (keyword.Length > 1 && keyword[1] == '-')
+            {
+                return SearchByFakturCode(keyword, listData);
+            }
+            var listFakturCode = listData.Where(x => x.FakturCode.ToLower().StartsWith(keyword.ToLower())).ToList();
+
+
+
             var listCustomerName = listData.Where(x => x.CustomerName.ToLower().ContainMultiWord(SearchText.Text.ToLower())).ToList();
             var listCustomerId = listData.Where(x => x.CustomerCode.ToLower().StartsWith(keyword.ToLower())).ToList();
-            var listFakturCode = listData.Where(x => x.FakturCode.ToLower().StartsWith(keyword.ToLower())).ToList();
             var listSales = listData.Where(x => x.SalesPersonName.ToLower().StartsWith(keyword.ToLower())).ToList();
             var listAdmin = listData.Where(x => string.Equals(x.UserId, keyword, StringComparison.CurrentCultureIgnoreCase));
             var result = listCustomerName
@@ -438,6 +456,49 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                 .OrderBy(x => x.FakturDate);
 
             return result.ToList();
+        }
+
+        private static IEnumerable<FakturControlModel> SearchByFakturCode(string keyword, IEnumerable<FakturControlModel> listData)
+        {
+            var fetched = listData.ToList();
+            keyword = keyword.ToUpper();
+
+            var noUrut = keyword.Substring(2);
+            noUrut = noUrut.Length <= 4 
+                ? noUrut.PadLeft(4, '0') 
+                : keyword.Substring(keyword.Length - 4);
+            
+            var result = fetched
+                .Where(x => x.FakturCode[0] == keyword[0])
+                .Where(x => x.FakturCode.Substring(4,4) == noUrut)
+                .ToList();
+            
+            return result;
+            
+            string DateToPrefixPeriode(DateTime date)
+            {
+                var yy = date.Year.ToString().Substring(2, 2);
+                string m;
+                switch (date.Month)
+                {
+                    case 10: m = "A";
+                        break;
+                    case 11: m = "B";
+                        break;
+                    case 12: m = "C";
+                        break;
+                    default: m = date.Month.ToString();
+                        break;
+                }
+                var retval1 = $"{yy}{m}";
+                return retval1;
+            }
+        }
+
+        private void ClearButton_Click(object sender, EventArgs e)
+        {
+            SearchText.Clear();
+            RefreshGrid();
         }
     }
     
@@ -463,5 +524,8 @@ namespace btr.distrib.SalesContext.FakturControlAgg
 
         public void SetLunas(bool val) => Lunas = val;
         public void SetPajak(bool val) => Pajak = val;
+        
+        //public void FormatFakturCode() => FakturCode = $"{FakturCode.Substring(0, 4)}-{FakturCode.Substring(4, 4)}";
+        public void FormatFakturCode()=> FakturCode = $"{FakturCode.Substring(0, 1)}-{FakturCode.Substring(1, 3)}-{FakturCode.Substring(4, 4)}";
     }
 }

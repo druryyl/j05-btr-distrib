@@ -19,11 +19,10 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
         //  input
         public string QtyInputStr { get; set; }
         public string HrgInputStr { get; set; }
+        public string QtyHrgDetilStr { get; private set; }
         public string DiscInputStr { get; set; }
 
         //  detil tampilan
-        public string QtyDetilStr { get; private set; }
-        public string HrgDetilStr { get; private set; }
         public string DiscDetilStr { get; private set; }
         
         //  in-pcs (satuan kecil)
