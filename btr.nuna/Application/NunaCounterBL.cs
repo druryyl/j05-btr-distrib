@@ -20,7 +20,9 @@ namespace btr.nuna.Application
         Pnn,           //  format-B2 ( 3 digit) : P7A           => Max 255 global
         PREFYYMnnnnnC, //  format-A3 (13 digit) : PFFF21A00001F => Max 1jt per bulan 
         PYYMnnnn,       //  format-A4 (8 digit)  : P23A0001      => Max 65k per bulan 
-        PYYMnnnnD       //  format-A5 (8 digit)  : P23A0001      => Max 9999 per bulan (decimal)
+        PYYMnnnnD,       //  format-A5 (8 digit)  : P23A0001      => Max 9999 per bulan (decimal)
+        Pn7
+
     }
 
     public class NunaCounterBL : INunaCounterBL
@@ -77,6 +79,9 @@ namespace btr.nuna.Application
                     break;
                 case IDFormatEnum.PYYMnnnn:
                     result = $"{prefix}{periode}";
+                    break;
+                case IDFormatEnum.Pn7:
+                    result = $"{prefix}";
                     break;
                 default:
                     result = string.Empty;
@@ -160,6 +165,11 @@ namespace btr.nuna.Application
                     noUrutBlok = $"{Gen_4(noUrutHex)}{sourceFlag.Trim()}";
                     result = $"{anchor}{noUrutBlok}";
                     break;
+                case IDFormatEnum.Pn7:
+                    var noUrutDec = Convert.ToInt32(noUrutHex, 16);
+                    noUrutBlok = $"{Gen_7_Dec(noUrutDec)}{sourceFlag.Trim()}";
+                    result = $"{anchor}{noUrutBlok}";
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(format), format, null);
             }
@@ -182,6 +192,12 @@ namespace btr.nuna.Application
             var prefixLength = (prefix.Length == 0 ? anchor : prefix).Length;
             var blokNo = noUrutNum.ToString().PadLeft(length-prefixLength, '0');
             var result = $"{(prefix.Length==0?anchor:prefix)}{blokNo}";
+            return result;
+        }
+
+        private string Gen_7_Dec(int noUrut)
+        {
+            var result = $"{noUrut:D7}";
             return result;
         }
 

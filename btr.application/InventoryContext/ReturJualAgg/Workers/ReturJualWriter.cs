@@ -2,7 +2,6 @@
 using btr.domain.InventoryContext.ReturJualAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
-using System.Linq;
 
 namespace btr.application.InventoryContext.ReturJualAgg.Workers
 {
@@ -42,18 +41,18 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
             {
                 x.ReturJualId = returJualId;
                 x.ReturJualItemId = $"{returJualId}-{x.NoUrut:D2}";
-                x.ListQtyHrg.ForEach(y =>
-                {
-                    y.ReturJualId = returJualId;
-                    y.ReturJualItemId = x.ReturJualItemId;
-                    y.ReturJualItemQtyHrgId = $"{returJualId}-{x.NoUrut:D2}-{y.NoUrut:D2}";
-                });
-                x.ListDisc.ForEach(y =>
-                {
-                    y.ReturJualId = returJualId;
-                    y.ReturJualItemId = x.ReturJualItemId;
-                    y.ReturJualItemDiscId = $"{returJualId}-{x.NoUrut:D2}-{y.NoUrut:D2}";
-                });
+                // x.ListQtyHrg.ForEach(y =>
+                // {
+                //     y.ReturJualId = returJualId;
+                //     y.ReturJualItemId = x.ReturJualItemId;
+                //     y.ReturJualItemQtyHrgId = $"{returJualId}-{x.NoUrut:D2}-{y.NoUrut:D2}";
+                // });
+                // x.ListDisc.ForEach(y =>
+                // {
+                //     y.ReturJualId = returJualId;
+                //     y.ReturJualItemId = x.ReturJualItemId;
+                //     y.ReturJualItemDiscId = $"{returJualId}-{x.NoUrut:D2}-{y.NoUrut:D2}";
+                // });
             });
 
             var db = _returJualDal.GetData(model);
@@ -68,11 +67,11 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
                 _returJualItemDal.Delete(model);
                 _returJualItemDal.Insert(model.ListItem);
 
-                _returJualItemQtyHrgDal.Delete(model);
-                _returJualItemQtyHrgDal.Insert(model.ListItem.SelectMany(x => x.ListQtyHrg));
-
-                _returJualItemDiscDal.Delete(model);
-                _returJualItemDiscDal.Insert(model.ListItem.SelectMany(x => x.ListDisc));
+                // _returJualItemQtyHrgDal.Delete(model);
+                // _returJualItemQtyHrgDal.Insert(model.ListItem.SelectMany(x => x.ListQtyHrg));
+                //
+                // _returJualItemDiscDal.Delete(model);
+                // _returJualItemDiscDal.Insert(model.ListItem.SelectMany(x => x.ListDisc));
                 trans.Complete();
             }
             return model;

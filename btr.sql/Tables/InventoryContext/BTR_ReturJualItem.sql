@@ -8,8 +8,10 @@ CREATE TABLE BTR_ReturJualItem(
 
     QtyInputStr VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_ReturJualItem_QtyInputStr DEFAULT(''),
     HrgInputStr VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_ReturJualItem_HrgInputStr DEFAULT(''),
+    QtyHrgDetilStr VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_ReturJualItem_QtyHrgDetilStr DEFAULT(''),
     DiscInputStr VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_ReturJualItem_DiscInputStr DEFAULT(''),
-
+    DiscDetilStr VARCHAR(128) NOT NULL CONSTRAINT DF_BTR_ReturJualItem_DiscDetilStr DEFAULT(''),    
+    
     Qty INT NOT NULL CONSTRAINT DF_BTR_ReturJualItem_Qty DEFAULT(0),
     HrgSat DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturJualItem_HrgSat DEFAULT(0),
     SubTotal DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturJualItem_SubTotal DEFAULT(0),

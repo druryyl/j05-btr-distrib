@@ -279,6 +279,7 @@
     <Compile Include="Browsers\InvoiceBrowser.cs" />
     <Compile Include="Browsers\KategoriBrowser.cs" />
     <Compile Include="Browsers\MutasiBrowser.cs" />
+    <Compile Include="Browsers\ReturJualBrowser.cs" />
     <Compile Include="Browsers\SalesPersonBrowser.cs" />
     <Compile Include="Browsers\WilayahBrowser.cs" />
     <Compile Include="FinanceContext\LunasPiutangAgg\ListLunasPiutang.cs">
@@ -521,6 +522,12 @@
     <Compile Include="SharedForm\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SharedForm\StokBalancerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SharedForm\StokBalancerForm.Designer.cs">
+      <DependentUpon>StokBalancerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SharedForm\UserForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -590,6 +597,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SalesContext\FakturInfoRpt\FakturInfoForm.resx">
       <DependentUpon>FakturInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SharedForm\StokBalancerForm.resx">
+      <DependentUpon>StokBalancerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SharedForm\VoidReasonForm.resx">
       <DependentUpon>VoidReasonForm.cs</DependentUpon>
@@ -760,6 +770,5 @@
       <Name>btr.nuna</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

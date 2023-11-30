@@ -131,7 +131,6 @@
             this.CancelLabel.Name = "CancelLabel";
             this.CancelLabel.Size = new System.Drawing.Size(270, 186);
             this.CancelLabel.TabIndex = 23;
-            this.CancelLabel.Text = "CANCELLED";
             this.CancelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // NoteTextBox
@@ -152,9 +151,8 @@
             this.NoteLabel.AutoSize = true;
             this.NoteLabel.Location = new System.Drawing.Point(8, 8);
             this.NoteLabel.Name = "NoteLabel";
-            this.NoteLabel.Size = new System.Drawing.Size(32, 13);
+            this.NoteLabel.Size = new System.Drawing.Size(0, 13);
             this.NoteLabel.TabIndex = 0;
-            this.NoteLabel.Text = "Note";
             // 
             // FakturItemGrid
             // 
@@ -389,7 +387,6 @@
             this.LastIdLabel.Name = "LastIdLabel";
             this.LastIdLabel.Size = new System.Drawing.Size(181, 24);
             this.LastIdLabel.TabIndex = 6;
-            this.LastIdLabel.Text = "-";
             this.LastIdLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // FakturIdText
@@ -430,9 +427,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(8, 112);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(71, 13);
+            this.label3.Size = new System.Drawing.Size(33, 13);
             this.label3.TabIndex = 5;
-            this.label3.Text = "Sales Person";
+            this.label3.Text = "Sales";
             // 
             // FakturDateText
             // 
@@ -610,9 +607,9 @@
             this.TglRencanaKirimLabel.AutoSize = true;
             this.TglRencanaKirimLabel.Location = new System.Drawing.Point(8, 77);
             this.TglRencanaKirimLabel.Name = "TglRencanaKirimLabel";
-            this.TglRencanaKirimLabel.Size = new System.Drawing.Size(97, 13);
+            this.TglRencanaKirimLabel.Size = new System.Drawing.Size(79, 13);
             this.TglRencanaKirimLabel.TabIndex = 17;
-            this.TglRencanaKirimLabel.Text = "Tgl Rencana Kirim";
+            this.TglRencanaKirimLabel.Text = "Rencana Kirim";
             // 
             // WarehouseNameText
             // 
@@ -708,7 +705,6 @@
             this.Controls.Add(this.panel3);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "FakturForm";
-            this.Text = "FakturForm";
             this.PanelAtas4.ResumeLayout(false);
             this.PanelAtas4.PerformLayout();
             this.VoidPanel.ResumeLayout(false);

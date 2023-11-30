@@ -85,7 +85,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         {
             var user = _userBuilder.Load(userKey).Build();
             var prefix = user.Prefix;
-            var result = _counter.Generate(prefix, IDFormatEnum.PYYMnnnn);
+            var result = _counter.Generate(prefix, IDFormatEnum.Pn7);
             return result;
         }
     }

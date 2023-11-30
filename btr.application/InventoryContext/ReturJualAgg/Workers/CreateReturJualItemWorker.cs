@@ -45,12 +45,15 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
     {
         private readonly IBrgBuilder _brgBuilder;
         private readonly IFindHrgReturJualHandler _findHrgReturJualHandler;
+        private readonly IBrgDal _brgDal;
 
         public CreateReturJualItemWorker(IBrgBuilder brgBuilder, 
-            IFindHrgReturJualHandler findHrgReturJualHandler)
+            IFindHrgReturJualHandler findHrgReturJualHandler, 
+            IBrgDal brgDal)
         {
             _brgBuilder = brgBuilder;
             _findHrgReturJualHandler = findHrgReturJualHandler;
+            _brgDal = brgDal;
         }
 
         public ReturJualItemModel Execute(CreateReturJualItemRequest req)
@@ -62,13 +65,25 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
                 HrgInputStr = req.HrgInputStr,
                 DiscInputStr = req.DiscInputStr,
             };
-            
+
             //      load brg
             var fallback = Policy<BrgModel>
                 .Handle<KeyNotFoundException>()
-                .Fallback(() => new BrgModel());
+                .Fallback(null as BrgModel);
             var brg = fallback.Execute(() => _brgBuilder.Load(req).Build());
+            if (brg == null)
+            {
+                if (req.BrgId.IsNullOrEmpty())
+                    return result;
+                var brg2 = _brgDal.GetData(req.BrgId);
+                if (brg2 is null)
+                    return result;
 
+                brg = fallback.Execute(() => _brgBuilder.Load(brg2).Build())
+                    ?? new BrgModel();
+            }
+            
+            result.BrgId = brg.BrgId ?? string.Empty;
             result.BrgCode = brg.BrgCode ?? string.Empty;
             result.BrgName = brg.BrgName ?? string.Empty;
             result = NormalizeInput(result, brg, req.CustomerId);
@@ -102,6 +117,7 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
         {
             var listQty = qtyInputStr.Split(';').ToList();
             var listHrg = hrgInputStr.Split(';').ToList();
+            
             listQty.ForEach(x => x = HilangkanKomaRibuan(x));
             listHrg.ForEach(x => x = HilangkanKomaRibuan(x));
             
@@ -135,8 +151,7 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
             string HilangkanKomaRibuan(string str)
             {
                 // check current culture
-                var culture = System.Globalization.CultureInfo.CurrentCulture;
-                var decimalSeparator = culture.NumberFormat.NumberDecimalSeparator;
+                var culture = CultureInfo.CurrentCulture;
                 var groupSeparator = culture.NumberFormat.NumberGroupSeparator;
                 // remove group separator            
                 var thisResult = str.Replace(groupSeparator, "");
@@ -202,9 +217,9 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
         {
             var listNumber = ParseStringMultiNumber(discInputStr, 4);
             var disc1 = ConvertToString(listNumber[0]);
-            var disc2 = ConvertToString(listNumber[1]);;
-            var disc3 = ConvertToString(listNumber[2]);;
-            var disc4 = ConvertToString(listNumber[3]);;
+            var disc2 = ConvertToString(listNumber[1]);
+            var disc3 = ConvertToString(listNumber[2]);
+            var disc4 = ConvertToString(listNumber[3]);
             
             var result = $"{disc1};{disc2};{disc3};{disc4}";
             return result;
@@ -305,7 +320,7 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
 
             string GenSatuSatuan()
             {
-                qtyKecil = qtyBesar;
+                qtyKecil = qtyKecil != 0? qtyKecil : qtyBesar;
                 qtyBesar = 0;
                 return $"{qtyBesar};{qtyKecil}";
             }

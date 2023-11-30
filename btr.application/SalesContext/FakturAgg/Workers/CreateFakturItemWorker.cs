@@ -108,10 +108,9 @@ namespace btr.application.SalesContext.FakturAgg.Workers
 
             var stokKecil = stok.ListWarehouse.FirstOrDefault(x => x.WarehouseId == req.WarehouseId)?.Qty ?? 0;
             item.StokHargaStr = $"{stokKecil:N0} {item.SatKecil}@{item.HrgSatKecil:N0}";
-            int stokBesar = 0;
             if (item.Conversion > 0)
             {
-                stokBesar = (int)(stokKecil / item.Conversion);
+                var stokBesar = (int)(stokKecil / item.Conversion);
                 stokKecil -= (stokBesar * item.Conversion);
                 item.StokHargaStr = $"{stokBesar:N0} {item.SatBesar} @{item.HrgSatKecil:N0}{Environment.NewLine}";
                 item.StokHargaStr += $"{stokKecil:N0} {item.SatKecil} @{item.HrgSatBesar:N0}";

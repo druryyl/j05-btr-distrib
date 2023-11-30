@@ -32,6 +32,5 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
         public decimal DiscRp { get; private set; }
         public decimal PpnRp { get; private set; }
         public decimal Total { get; private set; }
-        
     }
 }

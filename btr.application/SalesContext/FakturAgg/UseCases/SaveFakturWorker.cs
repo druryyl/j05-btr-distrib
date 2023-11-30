@@ -102,7 +102,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
             return result;
         }
 
-        private bool IsItemBerubah(FakturModel before, FakturModel after)
+        private static bool IsItemBerubah(FakturModel before, FakturModel after)
         {
             foreach (var item in before.ListItem)
             {

@@ -515,6 +515,7 @@
             this.TestingButton.Name = "TestingButton";
             this.TestingButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("TestingButton.SmallImage")));
             this.TestingButton.Text = "Testing";
+            this.TestingButton.Click += new System.EventHandler(this.TestingButton_Click);
             // 
             // ReceivingPanel
             // 
@@ -533,9 +534,7 @@
             // 
             // AppStatus
             // 
-            this.AppStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.LoginStatus,
-            this.ServerDbStatus});
+            this.AppStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.LoginStatus, this.ServerDbStatus });
             this.AppStatus.Location = new System.Drawing.Point(0, 428);
             this.AppStatus.Name = "AppStatus";
             this.AppStatus.Size = new System.Drawing.Size(876, 22);
@@ -558,7 +557,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::btr.distrib.Properties.Resources.app_wallpaper_5;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(876, 450);
             this.Controls.Add(this.AppStatus);
@@ -573,7 +571,6 @@
             this.AppStatus.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         private System.Windows.Forms.RibbonButton TestingButton;

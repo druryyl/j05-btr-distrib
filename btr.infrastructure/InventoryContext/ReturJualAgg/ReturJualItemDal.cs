@@ -36,7 +36,9 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
 
                 bcp.ColumnMappings.Add("QtyInputStr", "QtyInputStr");
                 bcp.ColumnMappings.Add("HrgInputStr", "HrgInputStr");
+                bcp.ColumnMappings.Add("QtyHrgDetilStr", "QtyHrgDetilStr");
                 bcp.ColumnMappings.Add("DiscInputStr", "DiscInputStr");
+                bcp.ColumnMappings.Add("DiscDetilStr", "DiscDetilStr");
 
                 bcp.ColumnMappings.Add("Qty", "Qty");
                 bcp.ColumnMappings.Add("HrgSat", "HrgSat");
@@ -48,6 +50,7 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
                 var fetched = listModel.ToList();
                 bcp.DestinationTableName = "BTR_ReturJualItem";
                 bcp.BatchSize = fetched.Count;
+                //  TODO: Error Duplicate Key saat insert
                 bcp.WriteToServer(fetched.AsDataTable());
             }
         }

@@ -11,11 +11,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
-using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.ReturJualAgg.Workers;
 using btr.distrib.Helpers;
-using btr.domain.BrgContext.BrgAgg;
+using btr.domain.InventoryContext.ReturJualAgg;
+using btr.nuna.Domain;
 using JetBrains.Annotations;
 using Mapster;
 using Polly;
@@ -32,14 +33,14 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
         private readonly IBrowser<WarehouseBrowserView> _warehouseBrowser;
         private readonly IBrowser<DriverBrowserView> _driverBrowser;
         private readonly IBrowser<BrgBrowserView> _brgBrowser;
+        private readonly IBrowser<ReturJualBrowserView> _returJualBrowser;
 
         private readonly ICustomerDal _customerDal;
         private readonly ISalesPersonDal _salesPersonDal;
         private readonly IWarehouseDal _warehouseDal;
         private readonly IDriverDal _driverDal;
-        private readonly IBrgDal _brgDal;
-
-        private readonly IBrgBuilder _brgBuilder;
+        private readonly IReturJualBuilder _builder;
+        private readonly IReturJualWriter _writer;
 
         private readonly ICreateReturJualItemWorker _createReturJualItemWorker;
 
@@ -53,9 +54,10 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             ISalesPersonDal salesPersonDal,
             IWarehouseDal warehouseDal, 
             IDriverDal driverDal, 
-            IBrgDal brgDal, 
-            IBrgBuilder brgBuilder, 
-            ICreateReturJualItemWorker createReturJualItemWorker)
+            ICreateReturJualItemWorker createReturJualItemWorker, 
+            IReturJualBuilder builder, 
+            IReturJualWriter writer, 
+            IBrowser<ReturJualBrowserView> returJualBrowser)
         {
             InitializeComponent();
 
@@ -69,10 +71,11 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             _customerDal = customerDal;
             _warehouseDal = warehouseDal;
             _driverDal = driverDal;
-            _brgDal = brgDal;
             
-            _brgBuilder = brgBuilder;
             _createReturJualItemWorker = createReturJualItemWorker;
+            _builder = builder;
+            _writer = writer;
+            _returJualBrowser = returJualBrowser;
 
             RegisterEventHandler();
             InitGrid();
@@ -80,24 +83,33 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
 
         private void RegisterEventHandler()
         {
+            //  register event handler for button retur jual
+            ReturJualButton.Click += ReturJualButton_Click;
+            ReturJualIdText.Validating += ReturJualIdText_Validating;
+            
+            //  register event handler for sales
             SalesButton.Click += SalesPersonButton_Click;
             SalesIdText.Validated += SalesPersonIdText_Validated;
             SalesIdText.KeyDown += SalesPersonIdText_KeyDown;
+            SalesIdText.KeyDown += SetFocusToNextControl;
 
             // register event handler for customer
             CustomerButton.Click += CustomerButton_Click;
             CustomerIdText.Validated += CustomerIdText_Validated;
             CustomerIdText.KeyDown += CustomerIdText_KeyDown;
+            CustomerIdText.KeyDown += SetFocusToNextControl;
 
             // register event handler for warehouse
             WarehouseButton.Click += WarehouseButton_Click;
             WarehouseIdText.Validated += WarehouseIdText_Validated;
             WarehouseIdText.KeyDown += WarehouseIdText_KeyDown;
+            WarehouseIdText.KeyDown += SetFocusToNextControl;
 
             // register event handler for driver
             DriverButton.Click += DriverButton_Click;
             DriverIdText.Validated += DriverIdText_Validated;
             DriverIdText.KeyDown += DriverIdText_KeyDown;
+            DriverIdText.KeyDown += SetFocusToNextControl;
 
             // register event handler for grid
             FakturItemGrid.CellContentClick += FakturItemGrid_CellContentClick;
@@ -105,101 +117,166 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             FakturItemGrid.CellValidated += FakturItemGrid_CellValidated;
             // FakturItemGrid.KeyDown += FakturItemGrid_KeyDown;
             // FakturItemGrid.EditingControlShowing += FakturItemGrid_EditingControlShowing;
+            
+            SaveButton.Click += SaveButton_Click;
         }
 
-        private void FakturItemGrid_CellValidated(object sender, DataGridViewCellEventArgs e)
+        private void ReturJualIdText_Validating(object sender, CancelEventArgs e)
         {
-            if (e.RowIndex <0 ) return;
-            var grid = (DataGridView)sender;
-            if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("BrgId").Index)
-            {
-                if (grid.CurrentCell.Value is null)
+            var textbox = (TextBox)sender;
+            var valid = true;
+            if (textbox.Text.Length == 0)
+                ClearDisplay();
+            else
+                valid = ValidateReturJual();
+
+            if (!valid)
+                e.Cancel = true;
+        }
+
+        private bool ValidateReturJual()
+        {
+            var textbox = ReturJualIdText;
+            var policy = Policy<ReturJualModel>
+                .Handle<KeyNotFoundException>().Or<ArgumentException>()
+                .Fallback(null as ReturJualModel, (r,c) => 
                 {
-                    //CleanRow(e.RowIndex);
-                    return;
-                }
-                ValidateRow(e.RowIndex);
-            }
-            if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("QtyInputStr").Index)
+                    MessageBox.Show(r.Exception.Message);
+                });
+            var returJual = policy.Execute(() => _builder
+                .Load(new ReturJualModel(textbox.Text))
+                .Build());
+            if (returJual is null)
+                return false;
+
+            returJual.RemoveNull();
+            CustomerNameText.Text = returJual.CustomerName;
+            CustomerIdText.Text = returJual.CustomerId;
+
+            ReturJualDateText.Value = returJual.ReturJualDate;
+            SalesIdText.Text = returJual.SalesPersonId;
+            SalesIdText.Text = returJual.SalesPersonName;
+            CustomerIdText.Text = returJual.CustomerId;
+            CustomerNameText.Text = returJual.CustomerName;
+
+            WarehouseIdText.Text = returJual.WarehouseId;
+            WarehouseNameText.Text = returJual.WarehouseName;
+
+            DriverIdText.Text = returJual.DriverId;
+            DriverNameText.Text = returJual.DriverName;
+
+            TotalText.Value = returJual.Total;
+            DiscountText.Value = returJual.DiscRp;
+            TaxText.Value = returJual.PpnRp;
+            GrandTotalText.Value = returJual.GrandTotal;
+
+            _listItem.Clear();
+            foreach (var item in returJual.ListItem)
             {
-                if (grid.CurrentCell.Value is null)
-                    return;
-
-                ValidateRow(e.RowIndex);
-            }
-            if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("HrgInputStr").Index)
-            {
-                if (grid.CurrentCell.Value is null)
-                    return;
-
-                ValidateRow(e.RowIndex);
+                var createReturJualItemRequest = new CreateReturJualItemRequest(item.BrgId, CustomerIdText.Text, item.HrgInputStr, item.QtyInputStr, item.DiscInputStr, 11);
+                var newItemModel = _createReturJualItemWorker.Execute(createReturJualItemRequest);
+                var newItemDto = newItemModel.Adapt<ReturJualItemDto>();
+                _listItem.Add(newItemDto);
             }
 
-            if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("DiscInputStr").Index)
-            {
-                if (grid.CurrentCell.Value is null)
-                    return;
+            if (returJual.IsVoid)
+                ShowAsVoid(returJual);
+            else
+                ShowAsActive();
 
-                ValidateRow(e.RowIndex);
-            }
+            CalcTotal();
+            return true;
+        }
+        private void ShowAsVoid(ReturJualModel returJual)
+        {
+            this.BackColor = Color.RosyBrown;
+            foreach (var item in this.Controls)
+                if (item is Panel panel)
+                    panel.BackColor = Color.MistyRose;
+
+            CancelLabel.Text = $"Retur Jual sudah DIBATALKAN \noleh {returJual.UserIdVoid} \npada {returJual.VoidDate:ddd, dd MMM yyyy}";
+            VoidPanel.Visible = true;
+            SaveButton.Visible = false;
         }
 
-        private void FakturItemGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void ShowAsActive()
         {
-            var grid = (DataGridView)sender;
-            
-            if (e.ColumnIndex != grid.Columns["Find"]?.Index)
-                return;
+            this.BackColor = Color.Khaki;
+            foreach (var item in this.Controls)
+                if (item is Panel panel)
+                    panel.BackColor = Color.Cornsilk;
 
-            BrowseBrg(e.RowIndex);
+            VoidPanel.Visible = false;
+            SaveButton.Visible = true;
+        }
+        private void CalcTotal()
+        {
+            TotalText.Value = _listItem.Sum(x => x.SubTotal);
+            DiscountText.Value = _listItem.Sum(x => x.DiscRp);
+            TaxText.Value = _listItem.Sum(x => x.PpnRp);
+            GrandTotalText.Value = _listItem.Sum(x => x.Total);
+        }
+
+        private void ReturJualButton_Click(object sender, EventArgs e)
+        {
+            _returJualBrowser.Filter.Date = new Periode(DateTime.Now);
+
+            ReturJualIdText.Text = _returJualBrowser.Browse(ReturJualIdText.Text);
+            ValidateReturJual();
+        }
+
+        private void ClearDisplay()
+        {
+            ReturJualIdText.Clear();
+            CustomerIdText.Clear();
+            CustomerNameText.Clear();
+            CustomerAddressText.Clear();
+            WarehouseIdText.Clear();
+            WarehouseNameText.Clear();
+            SalesIdText.Clear();
+            SalesNameText.Clear();
+            DriverIdText.Clear();
+            DriverNameText.Clear();
+            _listItem.Clear();
             FakturItemGrid.Refresh();
         }
-
-        private void BrowseBrg(int rowIndex)
+        
+        private void SaveButton_Click(object sender, EventArgs e)
         {
-            var brgId = _listItem[rowIndex].BrgId;
-            _brgBrowser.Filter.StaticFilter1 = WarehouseIdText.Text;
-            _brgBrowser.Filter.UserKeyword = _listItem[rowIndex].BrgId;
-            brgId = _brgBrowser.Browse(brgId);
-            _listItem[rowIndex].BrgId = brgId;
-            ValidateRow(rowIndex);
+            var returJual = BuildReturJual();
+            returJual = _writer.Save(returJual);
+            LastIdText.Text = returJual.ReturJualId;
+            ClearDisplay();
+            return;
+
+            ReturJualModel BuildReturJual()
+            {
+                var resultBuildReturJual = _builder
+                    .Create()
+                    .Customer(new CustomerModel(CustomerIdText.Text))
+                    .Warehouse(new WarehouseModel(WarehouseIdText.Text))
+                    .SalesPerson(new SalesPersonModel(SalesIdText.Text))
+                    .Driver(new DriverModel(DriverIdText.Text))
+                    .ReturJualDate(ReturJualDateText.Value)
+                    .Build();
+                resultBuildReturJual = _listItem
+                    .Aggregate(resultBuildReturJual, (current, item) 
+                        => _builder
+                            .Attach(current)
+                            .AddItem(item.Adapt<ReturJualItemModel>())
+                            .Build());
+                return resultBuildReturJual;
+            }
         }
 
-        private void ValidateRow(int rowIndex)
+        private void SetFocusToNextControl(object sender, KeyEventArgs e)
         {
-            var item = _listItem[rowIndex];
-            var req = new CreateReturJualItemRequest(item.BrgId, CustomerIdText.Text, item.HrgInputStr, item.QtyInputStr, item.DiscInputStr, 11);
-            var newItem = _createReturJualItemWorker.Execute(req);
-            
-            _listItem[rowIndex] = newItem.Adapt<ReturJualItemDto>();
-            FakturItemGrid.Refresh();
+            if (e.KeyCode == Keys.Enter)
+            {
+                SelectNextControl((Control)sender, true, true, true, true);
+            }
         }
 
-        private BrgModel BuildBrg(int rowIndex)
-        {
-            var id = _listItem[rowIndex].BrgId ?? string.Empty;
-            if (id.Length == 0)
-                return null;
-
-            var brgKey = new BrgModel(id);
-            var fbk = Policy<BrgModel>
-                .Handle<KeyNotFoundException>()
-                .Fallback(null as BrgModel);
-            var brg = fbk.Execute(() => _brgBuilder.Load(brgKey).Build());
-
-            if (!(brg is null)) return brg;
-            
-            brg = GetBrgByCode(id);
-            return brg;
-        }
-        private BrgModel GetBrgByCode(string id)
-        {
-            var result = _brgDal.GetData(id);
-            if (result is null) return null;
-
-            result = _brgBuilder.Load(result).Build();
-            return result;
-        }
         
         #region CUSTOMER
         private void CustomerButton_Click(object sender, EventArgs e)
@@ -212,7 +289,11 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
         {
             var textbox = (TextBox)sender;
             if (textbox.Text.Length == 0)
+            {
+                CustomerNameText.Clear();
+                CustomerAddressText.Clear();
                 return;
+            }
 
             var customer = _customerDal.GetData(new CustomerModel(textbox.Text));
             CustomerNameText.Text = customer?.CustomerName ?? string.Empty;
@@ -226,10 +307,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
                 CustomerIdText.Text = _customerBrowser.Browse(CustomerIdText.Text);
                 CustomerIdText_Validated(sender, null);
             }
-            if (e.KeyCode == Keys.Enter)
-            {
-                SelectNextControl((Control)sender, true, true, true, true);
-            }
+
         }
         #endregion
 
@@ -245,7 +323,10 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
         {
             var textbox = (TextBox)sender;
             if (textbox.Text.Length == 0)
+            {
+                WarehouseNameText.Clear();                
                 return;
+            }
 
             var warehouse = _warehouseDal.GetData(new WarehouseModel(textbox.Text));
             WarehouseNameText.Text = warehouse?.WarehouseName ?? string.Empty;
@@ -257,10 +338,6 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
                 _warehouseBrowser.Filter.UserKeyword = WarehouseIdText.Text;
                 WarehouseIdText.Text = _warehouseBrowser.Browse(WarehouseIdText.Text);
                 WarehouseIdText_Validated(sender, null);
-            }
-            if (e.KeyCode == Keys.Enter)
-            {
-                SelectNextControl((Control)sender, true, true, true, true);
             }
         }
         #endregion
@@ -277,7 +354,10 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
         {
             var textbox = (TextBox)sender;
             if (textbox.Text.Length == 0)
+            {
+                SalesNameText.Clear();            
                 return;
+            }
 
             var sales = _salesPersonDal.GetData(new SalesPersonModel(textbox.Text));
             SalesNameText.Text = sales?.SalesPersonName ?? string.Empty;
@@ -289,10 +369,6 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
                 _salesBrowser.Filter.UserKeyword = SalesIdText.Text;
                 SalesIdText.Text = _salesBrowser.Browse(SalesIdText.Text);
                 SalesPersonIdText_Validated(sender, null);
-            }
-            if (e.KeyCode == Keys.Enter)
-            {
-                SelectNextControl((Control)sender, true, true, true, true);
             }
         }
         #endregion
@@ -309,7 +385,10 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
         {
             var textbox = (TextBox)sender;
             if (textbox.Text.Length == 0)
+            {
+                DriverNameText.Clear();                
                 return;
+            }
 
             var driver = _driverDal.GetData(new DriverModel(textbox.Text));
             DriverNameText.Text = driver?.DriverName ?? string.Empty;
@@ -330,8 +409,8 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
         }
         #endregion
 
-        #region GRID
 
+        #region GRID
         private void InitGrid()
         {
             var binding = new BindingSource();
@@ -401,6 +480,50 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             FakturItemGrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             FakturItemGrid.AutoResizeRows();
             
+        }
+        private void FakturItemGrid_CellValidated(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex <0 ) return;
+            var grid = (DataGridView)sender;
+            switch (grid.Columns[e.ColumnIndex].Name)
+            {
+                case "BrgId":
+                case "QtyInputStr":
+                case "HrgInputStr":
+                case "DiscInputStr":
+                    if (grid.CurrentCell.Value is null)
+                        return;
+                    ValidateRow(e.RowIndex);
+                    break;
+            }
+        }
+        private void FakturItemGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var grid = (DataGridView)sender;
+            
+            if (e.ColumnIndex != grid.Columns["Find"]?.Index)
+                return;
+            
+            BrowseBrg(e.RowIndex);
+            FakturItemGrid.Refresh();
+        }
+        private void BrowseBrg(int rowIndex)
+        {
+            var brgId = _listItem[rowIndex].BrgId ?? string.Empty;
+            _brgBrowser.Filter.UserKeyword = _listItem[rowIndex].BrgId;
+            brgId = _brgBrowser.Browse(brgId);
+            _listItem[rowIndex].BrgId = brgId;
+            ValidateRow(rowIndex);
+        }
+        private void ValidateRow(int rowIndex)
+        {
+            var item = _listItem[rowIndex];
+            var req = new CreateReturJualItemRequest(item.BrgId, CustomerIdText.Text, 
+                item.HrgInputStr, item.QtyInputStr, item.DiscInputStr, 11);
+            var newItem = _createReturJualItemWorker.Execute(req);
+            
+            _listItem[rowIndex] = newItem.Adapt<ReturJualItemDto>();
+            FakturItemGrid.Refresh();
         }
         #endregion
 

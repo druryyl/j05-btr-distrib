@@ -9,6 +9,7 @@ using btr.domain.BrgContext.HargaTypeAgg;
 using btr.domain.SalesContext.CustomerAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
+using Polly;
 
 namespace btr.application.InventoryContext.ReturJualAgg.Workers
 {
@@ -35,6 +36,7 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
         private readonly ICustomerBuilder _customerBuilder;
         private readonly IFakturItemViewDal _fakturItemViewDal;
         private readonly ITglJamDal _tglJamDal;
+        private const string DEFAULT_HARGA_TYPE_ID = "MT";
 
         public FindHrgReturJualHandler(IBrgBuilder brgBuilder, 
             ICustomerBuilder customerBuilder, 
@@ -49,8 +51,33 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
 
         public BrgHargaModel Execute(FindHrgReturJualRequest req)
         {
-            var brg = _brgBuilder.Load(req).Build();
-            var customer = _customerBuilder.Load(req).Build();
+            req.RemoveNull();
+            var fallbackBrg = Policy<BrgModel>
+                .Handle<KeyNotFoundException>()
+                .Fallback(new BrgModel
+                {
+                    BrgId = string.Empty,
+                    ListHarga = new List<BrgHargaModel>
+                    {
+                        new BrgHargaModel
+                        {
+                            BrgId = string.Empty,
+                            Harga = 0,
+                            HargaTypeId = DEFAULT_HARGA_TYPE_ID
+                        }
+                    }
+                });
+            var brg = fallbackBrg.Execute(() => _brgBuilder.Load(req).Build());
+            
+            var fallbackCustomer = Policy<CustomerModel>
+                .Handle<KeyNotFoundException>()
+                .Fallback(new CustomerModel
+                {
+                    CustomerId = string.Empty,
+                    HargaTypeId = DEFAULT_HARGA_TYPE_ID
+                });
+            var customer = fallbackCustomer
+                .Execute(() => _customerBuilder.Load(req).Build());
             
             //  cari dari history pembelian
             var periode = new Periode(
