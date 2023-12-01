@@ -142,6 +142,8 @@ namespace btr.application.PurchaseContext.InvoiceAgg
             out string hrgDetilStr, out decimal hppSatKecil, out decimal hppSatBesar)
         {
             var hrgs = ParseStringMultiNumber(hrgInputStr, 2);
+            if (brg.ListSatuan.Count == 0)
+                throw new ArgumentException("Barang ini belum punya satuan");
             var conversion = brg.ListSatuan.Max(x => x.Conversion);
             var satKecil = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty;
             var satBesar = brg.ListSatuan.FirstOrDefault(x => x.Conversion > 1)?.Satuan ?? string.Empty;

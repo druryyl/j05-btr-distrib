@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.StokAgg.GenStokUseCase;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
@@ -46,15 +47,22 @@ namespace btr.application.PurchaseContext.InvoiceAgg
         private readonly IInvoiceWriter _invoiceWriter;
         private readonly IMediator _mediator;
         private readonly IGenStokInvoiceWorker _genStokWorker;
+        private readonly IBrgBuilder _brgBuilder;
+        private readonly IBrgWriter _brgWriter;
 
         public SaveInvoiceWorker(IInvoiceBuilder invoiceBuilder,
             IInvoiceWriter invoiceWriter,
-            IMediator mediator, IGenStokInvoiceWorker genStokWorker)
+            IMediator mediator, 
+            IGenStokInvoiceWorker genStokWorker, 
+            IBrgBuilder brgBuilder, 
+            IBrgWriter brgWriter)
         {
             _invoiceBuilder = invoiceBuilder;
             _invoiceWriter = invoiceWriter;
             _mediator = mediator;
             _genStokWorker = genStokWorker;
+            _brgBuilder = brgBuilder;
+            _brgWriter = brgWriter;
         }
 
         public InvoiceModel Execute(SaveInvoiceRequest req)
@@ -72,16 +80,15 @@ namespace btr.application.PurchaseContext.InvoiceAgg
                 .Handle<KeyNotFoundException>()
                 .Fallback(null as InvoiceModel);
             var existingInvoice = fallback.Execute(() => _invoiceBuilder.Load(req).Build());
-                
             using (var trans = TransHelper.NewScope())
             {
                 result = SaveInvoice(req);
-
                 if (IsStokChanged(existingInvoice, result))
                 {
                     var genStokReq = new GenStokInvoiceRequest(result.InvoiceId);
                     _genStokWorker.Execute(genStokReq);
                 }
+                UpdateHpp(result);
 
                 trans.Complete();
             }
@@ -89,6 +96,7 @@ namespace btr.application.PurchaseContext.InvoiceAgg
             //  RESULT
             return result;
             
+            //  INNER FUNCTION
             bool IsStokChanged(InvoiceModel invoiceDb, InvoiceModel invoiceInput)
             {
                 if (invoiceDb is null) return true;
@@ -101,7 +109,19 @@ namespace btr.application.PurchaseContext.InvoiceAgg
                 return invDbList
                     .Any(x => !invInputList
                         .Any(y => y.BrgId == x.BrgId && y.QtyPotStok == x.QtyPotStok && y.HppSat == x.HppSat));
-            }             
+            }
+
+            void UpdateHpp(InvoiceModel invoiceUpdateHpp)
+            {
+                var updateHppResult = new List<BrgModel>();
+                foreach(var item in invoiceUpdateHpp.ListItem)
+                {
+                    var brg = _brgBuilder.Load(item).Build();
+                    brg.Hpp = item.HppSat;
+                    updateHppResult.Add(brg);
+                }
+                updateHppResult.ForEach(x => _brgWriter.Save(ref x));
+            }
         }
 
         private InvoiceModel SaveInvoice(SaveInvoiceRequest req)
