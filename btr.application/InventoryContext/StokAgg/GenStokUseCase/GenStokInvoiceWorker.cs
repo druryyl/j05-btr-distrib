@@ -22,27 +22,18 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
     public class GenStokInvoiceWorker : IGenStokInvoiceWorker
     {
         private readonly IInvoiceBuilder _invoiceBuilder;
-        private readonly IRemovePriorityStokWorker _removePriorityStokWorker;
         private readonly IBrgBuilder _brgBuilder;
         private readonly IAddStokWorker _addStokWorker;
-        private readonly IStokDal _stokDal;
-        private readonly IStokMutasiDal _stokMutasiDal;
         private readonly IRemoveRollbackStokWorker _removeRollbackStokWorker;
 
         public GenStokInvoiceWorker(IInvoiceBuilder invoiceBuilder,
-            IRemovePriorityStokWorker removePriorityStokWorker,
             IBrgBuilder brgBuilder,
             IAddStokWorker addFifoStokWorker,
-            IStokDal stokDal,
-            IStokMutasiDal stokMutasiDal, 
             IRemoveRollbackStokWorker removeRollbackStokWorker)
         {
             _invoiceBuilder = invoiceBuilder;
-            _removePriorityStokWorker = removePriorityStokWorker;
             _brgBuilder = brgBuilder;
             _addStokWorker = addFifoStokWorker;
-            _stokDal = stokDal;
-            _stokMutasiDal = stokMutasiDal;
             _removeRollbackStokWorker = removeRollbackStokWorker;
         }
 
@@ -66,7 +57,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
 
                     var qtyBonus = item.QtyPotStok - item.QtyBeli;
                     if (qtyBonus == 0)
-                        break;
+                        continue;
 
                     var reqBonus = new AddStokRequest(item.BrgId,
                         invoice.WarehouseId, qtyBonus, satuan, 0, invoice.InvoiceId, "INVOICE-BONUS");

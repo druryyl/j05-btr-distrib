@@ -16,10 +16,15 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Windows.Forms;
+using btr.application.InventoryContext.StokAgg;
+using btr.application.InventoryContext.StokAgg.GenStokUseCase;
 using btr.application.PurchaseContext.InvoiceAgg;
-using System.Windows.Forms.DataVisualization.Charting;
+using btr.distrib.PrintDocs;
+using btr.domain.InventoryContext.StokAgg;
+using JetBrains.Annotations;
 
 namespace btr.distrib.PurchaseContext.InvoiceAgg
 {
@@ -40,7 +45,8 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
 
         private readonly IBrgBuilder _brgBuilder;
         private readonly IInvoiceBuilder _invoiceBuilder;
-        
+        private readonly IInvoicePrintDoc _invoicePrinter;
+        private readonly IGenStokInvoiceWorker _genStokInvoiceWorker;
 
         private readonly BindingList<InvoiceItemDto> _listItem = new BindingList<InvoiceItemDto>();
 
@@ -56,7 +62,8 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             ISaveInvoiceWorker saveInvoiceWorker,
             IInvoiceBuilder invoiceBuilder,
             ITglJamDal dateTime,
-            IBrowser<InvoiceBrowserView> invoiceBrowser)
+            IBrowser<InvoiceBrowserView> invoiceBrowser, 
+            IInvoicePrintDoc invoicePrinter, IGenStokInvoiceWorker genStokInvoiceWorker)
         {
             InitializeComponent();
 
@@ -77,6 +84,8 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             _invoiceBuilder = invoiceBuilder;
             _dateTime = dateTime;
             _invoiceBrowser = invoiceBrowser;
+            _invoicePrinter = invoicePrinter;
+            _genStokInvoiceWorker = genStokInvoiceWorker;
         }
 
         private void RegisterEventHandler()
@@ -91,24 +100,55 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             InvoiceItemGrid.CellContentClick += InvoiceItemGrid_CellContentClick;
             InvoiceItemGrid.CellValueChanged += InvoiceItemGrid_CellValueChanged;
             InvoiceItemGrid.CellValidated += InvoiceItemGrid_CellValidated;
-            InvoiceItemGrid.CellValidating += InvoiceItemGrid_CellValidating; ;
+            InvoiceItemGrid.CellValidating += InvoiceItemGrid_CellValidating; 
             InvoiceItemGrid.KeyDown += InvoiceItemGrid_KeyDown;
             InvoiceItemGrid.EditingControlShowing += InvoiceItemGrid_EditingControlShowing;
 
             SaveButton.Click += SaveButton_Click;
             NewButton.Click += NewButton_Click;
+            PrintButton.Click += PrintButton_Click;
+        }
+
+        private void PrintButton_Click(object sender, EventArgs e)
+        {
+            PrintInvoice(InvoiceIdText.Text);
+        }
+
+        private void PrintInvoice(string invoiceId)
+        {
+            var invoice = _invoiceBuilder.Load(new InvoiceModel(invoiceId)).Build();
+            _invoicePrinter.DefaultPrinter = GetPrinterName();
+            _invoicePrinter.CreateDoc(invoice);
+            _invoicePrinter.PrintDoc();
+        }
+        private static string GetPrinterName()
+        {
+            string defaultPrinterName;
+
+            try
+            {
+                var printDocument = new PrintDocument();
+                defaultPrinterName = "Printer : " + printDocument.PrinterSettings.PrinterName;
+            }
+            catch (Exception ex)
+            {
+                defaultPrinterName = "Printer Error : " + ex.Message;
+            }
+
+            return defaultPrinterName;
         }
 
         private void InvoiceItemGrid_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
             var grid = (DataGridView)sender;
-            if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("BrgId").Index)
-            {
-                var x = _listItem[e.RowIndex].BrgId;
-                var y = grid.CurrentRow.Cells["BrgId"].Value?.ToString()??string.Empty;
-                if (x != y)
-                    _listItem[e.RowIndex].HrgInputStr = string.Empty;
-            }
+            if (grid.CurrentCell.ColumnIndex != grid.Columns.GetCol("BrgId").Index) return;
+            
+            var x = _listItem[e.RowIndex].BrgId;
+            if (grid.CurrentRow == null) return;
+            
+            var y = grid.CurrentRow.Cells["BrgId"].Value?.ToString()??string.Empty;
+            if (x != y)
+                _listItem[e.RowIndex].HrgInputStr = string.Empty;
         }
 
         private void NewButton_Click(object sender, EventArgs e)
@@ -123,7 +163,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             InvoiceIdText.Text = _invoiceBrowser.Browse(InvoiceIdText.Text);
             LoadInvoice();
         }
-        private bool LoadInvoice()
+        private void LoadInvoice()
         {
             var textbox = InvoiceIdText;
             var policy = Policy<InvoiceModel>
@@ -136,8 +176,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             var invoice = policy.Execute(() => _invoiceBuilder
                 .Load(new InvoiceModel(textbox.Text))
                 .Build());
-            if (invoice is null)
-                return false;
+            if (invoice is null) return;
 
             invoice.RemoveNull();
             SupplierNameText.Text = invoice.SupplierName;
@@ -155,21 +194,16 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             GrandTotalText.Value = invoice.GrandTotal;
             UangMukaText.Value = invoice.UangMuka;
             SisaText.Value = invoice.KurangBayar;
-            //LastIdLabel.Text = $"{invoice.InvoiceCode}";
 
             _listItem.Clear();
-            foreach (var item in invoice.ListItem)
-            {
-                var newItem = item.Adapt<InvoiceItemDto>();
+            foreach (var newItem in invoice.ListItem.Select(item => item.Adapt<InvoiceItemDto>()))
                 _listItem.Add(newItem);
-            }
 
             if (invoice.IsVoid)
                 ShowAsVoid(invoice);
             else
                 ShowAsActive();
             CalcTotal();
-            return true;
         }
 
         #region SUPPLIER
@@ -237,35 +271,16 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
         {
             if (e.RowIndex < 0) return;
             var grid = (DataGridView)sender;
-            if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("BrgId").Index)
+            switch (grid.Columns[e.ColumnIndex].Name)
             {
-                if (grid.CurrentCell.Value is null)
-                {
-                    CleanRow(e.RowIndex);
-                    return;
-                }
-                ValidateRow(e.RowIndex);
-            }
-
-            if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("QtyInputStr").Index)
-            {
-                if (grid.CurrentCell.Value is null)
-                    return;
-                ValidateRow(e.RowIndex);
-            }
-
-            if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("HrgInputStr").Index)
-            {
-                if (grid.CurrentCell.Value is null)
-                    return;
-                ValidateRow(e.RowIndex);
-            }
-
-            if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("DiscInputStr").Index)
-            {
-                if (grid.CurrentCell.Value is null)
-                    return;
-                ValidateRow(e.RowIndex);
+                case "BrgId":
+                case "QtyInputStr":
+                case "HrgInputStr":
+                case "DiscInputStr":
+                    if (grid.CurrentCell.Value is null)
+                        return;
+                    ValidateRow(e.RowIndex);
+                    break;
             }
         }
 
@@ -310,7 +325,6 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
 
         private void BrowseBrg(int rowIndex)
         {
-            var grid = InvoiceItemGrid;
             var brgId = _listItem[rowIndex].BrgId;
             _brgStokBrowser.Filter.StaticFilter1 = WarehouseIdText.Text;
             _brgStokBrowser.Filter.UserKeyword = _listItem[rowIndex].BrgId;
@@ -324,7 +338,6 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             var brg = BuildBrg(rowIndex);
             if (brg == null)
             {
-                CleanRow(rowIndex);
                 return;
             }
 
@@ -371,13 +384,6 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             return result;
         }
 
-        private void CleanRow(int rowIndex)
-        {
-            //_listItem[rowIndex].SetBrgName(string.Empty);
-            //_listItem[rowIndex].SetCode(string.Empty);
-            //InvoiceItemGrid.Refresh();
-        }
-
         private void InitGrid()
         {
             var binding = new BindingSource();
@@ -411,23 +417,23 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             cols.GetCol("HrgInputStr").Visible = true;
             cols.GetCol("HrgInputStr").Width = 110;
             cols.GetCol("HrgInputStr").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            cols.GetCol("HrgInputStr").HeaderText = "Hrg Beli";
+            cols.GetCol("HrgInputStr").HeaderText = @"Hrg Beli";
             cols.GetCol("HrgInputStr").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
 
             cols.GetCol("HrgDetilStr").Visible = false;
             cols.GetCol("HrgDetilStr").Width = 110;
             cols.GetCol("HrgDetilStr").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            cols.GetCol("HrgDetilStr").HeaderText = "Detil Harga";
+            cols.GetCol("HrgDetilStr").HeaderText = @"Detil Harga";
             cols.GetCol("HrgDetilStr").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
 
 
             cols.GetCol("QtyInputStr").Visible = true;
             cols.GetCol("QtyInputStr").Width = 50;
-            cols.GetCol("QtyInputStr").HeaderText = "Qty";
+            cols.GetCol("QtyInputStr").HeaderText = @"Qty";
 
             cols.GetCol("QtyDetilStr").Visible = true;
             cols.GetCol("QtyDetilStr").Width = 80;
-            cols.GetCol("QtyDetilStr").HeaderText = "Qty Desc";
+            cols.GetCol("QtyDetilStr").HeaderText = @"Qty Desc";
             cols.GetCol("QtyDetilStr").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             cols.GetCol("QtyDetilStr").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
 
@@ -451,11 +457,11 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
 
             cols.GetCol("DiscInputStr").Visible = true;
             cols.GetCol("DiscInputStr").Width = 65;
-            cols.GetCol("DiscInputStr").HeaderText = "Disc";
+            cols.GetCol("DiscInputStr").HeaderText = @"Disc";
 
             cols.GetCol("DiscDetilStr").Visible = true;
             cols.GetCol("DiscDetilStr").Width = 90;
-            cols.GetCol("DiscDetilStr").HeaderText = "Disc Rp";
+            cols.GetCol("DiscDetilStr").HeaderText = @"Disc Rp";
             cols.GetCol("DiscDetilStr").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             cols.GetCol("DiscDetilStr").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
 
@@ -463,7 +469,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
 
             cols.GetCol("PpnProsen").Visible = true;
             cols.GetCol("PpnProsen").Width = 50;
-            cols.GetCol("PpnProsen").HeaderText = "Ppn";
+            cols.GetCol("PpnProsen").HeaderText = @"Ppn";
 
             cols.GetCol("PpnRp").Visible = false;
 
@@ -488,6 +494,17 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
 
         #region SAVE
         private void SaveButton_Click(object sender, EventArgs e)
+        {
+            //  simpan kondisi barang sebelum simpan
+            //  untuk deteksi apa perlu gen-stok
+            var result = SaveInvoice();
+
+            PrintInvoice(result.InvoiceId);
+
+            ClearForm();
+        }
+
+        private InvoiceModel SaveInvoice()
         {
             var mainform = (MainForm)this.Parent.Parent;
             var cmd = new SaveInvoiceRequest
@@ -516,8 +533,9 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             cmd.ListBrg = listItem;
             var result = _saveInvoiceWorker.Execute(cmd);
             LastIdLabel.Text = result.InvoiceId;
-            ClearForm();
+            return result;
         }
+        
         private void ClearForm()
         {
             InvoiceIdText.Text = string.Empty;
@@ -547,7 +565,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
                 if (item is Panel panel)
                     panel.BackColor = Color.MistyRose;
 
-            CancelLabel.Text = $"Invoice sudah DIBATALKAN \noleh {invoice.UserIdVoid} \npada {invoice.VoidDate:ddd, dd MMM yyyy}";
+            CancelLabel.Text = $@"Invoice sudah DIBATALKAN \noleh {invoice.UserIdVoid} \npada {invoice.VoidDate:ddd, dd MMM yyyy}";
             VoidPanel.Visible = true;
             SaveButton.Visible = false;
         }
@@ -566,6 +584,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
 
     }
 
+    [PublicAPI]
     public class InvoiceItemDto
     {
         public InvoiceItemDto()

@@ -75,6 +75,7 @@
             this.InvoiceLabel = new System.Windows.Forms.Label();
             this.SaveButton = new System.Windows.Forms.Button();
             this.NewButton = new System.Windows.Forms.Button();
+            this.PrintButton = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -94,9 +95,7 @@
             // TermOfPaymentCombo
             // 
             this.TermOfPaymentCombo.FormattingEnabled = true;
-            this.TermOfPaymentCombo.Items.AddRange(new object[] {
-            "Credit",
-            "Cash"});
+            this.TermOfPaymentCombo.Items.AddRange(new object[] { "Credit", "Cash" });
             this.TermOfPaymentCombo.Location = new System.Drawing.Point(6, 24);
             this.TermOfPaymentCombo.Name = "TermOfPaymentCombo";
             this.TermOfPaymentCombo.Size = new System.Drawing.Size(175, 21);
@@ -280,8 +279,7 @@
             // 
             // PanelAtas4
             // 
-            this.PanelAtas4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PanelAtas4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.PanelAtas4.BackColor = System.Drawing.Color.Cornsilk;
             this.PanelAtas4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PanelAtas4.Controls.Add(this.VoidPanel);
@@ -316,9 +314,7 @@
             // 
             // NoteTextBox
             // 
-            this.NoteTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.NoteTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.NoteTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.NoteTextBox.Location = new System.Drawing.Point(11, 24);
             this.NoteTextBox.Multiline = true;
@@ -338,9 +334,7 @@
             // 
             // InvoiceItemGrid
             // 
-            this.InvoiceItemGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.InvoiceItemGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.InvoiceItemGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.InvoiceItemGrid.Location = new System.Drawing.Point(6, 201);
             this.InvoiceItemGrid.Name = "InvoiceItemGrid";
@@ -349,8 +343,7 @@
             // 
             // PanelTengah
             // 
-            this.PanelTengah.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PanelTengah.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Right)));
             this.PanelTengah.BackColor = System.Drawing.Color.Honeydew;
             this.PanelTengah.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PanelTengah.Controls.Add(this.TaxText);
@@ -374,11 +367,7 @@
             // 
             this.TaxText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TaxText.Location = new System.Drawing.Point(11, 102);
-            this.TaxText.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
+            this.TaxText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
             this.TaxText.Name = "TaxText";
             this.TaxText.ReadOnly = true;
             this.TaxText.Size = new System.Drawing.Size(117, 20);
@@ -399,11 +388,7 @@
             // 
             this.SisaText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SisaText.Location = new System.Drawing.Point(11, 248);
-            this.SisaText.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
+            this.SisaText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
             this.SisaText.Name = "SisaText";
             this.SisaText.ReadOnly = true;
             this.SisaText.Size = new System.Drawing.Size(117, 20);
@@ -424,11 +409,7 @@
             // 
             this.UangMukaText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UangMukaText.Location = new System.Drawing.Point(11, 209);
-            this.UangMukaText.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
+            this.UangMukaText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
             this.UangMukaText.Name = "UangMukaText";
             this.UangMukaText.Size = new System.Drawing.Size(117, 20);
             this.UangMukaText.TabIndex = 23;
@@ -448,11 +429,7 @@
             // 
             this.GrandTotalText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GrandTotalText.Location = new System.Drawing.Point(9, 141);
-            this.GrandTotalText.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
+            this.GrandTotalText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
             this.GrandTotalText.Name = "GrandTotalText";
             this.GrandTotalText.ReadOnly = true;
             this.GrandTotalText.Size = new System.Drawing.Size(117, 20);
@@ -473,11 +450,7 @@
             // 
             this.DiscountText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DiscountText.Location = new System.Drawing.Point(11, 63);
-            this.DiscountText.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
+            this.DiscountText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
             this.DiscountText.Name = "DiscountText";
             this.DiscountText.ReadOnly = true;
             this.DiscountText.Size = new System.Drawing.Size(117, 20);
@@ -498,11 +471,7 @@
             // 
             this.TotalText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalText.Location = new System.Drawing.Point(11, 24);
-            this.TotalText.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
+            this.TotalText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
             this.TotalText.Name = "TotalText";
             this.TotalText.ReadOnly = true;
             this.TotalText.Size = new System.Drawing.Size(117, 20);
@@ -622,12 +591,23 @@
             this.NewButton.Text = "New";
             this.NewButton.UseVisualStyleBackColor = true;
             // 
+            // PrintButton
+            // 
+            this.PrintButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.PrintButton.Location = new System.Drawing.Point(87, 491);
+            this.PrintButton.Name = "PrintButton";
+            this.PrintButton.Size = new System.Drawing.Size(75, 23);
+            this.PrintButton.TabIndex = 55;
+            this.PrintButton.Text = "Print";
+            this.PrintButton.UseVisualStyleBackColor = true;
+            // 
             // InvoiceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.ClientSize = new System.Drawing.Size(1106, 523);
+            this.Controls.Add(this.PrintButton);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel4);
@@ -661,8 +641,9 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
-
         }
+
+        private System.Windows.Forms.Button PrintButton;
 
         #endregion
         private System.Windows.Forms.ComboBox TermOfPaymentCombo;

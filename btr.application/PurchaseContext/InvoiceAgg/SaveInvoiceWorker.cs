@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using btr.application.InventoryContext.StokAgg.GenStokUseCase;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
@@ -10,6 +11,7 @@ using btr.nuna.Application;
 using btr.nuna.Domain;
 using Dawn;
 using MediatR;
+using Polly;
 
 namespace btr.application.PurchaseContext.InvoiceAgg
 {
@@ -66,18 +68,40 @@ namespace btr.application.PurchaseContext.InvoiceAgg
 
             //  PROSES FAKTUR
             InvoiceModel result;
+            var fallback = Policy<InvoiceModel>
+                .Handle<KeyNotFoundException>()
+                .Fallback(null as InvoiceModel);
+            var existingInvoice = fallback.Execute(() => _invoiceBuilder.Load(req).Build());
+                
             using (var trans = TransHelper.NewScope())
             {
                 result = SaveInvoice(req);
 
-                var genStokReq = new GenStokInvoiceRequest(result.InvoiceId);
-                _genStokWorker.Execute(genStokReq);
+                if (IsStokChanged(existingInvoice, result))
+                {
+                    var genStokReq = new GenStokInvoiceRequest(result.InvoiceId);
+                    _genStokWorker.Execute(genStokReq);
+                }
 
                 trans.Complete();
             }
-
+            
             //  RESULT
             return result;
+            
+            bool IsStokChanged(InvoiceModel invoiceDb, InvoiceModel invoiceInput)
+            {
+                if (invoiceDb is null) return true;
+                if (invoiceDb.ListItem.Count != invoiceInput.ListItem.Count) return true;
+                var invDbList = invoiceDb.ListItem.Select(x => new {x.BrgId, x.QtyPotStok, x.HppSat}).ToList();
+                var invInputList = invoiceInput.ListItem.Select(x => new {x.BrgId, x.QtyPotStok, x.HppSat}).ToList();
+
+                //  compare invDbList vs invInputList
+                //  if any item is different, then return true
+                return invDbList
+                    .Any(x => !invInputList
+                        .Any(y => y.BrgId == x.BrgId && y.QtyPotStok == x.QtyPotStok && y.HppSat == x.HppSat));
+            }             
         }
 
         private InvoiceModel SaveInvoice(SaveInvoiceRequest req)

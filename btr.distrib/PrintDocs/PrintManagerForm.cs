@@ -139,7 +139,7 @@ namespace btr.distrib.PrintDocs
         private void GridBawah_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             var id = GridBawah.Rows[e.RowIndex].Cells[0].Value.ToString();
-            if (MessageBox.Show($"Re-Print Document {id}?", "Re-Print", MessageBoxButtons.YesNo) == DialogResult.No)
+            if (MessageBox.Show($@"Re-Print Document {id}?", @"Re-Print", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
 
             var doc = _docBuilder
@@ -189,7 +189,7 @@ namespace btr.distrib.PrintDocs
             var hMin3 = DateTime.Now.AddDays(-3);
             Tgl1Text.Value = hMin3;
             Tgl2Text.Value = DateTime.Now;
-            var listDocAll = _docDal.ListData(new Periode(Tgl1Text.Value, Tgl2Text.Value))
+            var listDocAll = _docDal.ListData(new Periode(Tgl1Text.Value, Tgl2Text.Value))?.ToList()
                 ?? new List<DocModel>();
             var listAtas = listDocAll
                 .Where(x => x.WarehouseId == WarehouseCombo.SelectedValue.ToString())
@@ -210,13 +210,13 @@ namespace btr.distrib.PrintDocs
             GridBawah.DataSource = listBawah;
         }
 
-        private string GetPrinterName()
+        private static string GetPrinterName()
         {
-            string defaultPrinterName = null;
+            string defaultPrinterName;
 
             try
             {
-                PrintDocument printDocument = new PrintDocument();
+                var printDocument = new PrintDocument();
                 defaultPrinterName = "Printer : " + printDocument.PrinterSettings.PrinterName;
             }
             catch (Exception ex)
