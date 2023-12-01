@@ -37,7 +37,7 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
                         @ReturJualId, @ReturJualDate,
                         @CustomerId, @WarehouseId, @UserId,
                         @SalesPersonId, @DriverId,
-                        @Total, @DiscRp, @PpnRp, @GrandTotal
+                        @Total, @DiscRp, @PpnRp, @GrandTotal,
                         @VoidDate, @UserIdVoid
                     )";
 

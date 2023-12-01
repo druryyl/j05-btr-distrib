@@ -147,6 +147,7 @@
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokFakturWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokInvoiceWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokMutasiWorker.cs" />
+    <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokReturJualWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\RemovePriorityStokWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\RemoveRollbackStokWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\IStokDal.cs" />

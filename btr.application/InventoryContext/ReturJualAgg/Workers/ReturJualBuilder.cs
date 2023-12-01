@@ -85,6 +85,8 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
         {
             _aggregate = new ReturJualModel
             {
+                ReturJualDate = new DateTime(3000,1,1),
+                VoidDate = new DateTime(3000,1,1),
                 ListItem = new List<ReturJualItemModel>()
             };
             return this;

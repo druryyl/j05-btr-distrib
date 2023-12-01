@@ -14,8 +14,10 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using btr.application.InventoryContext.ReturJualAgg.Workers;
+using btr.application.InventoryContext.StokAgg.GenStokUseCase;
 using btr.distrib.Helpers;
 using btr.domain.InventoryContext.ReturJualAgg;
+using btr.nuna.Application;
 using btr.nuna.Domain;
 using JetBrains.Annotations;
 using Mapster;
@@ -43,6 +45,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
         private readonly IReturJualWriter _writer;
 
         private readonly ICreateReturJualItemWorker _createReturJualItemWorker;
+        private readonly IGenStokReturJualWorker _genStokReturJualWorker;
 
         public ReturJualForm(
             IBrowser<CustomerBrowserView> customerBrowser,
@@ -57,7 +60,8 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             ICreateReturJualItemWorker createReturJualItemWorker, 
             IReturJualBuilder builder, 
             IReturJualWriter writer, 
-            IBrowser<ReturJualBrowserView> returJualBrowser)
+            IBrowser<ReturJualBrowserView> returJualBrowser, 
+            IGenStokReturJualWorker genStokReturJualWorker)
         {
             InitializeComponent();
 
@@ -76,6 +80,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             _builder = builder;
             _writer = writer;
             _returJualBrowser = returJualBrowser;
+            _genStokReturJualWorker = genStokReturJualWorker;
 
             RegisterEventHandler();
             InitGrid();
@@ -120,7 +125,15 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             
             SaveButton.Click += SaveButton_Click;
         }
+        private void SetFocusToNextControl(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                SelectNextControl((Control)sender, true, true, true, true);
+            }
+        }
 
+        #region RETUR-JUAL-ID
         private void ReturJualIdText_Validating(object sender, CancelEventArgs e)
         {
             var textbox = (TextBox)sender;
@@ -155,7 +168,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
 
             ReturJualDateText.Value = returJual.ReturJualDate;
             SalesIdText.Text = returJual.SalesPersonId;
-            SalesIdText.Text = returJual.SalesPersonName;
+            SalesNameText.Text = returJual.SalesPersonName;
             CustomerIdText.Text = returJual.CustomerId;
             CustomerNameText.Text = returJual.CustomerName;
 
@@ -194,7 +207,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
                 if (item is Panel panel)
                     panel.BackColor = Color.MistyRose;
 
-            CancelLabel.Text = $"Retur Jual sudah DIBATALKAN \noleh {returJual.UserIdVoid} \npada {returJual.VoidDate:ddd, dd MMM yyyy}";
+            CancelLabel.Text = $@"Retur Jual sudah DIBATALKAN \noleh {returJual.UserIdVoid} \npada {returJual.VoidDate:ddd, dd MMM yyyy}";
             VoidPanel.Visible = true;
             SaveButton.Visible = false;
         }
@@ -240,25 +253,43 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             _listItem.Clear();
             FakturItemGrid.Refresh();
         }
+        #endregion
         
         private void SaveButton_Click(object sender, EventArgs e)
         {
             var returJual = BuildReturJual();
-            returJual = _writer.Save(returJual);
+            using (var trans = TransHelper.NewScope())
+            {
+                returJual = _writer.Save(returJual);
+                
+                _genStokReturJualWorker.Execute(new GenStokReturJualRequest(returJual.ReturJualId));
+                
+                trans.Complete();
+            }
             LastIdText.Text = returJual.ReturJualId;
             ClearDisplay();
             return;
 
+            //  LOCAL-FUNCTION
             ReturJualModel BuildReturJual()
             {
-                var resultBuildReturJual = _builder
-                    .Create()
+                ReturJualModel resultBuildReturJual;
+                resultBuildReturJual = ReturJualIdText.Text.Length != 0 
+                    ? _builder.Load(new ReturJualModel(ReturJualIdText.Text)).Build() 
+                    : _builder.Create().Build();
+                
+                resultBuildReturJual = _builder
+                    .Attach(resultBuildReturJual)
                     .Customer(new CustomerModel(CustomerIdText.Text))
                     .Warehouse(new WarehouseModel(WarehouseIdText.Text))
                     .SalesPerson(new SalesPersonModel(SalesIdText.Text))
                     .Driver(new DriverModel(DriverIdText.Text))
                     .ReturJualDate(ReturJualDateText.Value)
                     .Build();
+                
+                //  clearkan list item lebih dulu karna akan diisi ulang
+                resultBuildReturJual.ListItem.Clear();
+                
                 resultBuildReturJual = _listItem
                     .Aggregate(resultBuildReturJual, (current, item) 
                         => _builder
@@ -269,13 +300,6 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             }
         }
 
-        private void SetFocusToNextControl(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                SelectNextControl((Control)sender, true, true, true, true);
-            }
-        }
 
         
         #region CUSTOMER
