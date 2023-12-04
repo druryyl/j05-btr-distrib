@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using btr.domain.InventoryContext.WarehouseAgg;
 
 namespace btr.infrastructure.InventoryContext.StokBalanceAgg
 {
@@ -77,5 +78,6 @@ namespace btr.infrastructure.InventoryContext.StokBalanceAgg
                 return conn.Read<StokBalanceWarehouseModel>(sql, dp);
             }
         }
+
     }
 }

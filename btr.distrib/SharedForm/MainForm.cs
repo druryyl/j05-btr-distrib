@@ -188,9 +188,9 @@ namespace btr.distrib.SharedForm
 
         private void OpnameButton_Click(object sender, EventArgs e)
         {
-            if (BringMdiChildToFrontIfLoaded<OpnameForm>())
+            if (BringMdiChildToFrontIfLoaded<Opname2Form>())
                 return;
-            var form = _servicesProvider.GetRequiredService<OpnameForm>();
+            var form = _servicesProvider.GetRequiredService<Opname2Form>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
