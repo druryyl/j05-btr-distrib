@@ -30,6 +30,7 @@ namespace btr.domain.InventoryContext.OpnameAgg
         public int QtyKecilAdjust { get; set; }
         public int QtyPcsAdjust { get; set; }
 
+        public string QtyOpnameInputStr { get; set; }
         public string UserId { get; set; }
     }
 }

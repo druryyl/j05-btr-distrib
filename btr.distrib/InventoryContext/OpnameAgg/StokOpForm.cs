@@ -35,6 +35,7 @@ namespace btr.distrib.InventoryContext.OpnameAgg
         private readonly IBrgSatuanDal _brgSatuanDal;
         private readonly ISaveStokOpWorker _saveStokOpWorker;
         private readonly IStokOpDal _stokOpDal;
+        private readonly IBrgBuilder _brgBuilder;
         
         public StokOpForm(IBrgDal brgDal, 
             IKategoriDal kategoriDal, 
@@ -42,7 +43,8 @@ namespace btr.distrib.InventoryContext.OpnameAgg
             IBrgSatuanDal brgSatuanDal, 
             IWarehouseDal warehouseDal, 
             ISaveStokOpWorker saveStokOpWorker, 
-            IStokOpDal stokOpDal)
+            IStokOpDal stokOpDal, 
+            IBrgBuilder brgBuilder)
         {
             InitializeComponent();
             _brgDal = brgDal;
@@ -52,6 +54,7 @@ namespace btr.distrib.InventoryContext.OpnameAgg
             _warehouseDal = warehouseDal;
             _saveStokOpWorker = saveStokOpWorker;
             _stokOpDal = stokOpDal;
+            _brgBuilder = brgBuilder;
             _listItem = new BindingList<StokOpItem>();
             _bindingSource = new BindingSource
             {
@@ -101,7 +104,79 @@ namespace btr.distrib.InventoryContext.OpnameAgg
                 BrgGrid.EndEdit();
                 BrgGrid.Refresh();
             }
+
+            if (e.ColumnIndex == grid.Columns.GetCol("QtyOpnameInputStr").Index)
+            {
+                NormalizeInput(_listItem[e.RowIndex].QtyOpnameInputStr);
+                var reqStokOp = new SaveStokOpRequest
+                {
+                    BrgId = _listItem[e.RowIndex].BrgId,
+                    StokOpId = _listItem[e.RowIndex].StokOpId,
+                    WarehouseId = WarehouseCombo.SelectedValue.ToString(),
+                    PeriodeOp = PeriodeOpText.Value.Date,
+                    QtyBesar = _listItem[e.RowIndex].QtyBesarOpname,
+                    QtyKecil = _listItem[e.RowIndex].QtyKecilOpname,
+                };
+                var stokOp = _saveStokOpWorker.Execute(reqStokOp);
+
+                _listItem[e.RowIndex].StokOpId = stokOp.StokOpId;
+                _listItem[e.RowIndex].QtyBesarAwal = stokOp.QtyBesarAwal;
+                _listItem[e.RowIndex].QtyKecilAwal = stokOp.QtyKecilAwal;
+                _listItem[e.RowIndex].QtyPcsAwal = stokOp.QtyPcsAwal;
+                
+                _listItem[e.RowIndex].QtyBesarAdjust = stokOp.QtyBesarAdjust;
+                _listItem[e.RowIndex].QtyKecilAdjust = stokOp.QtyKecilAdjust;
+                _listItem[e.RowIndex].QtyPcsAdjust = stokOp.QtyPcsAdjust;
+
+                BrgGrid.EndEdit();
+                BrgGrid.Refresh();
+            }
         }
+
+        private void NormalizeInput(string qtyOpnameInputStr)
+        {
+            var brg = _brgBuilder.Load(new BrgModel(_listItem[BrgGrid.CurrentCell.RowIndex].BrgId)).Build();
+            var conversion = brg.ListSatuan
+                .DefaultIfEmpty(new BrgSatuanModel { Conversion = 1 })
+                .Max(x => x.Conversion);
+
+            var qtys = ParseStringMultiNumber(qtyOpnameInputStr,2);
+
+            if (qtys[1] > conversion)
+            {
+                var addedQty = Convert.ToInt16(qtys[1] / conversion);
+                qtys[0] += addedQty;
+                qtys[1] -= addedQty * conversion;
+            }
+            
+            
+            _listItem[BrgGrid.CurrentCell.RowIndex].QtyBesarOpname = qtys[0];
+            _listItem[BrgGrid.CurrentCell.RowIndex].QtyKecilOpname = qtys[1];
+            _listItem[BrgGrid.CurrentCell.RowIndex].QtyPcsOpname = (qtys[0] * conversion) + qtys[1];
+            _listItem[BrgGrid.CurrentCell.RowIndex].QtyOpnameInputStr = $"{qtys[0]};{qtys[1]}";
+        }
+        private static List<int> ParseStringMultiNumber(string str, int size)
+        {
+            if (str is null)
+                str = string.Empty;
+
+            var result = new List<int>();
+            for (var i = 0; i < size; i++)
+                result.Add(0);
+
+            var resultStr = (str == string.Empty ? "0" : str).Split(';').ToList();
+
+            var x = 0;
+            foreach (var item in resultStr.TakeWhile(item => x < result.Count))
+            {
+                if (int.TryParse(item, out var temp))
+                    result[x] = temp;
+                x++;
+            }
+
+            return result;
+        }
+
 
         private void ListBrgButton_Click(object sender, EventArgs e)
         {
@@ -210,8 +285,12 @@ namespace btr.distrib.InventoryContext.OpnameAgg
             }
             col.GetCol("QtyBesarOpname").ReadOnly = false;
             col.GetCol("QtyKecilOpname").ReadOnly = false;
+            col.GetCol("QtyOpnameInputStr").ReadOnly = false;
+            
             col.GetCol("QtyBesarOpname").DefaultCellStyle.BackColor = Color.White;
             col.GetCol("QtyKecilOpname").DefaultCellStyle.BackColor = Color.White;
+            col.GetCol("QtyOpnameInputStr").DefaultCellStyle.BackColor = Color.White;
+            
 
             col.GetCol("BrgId").HeaderText = @"Id";
             col.GetCol("BrgCode").HeaderText = @"Brg Code";
@@ -223,6 +302,7 @@ namespace btr.distrib.InventoryContext.OpnameAgg
             col.GetCol("QtyBesarOpname").HeaderText = @"Qty-B Opname"; 
             col.GetCol("QtyKecilOpname").HeaderText = @"Qty-K Opname";
             col.GetCol("StokOpId").HeaderText = @"Stok-Op ID";
+            col.GetCol("QtyOpnameInputStr").HeaderText = @"Qty Opname";
 
             col.GetCol("BrgId").Width = 80;
             col.GetCol("BrgCode").Width = 80;
@@ -233,6 +313,7 @@ namespace btr.distrib.InventoryContext.OpnameAgg
             col.GetCol("QtyKecilAdjust").Width = 70;
             col.GetCol("QtyBesarOpname").Width = 70;
             col.GetCol("QtyKecilOpname").Width = 70;
+            col.GetCol("QtyOpnameInputStr").Width = 70;
         }
     }
 
@@ -253,6 +334,7 @@ namespace btr.distrib.InventoryContext.OpnameAgg
         public int QtyBesarOpname { get; set; }
         public int QtyKecilOpname { get; set; }
         public int QtyPcsOpname { get; set; }
+        public string QtyOpnameInputStr { get; set; }
         
         public string StokOpId { get; set; }
         public int Conversion { get; set; }

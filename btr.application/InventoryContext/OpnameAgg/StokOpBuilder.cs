@@ -23,8 +23,10 @@ namespace btr.application.InventoryContext.OpnameAgg
         IStokOpBuilder Load(IStokOpKey stokOpKey);
         IStokOpBuilder Attach(StokOpModel model);
         IStokOpBuilder Periode(DateTime dateTime);
+        IStokOpBuilder QtyAwal(int qtyPcs);
         IStokOpBuilder QtyOpname(int qtyBesar, int qtyKecil);
         IStokOpBuilder User(IUserKey userKey);
+        
     }
     public class StokOpBuilder : IStokOpBuilder
     {
@@ -61,22 +63,9 @@ namespace btr.application.InventoryContext.OpnameAgg
             //  local function
             void CalculateAdjust()
             {
-                var stokBalance = _stokBalanceWarehouseDal.ListData((IBrgKey)_aggregate)
-                    ?? new List<StokBalanceWarehouseModel>();
-                var thisStok = stokBalance.FirstOrDefault(x => x.WarehouseId == _aggregate.WarehouseId)
-                    ?? new StokBalanceWarehouseModel{Qty = 0};
-                var qtyAdjust = _aggregate.QtyPcsOpname - thisStok.Qty;
-                var conversion = GetConversion(_aggregate);
-                var qtyBesarAdjust = (int)Math.Floor((decimal)qtyAdjust / conversion);
-                var qtyKecilAdjust = qtyAdjust - (qtyBesarAdjust * conversion);
-                
-                _aggregate.QtyBesarAdjust = qtyBesarAdjust;
-                _aggregate.QtyKecilAdjust = qtyKecilAdjust;
-                _aggregate.QtyPcsAdjust = qtyAdjust;
-                
-                _aggregate.QtyBesarAwal = (int)Math.Floor((decimal)thisStok.Qty / conversion);
-                _aggregate.QtyKecilAwal = thisStok.Qty - (_aggregate.QtyBesarAwal * conversion);
-                _aggregate.QtyPcsAwal = thisStok.Qty;
+                _aggregate.QtyBesarAdjust = _aggregate.QtyBesarOpname - _aggregate.QtyBesarAwal;
+                _aggregate.QtyKecilAdjust = _aggregate.QtyKecilOpname - _aggregate.QtyKecilAwal;
+                _aggregate.QtyPcsAdjust = _aggregate.QtyPcsOpname - _aggregate.QtyPcsAwal;
             }
         }
 
@@ -115,6 +104,16 @@ namespace btr.application.InventoryContext.OpnameAgg
         public IStokOpBuilder Periode(DateTime dateTime)
         {
             _aggregate.PeriodeOp = dateTime.Date;
+            return this;
+        }
+
+        public IStokOpBuilder QtyAwal(int qtyPcs)
+        {
+            // ReSharper disable once PossibleLossOfFraction
+            decimal qtyBesar = qtyPcs / GetConversion(_aggregate);
+            _aggregate.QtyBesarAwal =  (int)Math.Floor(qtyBesar);
+            _aggregate.QtyKecilAwal = qtyPcs % GetConversion(_aggregate);
+            _aggregate.QtyPcsAwal = qtyPcs;
             return this;
         }
 

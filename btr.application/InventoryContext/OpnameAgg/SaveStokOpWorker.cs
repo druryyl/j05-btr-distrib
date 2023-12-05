@@ -53,7 +53,14 @@ namespace btr.application.InventoryContext.OpnameAgg
             using(var trans = TransHelper.NewScope())
             {
                 result = _writer.Save(stokOp);
-                _genStokStokOpWorker.Execute(new GenStokStokOpRequest(stokOp.StokOpId));
+                var resultGenStok = _genStokStokOpWorker.Execute(new GenStokStokOpRequest(stokOp.StokOpId));
+                //  update qty awal
+                result = _builder
+                    .Attach(result)
+                    .QtyAwal(resultGenStok.QtyPcsAwal)
+                    .Build();
+                result = _writer.Save(result);
+                
                 trans.Complete();
             }
             return result;

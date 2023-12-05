@@ -2,11 +2,9 @@
 using System.Linq;
 using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.OpnameAgg;
-using btr.application.InventoryContext.ReturJualAgg.Workers;
 using btr.application.InventoryContext.StokBalanceAgg;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.OpnameAgg;
-using btr.domain.InventoryContext.ReturJualAgg;
 using btr.domain.InventoryContext.StokBalanceAgg;
 using btr.nuna.Application;
 
@@ -22,7 +20,14 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
         public string StokOpId { get; set; }
     }
 
-    public interface IGenStokStokOpWorker : INunaServiceVoid<GenStokStokOpRequest>
+    public class GenStokStokOpResult
+    {
+        public int QtyPcsAwal { get; set; }
+        public int QtyPcsAkhir { get; set; }
+        public int QtyPcsAdjust { get; set; }
+    }
+    
+    public interface IGenStokStokOpWorker : INunaService<GenStokStokOpResult, GenStokStokOpRequest>
     {
     }
     
@@ -50,7 +55,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
             _stokBalanceWarehouseDal = stokBalanceWarehouseDal;
         }
 
-        public void Execute(GenStokStokOpRequest req)
+        public GenStokStokOpResult Execute(GenStokStokOpRequest req)
         {
             var stokOp = _stokOpBuilder.Load(req).Build();
             using (var trans = TransHelper.NewScope())
@@ -74,8 +79,17 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                         -qtyAdjust, satuanKecil, 0, stokOp.StokOpId, "STOKOP");
                     _removeFifoStokWorker.Execute(cmd);
                 }
-                trans.Complete();                    
-            }    
+                trans.Complete();
+
+                var result = new GenStokStokOpResult
+                {
+                    QtyPcsAwal = qty,
+                    QtyPcsAdjust = qtyAdjust,
+                    QtyPcsAkhir = qty + qtyAdjust
+                };
+                return result;
+            }
+            
         }
         private static int CalcAdjustment(StokOpModel stokOp, int qtyAwal)
         {
@@ -97,6 +111,5 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
             var req = new RollBackStokRequest(stokOp.StokOpId);
             _rollBackStokWorker.Execute(req);
         }
-        
     }
 }
