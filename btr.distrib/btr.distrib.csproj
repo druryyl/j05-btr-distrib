@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>76</ApplicationRevision>
+    <ApplicationRevision>77</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -347,11 +347,11 @@
     <Compile Include="InventoryContext\OmzetSupplierRpt\OmzetSupplierInfoForm.Designer.cs">
       <DependentUpon>OmzetSupplierInfoForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="InventoryContext\OpnameAgg\Opname2Form.cs">
+    <Compile Include="InventoryContext\OpnameAgg\StokOpForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InventoryContext\OpnameAgg\Opname2Form.Designer.cs">
-      <DependentUpon>Opname2Form.cs</DependentUpon>
+    <Compile Include="InventoryContext\OpnameAgg\StokOpForm.Designer.cs">
+      <DependentUpon>StokOpForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InventoryContext\ReturJualAgg\ReturJual2Form.cs">
       <SubType>Form</SubType>
@@ -578,8 +578,8 @@
     <EmbeddedResource Include="InventoryContext\OmzetSupplierRpt\OmzetSupplierInfoForm.resx">
       <DependentUpon>OmzetSupplierInfoForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InventoryContext\OpnameAgg\Opname2Form.resx">
-      <DependentUpon>Opname2Form.cs</DependentUpon>
+    <EmbeddedResource Include="InventoryContext\OpnameAgg\StokOpForm.resx">
+      <DependentUpon>StokOpForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\ReturJualAgg\ReturJual2Form.resx">
       <DependentUpon>ReturJual2Form.cs</DependentUpon>

@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using btr.application.BrgContext.BrgAgg;
 using btr.domain.BrgContext.BrgAgg;
+using btr.domain.BrgContext.KategoriAgg;
 using btr.infrastructure.Helpers;
 using btr.nuna.Infrastructure;
 using Dapper;
@@ -153,9 +154,9 @@ namespace btr.infrastructure.BrgContext.BrgAgg
                 SELECT
                     aa.BrgId, aa.BrgName, aa.BrgCode, aa.IsAktif, 
                     aa.SupplierId, aa.KategoriId, aa.Hpp, aa.HppTimestamp,
-                    ISNULL(bb.SupplierName, '') SupplierName,
-                    ISNULL(cc.JenisBrgName, '') JenisBrgName,
-                    ISNULL(dd.KategoriName, '') KategoriName
+                    ISNULL(bb.SupplierName, '') AS SupplierName,
+                    ISNULL(cc.JenisBrgName, '') AS JenisBrgName,
+                    ISNULL(dd.KategoriName, '') AS KategoriName
                 FROM
                     BTR_Brg aa
                     LEFT JOIN BTR_Supplier bb ON aa.SupplierId = bb.SupplierId
@@ -172,8 +173,33 @@ namespace btr.infrastructure.BrgContext.BrgAgg
             {
                 result = conn.ReadSingle<BrgModel>(sql, dp);
             }
-
             return result;
+        }
+
+        public IEnumerable<BrgModel> ListData(IKategoriKey filter)
+        {
+            const string sql = @"
+                SELECT
+                    aa.BrgId, aa.BrgName, aa.BrgCode, aa.IsAktif, 
+                    aa.SupplierId, aa.KategoriId, aa.Hpp, aa.HppTimestamp,
+                    ISNULL(bb.SupplierName, '') AS SupplierName,
+                    ISNULL(cc.JenisBrgName, '') AS JenisBrgName,
+                    ISNULL(dd.KategoriName, '') AS KategoriName
+                FROM
+                    BTR_Brg aa
+                    LEFT JOIN BTR_Supplier bb ON aa.SupplierId = bb.SupplierId
+                    LEFT JOIN BTR_JenisBrg cc ON aa.JenisBrgId = cc.JenisBrgId
+                    LEFT JOIN BTR_Kategori dd ON aa.KategoriId = dd.KategoriId
+                WHERE
+                    aa.KategoriId = @KategoriId ";
+
+            var dp = new DynamicParameters();
+            dp.AddParam("@KategoriId", filter.KategoriId, SqlDbType.VarChar);
+
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                return conn.Read<BrgModel>(sql, dp);
+            }
         }
     }
 }

@@ -13,6 +13,7 @@ using btr.application.InventoryContext.StokBalanceAgg;
 using btr.application.InventoryContext.WarehouseAgg;
 using btr.domain.InventoryContext.StokBalanceAgg;
 using btr.nuna.Domain;
+using btr.application.SupportContext.TglJamAgg;
 
 namespace btr.application.InventoryContext.OpnameAgg
 {
@@ -20,6 +21,7 @@ namespace btr.application.InventoryContext.OpnameAgg
     {
         IStokOpBuilder Create<T>(T brgWarehouse) where T: IBrgKey, IWarehouseKey;
         IStokOpBuilder Load(IStokOpKey stokOpKey);
+        IStokOpBuilder Attach(StokOpModel model);
         IStokOpBuilder Periode(DateTime dateTime);
         IStokOpBuilder QtyOpname(int qtyBesar, int qtyKecil);
         IStokOpBuilder User(IUserKey userKey);
@@ -32,16 +34,22 @@ namespace btr.application.InventoryContext.OpnameAgg
         private readonly IBrgDal _brgDal;
         private readonly IWarehouseDal _warehouseDal;
         private readonly IStokBalanceWarehouseDal _stokBalanceWarehouseDal;
+        private readonly IBrgBuilder _brgBuilder;
+        private readonly ITglJamDal _dateTime;
 
-        public StokOpBuilder(IStokOpDal stokOpDal, 
-            IBrgDal brgDal, 
-            IWarehouseDal warehouseDal, 
-            IStokBalanceWarehouseDal stokBalanceWarehouseDal)
+        public StokOpBuilder(IStokOpDal stokOpDal,
+            IBrgDal brgDal,
+            IWarehouseDal warehouseDal,
+            IStokBalanceWarehouseDal stokBalanceWarehouseDal,
+            IBrgBuilder brgBuilder,
+            ITglJamDal dateTime)
         {
             _stokOpDal = stokOpDal;
             _brgDal = brgDal;
             _warehouseDal = warehouseDal;
             _stokBalanceWarehouseDal = stokBalanceWarehouseDal;
+            _brgBuilder = brgBuilder;
+            _dateTime = dateTime;
         }
 
         public StokOpModel Build()
@@ -53,7 +61,7 @@ namespace btr.application.InventoryContext.OpnameAgg
             //  local function
             void CalculateAdjust()
             {
-                var stokBalance = _stokBalanceWarehouseDal.ListData(_aggregate)
+                var stokBalance = _stokBalanceWarehouseDal.ListData((IBrgKey)_aggregate)
                     ?? new List<StokBalanceWarehouseModel>();
                 var thisStok = stokBalance.FirstOrDefault(x => x.WarehouseId == _aggregate.WarehouseId)
                     ?? new StokBalanceWarehouseModel{Qty = 0};
@@ -86,6 +94,8 @@ namespace btr.application.InventoryContext.OpnameAgg
             _aggregate.WarehouseId = warehouse.WarehouseId;
             _aggregate.WarehouseName = warehouse.WarehouseName;
 
+            _aggregate.StokOpDate = _dateTime.Now;
+
             return this;
         }
 
@@ -93,6 +103,12 @@ namespace btr.application.InventoryContext.OpnameAgg
         {
             _aggregate = _stokOpDal.GetData(stokOpKey)
                 ?? throw new KeyNotFoundException("StokOpKey not found ");
+            return this;
+        }
+
+        public IStokOpBuilder Attach(StokOpModel model)
+        {
+            _aggregate = model;
             return this;
         }
 
@@ -104,8 +120,7 @@ namespace btr.application.InventoryContext.OpnameAgg
 
         private int GetConversion(IBrgKey brgKey)
         {
-            var brg = _brgDal.GetData(brgKey)
-                ?? new BrgModel();
+            var brg = _brgBuilder.Load(brgKey).Build();
             var conversion = brg.ListSatuan
                 .DefaultIfEmpty(new BrgSatuanModel{Conversion = 1})
                 .Max(x => x.Conversion);

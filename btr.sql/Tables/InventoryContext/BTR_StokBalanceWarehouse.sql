@@ -6,3 +6,8 @@
 
 	CONSTRAINT PK_BTR_StokBalanceWarehouse PRIMARY KEY CLUSTERED(BrgId, WarehouseId)
 )
+GO
+
+CREATE INDEX IX_BTR_StokBalanceWarehouse_WarehouseId 
+    ON [dbo].[BTR_StokBalanceWarehouse](WarehouseId, BrgId)
+GO

@@ -129,7 +129,9 @@
     <Compile Include="InventoryContext\OpnameAgg\OpnameBuilder.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameValidator.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameWriter.cs" />
+    <Compile Include="InventoryContext\OpnameAgg\SaveStokOpWorker.cs" />
     <Compile Include="InventoryContext\OpnameAgg\StokOpBuilder.cs" />
+    <Compile Include="InventoryContext\OpnameAgg\StokOpWriter.cs" />
     <Compile Include="InventoryContext\PackingAgg\IPackingDal.cs" />
     <Compile Include="InventoryContext\PackingAgg\IPackingFakturDal.cs" />
     <Compile Include="InventoryContext\PackingAgg\IPackingBrgDal.cs" />
@@ -149,6 +151,7 @@
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokFakturWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokInvoiceWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokMutasiWorker.cs" />
+    <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokStokOpWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokReturJualWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\RemovePriorityStokWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\RemoveRollbackStokWorker.cs" />

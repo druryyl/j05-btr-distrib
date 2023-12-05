@@ -79,5 +79,27 @@ namespace btr.infrastructure.InventoryContext.StokBalanceAgg
             }
         }
 
+        public IEnumerable<StokBalanceWarehouseModel> ListData(IWarehouseKey filter)
+        {
+            const string sql = @"
+                SELECT
+                    aa.BrgId, aa.WarehouseId, aa.Qty,
+                    ISNULL(bb.BrgName, '') AS BrgName,
+                    ISNULL(cc.WarehouseName, '') AS WarehouseName
+                FROM 
+                    BTR_StokBalanceWarehouse aa
+                    LEFT JOIN BTR_Brg bb ON aa.BrgId = bb.BrgId
+                    LEFT JOIN BTR_Warehouse cc ON aa.WarehouseId = cc.WarehouseId
+                WHERE
+                    aa.WarehouseId = @WarehouseId ";
+
+            var dp = new DynamicParameters();
+            dp.AddParam("@WarehouseId", filter.WarehouseId, SqlDbType.VarChar);
+
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                return conn.Read<StokBalanceWarehouseModel>(sql, dp);
+            }
+        }
     }
 }

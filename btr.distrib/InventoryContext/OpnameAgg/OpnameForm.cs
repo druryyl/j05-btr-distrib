@@ -127,7 +127,7 @@ namespace btr.distrib.InventoryContext.OpnameAgg
             ClearForm();
         }
 
-        private     void GenStok(OpnameModel opname)
+        private void GenStok(OpnameModel opname)
         {
             var qtyAdjust = opname.Qty2Adjust * opname.Conversion2;
             qtyAdjust += opname.Qty1Adjust;

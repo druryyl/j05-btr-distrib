@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using btr.application.BrgContext.BrgAgg;
 using btr.domain.BrgContext.BrgAgg;
+using btr.domain.BrgContext.KategoriAgg;
 using btr.infrastructure.Helpers;
 using btr.nuna.Infrastructure;
 using Dapper;
@@ -66,6 +67,25 @@ namespace btr.infrastructure.BrgContext.BrgAgg
                 aa.BrgId = @BrgId ";
             var dp = new DynamicParameters();
             dp.AddParam("@BrgId", brgKey.BrgId, SqlDbType.VarChar);
+
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                return conn.Read<BrgSatuanModel>(sql, dp);
+            }
+        }
+
+        public IEnumerable<BrgSatuanModel> ListData(IKategoriKey filter)
+        {
+            const string sql = @"
+            SELECT
+                aa.BrgId, aa.Satuan, aa.Conversion, aa.SatuanPrint
+            FROM 
+                BTR_BrgSatuan aa
+                LEFT JOIN BTR_Brg bb ON aa.BrgId = bb.BrgId
+            WHERE
+                bb.KategoriId = @KategoriId ";
+            var dp = new DynamicParameters();
+            dp.AddParam("@KategoriId", filter.KategoriId, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {

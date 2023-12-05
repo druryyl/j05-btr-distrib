@@ -7,6 +7,7 @@ using btr.nuna.Infrastructure;
 using Dapper;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace btr.infrastructure.InventoryContext.OpnameAgg
@@ -41,21 +42,21 @@ namespace btr.infrastructure.InventoryContext.OpnameAgg
 
             //  parameter
             var dp = new DynamicParameters();
-            dp.Add("@StokOpId", model.StokOpId);
-            dp.Add("@StokOpDate", model.StokOpDate);
-            dp.Add("@PeriodeOp", model.PeriodeOp);
-            dp.Add("@BrgId", model.BrgId);
-            dp.Add("@WarehouseId", model.WarehouseId);
-            dp.Add("@QtyBesarAwal", model.QtyBesarAwal);
-            dp.Add("@QtyKecilAwal", model.QtyKecilAwal);
-            dp.Add("@QtyPcsAwal", model.QtyPcsAwal);
-            dp.Add("@QtyBesarOpname", model.QtyBesarOpname);
-            dp.Add("@QtyKecilOpname", model.QtyKecilOpname);
-            dp.Add("@QtyPcsOpname", model.QtyPcsOpname);
-            dp.Add("@QtyBesarAdjust", model.QtyBesarAdjust);
-            dp.Add("@QtyKecilAdjust", model.QtyKecilAdjust);
-            dp.Add("@QtyPcsAdjust", model.QtyPcsAdjust);
-            dp.Add("@UserId", model.UserId);
+            dp.AddParam("@StokOpId", model.StokOpId, SqlDbType.VarChar);
+            dp.AddParam("@StokOpDate", model.StokOpDate, SqlDbType.DateTime);
+            dp.AddParam("@PeriodeOp", model.PeriodeOp, SqlDbType.DateTime);
+            dp.AddParam("@BrgId", model.BrgId, SqlDbType.VarChar);
+            dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
+            dp.AddParam("@QtyBesarAwal", model.QtyBesarAwal, SqlDbType.Int);
+            dp.AddParam("@QtyKecilAwal", model.QtyKecilAwal, SqlDbType.Int);
+            dp.AddParam("@QtyPcsAwal", model.QtyPcsAwal, SqlDbType.Int);
+            dp.AddParam("@QtyBesarOpname", model.QtyBesarOpname, SqlDbType.Int);
+            dp.AddParam("@QtyKecilOpname", model.QtyKecilOpname, SqlDbType.Int);
+            dp.AddParam("@QtyPcsOpname", model.QtyPcsOpname, SqlDbType.Int);
+            dp.AddParam("@QtyBesarAdjust", model.QtyBesarAdjust, SqlDbType.Int);
+            dp.AddParam("@QtyKecilAdjust", model.QtyKecilAdjust, SqlDbType.Int);
+            dp.AddParam("@QtyPcsAdjust", model.QtyPcsAdjust, SqlDbType.Int);
+            dp.AddParam("@UserId", model.UserId, SqlDbType.VarChar);
 
             //  execute
             using (var con = new SqlConnection(ConnStringHelper.Get(_opt)))
@@ -88,21 +89,22 @@ namespace btr.infrastructure.InventoryContext.OpnameAgg
 
             //  parameter
             var dp = new DynamicParameters();
-            dp.Add("@StokOpId", model.StokOpId);
-            dp.Add("@StokOpDate", model.StokOpDate);
-            dp.Add("@PeriodeOp", model.PeriodeOp);
-            dp.Add("@BrgId", model.BrgId);
-            dp.Add("@WarehouseId", model.WarehouseId);
-            dp.Add("@QtyBesarAwal", model.QtyBesarAwal);
-            dp.Add("@QtyKecilAwal", model.QtyKecilAwal);
-            dp.Add("@QtyPcsAwal", model.QtyPcsAwal);
-            dp.Add("@QtyBesarOpname", model.QtyBesarOpname);
-            dp.Add("@QtyKecilOpname", model.QtyKecilOpname);
-            dp.Add("@QtyPcsOpname", model.QtyPcsOpname);
-            dp.Add("@QtyBesarAdjust", model.QtyBesarAdjust);
-            dp.Add("@QtyKecilAdjust", model.QtyKecilAdjust);
-            dp.Add("@QtyPcsAdjust", model.QtyPcsAdjust);
-            dp.Add("@UserId", model.UserId);
+            dp.AddParam("@StokOpId", model.StokOpId, SqlDbType.VarChar);
+            dp.AddParam("@StokOpDate", model.StokOpDate, SqlDbType.DateTime);
+            dp.AddParam("@PeriodeOp", model.PeriodeOp, SqlDbType.DateTime);
+            dp.AddParam("@BrgId", model.BrgId, SqlDbType.VarChar);
+            dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
+            dp.AddParam("@QtyBesarAwal", model.QtyBesarAwal, SqlDbType.Int);
+            dp.AddParam("@QtyKecilAwal", model.QtyKecilAwal, SqlDbType.Int);
+            dp.AddParam("@QtyPcsAwal", model.QtyPcsAwal, SqlDbType.Int);
+            dp.AddParam("@QtyBesarOpname", model.QtyBesarOpname, SqlDbType.Int);
+            dp.AddParam("@QtyKecilOpname", model.QtyKecilOpname, SqlDbType.Int);
+            dp.AddParam("@QtyPcsOpname", model.QtyPcsOpname, SqlDbType.Int);
+            dp.AddParam("@QtyBesarAdjust", model.QtyBesarAdjust, SqlDbType.Int);
+            dp.AddParam("@QtyKecilAdjust", model.QtyKecilAdjust, SqlDbType.Int);
+            dp.AddParam("@QtyPcsAdjust", model.QtyPcsAdjust, SqlDbType.Int);
+            dp.AddParam("@UserId", model.UserId, SqlDbType.VarChar);
+
 
             //  execute
             using (var con = new SqlConnection(ConnStringHelper.Get(_opt)))
@@ -134,16 +136,16 @@ namespace btr.infrastructure.InventoryContext.OpnameAgg
             //  query select from table BTR_StokOp
             const string sql = @"
                 SELECT
-                    StokOpId, StokOpDate, PeriodeOp, BrgId, WarehouseId,
-                    QtyBesarAwal, QtyKecilAwal, QtyPcsAwal,
-                    QtyBesarOpname, QtyKecilOpname, QtyPcsOpname,
-                    QtyBesarAdjust, QtyKecilAdjust, QtyPcsAdjust,
-                    UserId,
-                    ISNULL(BrgName, '') BrgName, 
-                    ISNULL(WarehouseName ,'') WarehouseName
+                    aa.StokOpId, aa.StokOpDate, aa.PeriodeOp, aa.BrgId, aa.WarehouseId,
+                    aa.QtyBesarAwal, aa.QtyKecilAwal, aa.QtyPcsAwal,
+                    aa.QtyBesarOpname, aa.QtyKecilOpname, aa.QtyPcsOpname,
+                    aa.QtyBesarAdjust, aa.QtyKecilAdjust, aa.QtyPcsAdjust,
+                    aa.UserId,
+                    ISNULL(BrgName, '') AS BrgName, 
+                    ISNULL(WarehouseName ,'') AS WarehouseName
                 FROM 
                     BTR_StokOp aa
-                    LEFT JOIN BTR_Barang bb ON aa.BrgId = bb.BrgId
+                    LEFT JOIN BTR_Brg bb ON aa.BrgId = bb.BrgId
                     LEFT JOIN BTR_Warehouse cc ON aa.WarehouseId = cc.WarehouseId
                 WHERE 
                     StokOpId = @StokOpId";
@@ -164,20 +166,20 @@ namespace btr.infrastructure.InventoryContext.OpnameAgg
             //  query select from table BTR_StokOp
             const string sql = @"
                 SELECT
-                    StokOpId, StokOpDate, PeriodeOp, BrgId, WarehouseId,
-                    QtyBesarAwal, QtyKecilAwal, QtyPcsAwal,
-                    QtyBesarOpname, QtyKecilOpname, QtyPcsOpname,
-                    QtyBesarAdjust, QtyKecilAdjust, QtyPcsAdjust,
+                    aa.StokOpId, aa.StokOpDate, aa.PeriodeOp, aa.BrgId, aa.WarehouseId,
+                    aa.QtyBesarAwal, aa.QtyKecilAwal, aa.QtyPcsAwal,
+                    aa.QtyBesarOpname, aa.QtyKecilOpname, aa.QtyPcsOpname,
+                    aa.QtyBesarAdjust, aa.QtyKecilAdjust, aa.QtyPcsAdjust,
                     UserId,
-                    ISNULL(BrgName, '') BrgName, 
-                    ISNULL(WarehouseName ,'') WarehouseName
+                    ISNULL(BrgName, '') AS BrgName, 
+                    ISNULL(WarehouseName ,'') AS WarehouseName
                 FROM 
                     BTR_StokOp aa
-                    LEFT JOIN BTR_Barang bb ON aa.BrgId = bb.BrgId
+                    LEFT JOIN BTR_Brg bb ON aa.BrgId = bb.BrgId
                     LEFT JOIN BTR_Warehouse cc ON aa.WarehouseId = cc.WarehouseId
                 WHERE 
                     PeriodeOp BETWEEN @Tgl1 AND @Tgl2
-                    WarehouseId = @WarehouseId";
+                    AND aa.WarehouseId = @WarehouseId";
 
             //  parameter
             var dp = new DynamicParameters();

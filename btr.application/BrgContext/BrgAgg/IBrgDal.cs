@@ -1,4 +1,5 @@
 ﻿using btr.domain.BrgContext.BrgAgg;
+using btr.domain.BrgContext.KategoriAgg;
 using btr.nuna.Infrastructure;
 
 namespace btr.application.BrgContext.BrgAgg
@@ -9,7 +10,8 @@ namespace btr.application.BrgContext.BrgAgg
         IDelete<IBrgKey>,
         IGetData<BrgModel, IBrgKey>,
         IGetData<BrgModel, string>,
-        IListData<BrgModel>
+        IListData<BrgModel>,
+        IListData<BrgModel, IKategoriKey>
     {
     }
 }
