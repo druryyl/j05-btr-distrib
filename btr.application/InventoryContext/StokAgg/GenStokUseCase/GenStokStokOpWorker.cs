@@ -66,17 +66,17 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                 var brg = _brgBuilder.Load(stokOp).Build();
                 var satuanKecil = brg.ListSatuan?.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty;
                 var nilaiPersediaan = brg.Hpp;
-                
+                var ketarangn = $"Stok-Op: {stokOp.PeriodeOp.ToString("ddd, dd MMM yyyy")}";
                 if (qtyAdjust > 0)
                 {
                     var cmd = new AddStokRequest(stokOp.BrgId, stokOp.WarehouseId,
-                        qtyAdjust, satuanKecil, nilaiPersediaan, stokOp.StokOpId, "STOKOP");
+                        qtyAdjust, satuanKecil, nilaiPersediaan, stokOp.StokOpId, "STOKOP",ketarangn);
                     _addStokWorker.Execute(cmd);
                 }
                 else
                 {
                     var cmd = new RemoveFifoStokRequest(stokOp.BrgId, stokOp.WarehouseId,
-                        -qtyAdjust, satuanKecil, 0, stokOp.StokOpId, "STOKOP");
+                        -qtyAdjust, satuanKecil, 0, stokOp.StokOpId, "STOKOP", ketarangn);
                     _removeFifoStokWorker.Execute(cmd);
                 }
                 trans.Complete();

@@ -38,6 +38,7 @@ namespace btr.infrastructure.InventoryContext.StokAgg
                 bcp.AddMap("QtyOut", "QtyOut");
                 bcp.AddMap("HargaJual", "HargaJual");
                 bcp.AddMap("JenisMutasi", "JenisMutasi");
+                bcp.AddMap("Keterangan", "Keterangan");
 
                 var fetched = listModel.ToList();
                 bcp.BatchSize = fetched.Count;
@@ -68,7 +69,7 @@ namespace btr.infrastructure.InventoryContext.StokAgg
             const string sql = @"
             SELECT
                 StokId, StokMutasiId, BrgId, WarehouseId, ReffId, NoUrut, 
-                JenisMutasi, MutasiDate, QtyIn, QtyOut, HargaJual
+                JenisMutasi, MutasiDate, QtyIn, QtyOut, HargaJual, Keterangan
             FROM 
                 BTR_StokMutasi aa
             WHERE

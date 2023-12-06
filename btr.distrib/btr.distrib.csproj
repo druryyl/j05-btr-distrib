@@ -329,9 +329,11 @@
     <Compile Include="InventoryContext\ImportOpnameAgg\ImportOpnameForm.Designer.cs">
       <DependentUpon>ImportOpnameForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="InventoryContext\KartuStokRpt\KartuStokReportForm.cs" />
-    <Compile Include="InventoryContext\KartuStokRpt\KartuStokReportForm.Designer.cs">
-      <DependentUpon>KartuStokReportForm.cs</DependentUpon>
+    <Compile Include="InventoryContext\KartuStokRpt\KartuStokInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryContext\KartuStokRpt\KartuStokInfoForm.Designer.cs">
+      <DependentUpon>KartuStokInfoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InventoryContext\MutasiAgg\MutasiForm.cs">
       <SubType>Form</SubType>
@@ -569,8 +571,8 @@
     <EmbeddedResource Include="InventoryContext\ImportOpnameAgg\ImportOpnameForm.resx">
       <DependentUpon>ImportOpnameForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InventoryContext\KartuStokRpt\KartuStokReportForm.resx">
-      <DependentUpon>KartuStokReportForm.cs</DependentUpon>
+    <EmbeddedResource Include="InventoryContext\KartuStokRpt\KartuStokInfoForm.resx">
+      <DependentUpon>KartuStokInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\MutasiAgg\MutasiForm.resx">
       <DependentUpon>MutasiForm.cs</DependentUpon>

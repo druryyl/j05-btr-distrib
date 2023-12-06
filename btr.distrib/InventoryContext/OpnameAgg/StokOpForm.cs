@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using btr.application.BrgContext.BrgAgg;
 using btr.application.BrgContext.KategoriAgg;
@@ -19,13 +16,14 @@ using btr.domain.InventoryContext.OpnameAgg;
 using btr.domain.InventoryContext.StokBalanceAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.nuna.Domain;
+using JetBrains.Annotations;
 
 namespace btr.distrib.InventoryContext.OpnameAgg
 {
     public partial class StokOpForm : Form
     {
         private BindingList<StokOpItem> _listItem;
-        private BindingSource _bindingSource;
+        private readonly BindingSource _bindingSource;
         private readonly IStokBalanceWarehouseDal _stokBalanceWarehouseDal;
         
         private readonly IKategoriDal _kategoriDal;
@@ -73,37 +71,34 @@ namespace btr.distrib.InventoryContext.OpnameAgg
             BrgGrid.CellValueChanged += BrgGrid_CellValueChanged;
         }
 
+        private void ListBrgButton_Click(object sender, EventArgs e)
+        {
+            ListBrg();
+        }
+
+        private void InitKetegoriCombo()
+        {
+            var listKategori = _kategoriDal.ListData()?.ToList()
+                ?? new List<KategoriModel>();
+            var ds = listKategori.OrderBy(x => x.KategoriName).ToList();
+            KategoriCombo.DataSource = ds;
+            KategoriCombo.DisplayMember = "KategoriName";
+            KategoriCombo.ValueMember = "KategoriId";
+        }
+        
+        private void InitWarehouseCombo()
+        {
+            var listWarehouse = _warehouseDal.ListData();
+            WarehouseCombo.DataSource = listWarehouse;
+            WarehouseCombo.DisplayMember = "WarehouseName";
+            WarehouseCombo.ValueMember = "WarehouseId";
+        }
+        
+        #region GRID
         private void BrgGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex == -1) return;
             var grid = (DataGridView)sender;
-            var qtyBesarColIndex = grid.Columns.GetCol("QtyBesarOpname").Index;
-            var qtyKecilColIndex = grid.Columns.GetCol("QtyKecilOpname").Index;
-            if (e.ColumnIndex == qtyBesarColIndex || e.ColumnIndex == qtyKecilColIndex)
-            {
-                var reqStokOp = new SaveStokOpRequest
-                {
-                    BrgId = _listItem[e.RowIndex].BrgId,
-                    StokOpId = _listItem[e.RowIndex].StokOpId,
-                    WarehouseId = WarehouseCombo.SelectedValue.ToString(),
-                    PeriodeOp = PeriodeOpText.Value.Date,
-                    QtyBesar = _listItem[e.RowIndex].QtyBesarOpname,
-                    QtyKecil = _listItem[e.RowIndex].QtyKecilOpname,
-                };
-                var stokOp = _saveStokOpWorker.Execute(reqStokOp);
-
-                _listItem[e.RowIndex].StokOpId = stokOp.StokOpId;
-                _listItem[e.RowIndex].QtyBesarAwal = stokOp.QtyBesarAwal;
-                _listItem[e.RowIndex].QtyKecilAwal = stokOp.QtyKecilAwal;
-                _listItem[e.RowIndex].QtyPcsAwal = stokOp.QtyPcsAwal;
-                
-                _listItem[e.RowIndex].QtyBesarAdjust = stokOp.QtyBesarAdjust;
-                _listItem[e.RowIndex].QtyKecilAdjust = stokOp.QtyKecilAdjust;
-                _listItem[e.RowIndex].QtyPcsAdjust = stokOp.QtyPcsAdjust;
-
-                BrgGrid.EndEdit();
-                BrgGrid.Refresh();
-            }
 
             if (e.ColumnIndex == grid.Columns.GetCol("QtyOpnameInputStr").Index)
             {
@@ -155,6 +150,7 @@ namespace btr.distrib.InventoryContext.OpnameAgg
             _listItem[BrgGrid.CurrentCell.RowIndex].QtyPcsOpname = (qtys[0] * conversion) + qtys[1];
             _listItem[BrgGrid.CurrentCell.RowIndex].QtyOpnameInputStr = $"{qtys[0]};{qtys[1]}";
         }
+
         private static List<int> ParseStringMultiNumber(string str, int size)
         {
             if (str is null)
@@ -177,91 +173,115 @@ namespace btr.distrib.InventoryContext.OpnameAgg
             return result;
         }
 
-
-        private void ListBrgButton_Click(object sender, EventArgs e)
-        {
-            ListBrg();
-        }
-
-        private void InitKetegoriCombo()
-        {
-            var listKategori = _kategoriDal.ListData()?.ToList()
-                ?? new List<KategoriModel>();
-            var ds = listKategori.OrderBy(x => x.KategoriName).ToList();
-            KategoriCombo.DataSource = ds;
-            KategoriCombo.DisplayMember = "KategoriName";
-            KategoriCombo.ValueMember = "KategoriId";
-        }
-        
-        private void InitWarehouseCombo()
-        {
-            var listWarehouse = _warehouseDal.ListData();
-            WarehouseCombo.DataSource = listWarehouse;
-            WarehouseCombo.DisplayMember = "WarehouseName";
-            WarehouseCombo.ValueMember = "WarehouseId";
-        }
-        
         private void ListBrg()
+        {
+            var listBrgItem = GenListBrg();
+            listBrgItem = SetStokAwalAndConversion(listBrgItem);
+            listBrgItem = UpdateFromPreviousInput(listBrgItem);
+
+            _listItem = new BindingList<StokOpItem>(listBrgItem.ToList());
+            _bindingSource.DataSource = _listItem;
+            BrgGrid.DataSource = _bindingSource;
+            BrgGrid.Refresh();
+        }
+
+        private IEnumerable<StokOpItem> GenListBrg()
         {
             var kategori = new KategoriModel(KategoriCombo.SelectedValue.ToString());
             var listBrg = _brgDal.ListData(kategori)?.ToList()
-                ?? new List<BrgModel>();
-            var listConversion = _brgSatuanDal.ListData(kategori)?.ToList()
-                ?? new List<BrgSatuanModel>();
-            var listStokOp = _stokOpDal.ListData(new Periode(PeriodeOpText.Value.Date),
-                    new WarehouseModel(WarehouseCombo.SelectedValue.ToString()))
-                ?.ToList() ?? new List<StokOpModel>();
-            
+                          ?? new List<BrgModel>();
+
             var listBrgItem = listBrg
                 .OrderBy(x => x.BrgCode)
-                .Select(x =>
+                .Select(x => new StokOpItem
                 {
-                    var stokOp = listStokOp.FirstOrDefault(y => y.BrgId == x.BrgId);
-                    return new StokOpItem
-                    {
-                        BrgId = x.BrgId,
-                        BrgCode = x.BrgCode,
-                        BrgName = x.BrgName,
-                        QtyBesarAwal = stokOp?.QtyBesarAwal ?? 0,
-                        QtyKecilAwal = stokOp?.QtyKecilAwal ?? 0,
-                        QtyPcsAwal = stokOp?.QtyPcsAwal ?? 0,
+                    BrgId = x.BrgId,
+                    BrgCode = x.BrgCode,
+                    BrgName = x.BrgName,
+                    QtyBesarAwal = 0,
+                    QtyKecilAwal =  0,
+                    QtyPcsAwal =  0, 
                         
-                        QtyBesarAdjust = stokOp?.QtyBesarAdjust ?? 0,
-                        QtyKecilAdjust = stokOp?.QtyKecilAdjust ?? 0,
-                        QtyPcsAdjust = stokOp?.QtyPcsAdjust ?? 0,
+                    QtyBesarAdjust =  0,
+                    QtyKecilAdjust =  0,
+                    QtyPcsAdjust =  0,
                         
-                        QtyBesarOpname = stokOp?.QtyBesarOpname ?? 0,
-                        QtyKecilOpname = stokOp?.QtyKecilOpname ?? 0,
-                        QtyPcsOpname = stokOp?.QtyPcsOpname ?? 0,
+                    QtyBesarOpname =  0,
+                    QtyKecilOpname =  0,
+                    QtyPcsOpname =  0,
                         
-                        StokOpId = stokOp?.StokOpId ?? "",
-                        Conversion = listConversion
-                            .Where(y => y.BrgId == x.BrgId)
-                            .DefaultIfEmpty(new BrgSatuanModel { Conversion = 1 })
-                            .Max(y => y.Conversion),
-                    };
+                    QtyOpnameInputStr = string.Empty,
+                    StokOpId = string.Empty,
+                    Conversion = 1,
                 }).ToList();
-            _listItem = new BindingList<StokOpItem>(listBrgItem);
+            return listBrgItem;
+        }
+        
+        private IEnumerable<StokOpItem> SetStokAwalAndConversion(IEnumerable<StokOpItem> listBrgItem)
+        {
             var warehouse = new WarehouseModel(WarehouseCombo.SelectedValue.ToString());
             var listQty = _stokBalanceWarehouseDal.ListData(warehouse)?.ToList()
-                ?? new List<StokBalanceWarehouseModel>();
-
-            foreach(var item in _listItem)
+                          ?? new List<StokBalanceWarehouseModel>();
+            var kategori = new KategoriModel(KategoriCombo.SelectedValue.ToString());
+            var listConversion = _brgSatuanDal.ListData(kategori)?.ToList()
+                                 ?? new List<BrgSatuanModel>();
+            var fetchedListBrg = listBrgItem.ToList();
+            foreach (var item in fetchedListBrg)
             {
+                item.Conversion = listConversion
+                    .Where(y => y.BrgId == item.BrgId)
+                    .DefaultIfEmpty(new BrgSatuanModel { Conversion = 1 })
+                    .Max(y => y.Conversion);
+                
                 var qty = listQty.FirstOrDefault(x => x.BrgId == item.BrgId);
                 if (qty == null) continue;
+                
                 item.QtyBesarAwal = (int)Math.Floor((decimal)qty.Qty / item.Conversion);
                 item.QtyKecilAwal = qty.Qty - (item.QtyBesarAwal * item.Conversion);
                 item.QtyPcsAwal = qty.Qty;
+
+                item.QtyBesarOpname = (int)Math.Floor((decimal)qty.Qty / item.Conversion);
+                item.QtyKecilOpname = qty.Qty - (item.QtyBesarAwal * item.Conversion);
+                item.QtyPcsOpname = qty.Qty;
                 
+
                 if (item.Conversion != 1) continue;
                 item.QtyKecilAwal = item.QtyBesarAwal;
                 item.QtyBesarAwal = 0;
             }
-            _bindingSource.DataSource = _listItem;
-            BrgGrid.DataSource = _bindingSource;
-            BrgGrid.Refresh();
-        }    
+
+            return fetchedListBrg;
+        }
+
+        private IEnumerable<StokOpItem> UpdateFromPreviousInput(IEnumerable<StokOpItem> listBrgItem2)
+        {
+            var listStokOp = _stokOpDal.ListData(new Periode(PeriodeOpText.Value.Date),
+                    new WarehouseModel(WarehouseCombo.SelectedValue.ToString()))
+                ?.ToList() ?? new List<StokOpModel>();
+            var fetchedListBrg = listBrgItem2.ToList();
+            foreach (var item in fetchedListBrg)
+            {
+                var stokOp = listStokOp.FirstOrDefault(y => y.BrgId == item.BrgId);
+                if (stokOp == null) continue;
+                
+                item.QtyBesarAwal = stokOp.QtyBesarAwal;
+                item.QtyKecilAwal = stokOp.QtyKecilAwal;
+                item.QtyPcsAwal = stokOp.QtyPcsAwal;
+                
+                item.QtyBesarAdjust = stokOp.QtyBesarAdjust;
+                item.QtyKecilAdjust = stokOp.QtyKecilAdjust;
+                item.QtyPcsAdjust = stokOp.QtyPcsAdjust;
+                
+                item.QtyBesarOpname = stokOp.QtyBesarOpname;
+                item.QtyKecilOpname = stokOp.QtyKecilOpname;
+                item.QtyPcsOpname = stokOp.QtyPcsOpname;
+                item.QtyOpnameInputStr = stokOp.QtyOpnameInputStr;
+                item.StokOpId = stokOp.StokOpId;
+            }
+
+            return fetchedListBrg;
+        }
+
         
         private void InitGrid()
         {
@@ -283,15 +303,16 @@ namespace btr.distrib.InventoryContext.OpnameAgg
                 c.ReadOnly = true;
                 c.DefaultCellStyle.BackColor = Color.PowderBlue;
             }
-            col.GetCol("QtyBesarOpname").ReadOnly = false;
-            col.GetCol("QtyKecilOpname").ReadOnly = false;
             col.GetCol("QtyOpnameInputStr").ReadOnly = false;
             
-            col.GetCol("QtyBesarOpname").DefaultCellStyle.BackColor = Color.White;
-            col.GetCol("QtyKecilOpname").DefaultCellStyle.BackColor = Color.White;
+            col.GetCol("QtyBesarAwal").DefaultCellStyle.BackColor = Color.LemonChiffon; 
+            col.GetCol("QtyKecilAwal").DefaultCellStyle.BackColor = Color.LemonChiffon;
+            col.GetCol("QtyBesarAdjust").DefaultCellStyle.BackColor = Color.Pink;
+            col.GetCol("QtyKecilAdjust").DefaultCellStyle.BackColor = Color.Pink;
+            col.GetCol("QtyBesarOpname").DefaultCellStyle.BackColor = Color.LemonChiffon;
+            col.GetCol("QtyKecilOpname").DefaultCellStyle.BackColor = Color.LemonChiffon;
             col.GetCol("QtyOpnameInputStr").DefaultCellStyle.BackColor = Color.White;
             
-
             col.GetCol("BrgId").HeaderText = @"Id";
             col.GetCol("BrgCode").HeaderText = @"Brg Code";
             col.GetCol("BrgName").HeaderText = @"Brg Name";
@@ -299,24 +320,26 @@ namespace btr.distrib.InventoryContext.OpnameAgg
             col.GetCol("QtyKecilAwal").HeaderText = @"Qty-K Awal"; 
             col.GetCol("QtyBesarAdjust").HeaderText = @"Qty-B Adjust"; 
             col.GetCol("QtyKecilAdjust").HeaderText = @"Qty-K Adjust"; 
-            col.GetCol("QtyBesarOpname").HeaderText = @"Qty-B Opname"; 
-            col.GetCol("QtyKecilOpname").HeaderText = @"Qty-K Opname";
+            col.GetCol("QtyBesarOpname").HeaderText = @"Qty-B Akhir"; 
+            col.GetCol("QtyKecilOpname").HeaderText = @"Qty-K Akhir";
             col.GetCol("StokOpId").HeaderText = @"Stok-Op ID";
             col.GetCol("QtyOpnameInputStr").HeaderText = @"Qty Opname";
 
             col.GetCol("BrgId").Width = 80;
             col.GetCol("BrgCode").Width = 80;
             col.GetCol("BrgName").Width = 200;
-            col.GetCol("QtyBesarAwal").Width = 70;
-            col.GetCol("QtyKecilAwal").Width = 70;
-            col.GetCol("QtyBesarAdjust").Width = 70;
-            col.GetCol("QtyKecilAdjust").Width = 70;
-            col.GetCol("QtyBesarOpname").Width = 70;
-            col.GetCol("QtyKecilOpname").Width = 70;
+            col.GetCol("QtyBesarAwal").Width = 50;
+            col.GetCol("QtyKecilAwal").Width = 50;
+            col.GetCol("QtyBesarAdjust").Width = 50;
+            col.GetCol("QtyKecilAdjust").Width = 50;
+            col.GetCol("QtyBesarOpname").Width = 50;
+            col.GetCol("QtyKecilOpname").Width = 50;
             col.GetCol("QtyOpnameInputStr").Width = 70;
         }
+        #endregion
     }
 
+    [PublicAPI]
     public class StokOpItem
     {
         public string BrgId { get;  set; }

@@ -49,6 +49,7 @@ namespace btr.distrib.Helpers
                 Debug.Print(col.ValueType.Name);    
             }
         }
+
         public static void DataGridView_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             var grid = sender as DataGridView;

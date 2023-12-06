@@ -52,7 +52,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                 //  jika sudah ada barang keluar, maka remove priority;
                 var req = new RemovePriorityStokRequest(
                     item.BrgId, item.WarehouseId, item.Qty, string.Empty, 
-                    item.NilaiPersediaan, request.ReffId, request.JenisMutasi, request.ReffId);
+                    item.NilaiPersediaan, request.ReffId, request.JenisMutasi, request.ReffId, "Rollback");
                 _removePriorityStokWorker.Execute(req);
             }
         }

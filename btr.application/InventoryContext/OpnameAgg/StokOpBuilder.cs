@@ -142,6 +142,7 @@ namespace btr.application.InventoryContext.OpnameAgg
             _aggregate.QtyBesarOpname = qtyBesar + (int)additionalQtyBesar;
             _aggregate.QtyKecilOpname = (int)sisaQtyKecil;
             _aggregate.QtyPcsOpname = (qtyBesar * conversion) + qtyKecil;
+            _aggregate.QtyOpnameInputStr = $"{qtyBesar};{sisaQtyKecil}";
             return this;
         }
 

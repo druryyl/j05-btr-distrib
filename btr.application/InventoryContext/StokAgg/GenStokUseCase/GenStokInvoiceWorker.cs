@@ -52,7 +52,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                     var satuan = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty;
 
                     var reqAddStok = new AddStokRequest(item.BrgId,
-                        invoice.WarehouseId, item.QtyPotStok, satuan, item.HppSat, invoice.InvoiceId, "INVOICE");
+                        invoice.WarehouseId, item.QtyPotStok, satuan, item.HppSat, invoice.InvoiceId, "INVOICE", invoice.SupplierName);
                     _addStokWorker.Execute(reqAddStok);
 
                     var qtyBonus = item.QtyPotStok - item.QtyBeli;
@@ -60,7 +60,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                         continue;
 
                     var reqBonus = new AddStokRequest(item.BrgId,
-                        invoice.WarehouseId, qtyBonus, satuan, 0, invoice.InvoiceId, "INVOICE-BONUS");
+                        invoice.WarehouseId, qtyBonus, satuan, 0, invoice.InvoiceId, "INVOICE-BONUS", invoice.SupplierName);
                     _addStokWorker.Execute(reqBonus);
                 }
                 trans.Complete();

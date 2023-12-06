@@ -14,10 +14,10 @@ namespace btr.application.InventoryContext.StokAgg
     public interface IStokBuilder : INunaBuilder<StokModel>
     {
         IStokBuilder Create(IBrgKey brgKey, IWarehouseKey warehouseKey, 
-            int qty, decimal nilai, string reffId, string jenisMutasi);
+            int qty, decimal nilai, string reffId, string jenisMutasi, string keterangan);
         IStokBuilder Load(IStokKey stokKey);
         IStokBuilder Attach(StokModel stok);
-        IStokBuilder RemoveStok(int qty, decimal hargaJual, string reffId, string jenisMutasi);
+        IStokBuilder RemoveStok(int qty, decimal hargaJual, string reffId, string jenisMutasi, string keterangan);
         IStokBuilder RollBack(IReffKey reffKey);
     }
     
@@ -50,7 +50,7 @@ namespace btr.application.InventoryContext.StokAgg
         }
 
         public IStokBuilder Create(IBrgKey brgKey, IWarehouseKey warehouseKey, 
-            int qty, decimal nilai, string reffId, string jenisMutasi)
+            int qty, decimal nilai, string reffId, string jenisMutasi, string keterangan)
         {
             var brg = _brgDal.GetData(brgKey)
                 ?? throw new KeyNotFoundException($"[Create-Stok] BrgId invalid ({brgKey.BrgId})");
@@ -80,7 +80,8 @@ namespace btr.application.InventoryContext.StokAgg
                 MutasiDate = _dateTime.Now,
                 QtyIn = qty,
                 QtyOut = 0,
-                HargaJual = 0
+                HargaJual = 0,
+                Keterangan = keterangan
             };
             _agg.ListMutasi.Add(newMutasi);
             return this;
@@ -95,7 +96,7 @@ namespace btr.application.InventoryContext.StokAgg
             return this;
         }
 
-        public IStokBuilder RemoveStok(int qty, decimal hargaJual, string reffId, string jenisMutasi)
+        public IStokBuilder RemoveStok(int qty, decimal hargaJual, string reffId, string jenisMutasi, string keterangan)
         {
             if (_agg.Qty < qty)
                 throw new ArgumentException("Stok tidak mencukupi");
@@ -112,6 +113,7 @@ namespace btr.application.InventoryContext.StokAgg
                 MutasiDate = _dateTime.Now,
                 JenisMutasi = jenisMutasi,
                 NoUrut = noUrut,
+                Keterangan = keterangan
             };
             _agg.Qty -= qty;
             _agg.ListMutasi.Add(newMutasi);

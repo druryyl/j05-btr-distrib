@@ -18,5 +18,6 @@ namespace btr.domain.InventoryContext.StokAgg
         public int QtyIn { get; set; }
         public int QtyOut { get; set; }
         public decimal HargaJual { get; set; }
+        public string Keterangan { get; set; }
     }
 }

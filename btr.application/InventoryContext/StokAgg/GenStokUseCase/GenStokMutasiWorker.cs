@@ -65,7 +65,8 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                     item.Sat, 
                     item.Hpp, 
                     req.MutasiId,
-                    "MUTASI-KELUAR"));
+                    "MUTASI-KELUAR",
+                    mutasi.Keterangan));
 
                 _addStok.Execute(new AddStokRequest(
                     item.BrgId, 
@@ -74,7 +75,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                     item.Sat, 
                     item.Hpp, 
                     req.MutasiId,
-                    "MUTASI-MASUK"));
+                    "MUTASI-MASUK", mutasi.Keterangan));
             }
         }
         private void GenMutasiMasuk(GenStokMutasiRequest req)
@@ -90,7 +91,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                     item.Sat, 
                     item.Hpp, 
                     req.MutasiId,
-                    "MUTASI-KELUAR"));
+                    "MUTASI-KELUAR", mutasi.Keterangan));
                 
                 _addStok.Execute(new AddStokRequest(
                     item.BrgId, 
@@ -99,7 +100,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                     item.Sat, 
                     item.Hpp, 
                     req.MutasiId,
-                    "MUTASI-MASUK"));
+                    "MUTASI-MASUK", mutasi.Keterangan));
             }
         }
     }

@@ -420,6 +420,7 @@
             this.BukuStokButton.Name = "BukuStokButton";
             this.BukuStokButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("BukuStokButton.SmallImage")));
             this.BukuStokButton.Text = "Kartu-Stok";
+            this.BukuStokButton.Click += new System.EventHandler(this.BukuStokButton_Click);
             // 
             // OmzetPerSupplierButton
             // 
@@ -534,7 +535,9 @@
             // 
             // AppStatus
             // 
-            this.AppStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.LoginStatus, this.ServerDbStatus });
+            this.AppStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.LoginStatus,
+            this.ServerDbStatus});
             this.AppStatus.Location = new System.Drawing.Point(0, 428);
             this.AppStatus.Name = "AppStatus";
             this.AppStatus.Size = new System.Drawing.Size(876, 22);
@@ -571,6 +574,7 @@
             this.AppStatus.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         private System.Windows.Forms.RibbonButton TestingButton;

@@ -53,7 +53,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                     var satuan = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty;
 
                     var reqAddStok = new AddStokRequest(item.BrgId,
-                        returJual.WarehouseId, item.Qty, satuan, brg.Hpp, returJual.ReturJualId, "RETURJUAL");
+                        returJual.WarehouseId, item.Qty, satuan, brg.Hpp, returJual.ReturJualId, "RETURJUAL", returJual.CustomerName);
                     _addStokWorker.Execute(reqAddStok);
                 }
                 trans.Complete();

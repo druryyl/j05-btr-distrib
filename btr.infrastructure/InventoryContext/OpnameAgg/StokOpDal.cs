@@ -31,14 +31,15 @@ namespace btr.infrastructure.InventoryContext.OpnameAgg
                     QtyBesarAwal, QtyKecilAwal, QtyPcsAwal,
                     QtyBesarOpname, QtyKecilOpname, QtyPcsOpname,
                     QtyBesarAdjust, QtyKecilAdjust, QtyPcsAdjust,
-                    UserId
+                    QtyOpnameInputStr, UserId
                 )
                 VALUES
                 (
                     @StokOpId, @StokOpDate, @PeriodeOp, @BrgId, @WarehouseId,
                     @QtyBesarAwal, @QtyKecilAwal, @QtyPcsAwal, 
                     @QtyBesarOpname, @QtyKecilOpname, @QtyPcsOpname,
-                    @QtyBesarAdjust, @QtyKecilAdjust, @QtyPcsAdjust, @UserId)";
+                    @QtyBesarAdjust, @QtyKecilAdjust, @QtyPcsAdjust, 
+                    @QtyOpnameInputStr, @UserId)";
 
             //  parameter
             var dp = new DynamicParameters();
@@ -56,6 +57,7 @@ namespace btr.infrastructure.InventoryContext.OpnameAgg
             dp.AddParam("@QtyBesarAdjust", model.QtyBesarAdjust, SqlDbType.Int);
             dp.AddParam("@QtyKecilAdjust", model.QtyKecilAdjust, SqlDbType.Int);
             dp.AddParam("@QtyPcsAdjust", model.QtyPcsAdjust, SqlDbType.Int);
+            dp.AddParam("@QtyOpnameInputStr", model.QtyOpnameInputStr, SqlDbType.VarChar);
             dp.AddParam("@UserId", model.UserId, SqlDbType.VarChar);
 
             //  execute
@@ -84,8 +86,10 @@ namespace btr.infrastructure.InventoryContext.OpnameAgg
                     QtyBesarAdjust = @QtyBesarAdjust,
                     QtyKecilAdjust = @QtyKecilAdjust,
                     QtyPcsAdjust = @QtyPcsAdjust,
+                    QtyOpnameInputStr = @QtyOpnameInputStr,
                     UserId = @UserId
-                WHERE StokOpId = @StokOpId";
+                WHERE 
+                    StokOpId = @StokOpId";
 
             //  parameter
             var dp = new DynamicParameters();
@@ -103,8 +107,8 @@ namespace btr.infrastructure.InventoryContext.OpnameAgg
             dp.AddParam("@QtyBesarAdjust", model.QtyBesarAdjust, SqlDbType.Int);
             dp.AddParam("@QtyKecilAdjust", model.QtyKecilAdjust, SqlDbType.Int);
             dp.AddParam("@QtyPcsAdjust", model.QtyPcsAdjust, SqlDbType.Int);
+            dp.AddParam("@QtyOpnameInputStr", model.QtyOpnameInputStr, SqlDbType.VarChar);
             dp.AddParam("@UserId", model.UserId, SqlDbType.VarChar);
-
 
             //  execute
             using (var con = new SqlConnection(ConnStringHelper.Get(_opt)))
@@ -140,7 +144,7 @@ namespace btr.infrastructure.InventoryContext.OpnameAgg
                     aa.QtyBesarAwal, aa.QtyKecilAwal, aa.QtyPcsAwal,
                     aa.QtyBesarOpname, aa.QtyKecilOpname, aa.QtyPcsOpname,
                     aa.QtyBesarAdjust, aa.QtyKecilAdjust, aa.QtyPcsAdjust,
-                    aa.UserId,
+                    aa.QtyOpnameInputStr, aa.UserId,
                     ISNULL(BrgName, '') AS BrgName, 
                     ISNULL(WarehouseName ,'') AS WarehouseName
                 FROM 
@@ -170,7 +174,7 @@ namespace btr.infrastructure.InventoryContext.OpnameAgg
                     aa.QtyBesarAwal, aa.QtyKecilAwal, aa.QtyPcsAwal,
                     aa.QtyBesarOpname, aa.QtyKecilOpname, aa.QtyPcsOpname,
                     aa.QtyBesarAdjust, aa.QtyKecilAdjust, aa.QtyPcsAdjust,
-                    UserId,
+                    aa.QtyOpnameInputStr, aa.UserId,
                     ISNULL(BrgName, '') AS BrgName, 
                     ISNULL(WarehouseName ,'') AS WarehouseName
                 FROM 

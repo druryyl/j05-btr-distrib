@@ -135,13 +135,13 @@ namespace btr.distrib.InventoryContext.OpnameAgg
             if (qtyAdjust > 0)
             {
                 var cmd = new AddStokRequest(opname.BrgId, opname.WarehouseId,
-                    qtyAdjust, opname.Satuan1, opname.Nilai, opname.OpnameId, "OPNAME");
+                    qtyAdjust, opname.Satuan1, opname.Nilai, opname.OpnameId, "OPNAME", "Stok Adjustment");
                 _addStokWorker.Execute(cmd);
             }
             else
             {
                 var cmd = new RemoveFifoStokRequest(opname.BrgId, opname.WarehouseId,
-                    -qtyAdjust, opname.Satuan1, 0, opname.OpnameId, "OPNAME");
+                    -qtyAdjust, opname.Satuan1, 0, opname.OpnameId, "OPNAME", "Stok Adjustment");
                 _removeFifoStokWorker.Execute(cmd);
             }
         }

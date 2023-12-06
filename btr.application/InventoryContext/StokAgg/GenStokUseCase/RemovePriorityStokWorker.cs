@@ -14,7 +14,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
     {
         public RemovePriorityStokRequest(string brgId, string warehouseId, 
             int qty, string satuan, decimal hargaJual, string reffId, 
-            string jenisMutasi, string priorityReffId)
+            string jenisMutasi, string priorityReffId, string keterangan)
         {
             BrgId = brgId;
             WarehouseId = warehouseId;
@@ -24,6 +24,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
             ReffId = reffId;
             JenisMutasi = jenisMutasi;
             PriorityReffId = priorityReffId;
+            Keterangan = keterangan;
         }
         public string BrgId { get; set; }
         public string WarehouseId { get; set; }
@@ -33,6 +34,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
         public string ReffId { get; set; }
         public string JenisMutasi { get; set; }
         public string PriorityReffId { get; }
+        public string Keterangan { get; set; }
     }
 
     public interface IRemovePriorityStokWorker : INunaServiceVoid<RemovePriorityStokRequest>
@@ -90,7 +92,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                 var pengurang = sisa >= qtyKecil ? qtyKecil : sisa;
                 stok = _stokBuilder
                     .Load(stok)
-                    .RemoveStok(pengurang, hargaKecil, request.ReffId, request.JenisMutasi)
+                    .RemoveStok(pengurang, hargaKecil, request.ReffId, request.JenisMutasi, request.Keterangan)
                     .Build();
 
                 listStok.RemoveAll(x => x.StokId == stok.StokId);
