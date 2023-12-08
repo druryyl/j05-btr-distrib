@@ -73,7 +73,7 @@
             this.FinanceTab = new System.Windows.Forms.RibbonTab();
             this.ribbonPanel1 = new System.Windows.Forms.RibbonPanel();
             this.LunasPiutangButton = new System.Windows.Forms.RibbonButton();
-            this.ribbonButton2 = new System.Windows.Forms.RibbonButton();
+            this.PiutangSalesWilayahButton = new System.Windows.Forms.RibbonButton();
             this.SettingTab = new System.Windows.Forms.RibbonTab();
             this.DeliveryPanel = new System.Windows.Forms.RibbonPanel();
             this.UserButton = new System.Windows.Forms.RibbonButton();
@@ -465,7 +465,7 @@
             // ribbonPanel1
             // 
             this.ribbonPanel1.Items.Add(this.LunasPiutangButton);
-            this.ribbonPanel1.Items.Add(this.ribbonButton2);
+            this.ribbonPanel1.Items.Add(this.PiutangSalesWilayahButton);
             this.ribbonPanel1.Name = "ribbonPanel1";
             this.ribbonPanel1.Text = "Piutang";
             // 
@@ -478,13 +478,14 @@
             this.LunasPiutangButton.Text = "Pelunasan";
             this.LunasPiutangButton.Click += new System.EventHandler(this.LunasPiutangButton_Click);
             // 
-            // ribbonButton2
+            // PiutangSalesWilayahButton
             // 
-            this.ribbonButton2.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
-            this.ribbonButton2.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
-            this.ribbonButton2.Name = "ribbonButton2";
-            this.ribbonButton2.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton2.SmallImage")));
-            this.ribbonButton2.Text = "Info";
+            this.PiutangSalesWilayahButton.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.PiutangSalesWilayahButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.PiutangSalesWilayahButton.Name = "PiutangSalesWilayahButton";
+            this.PiutangSalesWilayahButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("PiutangSalesWilayahButton.SmallImage")));
+            this.PiutangSalesWilayahButton.Text = "Piutang Sales-Wilayah";
+            this.PiutangSalesWilayahButton.Click += new System.EventHandler(this.PiutangSalesWilayahButton_Click);
             // 
             // SettingTab
             // 
@@ -628,7 +629,7 @@
         private System.Windows.Forms.RibbonSeparator ribbonSeparator2;
         private System.Windows.Forms.RibbonPanel ribbonPanel1;
         private System.Windows.Forms.RibbonButton LunasPiutangButton;
-        private System.Windows.Forms.RibbonButton ribbonButton2;
+        private System.Windows.Forms.RibbonButton PiutangSalesWilayahButton;
         private System.Windows.Forms.RibbonButton FakturBrgInfoButton;
         private System.Windows.Forms.RibbonSeparator ribbonSeparator3;
         private System.Windows.Forms.RibbonButton ReturJualButton;

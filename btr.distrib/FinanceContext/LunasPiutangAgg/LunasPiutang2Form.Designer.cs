@@ -52,6 +52,8 @@
             this.AddressText = new System.Windows.Forms.TextBox();
             this.CustomerText = new System.Windows.Forms.TextBox();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.LunasDateText = new System.Windows.Forms.DateTimePicker();
             this.label16 = new System.Windows.Forms.Label();
             this.JenisBayarCombo = new System.Windows.Forms.ComboBox();
             this.JatuhTempBgText = new System.Windows.Forms.DateTimePicker();
@@ -63,8 +65,6 @@
             this.NilaiPelunasanText = new System.Windows.Forms.NumericUpDown();
             this.label21 = new System.Windows.Forms.Label();
             this.BayarGrid = new System.Windows.Forms.DataGridView();
-            this.LunasDateText = new System.Windows.Forms.DateTimePicker();
-            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ListPiutangGrid)).BeginInit();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AdminText)).BeginInit();
@@ -251,6 +251,7 @@
             // 
             // panel3
             // 
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BackColor = System.Drawing.Color.Thistle;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.SalesText);
@@ -340,8 +341,7 @@
             // 
             // panel6
             // 
-            this.panel6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel6.BackColor = System.Drawing.Color.LavenderBlush;
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel6.Controls.Add(this.label1);
@@ -362,6 +362,24 @@
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(359, 171);
             this.panel6.TabIndex = 56;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 47);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(61, 13);
+            this.label1.TabIndex = 55;
+            this.label1.Text = "Tgl Bayar";
+            // 
+            // LunasDateText
+            // 
+            this.LunasDateText.CustomFormat = "ddd dd MMM yyyy";
+            this.LunasDateText.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.LunasDateText.Location = new System.Drawing.Point(8, 63);
+            this.LunasDateText.Name = "LunasDateText";
+            this.LunasDateText.Size = new System.Drawing.Size(161, 20);
+            this.LunasDateText.TabIndex = 54;
             // 
             // label16
             // 
@@ -467,30 +485,14 @@
             // 
             // BayarGrid
             // 
+            this.BayarGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.BayarGrid.BackgroundColor = System.Drawing.Color.Maroon;
             this.BayarGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.BayarGrid.Location = new System.Drawing.Point(834, 408);
             this.BayarGrid.Name = "BayarGrid";
             this.BayarGrid.Size = new System.Drawing.Size(359, 124);
             this.BayarGrid.TabIndex = 57;
-            // 
-            // LunasDateText
-            // 
-            this.LunasDateText.CustomFormat = "ddd dd MMM yyyy";
-            this.LunasDateText.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.LunasDateText.Location = new System.Drawing.Point(8, 63);
-            this.LunasDateText.Name = "LunasDateText";
-            this.LunasDateText.Size = new System.Drawing.Size(161, 20);
-            this.LunasDateText.TabIndex = 54;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 47);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 13);
-            this.label1.TabIndex = 55;
-            this.label1.Text = "Tgl Bayar";
             // 
             // LunasPiutang2Form
             // 

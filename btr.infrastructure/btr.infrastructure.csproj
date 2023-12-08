@@ -79,6 +79,7 @@
     <Compile Include="FinanceContext\PiutangAgg\PiutangElementDal.cs" />
     <Compile Include="FinanceContext\PiutangAgg\PiutangLunasDal.cs" />
     <Compile Include="FinanceContext\PiutangAgg\PIutangLunasViewDal.cs" />
+    <Compile Include="FinanceContext\PiutangSalesWilayahRpt\PiutangSalesWilayahDal.cs" />
     <Compile Include="Helpers\ConnStringHelper.cs" />
     <Compile Include="Helpers\DatabaseOptions.cs" />
     <Compile Include="Helpers\ParamNoDal.cs" />

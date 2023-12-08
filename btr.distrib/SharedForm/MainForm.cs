@@ -31,6 +31,7 @@ using btr.distrib.InventoryContext.ReturJualAgg;
 using btr.distrib.InventoryContext.OmzetSupplierRpt;
 using btr.distrib.PurchaseContext.InvoiceInfo;
 using btr.distrib.InventoryContext.KartuStokRpt;
+using btr.distrib.FinanceContext.PiutangSalesWilayahRpt;
 
 namespace btr.distrib.SharedForm
 {
@@ -362,6 +363,16 @@ namespace btr.distrib.SharedForm
             if (BringMdiChildToFrontIfLoaded<KartuStokInfoForm>())
                 return;
             var form = _servicesProvider.GetRequiredService<KartuStokInfoForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void PiutangSalesWilayahButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<PiutangSalesWilayahForm>())
+                return;
+            var form = _servicesProvider.GetRequiredService<PiutangSalesWilayahForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
