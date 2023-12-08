@@ -15,11 +15,14 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
     {
         IPiutangBuilder Create(IFakturKey fakturKey);
         IPiutangBuilder Load(IPiutangKey piutangKey);
+        IPiutangBuilder Attach(PiutangModel piutangModel);
         IPiutangBuilder Customer(ICustomerKey customerKey);
         IPiutangBuilder PiutangDate(DateTime dateTime);
         IPiutangBuilder DueDate(DateTime dateTime);
         IPiutangBuilder AddPlusElement(string name, decimal value);
         IPiutangBuilder AddMinusElement(string name, decimal value);
+        IPiutangBuilder AddLunasCash(decimal value, DateTime lunasDate);
+        IPiutangBuilder AddLunasBg(decimal value, DateTime lunasDate, DateTime jatuhTempo, string namaBank, string noRek, string atasNama);
     }
     public class PiutangBuilder : IPiutangBuilder
     {
@@ -73,6 +76,12 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
             return this;
         }
 
+        public IPiutangBuilder Attach(PiutangModel piutangModel)
+        {
+            _aggregate = piutangModel;
+            return this;
+        }
+
         public IPiutangBuilder Customer(ICustomerKey customerKey)
         {
             var customer = _customerDal.GetData(customerKey)
@@ -96,6 +105,9 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
 
         public IPiutangBuilder AddPlusElement(string name, decimal value)
         {
+            if (value == 0)
+                return this;
+
             var noUrut = _aggregate.ListElement
                 .DefaultIfEmpty(new PiutangElementModel { NoUrut = 0 })
                 .Max(x => x.NoUrut);
@@ -113,15 +125,17 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
 
         public IPiutangBuilder AddMinusElement(string name, decimal value)
         {
-            var noUrut = _aggregate.ListLunas
-                .DefaultIfEmpty(new PiutangLunasModel { NoUrut = 0 })
+            if (value == 0)
+                return this;
+            var noUrut = _aggregate.ListElement
+                .DefaultIfEmpty(new PiutangElementModel { NoUrut = 0 })
                 .Max(x => x.NoUrut);
             noUrut++;
             var newElement = new PiutangElementModel
             {
                 NoUrut = noUrut,
                 ElementName = name,
-                NilaiPlus = value,
+                NilaiMinus = value,
             };
             _aggregate.ListElement.Add(newElement);
             ReCalc();
@@ -135,5 +149,47 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
             _aggregate.Sisa = _aggregate.Total - _aggregate.Terbayar;
         }
 
+        public IPiutangBuilder AddLunasCash(decimal value, DateTime lunasDate)
+        {
+            var lunas = new PiutangLunasModel
+            {
+                LunasDate = lunasDate,
+                Nilai = value,
+                JenisLunas = JenisLunasEnum.Cash,
+                JatuhTempoBg = new DateTime(3000,1,1),
+            };
+            lunas.RemoveNull();
+            addLunas(lunas);
+            return this;
+        }
+
+        private void addLunas(PiutangLunasModel lunas)
+        {
+            var noUrut = _aggregate.ListLunas
+                .DefaultIfEmpty(new PiutangLunasModel { NoUrut = 0 })
+                .Max(x => x.NoUrut);
+            noUrut++;
+            lunas.NoUrut = noUrut;
+            _aggregate.ListLunas.Add(lunas);
+            _aggregate.Terbayar = _aggregate.ListLunas.Sum(x => x.Nilai);
+            _aggregate.Sisa = _aggregate.Total - _aggregate.Terbayar;
+        }
+
+        public IPiutangBuilder AddLunasBg(decimal value, DateTime lunasDate, DateTime jatuhTempo, string namaBank, string noRek, string atasNama)
+        {
+            var lunas = new PiutangLunasModel
+            {
+                LunasDate = lunasDate,
+                Nilai = value,
+                JenisLunas = JenisLunasEnum.CekBg,
+                JatuhTempoBg = jatuhTempo,
+                NamaBank = namaBank,
+                NoRekBg= noRek,
+                AtasNamaBank = atasNama,
+            };
+            lunas.RemoveNull();
+            addLunas(lunas);
+            return this;
+        }
     }
 }

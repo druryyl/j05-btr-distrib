@@ -1,6 +1,8 @@
 ﻿using btr.application.FinanceContext.PiutangAgg.Contracts;
+using btr.application.FinanceContext.PiutangAgg.UseCases;
 using btr.application.FinanceContext.PiutangAgg.Workers;
 using btr.application.SalesContext.FakturAgg.Workers;
+using btr.distrib.Helpers;
 using btr.domain.FinanceContext.PiutangAgg;
 using btr.domain.SalesContext.FakturAgg;
 using btr.nuna.Domain;
@@ -22,13 +24,18 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
         private readonly IPiutangBuilder _piutangBuilder;
         private readonly IPiutangLunasViewDal _piutangLunasViewDal;
         private readonly IFakturBuilder _fakturBuilder;
+        private readonly IAddLunasPiutangWorker _addLunasPiutangWorker;
         
         private BindingList<PiutangLunasView> _listPiutangLunasView;
+        private BindingList<LunasPiutangBayarView> _listLunasPiutangBayar;
         private BindingSource _bindingSource;
+        private string _piutangId;
+
 
         public LunasPiutang2Form(IPiutangLunasViewDal piutangLunasViewDal,
             IPiutangBuilder piutangBuilder,
-            IFakturBuilder fakturBuilder)
+            IFakturBuilder fakturBuilder,
+            IAddLunasPiutangWorker addLunasPiutangWorker)
         {
             _piutangLunasViewDal = piutangLunasViewDal;
             _piutangBuilder = piutangBuilder;
@@ -36,7 +43,20 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
 
             InitializeComponent();
             InitGrid();
+            IniGridBayar();
+            InitJenisBayarCombo();
             RegisterEventHandler();
+            _addLunasPiutangWorker = addLunasPiutangWorker;
+        }
+
+        private void InitJenisBayarCombo()
+        {
+            var listJenisBayar = new List<string>
+            {
+                "Tunai",
+                "BG / Transfer"
+            };
+            JenisBayarCombo.DataSource = listJenisBayar;
         }
 
         private void RegisterEventHandler()
@@ -46,7 +66,120 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             ListPiutangGrid.TableControlCellDoubleClick += ListPiutangGrid_TableControlCellDoubleClick;
             ListPiutangGrid.TableControlCurrentCellActivated += ListPiutangGrid_TableControlCurrentCellActivated;
             ListPiutangGrid.TableControlCurrentCellValidated += ListPiutangGrid_TableControlCurrentCellValidated;
+            SaveButton.Click += SaveButton_Click;
+            JenisBayarCombo.SelectedIndexChanged += JenisBayarCombo_SelectedIndexChanged;
+            NilaiPelunasanText.KeyDown += NilaiPelunasanText_KeyDown;
+        }
 
+        private void NilaiPelunasanText_KeyDown(object sender, KeyEventArgs e)
+        {
+            var textBox = sender as NumericUpDown;
+            if (e.KeyCode == Keys.F1)
+            {
+                var piutang = _piutangBuilder.Load(new PiutangModel(_piutangId)).Build();
+                textBox.Value = piutang.Sisa - ReturText.Value - PotonganText.Value - MateraiText.Value - AdminText.Value;
+            }
+        }
+
+        private void JenisBayarCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var comboBox = sender as ComboBox;
+            var selected = comboBox?.SelectedItem.ToString();
+            if (selected == "Tunai")
+            {
+                JatuhTempBgText.Enabled = false;
+                NoRekBgText.ReadOnly = true;
+                BankNameText.ReadOnly = true;
+                AtasNamaText.ReadOnly = true;
+            }
+            else
+            {
+                JatuhTempBgText.Enabled = true;
+                NoRekBgText.ReadOnly = false;
+                BankNameText.ReadOnly = false;
+                AtasNamaText.ReadOnly = false;
+            }
+        }
+
+        private void IniGridBayar()
+        {
+            BayarGrid.DataSource = _listLunasPiutangBayar;
+            BayarGrid.DefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = System.Drawing.Color.Thistle,
+                Font = new System.Drawing.Font("Consolas", 8.25F),
+
+            };
+            var cols = BayarGrid.Columns;
+            RefreshGridBayar(new PiutangModel { ListLunas = new List<PiutangLunasModel>()});
+            cols.GetCol("Tgl").DefaultCellStyle.Format = "ddd, dd-MMM-yyyy";
+            cols.GetCol("Nilai").DefaultCellStyle.Format = "N0";
+            cols.GetCol("Nilai").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            cols.GetCol("Tgl").Width = 120;
+            cols.GetCol("Keterangan").Width = 120;
+            cols.GetCol("Nilai").Width = 80;
+            cols.GetCol("Nilai").DefaultCellStyle.BackColor = System.Drawing.Color.LavenderBlush;
+
+            //  hide row header
+            BayarGrid.RowHeadersVisible = false;
+            //  readonly
+            BayarGrid.ReadOnly = true;
+            BayarGrid.AllowUserToAddRows = false;
+            BayarGrid.AllowUserToDeleteRows = false;
+        }
+
+        private void RefreshGridBayar(PiutangModel piutang)
+        {
+            piutang.RemoveNull();
+            _listLunasPiutangBayar = new BindingList<LunasPiutangBayarView>
+            {
+                new LunasPiutangBayarView
+                {
+                    Tgl = piutang.PiutangDate,
+                    Keterangan = "Tagihan",
+                    Nilai = piutang.Total
+                }
+            };
+            foreach (var pelunasan in piutang.ListLunas)
+            {
+                _listLunasPiutangBayar.Add(new LunasPiutangBayarView
+                {
+                    Tgl = pelunasan.LunasDate,
+                    Keterangan = $"Pelunasan {pelunasan.JenisLunas}",
+                    Nilai = -pelunasan.Nilai
+                });
+            }
+            _listLunasPiutangBayar.Add(new LunasPiutangBayarView
+            {
+                Tgl = DateTime.Now,
+                Keterangan = "Sisa Tagihan",
+                Nilai = piutang.Sisa
+            });
+            BayarGrid.DataSource = _listLunasPiutangBayar;
+        }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            var addLunasReq = new AddLunasPiutangRequest
+            {
+                PiutangId = _piutangId,
+                Retur = ReturText.Value,
+                Potongan = PotonganText.Value,
+                Materai = MateraiText.Value,
+                Admin = AdminText.Value,
+                Nilai = NilaiPelunasanText.Value,
+                JenisLunas = JenisBayarCombo.Text == "Tunai" ? JenisLunasEnum.Cash : JenisLunasEnum.CekBg,
+                LunasDate = LunasDateText.Value,
+                JatuhTempoBg = JatuhTempBgText.Value,
+                NoBgRek = NoRekBgText.Text,
+                NamaBank = BankNameText.Text,
+                AtasNamaBank = AtasNamaText.Text,
+            };
+            _addLunasPiutangWorker.Execute(addLunasReq);
+            RefreshGrid();
+            var piutang = _piutangBuilder.Load(new PiutangModel(_piutangId)).Build();
+            RefreshGridBayar(piutang);
         }
 
         private void ListPiutangGrid_TableControlCurrentCellValidated(object sender, GridTableControlEventArgs e)
@@ -60,20 +193,17 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             var piutang = _piutangBuilder.Load(new PiutangModel(piutangId)).Build();
             var faktur = _fakturBuilder.Load(new FakturModel(piutang.PiutangId)).Build();
             var fc = faktur.FakturCode;
-            var pt = piutang.PiutangId;
-            PiutangIdLabel.Text = $"{pt.Substring(0,4)}-{pt.Substring(4, 3)}-{pt.Substring(7, 6)}";
-            FakturCodeLabel.Text = $"{fc[0]}-{fc.Substring(1,3)}-{fc.Substring(4,4)}";
-            TglFakturLabel.Text= piutang.PiutangDate.ToString("dd MMM yyyy");
-            CustomerNameLabel.Text = piutang.CustomerName;
-            AlamatLabel.Text = faktur.Address;
-            TglTempoLabel.Text = piutang.DueDate.ToString("dd MMM yyyy");
-            SalesLabel.Text = faktur.SalesPersonName;
-            AdminLabel.Text = faktur.UserId;
+            _piutangId = piutang.PiutangId;
+            CustomerText.Text = piutang.CustomerName;
+            AddressText.Text = faktur.Address;
 
-            TotalLabel.Text= piutang.Total.ToString("N2", CultureInfo.InvariantCulture);
-            TerbayarLabel.Text = piutang.Terbayar.ToString("N2", CultureInfo.InvariantCulture);
-            SisaLabel.Text = piutang.Sisa.ToString("N2", CultureInfo.InvariantCulture);
-
+            FakturCodeText.Text = $@"{fc[0]}-{fc.Substring(1,3)}-{fc.Substring(4,4)}";
+            TglFakturText.Text= piutang.PiutangDate.ToString("dd MMM yyyy");
+            JatuhTempoText.Text = piutang.DueDate.ToString("dd MMM yyyy");
+            SalesText.Text = faktur.SalesPersonName;
+            LunasDateText.Value = DateTime.Now;
+            RefreshGridBayar(piutang);
+            
         }
 
         #region GRID
@@ -92,16 +222,6 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
 
             var faktur = _listPiutangLunasView[dataRowPos];
             LoadPiutang(faktur.PiutangId);
-
-            //try
-            //{
-            //}
-            //catch (ArgumentOutOfRangeException) { }
-            //catch (Exception)
-            //{
-            //    throw;
-            //}
-
         }
 
         private void ListPiutangGrid_QueryCellStyleInfo(object sender, GridTableCellStyleInfoEventArgs e)
@@ -178,5 +298,12 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
         }
         #endregion
 
+    }
+
+    public class LunasPiutangBayarView
+    {
+        public DateTime Tgl { get; set; }
+        public string Keterangan { get; set; }
+        public decimal Nilai { get; set; }
     }
 }

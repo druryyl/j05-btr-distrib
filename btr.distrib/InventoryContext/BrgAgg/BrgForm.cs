@@ -427,6 +427,7 @@ namespace btr.distrib.InventoryContext.BrgAgg
                 .BrgId(BrgIdText.Text)
                 .Name(BrgNameText.Text)
                 .Code(BrgCodeText.Text)
+                .Hpp(HppText.Value)
                 .Supplier(new SupplierModel(SupplierIdText.Text))
                 .JenisBrg(new JenisBrgModel(JenisBrgCombo.SelectedValue.ToString()))
                 .Kategori(new KategoriModel(KategoriIdText.Text))

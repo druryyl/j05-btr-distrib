@@ -55,10 +55,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.SatuanTab = new System.Windows.Forms.TabPage();
-            this.SatuanGrid = new System.Windows.Forms.DataGridView();
             this.HargaTab = new System.Windows.Forms.TabPage();
             this.HargaGrid = new System.Windows.Forms.DataGridView();
+            this.SatuanTab = new System.Windows.Forms.TabPage();
+            this.SatuanGrid = new System.Windows.Forms.DataGridView();
             this.StokTab = new System.Windows.Forms.TabPage();
             this.StokGrid = new System.Windows.Forms.DataGridView();
             this.SaveButton = new System.Windows.Forms.Button();
@@ -68,10 +68,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.HppText)).BeginInit();
             this.panel3.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.SatuanTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SatuanGrid)).BeginInit();
             this.HargaTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.HargaGrid)).BeginInit();
+            this.SatuanTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SatuanGrid)).BeginInit();
             this.StokTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.StokGrid)).BeginInit();
             this.SuspendLayout();
@@ -149,7 +149,6 @@
             0,
             0});
             this.HppText.Name = "HppText";
-            this.HppText.ReadOnly = true;
             this.HppText.Size = new System.Drawing.Size(205, 20);
             this.HppText.TabIndex = 20;
             this.HppText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -350,26 +349,6 @@
             this.tabControl1.Size = new System.Drawing.Size(462, 191);
             this.tabControl1.TabIndex = 50;
             // 
-            // SatuanTab
-            // 
-            this.SatuanTab.BackColor = System.Drawing.Color.Cornsilk;
-            this.SatuanTab.Controls.Add(this.SatuanGrid);
-            this.SatuanTab.Location = new System.Drawing.Point(4, 22);
-            this.SatuanTab.Name = "SatuanTab";
-            this.SatuanTab.Padding = new System.Windows.Forms.Padding(3);
-            this.SatuanTab.Size = new System.Drawing.Size(454, 165);
-            this.SatuanTab.TabIndex = 0;
-            this.SatuanTab.Text = "Satuan";
-            // 
-            // SatuanGrid
-            // 
-            this.SatuanGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.SatuanGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SatuanGrid.Location = new System.Drawing.Point(3, 3);
-            this.SatuanGrid.Name = "SatuanGrid";
-            this.SatuanGrid.Size = new System.Drawing.Size(448, 159);
-            this.SatuanGrid.TabIndex = 0;
-            // 
             // HargaTab
             // 
             this.HargaTab.BackColor = System.Drawing.Color.Cornsilk;
@@ -389,6 +368,26 @@
             this.HargaGrid.Name = "HargaGrid";
             this.HargaGrid.Size = new System.Drawing.Size(448, 159);
             this.HargaGrid.TabIndex = 1;
+            // 
+            // SatuanTab
+            // 
+            this.SatuanTab.BackColor = System.Drawing.Color.Cornsilk;
+            this.SatuanTab.Controls.Add(this.SatuanGrid);
+            this.SatuanTab.Location = new System.Drawing.Point(4, 22);
+            this.SatuanTab.Name = "SatuanTab";
+            this.SatuanTab.Padding = new System.Windows.Forms.Padding(3);
+            this.SatuanTab.Size = new System.Drawing.Size(454, 165);
+            this.SatuanTab.TabIndex = 0;
+            this.SatuanTab.Text = "Satuan";
+            // 
+            // SatuanGrid
+            // 
+            this.SatuanGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.SatuanGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SatuanGrid.Location = new System.Drawing.Point(3, 3);
+            this.SatuanGrid.Name = "SatuanGrid";
+            this.SatuanGrid.Size = new System.Drawing.Size(448, 159);
+            this.SatuanGrid.TabIndex = 0;
             // 
             // StokTab
             // 
@@ -454,10 +453,10 @@
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.tabControl1.ResumeLayout(false);
-            this.SatuanTab.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.SatuanGrid)).EndInit();
             this.HargaTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.HargaGrid)).EndInit();
+            this.SatuanTab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.SatuanGrid)).EndInit();
             this.StokTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.StokGrid)).EndInit();
             this.ResumeLayout(false);

@@ -23,27 +23,4 @@ namespace btr.domain.FinanceContext.PiutangAgg
         public List<PiutangElementModel> ListElement { get; set; }
         public List<PiutangLunasModel> ListLunas { get; set; }
     }
-
-    public class PiutangElementModel
-    {
-        public string PiutangId { get; set; }
-        public int NoUrut { get; set; }
-        public string ElementName { get; set; }
-        public decimal NilaiPlus { get; set; }
-        public decimal NilaiMinus { get; set; }
-    }
-
-    public enum JenisLunasEnum
-    {
-        Cash, CekBg
-    }
-
-    public class PiutangLunasModel
-    {
-        public string PiutangId { get; set; }
-        public int NoUrut { get; set; }
-        public DateTime LunasDate { get; set; }
-        public decimal Nilai { get;set; }
-        public JenisLunasEnum JenisLunas { get; set; }
-    }
 }

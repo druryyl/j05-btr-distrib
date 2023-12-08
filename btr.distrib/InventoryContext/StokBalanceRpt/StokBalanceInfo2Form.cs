@@ -91,10 +91,10 @@ namespace btr.distrib.InventoryContext.StokBalanceRpt
                     BrgCode = c.BrgCode,
                     BrgName = c.BrgName,
                     Warehouse = c.WarehouseName,
-                    QtyBesar = c.QtyBesar,
+                    //QtyBesar = c.QtyBesar,
                     SatBesar = c.SatBesar,
                     Conversion = c.Conversion,
-                    QtyKecil = c.QtyKecil,
+                    //QtyKecil = c.QtyKecil,
                     SatKecil = c.SatKecil,
                     InPcs = c.Qty,
                     Hpp = c.Hpp,
@@ -176,10 +176,10 @@ namespace btr.distrib.InventoryContext.StokBalanceRpt
         public string BrgCode { get; set; }
         public string BrgName { get; set; }
         public string Warehouse{ get; set; }
-        public int QtyBesar { get; set; }
+        public int QtyBesar { get => Conversion == 1 ? 0: InPcs / Conversion; }
         public string SatBesar { get; set; }
         public int Conversion { get; set; }
-        public int QtyKecil { get; set; }
+        public int QtyKecil { get => Conversion ==1 ? InPcs: InPcs % Conversion;  }
         public string SatKecil { get; set; }
         public int InPcs { get; set; }
         public decimal Hpp { get; set; }
