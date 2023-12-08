@@ -83,6 +83,7 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.PenerimaanSalesButton = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -466,6 +467,7 @@
             // 
             this.ribbonPanel1.Items.Add(this.LunasPiutangButton);
             this.ribbonPanel1.Items.Add(this.PiutangSalesWilayahButton);
+            this.ribbonPanel1.Items.Add(this.PenerimaanSalesButton);
             this.ribbonPanel1.Name = "ribbonPanel1";
             this.ribbonPanel1.Text = "Piutang";
             // 
@@ -557,6 +559,15 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
+            // PenerimaanSalesButton
+            // 
+            this.PenerimaanSalesButton.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.PenerimaanSalesButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.PenerimaanSalesButton.Name = "PenerimaanSalesButton";
+            this.PenerimaanSalesButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("PenerimaanSalesButton.SmallImage")));
+            this.PenerimaanSalesButton.Text = "Penerimaan Sales";
+            this.PenerimaanSalesButton.Click += new System.EventHandler(this.PenerimaanSalesButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -636,5 +647,6 @@
         private System.Windows.Forms.RibbonButton InvoiceInfoButton;
         private System.Windows.Forms.RibbonButton InvoiceBrgInfoButton;
         private System.Windows.Forms.RibbonButton OmzetPerSupplierButton;
+        private System.Windows.Forms.RibbonButton PenerimaanSalesButton;
     }
 }

@@ -106,6 +106,7 @@
     <Compile Include="BrgContext\KategoriAgg\IKategoriDal.cs" />
     <Compile Include="BrgContext\KategoriAgg\KategoriBuilder.cs" />
     <Compile Include="BrgContext\KategoriAgg\KategoriWriter.cs" />
+    <Compile Include="FinanceContext\PiutangAgg\Contracts\IPenerimaanPelunasanSalesDal.cs" />
     <Compile Include="FinanceContext\PiutangAgg\Contracts\IPiutangDal.cs" />
     <Compile Include="FinanceContext\PiutangAgg\Contracts\IPIutangElementDal.cs" />
     <Compile Include="FinanceContext\PiutangAgg\Contracts\IPiutangLunasDal.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="FinanceContext\PiutangAgg\UseCases\CancelPiutangWorker.cs" />
     <Compile Include="FinanceContext\PiutangAgg\UseCases\CreatePiutangWorker.cs" />
     <Compile Include="FinanceContext\PiutangAgg\UseCases\AddLunasPiutangWorker.cs" />
+    <Compile Include="FinanceContext\PiutangAgg\UseCases\RemoveLunasPiutangWorker.cs" />
     <Compile Include="FinanceContext\PiutangAgg\Workers\PiutangBuilder.cs" />
     <Compile Include="FinanceContext\PiutangAgg\Workers\PiutangWriter.cs" />
     <Compile Include="InventoryContext\DriverAgg\IDriverDal.cs" />

@@ -32,6 +32,7 @@ using btr.distrib.InventoryContext.OmzetSupplierRpt;
 using btr.distrib.PurchaseContext.InvoiceInfo;
 using btr.distrib.InventoryContext.KartuStokRpt;
 using btr.distrib.FinanceContext.PiutangSalesWilayahRpt;
+using btr.distrib.FinanceContext.PenerimaanPelunasanSalesRpt;
 
 namespace btr.distrib.SharedForm
 {
@@ -373,6 +374,16 @@ namespace btr.distrib.SharedForm
             if (BringMdiChildToFrontIfLoaded<PiutangSalesWilayahForm>())
                 return;
             var form = _servicesProvider.GetRequiredService<PiutangSalesWilayahForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void PenerimaanSalesButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<PenerimaanPelunasanSalesForm>())
+                return;
+            var form = _servicesProvider.GetRequiredService<PenerimaanPelunasanSalesForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

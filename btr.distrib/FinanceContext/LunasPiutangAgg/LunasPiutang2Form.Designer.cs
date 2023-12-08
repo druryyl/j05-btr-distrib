@@ -81,9 +81,7 @@
             // ListPiutangGrid
             // 
             this.ListPiutangGrid.AlphaBlendSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.ListPiutangGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListPiutangGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.ListPiutangGrid.BackColor = System.Drawing.SystemColors.Window;
             this.ListPiutangGrid.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ListPiutangGrid.Location = new System.Drawing.Point(6, 51);
@@ -116,11 +114,7 @@
             // 
             this.AdminText.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AdminText.Location = new System.Drawing.Point(186, 48);
-            this.AdminText.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
+            this.AdminText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
             this.AdminText.Name = "AdminText";
             this.AdminText.Size = new System.Drawing.Size(160, 20);
             this.AdminText.TabIndex = 10;
@@ -131,11 +125,7 @@
             // 
             this.MateraiText.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MateraiText.Location = new System.Drawing.Point(186, 22);
-            this.MateraiText.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
+            this.MateraiText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
             this.MateraiText.Name = "MateraiText";
             this.MateraiText.Size = new System.Drawing.Size(160, 20);
             this.MateraiText.TabIndex = 9;
@@ -146,11 +136,7 @@
             // 
             this.PotonganText.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PotonganText.Location = new System.Drawing.Point(9, 48);
-            this.PotonganText.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
+            this.PotonganText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
             this.PotonganText.Name = "PotonganText";
             this.PotonganText.Size = new System.Drawing.Size(160, 20);
             this.PotonganText.TabIndex = 8;
@@ -170,11 +156,7 @@
             // 
             this.ReturText.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReturText.Location = new System.Drawing.Point(9, 22);
-            this.ReturText.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
+            this.ReturText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
             this.ReturText.Name = "ReturText";
             this.ReturText.Size = new System.Drawing.Size(160, 20);
             this.ReturText.TabIndex = 6;
@@ -192,8 +174,7 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.Thistle;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.SearchButton);
@@ -319,7 +300,6 @@
             // 
             this.FakturCodeText.Location = new System.Drawing.Point(9, 76);
             this.FakturCodeText.Name = "FakturCodeText";
-            this.FakturCodeText.ReadOnly = true;
             this.FakturCodeText.Size = new System.Drawing.Size(159, 22);
             this.FakturCodeText.TabIndex = 2;
             // 
@@ -392,9 +372,7 @@
             // 
             // JenisBayarCombo
             // 
-            this.JenisBayarCombo.AutoCompleteCustomSource.AddRange(new string[] {
-            "Tunai",
-            "BG / Transfer"});
+            this.JenisBayarCombo.AutoCompleteCustomSource.AddRange(new string[] { "Tunai", "BG / Transfer" });
             this.JenisBayarCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.JenisBayarCombo.FormattingEnabled = true;
             this.JenisBayarCombo.Location = new System.Drawing.Point(185, 23);
@@ -463,11 +441,7 @@
             // NilaiPelunasanText
             // 
             this.NilaiPelunasanText.Location = new System.Drawing.Point(9, 22);
-            this.NilaiPelunasanText.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
+            this.NilaiPelunasanText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
             this.NilaiPelunasanText.Name = "NilaiPelunasanText";
             this.NilaiPelunasanText.Size = new System.Drawing.Size(160, 20);
             this.NilaiPelunasanText.TabIndex = 2;
@@ -485,8 +459,7 @@
             // 
             // BayarGrid
             // 
-            this.BayarGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BayarGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Right)));
             this.BayarGrid.BackgroundColor = System.Drawing.Color.Maroon;
             this.BayarGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.BayarGrid.Location = new System.Drawing.Point(834, 408);
@@ -525,7 +498,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.NilaiPelunasanText)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BayarGrid)).EndInit();
             this.ResumeLayout(false);
-
         }
 
         #endregion

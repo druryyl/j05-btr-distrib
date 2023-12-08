@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="BrgContext\HargaTypeAgg\HargaTypeDal.cs" />
     <Compile Include="BrgContext\JenisBrgAgg\JenisBrgDal.cs" />
+    <Compile Include="FinanceContext\PiutangAgg\PenerimaanPelunasanSalesDal.cs" />
     <Compile Include="FinanceContext\PiutangAgg\PiutangDal.cs" />
     <Compile Include="FinanceContext\PiutangAgg\PiutangElementDal.cs" />
     <Compile Include="FinanceContext\PiutangAgg\PiutangLunasDal.cs" />

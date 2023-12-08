@@ -64,7 +64,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             //  WRITE
             using (var trans = TransHelper.NewScope())
             {
-                var db = _fakturDal.GetData(model);
+                var db = _fakturDal.GetData((IFakturKey)model);
                 if (db is null)
                     _fakturDal.Insert(model);
                 else

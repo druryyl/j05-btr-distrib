@@ -10,6 +10,11 @@
 	NamaBank VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_PiutangLunas_NamaBank DEFAULT(''),
 	AtasNamaBank VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_PiutangLunas_AtasNamaBank DEFAULT(''),
 
-
 	CONSTRAINT PK_BTR_PiutangLunas PRIMARY KEY CLUSTERED(PiutangId, NoUrut)
 )
+GO
+
+CREATE INDEX IX_BTR_PiutangLunas_LunasDate 
+	ON [dbo].[BTR_PiutangLunas](LunasDate, PiutangId, NoUrut)
+	WITH(FILLFACTOR=95)
+GO

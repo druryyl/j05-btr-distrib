@@ -265,5 +265,40 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 return conn.Read<FakturPackingView>(sql, dp);
             }
         }
+
+        public FakturModel GetData(IFakturCode key)
+        {
+            const string sql = @"
+            SELECT
+                aa.FakturId, aa.FakturDate, aa.FakturCode, aa.SalesPersonId, aa.CustomerId, aa.HargaTypeId,
+                aa.WarehouseId, aa.TglRencanaKirim, aa.TermOfPayment, aa.DueDate, aa.Total,
+                aa.Discount, aa.Tax, aa.GrandTotal, aa.UangMuka, aa.KurangBayar, aa.NoFakturPajak,
+                aa.CreateTime, aa.LastUpdate, aa.UserId, aa.VoidDate, aa.UserIdVoid,
+                ISNULL(bb.SalesPersonName, '') AS SalesPersonName,
+                ISNULL(cc.CustomerName, '') AS CustomerName,
+                ISNULL(cc.CustomerCode, '') AS CustomerCode,
+                ISNULL(cc.Npwp, '') AS Npwp,
+                ISNULL(cc.Plafond, 0) AS Plafond,
+                ISNULL(cc.CreditBalance, 0) AS CreditBalance,
+                ISNULL(cc.Address1, '') AS Address,
+                ISNULL(cc.Kota, '') AS Kota,
+                ISNULL(dd.WarehouseName, '') AS WarehouseName
+            FROM 
+                BTR_Faktur aa
+                LEFT JOIN BTR_SalesPerson bb ON aa.SalesPersonId = bb.SalesPersonId
+                LEFT JOIN BTR_Customer cc ON aa.CustomerId = cc.CustomerId
+                LEFT JOIN BTR_Warehouse dd on aa.WarehouseId = dd.WarehouseId
+            WHERE
+                aa.FakturCode = @FakturCode ";
+
+            var dp = new DynamicParameters();
+            dp.AddParam("@FakturCode", key.FakturCode, SqlDbType.VarChar);
+
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                return conn.ReadSingle<FakturModel>(sql, dp);
+            }
+
+        }
     }
 }

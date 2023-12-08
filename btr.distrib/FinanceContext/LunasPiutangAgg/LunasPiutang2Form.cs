@@ -16,6 +16,9 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using btr.application.SalesContext.FakturAgg.Contracts;
+using btr.domain.SupportContext.UserAgg;
+using Polly;
 
 namespace btr.distrib.FinanceContext.LunasPiutangAgg
 {
@@ -24,7 +27,9 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
         private readonly IPiutangBuilder _piutangBuilder;
         private readonly IPiutangLunasViewDal _piutangLunasViewDal;
         private readonly IFakturBuilder _fakturBuilder;
+        private readonly IFakturDal _fakturDal;
         private readonly IAddLunasPiutangWorker _addLunasPiutangWorker;
+        private readonly IRemoveLunasPiutangWorker _removeLunasPiutangWorker;
         
         private BindingList<PiutangLunasView> _listPiutangLunasView;
         private BindingList<LunasPiutangBayarView> _listLunasPiutangBayar;
@@ -35,18 +40,34 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
         public LunasPiutang2Form(IPiutangLunasViewDal piutangLunasViewDal,
             IPiutangBuilder piutangBuilder,
             IFakturBuilder fakturBuilder,
-            IAddLunasPiutangWorker addLunasPiutangWorker)
+            IAddLunasPiutangWorker addLunasPiutangWorker, IFakturDal fakturDal, 
+            IRemoveLunasPiutangWorker removeLunasPiutangWorker)
         {
             _piutangLunasViewDal = piutangLunasViewDal;
             _piutangBuilder = piutangBuilder;
             _fakturBuilder = fakturBuilder;
+            _addLunasPiutangWorker = addLunasPiutangWorker;
+            _fakturDal = fakturDal;
+            _removeLunasPiutangWorker = removeLunasPiutangWorker;
 
+            //NilaiPelunasanText.Maximum = 999999999;
+            //NilaiPelunasanText.Minimum = -999999999;
+            //ReturText.Maximum = 999999999;
+            //ReturText.Minimum = -999999999;
+            //PotonganText.Maximum = 999999999;
+            //PotonganText.Minimum = -999999999;
+            //MateraiText.Maximum = 999999999;
+            //MateraiText.Minimum = -999999999;
+            //AdminText.Maximum = 999999999;
+            //AdminText.Minimum = -999999999;
+            
+
+            
             InitializeComponent();
             InitGrid();
             IniGridBayar();
             InitJenisBayarCombo();
             RegisterEventHandler();
-            _addLunasPiutangWorker = addLunasPiutangWorker;
         }
 
         private void InitJenisBayarCombo()
@@ -69,6 +90,61 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             SaveButton.Click += SaveButton_Click;
             JenisBayarCombo.SelectedIndexChanged += JenisBayarCombo_SelectedIndexChanged;
             NilaiPelunasanText.KeyDown += NilaiPelunasanText_KeyDown;
+            FakturCodeText.Validating += FakturCodeText_Validating;
+            FakturCodeText.KeyDown += FakturCodeText_KeyDown;
+            BayarGrid.CellDoubleClick += BayarGrid_CellDoubleClick;
+        }
+
+        private void FakturCodeText_KeyDown(object sender, KeyEventArgs e)
+        {
+            var textBox = sender as TextBox;
+            if (e.KeyCode == Keys.Enter) 
+                //  set focus to next control
+                SelectNextControl(textBox, true, true, true, true);
+        }
+
+        private void BayarGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var grid = sender as DataGridView;
+            if (e.RowIndex == -1) return;
+            if (e.RowIndex == 0) return;
+            if (e.RowIndex == grid?.Rows.Count - 1) return;
+            
+            var deleted = _listLunasPiutangBayar[e.RowIndex];
+            _listLunasPiutangBayar.Remove(deleted);
+            BayarGrid.Refresh();
+            var removeLunasReq = new RemoveLunasPiutangRequest
+            {
+                PiutangId = _piutangId,
+                NoUrut = e.RowIndex
+            };
+            _removeLunasPiutangWorker.Execute(removeLunasReq);
+            
+            NilaiPelunasanText.Value = Math.Abs(deleted.Nilai);
+            JenisBayarCombo.SelectedIndex = deleted.Keterangan == "Pelunasan Cash" ? 0 : 1;
+            JatuhTempBgText.Value = deleted.Tgl;
+            NoRekBgText.Text = string.Empty;
+            BankNameText.Text = string.Empty;
+            AtasNamaText.Text = string.Empty;
+        }
+
+        private void FakturCodeText_Validating(object sender, CancelEventArgs e)
+        {
+            IFakturCode fakturCode = new FakturModel { FakturCode = FakturCodeText.Text };
+            var fakturKey = _fakturDal.GetData(fakturCode) ?? new FakturModel(string.Empty);
+            var fallback = Policy
+                .Handle<KeyNotFoundException>()
+                .Fallback(() =>
+                {
+                    if (FakturCodeText.Text == string.Empty)
+                    {
+                        ClearInputForm();                        
+                        return;
+                    }
+                    MessageBox.Show(@"Faktur not found");
+                    e.Cancel = true;
+                });
+            fallback.Execute(() => LoadPiutang(fakturKey.FakturId));
         }
 
         private void NilaiPelunasanText_KeyDown(object sender, KeyEventArgs e)
@@ -161,6 +237,11 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
+            Save();
+        }
+
+        private void Save()
+        {
             var addLunasReq = new AddLunasPiutangRequest
             {
                 PiutangId = _piutangId,
@@ -169,7 +250,7 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
                 Materai = MateraiText.Value,
                 Admin = AdminText.Value,
                 Nilai = NilaiPelunasanText.Value,
-                JenisLunas = JenisBayarCombo.Text == "Tunai" ? JenisLunasEnum.Cash : JenisLunasEnum.CekBg,
+                JenisLunas = JenisBayarCombo.Text == @"Tunai" ? JenisLunasEnum.Cash : JenisLunasEnum.CekBg,
                 LunasDate = LunasDateText.Value,
                 JatuhTempoBg = JatuhTempBgText.Value,
                 NoBgRek = NoRekBgText.Text,
@@ -188,8 +269,35 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
 
         }
 
+        private void ClearInputForm()
+        {
+            CustomerText.Text = string.Empty;
+            AddressText.Text = string.Empty;
+
+            FakturCodeText.Text = string.Empty;
+            TglFakturText.Value= DateTime.Now;
+            JatuhTempoText.Value = DateTime.Now;
+            SalesText.Text = string.Empty;
+            LunasDateText.Value = DateTime.Now;
+            
+            ReturText.Value = 0;
+            PotonganText.Value = 0;
+            MateraiText.Value = 0;
+            AdminText.Value = 0;
+            NilaiPelunasanText.Value = 0;
+            JenisBayarCombo.SelectedIndex = 0;
+            JatuhTempBgText.Value = DateTime.Now;
+            NoRekBgText.Text = string.Empty;
+            BankNameText.Text = string.Empty;
+            AtasNamaText.Text = string.Empty;
+            _listLunasPiutangBayar = new BindingList<LunasPiutangBayarView>();
+            BayarGrid.DataSource = _listLunasPiutangBayar;
+            BayarGrid.Refresh();
+        }
+        
         private void LoadPiutang(string piutangId)
         {
+            ClearInputForm();
             var piutang = _piutangBuilder.Load(new PiutangModel(piutangId)).Build();
             var faktur = _fakturBuilder.Load(new FakturModel(piutang.PiutangId)).Build();
             var fc = faktur.FakturCode;
@@ -197,7 +305,7 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             CustomerText.Text = piutang.CustomerName;
             AddressText.Text = faktur.Address;
 
-            FakturCodeText.Text = $@"{fc[0]}-{fc.Substring(1,3)}-{fc.Substring(4,4)}";
+            FakturCodeText.Text = fc;
             TglFakturText.Text= piutang.PiutangDate.ToString("dd MMM yyyy");
             JatuhTempoText.Text = piutang.DueDate.ToString("dd MMM yyyy");
             SalesText.Text = faktur.SalesPersonName;

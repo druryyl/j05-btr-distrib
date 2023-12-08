@@ -23,6 +23,7 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
         IPiutangBuilder AddMinusElement(string name, decimal value);
         IPiutangBuilder AddLunasCash(decimal value, DateTime lunasDate);
         IPiutangBuilder AddLunasBg(decimal value, DateTime lunasDate, DateTime jatuhTempo, string namaBank, string noRek, string atasNama);
+        IPiutangBuilder RemoveLunas(int noUrut);
     }
     public class PiutangBuilder : IPiutangBuilder
     {
@@ -177,6 +178,8 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
 
         public IPiutangBuilder AddLunasBg(decimal value, DateTime lunasDate, DateTime jatuhTempo, string namaBank, string noRek, string atasNama)
         {
+            if (value == 0)
+                return this;
             var lunas = new PiutangLunasModel
             {
                 LunasDate = lunasDate,
@@ -189,6 +192,13 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
             };
             lunas.RemoveNull();
             addLunas(lunas);
+            return this;
+        }
+
+        public IPiutangBuilder RemoveLunas(int noUrut)
+        {
+            _aggregate.ListLunas.RemoveAll(x => x.NoUrut == noUrut);
+            ReCalc();
             return this;
         }
     }

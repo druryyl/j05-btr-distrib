@@ -10,3 +10,9 @@
 
 	CONSTRAINT PK_BTR_Piutang PRIMARY KEY CLUSTERED(PiutangId)
 )
+GO
+
+CREATE INDEX IX_BTR_Piutang_PiutangDate 
+	ON [dbo].[BTR_Piutang](PiutangDate, PiutangId)
+	WITH(FILLFACTOR=95)
+GO

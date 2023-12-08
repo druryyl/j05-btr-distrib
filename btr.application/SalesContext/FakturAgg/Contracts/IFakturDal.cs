@@ -10,6 +10,7 @@ namespace btr.application.SalesContext.FakturAgg.Contracts
         IUpdate<FakturModel>,
         IDelete<IFakturKey>,
         IGetData<FakturModel, IFakturKey>,
+        IGetData<FakturModel, IFakturCode>,
         IListData<FakturModel, Periode>
     {
         IEnumerable<FakturPackingView> ListDataPacking(Periode periode);
