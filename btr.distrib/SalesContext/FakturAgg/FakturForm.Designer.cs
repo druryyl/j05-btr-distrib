@@ -705,6 +705,7 @@
             this.Controls.Add(this.panel3);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "FakturForm";
+            this.Text = "Faktur Penjualan";
             this.PanelAtas4.ResumeLayout(false);
             this.PanelAtas4.PerformLayout();
             this.VoidPanel.ResumeLayout(false);

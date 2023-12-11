@@ -437,6 +437,12 @@
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceForm.Designer.cs">
       <DependentUpon>InvoiceForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PurchaseContext\InvoiceHarianDetilRpt\InvoiceHarianDetilForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PurchaseContext\InvoiceHarianDetilRpt\InvoiceHarianDetilForm.Designer.cs">
+      <DependentUpon>InvoiceHarianDetilForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="PurchaseContext\InvoiceInfo\InvoiceBrgInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -506,6 +512,12 @@
     </Compile>
     <Compile Include="SalesContext\FakturInfoRpt\FakturInfoForm.Designer.cs">
       <DependentUpon>FakturInfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SalesContext\FakturPerCustomerRpt\FakturPerCustomerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SalesContext\FakturPerCustomerRpt\FakturPerCustomerForm.Designer.cs">
+      <DependentUpon>FakturPerCustomerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SalesContext\FakturPerSupplierRpt\FakturPerSupplierForm.cs">
       <SubType>Form</SubType>
@@ -620,6 +632,9 @@
     <EmbeddedResource Include="PurchaseContext\InvoiceAgg\InvoiceForm.resx">
       <DependentUpon>InvoiceForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PurchaseContext\InvoiceHarianDetilRpt\InvoiceHarianDetilForm.resx">
+      <DependentUpon>InvoiceHarianDetilForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PurchaseContext\InvoiceInfo\InvoiceBrgInfoForm.resx">
       <DependentUpon>InvoiceBrgInfoForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -634,6 +649,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SalesContext\FakturInfoRpt\FakturInfoForm.resx">
       <DependentUpon>FakturInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SalesContext\FakturPerCustomerRpt\FakturPerCustomerForm.resx">
+      <DependentUpon>FakturPerCustomerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SalesContext\FakturPerSupplierRpt\FakturPerSupplierForm.resx">
       <DependentUpon>FakturPerSupplierForm.cs</DependentUpon>

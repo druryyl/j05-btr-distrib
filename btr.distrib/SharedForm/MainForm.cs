@@ -35,6 +35,9 @@ using btr.distrib.FinanceContext.PiutangSalesWilayahRpt;
 using btr.distrib.FinanceContext.PenerimaanPelunasanSalesRpt;
 using btr.distrib.InventoryContext.StokBrgSupplierRpt;
 using btr.distrib.SalesContext.FakturPerSupplierRpt;
+using btr.distrib.SalesContext.FakturPerCustomerRpt;
+using btr.application.PurchaseContext.InvoiceHarianDetilRpt;
+using btr.distrib.PurchaseContext.InvoiceHarianDetilRpt;
 
 namespace btr.distrib.SharedForm
 {
@@ -409,6 +412,27 @@ namespace btr.distrib.SharedForm
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
+        }
+
+        private void FakturPerCustomerButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<FakturPerCustomerForm>())
+                return;
+            var form = _servicesProvider.GetRequiredService<FakturPerCustomerForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void InvoiceHarianDetilButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<InvoiceHarianDetilForm>())
+                return;
+            var form = _servicesProvider.GetRequiredService<InvoiceHarianDetilForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+
         }
     }
 }

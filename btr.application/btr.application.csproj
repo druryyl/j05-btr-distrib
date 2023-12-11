@@ -189,6 +189,7 @@
     <Compile Include="PurchaseContext\InvoiceAgg\SaveInvoiceWorker.cs" />
     <Compile Include="PurchaseContext\InvoiceBrgInfo\IInvoiceBrgViewDal.cs" />
     <Compile Include="PurchaseContext\InvoiceBrgInfo\InvoiceBrgViewDto.cs" />
+    <Compile Include="PurchaseContext\InvoiceHarianDetilRpt\IInvoiceHarianDetilDal.cs" />
     <Compile Include="PurchaseContext\InvoiceInfo\IInvoiceViewDal.cs" />
     <Compile Include="PurchaseContext\InvoiceInfo\InvoiceView.cs" />
     <Compile Include="PurchaseContext\PurchaseOrderAgg\Contracts\IPurchaseOrderDal.cs" />
@@ -238,6 +239,7 @@
     <Compile Include="SalesContext\FakturPajakVoidAgg\FaktuPajakVoidWriter.cs" />
     <Compile Include="SalesContext\FakturPajakVoidAgg\FakturPajakVoidBuilder.cs" />
     <Compile Include="SalesContext\FakturPajakVoidAgg\IFakturPajakVoidDal.cs" />
+    <Compile Include="SalesContext\FakturPerCustomerRpt\IFakturPerCustomerDal.cs" />
     <Compile Include="SalesContext\FakturPerSupplierRpt\IFakturPerSupplierDal.cs" />
     <Compile Include="SalesContext\KlasifikasiAgg\IKlasifikasiDal.cs" />
     <Compile Include="SalesContext\AlokasiFpAgg\IAlokasiFpDal.cs" />

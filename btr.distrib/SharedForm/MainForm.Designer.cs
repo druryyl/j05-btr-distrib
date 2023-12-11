@@ -35,6 +35,8 @@
             this.FakturButton = new System.Windows.Forms.RibbonButton();
             this.FakturInfoButton = new System.Windows.Forms.RibbonButton();
             this.FakturBrgInfoButton = new System.Windows.Forms.RibbonButton();
+            this.FakturPerSupplierButton = new System.Windows.Forms.RibbonButton();
+            this.FakturPerCustomerButton = new System.Windows.Forms.RibbonButton();
             this.ribbonSeparator2 = new System.Windows.Forms.RibbonSeparator();
             this.ControlFakturButton = new System.Windows.Forms.RibbonButton();
             this.FakturPajakButton = new System.Windows.Forms.RibbonButton();
@@ -52,6 +54,7 @@
             this.InvoiceButton = new System.Windows.Forms.RibbonButton();
             this.InvoiceInfoButton = new System.Windows.Forms.RibbonButton();
             this.InvoiceBrgInfoButton = new System.Windows.Forms.RibbonButton();
+            this.InvoiceHarianDetilButton = new System.Windows.Forms.RibbonButton();
             this.InvoiceRibbonPanel = new System.Windows.Forms.RibbonPanel();
             this.InvoiceReportButton = new System.Windows.Forms.RibbonButton();
             this.MasterPurchaseRibbonPanel = new System.Windows.Forms.RibbonPanel();
@@ -85,7 +88,6 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.FakturPerSupplierButton = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -130,6 +132,7 @@
             this.FakturPanel.Items.Add(this.FakturInfoButton);
             this.FakturPanel.Items.Add(this.FakturBrgInfoButton);
             this.FakturPanel.Items.Add(this.FakturPerSupplierButton);
+            this.FakturPanel.Items.Add(this.FakturPerCustomerButton);
             this.FakturPanel.Items.Add(this.ribbonSeparator2);
             this.FakturPanel.Items.Add(this.ControlFakturButton);
             this.FakturPanel.Items.Add(this.FakturPajakButton);
@@ -164,6 +167,24 @@
             this.FakturBrgInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FakturBrgInfoButton.SmallImage")));
             this.FakturBrgInfoButton.Text = "FakturBrg Info";
             this.FakturBrgInfoButton.Click += new System.EventHandler(this.FakturBrgInfoButton_Click);
+            // 
+            // FakturPerSupplierButton
+            // 
+            this.FakturPerSupplierButton.Image = global::btr.distrib.Properties.Resources.icons8_documents;
+            this.FakturPerSupplierButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents;
+            this.FakturPerSupplierButton.Name = "FakturPerSupplierButton";
+            this.FakturPerSupplierButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FakturPerSupplierButton.SmallImage")));
+            this.FakturPerSupplierButton.Text = "Faktur-Per Supplier";
+            this.FakturPerSupplierButton.Click += new System.EventHandler(this.FakturPerSupplierButton_Click);
+            // 
+            // FakturPerCustomerButton
+            // 
+            this.FakturPerCustomerButton.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.FakturPerCustomerButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.FakturPerCustomerButton.Name = "FakturPerCustomerButton";
+            this.FakturPerCustomerButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FakturPerCustomerButton.SmallImage")));
+            this.FakturPerCustomerButton.Text = "Faktur-Per Customer";
+            this.FakturPerCustomerButton.Click += new System.EventHandler(this.FakturPerCustomerButton_Click);
             // 
             // ribbonSeparator2
             // 
@@ -267,6 +288,7 @@
             this.PurchaseOrderRibbonPanel.Items.Add(this.InvoiceButton);
             this.PurchaseOrderRibbonPanel.Items.Add(this.InvoiceInfoButton);
             this.PurchaseOrderRibbonPanel.Items.Add(this.InvoiceBrgInfoButton);
+            this.PurchaseOrderRibbonPanel.Items.Add(this.InvoiceHarianDetilButton);
             this.PurchaseOrderRibbonPanel.Name = "PurchaseOrderRibbonPanel";
             this.PurchaseOrderRibbonPanel.Text = "Transaction";
             this.PurchaseOrderRibbonPanel.Click += new System.EventHandler(this.PurchaseOrderRibbonPanel_Click);
@@ -305,6 +327,15 @@
             this.InvoiceBrgInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("InvoiceBrgInfoButton.SmallImage")));
             this.InvoiceBrgInfoButton.Text = "Invoice-Brg Info";
             this.InvoiceBrgInfoButton.Click += new System.EventHandler(this.InvoiceBrgInfoButton_Click);
+            // 
+            // InvoiceHarianDetilButton
+            // 
+            this.InvoiceHarianDetilButton.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.InvoiceHarianDetilButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.InvoiceHarianDetilButton.Name = "InvoiceHarianDetilButton";
+            this.InvoiceHarianDetilButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("InvoiceHarianDetilButton.SmallImage")));
+            this.InvoiceHarianDetilButton.Text = "Invoice Harian-Detil";
+            this.InvoiceHarianDetilButton.Click += new System.EventHandler(this.InvoiceHarianDetilButton_Click);
             // 
             // InvoiceRibbonPanel
             // 
@@ -581,15 +612,6 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
-            // FakturPerSupplierButton
-            // 
-            this.FakturPerSupplierButton.Image = global::btr.distrib.Properties.Resources.icons8_documents;
-            this.FakturPerSupplierButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents;
-            this.FakturPerSupplierButton.Name = "FakturPerSupplierButton";
-            this.FakturPerSupplierButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FakturPerSupplierButton.SmallImage")));
-            this.FakturPerSupplierButton.Text = "Faktur-Per Supplier";
-            this.FakturPerSupplierButton.Click += new System.EventHandler(this.FakturPerSupplierButton_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -672,5 +694,7 @@
         private System.Windows.Forms.RibbonButton PenerimaanSalesButton;
         private System.Windows.Forms.RibbonButton StokPerSupplierButton;
         private System.Windows.Forms.RibbonButton FakturPerSupplierButton;
+        private System.Windows.Forms.RibbonButton FakturPerCustomerButton;
+        private System.Windows.Forms.RibbonButton InvoiceHarianDetilButton;
     }
 }
