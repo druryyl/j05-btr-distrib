@@ -229,7 +229,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
 
             var fakturKey = new FakturModel(grid.CurrentRow.Cells["FakturId"].Value.ToString());
             var mainMenu = (MainForm)this.Parent.Parent;
-            mainMenu.FakturButton_Click(null, null);
+            mainMenu.ST1FakturButton_Click(null, null);
             var fakturForm = Application.OpenForms.OfType<FakturForm>().FirstOrDefault();
             fakturForm?.ShowFaktur(fakturKey.FakturId);
         }

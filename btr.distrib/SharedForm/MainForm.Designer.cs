@@ -32,53 +32,55 @@
             this.ribbon1 = new System.Windows.Forms.Ribbon();
             this.SalesTab = new System.Windows.Forms.RibbonTab();
             this.FakturPanel = new System.Windows.Forms.RibbonPanel();
-            this.FakturButton = new System.Windows.Forms.RibbonButton();
-            this.FakturInfoButton = new System.Windows.Forms.RibbonButton();
-            this.FakturBrgInfoButton = new System.Windows.Forms.RibbonButton();
-            this.FakturPerSupplierButton = new System.Windows.Forms.RibbonButton();
-            this.FakturPerCustomerButton = new System.Windows.Forms.RibbonButton();
-            this.ribbonSeparator2 = new System.Windows.Forms.RibbonSeparator();
-            this.ControlFakturButton = new System.Windows.Forms.RibbonButton();
-            this.FakturPajakButton = new System.Windows.Forms.RibbonButton();
-            this.ribbonSeparator3 = new System.Windows.Forms.RibbonSeparator();
-            this.ReturJualButton = new System.Windows.Forms.RibbonButton();
+            this.ST1FakturButton = new System.Windows.Forms.RibbonButton();
+            this.ST2ControlFakturButton = new System.Windows.Forms.RibbonButton();
+            this.SalesInfoPanel = new System.Windows.Forms.RibbonPanel();
+            this.SF1FakturButton = new System.Windows.Forms.RibbonButton();
+            this.SF2FakturBrgButton = new System.Windows.Forms.RibbonButton();
+            this.SF3FakturSupplierButton = new System.Windows.Forms.RibbonButton();
+            this.SF4FakturCustomerButton = new System.Windows.Forms.RibbonButton();
             this.MasterSalesPanel = new System.Windows.Forms.RibbonPanel();
             this.OutletButton = new System.Windows.Forms.RibbonButton();
             this.KategoriButton = new System.Windows.Forms.RibbonButton();
             this.ribbonSeparator1 = new System.Windows.Forms.RibbonSeparator();
             this.SalesPersonButton = new System.Windows.Forms.RibbonButton();
             this.WilayahButton = new System.Windows.Forms.RibbonButton();
+            this.TaxTab = new System.Windows.Forms.RibbonTab();
+            this.TaxTransactionPanel = new System.Windows.Forms.RibbonPanel();
+            this.TT1FakturPajakButon = new System.Windows.Forms.RibbonButton();
+            this.ReturTab = new System.Windows.Forms.RibbonTab();
+            this.ReturTransactionPanel = new System.Windows.Forms.RibbonPanel();
+            this.RT1ReturJualButton = new System.Windows.Forms.RibbonButton();
+            this.ReturInfoPanel = new System.Windows.Forms.RibbonPanel();
             this.PurchaseTab = new System.Windows.Forms.RibbonTab();
             this.PurchaseOrderRibbonPanel = new System.Windows.Forms.RibbonPanel();
-            this.PoButton = new System.Windows.Forms.RibbonButton();
             this.InvoiceButton = new System.Windows.Forms.RibbonButton();
-            this.InvoiceInfoButton = new System.Windows.Forms.RibbonButton();
-            this.InvoiceBrgInfoButton = new System.Windows.Forms.RibbonButton();
-            this.InvoiceHarianDetilButton = new System.Windows.Forms.RibbonButton();
             this.InvoiceRibbonPanel = new System.Windows.Forms.RibbonPanel();
-            this.InvoiceReportButton = new System.Windows.Forms.RibbonButton();
+            this.P01InvoiceInfoButton = new System.Windows.Forms.RibbonButton();
+            this.P2InvoiceBrgInfoButton = new System.Windows.Forms.RibbonButton();
+            this.P3InvoiceHarianInfoButton = new System.Windows.Forms.RibbonButton();
             this.MasterPurchaseRibbonPanel = new System.Windows.Forms.RibbonPanel();
             this.SupplierButton = new System.Windows.Forms.RibbonButton();
             this.InventoryTab = new System.Windows.Forms.RibbonTab();
             this.InventoryTrsPanel = new System.Windows.Forms.RibbonPanel();
-            this.OpnameButton = new System.Windows.Forms.RibbonButton();
-            this.ImportExcelOpnameButton = new System.Windows.Forms.RibbonButton();
-            this.PrintFakturButton = new System.Windows.Forms.RibbonButton();
-            this.PackingButton = new System.Windows.Forms.RibbonButton();
-            this.MutasiButton = new System.Windows.Forms.RibbonButton();
+            this.IT1OpnameButton = new System.Windows.Forms.RibbonButton();
+            this.IT2PrintFakturButton = new System.Windows.Forms.RibbonButton();
+            this.IT3PackingButton = new System.Windows.Forms.RibbonButton();
+            this.IT4MutasiButton = new System.Windows.Forms.RibbonButton();
             this.ReportingPanel = new System.Windows.Forms.RibbonPanel();
-            this.StokBalanceButton = new System.Windows.Forms.RibbonButton();
-            this.BukuStokButton = new System.Windows.Forms.RibbonButton();
-            this.OmzetPerSupplierButton = new System.Windows.Forms.RibbonButton();
-            this.StokPerSupplierButton = new System.Windows.Forms.RibbonButton();
+            this.IF1StokBalanceButton = new System.Windows.Forms.RibbonButton();
+            this.IF2KartuStokButton = new System.Windows.Forms.RibbonButton();
+            this.IF3OmzetPerSupplierButton = new System.Windows.Forms.RibbonButton();
+            this.IF4StokPerSupplierButton = new System.Windows.Forms.RibbonButton();
             this.InventoryMasterPanel = new System.Windows.Forms.RibbonPanel();
             this.BrgButton = new System.Windows.Forms.RibbonButton();
             this.WarehouseButton = new System.Windows.Forms.RibbonButton();
             this.FinanceTab = new System.Windows.Forms.RibbonTab();
             this.ribbonPanel1 = new System.Windows.Forms.RibbonPanel();
-            this.LunasPiutangButton = new System.Windows.Forms.RibbonButton();
-            this.PiutangSalesWilayahButton = new System.Windows.Forms.RibbonButton();
-            this.PenerimaanSalesButton = new System.Windows.Forms.RibbonButton();
+            this.FT1LunasPiutangButton = new System.Windows.Forms.RibbonButton();
+            this.FinanceInfoTab = new System.Windows.Forms.RibbonPanel();
+            this.FF1PiutangSalesWilayahButton = new System.Windows.Forms.RibbonButton();
+            this.FF2PenerimaanSalesButton = new System.Windows.Forms.RibbonButton();
             this.SettingTab = new System.Windows.Forms.RibbonTab();
             this.DeliveryPanel = new System.Windows.Forms.RibbonPanel();
             this.UserButton = new System.Windows.Forms.RibbonButton();
@@ -107,9 +109,11 @@
             this.ribbon1.OrbDropDown.Size = new System.Drawing.Size(527, 72);
             this.ribbon1.OrbDropDown.TabIndex = 0;
             this.ribbon1.RibbonTabFont = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ribbon1.Size = new System.Drawing.Size(876, 121);
+            this.ribbon1.Size = new System.Drawing.Size(1139, 121);
             this.ribbon1.TabIndex = 2;
             this.ribbon1.Tabs.Add(this.SalesTab);
+            this.ribbon1.Tabs.Add(this.TaxTab);
+            this.ribbon1.Tabs.Add(this.ReturTab);
             this.ribbon1.Tabs.Add(this.PurchaseTab);
             this.ribbon1.Tabs.Add(this.InventoryTab);
             this.ribbon1.Tabs.Add(this.FinanceTab);
@@ -121,6 +125,7 @@
             // 
             this.SalesTab.Name = "SalesTab";
             this.SalesTab.Panels.Add(this.FakturPanel);
+            this.SalesTab.Panels.Add(this.SalesInfoPanel);
             this.SalesTab.Panels.Add(this.MasterSalesPanel);
             this.SalesTab.Text = "Sales";
             // 
@@ -128,99 +133,73 @@
             // 
             this.FakturPanel.ButtonMoreEnabled = false;
             this.FakturPanel.ButtonMoreVisible = false;
-            this.FakturPanel.Items.Add(this.FakturButton);
-            this.FakturPanel.Items.Add(this.FakturInfoButton);
-            this.FakturPanel.Items.Add(this.FakturBrgInfoButton);
-            this.FakturPanel.Items.Add(this.FakturPerSupplierButton);
-            this.FakturPanel.Items.Add(this.FakturPerCustomerButton);
-            this.FakturPanel.Items.Add(this.ribbonSeparator2);
-            this.FakturPanel.Items.Add(this.ControlFakturButton);
-            this.FakturPanel.Items.Add(this.FakturPajakButton);
-            this.FakturPanel.Items.Add(this.ribbonSeparator3);
-            this.FakturPanel.Items.Add(this.ReturJualButton);
+            this.FakturPanel.Items.Add(this.ST1FakturButton);
+            this.FakturPanel.Items.Add(this.ST2ControlFakturButton);
             this.FakturPanel.Name = "FakturPanel";
-            this.FakturPanel.Text = "";
+            this.FakturPanel.Text = "Transaction";
             // 
-            // FakturButton
+            // ST1FakturButton
             // 
-            this.FakturButton.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
-            this.FakturButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
-            this.FakturButton.Name = "FakturButton";
-            this.FakturButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FakturButton.SmallImage")));
-            this.FakturButton.Text = "Faktur";
-            this.FakturButton.Click += new System.EventHandler(this.FakturButton_Click);
+            this.ST1FakturButton.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.ST1FakturButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.ST1FakturButton.Name = "ST1FakturButton";
+            this.ST1FakturButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ST1FakturButton.SmallImage")));
+            this.ST1FakturButton.Text = "ST1-Faktur";
+            this.ST1FakturButton.Click += new System.EventHandler(this.ST1FakturButton_Click);
             // 
-            // FakturInfoButton
+            // ST2ControlFakturButton
             // 
-            this.FakturInfoButton.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.FakturInfoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.FakturInfoButton.Name = "FakturInfoButton";
-            this.FakturInfoButton.SmallImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.FakturInfoButton.Text = "Faktur Info";
-            this.FakturInfoButton.Click += new System.EventHandler(this.FakturInfoButton_Click);
+            this.ST2ControlFakturButton.Image = global::btr.distrib.Properties.Resources.icons8_to_do_32;
+            this.ST2ControlFakturButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_to_do_32;
+            this.ST2ControlFakturButton.Name = "ST2ControlFakturButton";
+            this.ST2ControlFakturButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ST2ControlFakturButton.SmallImage")));
+            this.ST2ControlFakturButton.Text = "ST-2-Control Faktur";
+            this.ST2ControlFakturButton.Click += new System.EventHandler(this.ST2ControlFakturButton_Click);
             // 
-            // FakturBrgInfoButton
+            // SalesInfoPanel
             // 
-            this.FakturBrgInfoButton.Image = global::btr.distrib.Properties.Resources.icons8_documents;
-            this.FakturBrgInfoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents;
-            this.FakturBrgInfoButton.Name = "FakturBrgInfoButton";
-            this.FakturBrgInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FakturBrgInfoButton.SmallImage")));
-            this.FakturBrgInfoButton.Text = "FakturBrg Info";
-            this.FakturBrgInfoButton.Click += new System.EventHandler(this.FakturBrgInfoButton_Click);
+            this.SalesInfoPanel.Items.Add(this.SF1FakturButton);
+            this.SalesInfoPanel.Items.Add(this.SF2FakturBrgButton);
+            this.SalesInfoPanel.Items.Add(this.SF3FakturSupplierButton);
+            this.SalesInfoPanel.Items.Add(this.SF4FakturCustomerButton);
+            this.SalesInfoPanel.Name = "SalesInfoPanel";
+            this.SalesInfoPanel.Text = "Reporting";
             // 
-            // FakturPerSupplierButton
+            // SF1FakturButton
             // 
-            this.FakturPerSupplierButton.Image = global::btr.distrib.Properties.Resources.icons8_documents;
-            this.FakturPerSupplierButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents;
-            this.FakturPerSupplierButton.Name = "FakturPerSupplierButton";
-            this.FakturPerSupplierButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FakturPerSupplierButton.SmallImage")));
-            this.FakturPerSupplierButton.Text = "Faktur-Per Supplier";
-            this.FakturPerSupplierButton.Click += new System.EventHandler(this.FakturPerSupplierButton_Click);
+            this.SF1FakturButton.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.SF1FakturButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.SF1FakturButton.Name = "SF1FakturButton";
+            this.SF1FakturButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("SF1FakturButton.SmallImage")));
+            this.SF1FakturButton.Text = "SF1-Faktur Info";
+            this.SF1FakturButton.Click += new System.EventHandler(this.SF1FakturInfoButton_Click);
             // 
-            // FakturPerCustomerButton
+            // SF2FakturBrgButton
             // 
-            this.FakturPerCustomerButton.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.FakturPerCustomerButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.FakturPerCustomerButton.Name = "FakturPerCustomerButton";
-            this.FakturPerCustomerButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FakturPerCustomerButton.SmallImage")));
-            this.FakturPerCustomerButton.Text = "Faktur-Per Customer";
-            this.FakturPerCustomerButton.Click += new System.EventHandler(this.FakturPerCustomerButton_Click);
+            this.SF2FakturBrgButton.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.SF2FakturBrgButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.SF2FakturBrgButton.Name = "SF2FakturBrgButton";
+            this.SF2FakturBrgButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("SF2FakturBrgButton.SmallImage")));
+            this.SF2FakturBrgButton.Text = "SF2-Faktur Brg";
+            this.SF2FakturBrgButton.Click += new System.EventHandler(this.SF2FakturBrgInfoButton_Click);
             // 
-            // ribbonSeparator2
+            // SF3FakturSupplierButton
             // 
-            this.ribbonSeparator2.Name = "ribbonSeparator2";
-            this.ribbonSeparator2.Text = "";
+            this.SF3FakturSupplierButton.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.SF3FakturSupplierButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.SF3FakturSupplierButton.Name = "SF3FakturSupplierButton";
+            this.SF3FakturSupplierButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("SF3FakturSupplierButton.SmallImage")));
+            this.SF3FakturSupplierButton.Text = "SF3-Faktur PerSupplier";
+            this.SF3FakturSupplierButton.Click += new System.EventHandler(this.SF3FakturPerSupplierButton_Click);
             // 
-            // ControlFakturButton
+            // SF4FakturCustomerButton
             // 
-            this.ControlFakturButton.Image = global::btr.distrib.Properties.Resources.icons8_to_do_32;
-            this.ControlFakturButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_to_do_32;
-            this.ControlFakturButton.Name = "ControlFakturButton";
-            this.ControlFakturButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ControlFakturButton.SmallImage")));
-            this.ControlFakturButton.Text = "Control";
-            this.ControlFakturButton.Click += new System.EventHandler(this.ControlFakturButton_Click);
-            // 
-            // FakturPajakButton
-            // 
-            this.FakturPajakButton.Image = global::btr.distrib.Properties.Resources.tax2;
-            this.FakturPajakButton.LargeImage = global::btr.distrib.Properties.Resources.tax2;
-            this.FakturPajakButton.Name = "FakturPajakButton";
-            this.FakturPajakButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FakturPajakButton.SmallImage")));
-            this.FakturPajakButton.Text = "Faktur-Pajak";
-            this.FakturPajakButton.Click += new System.EventHandler(this.FakturPajakButton_Click);
-            // 
-            // ribbonSeparator3
-            // 
-            this.ribbonSeparator3.Name = "ribbonSeparator3";
-            // 
-            // ReturJualButton
-            // 
-            this.ReturJualButton.Image = global::btr.distrib.Properties.Resources.icons8_return_purchase_32;
-            this.ReturJualButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_return_purchase_32;
-            this.ReturJualButton.Name = "ReturJualButton";
-            this.ReturJualButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ReturJualButton.SmallImage")));
-            this.ReturJualButton.Text = "Retur-Jual";
-            this.ReturJualButton.Click += new System.EventHandler(this.ReturJualButton_Click);
+            this.SF4FakturCustomerButton.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.SF4FakturCustomerButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.SF4FakturCustomerButton.Name = "SF4FakturCustomerButton";
+            this.SF4FakturCustomerButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("SF4FakturCustomerButton.SmallImage")));
+            this.SF4FakturCustomerButton.Text = "SF4-Faktur PerCustomer";
+            this.SF4FakturCustomerButton.Click += new System.EventHandler(this.SF4FakturPerCustomerButton_Click);
             // 
             // MasterSalesPanel
             // 
@@ -274,6 +253,54 @@
             this.WilayahButton.Text = "Wilayah";
             this.WilayahButton.Click += new System.EventHandler(this.WilayahButton_Click);
             // 
+            // TaxTab
+            // 
+            this.TaxTab.Name = "TaxTab";
+            this.TaxTab.Panels.Add(this.TaxTransactionPanel);
+            this.TaxTab.Text = "Tax";
+            // 
+            // TaxTransactionPanel
+            // 
+            this.TaxTransactionPanel.Items.Add(this.TT1FakturPajakButon);
+            this.TaxTransactionPanel.Name = "TaxTransactionPanel";
+            this.TaxTransactionPanel.Text = "";
+            // 
+            // TT1FakturPajakButon
+            // 
+            this.TT1FakturPajakButon.Image = global::btr.distrib.Properties.Resources.icons8_uninstalling_updates_321;
+            this.TT1FakturPajakButon.LargeImage = global::btr.distrib.Properties.Resources.icons8_uninstalling_updates_321;
+            this.TT1FakturPajakButon.Name = "TT1FakturPajakButon";
+            this.TT1FakturPajakButon.SmallImage = ((System.Drawing.Image)(resources.GetObject("TT1FakturPajakButon.SmallImage")));
+            this.TT1FakturPajakButon.Text = "TT1-Faktur Pajak";
+            this.TT1FakturPajakButon.Click += new System.EventHandler(this.TT1FakturPajakButton_Click);
+            // 
+            // ReturTab
+            // 
+            this.ReturTab.Name = "ReturTab";
+            this.ReturTab.Panels.Add(this.ReturTransactionPanel);
+            this.ReturTab.Panels.Add(this.ReturInfoPanel);
+            this.ReturTab.Text = "Retur";
+            // 
+            // ReturTransactionPanel
+            // 
+            this.ReturTransactionPanel.Items.Add(this.RT1ReturJualButton);
+            this.ReturTransactionPanel.Name = "ReturTransactionPanel";
+            this.ReturTransactionPanel.Text = null;
+            // 
+            // RT1ReturJualButton
+            // 
+            this.RT1ReturJualButton.Image = global::btr.distrib.Properties.Resources.icons8_kaspersky_32;
+            this.RT1ReturJualButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_kaspersky_32;
+            this.RT1ReturJualButton.Name = "RT1ReturJualButton";
+            this.RT1ReturJualButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("RT1ReturJualButton.SmallImage")));
+            this.RT1ReturJualButton.Text = "RT1-Retur Jual";
+            this.RT1ReturJualButton.Click += new System.EventHandler(this.RT1ReturJualButton_Click);
+            // 
+            // ReturInfoPanel
+            // 
+            this.ReturInfoPanel.Name = "ReturInfoPanel";
+            this.ReturInfoPanel.Text = null;
+            // 
             // PurchaseTab
             // 
             this.PurchaseTab.Name = "PurchaseTab";
@@ -284,79 +311,60 @@
             // 
             // PurchaseOrderRibbonPanel
             // 
-            this.PurchaseOrderRibbonPanel.Items.Add(this.PoButton);
             this.PurchaseOrderRibbonPanel.Items.Add(this.InvoiceButton);
-            this.PurchaseOrderRibbonPanel.Items.Add(this.InvoiceInfoButton);
-            this.PurchaseOrderRibbonPanel.Items.Add(this.InvoiceBrgInfoButton);
-            this.PurchaseOrderRibbonPanel.Items.Add(this.InvoiceHarianDetilButton);
             this.PurchaseOrderRibbonPanel.Name = "PurchaseOrderRibbonPanel";
             this.PurchaseOrderRibbonPanel.Text = "Transaction";
-            this.PurchaseOrderRibbonPanel.Click += new System.EventHandler(this.PurchaseOrderRibbonPanel_Click);
-            // 
-            // PoButton
-            // 
-            this.PoButton.Image = global::btr.distrib.Properties.Resources.icons8_purchase_order;
-            this.PoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_purchase_order;
-            this.PoButton.Name = "PoButton";
-            this.PoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("PoButton.SmallImage")));
-            this.PoButton.Text = "PO";
-            this.PoButton.Click += new System.EventHandler(this.PoButton_Click);
+            this.PurchaseOrderRibbonPanel.Click += new System.EventHandler(this.P1InvoiceInfoButton_Click);
             // 
             // InvoiceButton
             // 
-            this.InvoiceButton.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
-            this.InvoiceButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.InvoiceButton.Image = global::btr.distrib.Properties.Resources.icons8_pokeball_32;
+            this.InvoiceButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_pokeball_32;
             this.InvoiceButton.Name = "InvoiceButton";
             this.InvoiceButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("InvoiceButton.SmallImage")));
-            this.InvoiceButton.Text = "Invoice";
+            this.InvoiceButton.Text = "PT1-Invoice";
             this.InvoiceButton.Click += new System.EventHandler(this.InvoiceButton_Click);
-            // 
-            // InvoiceInfoButton
-            // 
-            this.InvoiceInfoButton.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.InvoiceInfoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.InvoiceInfoButton.Name = "InvoiceInfoButton";
-            this.InvoiceInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("InvoiceInfoButton.SmallImage")));
-            this.InvoiceInfoButton.Text = "Invoice Info";
-            // 
-            // InvoiceBrgInfoButton
-            // 
-            this.InvoiceBrgInfoButton.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.InvoiceBrgInfoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.InvoiceBrgInfoButton.Name = "InvoiceBrgInfoButton";
-            this.InvoiceBrgInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("InvoiceBrgInfoButton.SmallImage")));
-            this.InvoiceBrgInfoButton.Text = "Invoice-Brg Info";
-            this.InvoiceBrgInfoButton.Click += new System.EventHandler(this.InvoiceBrgInfoButton_Click);
-            // 
-            // InvoiceHarianDetilButton
-            // 
-            this.InvoiceHarianDetilButton.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.InvoiceHarianDetilButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.InvoiceHarianDetilButton.Name = "InvoiceHarianDetilButton";
-            this.InvoiceHarianDetilButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("InvoiceHarianDetilButton.SmallImage")));
-            this.InvoiceHarianDetilButton.Text = "Invoice Harian-Detil";
-            this.InvoiceHarianDetilButton.Click += new System.EventHandler(this.InvoiceHarianDetilButton_Click);
             // 
             // InvoiceRibbonPanel
             // 
-            this.InvoiceRibbonPanel.Items.Add(this.InvoiceReportButton);
+            this.InvoiceRibbonPanel.Items.Add(this.P01InvoiceInfoButton);
+            this.InvoiceRibbonPanel.Items.Add(this.P2InvoiceBrgInfoButton);
+            this.InvoiceRibbonPanel.Items.Add(this.P3InvoiceHarianInfoButton);
             this.InvoiceRibbonPanel.Name = "InvoiceRibbonPanel";
-            this.InvoiceRibbonPanel.Text = "";
+            this.InvoiceRibbonPanel.Text = "Reporting";
             // 
-            // InvoiceReportButton
+            // P01InvoiceInfoButton
             // 
-            this.InvoiceReportButton.Image = global::btr.distrib.Properties.Resources.icons8_graph_32;
-            this.InvoiceReportButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_graph_32;
-            this.InvoiceReportButton.Name = "InvoiceReportButton";
-            this.InvoiceReportButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("InvoiceReportButton.SmallImage")));
-            this.InvoiceReportButton.Text = "Reporting";
-            this.InvoiceReportButton.Click += new System.EventHandler(this.InvoiceReportButton_Click);
+            this.P01InvoiceInfoButton.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.P01InvoiceInfoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.P01InvoiceInfoButton.Name = "P01InvoiceInfoButton";
+            this.P01InvoiceInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("P01InvoiceInfoButton.SmallImage")));
+            this.P01InvoiceInfoButton.Text = "PF1-Invoice";
+            this.P01InvoiceInfoButton.Click += new System.EventHandler(this.P1InvoiceInfoButton_Click);
+            // 
+            // P2InvoiceBrgInfoButton
+            // 
+            this.P2InvoiceBrgInfoButton.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.P2InvoiceBrgInfoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.P2InvoiceBrgInfoButton.Name = "P2InvoiceBrgInfoButton";
+            this.P2InvoiceBrgInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("P2InvoiceBrgInfoButton.SmallImage")));
+            this.P2InvoiceBrgInfoButton.Text = "PF2-Invoice Brg Info";
+            this.P2InvoiceBrgInfoButton.Click += new System.EventHandler(this.P2InvoiceBrgInfoButton_Click);
+            // 
+            // P3InvoiceHarianInfoButton
+            // 
+            this.P3InvoiceHarianInfoButton.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.P3InvoiceHarianInfoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.P3InvoiceHarianInfoButton.Name = "P3InvoiceHarianInfoButton";
+            this.P3InvoiceHarianInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("P3InvoiceHarianInfoButton.SmallImage")));
+            this.P3InvoiceHarianInfoButton.Text = "PF3-Invoice Harian";
+            this.P3InvoiceHarianInfoButton.Click += new System.EventHandler(this.P3InvoiceHarianButton_Click);
             // 
             // MasterPurchaseRibbonPanel
             // 
             this.MasterPurchaseRibbonPanel.Items.Add(this.SupplierButton);
             this.MasterPurchaseRibbonPanel.Name = "MasterPurchaseRibbonPanel";
-            this.MasterPurchaseRibbonPanel.Text = "";
+            this.MasterPurchaseRibbonPanel.Text = "Master";
             // 
             // SupplierButton
             // 
@@ -377,104 +385,94 @@
             // 
             // InventoryTrsPanel
             // 
-            this.InventoryTrsPanel.Items.Add(this.OpnameButton);
-            this.InventoryTrsPanel.Items.Add(this.ImportExcelOpnameButton);
-            this.InventoryTrsPanel.Items.Add(this.PrintFakturButton);
-            this.InventoryTrsPanel.Items.Add(this.PackingButton);
-            this.InventoryTrsPanel.Items.Add(this.MutasiButton);
+            this.InventoryTrsPanel.Items.Add(this.IT1OpnameButton);
+            this.InventoryTrsPanel.Items.Add(this.IT2PrintFakturButton);
+            this.InventoryTrsPanel.Items.Add(this.IT3PackingButton);
+            this.InventoryTrsPanel.Items.Add(this.IT4MutasiButton);
             this.InventoryTrsPanel.Name = "InventoryTrsPanel";
             this.InventoryTrsPanel.Text = "Transaction";
             // 
-            // OpnameButton
+            // IT1OpnameButton
             // 
-            this.OpnameButton.Image = global::btr.distrib.Properties.Resources.icons8_hashtag_activity_feed_32;
-            this.OpnameButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_hashtag_activity_feed_32;
-            this.OpnameButton.Name = "OpnameButton";
-            this.OpnameButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("OpnameButton.SmallImage")));
-            this.OpnameButton.Text = "Opname";
-            this.OpnameButton.Click += new System.EventHandler(this.OpnameButton_Click);
+            this.IT1OpnameButton.Image = global::btr.distrib.Properties.Resources.icons8_hashtag_activity_feed_32;
+            this.IT1OpnameButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_hashtag_activity_feed_32;
+            this.IT1OpnameButton.Name = "IT1OpnameButton";
+            this.IT1OpnameButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IT1OpnameButton.SmallImage")));
+            this.IT1OpnameButton.Text = "IT1-Opname";
+            this.IT1OpnameButton.Click += new System.EventHandler(this.IT1OpnameButton_Click);
             // 
-            // ImportExcelOpnameButton
+            // IT2PrintFakturButton
             // 
-            this.ImportExcelOpnameButton.Image = global::btr.distrib.Properties.Resources.icons8_microsoft_excel_32;
-            this.ImportExcelOpnameButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_microsoft_excel_32;
-            this.ImportExcelOpnameButton.Name = "ImportExcelOpnameButton";
-            this.ImportExcelOpnameButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ImportExcelOpnameButton.SmallImage")));
-            this.ImportExcelOpnameButton.Text = "Import-Excel";
-            this.ImportExcelOpnameButton.Visible = false;
-            this.ImportExcelOpnameButton.Click += new System.EventHandler(this.ImportExcelOpnameButton_Click);
+            this.IT2PrintFakturButton.Image = global::btr.distrib.Properties.Resources.icons8_print;
+            this.IT2PrintFakturButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_print;
+            this.IT2PrintFakturButton.Name = "IT2PrintFakturButton";
+            this.IT2PrintFakturButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IT2PrintFakturButton.SmallImage")));
+            this.IT2PrintFakturButton.Text = "IT2-Print Faktur";
+            this.IT2PrintFakturButton.Click += new System.EventHandler(this.IT2PrintButton_Click);
             // 
-            // PrintFakturButton
+            // IT3PackingButton
             // 
-            this.PrintFakturButton.Image = global::btr.distrib.Properties.Resources.icons8_print;
-            this.PrintFakturButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_print;
-            this.PrintFakturButton.Name = "PrintFakturButton";
-            this.PrintFakturButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("PrintFakturButton.SmallImage")));
-            this.PrintFakturButton.Text = "Print-Faktur";
-            this.PrintFakturButton.Click += new System.EventHandler(this.PrintButton_Click);
+            this.IT3PackingButton.Image = global::btr.distrib.Properties.Resources.icons8_winrar_32;
+            this.IT3PackingButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_winrar_32;
+            this.IT3PackingButton.Name = "IT3PackingButton";
+            this.IT3PackingButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IT3PackingButton.SmallImage")));
+            this.IT3PackingButton.Text = "IT3-Packing";
+            this.IT3PackingButton.Click += new System.EventHandler(this.IT3PackingButton_Click);
             // 
-            // PackingButton
+            // IT4MutasiButton
             // 
-            this.PackingButton.Image = global::btr.distrib.Properties.Resources.icons8_winrar_32;
-            this.PackingButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_winrar_32;
-            this.PackingButton.Name = "PackingButton";
-            this.PackingButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("PackingButton.SmallImage")));
-            this.PackingButton.Text = "Packing";
-            this.PackingButton.Click += new System.EventHandler(this.PackingButton_Click);
-            // 
-            // MutasiButton
-            // 
-            this.MutasiButton.Image = global::btr.distrib.Properties.Resources.icons8_python_32;
-            this.MutasiButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_python_32;
-            this.MutasiButton.Name = "MutasiButton";
-            this.MutasiButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("MutasiButton.SmallImage")));
-            this.MutasiButton.Text = "Mutasi";
-            this.MutasiButton.Click += new System.EventHandler(this.MutasiButton_Click);
+            this.IT4MutasiButton.Image = global::btr.distrib.Properties.Resources.icons8_python_32;
+            this.IT4MutasiButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_python_32;
+            this.IT4MutasiButton.Name = "IT4MutasiButton";
+            this.IT4MutasiButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IT4MutasiButton.SmallImage")));
+            this.IT4MutasiButton.Text = "IT4-Mutasi";
+            this.IT4MutasiButton.Click += new System.EventHandler(this.IT4MutasiButton_Click);
             // 
             // ReportingPanel
             // 
-            this.ReportingPanel.Items.Add(this.StokBalanceButton);
-            this.ReportingPanel.Items.Add(this.BukuStokButton);
-            this.ReportingPanel.Items.Add(this.OmzetPerSupplierButton);
-            this.ReportingPanel.Items.Add(this.StokPerSupplierButton);
+            this.ReportingPanel.Items.Add(this.IF1StokBalanceButton);
+            this.ReportingPanel.Items.Add(this.IF2KartuStokButton);
+            this.ReportingPanel.Items.Add(this.IF3OmzetPerSupplierButton);
+            this.ReportingPanel.Items.Add(this.IF4StokPerSupplierButton);
             this.ReportingPanel.Name = "ReportingPanel";
             this.ReportingPanel.Text = "Reporting";
-            this.ReportingPanel.Click += new System.EventHandler(this.ReportingPanel_Click);
+            this.ReportingPanel.Click += new System.EventHandler(this.IF4StokSupplierButton_Click);
             // 
-            // StokBalanceButton
+            // IF1StokBalanceButton
             // 
-            this.StokBalanceButton.Image = global::btr.distrib.Properties.Resources.icons8_vue_js_32;
-            this.StokBalanceButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_vue_js_32;
-            this.StokBalanceButton.Name = "StokBalanceButton";
-            this.StokBalanceButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("StokBalanceButton.SmallImage")));
-            this.StokBalanceButton.Text = "Stok-Balance";
-            this.StokBalanceButton.Click += new System.EventHandler(this.StokBalanceButton_Click);
+            this.IF1StokBalanceButton.Image = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
+            this.IF1StokBalanceButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
+            this.IF1StokBalanceButton.Name = "IF1StokBalanceButton";
+            this.IF1StokBalanceButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IF1StokBalanceButton.SmallImage")));
+            this.IF1StokBalanceButton.Text = "IF1-Stok Balance";
+            this.IF1StokBalanceButton.Click += new System.EventHandler(this.IF1StokBalanceButton_Click);
             // 
-            // BukuStokButton
+            // IF2KartuStokButton
             // 
-            this.BukuStokButton.Image = global::btr.distrib.Properties.Resources.icons8_stack_overflow_32;
-            this.BukuStokButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_stack_overflow_32;
-            this.BukuStokButton.Name = "BukuStokButton";
-            this.BukuStokButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("BukuStokButton.SmallImage")));
-            this.BukuStokButton.Text = "Kartu-Stok";
-            this.BukuStokButton.Click += new System.EventHandler(this.BukuStokButton_Click);
+            this.IF2KartuStokButton.Image = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
+            this.IF2KartuStokButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
+            this.IF2KartuStokButton.Name = "IF2KartuStokButton";
+            this.IF2KartuStokButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IF2KartuStokButton.SmallImage")));
+            this.IF2KartuStokButton.Text = "IF2-Kartu Stok";
+            this.IF2KartuStokButton.Click += new System.EventHandler(this.IF2KartuStokButton_Click);
             // 
-            // OmzetPerSupplierButton
+            // IF3OmzetPerSupplierButton
             // 
-            this.OmzetPerSupplierButton.Image = global::btr.distrib.Properties.Resources.icons8_harvester_32;
-            this.OmzetPerSupplierButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_harvester_32;
-            this.OmzetPerSupplierButton.Name = "OmzetPerSupplierButton";
-            this.OmzetPerSupplierButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("OmzetPerSupplierButton.SmallImage")));
-            this.OmzetPerSupplierButton.Text = "Omzet Per-Supplier";
-            this.OmzetPerSupplierButton.Click += new System.EventHandler(this.OmzetPerSupplierButton_Click);
+            this.IF3OmzetPerSupplierButton.Image = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
+            this.IF3OmzetPerSupplierButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
+            this.IF3OmzetPerSupplierButton.Name = "IF3OmzetPerSupplierButton";
+            this.IF3OmzetPerSupplierButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IF3OmzetPerSupplierButton.SmallImage")));
+            this.IF3OmzetPerSupplierButton.Text = "IF3-Omzet Supplier";
+            this.IF3OmzetPerSupplierButton.Click += new System.EventHandler(this.IF3OmzetPerSupplierButton_Click);
             // 
-            // StokPerSupplierButton
+            // IF4StokPerSupplierButton
             // 
-            this.StokPerSupplierButton.Image = global::btr.distrib.Properties.Resources.icons8_purchase_order;
-            this.StokPerSupplierButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_purchase_order;
-            this.StokPerSupplierButton.Name = "StokPerSupplierButton";
-            this.StokPerSupplierButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("StokPerSupplierButton.SmallImage")));
-            this.StokPerSupplierButton.Text = "Stok Per Supplier";
+            this.IF4StokPerSupplierButton.Image = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
+            this.IF4StokPerSupplierButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
+            this.IF4StokPerSupplierButton.Name = "IF4StokPerSupplierButton";
+            this.IF4StokPerSupplierButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IF4StokPerSupplierButton.SmallImage")));
+            this.IF4StokPerSupplierButton.Text = "IF4-Stok Supplier";
+            this.IF4StokPerSupplierButton.Click += new System.EventHandler(this.IF4StokSupplierButton_Click);
             // 
             // InventoryMasterPanel
             // 
@@ -505,42 +503,48 @@
             // 
             this.FinanceTab.Name = "FinanceTab";
             this.FinanceTab.Panels.Add(this.ribbonPanel1);
+            this.FinanceTab.Panels.Add(this.FinanceInfoTab);
             this.FinanceTab.Text = "Finance";
             // 
             // ribbonPanel1
             // 
-            this.ribbonPanel1.Items.Add(this.LunasPiutangButton);
-            this.ribbonPanel1.Items.Add(this.PiutangSalesWilayahButton);
-            this.ribbonPanel1.Items.Add(this.PenerimaanSalesButton);
+            this.ribbonPanel1.Items.Add(this.FT1LunasPiutangButton);
             this.ribbonPanel1.Name = "ribbonPanel1";
-            this.ribbonPanel1.Text = "Piutang";
+            this.ribbonPanel1.Text = "";
             // 
-            // LunasPiutangButton
+            // FT1LunasPiutangButton
             // 
-            this.LunasPiutangButton.Image = global::btr.distrib.Properties.Resources.icons8_general_ledger_32;
-            this.LunasPiutangButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_general_ledger_32;
-            this.LunasPiutangButton.Name = "LunasPiutangButton";
-            this.LunasPiutangButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("LunasPiutangButton.SmallImage")));
-            this.LunasPiutangButton.Text = "Pelunasan";
-            this.LunasPiutangButton.Click += new System.EventHandler(this.LunasPiutangButton_Click);
+            this.FT1LunasPiutangButton.Image = global::btr.distrib.Properties.Resources.icons8_general_ledger_32;
+            this.FT1LunasPiutangButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_general_ledger_32;
+            this.FT1LunasPiutangButton.Name = "FT1LunasPiutangButton";
+            this.FT1LunasPiutangButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FT1LunasPiutangButton.SmallImage")));
+            this.FT1LunasPiutangButton.Text = "FT1-Lunas Piutang";
+            this.FT1LunasPiutangButton.Click += new System.EventHandler(this.FT1LunasPiutangButton_Click);
             // 
-            // PiutangSalesWilayahButton
+            // FinanceInfoTab
             // 
-            this.PiutangSalesWilayahButton.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
-            this.PiutangSalesWilayahButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
-            this.PiutangSalesWilayahButton.Name = "PiutangSalesWilayahButton";
-            this.PiutangSalesWilayahButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("PiutangSalesWilayahButton.SmallImage")));
-            this.PiutangSalesWilayahButton.Text = "Piutang Sales-Wilayah";
-            this.PiutangSalesWilayahButton.Click += new System.EventHandler(this.PiutangSalesWilayahButton_Click);
+            this.FinanceInfoTab.Items.Add(this.FF1PiutangSalesWilayahButton);
+            this.FinanceInfoTab.Items.Add(this.FF2PenerimaanSalesButton);
+            this.FinanceInfoTab.Name = "FinanceInfoTab";
+            this.FinanceInfoTab.Text = "";
             // 
-            // PenerimaanSalesButton
+            // FF1PiutangSalesWilayahButton
             // 
-            this.PenerimaanSalesButton.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
-            this.PenerimaanSalesButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
-            this.PenerimaanSalesButton.Name = "PenerimaanSalesButton";
-            this.PenerimaanSalesButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("PenerimaanSalesButton.SmallImage")));
-            this.PenerimaanSalesButton.Text = "Penerimaan Sales";
-            this.PenerimaanSalesButton.Click += new System.EventHandler(this.PenerimaanSalesButton_Click);
+            this.FF1PiutangSalesWilayahButton.Image = global::btr.distrib.Properties.Resources.icons8_align_text_right_32;
+            this.FF1PiutangSalesWilayahButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_align_text_right_32;
+            this.FF1PiutangSalesWilayahButton.Name = "FF1PiutangSalesWilayahButton";
+            this.FF1PiutangSalesWilayahButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FF1PiutangSalesWilayahButton.SmallImage")));
+            this.FF1PiutangSalesWilayahButton.Text = "FF1-Piutang Sales";
+            this.FF1PiutangSalesWilayahButton.Click += new System.EventHandler(this.FF1PiutangSalesWilayahButton_Click);
+            // 
+            // FF2PenerimaanSalesButton
+            // 
+            this.FF2PenerimaanSalesButton.Image = global::btr.distrib.Properties.Resources.icons8_align_text_right_32;
+            this.FF2PenerimaanSalesButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_align_text_right_32;
+            this.FF2PenerimaanSalesButton.Name = "FF2PenerimaanSalesButton";
+            this.FF2PenerimaanSalesButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FF2PenerimaanSalesButton.SmallImage")));
+            this.FF2PenerimaanSalesButton.Text = "FF2-Penerimaan Sales";
+            this.FF2PenerimaanSalesButton.Click += new System.EventHandler(this.FF2PenerimaanSalesButton_Click);
             // 
             // SettingTab
             // 
@@ -596,7 +600,7 @@
             this.ServerDbStatus});
             this.AppStatus.Location = new System.Drawing.Point(0, 428);
             this.AppStatus.Name = "AppStatus";
-            this.AppStatus.Size = new System.Drawing.Size(876, 22);
+            this.AppStatus.Size = new System.Drawing.Size(1139, 22);
             this.AppStatus.TabIndex = 4;
             this.AppStatus.Text = "statusStrip1";
             // 
@@ -618,7 +622,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::btr.distrib.Properties.Resources.app_wallpaper_5;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(876, 450);
+            this.ClientSize = new System.Drawing.Size(1139, 450);
             this.Controls.Add(this.AppStatus);
             this.Controls.Add(this.ribbon1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -653,48 +657,50 @@
         private System.Windows.Forms.RibbonPanel DeliveryPanel;
         private System.Windows.Forms.RibbonPanel ReportingPanel;
         private System.Windows.Forms.RibbonPanel InventoryMasterPanel;
-        private System.Windows.Forms.RibbonButton FakturButton;
-        private System.Windows.Forms.RibbonButton FakturPajakButton;
-        private System.Windows.Forms.RibbonButton ControlFakturButton;
+        private System.Windows.Forms.RibbonButton ST1FakturButton;
+        private System.Windows.Forms.RibbonButton ST2ControlFakturButton;
         private System.Windows.Forms.RibbonButton OutletButton;
         private System.Windows.Forms.RibbonButton KategoriButton;
         private System.Windows.Forms.RibbonSeparator ribbonSeparator1;
         private System.Windows.Forms.RibbonButton SalesPersonButton;
         private System.Windows.Forms.RibbonButton WilayahButton;
-        private System.Windows.Forms.RibbonButton PoButton;
-        private System.Windows.Forms.RibbonButton InvoiceReportButton;
         private System.Windows.Forms.RibbonButton SupplierButton;
         private System.Windows.Forms.RibbonButton BrgButton;
         private System.Windows.Forms.RibbonButton WarehouseButton;
-        private System.Windows.Forms.RibbonButton StokBalanceButton;
+        private System.Windows.Forms.RibbonButton IF1StokBalanceButton;
         private System.Windows.Forms.RibbonButton AboutButton;
         private System.Windows.Forms.RibbonButton UserButton;
         private System.Windows.Forms.StatusStrip AppStatus;
         private System.Windows.Forms.ToolStripStatusLabel LoginStatus;
         private System.Windows.Forms.ToolStripStatusLabel ServerDbStatus;
         private System.Windows.Forms.RibbonPanel InventoryTrsPanel;
-        private System.Windows.Forms.RibbonButton OpnameButton;
-        private System.Windows.Forms.RibbonButton PrintFakturButton;
-        private System.Windows.Forms.RibbonButton PackingButton;
-        private System.Windows.Forms.RibbonButton BukuStokButton;
+        private System.Windows.Forms.RibbonButton IT1OpnameButton;
+        private System.Windows.Forms.RibbonButton IT2PrintFakturButton;
+        private System.Windows.Forms.RibbonButton IT3PackingButton;
+        private System.Windows.Forms.RibbonButton IF2KartuStokButton;
         private System.Windows.Forms.RibbonButton InvoiceButton;
-        private System.Windows.Forms.RibbonButton MutasiButton;
-        private System.Windows.Forms.RibbonButton ImportExcelOpnameButton;
-        private System.Windows.Forms.RibbonButton FakturInfoButton;
-        private System.Windows.Forms.RibbonSeparator ribbonSeparator2;
+        private System.Windows.Forms.RibbonButton IT4MutasiButton;
         private System.Windows.Forms.RibbonPanel ribbonPanel1;
-        private System.Windows.Forms.RibbonButton LunasPiutangButton;
-        private System.Windows.Forms.RibbonButton PiutangSalesWilayahButton;
-        private System.Windows.Forms.RibbonButton FakturBrgInfoButton;
-        private System.Windows.Forms.RibbonSeparator ribbonSeparator3;
-        private System.Windows.Forms.RibbonButton ReturJualButton;
-        private System.Windows.Forms.RibbonButton InvoiceInfoButton;
-        private System.Windows.Forms.RibbonButton InvoiceBrgInfoButton;
-        private System.Windows.Forms.RibbonButton OmzetPerSupplierButton;
-        private System.Windows.Forms.RibbonButton PenerimaanSalesButton;
-        private System.Windows.Forms.RibbonButton StokPerSupplierButton;
-        private System.Windows.Forms.RibbonButton FakturPerSupplierButton;
-        private System.Windows.Forms.RibbonButton FakturPerCustomerButton;
-        private System.Windows.Forms.RibbonButton InvoiceHarianDetilButton;
+        private System.Windows.Forms.RibbonButton FT1LunasPiutangButton;
+        private System.Windows.Forms.RibbonButton IF3OmzetPerSupplierButton;
+        private System.Windows.Forms.RibbonButton IF4StokPerSupplierButton;
+        private System.Windows.Forms.RibbonButton P01InvoiceInfoButton;
+        private System.Windows.Forms.RibbonButton P2InvoiceBrgInfoButton;
+        private System.Windows.Forms.RibbonButton P3InvoiceHarianInfoButton;
+        private System.Windows.Forms.RibbonPanel SalesInfoPanel;
+        private System.Windows.Forms.RibbonButton SF1FakturButton;
+        private System.Windows.Forms.RibbonButton SF2FakturBrgButton;
+        private System.Windows.Forms.RibbonButton SF3FakturSupplierButton;
+        private System.Windows.Forms.RibbonButton SF4FakturCustomerButton;
+        private System.Windows.Forms.RibbonTab ReturTab;
+        private System.Windows.Forms.RibbonPanel ReturTransactionPanel;
+        private System.Windows.Forms.RibbonButton RT1ReturJualButton;
+        private System.Windows.Forms.RibbonPanel ReturInfoPanel;
+        private System.Windows.Forms.RibbonTab TaxTab;
+        private System.Windows.Forms.RibbonPanel TaxTransactionPanel;
+        private System.Windows.Forms.RibbonButton TT1FakturPajakButon;
+        private System.Windows.Forms.RibbonPanel FinanceInfoTab;
+        private System.Windows.Forms.RibbonButton FF1PiutangSalesWilayahButton;
+        private System.Windows.Forms.RibbonButton FF2PenerimaanSalesButton;
     }
 }

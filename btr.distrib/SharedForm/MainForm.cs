@@ -78,7 +78,7 @@ namespace btr.distrib.SharedForm
             return false;
         }
 
-        public void FakturButton_Click(object sender, EventArgs e)
+        public void ST1FakturButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<FakturForm>())
                 return;
@@ -168,7 +168,7 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-        private void PrintButton_Click(object sender, EventArgs e)
+        private void IT2PrintButton_Click(object sender, EventArgs e)
         {if (BringMdiChildToFrontIfLoaded<PrintManagerForm>())
                 return;
             var form = _servicesProvider.GetRequiredService<PrintManagerForm>();
@@ -194,7 +194,7 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-        private void OpnameButton_Click(object sender, EventArgs e)
+        private void IT1OpnameButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<StokOpForm>())
                 return;
@@ -204,7 +204,7 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-        private void ControlFakturButton_Click(object sender, EventArgs e)
+        private void ST2ControlFakturButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<FakturControlForm>())
                 return;
@@ -214,7 +214,7 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-        private void PackingButton_Click(object sender, EventArgs e)
+        private void IT3PackingButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<PackingForm>())
                 return;
@@ -224,7 +224,7 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-        private void FakturPajakButton_Click(object sender, EventArgs e)
+        private void TT1FakturPajakButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<AlokasiFpForm>())
                 return;
@@ -234,7 +234,7 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-        private void StokBalanceButton_Click(object sender, EventArgs e)
+        private void IF1StokBalanceButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<StokBalanceInfo2Form>())
                 return;
@@ -254,7 +254,7 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-        private void MutasiButton_Click(object sender, EventArgs e)
+        private void IT4MutasiButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<MutasiForm>())
                 return;
@@ -284,7 +284,7 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-        private void FakturInfoButton_Click(object sender, EventArgs e)
+        private void SF1FakturInfoButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<FakturInfoForm>())
                 return;
@@ -294,7 +294,7 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-        private void LunasPiutangButton_Click(object sender, EventArgs e)
+        private void FT1LunasPiutangButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<LunasPiutang2Form>())
                 return;
@@ -304,7 +304,7 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-        private void FakturBrgInfoButton_Click(object sender, EventArgs e)
+        private void SF2FakturBrgInfoButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<FakturBrgInfoForm>())
                 return;
@@ -314,7 +314,7 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-        private void ReturJualButton_Click(object sender, EventArgs e)
+        private void RT1ReturJualButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<ReturJualForm>())
                 return;
@@ -324,7 +324,7 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-        private void PurchaseOrderRibbonPanel_Click(object sender, EventArgs e)
+        private void P1InvoiceInfoButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<InvoiceInfoForm>())
                 return;
@@ -334,7 +334,7 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-        private void InvoiceBrgInfoButton_Click(object sender, EventArgs e)
+        private void P2InvoiceBrgInfoButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<InvoiceBrgInfoForm>())
                 return;
@@ -344,7 +344,7 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-        private void OmzetPerSupplierButton_Click(object sender, EventArgs e)
+        private void IF3OmzetPerSupplierButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<OmzetSupplierInfoForm>())
                 return;
@@ -364,7 +364,7 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-        private void BukuStokButton_Click(object sender, EventArgs e)
+        private void IF2KartuStokButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<KartuStokInfoForm>())
                 return;
@@ -374,7 +374,7 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-        private void PiutangSalesWilayahButton_Click(object sender, EventArgs e)
+        private void FF1PiutangSalesWilayahButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<PiutangSalesWilayahForm>())
                 return;
@@ -384,7 +384,7 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-        private void PenerimaanSalesButton_Click(object sender, EventArgs e)
+        private void FF2PenerimaanSalesButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<PenerimaanPelunasanSalesForm>())
                 return;
@@ -394,7 +394,7 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-        private void ReportingPanel_Click(object sender, EventArgs e)
+        private void IF4StokSupplierButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<StokBrgSupplierForm>())
                 return;
@@ -404,7 +404,7 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-        private void FakturPerSupplierButton_Click(object sender, EventArgs e)
+        private void SF3FakturPerSupplierButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<FakturPerSupplierForm>())
                 return;
@@ -414,7 +414,7 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-        private void FakturPerCustomerButton_Click(object sender, EventArgs e)
+        private void SF4FakturPerCustomerButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<FakturPerCustomerForm>())
                 return;
@@ -424,7 +424,7 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-        private void InvoiceHarianDetilButton_Click(object sender, EventArgs e)
+        private void P3InvoiceHarianButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<InvoiceHarianDetilForm>())
                 return;

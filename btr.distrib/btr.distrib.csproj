@@ -582,6 +582,9 @@
     </Compile>
     <Compile Include="WinformAssemblyAnchor.cs" />
     <Content Include="icons8_truck.ico" />
+    <None Include="Resources\icons8_test_passed_32.png" />
+    <None Include="Resources\icons8_uninstalling_updates_321.png" />
+    <None Include="Resources\icons8_pokeball_32.png" />
     <None Include="Resources\icons8_return_purchase_32.png" />
     <None Include="Resources\icons8_page_16.png" />
     <None Include="Resources\icons8_microsoft_excel_32.png" />
@@ -700,6 +703,8 @@
     <None Include="Resources\icons8_documents_32.png" />
     <None Include="Resources\icons8_general_ledger_32.png" />
     <None Include="Resources\icons8_harvester_32.png" />
+    <None Include="Resources\icons8_kaspersky_32.png" />
+    <None Include="Resources\icons8_align_text_right_32.png" />
     <Content Include="Resources\icons8_microscope.ico" />
     <Content Include="Resources\icons8_microscope_32.png" />
     <EmbeddedResource Include="SharedForm\AboutForm.resx">
