@@ -33,6 +33,8 @@ using btr.distrib.PurchaseContext.InvoiceInfo;
 using btr.distrib.InventoryContext.KartuStokRpt;
 using btr.distrib.FinanceContext.PiutangSalesWilayahRpt;
 using btr.distrib.FinanceContext.PenerimaanPelunasanSalesRpt;
+using btr.distrib.InventoryContext.StokBrgSupplierRpt;
+using btr.distrib.SalesContext.FakturPerSupplierRpt;
 
 namespace btr.distrib.SharedForm
 {
@@ -384,6 +386,26 @@ namespace btr.distrib.SharedForm
             if (BringMdiChildToFrontIfLoaded<PenerimaanPelunasanSalesForm>())
                 return;
             var form = _servicesProvider.GetRequiredService<PenerimaanPelunasanSalesForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void ReportingPanel_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<StokBrgSupplierForm>())
+                return;
+            var form = _servicesProvider.GetRequiredService<StokBrgSupplierForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void FakturPerSupplierButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<FakturPerSupplierForm>())
+                return;
+            var form = _servicesProvider.GetRequiredService<FakturPerSupplierForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

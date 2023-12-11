@@ -21,7 +21,7 @@ namespace btr.distrib.FinanceContext.PenerimaanPelunasanSalesRpt
     public partial class PenerimaanPelunasanSalesForm : Form
     {
         private readonly IPenerimaanPelunasanSalesDal _penerimaanPelunasanSalesDal;
-        private List<PiutangSalesWilayahDto> _dataSource;
+        private List<PenerimaanPelunasanSalesDto> _dataSource;
 
         public PenerimaanPelunasanSalesForm(IPenerimaanPelunasanSalesDal piutangSalesWilayahDal)
         {
@@ -115,28 +115,8 @@ namespace btr.distrib.FinanceContext.PenerimaanPelunasanSalesRpt
         {
             var periode = new Periode(Faktur1Date.Value, Faktur2Date.Value);
             var listFaktur = _penerimaanPelunasanSalesDal.ListData(periode)?.ToList() ?? new List<PenerimaanPelunasanSalesDto>();
-            //var filtered = Filter(listFaktur, SearchText.Text);
-            //_dataSource = (
-            //    from c in filtered
-            //    select new StokBalanceInfoDto
-            //    {
-            //        Supplier = c.SupplierName,
-            //        Kategori = c.KategoriName,
-            //        BrgId = c.BrgId,
-            //        BrgCode = c.BrgCode,
-            //        BrgName = c.BrgName,
-            //        Warehouse = c.WarehouseName,
-            //        //QtyBesar = c.QtyBesar,
-            //        SatBesar = c.SatBesar,
-            //        Conversion = c.Conversion,
-            //        //QtyKecil = c.QtyKecil,
-            //        SatKecil = c.SatKecil,
-            //        InPcs = c.Qty,
-            //        Hpp = c.Hpp,
-            //        NilaiSediaan = c.NilaiSediaan,
-            //    }).ToList();
-            //InfoGrid.DataSource = _dataSource;
-            InfoGrid.DataSource = listFaktur;
+            _dataSource = listFaktur;
+            InfoGrid.DataSource = _dataSource;
         }
 
         private void ExcelButton_Click(object sender, EventArgs e)
@@ -148,7 +128,7 @@ namespace btr.distrib.FinanceContext.PenerimaanPelunasanSalesRpt
                 saveFileDialog.Title = @"Save Excel File";
                 saveFileDialog.DefaultExt = "xlsx";
                 saveFileDialog.AddExtension = true;
-                saveFileDialog.FileName = $"stok-balance-info-{DateTime.Now:yyyy-MM-dd-HHmm}";
+                saveFileDialog.FileName = $"penerimaan-pelunasan-sales-info-{DateTime.Now:yyyy-MM-dd-HHmm}";
                 if (saveFileDialog.ShowDialog() != DialogResult.OK)
                     return;
                 filePath = saveFileDialog.FileName;
@@ -156,21 +136,25 @@ namespace btr.distrib.FinanceContext.PenerimaanPelunasanSalesRpt
 
             using (IXLWorkbook wb = new XLWorkbook())
             {
-                wb.AddWorksheet("stok-balance-info")
+                wb.AddWorksheet("penerimaan-pelunasan-sales-info")
                 .Cell($"B1")
                     .InsertTable(_dataSource, false);
                 var ws = wb.Worksheets.First();
                 //  set border and font
-                ws.Range(ws.Cell($"A{1}"), ws.Cell($"O{_dataSource.Count + 1}")).Style
+                ws.Range(ws.Cell($"A{1}"), ws.Cell($"I{_dataSource.Count + 1}")).Style
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair);
-                ws.Range(ws.Cell($"A{1}"), ws.Cell($"O{_dataSource.Count + 1}")).Style
+                ws.Range(ws.Cell($"A{1}"), ws.Cell($"I{_dataSource.Count + 1}")).Style
                     .Font.SetFontName("Consolas")
                     .Font.SetFontSize(9);
 
                 //  set format for  column  number 
-                ws.Range(ws.Cell($"H{2}"), ws.Cell($"O{_dataSource.Count + 1}"))
+                ws.Range(ws.Cell($"D{2}"), ws.Cell($"I{_dataSource.Count + 1}"))
                     .Style.NumberFormat.Format = "#,##";
+                //  set format date as dd-MM-yyyy
+                ws.Range(ws.Cell($"C{2}"), ws.Cell($"C{_dataSource.Count + 1}"))
+                    .Style.NumberFormat.Format = "dd-MM-yyyy";
+
                 ws.Range(ws.Cell($"A{2}"), ws.Cell($"A{_dataSource.Count + 1}"))
                     .Style.NumberFormat.Format = "#,##";
                 //  add rownumbering
@@ -181,22 +165,6 @@ namespace btr.distrib.FinanceContext.PenerimaanPelunasanSalesRpt
                 wb.SaveAs(filePath);
             }
             System.Diagnostics.Process.Start(filePath);
-        }
-
-        private List<StokBalanceView> Filter(List<StokBalanceView> source, string keyword)
-        {
-            if (keyword.Trim().Length == 0)
-                return source;
-            var listFilteredBrgName = source.Where(x => x.BrgName.ToLower().ContainMultiWord(keyword)).ToList();
-            var listFilteredBrgCode = source.Where(x => x.BrgCode.ToLower().StartsWith(keyword.ToLower())).ToList();
-            var listFilteredKategori = source.Where(x => x.KategoriName.ToLower().ContainMultiWord(keyword)).ToList();
-            var listFilteredSupplier = source.Where(x => x.SupplierName.ToLower().ContainMultiWord(keyword)).ToList();
-
-            var result = listFilteredBrgName
-                .Union(listFilteredBrgCode)
-                .Union(listFilteredKategori)
-                .Union(listFilteredSupplier);
-            return result.ToList();
         }
     }
 }

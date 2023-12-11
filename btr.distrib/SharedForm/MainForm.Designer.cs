@@ -67,6 +67,7 @@
             this.StokBalanceButton = new System.Windows.Forms.RibbonButton();
             this.BukuStokButton = new System.Windows.Forms.RibbonButton();
             this.OmzetPerSupplierButton = new System.Windows.Forms.RibbonButton();
+            this.StokPerSupplierButton = new System.Windows.Forms.RibbonButton();
             this.InventoryMasterPanel = new System.Windows.Forms.RibbonPanel();
             this.BrgButton = new System.Windows.Forms.RibbonButton();
             this.WarehouseButton = new System.Windows.Forms.RibbonButton();
@@ -74,6 +75,7 @@
             this.ribbonPanel1 = new System.Windows.Forms.RibbonPanel();
             this.LunasPiutangButton = new System.Windows.Forms.RibbonButton();
             this.PiutangSalesWilayahButton = new System.Windows.Forms.RibbonButton();
+            this.PenerimaanSalesButton = new System.Windows.Forms.RibbonButton();
             this.SettingTab = new System.Windows.Forms.RibbonTab();
             this.DeliveryPanel = new System.Windows.Forms.RibbonPanel();
             this.UserButton = new System.Windows.Forms.RibbonButton();
@@ -83,7 +85,7 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.PenerimaanSalesButton = new System.Windows.Forms.RibbonButton();
+            this.FakturPerSupplierButton = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -127,6 +129,7 @@
             this.FakturPanel.Items.Add(this.FakturButton);
             this.FakturPanel.Items.Add(this.FakturInfoButton);
             this.FakturPanel.Items.Add(this.FakturBrgInfoButton);
+            this.FakturPanel.Items.Add(this.FakturPerSupplierButton);
             this.FakturPanel.Items.Add(this.ribbonSeparator2);
             this.FakturPanel.Items.Add(this.ControlFakturButton);
             this.FakturPanel.Items.Add(this.FakturPajakButton);
@@ -402,8 +405,10 @@
             this.ReportingPanel.Items.Add(this.StokBalanceButton);
             this.ReportingPanel.Items.Add(this.BukuStokButton);
             this.ReportingPanel.Items.Add(this.OmzetPerSupplierButton);
+            this.ReportingPanel.Items.Add(this.StokPerSupplierButton);
             this.ReportingPanel.Name = "ReportingPanel";
             this.ReportingPanel.Text = "Reporting";
+            this.ReportingPanel.Click += new System.EventHandler(this.ReportingPanel_Click);
             // 
             // StokBalanceButton
             // 
@@ -431,6 +436,14 @@
             this.OmzetPerSupplierButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("OmzetPerSupplierButton.SmallImage")));
             this.OmzetPerSupplierButton.Text = "Omzet Per-Supplier";
             this.OmzetPerSupplierButton.Click += new System.EventHandler(this.OmzetPerSupplierButton_Click);
+            // 
+            // StokPerSupplierButton
+            // 
+            this.StokPerSupplierButton.Image = global::btr.distrib.Properties.Resources.icons8_purchase_order;
+            this.StokPerSupplierButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_purchase_order;
+            this.StokPerSupplierButton.Name = "StokPerSupplierButton";
+            this.StokPerSupplierButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("StokPerSupplierButton.SmallImage")));
+            this.StokPerSupplierButton.Text = "Stok Per Supplier";
             // 
             // InventoryMasterPanel
             // 
@@ -488,6 +501,15 @@
             this.PiutangSalesWilayahButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("PiutangSalesWilayahButton.SmallImage")));
             this.PiutangSalesWilayahButton.Text = "Piutang Sales-Wilayah";
             this.PiutangSalesWilayahButton.Click += new System.EventHandler(this.PiutangSalesWilayahButton_Click);
+            // 
+            // PenerimaanSalesButton
+            // 
+            this.PenerimaanSalesButton.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.PenerimaanSalesButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.PenerimaanSalesButton.Name = "PenerimaanSalesButton";
+            this.PenerimaanSalesButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("PenerimaanSalesButton.SmallImage")));
+            this.PenerimaanSalesButton.Text = "Penerimaan Sales";
+            this.PenerimaanSalesButton.Click += new System.EventHandler(this.PenerimaanSalesButton_Click);
             // 
             // SettingTab
             // 
@@ -559,14 +581,14 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
-            // PenerimaanSalesButton
+            // FakturPerSupplierButton
             // 
-            this.PenerimaanSalesButton.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
-            this.PenerimaanSalesButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
-            this.PenerimaanSalesButton.Name = "PenerimaanSalesButton";
-            this.PenerimaanSalesButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("PenerimaanSalesButton.SmallImage")));
-            this.PenerimaanSalesButton.Text = "Penerimaan Sales";
-            this.PenerimaanSalesButton.Click += new System.EventHandler(this.PenerimaanSalesButton_Click);
+            this.FakturPerSupplierButton.Image = global::btr.distrib.Properties.Resources.icons8_documents;
+            this.FakturPerSupplierButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents;
+            this.FakturPerSupplierButton.Name = "FakturPerSupplierButton";
+            this.FakturPerSupplierButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FakturPerSupplierButton.SmallImage")));
+            this.FakturPerSupplierButton.Text = "Faktur-Per Supplier";
+            this.FakturPerSupplierButton.Click += new System.EventHandler(this.FakturPerSupplierButton_Click);
             // 
             // MainForm
             // 
@@ -648,5 +670,7 @@
         private System.Windows.Forms.RibbonButton InvoiceBrgInfoButton;
         private System.Windows.Forms.RibbonButton OmzetPerSupplierButton;
         private System.Windows.Forms.RibbonButton PenerimaanSalesButton;
+        private System.Windows.Forms.RibbonButton StokPerSupplierButton;
+        private System.Windows.Forms.RibbonButton FakturPerSupplierButton;
     }
 }

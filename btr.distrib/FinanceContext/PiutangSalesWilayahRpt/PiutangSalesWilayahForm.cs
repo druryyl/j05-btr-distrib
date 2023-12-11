@@ -147,7 +147,7 @@ namespace btr.distrib.FinanceContext.PiutangSalesWilayahRpt
             //        Hpp = c.Hpp,
             //        NilaiSediaan = c.NilaiSediaan,
             //    }).ToList();
-            //InfoGrid.DataSource = _dataSource;
+            _dataSource = listFaktur;
             InfoGrid.DataSource = listFaktur;
         }
 
@@ -160,7 +160,7 @@ namespace btr.distrib.FinanceContext.PiutangSalesWilayahRpt
                 saveFileDialog.Title = @"Save Excel File";
                 saveFileDialog.DefaultExt = "xlsx";
                 saveFileDialog.AddExtension = true;
-                saveFileDialog.FileName = $"stok-balance-info-{DateTime.Now:yyyy-MM-dd-HHmm}";
+                saveFileDialog.FileName = $"piutang-sales-per-wilayah-info-{DateTime.Now:yyyy-MM-dd-HHmm}";
                 if (saveFileDialog.ShowDialog() != DialogResult.OK)
                     return;
                 filePath = saveFileDialog.FileName;
@@ -168,9 +168,52 @@ namespace btr.distrib.FinanceContext.PiutangSalesWilayahRpt
 
             using (IXLWorkbook wb = new XLWorkbook())
             {
-                wb.AddWorksheet("stok-balance-info")
-                .Cell($"B1")
-                    .InsertTable(_dataSource, false);
+                var excelContent = _dataSource
+                    .OrderBy(x => x.SalesName)
+                    .ThenBy(x => x.WilayahName)
+                    .ThenBy(x => x.CustomerName)
+                    .ToList();
+
+                ////  replace sales name with empty string if same with previous row
+                //var prevSalesName = "";
+                //foreach (var item in excelContent)
+                //{
+                //    var currentVal = item.SalesName;
+                //    if (item.SalesName == prevSalesName)
+                //        item.SalesName = "";
+                    
+                //    if (currentVal != prevSalesName)
+                //        prevSalesName = currentVal;
+                //}
+
+                ////  replace wilayah name with empty string if same with previous row
+                //var prevWilayahName = "";
+                //foreach (var item in excelContent)
+                //{
+                //    var currentVal = item.WilayahName;
+                //    if (item.WilayahName == prevWilayahName)
+                //        item.WilayahName = "";
+
+                //    if (currentVal != prevWilayahName)
+                //        prevWilayahName = currentVal;
+                //}
+
+                ////  replace customer name with empty string if same with previous row
+                //var prevCustomerName = "";
+                //foreach (var item in excelContent)
+                //{
+                //    var currentVal = item.CustomerName;
+                //    if (item.CustomerName == prevCustomerName)
+                //        item.CustomerName = "";
+
+                //    if (currentVal != prevCustomerName)
+                //        prevCustomerName = currentVal;
+                //}
+
+
+                wb.AddWorksheet("piutang-sales-per-wilayah-info")
+                    .Cell($"B1")
+                    .InsertTable(excelContent, false);
                 var ws = wb.Worksheets.First();
                 //  set border and font
                 ws.Range(ws.Cell($"A{1}"), ws.Cell($"O{_dataSource.Count + 1}")).Style
@@ -183,6 +226,12 @@ namespace btr.distrib.FinanceContext.PiutangSalesWilayahRpt
                 //  set format for  column  number 
                 ws.Range(ws.Cell($"H{2}"), ws.Cell($"O{_dataSource.Count + 1}"))
                     .Style.NumberFormat.Format = "#,##";
+                //  set format date as dd-MM-yyyy
+                ws.Range(ws.Cell($"E{2}"), ws.Cell($"E{_dataSource.Count + 1}"))
+                    .Style.NumberFormat.Format = "dd-MM-yyyy";
+                ws.Range(ws.Cell($"G{2}"), ws.Cell($"G{_dataSource.Count + 1}"))
+                    .Style.NumberFormat.Format = "dd-MM-yyyy";
+
                 ws.Range(ws.Cell($"A{2}"), ws.Cell($"A{_dataSource.Count + 1}"))
                     .Style.NumberFormat.Format = "#,##";
                 //  add rownumbering

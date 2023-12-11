@@ -172,6 +172,7 @@
     <Compile Include="InventoryContext\StokBalanceAgg\StokBalanceWriter.cs" />
     <Compile Include="InventoryContext\StokBalanceInfo\IStokBalanceViewDal.cs" />
     <Compile Include="InventoryContext\StokBalanceInfo\StokBalanceView.cs" />
+    <Compile Include="InventoryContext\StokBrgSupplierRpt\IStokBrgSupplierDal.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\IWarehouseDal.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\GetWarehouseQuery.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\ListWarehouseQuery.cs" />
@@ -237,6 +238,7 @@
     <Compile Include="SalesContext\FakturPajakVoidAgg\FaktuPajakVoidWriter.cs" />
     <Compile Include="SalesContext\FakturPajakVoidAgg\FakturPajakVoidBuilder.cs" />
     <Compile Include="SalesContext\FakturPajakVoidAgg\IFakturPajakVoidDal.cs" />
+    <Compile Include="SalesContext\FakturPerSupplierRpt\IFakturPerSupplierDal.cs" />
     <Compile Include="SalesContext\KlasifikasiAgg\IKlasifikasiDal.cs" />
     <Compile Include="SalesContext\AlokasiFpAgg\IAlokasiFpDal.cs" />
     <Compile Include="SalesContext\AlokasiFpAgg\AlokasiFpBuilder.cs" />

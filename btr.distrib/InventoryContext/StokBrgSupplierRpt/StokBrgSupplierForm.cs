@@ -1,22 +1,16 @@
-﻿using btr.application.InventoryContext.StokBalanceInfo;
-using btr.distrib.InventoryContext.StokBalanceRpt;
-using ClosedXML.Excel;
+﻿using ClosedXML.Excel;
 using Syncfusion.Grouping;
 using Syncfusion.Windows.Forms.Grid.Grouping;
 using Syncfusion.Windows.Forms.Grid;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using btr.application.InventoryContext.StokBrgSupplierRpt;
 using Syncfusion.Drawing;
 using btr.nuna.Domain;
-using Syncfusion.DataSource.Extensions;
+using JetBrains.Annotations;
 
 namespace btr.distrib.InventoryContext.StokBrgSupplierRpt
 {
@@ -31,6 +25,7 @@ namespace btr.distrib.InventoryContext.StokBrgSupplierRpt
             _stokBrgSupplierDal = stokBrgSupplierDal;
             InfoGrid.QueryCellStyleInfo += InfoGrid_QueryCellStyleInfo;
             ExcelButton.Click += ExcelButton_Click;
+            ProsesButton.Click += ProsesButton_Click;
             InitGrid();
         }
 
@@ -140,6 +135,7 @@ namespace btr.distrib.InventoryContext.StokBrgSupplierRpt
                     c.Qty,
                     c.WarehouseName,
                     c.SupplierName,
+                    c.KategoriName,
                     c.BrgCode,
                     c.BrgName,
                     c.SatuanBesar,
@@ -181,30 +177,55 @@ namespace btr.distrib.InventoryContext.StokBrgSupplierRpt
                 .Cell($"B1")
                     .InsertTable(listToExcel, false);
                 var ws = wb.Worksheets.First();
-                //  set border and font
-                ws.Range(ws.Cell($"A{1}"), ws.Cell($"V{listToExcel.Count + 1}")).Style
+                
+                //  set format row header: font bold, background lightblue, border medium
+                ws.Range(ws.Cell("A1"), ws.Cell($"W1")).Style
+                    .Font.SetFontName("Consolas")
+                    .Font.SetFontSize(9)
+                    .Font.SetBold()
+                    .Fill.SetBackgroundColor(XLColor.LightBlue)
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair);
-                ws.Range(ws.Cell($"A{1}"), ws.Cell($"V{listToExcel.Count + 1}")).Style
+                
+                //  set format row data: font consolas 9, border medium, border inside hair
+                ws.Range(ws.Cell("A2"), ws.Cell($"W{listToExcel.Count + 1}")).Style
                     .Font.SetFontName("Consolas")
-                    .Font.SetFontSize(9);
-
-                //  set format for  column  number 
-                ws.Range(ws.Cell($"G{2}"), ws.Cell($"V{_dataSource.Count + 1}"))
-                    .Style.NumberFormat.Format = "#,##";
-                ws.Range(ws.Cell($"A{2}"), ws.Cell($"A{listToExcel.Count + 1}"))
-                    .Style.NumberFormat.Format = "#,##";
-                //  add rownumbering
+                    .Font.SetFontSize(9)
+                    .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
+                    .Border.SetInsideBorder(XLBorderStyleValues.Hair);
+                
+                //  add row numbering
                 ws.Cell($"A1").Value = "No";
                 for (var i = 0; i < listToExcel.Count; i++)
                     ws.Cell($"A{i + 2}").Value = i + 1;
+                ws.Range(ws.Cell("A2"), ws.Cell($"A{listToExcel.Count + 1}"))
+                    .Style.NumberFormat.Format = "#,##";
+
+                //  format numeric column  
+                ws.Range(ws.Cell("G2"), ws.Cell($"W{listToExcel.Count + 1}"))
+                    .Style.NumberFormat.Format = "#,##";
+                
+                //  add row footer: sum column NilaiStokBesar, NilaiStokKecil, NilaiInPcs
+                ws.Cell($"K{listToExcel.Count + 2}").FormulaA1 = $"=SUM(K2:K{listToExcel.Count + 1})";
+                ws.Cell($"Q{listToExcel.Count + 2}").FormulaA1 = $"=SUM(Q2:Q{listToExcel.Count + 1})";
+                ws.Cell($"W{listToExcel.Count + 2}").FormulaA1 = $"=SUM(W2:W{listToExcel.Count + 1})";
+
+                //  format row footer font bold, background yellow, border medium
+                ws.Range(ws.Cell($"K{listToExcel.Count + 2}"), ws.Cell($"W{listToExcel.Count + 2}")).Style
+                    .Font.SetFontName("Concolas")
+                    .Font.SetBold()
+                    .NumberFormat.SetFormat("#,##")
+                    .Fill.SetBackgroundColor(XLColor.Yellow)
+                    .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
+                    .Border.SetInsideBorder(XLBorderStyleValues.Hair);
+
                 ws.Columns().AdjustToContents();
                 wb.SaveAs(filePath);
             }
             System.Diagnostics.Process.Start(filePath);
         }
 
-        private List<StokBrgSupplierView> Filter(List<StokBrgSupplierView> source, string keyword)
+        private static IEnumerable<StokBrgSupplierView> Filter(IReadOnlyCollection<StokBrgSupplierView> source, string keyword)
         {
             if (keyword.Trim().Length == 0)
                 return source;
@@ -220,12 +241,15 @@ namespace btr.distrib.InventoryContext.StokBrgSupplierRpt
             return result.ToList();
         }
     }
+    
+    [PublicAPI]
     public class StokBrgSupplierDto
     {
         public StokBrgSupplierDto(string brgId, 
             int qty, 
             string warehousName, 
-            string supplierName, 
+            string supplierName,
+            string kategoriName,
             string brgCode, 
             string brgName, 
             string satuanBesar, 
@@ -239,6 +263,7 @@ namespace btr.distrib.InventoryContext.StokBrgSupplierRpt
             Qty = qty;
             WarehouseName = warehousName;
             SupplierName = supplierName;
+            KategoriName = kategoriName;
             BrgCode = brgCode;
             BrgName = brgName;
             SatuanBesar = satuanBesar;
@@ -250,6 +275,7 @@ namespace btr.distrib.InventoryContext.StokBrgSupplierRpt
         }
         public string BrgId { get; set; }
         public string WarehouseName { get; set; }
+        public string KategoriName { get; set; }
         public string SupplierName { get; set; }
         public string BrgCode { get; set; }
         public string BrgName { get; set; }

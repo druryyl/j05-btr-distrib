@@ -9,7 +9,9 @@ namespace btr.domain.InventoryContext.ReturJualAgg
     public enum JenisQtyEnum
     {
         SatuanBesar,
-        SatuanKecil
+        SatuanKecil,
+        SatuanBesarRusak,
+        SatuanKecilRusak
     }   
 
     public class ReturJualItemQtyHrgModel

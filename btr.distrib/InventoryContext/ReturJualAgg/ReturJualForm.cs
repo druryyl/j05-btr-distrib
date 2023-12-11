@@ -186,7 +186,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             _listItem.Clear();
             foreach (var item in returJual.ListItem)
             {
-                var createReturJualItemRequest = new CreateReturJualItemRequest(item.BrgId, CustomerIdText.Text, item.HrgInputStr, item.QtyInputStr, item.DiscInputStr, 11);
+                var createReturJualItemRequest = new CreateReturJualItemRequest(item.BrgId, CustomerIdText.Text, item.HrgInputStr, item.QtyInputStr, item.QtyInputStrRusak, item.DiscInputStr, 11);
                 var newItemModel = _createReturJualItemWorker.Execute(createReturJualItemRequest);
                 var newItemDto = newItemModel.Adapt<ReturJualItemDto>();
                 _listItem.Add(newItemDto);
@@ -543,7 +543,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
         {
             var item = _listItem[rowIndex];
             var req = new CreateReturJualItemRequest(item.BrgId, CustomerIdText.Text, 
-                item.HrgInputStr, item.QtyInputStr, item.DiscInputStr, 11);
+                item.HrgInputStr, item.QtyInputStr, item.QtyInputStrRusak, item.DiscInputStr, 11);
             var newItem = _createReturJualItemWorker.Execute(req);
             
             _listItem[rowIndex] = newItem.Adapt<ReturJualItemDto>();

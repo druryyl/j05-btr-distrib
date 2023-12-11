@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>87</ApplicationRevision>
+    <ApplicationRevision>89</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -368,12 +368,6 @@
     <Compile Include="InventoryContext\OpnameAgg\StokOpForm.Designer.cs">
       <DependentUpon>StokOpForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="InventoryContext\ReturJualAgg\ReturJual2Form.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="InventoryContext\ReturJualAgg\ReturJual2Form.Designer.cs">
-      <DependentUpon>ReturJual2Form.cs</DependentUpon>
-    </Compile>
     <Compile Include="InventoryContext\ReturJualAgg\ReturJualForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -413,6 +407,12 @@
     </Compile>
     <Compile Include="InventoryContext\PackingAgg\PackingForm.Designer.cs">
       <DependentUpon>PackingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryContext\StokBrgSupplierRpt\StokBrgSupplierForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryContext\StokBrgSupplierRpt\StokBrgSupplierForm.Designer.cs">
+      <DependentUpon>StokBrgSupplierForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InventoryContext\WarehouseAgg\WarehouseForm.cs">
       <SubType>Form</SubType>
@@ -506,6 +506,12 @@
     </Compile>
     <Compile Include="SalesContext\FakturInfoRpt\FakturInfoForm.Designer.cs">
       <DependentUpon>FakturInfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SalesContext\FakturPerSupplierRpt\FakturPerSupplierForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SalesContext\FakturPerSupplierRpt\FakturPerSupplierForm.Designer.cs">
+      <DependentUpon>FakturPerSupplierForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SalesContext\SalesPersonAgg\SalesPersonForm.cs">
       <SubType>Form</SubType>
@@ -602,14 +608,14 @@
     <EmbeddedResource Include="InventoryContext\OpnameAgg\StokOpForm.resx">
       <DependentUpon>StokOpForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InventoryContext\ReturJualAgg\ReturJual2Form.resx">
-      <DependentUpon>ReturJual2Form.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\ReturJualAgg\ReturJualForm.resx">
       <DependentUpon>ReturJualForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\StokBalanceRpt\StokBalanceInfo2Form.resx">
       <DependentUpon>StokBalanceInfo2Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InventoryContext\StokBrgSupplierRpt\StokBrgSupplierForm.resx">
+      <DependentUpon>StokBrgSupplierForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PurchaseContext\InvoiceAgg\InvoiceForm.resx">
       <DependentUpon>InvoiceForm.cs</DependentUpon>
@@ -628,6 +634,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SalesContext\FakturInfoRpt\FakturInfoForm.resx">
       <DependentUpon>FakturInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SalesContext\FakturPerSupplierRpt\FakturPerSupplierForm.resx">
+      <DependentUpon>FakturPerSupplierForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SharedForm\StokBalancerForm.resx">
       <DependentUpon>StokBalancerForm.cs</DependentUpon>

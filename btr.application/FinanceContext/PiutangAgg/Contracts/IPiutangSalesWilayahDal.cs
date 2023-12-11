@@ -20,7 +20,7 @@ namespace btr.application.FinanceContext.PiutangAgg.Contracts
         public DateTime FakturDate { get; set; }
 
         public string CustomerName { get; set; }
-        public string JatuhTempo { get; set; }
+        public DateTime JatuhTempo { get; set; }
 
         public decimal TotalJual { get; set; }
         public decimal BayarTunai { get; set; }
