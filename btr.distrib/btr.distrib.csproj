@@ -582,6 +582,8 @@
     </Compile>
     <Compile Include="WinformAssemblyAnchor.cs" />
     <Content Include="icons8_truck.ico" />
+    <None Include="Resources\icons8_report_card_32.png" />
+    <None Include="Resources\icons8_pipe_organ_32.png" />
     <None Include="Resources\icons8_test_passed_32.png" />
     <None Include="Resources\icons8_uninstalling_updates_321.png" />
     <None Include="Resources\icons8_pokeball_32.png" />
