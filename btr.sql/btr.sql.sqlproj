@@ -115,5 +115,7 @@
     <Build Include="Tables\InventoryContext\BTR_ReturJualItemQtyHrg.sql" />
     <Build Include="Tables\InventoryContext\BTR_ReturJualItemDisc.sql" />
     <Build Include="Tables\InventoryContext\BTR_StokOp.sql" />
+    <Build Include="Tables\Finance\BTR_Tagihan.sql" />
+    <Build Include="Tables\Finance\BTR_TagihanFaktur.sql" />
   </ItemGroup>
 </Project>

@@ -118,6 +118,7 @@
     <Compile Include="FinanceContext\PiutangAgg\UseCases\RemoveLunasPiutangWorker.cs" />
     <Compile Include="FinanceContext\PiutangAgg\Workers\PiutangBuilder.cs" />
     <Compile Include="FinanceContext\PiutangAgg\Workers\PiutangWriter.cs" />
+    <Compile Include="FinanceContext\TagihanAgg\ITagihanDal.cs" />
     <Compile Include="InventoryContext\DriverAgg\IDriverDal.cs" />
     <Compile Include="InventoryContext\ImportOpnameAgg\Contracts\IImportOpnameDal.cs" />
     <Compile Include="InventoryContext\KartuStokRpt\IKartuStokDal.cs" />
