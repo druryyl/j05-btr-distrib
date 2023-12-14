@@ -34,11 +34,13 @@
             this.FakturPanel = new System.Windows.Forms.RibbonPanel();
             this.ST1FakturButton = new System.Windows.Forms.RibbonButton();
             this.ST2ControlFakturButton = new System.Windows.Forms.RibbonButton();
+            this.ST3FakturPajakButton = new System.Windows.Forms.RibbonButton();
             this.SalesInfoPanel = new System.Windows.Forms.RibbonPanel();
             this.SF1FakturButton = new System.Windows.Forms.RibbonButton();
             this.SF2FakturBrgButton = new System.Windows.Forms.RibbonButton();
             this.SF3FakturSupplierButton = new System.Windows.Forms.RibbonButton();
             this.SF4FakturCustomerButton = new System.Windows.Forms.RibbonButton();
+            this.SF5FakturPajakButton = new System.Windows.Forms.RibbonButton();
             this.MasterSalesPanel = new System.Windows.Forms.RibbonPanel();
             this.OutletButton = new System.Windows.Forms.RibbonButton();
             this.SalesPersonButton = new System.Windows.Forms.RibbonButton();
@@ -71,6 +73,7 @@
             this.FinanceTab = new System.Windows.Forms.RibbonTab();
             this.ribbonPanel1 = new System.Windows.Forms.RibbonPanel();
             this.FT1LunasPiutangButton = new System.Windows.Forms.RibbonButton();
+            this.FT2TagihanSalesButton = new System.Windows.Forms.RibbonButton();
             this.FinanceInfoTab = new System.Windows.Forms.RibbonPanel();
             this.FF1PiutangSalesWilayahButton = new System.Windows.Forms.RibbonButton();
             this.FF2PenerimaanSalesButton = new System.Windows.Forms.RibbonButton();
@@ -83,8 +86,6 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ST3FakturPajakButton = new System.Windows.Forms.RibbonButton();
-            this.SF5FakturPajakButton = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -134,8 +135,8 @@
             // 
             // ST1FakturButton
             // 
-            this.ST1FakturButton.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
-            this.ST1FakturButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.ST1FakturButton.Image = global::btr.distrib.Properties.Resources.icons8_event_accepted_32;
+            this.ST1FakturButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_event_accepted_32;
             this.ST1FakturButton.Name = "ST1FakturButton";
             this.ST1FakturButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ST1FakturButton.SmallImage")));
             this.ST1FakturButton.Text = "ST1-Faktur";
@@ -149,6 +150,15 @@
             this.ST2ControlFakturButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ST2ControlFakturButton.SmallImage")));
             this.ST2ControlFakturButton.Text = "ST2-Control Faktur";
             this.ST2ControlFakturButton.Click += new System.EventHandler(this.ST2ControlFakturButton_Click);
+            // 
+            // ST3FakturPajakButton
+            // 
+            this.ST3FakturPajakButton.Image = global::btr.distrib.Properties.Resources.icons8_uninstalling_updates_32;
+            this.ST3FakturPajakButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_uninstalling_updates_32;
+            this.ST3FakturPajakButton.Name = "ST3FakturPajakButton";
+            this.ST3FakturPajakButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ST3FakturPajakButton.SmallImage")));
+            this.ST3FakturPajakButton.Text = "ST3-Faktur Pajak";
+            this.ST3FakturPajakButton.Click += new System.EventHandler(this.ST3FakturPajakButton_Click);
             // 
             // SalesInfoPanel
             // 
@@ -195,6 +205,14 @@
             this.SF4FakturCustomerButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("SF4FakturCustomerButton.SmallImage")));
             this.SF4FakturCustomerButton.Text = "SF4-Faktur PerCustomer";
             this.SF4FakturCustomerButton.Click += new System.EventHandler(this.SF4FakturPerCustomerButton_Click);
+            // 
+            // SF5FakturPajakButton
+            // 
+            this.SF5FakturPajakButton.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.SF5FakturPajakButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.SF5FakturPajakButton.Name = "SF5FakturPajakButton";
+            this.SF5FakturPajakButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("SF5FakturPajakButton.SmallImage")));
+            this.SF5FakturPajakButton.Text = "SF5-Faktur Pajak";
             // 
             // MasterSalesPanel
             // 
@@ -461,6 +479,7 @@
             // ribbonPanel1
             // 
             this.ribbonPanel1.Items.Add(this.FT1LunasPiutangButton);
+            this.ribbonPanel1.Items.Add(this.FT2TagihanSalesButton);
             this.ribbonPanel1.Name = "ribbonPanel1";
             this.ribbonPanel1.Text = "";
             // 
@@ -472,6 +491,15 @@
             this.FT1LunasPiutangButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FT1LunasPiutangButton.SmallImage")));
             this.FT1LunasPiutangButton.Text = "FT1-Lunas Piutang";
             this.FT1LunasPiutangButton.Click += new System.EventHandler(this.FT1LunasPiutangButton_Click);
+            // 
+            // FT2TagihanSalesButton
+            // 
+            this.FT2TagihanSalesButton.Image = global::btr.distrib.Properties.Resources.icons8_budget_32;
+            this.FT2TagihanSalesButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_budget_32;
+            this.FT2TagihanSalesButton.Name = "FT2TagihanSalesButton";
+            this.FT2TagihanSalesButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FT2TagihanSalesButton.SmallImage")));
+            this.FT2TagihanSalesButton.Text = "FT2-Tagihan Sales";
+            this.FT2TagihanSalesButton.Click += new System.EventHandler(this.FT2TagihanSalesButton_Click_1);
             // 
             // FinanceInfoTab
             // 
@@ -547,9 +575,7 @@
             // 
             // AppStatus
             // 
-            this.AppStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.LoginStatus,
-            this.ServerDbStatus});
+            this.AppStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.LoginStatus, this.ServerDbStatus });
             this.AppStatus.Location = new System.Drawing.Point(0, 428);
             this.AppStatus.Name = "AppStatus";
             this.AppStatus.Size = new System.Drawing.Size(1139, 22);
@@ -568,28 +594,10 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
-            // ST3FakturPajakButton
-            // 
-            this.ST3FakturPajakButton.Image = global::btr.distrib.Properties.Resources.icons8_uninstalling_updates_32;
-            this.ST3FakturPajakButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_uninstalling_updates_32;
-            this.ST3FakturPajakButton.Name = "ST3FakturPajakButton";
-            this.ST3FakturPajakButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ST3FakturPajakButton.SmallImage")));
-            this.ST3FakturPajakButton.Text = "ST3-Faktur Pajak";
-            this.ST3FakturPajakButton.Click += new System.EventHandler(this.ST3FakturPajakButton_Click);
-            // 
-            // SF5FakturPajakButton
-            // 
-            this.SF5FakturPajakButton.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.SF5FakturPajakButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.SF5FakturPajakButton.Name = "SF5FakturPajakButton";
-            this.SF5FakturPajakButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("SF5FakturPajakButton.SmallImage")));
-            this.SF5FakturPajakButton.Text = "SF5-Faktur Pajak";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::btr.distrib.Properties.Resources.app_wallpaper_5;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1139, 450);
             this.Controls.Add(this.AppStatus);
@@ -604,8 +612,9 @@
             this.AppStatus.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
+
+        private System.Windows.Forms.RibbonButton FT2TagihanSalesButton;
 
         private System.Windows.Forms.RibbonButton TestingButton;
 

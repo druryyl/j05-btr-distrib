@@ -37,6 +37,7 @@ using btr.distrib.InventoryContext.StokBrgSupplierRpt;
 using btr.distrib.SalesContext.FakturPerSupplierRpt;
 using btr.distrib.SalesContext.FakturPerCustomerRpt;
 using btr.application.PurchaseContext.InvoiceHarianDetilRpt;
+using btr.distrib.FinanceContext.TagihanAgg;
 using btr.distrib.PurchaseContext.InvoiceHarianDetilRpt;
 
 namespace btr.distrib.SharedForm
@@ -432,7 +433,17 @@ namespace btr.distrib.SharedForm
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
+        }
 
+
+        private void FT2TagihanSalesButton_Click_1(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<TagihanForm>())
+                return;
+            var form = _servicesProvider.GetRequiredService<TagihanForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
         }
     }
 }

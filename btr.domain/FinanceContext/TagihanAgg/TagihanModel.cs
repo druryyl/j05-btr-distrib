@@ -9,10 +9,11 @@ namespace btr.domain.FinanceContext.TagihanAgg
     public class TagihanModel : ITagihanKey
     {
         public string TagihanId { get; set; }
-        public string TagihanDate { get; set; }
+        public DateTime TagihanDate { get; set; }
         public string SalesPersonId { get; set; }
         public string SalesPersonName { get; set; }
         public decimal TotalTagihan { get; set; }
+        public List<TagihanFakturModel> ListFaktur { get; set; }
     }
 
     public interface ITagihanKey
@@ -29,6 +30,6 @@ namespace btr.domain.FinanceContext.TagihanAgg
         public string CustomerId { get; set; }
         public string CustomerName { get; set; }
         public string Alamat { get; set; }
-        public string Nilai { get; set; }
+        public decimal Nilai { get; set; }
     }
 }

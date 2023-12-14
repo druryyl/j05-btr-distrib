@@ -223,6 +223,16 @@ namespace btr.distrib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_budget_32 {
+            get {
+                object obj = ResourceManager.GetObject("icons8_budget_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_caretaker {
             get {
                 object obj = ResourceManager.GetObject("icons8_caretaker", resourceCulture);
@@ -266,6 +276,16 @@ namespace btr.distrib.Properties {
         internal static System.Drawing.Bitmap icons8_documents_32 {
             get {
                 object obj = ResourceManager.GetObject("icons8_documents_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_event_accepted_32 {
+            get {
+                object obj = ResourceManager.GetObject("icons8_event_accepted_32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

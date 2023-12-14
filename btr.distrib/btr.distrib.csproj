@@ -716,6 +716,8 @@
     <None Include="Resources\icons8_harvester_32.png" />
     <None Include="Resources\icons8_kaspersky_32.png" />
     <None Include="Resources\icons8_align_text_right_32.png" />
+    <None Include="Resources\icons8_budget_32.png" />
+    <None Include="Resources\icons8_event_accepted_32.png" />
     <Content Include="Resources\icons8_microscope.ico" />
     <Content Include="Resources\icons8_microscope_32.png" />
     <EmbeddedResource Include="SharedForm\AboutForm.resx">
