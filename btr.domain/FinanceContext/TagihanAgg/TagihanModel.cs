@@ -23,6 +23,7 @@ namespace btr.domain.FinanceContext.TagihanAgg
     public class TagihanFakturModel : ITagihanKey
     {
         public string TagihanId { get; set; }
+        public int NoUrut { get; set; }
         public string FakturId { get; set; }
         public string FakturCode { get; set; }
         public string CustomerId { get; set; }
