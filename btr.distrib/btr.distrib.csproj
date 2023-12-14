@@ -313,6 +313,12 @@
       <DependentUpon>PiutangSalesWilayahForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FinanceContext\PiutangSalesWilayahRpt\PiutangSalesWilayahView.cs" />
+    <Compile Include="FinanceContext\TagihanAgg\TagihanForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FinanceContext\TagihanAgg\TagihanForm.Designer.cs">
+      <DependentUpon>TagihanForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\BrowseFilter.cs" />
     <Compile Include="Helpers\CodeRedReporting.cs" />
     <Compile Include="Helpers\IBrowseEngine.cs" />
@@ -609,6 +615,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FinanceContext\PiutangSalesWilayahRpt\PiutangSalesWilayahForm.resx">
       <DependentUpon>PiutangSalesWilayahForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FinanceContext\TagihanAgg\TagihanForm.resx">
+      <DependentUpon>TagihanForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\ImportOpnameAgg\ImportOpnameForm.resx">
       <DependentUpon>ImportOpnameForm.cs</DependentUpon>
