@@ -30,10 +30,7 @@ namespace btr.infrastructure.FinanceContext.TagihanAgg
                 bcp.AddMap("TagihanId", "TagihanId");
                 bcp.AddMap("NoUrut", "NoUrut");
                 bcp.AddMap("FakturId", "FakturId");
-                bcp.AddMap("FakturCode", "FakturCode");
                 bcp.AddMap("CustomerId", "CustomerId");
-                bcp.AddMap("CustomerName", "CustomerName");
-                bcp.AddMap("Alamat", "Alamat");
                 bcp.AddMap("Nilai", "Nilai");
                 
                 var fetched = listModel.ToList();

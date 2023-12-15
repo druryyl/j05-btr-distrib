@@ -575,7 +575,9 @@
             // 
             // AppStatus
             // 
-            this.AppStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.LoginStatus, this.ServerDbStatus });
+            this.AppStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.LoginStatus,
+            this.ServerDbStatus});
             this.AppStatus.Location = new System.Drawing.Point(0, 428);
             this.AppStatus.Name = "AppStatus";
             this.AppStatus.Size = new System.Drawing.Size(1139, 22);
@@ -612,6 +614,7 @@
             this.AppStatus.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         private System.Windows.Forms.RibbonButton FT2TagihanSalesButton;

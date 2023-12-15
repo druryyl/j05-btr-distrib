@@ -89,15 +89,18 @@ namespace btr.application.FinanceContext.TagihanAgg
         {
             var faktur = _fakturDal.GetData(fakturKey)
                 ?? throw new KeyNotFoundException("Faktur not found"); 
+            var noUrut = _aggregate.ListFaktur.DefaultIfEmpty(new TagihanFakturModel { NoUrut = 0 }).Max(x => x.NoUrut) + 1;
             var tagihanFaktur = new TagihanFakturModel
             {
                 FakturId = faktur.FakturId,
+                NoUrut = noUrut,
                 FakturCode = faktur.FakturCode,
                 CustomerId = faktur.CustomerId,
                 CustomerName = faktur.CustomerName,
                 Alamat = faktur.Address,
                 Nilai = sisaTagihan
             };
+            _aggregate.TotalTagihan += sisaTagihan;
             _aggregate.ListFaktur.Add(tagihanFaktur);
             return this;
         }
@@ -106,6 +109,7 @@ namespace btr.application.FinanceContext.TagihanAgg
         {
             // remove faktur from list faktur
             _aggregate.ListFaktur.RemoveAll(x => x.FakturId == fakturKey.FakturId);
+            _aggregate.TotalTagihan = _aggregate.ListFaktur.Sum(x => x.Nilai);
             return this;
         }
     }
