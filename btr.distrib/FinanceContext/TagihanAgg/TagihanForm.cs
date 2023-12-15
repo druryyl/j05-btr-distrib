@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using btr.application.FinanceContext.PiutangAgg.Workers;
+using btr.application.FinanceContext.TagihanAgg;
 using btr.application.SalesContext.FakturAgg.Contracts;
 using btr.application.SalesContext.FakturAgg.Workers;
 using btr.application.SalesContext.SalesPersonAgg.Contracts;
@@ -15,6 +16,7 @@ using btr.distrib.Helpers;
 using btr.domain.FinanceContext.PiutangAgg;
 using btr.domain.SalesContext.FakturAgg;
 using btr.domain.SalesContext.SalesPersonAgg;
+using btr.nuna.Domain;
 using JetBrains.Annotations;
 
 namespace btr.distrib.FinanceContext.TagihanAgg
@@ -26,14 +28,24 @@ namespace btr.distrib.FinanceContext.TagihanAgg
         private readonly IFakturBuilder _fakturBuilder;
         private readonly IFakturDal _fakturDal;
         private readonly IPiutangBuilder _piutangBuilder;
+        private readonly ITagihanBuilder _tagihanBuilder;
+        private readonly ITagihanWriter _tagihanWriter;
         
         private readonly ISalesPersonDal _salesDal; 
-        public TagihanForm(ISalesPersonDal salesDal, IFakturBuilder fakturBuilder, IPiutangBuilder piutangBuilder, IFakturDal fakturDal)
+        public TagihanForm(ISalesPersonDal salesDal, 
+            IFakturBuilder fakturBuilder, 
+            IPiutangBuilder piutangBuilder, 
+            IFakturDal fakturDal, 
+            ITagihanBuilder tagihanBuilder, 
+            ITagihanWriter tagihanWriter)
         {
             _salesDal = salesDal;
             _fakturBuilder = fakturBuilder;
             _piutangBuilder = piutangBuilder;
             _fakturDal = fakturDal;
+            _tagihanBuilder = tagihanBuilder;
+            _tagihanWriter = tagihanWriter;
+            
             InitializeComponent();
             InitGrid();
             InitCombo();
@@ -45,12 +57,39 @@ namespace btr.distrib.FinanceContext.TagihanAgg
         private void RegisterEventHandler()
         {
             FakturGrid.CellValidated += FakturGridOnCellValidated;
+            SaveButton.Click += SaveButtonOnClick;
+
+        }
+        private void SaveButtonOnClick(object sender, EventArgs e)
+        {
+            var tagihan = _tagihanBuilder
+                .Create()
+                .Sales(new SalesPersonModel(SalesCombo.SelectedValue.ToString()))
+                .TglTagihan(TglTagihText.Value)
+                .Build();
+            tagihan = _listTagihan.Aggregate(tagihan, (current, item) => _tagihanBuilder.Attach(current)
+                .AddFaktur(new FakturModel(item.FakturId), item.Nilai)
+                .Build());
+            _tagihanWriter.Save(tagihan);
+            LastIdLabel.Text = tagihan.TagihanId;
+            ClearForm();
+        }
+
+        private void ClearForm()
+        {
+            TagihanIdText.Clear();
+            SalesCombo.SelectedIndex = -1;
+            TglTagihText.Value = DateTime.Now;
+            _listTagihan.Clear();
+            _bindingSource.ResetBindings(false);
         }
 
         private void FakturGridOnCellValidated(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
             if (e.ColumnIndex != FakturGrid.Columns.GetCol("FakturCode").Index) return;
+            _listTagihan[e.RowIndex].RemoveNull();
+            if (string.IsNullOrEmpty(_listTagihan[e.RowIndex].FakturCode)) return;
             
             var fakturCode = _listTagihan[e.RowIndex].FakturCode;
             var faktur = GetFaktur(fakturCode);
@@ -76,9 +115,16 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             _listTagihan[e.RowIndex].CustomerName  = faktur.CustomerName;
             _listTagihan[e.RowIndex].Alamat  = faktur.Address;
             _listTagihan[e.RowIndex].Nilai  = faktur.Total;
+
+            RefreshGrid();
+        }
+
+        private void RefreshGrid()
+        {
+            TotalTagihanText.Value = _listTagihan.Sum(x => x.Nilai);
             FakturGrid.Refresh();
         }
-        
+
         private FakturModel GetFaktur(string fakturCode)
         {
             var fakturCodeKey = new FakturModel{FakturCode = fakturCode};
