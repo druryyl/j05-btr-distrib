@@ -133,6 +133,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             SalesPersonNameTextBox.Text = string.Empty;
             CustomerIdText.Text = string.Empty;
             CustomerNameTextBox.Text = string.Empty;
+            CustomerAddressText.Text = string.Empty;
             PlafondTextBox.Value = 0;
             CreditBalanceTextBox.Value = 0;
             WarehouseIdText.Text = string.Empty;
@@ -192,14 +193,14 @@ namespace btr.distrib.SalesContext.FakturAgg
                 return false;
 
             faktur.RemoveNull();
-            CustomerNameTextBox.Text = faktur.CustomerName;
-            CustomerIdText.Text = faktur.CustomerId;
 
             FakturDateText.Value = faktur.FakturDate;
             SalesIdText.Text = faktur.SalesPersonId;
             SalesPersonNameTextBox.Text = faktur.SalesPersonName;
             CustomerIdText.Text = faktur.CustomerId;
             CustomerNameTextBox.Text = faktur.CustomerName;
+            CustomerAddressText.Text = faktur.Address;
+
             _tipeHarga = faktur.HargaTypeId;
             PlafondTextBox.Value = faktur.Plafond;
             CreditBalanceTextBox.Value = faktur.CreditBalance;
@@ -303,6 +304,7 @@ namespace btr.distrib.SalesContext.FakturAgg
 
             var customer = _customerDal.GetData(new CustomerModel(textbox.Text));
             CustomerNameTextBox.Text = customer?.CustomerName ?? string.Empty;
+            CustomerAddressText.Text = customer?.Address1 ?? string.Empty;
             _tipeHarga = customer?.HargaTypeId??string.Empty;
         }
         private void CustomerIdText_KeyDown(object sender, KeyEventArgs e)

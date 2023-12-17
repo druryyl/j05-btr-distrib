@@ -102,10 +102,13 @@ namespace btr.distrib.SalesContext.FakturPerCustomerRpt
             InfoGrid.TableDescriptor.Columns["Total"].Appearance.AnyRecordFieldCell.Format = "N0";
 
             InfoGrid.TableDescriptor.Columns["QtyBesar"].Appearance.AnyRecordFieldCell.BackColor = Color.LightGreen;
+            InfoGrid.TableDescriptor.Columns["SatBesar"].Appearance.AnyRecordFieldCell.BackColor = Color.LightGreen;
             InfoGrid.TableDescriptor.Columns["HrgSatBesar"].Appearance.AnyRecordFieldCell.BackColor = Color.LightGreen;
             InfoGrid.TableDescriptor.Columns["QtyKecil"].Appearance.AnyRecordFieldCell.BackColor = Color.LightGreen;
+            InfoGrid.TableDescriptor.Columns["SatKecil"].Appearance.AnyRecordFieldCell.BackColor = Color.LightGreen;
             InfoGrid.TableDescriptor.Columns["HrgSatKecil"].Appearance.AnyRecordFieldCell.BackColor = Color.LightGreen;
             InfoGrid.TableDescriptor.Columns["QtyPotStok"].Appearance.AnyRecordFieldCell.BackColor = Color.LightGreen;
+            InfoGrid.TableDescriptor.Columns["QtyBonus"].Appearance.AnyRecordFieldCell.BackColor = Color.LightGreen;
             InfoGrid.TableDescriptor.Columns["SubTotal"].Appearance.AnyRecordFieldCell.BackColor = Color.LightGreen;
 
             InfoGrid.TableDescriptor.Columns["DiscProsen1"].Appearance.AnyRecordFieldCell.BackColor = Color.LightYellow;

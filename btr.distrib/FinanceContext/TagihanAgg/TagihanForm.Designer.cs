@@ -129,6 +129,7 @@
             // 
             // SalesCombo
             // 
+            this.SalesCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.SalesCombo.FormattingEnabled = true;
             this.SalesCombo.Location = new System.Drawing.Point(267, 29);
             this.SalesCombo.Name = "SalesCombo";
