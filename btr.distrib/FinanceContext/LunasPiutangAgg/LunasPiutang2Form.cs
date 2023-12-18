@@ -50,19 +50,6 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             _fakturDal = fakturDal;
             _removeLunasPiutangWorker = removeLunasPiutangWorker;
 
-            //NilaiPelunasanText.Maximum = 999999999;
-            //NilaiPelunasanText.Minimum = -999999999;
-            //ReturText.Maximum = 999999999;
-            //ReturText.Minimum = -999999999;
-            //PotonganText.Maximum = 999999999;
-            //PotonganText.Minimum = -999999999;
-            //MateraiText.Maximum = 999999999;
-            //MateraiText.Minimum = -999999999;
-            //AdminText.Maximum = 999999999;
-            //AdminText.Minimum = -999999999;
-            
-
-            
             InitializeComponent();
             InitGrid();
             IniGridBayar();
@@ -217,6 +204,19 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
                     Nilai = piutang.Total
                 }
             };
+            var potongan = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Retur)?.NilaiMinus ?? 0;
+            potongan += piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Potongan)?.NilaiMinus ?? 0;
+            potongan += piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Materai)?.NilaiMinus ?? 0;
+            potongan += piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Admin)?.NilaiMinus ?? 0;
+            
+            if (potongan > 0)
+                _listLunasPiutangBayar.Add(new LunasPiutangBayarView
+                {
+                    Tgl = piutang.PiutangDate,
+                    Keterangan = $"Potongan",
+                    Nilai = -potongan
+                });
+            
             foreach (var pelunasan in piutang.ListLunas)
             {
                 _listLunasPiutangBayar.Add(new LunasPiutangBayarView
@@ -266,7 +266,6 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
         private void ListPiutangGrid_TableControlCurrentCellValidated(object sender, GridTableControlEventArgs e)
         {
             ListPiutangGrid.CancelEdit();
-
         }
 
         private void ClearInputForm()
@@ -305,13 +304,17 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             CustomerText.Text = piutang.CustomerName;
             AddressText.Text = faktur.Address;
 
+            ReturText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Retur)?.NilaiMinus ?? 0;
+            PotonganText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Potongan )?.NilaiMinus ?? 0;
+            MateraiText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Materai)?.NilaiMinus ?? 0;
+            AdminText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Admin)?.NilaiMinus ?? 0;
+
             FakturCodeText.Text = fc;
             TglFakturText.Text= piutang.PiutangDate.ToString("dd MMM yyyy");
             JatuhTempoText.Text = piutang.DueDate.ToString("dd MMM yyyy");
             SalesText.Text = faktur.SalesPersonName;
             LunasDateText.Value = DateTime.Now;
             RefreshGridBayar(piutang);
-            
         }
 
         #region GRID
@@ -348,7 +351,6 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
 
         private void InitGrid()
         {
-            //RefreshGrid();
             _listPiutangLunasView = new BindingList<PiutangLunasView>();
             _bindingSource = new BindingSource();
             _bindingSource.DataSource = _listPiutangLunasView;
@@ -366,6 +368,11 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             sumColTotal.Appearance.AnySummaryCell.Format = "N0";
             sumColTotal.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
 
+            var sumPotongan = new GridSummaryColumnDescriptor("Potongan", SummaryType.DoubleAggregate, "Potongan", "{Sum}");
+            sumPotongan.Appearance.AnySummaryCell.Interior = new BrushInfo(System.Drawing.Color.Khaki);
+            sumPotongan.Appearance.AnySummaryCell.Format = "N0";
+            sumPotongan.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
+
             var sumColTerbayar = new GridSummaryColumnDescriptor("Terbayar", SummaryType.DoubleAggregate, "Terbayar", "{Sum}");
             sumColTerbayar.Appearance.AnySummaryCell.Interior = new BrushInfo(System.Drawing.Color.Khaki);
             sumColTerbayar.Appearance.AnySummaryCell.Format = "N0";
@@ -377,11 +384,12 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             sumColSisa.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
 
             var sumRowDescriptor = new GridSummaryRowDescriptor();
-            sumRowDescriptor.SummaryColumns.AddRange(new GridSummaryColumnDescriptor[] { sumColTotal, sumColTerbayar, sumColSisa});
+            sumRowDescriptor.SummaryColumns.AddRange(new GridSummaryColumnDescriptor[] { sumColTotal, sumPotongan, sumColTerbayar, sumColSisa});
             ListPiutangGrid.TableDescriptor.SummaryRows.Add(sumRowDescriptor);
 
             //  format number columns
             ListPiutangGrid.TableDescriptor.Columns["Total"].Appearance.AnyRecordFieldCell.Format = "N0";
+            ListPiutangGrid.TableDescriptor.Columns["Potongan"].Appearance.AnyRecordFieldCell.Format = "N0";
             ListPiutangGrid.TableDescriptor.Columns["Terbayar"].Appearance.AnyRecordFieldCell.Format = "N0";
             ListPiutangGrid.TableDescriptor.Columns["Sisa"].Appearance.AnyRecordFieldCell.Format = "N0";
             ListPiutangGrid.TableDescriptor.Columns["PiutangDate"].Appearance.AnyRecordFieldCell.Format = "dd-MMM-yyyy";

@@ -18,9 +18,20 @@ namespace btr.domain.FinanceContext.PiutangAgg
         public string CustomerId { get; set; }
         public string CustomerName { get; set; }
         public decimal Total { get; set; }
+        public decimal Potongan { get; set; }
         public decimal Terbayar { get; set; }
         public decimal Sisa { get; set; }
         public List<PiutangElementModel> ListElement { get; set; }
         public List<PiutangLunasModel> ListLunas { get; set; }
+    }
+    
+    public enum PiutangElementEnum
+    {
+        NilaiAwalPiutang,
+        
+        Retur,
+        Potongan,
+        Materai,
+        Admin,
     }
 }

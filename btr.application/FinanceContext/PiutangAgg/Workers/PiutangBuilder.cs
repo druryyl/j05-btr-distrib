@@ -19,8 +19,8 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
         IPiutangBuilder Customer(ICustomerKey customerKey);
         IPiutangBuilder PiutangDate(DateTime dateTime);
         IPiutangBuilder DueDate(DateTime dateTime);
-        IPiutangBuilder AddPlusElement(string name, decimal value);
-        IPiutangBuilder AddMinusElement(string name, decimal value);
+        IPiutangBuilder AddPlusElement(PiutangElementEnum elementTag, decimal value);
+        IPiutangBuilder AddMinusElement(PiutangElementEnum elementTag, decimal value);
         IPiutangBuilder AddLunasCash(decimal value, DateTime lunasDate);
         IPiutangBuilder AddLunasBg(decimal value, DateTime lunasDate, DateTime jatuhTempo, string namaBank, string noRek, string atasNama);
         IPiutangBuilder RemoveLunas(int noUrut);
@@ -104,7 +104,7 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
             return this;
         }
 
-        public IPiutangBuilder AddPlusElement(string name, decimal value)
+        public IPiutangBuilder AddPlusElement(PiutangElementEnum elementTag, decimal value)
         {
             if (value == 0)
                 return this;
@@ -116,7 +116,8 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
             var newElement = new PiutangElementModel
             {
                 NoUrut = noUrut,
-                ElementName = name,
+                ElementTag = elementTag,
+                ElementName = elementTag.ToString(),
                 NilaiPlus = value,
             };
             _aggregate.ListElement.Add(newElement);
@@ -124,7 +125,7 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
             return this;
         }
 
-        public IPiutangBuilder AddMinusElement(string name, decimal value)
+        public IPiutangBuilder AddMinusElement(PiutangElementEnum elementTag, decimal value)
         {
             if (value == 0)
                 return this;
@@ -135,7 +136,8 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
             var newElement = new PiutangElementModel
             {
                 NoUrut = noUrut,
-                ElementName = name,
+                ElementTag = elementTag,
+                ElementName = elementTag.ToString(),
                 NilaiMinus = value,
             };
             _aggregate.ListElement.Add(newElement);
@@ -145,9 +147,15 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
 
         private void ReCalc()
         {
-            _aggregate.Total = _aggregate.ListElement.Sum(x => x.NilaiPlus - x.NilaiMinus);
+            _aggregate.Total = _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.NilaiAwalPiutang).Sum(x => x.NilaiPlus - x.NilaiMinus);
+            
+            _aggregate.Potongan = _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Retur).Sum(x => x.NilaiPlus - x.NilaiMinus);
+            _aggregate.Potongan += _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Potongan).Sum(x => x.NilaiPlus - x.NilaiMinus);
+            _aggregate.Potongan += _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Materai).Sum(x => x.NilaiPlus - x.NilaiMinus);
+            _aggregate.Potongan += _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Admin).Sum(x => x.NilaiPlus - x.NilaiMinus);
+
             _aggregate.Terbayar = _aggregate.ListLunas.Sum(x => x.Nilai);
-            _aggregate.Sisa = _aggregate.Total - _aggregate.Terbayar;
+            _aggregate.Sisa = _aggregate.Total - _aggregate.Potongan - _aggregate.Terbayar;
         }
 
         public IPiutangBuilder AddLunasCash(decimal value, DateTime lunasDate)
@@ -160,11 +168,11 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
                 JatuhTempoBg = new DateTime(3000,1,1),
             };
             lunas.RemoveNull();
-            addLunas(lunas);
+            AddLunas(lunas);
             return this;
         }
 
-        private void addLunas(PiutangLunasModel lunas)
+        private void AddLunas(PiutangLunasModel lunas)
         {
             var noUrut = _aggregate.ListLunas
                 .DefaultIfEmpty(new PiutangLunasModel { NoUrut = 0 })
@@ -191,7 +199,7 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
                 AtasNamaBank = atasNama,
             };
             lunas.RemoveNull();
-            addLunas(lunas);
+            AddLunas(lunas);
             return this;
         }
 

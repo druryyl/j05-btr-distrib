@@ -12,7 +12,6 @@ namespace btr.application.FinanceContext.PiutangAgg.UseCases
         public string PiutangId { get; set; }
         public decimal Retur { get; set; }
         public decimal Potongan { get; set; }
-        public decimal Sewa { get; set; }
         public decimal Materai { get; set; }
         public decimal Admin { get; set; }
         
@@ -50,11 +49,10 @@ namespace btr.application.FinanceContext.PiutangAgg.UseCases
             piutang.ListElement.RemoveAll(x => x.NoUrut > 1);
             piutang = _piutangBuilder
                 .Attach(piutang)
-                .AddMinusElement("Retur", req.Retur)
-                .AddMinusElement("Potongan", req.Potongan)
-                .AddMinusElement("Sewa", req.Sewa)
-                .AddMinusElement("Materai", req.Materai)
-                .AddMinusElement("Admin", req.Admin)
+                .AddMinusElement(PiutangElementEnum.Retur, req.Retur)
+                .AddMinusElement(PiutangElementEnum.Potongan, req.Potongan)
+                .AddMinusElement(PiutangElementEnum.Materai, req.Materai)
+                .AddMinusElement(PiutangElementEnum.Admin, req.Admin)
                 .Build();
 
             if (req.JenisLunas == JenisLunasEnum.Cash)

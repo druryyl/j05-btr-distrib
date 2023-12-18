@@ -17,6 +17,8 @@ namespace btr.domain.FinanceContext.PiutangAgg
         public string Address { get; set; }
         
         public decimal Total { get; set; }
+
+        public decimal Potongan { get; set; }
         public decimal Terbayar { get; set; }
         public decimal Sisa { get; set; }
     }

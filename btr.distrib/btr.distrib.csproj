@@ -294,12 +294,6 @@
     <Compile Include="FinanceContext\LunasPiutangAgg\LunasPiutang2Form.Designer.cs">
       <DependentUpon>LunasPiutang2Form.cs</DependentUpon>
     </Compile>
-    <Compile Include="FinanceContext\LunasPiutangAgg\LunasPiutangForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FinanceContext\LunasPiutangAgg\LunasPiutangForm.Designer.cs">
-      <DependentUpon>LunasPiutangForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="FinanceContext\PenerimaanPelunasanSalesRpt\PenerimaanPelunasanSalesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -607,9 +601,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FinanceContext\LunasPiutangAgg\LunasPiutang2Form.resx">
       <DependentUpon>LunasPiutang2Form.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FinanceContext\LunasPiutangAgg\LunasPiutangForm.resx">
-      <DependentUpon>LunasPiutangForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FinanceContext\PenerimaanPelunasanSalesRpt\PenerimaanPelunasanSalesForm.resx">
       <DependentUpon>PenerimaanPelunasanSalesForm.cs</DependentUpon>
