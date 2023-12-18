@@ -30,10 +30,10 @@ namespace btr.infrastructure.FinanceContext.PiutangAgg
             const string sql = @"
                 INSERT INTO BTR_Piutang(
                     PiutangId, PiutangDate, DueDate, CustomerId, 
-                    Total, Terbayar, Sisa)
+                    Total, Potongan, Terbayar, Sisa)
                 VALUES(
                     @PiutangId, @PiutangDate, @DueDate, @CustomerId, 
-                    @Total, @Terbayar, @Sisa)";
+                    @Total, @Potongan, @Terbayar, @Sisa)";
 
             var dp = new DynamicParameters();
             dp.AddParam("@PiutangId", model.PiutangId, SqlDbType.VarChar); 
@@ -41,6 +41,7 @@ namespace btr.infrastructure.FinanceContext.PiutangAgg
             dp.AddParam("@DueDate", model.DueDate, SqlDbType.DateTime); 
             dp.AddParam("@CustomerId", model.CustomerId, SqlDbType.VarChar); 
             dp.AddParam("@Total", model.Total, SqlDbType.Decimal); 
+            dp.AddParam("@Potongan", model.Potongan, SqlDbType.Decimal); 
             dp.AddParam("@Terbayar", model.Terbayar, SqlDbType.Decimal);
             dp.AddParam("@Sisa", model.Sisa, SqlDbType.Decimal);
 
@@ -60,6 +61,7 @@ namespace btr.infrastructure.FinanceContext.PiutangAgg
                     DueDate = @DueDate, 
                     CustomerId = @CustomerId, 
                     Total = @Total, 
+                    Potongan = @Potongan,
                     Terbayar = @Terbayar, 
                     Sisa = @Sisa
                 WHERE
@@ -71,6 +73,7 @@ namespace btr.infrastructure.FinanceContext.PiutangAgg
             dp.AddParam("@DueDate", model.DueDate, SqlDbType.DateTime);
             dp.AddParam("@CustomerId", model.CustomerId, SqlDbType.VarChar);
             dp.AddParam("@Total", model.Total, SqlDbType.Decimal);
+            dp.AddParam("@Potongan", model.Potongan, SqlDbType.Decimal);
             dp.AddParam("@Terbayar", model.Terbayar, SqlDbType.Decimal);
             dp.AddParam("@Sisa", model.Sisa, SqlDbType.Decimal);
 
@@ -102,7 +105,7 @@ namespace btr.infrastructure.FinanceContext.PiutangAgg
             const string sql = @"
                 SELECT
                     aa.PiutangId, aa.PiutangDate, aa.DueDate, aa.CustomerId, 
-                    aa.Total, aa.Terbayar, aa.Sisa,
+                    aa.Total, aa.Potongan, aa.Terbayar, aa.Sisa,
                     ISNULL(bb.CustomerName, '') AS CustomerName
                 FROM
                     BTR_Piutang aa
@@ -124,7 +127,7 @@ namespace btr.infrastructure.FinanceContext.PiutangAgg
             const string sql = @"
                 SELECT
                     aa.PiutangId, aa.PiutangDate, aa.DueDate, aa.CustomerId, 
-                    aa.Total, aa.Terbayar, aa.Sisa,
+                    aa.Total, aa.Potongan, aa.Terbayar, aa.Sisa,
                     ISNULL(bb.CustomerName, '') AS CustomerName
                 FROM
                     BTR_Piutang aa

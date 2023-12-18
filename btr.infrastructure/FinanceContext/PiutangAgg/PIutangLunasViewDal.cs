@@ -30,8 +30,7 @@ namespace btr.infrastructure.FinanceContext.PiutangAgg
                 SELECT
                     aa.PiutangId, aa.CustomerId, 
                     CAST(aa.PiutangDate AS Date) AS PiutangDate, 
-                    aa.Total, aa.Terbayar, aa.Sisa, 
-                    ISNULL(Potongan, 0) AS Potongan,
+                    aa.Total, aa.Potongan, aa.Terbayar, aa.Sisa, 
                     ISNULL(FakturCode, '') AS FakturCode, 
                     ISNULL(CustomerName, '') AS Customer,
                     ISNULL(Address1, '') AS Address,
@@ -41,16 +40,6 @@ namespace btr.infrastructure.FinanceContext.PiutangAgg
                     LEFT JOIN BTR_Faktur bb ON aa.PiutangId = bb.FakturId
                     LEFT JOIN BTR_Customer cc ON aa.CustomerId = cc.CustomerId
                     LEFT JOIN BTR_SalesPerson dd ON bb.SalesPersonId = dd.SalesPersonId
-                    LEFT JOIN (
-                        SELECT
-                            PiutangId, SUM(NilaiPlus - NilaiMinus) AS Potongan
-                        FROM
-                            BTR_PiutangElement
-                        WHERE   
-                            NoUrut > 1 --yang bukan nilai faktur
-                        GROUP BY    
-                            PiutangId
-                    ) ee ON aa.PiutangId = ee.PiutangId
                 WHERE
                     PiutangDate BETWEEN @Tgl1 AND @Tgl2 ";
                 

@@ -201,13 +201,13 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
                 {
                     Tgl = piutang.PiutangDate,
                     Keterangan = "Tagihan",
-                    Nilai = piutang.Total
+                    Nilai = piutang.Total,
                 }
             };
-            var potongan = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Retur)?.NilaiMinus ?? 0;
-            potongan += piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Potongan)?.NilaiMinus ?? 0;
-            potongan += piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Materai)?.NilaiMinus ?? 0;
-            potongan += piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Admin)?.NilaiMinus ?? 0;
+            var potongan = piutang.ListElement?.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Retur)?.NilaiMinus ?? 0;
+            potongan += piutang.ListElement?.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Potongan)?.NilaiMinus ?? 0;
+            potongan += piutang.ListElement?.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Materai)?.NilaiMinus ?? 0;
+            potongan += piutang.ListElement?.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Admin)?.NilaiMinus ?? 0;
             
             if (potongan > 0)
                 _listLunasPiutangBayar.Add(new LunasPiutangBayarView
