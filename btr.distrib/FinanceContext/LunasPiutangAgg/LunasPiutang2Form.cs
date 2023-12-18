@@ -19,12 +19,14 @@ using System.Windows.Forms;
 using btr.application.SalesContext.FakturAgg.Contracts;
 using btr.domain.SupportContext.UserAgg;
 using Polly;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace btr.distrib.FinanceContext.LunasPiutangAgg
 {
     public partial class LunasPiutang2Form : Form
     {
         private readonly IPiutangBuilder _piutangBuilder;
+        private readonly IPiutangWriter _piutangWriter;
         private readonly IPiutangLunasViewDal _piutangLunasViewDal;
         private readonly IFakturBuilder _fakturBuilder;
         private readonly IFakturDal _fakturDal;
@@ -40,8 +42,8 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
         public LunasPiutang2Form(IPiutangLunasViewDal piutangLunasViewDal,
             IPiutangBuilder piutangBuilder,
             IFakturBuilder fakturBuilder,
-            IAddLunasPiutangWorker addLunasPiutangWorker, IFakturDal fakturDal, 
-            IRemoveLunasPiutangWorker removeLunasPiutangWorker)
+            IAddLunasPiutangWorker addLunasPiutangWorker, IFakturDal fakturDal,
+            IRemoveLunasPiutangWorker removeLunasPiutangWorker, IPiutangWriter piutangWriter)
         {
             _piutangLunasViewDal = piutangLunasViewDal;
             _piutangBuilder = piutangBuilder;
@@ -55,6 +57,7 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             IniGridBayar();
             InitJenisBayarCombo();
             RegisterEventHandler();
+            _piutangWriter = piutangWriter;
         }
 
         private void InitJenisBayarCombo()
@@ -100,19 +103,48 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             var deleted = _listLunasPiutangBayar[e.RowIndex];
             _listLunasPiutangBayar.Remove(deleted);
             BayarGrid.Refresh();
-            var removeLunasReq = new RemoveLunasPiutangRequest
-            {
-                PiutangId = _piutangId,
-                NoUrut = e.RowIndex
-            };
-            _removeLunasPiutangWorker.Execute(removeLunasReq);
-            
-            NilaiPelunasanText.Value = Math.Abs(deleted.Nilai);
-            JenisBayarCombo.SelectedIndex = deleted.Keterangan == "Pelunasan Cash" ? 0 : 1;
-            JatuhTempBgText.Value = deleted.Tgl;
+
+            if (deleted.Keterangan == "Potongan")
+                RemovePotongan();
+            else
+                RemovePelunasan(deleted, e.RowIndex);
+
             NoRekBgText.Text = string.Empty;
             BankNameText.Text = string.Empty;
             AtasNamaText.Text = string.Empty;
+        }
+
+        private void RemovePotongan()
+        {
+            var piutang = _piutangBuilder.Load(new PiutangModel(_piutangId)).Build();
+
+            ReturText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Retur)?.NilaiMinus ?? 0;
+            PotonganText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Potongan)?.NilaiMinus ?? 0;
+            MateraiText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Materai)?.NilaiMinus ?? 0;
+            AdminText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Admin)?.NilaiMinus ?? 0;
+
+            piutang = _piutangBuilder
+                .Attach(piutang)
+                .ClearElement()
+                .Build();
+
+            _piutangWriter.Save(ref piutang);
+            RefreshGridBayar(piutang);
+            RefreshGrid();
+        }
+
+        private void RemovePelunasan(LunasPiutangBayarView deletedItem, int noUrut)
+        {
+            var removeLunasReq = new RemoveLunasPiutangRequest
+            {
+                PiutangId = _piutangId,
+                NoUrut = noUrut
+            };
+            _removeLunasPiutangWorker.Execute(removeLunasReq);
+            NilaiPelunasanText.Value = Math.Abs(deletedItem.Nilai);
+            JenisBayarCombo.SelectedIndex = deletedItem.Keterangan == "Pelunasan Cash" ? 0 : 1;
+            JatuhTempBgText.Value = deletedItem.Tgl;
+
         }
 
         private void FakturCodeText_Validating(object sender, CancelEventArgs e)

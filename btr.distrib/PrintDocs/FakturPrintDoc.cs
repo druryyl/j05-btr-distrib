@@ -62,7 +62,26 @@ namespace btr.distrib.PrintDocs
             ppv = new PrintPreviewDialog();
             ppv.Document = pd;
             ppv.WindowState = FormWindowState.Maximized;
+            var printerButton = new Button { Text = "Printer"};
+            //  allow user to change printer
+            foreach (Control cont in ppv.Controls)
+            {
+                if (cont.GetType() == typeof(ToolStrip))
+                {
+                    var ts = cont as ToolStrip;
+                    ts.Items.Add(new ToolStripButton("Printer Settings", null, (s, e) =>
+                    {
+                        var printDialog = new PrintDialog();
+                        printDialog.Document = pd;
+                        if (printDialog.ShowDialog() == DialogResult.OK)
+                        {
+                            pd.PrinterSettings = printDialog.PrinterSettings;
+                        }
+                    }));
+                }
+            }
         }
+
 
         private void PrintDocument_PrintPage(object sender, PrintPageEventArgs e)
         {
@@ -77,6 +96,7 @@ namespace btr.distrib.PrintDocs
         public void PrintDoc()
         {
             InitPrintPreview();
+
             ppv.ShowDialog();
             IsPrinted = pd.IsPrinting;
             ppv.Close();

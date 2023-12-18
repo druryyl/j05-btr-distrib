@@ -55,16 +55,17 @@ namespace btr.application.FinanceContext.PiutangAgg.UseCases
                 .AddMinusElement(PiutangElementEnum.Admin, req.Admin)
                 .Build();
 
-            if (req.JenisLunas == JenisLunasEnum.Cash)
-                piutang = _piutangBuilder
-                    .Attach(piutang)
-                    .AddLunasCash(req.Nilai, req.LunasDate)
-                    .Build();
-            else
-                piutang = _piutangBuilder
-                    .Attach(piutang)
-                    .AddLunasBg(req.Nilai, req.LunasDate, req.JatuhTempoBg, req.NamaBank, req.NoBgRek, req.AtasNamaBank)
-                    .Build();
+            if (req.Nilai != 0)
+                if (req.JenisLunas == JenisLunasEnum.Cash)
+                    piutang = _piutangBuilder
+                        .Attach(piutang)
+                        .AddLunasCash(req.Nilai, req.LunasDate)
+                        .Build();
+                else
+                    piutang = _piutangBuilder
+                        .Attach(piutang)
+                        .AddLunasBg(req.Nilai, req.LunasDate, req.JatuhTempoBg, req.NamaBank, req.NoBgRek, req.AtasNamaBank)
+                        .Build();
 
             _piutangWriter.Save(ref piutang);
         }

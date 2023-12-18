@@ -21,6 +21,7 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
         IPiutangBuilder DueDate(DateTime dateTime);
         IPiutangBuilder AddPlusElement(PiutangElementEnum elementTag, decimal value);
         IPiutangBuilder AddMinusElement(PiutangElementEnum elementTag, decimal value);
+        IPiutangBuilder ClearElement();
         IPiutangBuilder AddLunasCash(decimal value, DateTime lunasDate);
         IPiutangBuilder AddLunasBg(decimal value, DateTime lunasDate, DateTime jatuhTempo, string namaBank, string noRek, string atasNama);
         IPiutangBuilder RemoveLunas(int noUrut);
@@ -149,10 +150,12 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
         {
             _aggregate.Total = _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.NilaiAwalPiutang).Sum(x => x.NilaiPlus - x.NilaiMinus);
             
-            _aggregate.Potongan = _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Retur).Sum(x => x.NilaiPlus - x.NilaiMinus);
-            _aggregate.Potongan += _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Potongan).Sum(x => x.NilaiPlus - x.NilaiMinus);
-            _aggregate.Potongan += _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Materai).Sum(x => x.NilaiPlus - x.NilaiMinus);
-            _aggregate.Potongan += _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Admin).Sum(x => x.NilaiPlus - x.NilaiMinus);
+            var potongan = _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Retur).Sum(x => x.NilaiPlus - x.NilaiMinus);
+            potongan += _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Potongan).Sum(x => x.NilaiPlus - x.NilaiMinus);
+            potongan += _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Materai).Sum(x => x.NilaiPlus - x.NilaiMinus);
+            potongan += _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Admin).Sum(x => x.NilaiPlus - x.NilaiMinus);
+
+            _aggregate.Potongan = Math.Abs(potongan);
 
             _aggregate.Terbayar = _aggregate.ListLunas.Sum(x => x.Nilai);
             _aggregate.Sisa = _aggregate.Total - _aggregate.Potongan - _aggregate.Terbayar;
@@ -206,6 +209,13 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
         public IPiutangBuilder RemoveLunas(int noUrut)
         {
             _aggregate.ListLunas.RemoveAll(x => x.NoUrut == noUrut);
+            ReCalc();
+            return this;
+        }
+
+        public IPiutangBuilder ClearElement()
+        {
+            _aggregate.ListElement.Where(x => x.NoUrut > 1).ToList().ForEach(x => _aggregate.ListElement.Remove(x));
             ReCalc();
             return this;
         }

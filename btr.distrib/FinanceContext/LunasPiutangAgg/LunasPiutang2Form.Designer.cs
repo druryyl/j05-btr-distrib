@@ -29,13 +29,6 @@
         private void InitializeComponent()
         {
             this.ListPiutangGrid = new Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.AdminText = new System.Windows.Forms.NumericUpDown();
-            this.MateraiText = new System.Windows.Forms.NumericUpDown();
-            this.PotonganText = new System.Windows.Forms.NumericUpDown();
-            this.label10 = new System.Windows.Forms.Label();
-            this.ReturText = new System.Windows.Forms.NumericUpDown();
-            this.label8 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.SearchButton = new System.Windows.Forms.Button();
             this.SearchText = new System.Windows.Forms.TextBox();
@@ -65,23 +58,32 @@
             this.NilaiPelunasanText = new System.Windows.Forms.NumericUpDown();
             this.label21 = new System.Windows.Forms.Label();
             this.BayarGrid = new System.Windows.Forms.DataGridView();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.ReturText = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
+            this.PotonganText = new System.Windows.Forms.NumericUpDown();
+            this.MateraiText = new System.Windows.Forms.NumericUpDown();
+            this.AdminText = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.ListPiutangGrid)).BeginInit();
-            this.panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.AdminText)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MateraiText)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PotonganText)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ReturText)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NilaiPelunasanText)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BayarGrid)).BeginInit();
+            this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ReturText)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PotonganText)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MateraiText)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AdminText)).BeginInit();
             this.SuspendLayout();
             // 
             // ListPiutangGrid
             // 
             this.ListPiutangGrid.AlphaBlendSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.ListPiutangGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListPiutangGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ListPiutangGrid.BackColor = System.Drawing.SystemColors.Window;
             this.ListPiutangGrid.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ListPiutangGrid.Location = new System.Drawing.Point(6, 51);
@@ -93,88 +95,10 @@
             this.ListPiutangGrid.UseRightToLeftCompatibleTextBox = true;
             this.ListPiutangGrid.VersionInfo = "22.1460.34";
             // 
-            // panel4
-            // 
-            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel4.BackColor = System.Drawing.Color.LavenderBlush;
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.AdminText);
-            this.panel4.Controls.Add(this.MateraiText);
-            this.panel4.Controls.Add(this.PotonganText);
-            this.panel4.Controls.Add(this.label10);
-            this.panel4.Controls.Add(this.ReturText);
-            this.panel4.Controls.Add(this.label8);
-            this.panel4.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel4.Location = new System.Drawing.Point(834, 147);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(359, 80);
-            this.panel4.TabIndex = 50;
-            // 
-            // AdminText
-            // 
-            this.AdminText.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AdminText.Location = new System.Drawing.Point(186, 48);
-            this.AdminText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
-            this.AdminText.Name = "AdminText";
-            this.AdminText.Size = new System.Drawing.Size(160, 20);
-            this.AdminText.TabIndex = 10;
-            this.AdminText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.AdminText.ThousandsSeparator = true;
-            // 
-            // MateraiText
-            // 
-            this.MateraiText.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MateraiText.Location = new System.Drawing.Point(186, 22);
-            this.MateraiText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
-            this.MateraiText.Name = "MateraiText";
-            this.MateraiText.Size = new System.Drawing.Size(160, 20);
-            this.MateraiText.TabIndex = 9;
-            this.MateraiText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.MateraiText.ThousandsSeparator = true;
-            // 
-            // PotonganText
-            // 
-            this.PotonganText.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PotonganText.Location = new System.Drawing.Point(9, 48);
-            this.PotonganText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
-            this.PotonganText.Name = "PotonganText";
-            this.PotonganText.Size = new System.Drawing.Size(160, 20);
-            this.PotonganText.TabIndex = 8;
-            this.PotonganText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.PotonganText.ThousandsSeparator = true;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 6);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(103, 13);
-            this.label10.TabIndex = 7;
-            this.label10.Text = "Retur | Potongan";
-            // 
-            // ReturText
-            // 
-            this.ReturText.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ReturText.Location = new System.Drawing.Point(9, 22);
-            this.ReturText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
-            this.ReturText.Name = "ReturText";
-            this.ReturText.Size = new System.Drawing.Size(160, 20);
-            this.ReturText.TabIndex = 6;
-            this.ReturText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.ReturText.ThousandsSeparator = true;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(183, 6);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(97, 13);
-            this.label8.TabIndex = 3;
-            this.label8.Text = "Materai | Admin";
-            // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.Thistle;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.SearchButton);
@@ -372,7 +296,9 @@
             // 
             // JenisBayarCombo
             // 
-            this.JenisBayarCombo.AutoCompleteCustomSource.AddRange(new string[] { "Tunai", "BG / Transfer" });
+            this.JenisBayarCombo.AutoCompleteCustomSource.AddRange(new string[] {
+            "Tunai",
+            "BG / Transfer"});
             this.JenisBayarCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.JenisBayarCombo.FormattingEnabled = true;
             this.JenisBayarCombo.Location = new System.Drawing.Point(185, 23);
@@ -441,7 +367,11 @@
             // NilaiPelunasanText
             // 
             this.NilaiPelunasanText.Location = new System.Drawing.Point(9, 22);
-            this.NilaiPelunasanText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
+            this.NilaiPelunasanText.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
             this.NilaiPelunasanText.Name = "NilaiPelunasanText";
             this.NilaiPelunasanText.Size = new System.Drawing.Size(160, 20);
             this.NilaiPelunasanText.TabIndex = 2;
@@ -459,13 +389,109 @@
             // 
             // BayarGrid
             // 
-            this.BayarGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Right)));
+            this.BayarGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.BayarGrid.BackgroundColor = System.Drawing.Color.Maroon;
             this.BayarGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.BayarGrid.Location = new System.Drawing.Point(834, 408);
             this.BayarGrid.Name = "BayarGrid";
             this.BayarGrid.Size = new System.Drawing.Size(359, 124);
             this.BayarGrid.TabIndex = 57;
+            // 
+            // panel4
+            // 
+            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel4.BackColor = System.Drawing.Color.LavenderBlush;
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.AdminText);
+            this.panel4.Controls.Add(this.MateraiText);
+            this.panel4.Controls.Add(this.PotonganText);
+            this.panel4.Controls.Add(this.label10);
+            this.panel4.Controls.Add(this.ReturText);
+            this.panel4.Controls.Add(this.label8);
+            this.panel4.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel4.Location = new System.Drawing.Point(834, 147);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(359, 80);
+            this.panel4.TabIndex = 50;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(183, 6);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(97, 13);
+            this.label8.TabIndex = 3;
+            this.label8.Text = "Materai | Admin";
+            // 
+            // ReturText
+            // 
+            this.ReturText.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ReturText.Location = new System.Drawing.Point(9, 22);
+            this.ReturText.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.ReturText.Name = "ReturText";
+            this.ReturText.Size = new System.Drawing.Size(160, 20);
+            this.ReturText.TabIndex = 6;
+            this.ReturText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.ReturText.ThousandsSeparator = true;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(6, 6);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(103, 13);
+            this.label10.TabIndex = 7;
+            this.label10.Text = "Retur | Potongan";
+            // 
+            // PotonganText
+            // 
+            this.PotonganText.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PotonganText.Location = new System.Drawing.Point(9, 48);
+            this.PotonganText.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.PotonganText.Name = "PotonganText";
+            this.PotonganText.Size = new System.Drawing.Size(160, 20);
+            this.PotonganText.TabIndex = 8;
+            this.PotonganText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.PotonganText.ThousandsSeparator = true;
+            // 
+            // MateraiText
+            // 
+            this.MateraiText.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MateraiText.Location = new System.Drawing.Point(186, 22);
+            this.MateraiText.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.MateraiText.Name = "MateraiText";
+            this.MateraiText.Size = new System.Drawing.Size(160, 20);
+            this.MateraiText.TabIndex = 9;
+            this.MateraiText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.MateraiText.ThousandsSeparator = true;
+            // 
+            // AdminText
+            // 
+            this.AdminText.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AdminText.Location = new System.Drawing.Point(186, 48);
+            this.AdminText.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.AdminText.Name = "AdminText";
+            this.AdminText.Size = new System.Drawing.Size(160, 20);
+            this.AdminText.TabIndex = 10;
+            this.AdminText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.AdminText.ThousandsSeparator = true;
             // 
             // LunasPiutang2Form
             // 
@@ -483,12 +509,6 @@
             this.Name = "LunasPiutang2Form";
             this.Text = "Pelunasan Piutang Faktur";
             ((System.ComponentModel.ISupportInitialize)(this.ListPiutangGrid)).EndInit();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.AdminText)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MateraiText)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PotonganText)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ReturText)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel3.ResumeLayout(false);
@@ -497,25 +517,25 @@
             this.panel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NilaiPelunasanText)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BayarGrid)).EndInit();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ReturText)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PotonganText)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MateraiText)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AdminText)).EndInit();
             this.ResumeLayout(false);
+
         }
 
         #endregion
 
         private Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl ListPiutangGrid;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.NumericUpDown AdminText;
-        private System.Windows.Forms.NumericUpDown MateraiText;
-        private System.Windows.Forms.NumericUpDown PotonganText;
-        private System.Windows.Forms.NumericUpDown ReturText;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button SearchButton;
         private System.Windows.Forms.TextBox SearchText;
         private System.Windows.Forms.DateTimePicker Tgl2Text;
         private System.Windows.Forms.DateTimePicker Tgl1Text;
         private System.Windows.Forms.Button SaveButton;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
@@ -539,5 +559,12 @@
         private System.Windows.Forms.DataGridView BayarGrid;
         private System.Windows.Forms.DateTimePicker LunasDateText;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.NumericUpDown AdminText;
+        private System.Windows.Forms.NumericUpDown MateraiText;
+        private System.Windows.Forms.NumericUpDown PotonganText;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.NumericUpDown ReturText;
+        private System.Windows.Forms.Label label8;
     }
 }
