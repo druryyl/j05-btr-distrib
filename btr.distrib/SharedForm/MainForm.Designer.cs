@@ -61,6 +61,7 @@
             this.IT3PackingButton = new System.Windows.Forms.RibbonButton();
             this.IT4MutasiButton = new System.Windows.Forms.RibbonButton();
             this.IT5ReturJualButton = new System.Windows.Forms.RibbonButton();
+            this.ribbonButton1 = new System.Windows.Forms.RibbonButton();
             this.ReportingPanel = new System.Windows.Forms.RibbonPanel();
             this.IF1StokBalanceButton = new System.Windows.Forms.RibbonButton();
             this.IF2KartuStokButton = new System.Windows.Forms.RibbonButton();
@@ -213,6 +214,8 @@
             this.SF5FakturPajakButton.Name = "SF5FakturPajakButton";
             this.SF5FakturPajakButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("SF5FakturPajakButton.SmallImage")));
             this.SF5FakturPajakButton.Text = "SF5-Faktur Pajak";
+            this.SF5FakturPajakButton.DoubleClick += new System.EventHandler(this.SF5FakturPajakButton_DoubleClick);
+            this.SF5FakturPajakButton.Click += new System.EventHandler(this.SF5FakturPajakButton_Click);
             // 
             // MasterSalesPanel
             // 
@@ -340,6 +343,7 @@
             this.InventoryTrsPanel.Items.Add(this.IT3PackingButton);
             this.InventoryTrsPanel.Items.Add(this.IT4MutasiButton);
             this.InventoryTrsPanel.Items.Add(this.IT5ReturJualButton);
+            this.InventoryTrsPanel.Items.Add(this.ribbonButton1);
             this.InventoryTrsPanel.Name = "InventoryTrsPanel";
             this.InventoryTrsPanel.Text = "Transaction";
             // 
@@ -387,6 +391,15 @@
             this.IT5ReturJualButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IT5ReturJualButton.SmallImage")));
             this.IT5ReturJualButton.Text = "IT5-Retur Jual";
             this.IT5ReturJualButton.Click += new System.EventHandler(this.IT5ReturJualButton_Click);
+            // 
+            // ribbonButton1
+            // 
+            this.ribbonButton1.Image = global::btr.distrib.Properties.Resources.icons8_adjust_32;
+            this.ribbonButton1.LargeImage = global::btr.distrib.Properties.Resources.icons8_adjust_32;
+            this.ribbonButton1.Name = "ribbonButton1";
+            this.ribbonButton1.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton1.SmallImage")));
+            this.ribbonButton1.Text = "IT6-Adjustment";
+            this.ribbonButton1.Click += new System.EventHandler(this.IT6Adjustment_Click);
             // 
             // ReportingPanel
             // 
@@ -680,5 +693,6 @@
         private System.Windows.Forms.RibbonButton IT5ReturJualButton;
         private System.Windows.Forms.RibbonButton ST3FakturPajakButton;
         private System.Windows.Forms.RibbonButton SF5FakturPajakButton;
+        private System.Windows.Forms.RibbonButton ribbonButton1;
     }
 }

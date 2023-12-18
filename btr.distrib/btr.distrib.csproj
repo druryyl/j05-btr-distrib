@@ -326,6 +326,12 @@
     </Compile>
     <Compile Include="Helpers\ControlStyle.cs" />
     <Compile Include="Helpers\DataGridViewExtensions.cs" />
+    <Compile Include="InventoryContext\AdjustmentAgg\AdjustmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryContext\AdjustmentAgg\AdjustmentForm.Designer.cs">
+      <DependentUpon>AdjustmentForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="InventoryContext\BrgAgg\BrgForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -514,6 +520,12 @@
     <Compile Include="SalesContext\FakturInfoRpt\FakturInfoForm.Designer.cs">
       <DependentUpon>FakturInfoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SalesContext\FakturPajakRpt\FakturPajakInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SalesContext\FakturPajakRpt\FakturPajakInfoForm.Designer.cs">
+      <DependentUpon>FakturPajakInfoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SalesContext\FakturPerCustomerRpt\FakturPerCustomerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -611,6 +623,9 @@
     <EmbeddedResource Include="FinanceContext\TagihanAgg\TagihanForm.resx">
       <DependentUpon>TagihanForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="InventoryContext\AdjustmentAgg\AdjustmentForm.resx">
+      <DependentUpon>AdjustmentForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\ImportOpnameAgg\ImportOpnameForm.resx">
       <DependentUpon>ImportOpnameForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -655,6 +670,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SalesContext\FakturInfoRpt\FakturInfoForm.resx">
       <DependentUpon>FakturInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SalesContext\FakturPajakRpt\FakturPajakInfoForm.resx">
+      <DependentUpon>FakturPajakInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SalesContext\FakturPerCustomerRpt\FakturPerCustomerForm.resx">
       <DependentUpon>FakturPerCustomerForm.cs</DependentUpon>
@@ -710,6 +728,7 @@
     <None Include="Resources\icons8_align_text_right_32.png" />
     <None Include="Resources\icons8_budget_32.png" />
     <None Include="Resources\icons8_event_accepted_32.png" />
+    <None Include="Resources\icons8_adjust_32.png" />
     <Content Include="Resources\icons8_microscope.ico" />
     <Content Include="Resources\icons8_microscope_32.png" />
     <EmbeddedResource Include="SharedForm\AboutForm.resx">

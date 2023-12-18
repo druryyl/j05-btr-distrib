@@ -39,6 +39,8 @@ using btr.distrib.SalesContext.FakturPerCustomerRpt;
 using btr.application.PurchaseContext.InvoiceHarianDetilRpt;
 using btr.distrib.FinanceContext.TagihanAgg;
 using btr.distrib.PurchaseContext.InvoiceHarianDetilRpt;
+using btr.distrib.InventoryContext.AdjustmentAgg;
+using btr.distrib.SalesContext.FakturPajakRpt;
 
 namespace btr.distrib.SharedForm
 {
@@ -441,6 +443,31 @@ namespace btr.distrib.SharedForm
             if (BringMdiChildToFrontIfLoaded<TagihanForm>())
                 return;
             var form = _servicesProvider.GetRequiredService<TagihanForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void IT6Adjustment_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<AdjustmentForm>())
+                return;
+            var form = _servicesProvider.GetRequiredService<AdjustmentForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void SF5FakturPajakButton_DoubleClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SF5FakturPajakButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<FakturPajakInfoForm>())
+                return;
+            var form = _servicesProvider.GetRequiredService<FakturPajakInfoForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

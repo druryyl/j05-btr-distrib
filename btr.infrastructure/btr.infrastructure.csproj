@@ -135,6 +135,7 @@
     <Compile Include="SalesContext\FakturControlAgg\FakturControlStatusDal.cs" />
     <Compile Include="SalesContext\FakturInfoAgg\FakturBrgViewDal.cs" />
     <Compile Include="SalesContext\FakturInfoAgg\FakturViewDal.cs" />
+    <Compile Include="SalesContext\FakturPajakInfo\FakturPajakInfoDal.cs" />
     <Compile Include="SalesContext\FakturPajakVoidAgg\FakturPajakVoidDal.cs" />
     <Compile Include="SalesContext\FakturPerCustomerRpt\FakturPerCustomerDal.cs" />
     <Compile Include="SalesContext\FakturPerSupplierRpt\FakturPerSupplierDal.cs" />

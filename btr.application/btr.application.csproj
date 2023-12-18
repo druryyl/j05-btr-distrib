@@ -239,6 +239,7 @@
     <Compile Include="SalesContext\FakturControlAgg\ListFakturControlWorker.cs" />
     <Compile Include="SalesContext\FakturInfo\FakturView.cs" />
     <Compile Include="SalesContext\FakturInfo\IFakturViewDal.cs" />
+    <Compile Include="SalesContext\FakturPajakInfo\IFakturPajakDal.cs" />
     <Compile Include="SalesContext\FakturPajakVoidAgg\FaktuPajakVoidWriter.cs" />
     <Compile Include="SalesContext\FakturPajakVoidAgg\FakturPajakVoidBuilder.cs" />
     <Compile Include="SalesContext\FakturPajakVoidAgg\IFakturPajakVoidDal.cs" />
