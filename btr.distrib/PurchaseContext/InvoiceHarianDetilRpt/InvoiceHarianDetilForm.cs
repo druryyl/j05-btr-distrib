@@ -102,7 +102,9 @@ namespace btr.distrib.PurchaseContext.InvoiceHarianDetilRpt
             InfoGrid.TableDescriptor.Columns["TotalSebelumTax"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["PpnRp"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["Total"].Appearance.AnyRecordFieldCell.Format = "N0";
-
+            //  format column InvoiceDate to dd-MMM-yyyy
+            InfoGrid.TableDescriptor.Columns["InvoiceDate"].Appearance.AnyRecordFieldCell.Format = "dd-MMM-yyyy";
+            
             InfoGrid.TableDescriptor.Columns["QtyBesar"].Appearance.AnyRecordFieldCell.BackColor = Color.LightGreen;
             InfoGrid.TableDescriptor.Columns["SatBesar"].Appearance.AnyRecordFieldCell.BackColor = Color.LightGreen;
             InfoGrid.TableDescriptor.Columns["HppSatBesar"].Appearance.AnyRecordFieldCell.BackColor = Color.LightGreen;
@@ -196,6 +198,9 @@ namespace btr.distrib.PurchaseContext.InvoiceHarianDetilRpt
                 //  format numeric column  
                 ws.Range(ws.Cell("H2"), ws.Cell($"W{listToExcel.Count + 1}"))
                     .Style.NumberFormat.Format = "#,##";
+                //  format date column
+                ws.Range(ws.Cell("C2"), ws.Cell($"C{listToExcel.Count + 1}"))
+                    .Style.NumberFormat.Format = "dd-MMM-yyyy"; 
 
                 //  format numeric column DiscTotal with 2 decimal places but hide zero
                 ws.Range(ws.Cell("P2"), ws.Cell($"S{listToExcel.Count + 1}"))

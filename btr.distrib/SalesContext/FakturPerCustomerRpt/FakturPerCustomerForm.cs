@@ -100,6 +100,10 @@ namespace btr.distrib.SalesContext.FakturPerCustomerRpt
             InfoGrid.TableDescriptor.Columns["TotalSebelumTax"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["PpnRp"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["Total"].Appearance.AnyRecordFieldCell.Format = "N0";
+            
+            //  format column FaturDate and DueDate to dd MMM yyyy
+            InfoGrid.TableDescriptor.Columns["FakturDate"].Appearance.AnyRecordFieldCell.Format = "dd-MMM-yyyy";
+            InfoGrid.TableDescriptor.Columns["DueDate"].Appearance.AnyRecordFieldCell.Format = "dd-MMM-yyyy";
 
             InfoGrid.TableDescriptor.Columns["QtyBesar"].Appearance.AnyRecordFieldCell.BackColor = Color.LightGreen;
             InfoGrid.TableDescriptor.Columns["SatBesar"].Appearance.AnyRecordFieldCell.BackColor = Color.LightGreen;
@@ -196,6 +200,12 @@ namespace btr.distrib.SalesContext.FakturPerCustomerRpt
                 ws.Range(ws.Cell("P2"), ws.Cell($"AF{listToExcel.Count + 1}"))
                     .Style.NumberFormat.Format = "#,##";
 
+                //  format date column to dd MMM yyyy
+                ws.Range(ws.Cell("C2"), ws.Cell($"C{listToExcel.Count + 1}"))
+                    .Style.NumberFormat.Format = "dd-MMM-yyyy";
+                ws.Range(ws.Cell("D2"), ws.Cell($"D{listToExcel.Count + 1}"))
+                    .Style.NumberFormat.Format = "dd-MMM-yyyy";
+                
                 //  format numeric column DiscTotal with 2 decimal places but hide zero
                 ws.Range(ws.Cell("Y2"), ws.Cell($"AB{listToExcel.Count + 1}"))
                     .Style.NumberFormat.Format = "#,##0.00_);(#,##0.00);-";
