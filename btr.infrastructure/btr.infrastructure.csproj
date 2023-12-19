@@ -93,6 +93,7 @@
     <Compile Include="BrgContext\BrgAgg\BrgHargaDal.cs" />
     <Compile Include="BrgContext\BrgAgg\BrgStokViewDal.cs" />
     <Compile Include="BrgContext\KategoriAgg\KategoriDal.cs" />
+    <Compile Include="InventoryContext\AdjustmentAgg\AdjustmentDal.cs" />
     <Compile Include="InventoryContext\DriverAgg\DriverDal.cs" />
     <Compile Include="InventoryContext\ImportOpnameAgg\ImportOpnameDal.cs" />
     <Compile Include="InventoryContext\KartuStokRpt\KartuStokDal.cs" />

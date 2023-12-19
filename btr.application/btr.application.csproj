@@ -121,6 +121,9 @@
     <Compile Include="FinanceContext\TagihanAgg\ITagihanDal.cs" />
     <Compile Include="FinanceContext\TagihanAgg\TagihanBuilder.cs" />
     <Compile Include="FinanceContext\TagihanAgg\TagihanWriter.cs" />
+    <Compile Include="InventoryContext\AdjustmentAgg\AdjustmentWriter.cs" />
+    <Compile Include="InventoryContext\AdjustmentAgg\AdjustmnetBuilder.cs" />
+    <Compile Include="InventoryContext\AdjustmentAgg\IAdjustmentDal.cs" />
     <Compile Include="InventoryContext\DriverAgg\IDriverDal.cs" />
     <Compile Include="InventoryContext\ImportOpnameAgg\Contracts\IImportOpnameDal.cs" />
     <Compile Include="InventoryContext\KartuStokRpt\IKartuStokDal.cs" />
@@ -154,6 +157,7 @@
     <Compile Include="InventoryContext\ReturJualAgg\Workers\ReturJualSaveWorker.cs" />
     <Compile Include="InventoryContext\ReturJualAgg\Workers\ReturJualWriter.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\AddStokWorker.cs" />
+    <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokAdjustmentWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokBalanceWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokFakturWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokInvoiceWorker.cs" />

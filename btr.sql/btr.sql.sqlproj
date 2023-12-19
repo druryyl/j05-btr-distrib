@@ -61,7 +61,6 @@
     <Folder Include="Tables\BrgContext\" />
     <Folder Include="Tables\Helper\" />
     <Folder Include="DataSeeds\" />
-    <Folder Include="Tables\InventoryContext\" />
     <Folder Include="Tables\PurchaseContext\" />
     <Folder Include="Tables\Finance" />
   </ItemGroup>
@@ -71,6 +70,7 @@
     <Build Include="Tables\BrgContext\BTR_BrgSatuan.sql" />
     <Build Include="Tables\Helper\BTR_ParamNo.sql" />
     <Build Include="Tables\Helper\BTR_UserParam.sql" />
+    <Build Include="Tables\InventoryContext\BTR_Adjustment.sql" />
     <Build Include="Tables\InventoryContext\BTR_Mutasi.sql" />
     <Build Include="Tables\InventoryContext\BTR_MutasiItem.sql" />
     <Build Include="Tables\InventoryContext\BTR_Opaname.sql" />

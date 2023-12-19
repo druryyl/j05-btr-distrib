@@ -62,6 +62,8 @@
     <Compile Include="FinanceContext\PiutangAgg\PiutangLunasView.cs" />
     <Compile Include="FinanceContext\PiutangAgg\PiutangModel.cs" />
     <Compile Include="FinanceContext\TagihanAgg\TagihanModel.cs" />
+    <Compile Include="InventoryContext\AdjustmentAgg\AdjustmentModel.cs" />
+    <Compile Include="InventoryContext\AdjustmentAgg\IAdjustmentKey.cs" />
     <Compile Include="InventoryContext\DeliveryAgg\DeliveryModel.cs" />
     <Compile Include="InventoryContext\DeliveryAgg\IDeliveryKey.cs" />
     <Compile Include="InventoryContext\DriverAgg\DriverModel.cs" />

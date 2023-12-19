@@ -50,7 +50,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.QtyAdjustBesarText = new System.Windows.Forms.NumericUpDown();
             this.QtyAdjustKecilText = new System.Windows.Forms.NumericUpDown();
-            this.QtyInPcsBesarText = new System.Windows.Forms.NumericUpDown();
+            this.QtyAdjustInPcsText = new System.Windows.Forms.NumericUpDown();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -65,10 +65,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.StokGrid = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.ListStokButton = new System.Windows.Forms.Button();
-            this.WarehouseCombo = new System.Windows.Forms.ComboBox();
-            this.KategoriCombo = new System.Windows.Forms.ComboBox();
             this.SearchText = new System.Windows.Forms.TextBox();
+            this.KategoriCombo = new System.Windows.Forms.ComboBox();
+            this.WarehouseCombo = new System.Windows.Forms.ComboBox();
+            this.ListStokButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.QtyAkhirBesarText)).BeginInit();
@@ -77,7 +77,7 @@
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.QtyAdjustBesarText)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.QtyAdjustKecilText)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.QtyInPcsBesarText)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.QtyAdjustInPcsText)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.QtyAwalBesarText)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.QtyAwalKecilText)).BeginInit();
@@ -88,8 +88,7 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.PaleTurquoise;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.AlasanText);
@@ -105,7 +104,7 @@
             this.panel1.Controls.Add(this.BrgCodeText);
             this.panel1.Controls.Add(this.BrgIdText);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(662, 6);
+            this.panel1.Location = new System.Drawing.Point(778, 6);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(302, 475);
             this.panel1.TabIndex = 0;
@@ -237,7 +236,10 @@
             // QtyAkhirBesarText
             // 
             this.QtyAkhirBesarText.Location = new System.Drawing.Point(4, 46);
+            this.QtyAkhirBesarText.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
+            this.QtyAkhirBesarText.Minimum = new decimal(new int[] { 999999, 0, 0, -2147483648 });
             this.QtyAkhirBesarText.Name = "QtyAkhirBesarText";
+            this.QtyAkhirBesarText.ReadOnly = true;
             this.QtyAkhirBesarText.Size = new System.Drawing.Size(86, 22);
             this.QtyAkhirBesarText.TabIndex = 9;
             this.QtyAkhirBesarText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -246,7 +248,10 @@
             // QtyAkhirKecilText
             // 
             this.QtyAkhirKecilText.Location = new System.Drawing.Point(97, 46);
+            this.QtyAkhirKecilText.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
+            this.QtyAkhirKecilText.Minimum = new decimal(new int[] { 999999, 0, 0, -2147483648 });
             this.QtyAkhirKecilText.Name = "QtyAkhirKecilText";
+            this.QtyAkhirKecilText.ReadOnly = true;
             this.QtyAkhirKecilText.Size = new System.Drawing.Size(86, 22);
             this.QtyAkhirKecilText.TabIndex = 10;
             this.QtyAkhirKecilText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -255,6 +260,8 @@
             // QtyAkhirInPcsText
             // 
             this.QtyAkhirInPcsText.Location = new System.Drawing.Point(190, 46);
+            this.QtyAkhirInPcsText.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
+            this.QtyAkhirInPcsText.Minimum = new decimal(new int[] { 999999, 0, 0, -2147483648 });
             this.QtyAkhirInPcsText.Name = "QtyAkhirInPcsText";
             this.QtyAkhirInPcsText.ReadOnly = true;
             this.QtyAkhirInPcsText.Size = new System.Drawing.Size(88, 22);
@@ -276,7 +283,7 @@
             this.tableLayoutPanel2.Controls.Add(this.label9, 2, 1);
             this.tableLayoutPanel2.Controls.Add(this.QtyAdjustBesarText, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.QtyAdjustKecilText, 1, 2);
-            this.tableLayoutPanel2.Controls.Add(this.QtyInPcsBesarText, 2, 2);
+            this.tableLayoutPanel2.Controls.Add(this.QtyAdjustInPcsText, 2, 2);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(8, 286);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
@@ -333,6 +340,8 @@
             // QtyAdjustBesarText
             // 
             this.QtyAdjustBesarText.Location = new System.Drawing.Point(4, 46);
+            this.QtyAdjustBesarText.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
+            this.QtyAdjustBesarText.Minimum = new decimal(new int[] { 999999, 0, 0, -2147483648 });
             this.QtyAdjustBesarText.Name = "QtyAdjustBesarText";
             this.QtyAdjustBesarText.Size = new System.Drawing.Size(86, 22);
             this.QtyAdjustBesarText.TabIndex = 9;
@@ -342,21 +351,25 @@
             // QtyAdjustKecilText
             // 
             this.QtyAdjustKecilText.Location = new System.Drawing.Point(97, 46);
+            this.QtyAdjustKecilText.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
+            this.QtyAdjustKecilText.Minimum = new decimal(new int[] { 999999, 0, 0, -2147483648 });
             this.QtyAdjustKecilText.Name = "QtyAdjustKecilText";
             this.QtyAdjustKecilText.Size = new System.Drawing.Size(86, 22);
             this.QtyAdjustKecilText.TabIndex = 10;
             this.QtyAdjustKecilText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.QtyAdjustKecilText.ThousandsSeparator = true;
             // 
-            // QtyInPcsBesarText
+            // QtyAdjustInPcsText
             // 
-            this.QtyInPcsBesarText.Location = new System.Drawing.Point(190, 46);
-            this.QtyInPcsBesarText.Name = "QtyInPcsBesarText";
-            this.QtyInPcsBesarText.ReadOnly = true;
-            this.QtyInPcsBesarText.Size = new System.Drawing.Size(88, 22);
-            this.QtyInPcsBesarText.TabIndex = 11;
-            this.QtyInPcsBesarText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.QtyInPcsBesarText.ThousandsSeparator = true;
+            this.QtyAdjustInPcsText.Location = new System.Drawing.Point(190, 46);
+            this.QtyAdjustInPcsText.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
+            this.QtyAdjustInPcsText.Minimum = new decimal(new int[] { 999999, 0, 0, -2147483648 });
+            this.QtyAdjustInPcsText.Name = "QtyAdjustInPcsText";
+            this.QtyAdjustInPcsText.ReadOnly = true;
+            this.QtyAdjustInPcsText.Size = new System.Drawing.Size(88, 22);
+            this.QtyAdjustInPcsText.TabIndex = 11;
+            this.QtyAdjustInPcsText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.QtyAdjustInPcsText.ThousandsSeparator = true;
             // 
             // tableLayoutPanel1
             // 
@@ -429,6 +442,8 @@
             // QtyAwalBesarText
             // 
             this.QtyAwalBesarText.Location = new System.Drawing.Point(4, 46);
+            this.QtyAwalBesarText.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
+            this.QtyAwalBesarText.Minimum = new decimal(new int[] { 999999, 0, 0, -2147483648 });
             this.QtyAwalBesarText.Name = "QtyAwalBesarText";
             this.QtyAwalBesarText.ReadOnly = true;
             this.QtyAwalBesarText.Size = new System.Drawing.Size(86, 22);
@@ -439,6 +454,8 @@
             // QtyAwalKecilText
             // 
             this.QtyAwalKecilText.Location = new System.Drawing.Point(97, 46);
+            this.QtyAwalKecilText.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
+            this.QtyAwalKecilText.Minimum = new decimal(new int[] { 999999, 0, 0, -2147483648 });
             this.QtyAwalKecilText.Name = "QtyAwalKecilText";
             this.QtyAwalKecilText.ReadOnly = true;
             this.QtyAwalKecilText.Size = new System.Drawing.Size(86, 22);
@@ -449,6 +466,8 @@
             // QtyAwalInPcsText
             // 
             this.QtyAwalInPcsText.Location = new System.Drawing.Point(190, 46);
+            this.QtyAwalInPcsText.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
+            this.QtyAwalInPcsText.Minimum = new decimal(new int[] { 999999, 0, 0, -2147483648 });
             this.QtyAwalInPcsText.Name = "QtyAwalInPcsText";
             this.QtyAwalInPcsText.ReadOnly = true;
             this.QtyAwalInPcsText.Size = new System.Drawing.Size(88, 22);
@@ -494,20 +513,17 @@
             // 
             // StokGrid
             // 
-            this.StokGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.StokGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.StokGrid.BackgroundColor = System.Drawing.Color.DarkSlateGray;
             this.StokGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.StokGrid.Location = new System.Drawing.Point(6, 53);
             this.StokGrid.Name = "StokGrid";
-            this.StokGrid.Size = new System.Drawing.Size(650, 428);
+            this.StokGrid.Size = new System.Drawing.Size(766, 428);
             this.StokGrid.TabIndex = 1;
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.PaleTurquoise;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.SearchText);
@@ -516,8 +532,32 @@
             this.panel2.Controls.Add(this.ListStokButton);
             this.panel2.Location = new System.Drawing.Point(6, 6);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(650, 42);
+            this.panel2.Size = new System.Drawing.Size(766, 42);
             this.panel2.TabIndex = 2;
+            // 
+            // SearchText
+            // 
+            this.SearchText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.SearchText.Location = new System.Drawing.Point(349, 7);
+            this.SearchText.Name = "SearchText";
+            this.SearchText.Size = new System.Drawing.Size(213, 22);
+            this.SearchText.TabIndex = 15;
+            // 
+            // KategoriCombo
+            // 
+            this.KategoriCombo.FormattingEnabled = true;
+            this.KategoriCombo.Location = new System.Drawing.Point(177, 7);
+            this.KategoriCombo.Name = "KategoriCombo";
+            this.KategoriCombo.Size = new System.Drawing.Size(166, 21);
+            this.KategoriCombo.TabIndex = 14;
+            // 
+            // WarehouseCombo
+            // 
+            this.WarehouseCombo.FormattingEnabled = true;
+            this.WarehouseCombo.Location = new System.Drawing.Point(5, 7);
+            this.WarehouseCombo.Name = "WarehouseCombo";
+            this.WarehouseCombo.Size = new System.Drawing.Size(166, 21);
+            this.WarehouseCombo.TabIndex = 13;
             // 
             // ListStokButton
             // 
@@ -530,36 +570,12 @@
             this.ListStokButton.Text = "List Stok";
             this.ListStokButton.UseVisualStyleBackColor = false;
             // 
-            // WarehouseCombo
-            // 
-            this.WarehouseCombo.FormattingEnabled = true;
-            this.WarehouseCombo.Location = new System.Drawing.Point(5, 7);
-            this.WarehouseCombo.Name = "WarehouseCombo";
-            this.WarehouseCombo.Size = new System.Drawing.Size(166, 21);
-            this.WarehouseCombo.TabIndex = 13;
-            // 
-            // KategoriCombo
-            // 
-            this.KategoriCombo.FormattingEnabled = true;
-            this.KategoriCombo.Location = new System.Drawing.Point(177, 7);
-            this.KategoriCombo.Name = "KategoriCombo";
-            this.KategoriCombo.Size = new System.Drawing.Size(166, 21);
-            this.KategoriCombo.TabIndex = 14;
-            // 
-            // SearchText
-            // 
-            this.SearchText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.SearchText.Location = new System.Drawing.Point(349, 7);
-            this.SearchText.Name = "SearchText";
-            this.SearchText.Size = new System.Drawing.Size(213, 22);
-            this.SearchText.TabIndex = 15;
-            // 
             // AdjustmentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
-            this.ClientSize = new System.Drawing.Size(971, 488);
+            this.ClientSize = new System.Drawing.Size(1087, 488);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.StokGrid);
             this.Controls.Add(this.panel1);
@@ -575,7 +591,7 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.QtyAdjustBesarText)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.QtyAdjustKecilText)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.QtyInPcsBesarText)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.QtyAdjustInPcsText)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.QtyAwalBesarText)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.QtyAwalKecilText)).EndInit();
@@ -584,7 +600,6 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
-
         }
 
         #endregion
@@ -604,7 +619,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.NumericUpDown QtyAdjustBesarText;
         private System.Windows.Forms.NumericUpDown QtyAdjustKecilText;
-        private System.Windows.Forms.NumericUpDown QtyInPcsBesarText;
+        private System.Windows.Forms.NumericUpDown QtyAdjustInPcsText;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown QtyAwalBesarText;
