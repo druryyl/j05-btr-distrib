@@ -43,7 +43,9 @@
             // 
             // BrgGrid
             // 
-            this.BrgGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.BrgGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.BrgGrid.BackgroundColor = System.Drawing.Color.SlateGray;
             this.BrgGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.BrgGrid.Location = new System.Drawing.Point(6, 60);
@@ -63,7 +65,8 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.PaleTurquoise;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.label2);
@@ -123,8 +126,9 @@
             // 
             // ListBrgButton
             // 
-            this.ListBrgButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.ListBrgButton.Location = new System.Drawing.Point(546, 18);
+            this.ListBrgButton.BackColor = System.Drawing.Color.PowderBlue;
+            this.ListBrgButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ListBrgButton.Location = new System.Drawing.Point(546, 16);
             this.ListBrgButton.Name = "ListBrgButton";
             this.ListBrgButton.Size = new System.Drawing.Size(100, 23);
             this.ListBrgButton.TabIndex = 1;
@@ -146,6 +150,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
+
         }
 
         #endregion
