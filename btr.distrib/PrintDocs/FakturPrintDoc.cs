@@ -86,7 +86,7 @@ namespace btr.distrib.PrintDocs
         private void PrintDocument_PrintPage(object sender, PrintPageEventArgs e)
         {
             var pd = (PrintDocument)sender;
-            Font font = new Font("Courier New", 8.5f, FontStyle.Regular);
+            Font font = new Font("Courier New", 8.45f, FontStyle.Regular);
             PaperSize customPaperSize = new PaperSize("Custom", Convert.ToInt32(9.5 * 100), Convert.ToInt32(11 * 100));
             pd.DefaultPageSettings.PaperSize = customPaperSize;
 
