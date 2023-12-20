@@ -115,6 +115,8 @@ namespace btr.distrib.PrintDocs
                 var disc4 = item.ListDisc.FirstOrDefault(x => x.NoUrut == 4)?.DiscProsen.ToString("N2").FixWidthRight(3) ?? "-".FixWidthRight(3);
                 var total = (item.SubTotal - item.DiscRp).ToString("N0").FixWidthRight(11);
                 //var total2 =  item.Total.ToString("N0").FixWidthRight(11);
+                if (item.QtyBesar + item.QtyKecil == 0)
+                    continue;
 
                 sb.Append($"{no}│{brgId}│{arrName1.FixWidth(27)}│{qty1A}│{qty2A}│{hrg1}│{hrg2}│{disc1}│{disc2}│{disc3}│{disc4}│{total}\n");
                 if ($"{arrName2}{qty1B}{qty2B}".Trim().Length > 0)

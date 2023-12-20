@@ -15,6 +15,8 @@ using System.Drawing;
 using btr.application.SalesContext.KlasifikasiAgg;
 using btr.domain.SalesContext.KlasifikasiAgg;
 using btr.domain.SalesContext.WilayahAgg;
+using ClosedXML.Excel;
+using Syncfusion.DataSource.Extensions;
 
 namespace btr.distrib.SalesContext.CustomerAgg
 {
@@ -79,8 +81,103 @@ namespace btr.distrib.SalesContext.CustomerAgg
             WilayahButton.Click += WilayahButton_Click;
 
             NewButton.Click += NewButton_Click;
+            
+            ExcelButton.Click += ExcelButton_Click;
         }
 
+        private void ExcelButton_Click(object sender, EventArgs e)
+        {
+            var listCust = _customerDal.ListData()?.ToList()
+                ?? new List<CustomerModel>();
+
+            var listCustomer = _customerDal.ListData()?.ToList() ?? new List<CustomerModel>();
+            var listWilayah = _wilayahDal.ListData()?.ToList() ?? new List<WilayahModel>();
+            var listKlasifikasi = _klasifikasiDal.ListData()?.ToList() ?? new List<KlasifikasiModel>();
+            var listHargaType = _hargaTypeDal.ListData()?.ToList() ?? new List<HargaTypeModel>();
+            
+            //  projection listCutomer to CustomerFormExcelDto
+            var listCustomerExcel = listCustomer
+                .Where(x => x.CustomerName.Length > 0)
+                .OrderBy(x => x.CustomerName)
+                .Select(x => new CustomerFormExcelDto
+                {
+                    CustomerId = x.CustomerId,
+                    CustomerCode = x.CustomerCode,
+                    CustomerName = x.CustomerName,
+                    Address1 = x.Address1,
+                    Address2 = x.Address2,
+                    Kota = x.Kota,
+                    NoTelp = x.NoTelp,
+                    NoFax = x.NoFax,
+                    WilayahName = listWilayah.FirstOrDefault(y => y.WilayahId == x.WilayahId)?.WilayahName,
+                    KlasifikasiName = listKlasifikasi.FirstOrDefault(y => y.KlasifikasiId == x.KlasifikasiId)?.KlasifikasiName,
+                    Plafond = x.Plafond,
+                    Npwp = x.Npwp,
+                    NamaWp = x.NamaWp,
+                    AddressWp = x.AddressWp,
+                    IsKenaPajak = x.IsKenaPajak,
+                    HargaTypeName = listHargaType.FirstOrDefault(y => y.HargaTypeId == x.HargaTypeId)?.HargaTypeName,
+                    IsSuspend = x.IsSuspend
+                }).ToList();
+            
+            string filePath;
+            using (var saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = @"Excel Files|*.xlsx";
+                saveFileDialog.Title = @"Save Excel File";
+                saveFileDialog.DefaultExt = "xlsx";
+                saveFileDialog.AddExtension = true;
+                saveFileDialog.FileName = $"customer-info-{DateTime.Now:yyyy-MM-dd-HHmm}";
+                if (saveFileDialog.ShowDialog() != DialogResult.OK)
+                    return;
+                filePath = saveFileDialog.FileName;
+            }
+
+            using (IXLWorkbook wb = new XLWorkbook())
+            {
+                wb.AddWorksheet("customer-info")
+                    .Cell($"B1")
+                    .InsertTable(listCustomerExcel, false);
+                var ws = wb.Worksheets.First();
+                //  add row number at column A
+                ws.Cell("A1").Value = "No";
+                for (var i = 0; i < listCustomerExcel.Count; i++)
+                    ws.Cell($"A{i + 2}").Value = i + 1;
+
+                //  border header
+                ws.Range("A1:R1").Style.Border.BottomBorder = XLBorderStyleValues.Thin;
+                //  font bold header and background color light blue
+                ws.Range("A1:R1").Style.Font.SetBold();
+                ws.Range("A1:R1").Style.Fill.BackgroundColor = XLColor.LightBlue;
+                //  freeze header
+                ws.SheetView.FreezeRows(1);
+                //  border table
+                ws.Range($"A2:R{listCustomerExcel.Count + 1}").Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                ws.Range($"A2:R{listCustomerExcel.Count + 1}").Style.Border.InsideBorder = XLBorderStyleValues.Hair;
+                
+                //  format number thousand separator and zero decimal place
+                ws.Range($"L2:L{listCustomerExcel.Count + 1}").Style.NumberFormat.Format = "#,##";
+                
+                //  set font to consolas 8.25f
+                ws.Range($"A1:R{listCustomerExcel.Count + 1}").Style.Font.SetFontName("Consolas");
+                ws.Range($"A1:R{listCustomerExcel.Count + 1}").Style.Font.SetFontSize(9f);
+                
+                //  set backcolor column E to H as light yellow
+                ws.Range($"M2:P{listCustomerExcel.Count + 1}").Style.Fill.BackgroundColor = XLColor.LightYellow;
+                ws.Range($"L2:L{listCustomerExcel.Count + 1}").Style.Fill.BackgroundColor = XLColor.LightGreen;
+
+                //  auto fit column
+                ws.Columns().AdjustToContents();
+                //  set column D width to 20 character
+                ws.Column(4).Width = 35;
+                ws.Column(5).Width = 35;
+                ws.Column(6).Width = 15;
+                ws.Column(7).Width = 15;
+                ws.Column(15).Width = 35;
+                wb.SaveAs(filePath);
+            }
+            System.Diagnostics.Process.Start(filePath);
+        }
 
         #region GRID-CUSTOMER
         private void SearchText_KeyDown(object sender, KeyEventArgs e)
@@ -308,5 +405,27 @@ namespace btr.distrib.SalesContext.CustomerAgg
         public string Alamat { get; }
         public decimal Plafond { get; }
         public decimal CreditBalance { get; }
+    }
+
+    public class CustomerFormExcelDto
+    {
+        public string CustomerId { get; set; }
+        public string CustomerCode { get; set; }
+        public string CustomerName { get; set; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public string Kota { get; set; }
+        public string NoTelp {get;set;  }
+        public string NoFax {get;set;   }
+        public string WilayahName {get;set; }
+        public string KlasifikasiName {get;set; }
+        public decimal Plafond {get;set; }
+        public string Npwp {get;set;    }
+        public string NamaWp {get;set;  }
+        public string AddressWp {get;set;   }
+        public bool IsKenaPajak {get;set; }
+        public string HargaTypeName {get;set;   }
+        public bool IsSuspend {get;set;   }
+        
     }
 }

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Windows.Forms;
 using btr.distrib.Helpers;
@@ -20,7 +21,9 @@ using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.WarehouseAgg;
 using btr.application.SupportContext.TglJamAgg;
 using btr.application.SalesContext.FakturAgg.Workers;
+using btr.distrib.PrintDocs;
 using btr.domain.SalesContext.FakturAgg;
+using btr.domain.SupportContext.DocAgg;
 using Mapster;
 
 namespace btr.distrib.SalesContext.FakturAgg
@@ -45,6 +48,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly ISaveFakturWorker _saveFakturWorker;
         private readonly ICreateFakturItemWorker _createItemWorker;
 
+        private readonly IFakturPrintDoc _fakturPrinter;
         private string _tipeHarga = string.Empty;
 
 
@@ -62,7 +66,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             IBrgDal brgDal,
             IFakturBuilder fakturBuilder,
             ISaveFakturWorker saveFakturWorker,
-            ICreateFakturItemWorker createItemWorker)
+            ICreateFakturItemWorker createItemWorker, IFakturPrintDoc fakturPrinter)
         {
             _warehouseBrowser = warehouseBrowser;
             _salesBrowser = salesBrowser;
@@ -81,6 +85,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             _fakturBuilder = fakturBuilder;
             _saveFakturWorker = saveFakturWorker;
             _createItemWorker = createItemWorker;
+            _fakturPrinter = fakturPrinter;
 
             InitializeComponent();
             InitGrid();
@@ -661,8 +666,33 @@ namespace btr.distrib.SalesContext.FakturAgg
                 .Load(result)
                 .Build();
 
-            LastIdLabel.Text = $"{result.FakturId} - {fakturDb.FakturCode}";
+            LastIdLabel.Text = $@"{result.FakturId} - {fakturDb.FakturCode}";
+            PrintFaktur(result);
         }
+
+        private void PrintFaktur(IFakturKey fakturKey)
+        {
+            var faktur = _fakturBuilder.Load(fakturKey).Build();
+            _fakturPrinter.DefaultPrinter = GetPrinterName();
+            _fakturPrinter.CreateDoc(faktur);
+            _fakturPrinter.PrintDoc();
+        }
+        private static string GetPrinterName()
+        {
+            string defaultPrinterName;
+
+            try
+            {
+                var printDocument = new PrintDocument();
+                defaultPrinterName = "Printer : " + printDocument.PrinterSettings.PrinterName;
+            }
+            catch (Exception ex)
+            {
+                defaultPrinterName = "Printer Error : " + ex.Message;
+            }
+
+            return defaultPrinterName;
+        }        
         #endregion
     }
 }

@@ -47,10 +47,13 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                 {
                     var brg = _brgBuilder.Load(item).Build();
                     var satuan = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty;
-                    
-                    var reqRemoveStok = new RemoveFifoStokRequest(item.BrgId,
-                        faktur.WarehouseId, item.QtyJual, satuan, item.HrgSat, faktur.FakturId, "FAKTUR", faktur.CustomerName);
-                    _removeFifoStokWorker.Execute(reqRemoveStok);
+
+                    if (item.QtyJual != 0)
+                    {
+                        var reqRemoveStok = new RemoveFifoStokRequest(item.BrgId,
+                            faktur.WarehouseId, item.QtyJual, satuan, item.HrgSat, faktur.FakturId, "FAKTUR", faktur.CustomerName);
+                        _removeFifoStokWorker.Execute(reqRemoveStok);
+                    }
 
                     var qtyBonus = item.QtyPotStok - item.QtyJual;
                     if (qtyBonus == 0)
