@@ -8,6 +8,11 @@ namespace btr.domain.FinanceContext.TagihanAgg
 {
     public class TagihanModel : ITagihanKey
     {
+        public TagihanModel()
+        {
+        }
+        public TagihanModel(string id) => TagihanId = id;
+
         public string TagihanId { get; set; }
         public DateTime TagihanDate { get; set; }
         public string SalesPersonId { get; set; }

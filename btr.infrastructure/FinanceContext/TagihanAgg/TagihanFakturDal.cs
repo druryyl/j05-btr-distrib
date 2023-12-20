@@ -63,16 +63,13 @@ namespace btr.infrastructure.FinanceContext.TagihanAgg
             // query select table BTR_TagihanFaktur by TagihanId
             const string sql = @"
                 SELECT
-                    TagihanId,
-                    NoUrut,
-                    FakturId,
-                    FakturCode,
-                    CustomerId,
-                    CustomerName,
-                    Alamat,
-                    Nilai
+                    aa.TagihanId, aa.NoUrut, aa.FakturId,
+                    bb.FakturCode, aa.CustomerId, cc.CustomerName,
+                    cc.Address1, aa.Nilai
                 FROM
-                    BTR_TagihanFaktur
+                    BTR_TagihanFaktur aa
+                    LEFT JOIN BTR_Faktur bb ON aa.FakturId = bb.FakturId
+                    LEFT JOIN BTR_Customer cc ON bb.CustomerId = cc.CustomerId
                 WHERE
                     TagihanId = @TagihanId
                 ORDER BY
@@ -80,6 +77,7 @@ namespace btr.infrastructure.FinanceContext.TagihanAgg
             
             // parameter
             var dp = new DynamicParameters();
+            dp.AddParam("@TagihanId", filter.TagihanId, SqlDbType.VarChar);
             
             //  execute query
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))

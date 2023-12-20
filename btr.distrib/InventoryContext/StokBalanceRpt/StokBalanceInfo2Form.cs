@@ -25,6 +25,7 @@ namespace btr.distrib.InventoryContext.StokBalanceRpt
             _stokBalanceViewDal = stokBalanceViewDal;
             InfoGrid.QueryCellStyleInfo += InfoGrid_QueryCellStyleInfo;
             ExcelButton.Click += ExcelButton_Click;
+            ProsesButton.Click += ProsesButton_Click;
             InitGrid();
         }
 
@@ -39,7 +40,8 @@ namespace btr.distrib.InventoryContext.StokBalanceRpt
 
         private void InitGrid()
         {
-            Proses();
+            var datasource = new List<StokBalanceInfoDto>();
+            InfoGrid.DataSource = datasource;
 
             InfoGrid.TableDescriptor.AllowEdit = false;
             InfoGrid.TableDescriptor.AllowNew = false;
@@ -68,7 +70,7 @@ namespace btr.distrib.InventoryContext.StokBalanceRpt
             InfoGrid.TableDescriptor.Columns["Hpp"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["NilaiSediaan"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.Refresh();
-            Proses();
+            //Proses();
         }
 
         private void ProsesButton_Click(object sender, EventArgs e)

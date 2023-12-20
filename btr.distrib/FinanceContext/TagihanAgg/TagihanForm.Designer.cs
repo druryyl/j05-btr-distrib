@@ -33,7 +33,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.TglTagihText = new System.Windows.Forms.DateTimePicker();
-            this.button1 = new System.Windows.Forms.Button();
+            this.TagihanButton = new System.Windows.Forms.Button();
             this.TotalTagihanText = new System.Windows.Forms.NumericUpDown();
             this.SalesCombo = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -48,14 +48,15 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.PaleTurquoise;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.LastIdLabel);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.TglTagihText);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.TagihanButton);
             this.panel1.Controls.Add(this.TotalTagihanText);
             this.panel1.Controls.Add(this.SalesCombo);
             this.panel1.Controls.Add(this.label1);
@@ -103,23 +104,31 @@
             this.TglTagihText.Size = new System.Drawing.Size(107, 22);
             this.TglTagihText.TabIndex = 7;
             // 
-            // button1
+            // TagihanButton
             // 
-            this.button1.BackColor = System.Drawing.Color.MediumAquamarine;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(121, 26);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(27, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "...";
-            this.button1.UseVisualStyleBackColor = false;
+            this.TagihanButton.BackColor = System.Drawing.Color.MediumAquamarine;
+            this.TagihanButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TagihanButton.Location = new System.Drawing.Point(121, 26);
+            this.TagihanButton.Name = "TagihanButton";
+            this.TagihanButton.Size = new System.Drawing.Size(27, 23);
+            this.TagihanButton.TabIndex = 6;
+            this.TagihanButton.Text = "...";
+            this.TagihanButton.UseVisualStyleBackColor = false;
             // 
             // TotalTagihanText
             // 
             this.TotalTagihanText.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalTagihanText.Location = new System.Drawing.Point(394, 29);
-            this.TotalTagihanText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
-            this.TotalTagihanText.Minimum = new decimal(new int[] { 999999999, 0, 0, -2147483648 });
+            this.TotalTagihanText.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.TotalTagihanText.Minimum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            -2147483648});
             this.TotalTagihanText.Name = "TotalTagihanText";
             this.TotalTagihanText.ReadOnly = true;
             this.TotalTagihanText.Size = new System.Drawing.Size(138, 20);
@@ -164,7 +173,9 @@
             // 
             // FakturGrid
             // 
-            this.FakturGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.FakturGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.FakturGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.FakturGrid.Location = new System.Drawing.Point(9, 83);
             this.FakturGrid.Name = "FakturGrid";
@@ -198,6 +209,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.TotalTagihanText)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.FakturGrid)).EndInit();
             this.ResumeLayout(false);
+
         }
 
         private System.Windows.Forms.Label LastIdLabel;
@@ -212,7 +224,7 @@
         private System.Windows.Forms.NumericUpDown TotalTagihanText;
         private System.Windows.Forms.ComboBox SalesCombo;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button TagihanButton;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker TglTagihText;

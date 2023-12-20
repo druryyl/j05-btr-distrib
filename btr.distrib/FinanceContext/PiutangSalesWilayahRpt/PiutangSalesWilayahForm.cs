@@ -174,71 +174,175 @@ namespace btr.distrib.FinanceContext.PiutangSalesWilayahRpt
                     .ThenBy(x => x.CustomerName)
                     .ToList();
 
-                ////  replace sales name with empty string if same with previous row
-                //var prevSalesName = "";
-                //foreach (var item in excelContent)
-                //{
-                //    var currentVal = item.SalesName;
-                //    if (item.SalesName == prevSalesName)
-                //        item.SalesName = "";
-                    
-                //    if (currentVal != prevSalesName)
-                //        prevSalesName = currentVal;
-                //}
-
-                ////  replace wilayah name with empty string if same with previous row
-                //var prevWilayahName = "";
-                //foreach (var item in excelContent)
-                //{
-                //    var currentVal = item.WilayahName;
-                //    if (item.WilayahName == prevWilayahName)
-                //        item.WilayahName = "";
-
-                //    if (currentVal != prevWilayahName)
-                //        prevWilayahName = currentVal;
-                //}
-
-                ////  replace customer name with empty string if same with previous row
-                //var prevCustomerName = "";
-                //foreach (var item in excelContent)
-                //{
-                //    var currentVal = item.CustomerName;
-                //    if (item.CustomerName == prevCustomerName)
-                //        item.CustomerName = "";
-
-                //    if (currentVal != prevCustomerName)
-                //        prevCustomerName = currentVal;
-                //}
+                //  projection excel content to piutang structure using LINQ
+                var piutangStructure = excelContent
+                    .GroupBy(x => x.SalesName)
+                    .Select(x => new PiutangStructureDto
+                    {
+                        SalesName = x.Key,
+                        TotalPerSales = x.Sum(y => y.TotalJual),
+                        ListWilayah = x.GroupBy(y => y.WilayahName)
+                            .Select(y => new PiutangWilayahDto
+                            {
+                                WilayahName = y.Key,
+                                TotalPerWilayah = y.Sum(z => z.TotalJual),
+                                ListFaktur = y.Select(z => new PiutangFakturDto
+                                {
+                                    FakturCode = z.FakturCode,
+                                    FakturDate = z.FakturDate,
+                                    CustomerName = z.CustomerName,
+                                    JatuhTempo = z.JatuhTempo,
+                                    TotalJual = z.TotalJual,
+                                    BayarTunai = z.BayarTunai,
+                                    BayarGiro = z.BayarGiro,
+                                    Retur = z.Retur,
+                                    Potongan = z.Potongan,
+                                    MateraiAdmin = z.MateraiAdmin,
+                                    KurangBayar = z.KurangBayar
+                                }).ToList()
+                            }).ToList()
+                    }).ToList();
 
 
-                wb.AddWorksheet("piutang-sales-per-wilayah-info")
-                    .Cell($"B1")
-                    .InsertTable(excelContent, false);
-                var ws = wb.Worksheets.First();
-                //  set border and font
-                ws.Range(ws.Cell($"A{1}"), ws.Cell($"O{_dataSource.Count + 1}")).Style
-                    .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
-                    .Border.SetInsideBorder(XLBorderStyleValues.Hair);
-                ws.Range(ws.Cell($"A{1}"), ws.Cell($"O{_dataSource.Count + 1}")).Style
-                    .Font.SetFontName("Consolas")
-                    .Font.SetFontSize(9);
+                var ws = wb.AddWorksheet("piutang-sales-per-wilayah-info");
+                var baris = 1;
+                ws.Cell($"A{baris}").Value = "CV BINTANG TIMUR RAHAYU";
+                ws.Cell($"A{baris}").Style
+                    .Font.SetFontSize(12)
+                    .Font.SetBold(false)
+                    .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"L{baris}")).Merge();
+                baris++;
 
-                //  set format for  column  number 
-                ws.Range(ws.Cell($"H{2}"), ws.Cell($"O{_dataSource.Count + 1}"))
-                    .Style.NumberFormat.Format = "#,##";
-                //  set format date as dd-MM-yyyy
-                ws.Range(ws.Cell($"E{2}"), ws.Cell($"E{_dataSource.Count + 1}"))
-                    .Style.NumberFormat.Format = "dd-MM-yyyy";
-                ws.Range(ws.Cell($"G{2}"), ws.Cell($"G{_dataSource.Count + 1}"))
-                    .Style.NumberFormat.Format = "dd-MM-yyyy";
+                ws.Cell($"A{baris}").Value = "Jl.Kaliurang Km 5.5 Gg. Durmo No.18";
+                ws.Cell($"A{baris}").Style
+                    .Font.SetFontSize(10)
+                    .Font.SetBold(false)
+                    .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"L{baris}")).Merge();
+                baris++;
 
-                ws.Range(ws.Cell($"A{2}"), ws.Cell($"A{_dataSource.Count + 1}"))
-                    .Style.NumberFormat.Format = "#,##";
-                //  add rownumbering
-                ws.Cell($"A1").Value = "No";
-                for (var i = 0; i < _dataSource.Count; i++)
-                    ws.Cell($"A{i + 2}").Value = i + 1;
+                ws.Cell($"A{baris}").Value = "LAPORAN PIUTANG PER-SALES PER-WILAYAH";
+                ws.Cell($"A{baris}").Style
+                    .Font.SetFontSize(16)
+                    .Font.SetBold(true)
+                    .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"L{baris}")).Merge();
+                baris++;
+
+                ws.Cell($"A{baris}").Value = $"{Faktur1Date.Value:dd MMMM yyyy} - {Faktur2Date.Value:dd MMMM yyyy}";
+                ws.Cell($"A{baris}").Style
+                    .Font.SetFontSize(10)
+                    .Font.SetBold(false)
+                    .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Right);
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"L{baris}")).Merge();
+                baris++;
+
+                foreach(var sales in piutangStructure)
+                {
+                    ws.Cell($"A{baris}").Value = sales.SalesName;
+                    baris++;
+                    foreach(var wilayah in sales.ListWilayah)
+                    {
+                        ws.Cell($"A{baris}").Value = wilayah.WilayahName;
+                        baris++;
+                        var noUrut = 1;
+                        //  create header
+                        ws.Cell($"A{baris}").Value = "No";
+                        ws.Cell($"B{baris}").Value = "Faktur";
+                        ws.Cell($"C{baris}").Value = "Tanggal";
+                        ws.Cell($"D{baris}").Value = "Customer";
+                        ws.Cell($"E{baris}").Value = "Jatuh Tempo";
+                        ws.Cell($"F{baris}").Value = "Total Jual";
+                        ws.Cell($"G{baris}").Value = "Bayar Tunai";
+                        ws.Cell($"H{baris}").Value = "Bayar Giro";
+                        ws.Cell($"I{baris}").Value = "Retur";
+                        ws.Cell($"J{baris}").Value = "Potongan";
+                        ws.Cell($"K{baris}").Value = "Materai Admin";
+                        ws.Cell($"L{baris}").Value = "Kurang Bayar";
+                        baris++;
+                        //  set border and font for header
+                        ws.Range(ws.Cell($"A{baris - 1}"), ws.Cell($"L{baris - 1}")).Style
+                            .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
+                            .Border.SetInsideBorder(XLBorderStyleValues.Hair)
+                            .Font.SetBold(true);
+                        //  set backcolor to light blue
+                        ws.Range(ws.Cell($"A{baris - 1}"), ws.Cell($"L{baris - 1}")).Style
+                            .Fill.SetBackgroundColor(XLColor.LightBlue);
+
+                        var barisAwal = baris;
+                        foreach (var faktur in wilayah.ListFaktur)
+                        {
+                            ws.Cell($"A{baris}").Value = noUrut;
+                            ws.Cell($"B{baris}").Value = faktur.FakturCode;
+                            ws.Cell($"C{baris}").Value = faktur.FakturDate;
+                            ws.Cell($"D{baris}").Value = faktur.CustomerName;
+                            ws.Cell($"E{baris}").Value = faktur.JatuhTempo;
+                            ws.Cell($"F{baris}").Value = faktur.TotalJual;
+                            ws.Cell($"G{baris}").Value = faktur.BayarTunai;
+                            ws.Cell($"H{baris}").Value = faktur.BayarGiro;
+                            ws.Cell($"I{baris}").Value = faktur.Retur;
+                            ws.Cell($"J{baris}").Value = faktur.Potongan;
+                            ws.Cell($"K{baris}").Value = faktur.MateraiAdmin;
+                            ws.Cell($"L{baris}").Value = faktur.KurangBayar;
+                            baris++;
+                            noUrut++;
+                        }
+                        //  set border and font
+                        ws.Range(ws.Cell($"A{barisAwal}"), ws.Cell($"L{baris - 1}")).Style
+                            .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
+                            .Border.SetInsideBorder(XLBorderStyleValues.Hair);
+                        //  set format for  column  number
+                        ws.Range(ws.Cell($"F{barisAwal}"), ws.Cell($"L{baris - 1}"))
+                            .Style.NumberFormat.Format = "#,##";
+                        //  set format date as dd-MM-yyyy
+                        ws.Range(ws.Cell($"C{barisAwal}"), ws.Cell($"C{baris - 1}"))
+                            .Style.NumberFormat.Format = "dd-MMM-yyyy";
+                        ws.Range(ws.Cell($"E{barisAwal}"), ws.Cell($"E{baris - 1}"))
+                            .Style.NumberFormat.Format = "dd-MMM-yyyy";
+                        //  add footer sum for all number column
+                        ws.Cell($"F{baris}").FormulaA1 = $"SUM(F{barisAwal}:F{baris-1})";
+                        ws.Cell($"G{baris}").FormulaA1 = $"SUM(G{barisAwal}:G{baris - 1})";
+                        ws.Cell($"H{baris}").FormulaA1 = $"SUM(H{barisAwal}:H{baris - 1})";
+                        ws.Cell($"I{baris}").FormulaA1 = $"SUM(I{barisAwal}:I{baris - 1})";
+                        ws.Cell($"J{baris}").FormulaA1 = $"SUM(J{barisAwal}:J{baris - 1})";
+                        ws.Cell($"K{baris}").FormulaA1 = $"SUM(K{barisAwal}:K{baris - 1})";
+                        ws.Cell($"L{baris}").FormulaA1 = $"SUM(L{barisAwal}:L{baris - 1})";
+                        // set border footer
+                        ws.Range(ws.Cell($"F{baris}"), ws.Cell($"L{baris}")).Style
+                            .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
+                            .Border.SetInsideBorder(XLBorderStyleValues.Hair);
+                        //  set backcolor to light yellow
+                        ws.Range(ws.Cell($"F{baris}"), ws.Cell($"L{baris}")).Style
+                            .Fill.SetBackgroundColor(XLColor.LightYellow);
+                        //  set format for  column  number
+                        ws.Range(ws.Cell($"F{baris}"), ws.Cell($"L{baris}"))
+                            .Style.NumberFormat.Format = "#,##";
+                        baris++;
+                    }
+                    //  add sum per-sales
+                    ws.Cell($"F{baris}").Value = sales.ListWilayah.SelectMany(x => x.ListFaktur).Sum(x => x.TotalJual);
+                    ws.Cell($"G{baris}").Value = sales.ListWilayah.SelectMany(x => x.ListFaktur).Sum(x => x.BayarTunai);
+                    ws.Cell($"H{baris}").Value = sales.ListWilayah.SelectMany(x => x.ListFaktur).Sum(x => x.BayarGiro);
+                    ws.Cell($"I{baris}").Value = sales.ListWilayah.SelectMany(x => x.ListFaktur).Sum(x => x.Retur);
+                    ws.Cell($"J{baris}").Value = sales.ListWilayah.SelectMany(x => x.ListFaktur).Sum(x => x.Potongan);
+                    ws.Cell($"K{baris}").Value = sales.ListWilayah.SelectMany(x => x.ListFaktur).Sum(x => x.MateraiAdmin);
+                    ws.Cell($"L{baris}").Value = sales.ListWilayah.SelectMany(x => x.ListFaktur).Sum(x => x.KurangBayar);
+                    //  format number with thousand separaot and 0 decimal place
+                    ws.Range(ws.Cell($"F{baris}"), ws.Cell($"L{baris}")).Style
+                        .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
+                        .Border.SetInsideBorder(XLBorderStyleValues.Hair);
+                    //  set backcolor to light pink
+                    ws.Range(ws.Cell($"F{baris}"), ws.Cell($"L{baris}")).Style
+                        .Fill.SetBackgroundColor(XLColor.LightPink);
+                    ws.Range(ws.Cell($"F{baris}"), ws.Cell($"L{baris}")).Style
+                        .NumberFormat.Format = "#,##";
+                    baris++;
+                }
                 ws.Columns().AdjustToContents();
+                // set column A with to 2 characters
+                ws.Column(1).Width = 2;
+
                 wb.SaveAs(filePath);
             }
             System.Diagnostics.Process.Start(filePath);
@@ -259,5 +363,34 @@ namespace btr.distrib.FinanceContext.PiutangSalesWilayahRpt
                 .Union(listFilteredSupplier);
             return result.ToList();
         }
+    }
+
+    public class PiutangStructureDto
+    {
+        public string SalesName { get; set; }
+        public decimal TotalPerSales { get; set; }
+        public List<PiutangWilayahDto> ListWilayah{ get; set; }
+    }
+    public class PiutangWilayahDto
+    {
+        public string WilayahName { get; set; }
+        public decimal TotalPerWilayah { get; set; }
+        public List<PiutangFakturDto> ListFaktur { get; set; }
+
+    }
+
+    public class PiutangFakturDto
+    {
+        public string FakturCode { get; set; }
+        public DateTime FakturDate { get; set; }
+        public string CustomerName { get; set; }
+        public DateTime JatuhTempo { get; set; }
+        public decimal TotalJual { get; set; }
+        public decimal BayarTunai { get; set; }
+        public decimal BayarGiro { get; set; }
+        public decimal Retur { get; set; }
+        public decimal Potongan { get; set; }
+        public decimal MateraiAdmin { get; set; }
+        public decimal KurangBayar { get; set; }
     }
 }

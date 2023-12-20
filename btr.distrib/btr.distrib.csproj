@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>98</ApplicationRevision>
+    <ApplicationRevision>101</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -281,6 +281,7 @@
     <Compile Include="Browsers\MutasiBrowser.cs" />
     <Compile Include="Browsers\ReturJualBrowser.cs" />
     <Compile Include="Browsers\SalesPersonBrowser.cs" />
+    <Compile Include="Browsers\TagihanBrowser.cs" />
     <Compile Include="Browsers\WilayahBrowser.cs" />
     <Compile Include="FinanceContext\LunasPiutangAgg\ListLunasPiutang.cs">
       <SubType>Form</SubType>

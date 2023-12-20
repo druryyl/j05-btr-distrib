@@ -7,12 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using btr.application.FinanceContext.PiutangAgg.Workers;
 using btr.application.FinanceContext.TagihanAgg;
 using btr.application.SalesContext.FakturAgg.Contracts;
 using btr.application.SalesContext.FakturAgg.Workers;
 using btr.application.SalesContext.SalesPersonAgg.Contracts;
+using btr.distrib.Browsers;
 using btr.distrib.Helpers;
+using btr.distrib.SalesContext.FakturAgg;
 using btr.domain.FinanceContext.PiutangAgg;
 using btr.domain.FinanceContext.TagihanAgg;
 using btr.domain.SalesContext.FakturAgg;
@@ -20,6 +23,8 @@ using btr.domain.SalesContext.SalesPersonAgg;
 using btr.nuna.Domain;
 using ClosedXML.Excel;
 using JetBrains.Annotations;
+using Mapster;
+using Polly;
 
 namespace btr.distrib.FinanceContext.TagihanAgg
 {
@@ -32,14 +37,16 @@ namespace btr.distrib.FinanceContext.TagihanAgg
         private readonly IPiutangBuilder _piutangBuilder;
         private readonly ITagihanBuilder _tagihanBuilder;
         private readonly ITagihanWriter _tagihanWriter;
+        private readonly IBrowser<TagihanBrowserView> _tagihanBrowser;
         
-        private readonly ISalesPersonDal _salesDal; 
-        public TagihanForm(ISalesPersonDal salesDal, 
-            IFakturBuilder fakturBuilder, 
-            IPiutangBuilder piutangBuilder, 
-            IFakturDal fakturDal, 
-            ITagihanBuilder tagihanBuilder, 
-            ITagihanWriter tagihanWriter)
+        private readonly ISalesPersonDal _salesDal;
+        public TagihanForm(ISalesPersonDal salesDal,
+            IFakturBuilder fakturBuilder,
+            IPiutangBuilder piutangBuilder,
+            IFakturDal fakturDal,
+            ITagihanBuilder tagihanBuilder,
+            ITagihanWriter tagihanWriter,
+            IBrowser<TagihanBrowserView> tagihanBrowser)
         {
             _salesDal = salesDal;
             _fakturBuilder = fakturBuilder;
@@ -47,21 +54,78 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             _fakturDal = fakturDal;
             _tagihanBuilder = tagihanBuilder;
             _tagihanWriter = tagihanWriter;
-            
+
             InitializeComponent();
             InitGrid();
             InitCombo();
             TglTagihText.Value = DateTime.Now;
 
             RegisterEventHandler();
+            _tagihanBrowser = tagihanBrowser;
         }
 
         private void RegisterEventHandler()
         {
             FakturGrid.CellValidated += FakturGridOnCellValidated;
             SaveButton.Click += SaveButtonOnClick;
+            TagihanButton.Click += TagihanButton_Click;
+            TagihanIdText.Validating += TagihanIdText_Validating;
 
         }
+
+        private void TagihanIdText_Validating(object sender, CancelEventArgs e)
+        {
+            var textbox = (TextBox)sender;
+            var valid = true;
+            if (textbox.Text.Length == 0)
+                ClearForm();
+            else
+                valid = ValidateTagihan();
+
+            if (!valid)
+                e.Cancel = true;
+        }
+
+        private bool ValidateTagihan()
+        {
+            var textbox = TagihanIdText;
+            var policy = Policy<TagihanModel>
+                .Handle<KeyNotFoundException>().Or<ArgumentException>()
+                .Fallback(null as TagihanModel, (r, c) =>
+                {
+                    MessageBox.Show(r.Exception.Message);
+                });
+
+            var tagihan = policy.Execute(() => _tagihanBuilder
+                .Load(new TagihanModel(textbox.Text))
+                .Build());
+            if (tagihan is null)
+                return false;
+
+            tagihan.RemoveNull();
+
+            TglTagihText.Value = tagihan.TagihanDate;
+            SalesCombo.SelectedValue = tagihan.SalesPersonId;
+            TotalTagihanText.Value = tagihan.TotalTagihan;
+
+            _listTagihan.Clear();
+            foreach (var item in tagihan.ListFaktur)
+            {
+                var newItem = item.Adapt<TagihanDto>();
+                _listTagihan.Add(newItem);
+            }
+
+            return true;
+        }
+
+        private void TagihanButton_Click(object sender, EventArgs e)
+        {
+            _tagihanBrowser.Filter.Date = new Periode(DateTime.Now);
+
+            TagihanIdText.Text = _tagihanBrowser.Browse(TagihanIdText.Text);
+            TagihanIdText_Validating(TagihanIdText, null);
+        }
+
         private void SaveButtonOnClick(object sender, EventArgs e)
         {
             var tagihan = _tagihanBuilder
@@ -133,7 +197,7 @@ namespace btr.distrib.FinanceContext.TagihanAgg
         {
             using (IXLWorkbook wb = new XLWorkbook())
             {
-                var ws = wb.Worksheets.Add("PackingPerBarang");
+                var ws = wb.Worksheets.Add("tagihan-piutang");
                 var baris = 1;
                 ws.Cell($"A{baris}").Value = "CV BINTANG TIMUR RAHAYU";
                 ws.Cell($"A{baris}").Style
@@ -151,7 +215,7 @@ namespace btr.distrib.FinanceContext.TagihanAgg
                 ws.Range(ws.Cell($"A{baris}"), ws.Cell($"M{baris}")).Merge();
                 baris++;
 
-                ws.Cell($"A{baris}").Value = "TAGIUHAN PIUTANG PER-SALES";
+                ws.Cell($"A{baris}").Value = "TAGIHAN PIUTANG PER-SALES";
                 ws.Cell($"A{baris}").Style
                     .Font.SetFontSize(16)
                     .Font.SetBold(true)
@@ -163,7 +227,7 @@ namespace btr.distrib.FinanceContext.TagihanAgg
                 ws.Cell($"A{baris}").Style
                     .Font.SetFontSize(10)
                     .Font.SetBold(false)
-                    .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                    .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Right);
                 ws.Range(ws.Cell($"A{baris}"), ws.Cell($"M{baris}")).Merge();
                 baris++;
 
@@ -230,12 +294,17 @@ namespace btr.distrib.FinanceContext.TagihanAgg
                 ws.Cell($"E{baris}").FormulaA1 = $"SUM(E{baris - tagihan.ListFaktur.Count}:E{baris - 1})";
                 ws.Cell($"F{baris}").FormulaA1 = $"SUM(F{baris - tagihan.ListFaktur.Count}:F{baris - 1})";
                 ws.Cell($"G{baris}").FormulaA1 = $"SUM(G{baris - tagihan.ListFaktur.Count}:G{baris - 1})";
+
+                //  format footer SUM to number with thousand separator and 0 decimal place
+                ws.Range(ws.Cell($"E{baris}"), ws.Cell($"G{baris}")).Style
+                    .NumberFormat.SetFormat("#,##0");
+                
                 //  set font for footer SUM to 10 and bold
                 ws.Range(ws.Cell($"D{baris}"), ws.Cell($"G{baris}")).Style
                     .Font.SetFontSize(10)
                     .Font.SetBold(true);
                 //  set border for footer SUM
-                ws.Range(ws.Cell($"D{baris}"), ws.Cell($"G{baris}")).Style
+                ws.Range(ws.Cell($"D{baris}"), ws.Cell($"M{baris}")).Style
                     .Border.SetOutsideBorder(XLBorderStyleValues.Thin)
                     .Border.SetInsideBorder(XLBorderStyleValues.Thin);
                 baris++;
