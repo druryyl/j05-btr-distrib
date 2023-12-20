@@ -127,26 +127,6 @@ namespace btr.distrib.FinanceContext.PiutangSalesWilayahRpt
         {
             var periode = new Periode(Faktur1Date.Value, Faktur2Date.Value);
             var listFaktur = _piutangSalesWilayahDal.ListData(periode)?.ToList() ?? new List<PiutangSalesWilayahDto>();
-            //var filtered = Filter(listFaktur, SearchText.Text);
-            //_dataSource = (
-            //    from c in filtered
-            //    select new StokBalanceInfoDto
-            //    {
-            //        Supplier = c.SupplierName,
-            //        Kategori = c.KategoriName,
-            //        BrgId = c.BrgId,
-            //        BrgCode = c.BrgCode,
-            //        BrgName = c.BrgName,
-            //        Warehouse = c.WarehouseName,
-            //        //QtyBesar = c.QtyBesar,
-            //        SatBesar = c.SatBesar,
-            //        Conversion = c.Conversion,
-            //        //QtyKecil = c.QtyKecil,
-            //        SatKecil = c.SatKecil,
-            //        InPcs = c.Qty,
-            //        Hpp = c.Hpp,
-            //        NilaiSediaan = c.NilaiSediaan,
-            //    }).ToList();
             _dataSource = listFaktur;
             InfoGrid.DataSource = listFaktur;
         }
@@ -168,7 +148,14 @@ namespace btr.distrib.FinanceContext.PiutangSalesWilayahRpt
 
             using (IXLWorkbook wb = new XLWorkbook())
             {
-                var excelContent = _dataSource
+                var filtered = this.InfoGrid.Table.FilteredRecords;
+                var listToExcel = new List<PiutangSalesWilayahDto>();
+                foreach (var item in filtered)
+                {
+                    listToExcel.Add(item.GetData() as PiutangSalesWilayahDto);
+                }
+                
+                var excelContent = listToExcel
                     .OrderBy(x => x.SalesName)
                     .ThenBy(x => x.WilayahName)
                     .ThenBy(x => x.CustomerName)
