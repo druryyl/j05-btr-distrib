@@ -6,7 +6,8 @@ namespace btr.application.BrgContext.BrgAgg
     public interface IBrgHargaDal :
         IInsertBulk<BrgHargaModel>,
         IDelete<IBrgKey>,
-        IListData<BrgHargaModel, IBrgKey>
+        IListData<BrgHargaModel, IBrgKey>,
+        IListData<BrgHargaModel>
     {
     }
 }

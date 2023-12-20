@@ -63,6 +63,7 @@
             this.StokGrid = new System.Windows.Forms.DataGridView();
             this.SaveButton = new System.Windows.Forms.Button();
             this.NewButton = new System.Windows.Forms.Button();
+            this.ExcelButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.BrgGrid)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.HppText)).BeginInit();
@@ -78,8 +79,7 @@
             // 
             // SearchText
             // 
-            this.SearchText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.SearchText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.SearchText.Location = new System.Drawing.Point(7, 395);
             this.SearchText.Name = "SearchText";
             this.SearchText.Size = new System.Drawing.Size(349, 22);
@@ -97,9 +97,7 @@
             // 
             // BrgGrid
             // 
-            this.BrgGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BrgGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.BrgGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.BrgGrid.Location = new System.Drawing.Point(6, 8);
             this.BrgGrid.Name = "BrgGrid";
@@ -143,11 +141,7 @@
             // 
             this.HppText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.HppText.Location = new System.Drawing.Point(12, 148);
-            this.HppText.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
+            this.HppText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
             this.HppText.Name = "HppText";
             this.HppText.Size = new System.Drawing.Size(205, 20);
             this.HppText.TabIndex = 20;
@@ -338,8 +332,7 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.HargaTab);
             this.tabControl1.Controls.Add(this.SatuanTab);
             this.tabControl1.Controls.Add(this.StokTab);
@@ -429,12 +422,23 @@
             this.NewButton.Text = "New";
             this.NewButton.UseVisualStyleBackColor = true;
             // 
+            // ExcelButton
+            // 
+            this.ExcelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ExcelButton.Location = new System.Drawing.Point(7, 423);
+            this.ExcelButton.Name = "ExcelButton";
+            this.ExcelButton.Size = new System.Drawing.Size(75, 23);
+            this.ExcelButton.TabIndex = 53;
+            this.ExcelButton.Text = "Excel";
+            this.ExcelButton.UseVisualStyleBackColor = true;
+            // 
             // BrgForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Khaki;
             this.ClientSize = new System.Drawing.Size(912, 450);
+            this.Controls.Add(this.ExcelButton);
             this.Controls.Add(this.NewButton);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.tabControl1);
@@ -461,8 +465,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.StokGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
+
+        private System.Windows.Forms.Button ExcelButton;
 
         #endregion
 

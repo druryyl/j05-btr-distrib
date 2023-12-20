@@ -8,7 +8,8 @@ namespace btr.application.BrgContext.BrgAgg
         IInsertBulk<BrgSatuanModel>,
         IDelete<IBrgKey>,
         IListData<BrgSatuanModel, IBrgKey>,
-        IListData<BrgSatuanModel, IKategoriKey>
+        IListData<BrgSatuanModel, IKategoriKey>,
+        IListData<BrgSatuanModel>
     {
     }
 }

@@ -340,6 +340,7 @@
       <DependentUpon>BrgForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InventoryContext\BrgAgg\BrgFormBrgDto.cs" />
+    <Compile Include="InventoryContext\BrgAgg\BrgFormExcelDto.cs" />
     <Compile Include="InventoryContext\BrgAgg\BrgFormHargaDto.cs" />
     <Compile Include="InventoryContext\BrgAgg\BrgFormSatuanDto.cs" />
     <Compile Include="InventoryContext\BrgAgg\BrgFormStokDto.cs" />

@@ -73,5 +73,19 @@ namespace btr.infrastructure.BrgContext.BrgAgg
                 return conn.Read<BrgHargaModel>(sql, dp);
             }
         }
+
+        public IEnumerable<BrgHargaModel> ListData()
+        {
+            const string sql = @"
+                SELECT
+                    BrgId, HargaTypeId,  Harga, HargaTimestamp
+                FROM
+                    BTR_BrgHarga ";
+
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                return conn.Read<BrgHargaModel>(sql);
+            }
+        }
     }
 }

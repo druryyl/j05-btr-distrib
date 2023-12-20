@@ -92,5 +92,20 @@ namespace btr.infrastructure.BrgContext.BrgAgg
                 return conn.Read<BrgSatuanModel>(sql, dp);
             }
         }
+
+        public IEnumerable<BrgSatuanModel> ListData()
+        {
+            const string sql = @"
+            SELECT
+                aa.BrgId, aa.Satuan, aa.Conversion, aa.SatuanPrint
+            FROM 
+                BTR_BrgSatuan aa
+                LEFT JOIN BTR_Brg bb ON aa.BrgId = bb.BrgId";
+
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                return conn.Read<BrgSatuanModel>(sql);
+            }
+        }
     }
 }

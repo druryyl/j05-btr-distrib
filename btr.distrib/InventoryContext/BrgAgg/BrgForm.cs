@@ -22,6 +22,8 @@ using btr.nuna.Domain;
 using System.Drawing;
 using btr.application.BrgContext.KategoriAgg;
 using btr.application.InventoryContext.WarehouseAgg;
+using ClosedXML.Excel;
+using Syncfusion.DataSource.Extensions;
 
 namespace btr.distrib.InventoryContext.BrgAgg
 {
@@ -37,6 +39,8 @@ namespace btr.distrib.InventoryContext.BrgAgg
         private readonly IHargaTypeDal _hargaTypeDal;
         private readonly IWarehouseDal _warehouseDal;
         private readonly IBrgDal _brgDal;
+        private readonly IBrgSatuanDal _brgSatuanDal;
+        private readonly IBrgHargaDal _brgHargaDal;
 
         private readonly IBrgBuilder _brgBuilder;
         private readonly IStokBalanceBuilder _stokBalanceBuilder;
@@ -60,7 +64,7 @@ namespace btr.distrib.InventoryContext.BrgAgg
             IBrgDal brgDal, 
             IBrgBuilder brgBuilder, 
             IStokBalanceBuilder stokBalanceBuilder, 
-            IBrgWriter writer)
+            IBrgWriter writer, IBrgSatuanDal brgSatuanDal, IBrgHargaDal brgHargaDal)
         {
             InitializeComponent();
             RegisterEventHandler();
@@ -77,6 +81,8 @@ namespace btr.distrib.InventoryContext.BrgAgg
             _brgBuilder = brgBuilder;
             _stokBalanceBuilder = stokBalanceBuilder;
             _writer = writer;
+            _brgSatuanDal = brgSatuanDal;
+            _brgHargaDal = brgHargaDal;
             _brgBrowser = brgBrowser;
 
             InitJenisBrg();
@@ -102,7 +108,91 @@ namespace btr.distrib.InventoryContext.BrgAgg
             SearchButton.Click += SearchButton_Click;
             SearchText.KeyDown += SearchText_KeyDown;
             BrgGrid.CellDoubleClick += BrgGrid_CellDoubleClick;
+            
+            ExcelButton.Click += ExcelButton_Click;
 
+        }
+
+        private void ExcelButton_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show(@"Export to Excel?", @"Confirmation", MessageBoxButtons.YesNo) == DialogResult.No)
+                return; 
+            
+            var listBrg = _brgDal.ListData()?.ToList() ?? new List<BrgModel>();
+            var listBrgSat = _brgSatuanDal.ListData()?.ToList() ?? new List<BrgSatuanModel>();
+            var listBrgHrg = _brgHargaDal.ListData()?.ToList() ?? new List<BrgHargaModel>();
+            
+            // projection listBrg, listBrgSat and listBrgHrg to BrgFormExcelDto using LINQ
+            var listBrgExcel = listBrg
+                .OrderBy(x => x.BrgName)
+                .Select(x => new BrgFormExcelDto
+                {
+                    BrgId = x.BrgId,
+                    BrgCode = x.BrgCode,
+                    BrgName = x.BrgName,
+                    Satuan1 = listBrgSat.FirstOrDefault(y => y.BrgId == x.BrgId && y.Conversion == 1)?.Satuan ?? string.Empty,
+                    Hpp1 = x.Hpp,
+                    HrgJual1Gt = listBrgHrg.FirstOrDefault(y => y.BrgId == x.BrgId && y.HargaTypeId == "GT")?.Harga ?? 0,
+                    HrgJual1Mt = listBrgHrg.FirstOrDefault(y => y.BrgId == x.BrgId && y.HargaTypeId == "MT")?.Harga ?? 0,
+                    Satuan2 = listBrgSat.FirstOrDefault(y => y.BrgId == x.BrgId && y.Conversion > 1)?.Satuan ?? string.Empty,
+                    Conversion = listBrgSat.FirstOrDefault(y => y.BrgId == x.BrgId && y.Conversion > 1)?.Conversion ?? 0,
+                    SupplierName = x.SupplierName,
+                    KategoriName = x.KategoriName,
+                    Aktif = x.IsAktif
+                }).ToList();
+            
+            string filePath;
+            using (var saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = @"Excel Files|*.xlsx";
+                saveFileDialog.Title = @"Save Excel File";
+                saveFileDialog.DefaultExt = "xlsx";
+                saveFileDialog.AddExtension = true;
+                saveFileDialog.FileName = $"brg-info-{DateTime.Now:yyyy-MM-dd-HHmm}";
+                if (saveFileDialog.ShowDialog() != DialogResult.OK)
+                    return;
+                filePath = saveFileDialog.FileName;
+            }
+
+            using (IXLWorkbook wb = new XLWorkbook())
+            {
+                wb.AddWorksheet("brg-info")
+                    .Cell($"B1")
+                    .InsertTable(listBrgExcel, false);
+                var ws = wb.Worksheets.First();
+                //  add row number at column A
+                ws.Cell("A1").Value = "No";
+                for (var i = 0; i < listBrgExcel.Count; i++)
+                    ws.Cell($"A{i + 2}").Value = i + 1;
+
+                //  border header
+                ws.Range("A1:P1").Style.Border.BottomBorder = XLBorderStyleValues.Thin;
+                //  font bold header and background color light blue
+                ws.Range("A1:P1").Style.Font.SetBold();
+                ws.Range("A1:P1").Style.Fill.BackgroundColor = XLColor.LightBlue;
+                //  freeze header
+                ws.SheetView.FreezeRows(1);
+                //  border table
+                ws.Range($"A2:P{listBrgExcel.Count + 1}").Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                ws.Range($"A2:P{listBrgExcel.Count + 1}").Style.Border.InsideBorder = XLBorderStyleValues.Hair;
+                
+                //  format number thousand separator and zero decimal place
+                ws.Range($"F2:M{listBrgExcel.Count + 1}").Style.NumberFormat.Format = "#,##";
+                ws.Range($"A2:A{listBrgExcel.Count + 1}").Style.NumberFormat.Format = "#,##";
+                
+                //  set font to consolas 8.25f
+                ws.Range($"A1:P{listBrgExcel.Count + 1}").Style.Font.SetFontName("Consolas");
+                ws.Range($"A1:P{listBrgExcel.Count + 1}").Style.Font.SetFontSize(9f);
+                
+                //  set backcolor column E to H as light yellow
+                ws.Range($"E2:H{listBrgExcel.Count + 1}").Style.Fill.BackgroundColor = XLColor.LightYellow;
+                ws.Range($"I2:M{listBrgExcel.Count + 1}").Style.Fill.BackgroundColor = XLColor.LightGreen;
+
+                //  auto fit column
+                ws.Columns().AdjustToContents();
+                wb.SaveAs(filePath);
+            }
+            System.Diagnostics.Process.Start(filePath);
         }
 
         private void ClearForm()
