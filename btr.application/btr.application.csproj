@@ -236,6 +236,7 @@
     <Compile Include="SalesContext\FakturAgg\UseCases\SaveFakturWorker.cs" />
     <Compile Include="SalesContext\FakturBrgInfo\FakturBrgView.cs" />
     <Compile Include="SalesContext\FakturBrgInfo\IFakturBrgViewDal.cs" />
+    <Compile Include="SalesContext\FakturCashRpt\IFakturCashViewDal.cs" />
     <Compile Include="SalesContext\FakturControlAgg\CreatePostOnSavedFakturEventHandler.cs" />
     <Compile Include="SalesContext\FakturControlAgg\FakturControlBuilder.cs" />
     <Compile Include="SalesContext\FakturControlAgg\FakturControlWriter.cs" />

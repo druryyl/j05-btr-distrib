@@ -209,8 +209,10 @@ namespace btr.distrib.SalesContext.CustomerAgg
 
             _listCust = listCust
                 .Select(x => new CustomerFormGridDto(x.CustomerId,
+                    x.CustomerCode,
                     x.CustomerName,
                     $"{x.Address1} {x.Kota}",
+                    x.WilayahName,
                     x.Plafond,
                     x.CreditBalance)).ToList();
             CustGrid.DataSource = _listCust;
@@ -392,17 +394,22 @@ namespace btr.distrib.SalesContext.CustomerAgg
 
     public class CustomerFormGridDto
     {
-        public CustomerFormGridDto(string id, string name, string alamat, decimal plafond, decimal creditBalance)
+        public CustomerFormGridDto(string id, string code, string name, string alamat, string kota, decimal plafond, decimal creditBalance)
         {
             Id = id;
+            Code = code;
             Name = name;
             Alamat = alamat;
+            Kota = kota;
             Plafond = plafond;
             CreditBalance = creditBalance;
         }
         public string Id { get; }
+        public string Code{ get; }
+
         public string Name { get; }
         public string Alamat { get; }
+        public string Kota { get; }
         public decimal Plafond { get; }
         public decimal CreditBalance { get; }
     }

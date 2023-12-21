@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.WarehouseAgg;
@@ -40,6 +41,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         IFakturBuilder Void(IUserKey userKey);
         IFakturBuilder ReActivate(IUserKey userKey);
         IFakturBuilder User(IUserKey user);
+        IFakturBuilder Cash(decimal cash);
         IFakturBuilder CalcTotal();
     }
 
@@ -247,6 +249,13 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             _aggRoot.Tax = _aggRoot.ListItem.Sum(x => x.PpnRp);
             _aggRoot.GrandTotal = _aggRoot.ListItem.Sum(x => x.Total);
             _aggRoot.KurangBayar = _aggRoot.GrandTotal - _aggRoot.UangMuka;
+            return this;
+        }
+
+        public IFakturBuilder Cash(decimal cash)
+        {
+            _aggRoot.UangMuka = cash;
+            CalcTotal();
             return this;
         }
     }

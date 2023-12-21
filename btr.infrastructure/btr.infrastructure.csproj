@@ -133,6 +133,7 @@
     <Compile Include="SalesContext\FakturAgg\FakturDiscountDal.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturItemDal.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturItemViewDal.cs" />
+    <Compile Include="SalesContext\FakturCashRpt\FakturCashViewDal.cs" />
     <Compile Include="SalesContext\FakturControlAgg\FakturControlStatusDal.cs" />
     <Compile Include="SalesContext\FakturInfoAgg\FakturBrgViewDal.cs" />
     <Compile Include="SalesContext\FakturInfoAgg\FakturViewDal.cs" />

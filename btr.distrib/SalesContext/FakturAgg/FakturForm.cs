@@ -645,6 +645,7 @@ namespace btr.distrib.SalesContext.FakturAgg
                 TermOfPayment = TermOfPaymentCombo.SelectedIndex,
                 DueDate = DueDateText.Value.ToString("yyyy-MM-dd"),
                 UserId = mainform.UserId.UserId,
+                Cash = UangMukaText.Value,
             };
 
             var listItem = (

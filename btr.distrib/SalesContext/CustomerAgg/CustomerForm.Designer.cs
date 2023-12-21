@@ -30,6 +30,7 @@
         {
             this.CustomerTab = new System.Windows.Forms.TabControl();
             this.ListPage = new System.Windows.Forms.TabPage();
+            this.ExcelButton = new System.Windows.Forms.Button();
             this.SearchButton = new System.Windows.Forms.Button();
             this.SearchText = new System.Windows.Forms.TextBox();
             this.CustGrid = new System.Windows.Forms.DataGridView();
@@ -81,7 +82,6 @@
             this.CustNameText = new System.Windows.Forms.TextBox();
             this.CustButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.ExcelButton = new System.Windows.Forms.Button();
             this.CustomerTab.SuspendLayout();
             this.ListPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CustGrid)).BeginInit();
@@ -96,6 +96,9 @@
             // 
             // CustomerTab
             // 
+            this.CustomerTab.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.CustomerTab.Controls.Add(this.ListPage);
             this.CustomerTab.Controls.Add(this.DetilPage);
             this.CustomerTab.Location = new System.Drawing.Point(6, 6);
@@ -118,6 +121,16 @@
             this.ListPage.Text = "List";
             this.ListPage.UseVisualStyleBackColor = true;
             // 
+            // ExcelButton
+            // 
+            this.ExcelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ExcelButton.Location = new System.Drawing.Point(629, 409);
+            this.ExcelButton.Name = "ExcelButton";
+            this.ExcelButton.Size = new System.Drawing.Size(75, 23);
+            this.ExcelButton.TabIndex = 9;
+            this.ExcelButton.Text = "Excel";
+            this.ExcelButton.UseVisualStyleBackColor = true;
+            // 
             // SearchButton
             // 
             this.SearchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -130,7 +143,8 @@
             // 
             // SearchText
             // 
-            this.SearchText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.SearchText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.SearchText.Location = new System.Drawing.Point(6, 409);
             this.SearchText.Name = "SearchText";
             this.SearchText.Size = new System.Drawing.Size(536, 22);
@@ -138,7 +152,9 @@
             // 
             // CustGrid
             // 
-            this.CustGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.CustGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.CustGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.CustGrid.Location = new System.Drawing.Point(6, 9);
             this.CustGrid.Name = "CustGrid";
@@ -162,6 +178,7 @@
             // 
             // NewButton
             // 
+            this.NewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.NewButton.Location = new System.Drawing.Point(6, 408);
             this.NewButton.Name = "NewButton";
             this.NewButton.Size = new System.Drawing.Size(75, 23);
@@ -171,6 +188,7 @@
             // 
             // SaveButton
             // 
+            this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.SaveButton.Location = new System.Drawing.Point(629, 408);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
@@ -180,6 +198,8 @@
             // 
             // panel4
             // 
+            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.panel4.BackColor = System.Drawing.Color.Cornsilk;
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel4.Controls.Add(this.CreditBalanceText);
@@ -198,7 +218,11 @@
             // 
             this.CreditBalanceText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CreditBalanceText.Location = new System.Drawing.Point(12, 113);
-            this.CreditBalanceText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
+            this.CreditBalanceText.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
             this.CreditBalanceText.Name = "CreditBalanceText";
             this.CreditBalanceText.Size = new System.Drawing.Size(205, 20);
             this.CreditBalanceText.TabIndex = 12;
@@ -228,7 +252,11 @@
             // 
             this.PlafondText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PlafondText.Location = new System.Drawing.Point(13, 72);
-            this.PlafondText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
+            this.PlafondText.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
             this.PlafondText.Name = "PlafondText";
             this.PlafondText.Size = new System.Drawing.Size(205, 20);
             this.PlafondText.TabIndex = 12;
@@ -263,6 +291,9 @@
             // 
             // panel3
             // 
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BackColor = System.Drawing.Color.Cornsilk;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.label8);
@@ -364,6 +395,8 @@
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.panel1.BackColor = System.Drawing.Color.Cornsilk;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.label13);
@@ -601,16 +634,6 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Customer ID";
             // 
-            // ExcelButton
-            // 
-            this.ExcelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ExcelButton.Location = new System.Drawing.Point(629, 409);
-            this.ExcelButton.Name = "ExcelButton";
-            this.ExcelButton.Size = new System.Drawing.Size(75, 23);
-            this.ExcelButton.TabIndex = 9;
-            this.ExcelButton.Text = "Excel";
-            this.ExcelButton.UseVisualStyleBackColor = true;
-            // 
             // CustomerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -637,6 +660,7 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
+
         }
 
         private System.Windows.Forms.Button ExcelButton;

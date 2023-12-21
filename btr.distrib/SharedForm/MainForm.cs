@@ -41,6 +41,7 @@ using btr.distrib.FinanceContext.TagihanAgg;
 using btr.distrib.PurchaseContext.InvoiceHarianDetilRpt;
 using btr.distrib.InventoryContext.AdjustmentAgg;
 using btr.distrib.SalesContext.FakturPajakRpt;
+using btr.distrib.SalesContext.FakturCashRpt;
 
 namespace btr.distrib.SharedForm
 {
@@ -468,6 +469,16 @@ namespace btr.distrib.SharedForm
             if (BringMdiChildToFrontIfLoaded<FakturPajakInfoForm>())
                 return;
             var form = _servicesProvider.GetRequiredService<FakturPajakInfoForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void SF6FakturCashButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<FakturCashInfoForm>())
+                return;
+            var form = _servicesProvider.GetRequiredService<FakturCashInfoForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

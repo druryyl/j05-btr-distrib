@@ -467,10 +467,15 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
 
             cols.GetCol("QtyInputStr").Visible = true;
             cols.GetCol("QtyInputStr").Width = 50;
-            cols.GetCol("QtyInputStr").HeaderText = @"Qty";
+            cols.GetCol("QtyInputStr").HeaderText = @"Qty Bagus";
 
+            cols.GetCol("QtyInputStrRusak").Visible = true;
+            cols.GetCol("QtyInputStrRusak").Width = 50;
+            cols.GetCol("QtyInputStrRusak").HeaderText = @"Qty Rusak";
+
+            
             cols.GetCol("HrgInputStr").Visible = true;
-            cols.GetCol("HrgInputStr").Width = 110;
+            cols.GetCol("HrgInputStr").Width = 100;
             cols.GetCol("HrgInputStr").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             cols.GetCol("HrgInputStr").HeaderText = @"Hrg Retur";
             cols.GetCol("HrgInputStr").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
@@ -487,6 +492,8 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             cols.GetCol("DiscDetilStr").HeaderText = @"Discount";
             cols.GetCol("DiscDetilStr").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
 
+            cols.GetCol("DiscInputStr").HeaderText = @"Disc %";
+            
             cols.GetCol("Qty").Visible = false;
             cols.GetCol("HrgSat").Visible = false;
             
@@ -513,6 +520,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             {
                 case "BrgId":
                 case "QtyInputStr":
+                case "QtyInputStrRusak":
                 case "HrgInputStr":
                 case "DiscInputStr":
                     if (grid.CurrentCell.Value is null)

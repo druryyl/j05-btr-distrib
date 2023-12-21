@@ -497,6 +497,12 @@
       <DependentUpon>FakturForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SalesContext\FakturAgg\FakturItemDto.cs" />
+    <Compile Include="SalesContext\FakturCashRpt\FakturCashInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SalesContext\FakturCashRpt\FakturCashInfoForm.Designer.cs">
+      <DependentUpon>FakturCashInfoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SalesContext\FakturControlAgg\FakturControlForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -666,6 +672,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ReportingContext\CustomerChartRpt.resx">
       <DependentUpon>CustomerChartRpt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SalesContext\FakturCashRpt\FakturCashInfoForm.resx">
+      <DependentUpon>FakturCashInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SalesContext\FakturInfoRpt\FakturBrgInfoForm.resx">
       <DependentUpon>FakturBrgInfoForm.cs</DependentUpon>
@@ -859,5 +868,6 @@
       <Name>btr.nuna</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

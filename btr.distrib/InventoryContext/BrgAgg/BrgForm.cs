@@ -475,7 +475,7 @@ namespace btr.distrib.InventoryContext.BrgAgg
             foreach (var item in listBrg)
             {
                 var brg = new BrgFormBrgDto(
-                    item.BrgId, item.BrgCode, item.BrgName, item.KategoriName);
+                    item.BrgId, item.BrgCode, item.BrgName, item.KategoriName, item.SupplierName);
                 _listBrg.Add(brg);
             }
 

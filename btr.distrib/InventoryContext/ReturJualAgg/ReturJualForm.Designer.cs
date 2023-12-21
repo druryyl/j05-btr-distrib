@@ -283,8 +283,7 @@
             // 
             // PanelAtas4
             // 
-            this.PanelAtas4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PanelAtas4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.PanelAtas4.BackColor = System.Drawing.Color.Cornsilk;
             this.PanelAtas4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PanelAtas4.Controls.Add(this.VoidPanel);
@@ -292,7 +291,7 @@
             this.PanelAtas4.Controls.Add(this.NoteLabel);
             this.PanelAtas4.Location = new System.Drawing.Point(624, 9);
             this.PanelAtas4.Name = "PanelAtas4";
-            this.PanelAtas4.Size = new System.Drawing.Size(478, 202);
+            this.PanelAtas4.Size = new System.Drawing.Size(541, 202);
             this.PanelAtas4.TabIndex = 52;
             // 
             // VoidPanel
@@ -301,7 +300,7 @@
             this.VoidPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.VoidPanel.Location = new System.Drawing.Point(0, 0);
             this.VoidPanel.Name = "VoidPanel";
-            this.VoidPanel.Size = new System.Drawing.Size(476, 200);
+            this.VoidPanel.Size = new System.Drawing.Size(539, 200);
             this.VoidPanel.TabIndex = 46;
             this.VoidPanel.Visible = false;
             // 
@@ -312,21 +311,19 @@
             this.CancelLabel.ForeColor = System.Drawing.Color.Red;
             this.CancelLabel.Location = new System.Drawing.Point(0, 0);
             this.CancelLabel.Name = "CancelLabel";
-            this.CancelLabel.Size = new System.Drawing.Size(476, 200);
+            this.CancelLabel.Size = new System.Drawing.Size(539, 200);
             this.CancelLabel.TabIndex = 23;
             this.CancelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // NoteTextBox
             // 
-            this.NoteTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.NoteTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.NoteTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.NoteTextBox.Location = new System.Drawing.Point(11, 24);
             this.NoteTextBox.Multiline = true;
             this.NoteTextBox.Name = "NoteTextBox";
             this.NoteTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.NoteTextBox.Size = new System.Drawing.Size(455, 160);
+            this.NoteTextBox.Size = new System.Drawing.Size(518, 160);
             this.NoteTextBox.TabIndex = 17;
             // 
             // NoteLabel
@@ -339,19 +336,16 @@
             // 
             // FakturItemGrid
             // 
-            this.FakturItemGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FakturItemGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.FakturItemGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.FakturItemGrid.Location = new System.Drawing.Point(6, 217);
             this.FakturItemGrid.Name = "FakturItemGrid";
-            this.FakturItemGrid.Size = new System.Drawing.Size(952, 292);
+            this.FakturItemGrid.Size = new System.Drawing.Size(1015, 292);
             this.FakturItemGrid.TabIndex = 17;
             // 
             // PanelTengah
             // 
-            this.PanelTengah.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PanelTengah.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Right)));
             this.PanelTengah.BackColor = System.Drawing.Color.Cornsilk;
             this.PanelTengah.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PanelTengah.Controls.Add(this.TaxText);
@@ -362,7 +356,7 @@
             this.PanelTengah.Controls.Add(this.DisconutLainLabel);
             this.PanelTengah.Controls.Add(this.TotalText);
             this.PanelTengah.Controls.Add(this.TotalLabel);
-            this.PanelTengah.Location = new System.Drawing.Point(964, 217);
+            this.PanelTengah.Location = new System.Drawing.Point(1027, 217);
             this.PanelTengah.Name = "PanelTengah";
             this.PanelTengah.Size = new System.Drawing.Size(138, 292);
             this.PanelTengah.TabIndex = 53;
@@ -371,11 +365,7 @@
             // 
             this.TaxText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TaxText.Location = new System.Drawing.Point(11, 102);
-            this.TaxText.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
+            this.TaxText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
             this.TaxText.Name = "TaxText";
             this.TaxText.ReadOnly = true;
             this.TaxText.Size = new System.Drawing.Size(117, 20);
@@ -396,11 +386,7 @@
             // 
             this.GrandTotalText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GrandTotalText.Location = new System.Drawing.Point(9, 141);
-            this.GrandTotalText.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
+            this.GrandTotalText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
             this.GrandTotalText.Name = "GrandTotalText";
             this.GrandTotalText.ReadOnly = true;
             this.GrandTotalText.Size = new System.Drawing.Size(117, 20);
@@ -421,11 +407,7 @@
             // 
             this.DiscountText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DiscountText.Location = new System.Drawing.Point(11, 63);
-            this.DiscountText.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
+            this.DiscountText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
             this.DiscountText.Name = "DiscountText";
             this.DiscountText.ReadOnly = true;
             this.DiscountText.Size = new System.Drawing.Size(117, 20);
@@ -446,11 +428,7 @@
             // 
             this.TotalText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalText.Location = new System.Drawing.Point(11, 24);
-            this.TotalText.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
+            this.TotalText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
             this.TotalText.Name = "TotalText";
             this.TotalText.ReadOnly = true;
             this.TotalText.Size = new System.Drawing.Size(117, 20);
@@ -531,7 +509,7 @@
             // SaveButton
             // 
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveButton.Location = new System.Drawing.Point(1027, 515);
+            this.SaveButton.Location = new System.Drawing.Point(1090, 515);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
             this.SaveButton.TabIndex = 22;
@@ -553,7 +531,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Khaki;
-            this.ClientSize = new System.Drawing.Size(1108, 542);
+            this.ClientSize = new System.Drawing.Size(1171, 542);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.PanelAtas4);
@@ -581,7 +559,6 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
-
         }
 
         #endregion

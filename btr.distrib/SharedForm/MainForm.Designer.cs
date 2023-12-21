@@ -87,6 +87,7 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.SF6FakturCashButton = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -168,6 +169,7 @@
             this.SalesInfoPanel.Items.Add(this.SF3FakturSupplierButton);
             this.SalesInfoPanel.Items.Add(this.SF4FakturCustomerButton);
             this.SalesInfoPanel.Items.Add(this.SF5FakturPajakButton);
+            this.SalesInfoPanel.Items.Add(this.SF6FakturCashButton);
             this.SalesInfoPanel.Name = "SalesInfoPanel";
             this.SalesInfoPanel.Text = "Reporting";
             // 
@@ -609,6 +611,15 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
+            // SF6FakturCashButton
+            // 
+            this.SF6FakturCashButton.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.SF6FakturCashButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.SF6FakturCashButton.Name = "SF6FakturCashButton";
+            this.SF6FakturCashButton.SmallImage = global::btr.distrib.Properties.Resources.icons8_documents;
+            this.SF6FakturCashButton.Text = "SF6-Faktur Cash";
+            this.SF6FakturCashButton.Click += new System.EventHandler(this.SF6FakturCashButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -694,5 +705,6 @@
         private System.Windows.Forms.RibbonButton ST3FakturPajakButton;
         private System.Windows.Forms.RibbonButton SF5FakturPajakButton;
         private System.Windows.Forms.RibbonButton ribbonButton1;
+        private System.Windows.Forms.RibbonButton SF6FakturCashButton;
     }
 }

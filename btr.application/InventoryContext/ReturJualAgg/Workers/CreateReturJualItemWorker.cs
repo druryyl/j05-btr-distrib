@@ -175,7 +175,9 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
 
             var result = new List<ReturJualItemQtyHrgModel> { item1, item2, item3, item4 };
             if (item1.Satuan == string.Empty)
-                result.RemoveAt(0);
+                result.RemoveAll(x => x.JenisQty == JenisQtyEnum.SatuanBesar);
+            if (item3.Satuan == string.Empty)
+                result.RemoveAll(x => x.JenisQty == JenisQtyEnum.SatuanBesarRusak);
             
             result.ForEach(x => x.SubTotal = x.Qty * x.HrgSat);
             return result;
