@@ -17,6 +17,7 @@ namespace btr.domain.SalesContext.FakturAgg
         
         public string QtyInputStr { get; set; }
         public string QtyDetilStr { get; set; }
+        public string HrgInputStr { get; set; }
 
         public int QtyBesar { get; set; }
         public string SatBesar { get; set; }

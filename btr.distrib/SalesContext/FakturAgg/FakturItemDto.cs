@@ -14,6 +14,8 @@
         public string QtyInputStr { get; set; }
         public string QtyDetilStr { get; private set; }
 
+        public string HrgInputStr { get; set; }
+
         public int QtyBesar { get; private set; }
         public string SatBesar { get; private set; }
         public int Conversion { get; private set; }

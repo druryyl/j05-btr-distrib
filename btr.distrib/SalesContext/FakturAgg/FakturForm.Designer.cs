@@ -61,6 +61,7 @@
             this.FakturButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.CustomerAddressText = new System.Windows.Forms.TextBox();
             this.CustomerIdText = new System.Windows.Forms.TextBox();
             this.CreditBalanceTextBox = new System.Windows.Forms.NumericUpDown();
             this.PlafondTextBox = new System.Windows.Forms.NumericUpDown();
@@ -81,7 +82,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.TermOfPaymentCombo = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.CustomerAddressText = new System.Windows.Forms.TextBox();
             this.PanelAtas4.SuspendLayout();
             this.VoidPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturItemGrid)).BeginInit();
@@ -111,15 +111,18 @@
             this.PanelAtas4.Controls.Add(this.NoteLabel);
             this.PanelAtas4.Location = new System.Drawing.Point(830, 9);
             this.PanelAtas4.Name = "PanelAtas4";
-            this.PanelAtas4.Size = new System.Drawing.Size(270, 186);
+            this.PanelAtas4.Size = new System.Drawing.Size(320, 186);
             this.PanelAtas4.TabIndex = 39;
             // 
             // VoidPanel
             // 
+            this.VoidPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.VoidPanel.Controls.Add(this.CancelLabel);
             this.VoidPanel.Location = new System.Drawing.Point(-1, -1);
             this.VoidPanel.Name = "VoidPanel";
-            this.VoidPanel.Size = new System.Drawing.Size(270, 186);
+            this.VoidPanel.Size = new System.Drawing.Size(320, 186);
             this.VoidPanel.TabIndex = 46;
             this.VoidPanel.Visible = false;
             // 
@@ -130,7 +133,7 @@
             this.CancelLabel.ForeColor = System.Drawing.Color.Red;
             this.CancelLabel.Location = new System.Drawing.Point(0, 0);
             this.CancelLabel.Name = "CancelLabel";
-            this.CancelLabel.Size = new System.Drawing.Size(270, 186);
+            this.CancelLabel.Size = new System.Drawing.Size(320, 186);
             this.CancelLabel.TabIndex = 23;
             this.CancelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -144,7 +147,7 @@
             this.NoteTextBox.Multiline = true;
             this.NoteTextBox.Name = "NoteTextBox";
             this.NoteTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.NoteTextBox.Size = new System.Drawing.Size(247, 144);
+            this.NoteTextBox.Size = new System.Drawing.Size(297, 144);
             this.NoteTextBox.TabIndex = 17;
             // 
             // NoteLabel
@@ -163,7 +166,7 @@
             this.FakturItemGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.FakturItemGrid.Location = new System.Drawing.Point(6, 201);
             this.FakturItemGrid.Name = "FakturItemGrid";
-            this.FakturItemGrid.Size = new System.Drawing.Size(950, 284);
+            this.FakturItemGrid.Size = new System.Drawing.Size(1000, 284);
             this.FakturItemGrid.TabIndex = 18;
             // 
             // PanelTengah
@@ -184,7 +187,7 @@
             this.PanelTengah.Controls.Add(this.DisconutLainLabel);
             this.PanelTengah.Controls.Add(this.TotalText);
             this.PanelTengah.Controls.Add(this.TotalLabel);
-            this.PanelTengah.Location = new System.Drawing.Point(962, 201);
+            this.PanelTengah.Location = new System.Drawing.Point(1012, 201);
             this.PanelTengah.Name = "PanelTengah";
             this.PanelTengah.Size = new System.Drawing.Size(138, 284);
             this.PanelTengah.TabIndex = 41;
@@ -344,7 +347,7 @@
             // SaveButton
             // 
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveButton.Location = new System.Drawing.Point(1025, 491);
+            this.SaveButton.Location = new System.Drawing.Point(1075, 491);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
             this.SaveButton.TabIndex = 25;
@@ -354,7 +357,7 @@
             // 
             // NewButton
             // 
-            this.NewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.NewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.NewButton.Location = new System.Drawing.Point(6, 491);
             this.NewButton.Name = "NewButton";
             this.NewButton.Size = new System.Drawing.Size(75, 23);
@@ -494,6 +497,15 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(200, 186);
             this.panel2.TabIndex = 37;
+            // 
+            // CustomerAddressText
+            // 
+            this.CustomerAddressText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.CustomerAddressText.Location = new System.Drawing.Point(11, 80);
+            this.CustomerAddressText.Name = "CustomerAddressText";
+            this.CustomerAddressText.ReadOnly = true;
+            this.CustomerAddressText.Size = new System.Drawing.Size(176, 22);
+            this.CustomerAddressText.TabIndex = 19;
             // 
             // CustomerIdText
             // 
@@ -705,21 +717,12 @@
             this.label4.TabIndex = 19;
             this.label4.Text = "Term Of Payment";
             // 
-            // CustomerAddressText
-            // 
-            this.CustomerAddressText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.CustomerAddressText.Location = new System.Drawing.Point(11, 80);
-            this.CustomerAddressText.Name = "CustomerAddressText";
-            this.CustomerAddressText.ReadOnly = true;
-            this.CustomerAddressText.Size = new System.Drawing.Size(176, 22);
-            this.CustomerAddressText.TabIndex = 19;
-            // 
             // FakturForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Khaki;
-            this.ClientSize = new System.Drawing.Size(1106, 523);
+            this.ClientSize = new System.Drawing.Size(1156, 523);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.PanelAtas4);
             this.Controls.Add(this.FakturItemGrid);

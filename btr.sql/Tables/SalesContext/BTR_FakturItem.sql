@@ -8,6 +8,7 @@
     StokHargaStr VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_Faktur_StokHargaStr DEFAULT(''),
     QtyInputStr VARCHAR(20) NOT NULL CONSTRAINT DF_BTR_Faktur_QtyInputStr DEFAULT(''),
     QtyDetilStr VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_Faktur_QtyDetilStr DEFAULT(''),
+    HrgInputStr VARCHAR(30) NOT NULL CONSTRAINT DF_BTR_Faktur_HrgInputStr DEFAULT(''),
 
     QtyBesar INT NOT NULL CONSTRAINT DF_BTR_FakturItem_QtyBesar DEFAULT(0),
     SatBesar VARCHAR(10) NOT NULL CONSTRAINT DF_BTR_FakturItem_SatBesar DEFAULT(''),

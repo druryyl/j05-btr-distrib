@@ -13,7 +13,8 @@ namespace btr.application.SalesContext.FakturAgg.Workers
     {
         public CreateFakturItemRequest(string brgId, 
             string qtyInputStr, 
-            string discInputStr, 
+            string discInputStr,
+            string hrgInputStr,
             decimal ppnProsen, 
             string hargaTypeId,
             string warehouseId) 
@@ -21,6 +22,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             BrgId = brgId;
             QtyInputStr = qtyInputStr;
             DiscInputStr = discInputStr;
+            HrgInputStr = hrgInputStr;
             PpnProsen = ppnProsen;
             HargaTypeId = hargaTypeId;
             WarehouseId = warehouseId;
@@ -28,6 +30,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         public string BrgId { get; set; }
         public string QtyInputStr { get; set; }
         public string DiscInputStr { get; set; }
+        public string HrgInputStr { get; set; }
         public decimal PpnProsen { get; set; }
         public string HargaTypeId { get; set; }
         public string WarehouseId { get; set; }
@@ -55,25 +58,41 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             var stok = _stokBalanceBuilder.Load(brg).Build();
 
             var qtys = ParseStringMultiNumber(req.QtyInputStr, 3);
-
+            var hrgs = ParseStringMultiNumber(req.HrgInputStr, 2);
+            
+            
             var item = new FakturItemModel
             {
                 BrgId = req.BrgId,
                 BrgName = brg.BrgName,
                 BrgCode = brg.BrgCode,
                 QtyInputStr = req.QtyInputStr,
+                HrgInputStr = req.HrgInputStr,
+                
+                QtyKecil = (int)qtys[1],
+                SatKecil = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty,
+                //HrgSatKecil = brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == req.HargaTypeId)?.Harga ?? 0,
+                QtyBesar = (int)qtys[0],
+                SatBesar = brg.ListSatuan.FirstOrDefault(x => x.Conversion > 1)?.Satuan ?? string.Empty,
+                Conversion = brg.ListSatuan.FirstOrDefault(x => x.Conversion > 1)?.Conversion ?? 0,
             };
-            
-            item.QtyKecil = (int)qtys[1];
-            item.SatKecil = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty;
-            item.HrgSatKecil = brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == req.HargaTypeId)?.Harga ?? 0;
 
-            item.QtyBesar = (int)qtys[0];
-            item.SatBesar = brg.ListSatuan.FirstOrDefault(x => x.Conversion > 1)?.Satuan ?? string.Empty;
-            item.Conversion = brg.ListSatuan.FirstOrDefault(x => x.Conversion > 1)?.Conversion ?? 0;
+            //  prioritas ambil hrgSat Kecil:
+            //  1. dari input hrg kecil
+            //  2. dari input hrg besar / conversion
+            //  3. dari master barang
+            var pembagi = item.Conversion == 0 ? 1 : item.Conversion;
+            item.HrgSatKecil = hrgs[1] != 0
+                ? hrgs[1]
+                : hrgs[0] != 0
+                    ? hrgs[0] / pembagi : 0;
+            item.HrgSatKecil = item.HrgSatKecil == 0
+                ? brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == req.HargaTypeId)?.Harga ?? 0
+                : item.HrgSatKecil ;
             item.HrgSatBesar = item.HrgSatKecil * item.Conversion;
+            item.HrgInputStr = $"{item.HrgSatBesar:N0}; {item.HrgSatKecil:N0}";
 
-            //  jika cuman punya satu satuan, pindah jadi satuan kecil
+            //  jika cuman punya satu satuan, pindah qty jadi satuan kecil
             if (item.Conversion == 0)
                 if (item.QtyBesar > 0)
                     if (item.QtyKecil == 0)
@@ -85,7 +104,19 @@ namespace btr.application.SalesContext.FakturAgg.Workers
                     {
                         item.QtyBesar = 0;
                     }
-
+            //  jika cuman punya satu harg, pindah qty jadi harga kecil
+            if (item.Conversion == 0)
+                if (item.HrgSatBesar > 0)
+                    if (item.HrgSatKecil == 0)
+                    {
+                        item.HrgSatKecil = item.HrgSatBesar;
+                        item.HrgSatBesar = 0;
+                    }
+                    else if (item.HrgSatKecil > 0)
+                    {
+                        item.HrgSatBesar = 0;
+                    }
+            
 
             item.QtyJual = (item.QtyBesar * item.Conversion) + item.QtyKecil;
             item.HrgSat = item.HrgSatKecil;
@@ -112,8 +143,8 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             {
                 var stokBesar = (int)(stokKecil / item.Conversion);
                 stokKecil -= (stokBesar * item.Conversion);
-                item.StokHargaStr = $"{stokBesar:N0} {item.SatBesar} @{item.HrgSatKecil:N0}{Environment.NewLine}";
-                item.StokHargaStr += $"{stokKecil:N0} {item.SatKecil} @{item.HrgSatBesar:N0}";
+                item.StokHargaStr = $"{stokBesar:N0} {item.SatBesar} @{item.HrgSatBesar:N0}{Environment.NewLine}";
+                item.StokHargaStr += $"{stokKecil:N0} {item.SatKecil} @{item.HrgSatKecil:N0}";
             }
             item.QtyInputStr = $"{item.QtyBesar};{item.QtyKecil};{item.QtyBonus}";
 

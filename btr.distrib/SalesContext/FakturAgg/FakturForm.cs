@@ -23,7 +23,6 @@ using btr.application.SupportContext.TglJamAgg;
 using btr.application.SalesContext.FakturAgg.Workers;
 using btr.distrib.PrintDocs;
 using btr.domain.SalesContext.FakturAgg;
-using btr.domain.SupportContext.DocAgg;
 using Mapster;
 
 namespace btr.distrib.SalesContext.FakturAgg
@@ -95,7 +94,7 @@ namespace btr.distrib.SalesContext.FakturAgg
 
         private void RegisterEventHandler()
         {
-            FakturIdText.Validating += FakturIdText_Validating; ;
+            FakturIdText.Validating += FakturIdText_Validating;
 
             SalesPersonButton.Click += SalesPersonButton_Click;
             SalesIdText.Validated += SalesIdText_Validated;
@@ -220,7 +219,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             GrandTotalText.Value = faktur.GrandTotal;
             UangMukaText.Value = faktur.UangMuka;
             SisaText.Value = faktur.KurangBayar;
-            LastIdLabel.Text = $"{faktur.FakturCode}";
+            LastIdLabel.Text = $@"{faktur.FakturCode}";
 
             _listItem.Clear();
             foreach (var item in faktur.ListItem)
@@ -244,7 +243,7 @@ namespace btr.distrib.SalesContext.FakturAgg
                 if (item is Panel panel)
                     panel.BackColor = Color.MistyRose;
 
-            CancelLabel.Text = $"Faktur sudah DIBATALKAN \noleh {faktur.UserIdVoid} \npada {faktur.VoidDate:ddd, dd MMM yyyy}";
+            CancelLabel.Text = $@"Faktur sudah DIBATALKAN \noleh {faktur.UserIdVoid} \npada {faktur.VoidDate:ddd, dd MMM yyyy}";
             VoidPanel.Visible = true;
             SaveButton.Visible = false;
         }
@@ -357,7 +356,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private void FakturItemGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var grid = (DataGridView)sender;
-            if (e.ColumnIndex != grid.Columns["Find"].Index)
+            if (e.ColumnIndex != grid.Columns.GetCol("Find").Index)
                 return;
 
             BrowseBrg(e.RowIndex);
@@ -380,45 +379,37 @@ namespace btr.distrib.SalesContext.FakturAgg
         {
             if (e.RowIndex <0 ) return;
             var grid = (DataGridView)sender;
-            if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("BrgId").Index)
+            switch (grid.CurrentCell.OwningColumn.Name)
             {
-                if (grid.CurrentCell.Value is null)
-                {
-                    CleanRow(e.RowIndex);
-                    return;
-                }
-                ValidateRow(e.RowIndex);
+                case "BrgId":
+                case "QtyInputStr":
+                case "DiscInputStr":
+                case "HrgInputStr":
+                case "PpnProsen":
+                    if (grid.CurrentCell.Value is null)
+                    {
+                        return;
+                    }
+                    ValidateRow(e.RowIndex);
+                    break;
             }
-            if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("QtyInputStr").Index)
-            {
-                if (grid.CurrentCell.Value is null)
-                    return;
-
-                ValidateRow(e.RowIndex);
-            }
-            if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("DiscInputStr").Index)
-            {
-                if (grid.CurrentCell.Value is null)
-                    return;
-
-                ValidateRow(e.RowIndex);
-            }
-
         }
 
         private void FakturItemGrid_KeyDown(object sender, KeyEventArgs e)
         {
             var grid = (DataGridView)sender;
-            if (e.KeyCode == Keys.F1)
+            switch (e.KeyCode)
             {
-                if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("BrgId").Index)
-                    BrowseBrg(grid.CurrentCell.RowIndex);
-            }
-
-            if (e.KeyCode == Keys.Delete)
-            {
-                _listItem.RemoveAt(grid.CurrentCell.RowIndex);
-                grid.Refresh();
+                case Keys.F1:
+                {
+                    if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("BrgId").Index)
+                        BrowseBrg(grid.CurrentCell.RowIndex);
+                    break;
+                }
+                case Keys.Delete:
+                    _listItem.RemoveAt(grid.CurrentCell.RowIndex);
+                    grid.Refresh();
+                    break;
             }
         }
 
@@ -447,7 +438,6 @@ namespace btr.distrib.SalesContext.FakturAgg
 
         private void BrowseBrg(int rowIndex)
         {
-            var grid = FakturItemGrid;
             var brgId = _listItem[rowIndex].BrgId;
             _brgStokBrowser.Filter.StaticFilter1 = WarehouseIdText.Text;
             _brgStokBrowser.Filter.UserKeyword = _listItem[rowIndex].BrgId;
@@ -461,7 +451,6 @@ namespace btr.distrib.SalesContext.FakturAgg
             var brg = BuildBrg(rowIndex);
             if (brg == null)
             {
-                CleanRow(rowIndex);
                 return;
             }
 
@@ -469,6 +458,7 @@ namespace btr.distrib.SalesContext.FakturAgg
                 _listItem[rowIndex].BrgId,
                 _listItem[rowIndex].QtyInputStr,
                 _listItem[rowIndex].DiscInputStr,
+                _listItem[rowIndex].HrgInputStr,
                 _listItem[rowIndex].PpnProsen,
                 _tipeHarga,
                 WarehouseIdText.Text);
@@ -509,13 +499,6 @@ namespace btr.distrib.SalesContext.FakturAgg
             return result;
         }
 
-        private void CleanRow(int rowIndex)
-        {
-            //_listItem[rowIndex].SetBrgName(string.Empty);
-            //_listItem[rowIndex].SetCode(string.Empty);
-            //FakturItemGrid.Refresh();
-        }
-
         private void InitGrid()
         {
             var binding = new BindingSource();
@@ -549,16 +532,21 @@ namespace btr.distrib.SalesContext.FakturAgg
             cols.GetCol("StokHargaStr").Visible = true;
             cols.GetCol("StokHargaStr").Width = 110;
             cols.GetCol("StokHargaStr").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            cols.GetCol("StokHargaStr").HeaderText= "StokHarga";
+            cols.GetCol("StokHargaStr").HeaderText= @"StokHarga";
             cols.GetCol("StokHargaStr").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
 
             cols.GetCol("QtyInputStr").Visible = true;
             cols.GetCol("QtyInputStr").Width = 50;
-            cols.GetCol("QtyInputStr").HeaderText = "Qty";
+            cols.GetCol("QtyInputStr").HeaderText = @"Qty";
+
+            cols.GetCol("HrgInputStr").Visible = true;
+            cols.GetCol("HrgInputStr").Width = 70;
+            cols.GetCol("HrgInputStr").HeaderText = @"Harga";
+            cols.GetCol("QtyDetilStr").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
 
             cols.GetCol("QtyDetilStr").Visible = true;
             cols.GetCol("QtyDetilStr").Width = 80;
-            cols.GetCol("QtyDetilStr").HeaderText = "Qty Desc";
+            cols.GetCol("QtyDetilStr").HeaderText = @"Qty Desc";
             cols.GetCol("QtyDetilStr").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             cols.GetCol("QtyDetilStr").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
 
@@ -581,11 +569,11 @@ namespace btr.distrib.SalesContext.FakturAgg
             
             cols.GetCol("DiscInputStr").Visible = true;
             cols.GetCol("DiscInputStr").Width = 65;
-            cols.GetCol("DiscInputStr").HeaderText = "Disc";
+            cols.GetCol("DiscInputStr").HeaderText = @"Disc";
 
             cols.GetCol("DiscDetilStr").Visible = true;
             cols.GetCol("DiscDetilStr").Width = 90;
-            cols.GetCol("DiscDetilStr").HeaderText= "Disc Rp";
+            cols.GetCol("DiscDetilStr").HeaderText= @"Disc Rp";
             cols.GetCol("DiscDetilStr").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             cols.GetCol("DiscDetilStr").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
 
@@ -593,7 +581,7 @@ namespace btr.distrib.SalesContext.FakturAgg
 
             cols.GetCol("PpnProsen").Visible = true;
             cols.GetCol("PpnProsen").Width = 50;
-            cols.GetCol("PpnProsen").HeaderText = "Ppn";
+            cols.GetCol("PpnProsen").HeaderText = @"Ppn";
 
             cols.GetCol("PpnRp").Visible = false;
 
