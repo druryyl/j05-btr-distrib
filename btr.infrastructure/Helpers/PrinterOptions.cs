@@ -12,5 +12,7 @@
 
         public string Faktur { get; set; }
         public string TempFile { get; set; }
+        public string FontName { get; set; }
+        public float FontSize { get; set; }
     }
 }
