@@ -583,6 +583,12 @@
     <Compile Include="SharedForm\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SharedForm\PrinterParamForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SharedForm\PrinterParamForm.Designer.cs">
+      <DependentUpon>PrinterParamForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SharedForm\StokBalancerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -690,6 +696,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SalesContext\FakturPerSupplierRpt\FakturPerSupplierForm.resx">
       <DependentUpon>FakturPerSupplierForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SharedForm\PrinterParamForm.resx">
+      <DependentUpon>PrinterParamForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SharedForm\StokBalancerForm.resx">
       <DependentUpon>StokBalancerForm.cs</DependentUpon>
