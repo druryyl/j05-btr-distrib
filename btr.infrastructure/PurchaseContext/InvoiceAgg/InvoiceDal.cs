@@ -39,7 +39,7 @@ namespace btr.infrastructure.PurchaseContext.InvoiceAgg
             dp.AddParam("@SupplierId", model.SupplierId, SqlDbType.VarChar);  
             dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar); 
             dp.AddParam("@NoFakturPajak", model.NoFakturPajak, SqlDbType.VarChar); 
-            dp.AddParam("@DueDate", model.DueDate, SqlDbType.VarChar);
+            dp.AddParam("@DueDate", model.DueDate, SqlDbType.DateTime);
             dp.AddParam("@Total", model.Total, SqlDbType.Decimal);  
             dp.AddParam("@Disc", model.Disc, SqlDbType.Decimal);  
             dp.AddParam("@Tax", model.Tax, SqlDbType.Decimal);  

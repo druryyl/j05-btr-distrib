@@ -19,8 +19,7 @@ namespace btr.application.BrgContext.BrgAgg
         IBrgBuilder Create();
         IBrgBuilder Load(IBrgKey brgKey);
         IBrgBuilder Attach(BrgModel brg);
-        IBrgBuilder Activate();
-        IBrgBuilder Deactivate();
+        IBrgBuilder IsAktif(bool isAktif);
         IBrgBuilder BrgId(string id);
         IBrgBuilder Name(string name);
         IBrgBuilder Code(string code);
@@ -151,7 +150,7 @@ namespace btr.application.BrgContext.BrgAgg
 
         public IBrgBuilder Hpp(decimal hpp)
         {
-            if (hpp <= 0)
+            if (hpp < 0)
                 throw new ArgumentException("Hpp can not less than 0");
             _aggRoot.Hpp = hpp;
             _aggRoot.HppTimestamp = _datetTime.Now;
@@ -189,6 +188,12 @@ namespace btr.application.BrgContext.BrgAgg
         public IBrgBuilder Code(string code)
         {
             _aggRoot.BrgCode = code;
+            return this;
+        }
+
+        public IBrgBuilder IsAktif(bool isAktif)
+        {
+            _aggRoot.IsAktif = isAktif;
             return this;
         }
     }

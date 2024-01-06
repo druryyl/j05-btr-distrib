@@ -231,6 +231,7 @@ namespace btr.distrib.InventoryContext.BrgAgg
             JenisBrgCombo.SelectedItem = brg.JenisBrgId;
             KategoriIdText.Text = brg.KategoriId;
             KategoriNameText.Text = brg.KategoriName;
+            IsAktifCheckBox.Checked = brg.IsAktif;
 
             //  satuan
             _listSatuan.Clear();
@@ -521,6 +522,7 @@ namespace btr.distrib.InventoryContext.BrgAgg
                 .Supplier(new SupplierModel(SupplierIdText.Text))
                 .JenisBrg(new JenisBrgModel(JenisBrgCombo.SelectedValue.ToString()))
                 .Kategori(new KategoriModel(KategoriIdText.Text))
+                .IsAktif(IsAktifCheckBox.Checked)
                 .Build());
             if (brg is null)
                 return;

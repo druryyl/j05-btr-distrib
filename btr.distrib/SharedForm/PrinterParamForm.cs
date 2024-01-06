@@ -38,17 +38,17 @@ namespace btr.distrib.SharedForm
 
         private void ListParamUser(IUserKey userKey)
         {
-            var listParamUser = _paramUserDal.ListData(userKey)?.ToList() ?? new List<ParamUserModel> ();
-            _bindingList = new BindingList<PrinterParamDto>();
-            foreach(var item in _paramDefaultValues)
-            {
-                var userValue = listParamUser.FirstOrDefault(x => x.Val)
-                var newItem = new PrinterParamDto
-                {
-                    ParamName = item.Key,
-                    Value = 
-                }
-            }
+            //var listParamUser = _paramUserDal.ListData(userKey)?.ToList() ?? new List<ParamUserModel> ();
+            //_bindingList = new BindingList<PrinterParamDto>();
+            //foreach(var item in _paramDefaultValues)
+            //{
+            //    var userValue = listParamUser.FirstOrDefault(x => x.Val)
+            //    var newItem = new PrinterParamDto
+            //    {
+            //        ParamName = item.Key,
+            //        Value = 
+            //    }
+            //}
         }
     }
 
