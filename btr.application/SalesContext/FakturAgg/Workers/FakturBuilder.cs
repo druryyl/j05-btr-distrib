@@ -200,7 +200,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             string discInputStr, decimal ppnProsen)
         {
             var item = _createFakturItemWorker.Execute(
-                new CreateFakturItemRequest(brgKey.BrgId, qtyInputStr, hrgInputStr, discInputStr, 
+                new CreateFakturItemRequest(brgKey.BrgId, qtyInputStr, discInputStr, hrgInputStr, 
                 ppnProsen, _aggRoot.HargaTypeId, _aggRoot.WarehouseId));
 
             var noUrutMax = _aggRoot.ListItem
