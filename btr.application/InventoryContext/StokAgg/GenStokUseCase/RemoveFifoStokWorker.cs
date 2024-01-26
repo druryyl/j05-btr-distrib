@@ -58,11 +58,9 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
 
         public void Execute(RemoveFifoStokRequest request)
         {
-            //  GUARD
             Guard.Argument(() => request).NotNull()
                 .Member(x => x.BrgId, y => y.NotEmpty())
                 .Member(x => x.WarehouseId, y => y.NotEmpty())
-                .Member(x => x.Qty, y => y.GreaterThan(0))
                 .Member(x => x.Satuan, y => y.NotEmpty());
 
             //  BUILD

@@ -214,7 +214,9 @@ namespace btr.distrib.SalesContext.CustomerAgg
                     $"{x.Address1} {x.Kota}",
                     x.WilayahName,
                     x.Plafond,
-                    x.CreditBalance)).ToList();
+                    x.CreditBalance,
+                    x.Npwp,
+                    x.NamaWp)).ToList();
             CustGrid.DataSource = _listCust;
 
             CustGrid.Columns.SetDefaultCellStyle(Color.Beige);
@@ -223,6 +225,8 @@ namespace btr.distrib.SalesContext.CustomerAgg
             CustGrid.Columns.GetCol("Alamat").Width = 220;
             CustGrid.Columns.GetCol("Plafond").Width = 100;
             CustGrid.Columns.GetCol("CreditBalance").Width = 100;
+            CustGrid.Columns.GetCol("Npwp").Width = 100;
+            CustGrid.Columns.GetCol("NamaWp").Width = 150;
         }
 
         private void FilterCustGrid(string keyword)
@@ -394,7 +398,9 @@ namespace btr.distrib.SalesContext.CustomerAgg
 
     public class CustomerFormGridDto
     {
-        public CustomerFormGridDto(string id, string code, string name, string alamat, string kota, decimal plafond, decimal creditBalance)
+        public CustomerFormGridDto(string id, string code, string name, string alamat, 
+            string kota, decimal plafond, decimal creditBalance,
+            string npwp, string namaWp)
         {
             Id = id;
             Code = code;
@@ -403,6 +409,8 @@ namespace btr.distrib.SalesContext.CustomerAgg
             Kota = kota;
             Plafond = plafond;
             CreditBalance = creditBalance;
+            Npwp = npwp;
+            NamaWp = namaWp;
         }
         public string Id { get; }
         public string Code{ get; }
@@ -412,6 +420,8 @@ namespace btr.distrib.SalesContext.CustomerAgg
         public string Kota { get; }
         public decimal Plafond { get; }
         public decimal CreditBalance { get; }
+        public string Npwp { get; set; }
+        public string NamaWp { get; set; }
     }
 
     public class CustomerFormExcelDto
