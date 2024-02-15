@@ -12,7 +12,7 @@ namespace btr.domain.SupportContext.ParamUser
     public class ParamUserItemModel
     {
         public string UserId { get; set; }
-        public string Param { get; set; }
-        public string Value { get; set; }
+        public string ParamKey { get; set; }
+        public string ParamVal { get; set; }
     }
 }

@@ -139,6 +139,7 @@
     <Compile Include="InventoryContext\OpnameAgg\OpnameBuilder.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameValidator.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameWriter.cs" />
+    <Compile Include="InventoryContext\OpnameAgg\RollbackStokOpWorker.cs" />
     <Compile Include="InventoryContext\OpnameAgg\SaveStokOpWorker.cs" />
     <Compile Include="InventoryContext\OpnameAgg\StokOpBuilder.cs" />
     <Compile Include="InventoryContext\OpnameAgg\StokOpWriter.cs" />

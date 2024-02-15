@@ -55,12 +55,30 @@ namespace btr.distrib.PrintDocs
             _ppv = new PrintPreviewDialog();
             _ppv.Document = _pd;
             _ppv.WindowState = FormWindowState.Maximized;
+            var printerButton = new Button { Text = "Printer" };
+            //  allow user to change printer
+            foreach (Control cont in _ppv.Controls)
+            {
+                if (cont.GetType() == typeof(ToolStrip))
+                {
+                    var ts = cont as ToolStrip;
+                    ts.Items.Add(new ToolStripButton("Printer Settings", null, (s, e) =>
+                    {
+                        var printDialog = new PrintDialog();
+                        printDialog.Document = _pd;
+                        if (printDialog.ShowDialog() == DialogResult.OK)
+                        {
+                            _pd.PrinterSettings = printDialog.PrinterSettings;
+                        }
+                    }));
+                }
+            }
         }
 
         private void PrintDocument_PrintPage(object sender, PrintPageEventArgs e)
         {
             var printDocument = (PrintDocument)sender;
-            var font = new Font("Courier New", 8.25f, FontStyle.Regular);
+            var font = new Font(_opt.FontName, _opt.FontSize, FontStyle.Regular);
             var customPaperSize = new PaperSize("Custom", Convert.ToInt32(9.5 * 100), Convert.ToInt32(11 * 100));
             printDocument.DefaultPageSettings.PaperSize = customPaperSize;
 
@@ -175,7 +193,7 @@ namespace btr.distrib.PrintDocs
         {
             var tgl = model.InvoiceDate.ToString("dd-MM-yyyy");
             var custId = model.SupplierId.PadRight(12, ' ');
-            var noFakturrrr = model.InvoiceId.FixWidth(13);
+            var noFakturrrr = model.InvoiceCode.FixWidth(13);
             var jnsJl = model.TermOfPayment.ToString().FixWidth(7);
             var jatuhTmpo = model.DueDate.ToString("dd MMM yyyy");
             var addr1 = supplier.Address1;
@@ -183,9 +201,9 @@ namespace btr.distrib.PrintDocs
             var addr3 = supplier.Address2.Length > 0 ? supplier.Kota : string.Empty ;
             
 
-            var hdr1 = $"CV BINTANG TIMUR RAHAYU                ┌───────────────────────┐                             Tgl: {model.InvoiceDate:dd-MMM-yyyy}\n";
-            var hdr2 = $"Jl.Kaliurang Km 5.5 Gg Durmo No 18     │   INVOICE PEMBELIAN   │             Dari Supplier-{custId}\n";
-            var hdr3 = $"Yogyakarta 0274-546079                 └───────────────────────┘             {supplier.SupplierName.FixWidth(40)}\n";
+            var hdr1 = $"CV BINTANG TIMUR RAHAYU                                                      Tgl  : {model.InvoiceDate:dd-MMM-yyyy}\n";
+            var hdr2 = $"Jl.Kaliurang Km 5.5 Gg Durmo No 18         INVOICE PEMBELIAN                 Dari Supplier-{custId}\n";
+            var hdr3 = $"Yogyakarta 0274-546079                                                       {supplier.SupplierName.FixWidth(40)}\n";
             var hdr4 = $"                                                                             {addr1.FixWidth(40)}\n";
             var hdr5 = $"                                                                             {addr2.FixWidth(40)}\n";
             var hdr6 = $"No.Invoice:{noFakturrrr}                                                     Tempo:{jatuhTmpo}\n";

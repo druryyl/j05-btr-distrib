@@ -25,23 +25,26 @@ namespace btr.application.InventoryContext.OpnameAgg
         private readonly IStokOpBuilder _builder;
         private readonly IStokOpWriter _writer;
         private readonly IGenStokStokOpWorker _genStokStokOpWorker;
+        private readonly IRollbackStokOpWorker _rollbackStokOpWorker;
 
         public SaveStokOpWorker(IStokOpBuilder builder,
             IStokOpWriter writer,
-            IGenStokStokOpWorker genStokStokOpWorker)
+            IGenStokStokOpWorker genStokStokOpWorker, 
+            IRollbackStokOpWorker rollbackStokOpWorker)
         {
             _builder = builder;
             _writer = writer;
             _genStokStokOpWorker = genStokStokOpWorker;
+            _rollbackStokOpWorker = rollbackStokOpWorker;
         }
 
         public StokOpModel Execute(SaveStokOpRequest req)
         {
+            if (req.StokOpId.Length > 0)
+                RollbackStokOp(req);
 
-            var stokOp = req.StokOpId.Length == 0 
-                ? _builder.Create(new StokOpModel { BrgId = req.BrgId, WarehouseId = req.WarehouseId }).Build() 
-                : _builder.Load(new StokOpModel { StokOpId = req.StokOpId }).Build();
-
+            var stokOp = _builder.Create(new StokOpModel { BrgId = req.BrgId, WarehouseId = req.WarehouseId }).Build(); 
+            
             stokOp = _builder
                 .Attach(stokOp)
                 .QtyOpname(req.QtyBesar, req.QtyKecil)
@@ -64,6 +67,12 @@ namespace btr.application.InventoryContext.OpnameAgg
                 trans.Complete();
             }
             return result;
+        }
+        
+        private void RollbackStokOp(SaveStokOpRequest req)
+        {
+            var rollbackReq = new RollbackStokOpRequest(req.StokOpId);
+            _rollbackStokOpWorker.Execute(rollbackReq);
         }
     }
 }

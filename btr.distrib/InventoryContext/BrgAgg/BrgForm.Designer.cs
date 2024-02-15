@@ -35,7 +35,7 @@
             this.HppTimestampText = new System.Windows.Forms.DateTimePicker();
             this.HppText = new System.Windows.Forms.NumericUpDown();
             this.TotalLabel = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.IsAktifCheckBox = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.BrgCodeText = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -115,7 +115,7 @@
             this.panel2.Controls.Add(this.HppTimestampText);
             this.panel2.Controls.Add(this.HppText);
             this.panel2.Controls.Add(this.TotalLabel);
-            this.panel2.Controls.Add(this.checkBox1);
+            this.panel2.Controls.Add(this.IsAktifCheckBox);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.BrgCodeText);
             this.panel2.Controls.Add(this.label2);
@@ -164,15 +164,15 @@
             this.TotalLabel.TabIndex = 19;
             this.TotalLabel.Text = "HPP";
             // 
-            // checkBox1
+            // IsAktifCheckBox
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(173, 5);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(50, 17);
-            this.checkBox1.TabIndex = 12;
-            this.checkBox1.Text = "Aktif";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.IsAktifCheckBox.AutoSize = true;
+            this.IsAktifCheckBox.Location = new System.Drawing.Point(173, 5);
+            this.IsAktifCheckBox.Name = "IsAktifCheckBox";
+            this.IsAktifCheckBox.Size = new System.Drawing.Size(50, 17);
+            this.IsAktifCheckBox.TabIndex = 12;
+            this.IsAktifCheckBox.Text = "Aktif";
+            this.IsAktifCheckBox.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
@@ -493,7 +493,7 @@
         private System.Windows.Forms.TextBox BrgCodeText;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox IsAktifCheckBox;
         private System.Windows.Forms.TextBox SupplierIdText;
         private System.Windows.Forms.TextBox SupplierNameText;
         private System.Windows.Forms.Button SupplierButton;

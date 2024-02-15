@@ -209,12 +209,12 @@ namespace btr.distrib.PrintDocs
             var addr3 = cust.Address2.Length > 0 ? cust.Kota : string.Empty ;
             
 
-            var hdr1 = $"CV BINTANG TIMUR RAHAYU                ┌───────────────────────┐                             Tgl: {model.FakturDate:dd-MMM-yyyy}\n";
-            var hdr2 = $"Jl.Kaliurang Km 5.5 Gg Durmo No 18     │   FAKTUR PENJUALAN    │             Kepada Yth Customer-{custId}\n";
-            var hdr3 = $"Yogyakarta 0274-546079                 └───────────────────────┘             {cust.CustomerName.FixWidth(40)}\n";
+            var hdr1 = $"CV BINTANG TIMUR RAHAYU                                                      Tgl: {model.FakturDate:dd-MMM-yyyy}\n";
+            var hdr2 = $"Jl.Kaliurang Km 5.5 Gg Durmo No 18         FAKTUR PENJUALAN                  Kepada Yth Customer-{custId}\n";
+            var hdr3 = $"Yogyakarta 0274-546079                                                       {cust.CustomerName.FixWidth(40)}\n";
             var hdr4 = $"                                                                             {addr1.FixWidth(40)}\n";
             var hdr5 = $"                                                                             {addr2.FixWidth(40)}\n";
-            var hdr6 = $"No.Faktur: {noFakturrrr}                 Sales: {salesNameee}                Jenis: {jnsJl} Tempo:{jatuhTmpo}\n";
+            var hdr6 = $"No.Faktur: {noFakturrrr}      Sales: {salesNameee}       Jenis: {jnsJl}      Tempo:{jatuhTmpo}\n";
             var hdr7 = $"──┬──────────┬───────────────────────────┬───────────────┬───────────────────┬───────────────────┬───────────\n";
             var hdr8 = $"No│Kode      │Nama Barang                │   Kwantitas   │       @Harga      │      Discount     │   Total   \n";
             var hdr9 = $"──┼──────────┼───────────────────────────┼───────┬───────┼──────────┬────────┼─────┬─────┬───┬───┼───────────\n";
