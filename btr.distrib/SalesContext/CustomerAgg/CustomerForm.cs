@@ -211,7 +211,7 @@ namespace btr.distrib.SalesContext.CustomerAgg
                 .Select(x => new CustomerFormGridDto(x.CustomerId,
                     x.CustomerCode,
                     x.CustomerName,
-                    $"{x.Address1} {x.Kota}",
+                    x.Address1,
                     x.WilayahName,
                     x.Plafond,
                     x.CreditBalance,

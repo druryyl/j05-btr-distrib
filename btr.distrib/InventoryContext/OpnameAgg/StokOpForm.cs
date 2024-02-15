@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using btr.application.BrgContext.BrgAgg;
@@ -16,6 +17,9 @@ using btr.domain.InventoryContext.OpnameAgg;
 using btr.domain.InventoryContext.StokBalanceAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.nuna.Domain;
+using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Wordprocessing;
 using JetBrains.Annotations;
 
 namespace btr.distrib.InventoryContext.OpnameAgg
@@ -69,6 +73,159 @@ namespace btr.distrib.InventoryContext.OpnameAgg
         {
             ListBrgButton.Click += ListBrgButton_Click;
             BrgGrid.CellValueChanged += BrgGrid_CellValueChanged;
+            ExcelButton.Click += ExcelButton_Click;
+        }
+
+        private void ExcelButton_Click(object sender, EventArgs e)
+        {
+            PrintToExcel();
+        }
+
+        private void PrintToExcel()
+        {
+            var path = Path.GetTempPath();
+            var baris = 1;
+            var fileName = $"{path}\\StokOp_{DateTime.Now:yyyyMMdd_HHmm}.xlsx";
+            using (var wb = new XLWorkbook())
+            {
+                var ws = wb.Worksheets.Add("StokOp");
+                ws.Cell($"A{baris}").Value = "CV BINTANG TIMUR RAHAYU";
+                ws.Cell($"A{baris}").Style
+                    .Font.SetFontSize(12)
+                    .Font.SetBold(false)
+                    .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"O{baris}")).Merge();
+                baris++;
+
+                ws.Cell($"A{baris}").Value = "Jl.Kaliurang Km 5.5 Gg. Durmo No.18";
+                ws.Cell($"A{baris}").Style
+                    .Font.SetFontSize(10)
+                    .Font.SetBold(false)
+                    .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"O{baris}")).Merge();
+                baris++;
+
+                ws.Cell($"A{baris}").Value = "LAPORAN STOK OPNAME";
+                ws.Cell($"A{baris}").Style
+                    .Font.SetFontSize(16)
+                    .Font.SetBold(true)
+                    .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"O{baris}")).Merge();
+                baris++;
+
+                ws.Cell($"A{baris}").Value = $"{PeriodeOpText.Value:dd MMMM yyyy}";
+                ws.Cell($"A{baris}").Style
+                    .Font.SetFontSize(10)
+                    .Font.SetBold(false)
+                    .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"O{baris}")).Merge();
+                baris++;
+
+                ws.Cell($"A{baris}").Value = $"Kategori Brg";
+                ws.Cell($"B{baris}").Value = $"{KategoriCombo.Text}";
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"O{baris}")).Style
+                    .Font.SetFontSize(11)
+                    .Font.SetBold(true);
+                baris++;
+
+                ws.Cell($"A{baris}").Value = $"Lokasi Gudang";
+                ws.Cell($"B{baris}").Value = $"{WarehouseCombo.Text}";
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"O{baris}")).Style
+                    .Font.SetFontSize(11)
+                    .Font.SetBold(true);
+                baris++;
+                baris++;
+                var barisStart = baris;
+                ws.Cell($"A{baris}").Value = "Kode Brg";
+                ws.Cell($"B{baris}").Value = "Nama Brg";
+                ws.Cell($"C{baris}").Value = "Qty-B Awal";
+                ws.Cell($"D{baris}").Value = "Qty-K Awal";
+                ws.Cell($"E{baris}").Value = "Qty-Pcs Awal";
+                ws.Cell($"F{baris}").Value = "Qty-B Adjust";
+                ws.Cell($"G{baris}").Value = "Qty-K Adjust";
+                ws.Cell($"H{baris}").Value = "Qty-Pcs Adjust";
+                ws.Cell($"I{baris}").Value = "Qty-B Akhir";
+                ws.Cell($"J{baris}").Value = "Qty-K Akhir";
+                ws.Cell($"K{baris}").Value = "Qty-Pcs Akhir";
+                ws.Cell($"L{baris}").Value = "Hpp Satuan";
+                ws.Cell($"M{baris}").Value = "Hpp Awal";
+                ws.Cell($"N{baris}").Value = "Hpp Adjust";
+                ws.Cell($"O{baris}").Value = "Hpp Akhir";
+                baris++;
+
+                foreach (var item in _listItem)
+                {
+                    ws.Cell($"A{baris}").Value = $"{item.BrgCode}";
+                    ws.Cell($"B{baris}").Value = $"{item.BrgName}";
+                    ws.Cell($"C{baris}").Value = item.QtyBesarAwal;
+                    ws.Cell($"D{baris}").Value = item.QtyKecilAwal;
+                    ws.Cell($"E{baris}").Value = item.QtyPcsAwal;
+
+                    ws.Cell($"F{baris}").Value = item.QtyBesarAdjust;
+                    ws.Cell($"G{baris}").Value = item.QtyKecilAdjust;
+                    ws.Cell($"H{baris}").Value = item.QtyPcsAdjust;
+
+                    ws.Cell($"I{baris}").Value = item.QtyBesarOpname;
+                    ws.Cell($"J{baris}").Value = item.QtyKecilOpname;
+                    ws.Cell($"K{baris}").Value = item.QtyPcsOpname;
+
+                    ws.Cell($"L{baris}").Value = item.HppSatuan;
+                    ws.Cell($"M{baris}").Value = item.HppAwal;
+                    ws.Cell($"N{baris}").Value = item.HppAdjust;
+                    ws.Cell($"O{baris}").Value = item.HppOpname;
+
+                    baris++;
+                }
+                ws.Cell($"B{baris}").Value = $"Sub Total";
+                ws.Cell($"M{baris}").Value = _listItem.Sum(x => x.HppAwal);
+                ws.Cell($"N{baris}").Value = _listItem.Sum(x => x.HppAdjust);
+                ws.Cell($"O{baris}").Value = _listItem.Sum(x => x.HppOpname);
+
+                ws.Range(ws.Cell($"A{barisStart}"), ws.Cell($"O{baris}")).Style
+                    .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
+                    .Border.SetInsideBorder(XLBorderStyleValues.Hair);
+                ws.Range(ws.Cell($"A{barisStart}"), ws.Cell($"O{barisStart}")).Style
+                    .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
+                    .Font.SetBold(true);
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"O{baris}")).Style
+                    .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
+                    .Font.SetBold(true);
+
+                //  format number column with thousand separator
+                ws.Range(ws.Cell($"C{barisStart}"), ws.Cell($"O{baris}"))
+                    .Style.NumberFormat.Format = "#,##0";
+                //  set font number column to consolas 10 point
+                ws.Range(ws.Cell($"C{barisStart}"), ws.Cell($"O{baris}"))
+                    .Style.Font.SetFontName("Consolas")
+                    .Font.SetFontSize(10);
+
+                //  set background color columns Qty Awal to LemonChiffon
+                ws.Range(ws.Cell($"C{barisStart}"), ws.Cell($"E{baris}"))
+                    .Style.Fill.SetBackgroundColor(XLColor.LemonChiffon);
+                //  set background color columns Qty Adjust to Pink
+                ws.Range(ws.Cell($"F{barisStart}"), ws.Cell($"H{baris}"))
+                    .Style.Fill.SetBackgroundColor(XLColor.Pink);
+                //  set background color columns Qty Akhir to LemonChiffon
+                ws.Range(ws.Cell($"I{barisStart}"), ws.Cell($"K{baris}"))
+                    .Style.Fill.SetBackgroundColor(XLColor.LemonChiffon);
+                //  set background color columns Hpp to Beige
+                ws.Range(ws.Cell($"L{barisStart}"), ws.Cell($"O{baris}"))
+                    .Style.Fill.SetBackgroundColor(XLColor.Pink);
+                //  set background color columns Hpp Satuan to white
+                ws.Range(ws.Cell($"L{barisStart}"), ws.Cell($"L{baris}"))
+                    .Style.Fill.SetBackgroundColor(XLColor.White);
+
+
+
+                baris++;
+                baris++;
+
+                ws.Column("A").Width = 12;
+                ws.Column("B").Width = 45;
+                ws.Column("E").Width = 15;
+                wb.SaveAs(fileName);
+            }
+            System.Diagnostics.Process.Start(fileName);
         }
 
         private void ListBrgButton_Click(object sender, EventArgs e)
@@ -137,11 +294,11 @@ namespace btr.distrib.InventoryContext.OpnameAgg
 
             var qtys = ParseStringMultiNumber(qtyOpnameInputStr,2);
 
-            if (qtys[1] > conversion)
+            if (qtys[0] > conversion)
             {
-                var addedQty = Convert.ToInt16(qtys[1] / conversion);
-                qtys[0] += addedQty;
-                qtys[1] -= addedQty * conversion;
+                var addedQty = Convert.ToInt16(qtys[0] / conversion);
+                qtys[1] += addedQty;
+                qtys[0] -= addedQty * conversion;
             }
             
             
@@ -213,6 +370,8 @@ namespace btr.distrib.InventoryContext.OpnameAgg
                     QtyOpnameInputStr = string.Empty,
                     StokOpId = string.Empty,
                     Conversion = 1,
+
+                    HppSatuan = x.Hpp,
                 }).ToList();
             return listBrgItem;
         }
@@ -248,6 +407,8 @@ namespace btr.distrib.InventoryContext.OpnameAgg
                 if (item.Conversion != 1) continue;
                 item.QtyKecilAwal = item.QtyBesarAwal;
                 item.QtyBesarAwal = 0;
+                item.QtyKecilOpname = item.QtyBesarOpname;
+                item.QtyBesarOpname = 0;
             }
 
             return fetchedListBrg;
@@ -291,7 +452,7 @@ namespace btr.distrib.InventoryContext.OpnameAgg
             BrgGrid.Refresh();
 
             var col = BrgGrid.Columns;
-            col.SetDefaultCellStyle(Color.Beige);
+            col.SetDefaultCellStyle(System.Drawing.Color.Beige);
 
             col.GetCol("QtyPcsAwal").Visible = false;
             col.GetCol("QtyPcsAdjust").Visible = false;
@@ -301,21 +462,29 @@ namespace btr.distrib.InventoryContext.OpnameAgg
             foreach (DataGridViewColumn c in BrgGrid.Columns)
             {
                 c.ReadOnly = true;
-                c.DefaultCellStyle.BackColor = Color.PowderBlue;
+                c.DefaultCellStyle.BackColor = System.Drawing.Color.PowderBlue;
             }
             col.GetCol("QtyOpnameInputStr").ReadOnly = false;
             
-            col.GetCol("QtyBesarAwal").DefaultCellStyle.BackColor = Color.LemonChiffon; 
-            col.GetCol("QtyKecilAwal").DefaultCellStyle.BackColor = Color.LemonChiffon;
-            col.GetCol("QtyBesarAdjust").DefaultCellStyle.BackColor = Color.Pink;
-            col.GetCol("QtyKecilAdjust").DefaultCellStyle.BackColor = Color.Pink;
-            col.GetCol("QtyBesarOpname").DefaultCellStyle.BackColor = Color.LemonChiffon;
-            col.GetCol("QtyKecilOpname").DefaultCellStyle.BackColor = Color.LemonChiffon;
-            col.GetCol("QtyOpnameInputStr").DefaultCellStyle.BackColor = Color.White;
-            
+            col.GetCol("QtyBesarAwal").DefaultCellStyle.BackColor = System.Drawing.Color.LemonChiffon; 
+            col.GetCol("QtyKecilAwal").DefaultCellStyle.BackColor = System.Drawing.Color.LemonChiffon;
+            col.GetCol("QtyBesarAdjust").DefaultCellStyle.BackColor = System.Drawing.Color.Pink;
+            col.GetCol("QtyKecilAdjust").DefaultCellStyle.BackColor = System.Drawing.Color.Pink;
+            col.GetCol("QtyBesarOpname").DefaultCellStyle.BackColor = System.Drawing.Color.LemonChiffon;
+            col.GetCol("QtyKecilOpname").DefaultCellStyle.BackColor = System.Drawing.Color.LemonChiffon;
+            col.GetCol("QtyOpnameInputStr").DefaultCellStyle.BackColor = System.Drawing.Color.White;
+
+            col.GetCol("HppAwal").DefaultCellStyle.BackColor = System.Drawing.Color.Beige;
+            col.GetCol("HppAdjust").DefaultCellStyle.BackColor = System.Drawing.Color.Beige;
+            col.GetCol("HppOpname").DefaultCellStyle.BackColor = System.Drawing.Color.Beige;
+
+
+
             col.GetCol("BrgId").HeaderText = @"Id";
             col.GetCol("BrgCode").HeaderText = @"Brg Code";
             col.GetCol("BrgName").HeaderText = @"Brg Name";
+            col.GetCol("QtyBesarAwal").HeaderText = @"Hpp";
+
             col.GetCol("QtyBesarAwal").HeaderText = @"Qty-B Awal"; 
             col.GetCol("QtyKecilAwal").HeaderText = @"Qty-K Awal"; 
             col.GetCol("QtyBesarAdjust").HeaderText = @"Qty-B Adjust"; 
@@ -324,6 +493,11 @@ namespace btr.distrib.InventoryContext.OpnameAgg
             col.GetCol("QtyKecilOpname").HeaderText = @"Qty-K Akhir";
             col.GetCol("StokOpId").HeaderText = @"Stok-Op ID";
             col.GetCol("QtyOpnameInputStr").HeaderText = @"Qty Opname";
+
+            col.GetCol("HppSatuan").HeaderText = @"Hpp Satuan";
+            col.GetCol("HppAwal").HeaderText = @"Hpp Awal";
+            col.GetCol("HppAdjust").HeaderText = @"Hpp Adjust";
+            col.GetCol("HppOpname").HeaderText = @"Hpp Akhir";
 
             col.GetCol("BrgId").Width = 80;
             col.GetCol("BrgCode").Width = 80;
@@ -335,6 +509,9 @@ namespace btr.distrib.InventoryContext.OpnameAgg
             col.GetCol("QtyBesarOpname").Width = 50;
             col.GetCol("QtyKecilOpname").Width = 50;
             col.GetCol("QtyOpnameInputStr").Width = 70;
+
+            col.GetCol("QtyOpnameInputStr").Width = 70;
+
         }
         #endregion
     }
@@ -345,7 +522,7 @@ namespace btr.distrib.InventoryContext.OpnameAgg
         public string BrgId { get;  set; }
         public string BrgCode { get;  set; }
         public string BrgName { get;  set; }
-        
+
         public int QtyBesarAwal { get;  set; }
         public int QtyKecilAwal { get;  set; }
         public int QtyPcsAwal { get;  set; }
@@ -361,6 +538,12 @@ namespace btr.distrib.InventoryContext.OpnameAgg
         
         public string StokOpId { get; set; }
         public int Conversion { get; set; }
+
+        public decimal HppSatuan { get; set; }
+        public decimal HppAwal {  get => HppSatuan * QtyPcsAwal; }
+        public decimal HppOpname { get => HppSatuan * QtyPcsOpname; }
+        public decimal HppAdjust {  get => HppSatuan * QtyPcsAdjust; }
+
     }
 
 }

@@ -16,7 +16,6 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
         {
             StokOpId = id;
         }
-
         public string StokOpId { get; set; }
     }
 
@@ -39,13 +38,15 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
         private readonly IRemoveFifoStokWorker _removeFifoStokWorker;
         private readonly IRollBackStokWorker _rollBackStokWorker;
         private readonly IStokBalanceWarehouseDal _stokBalanceWarehouseDal;
+        private readonly IRemovePriorityStokWorker _removePriorityStokWorker;
 
         public GenStokStokOpWorker(IStokOpBuilder stokOpBuilder,
             IBrgBuilder brgBuilder,
             IAddStokWorker addFifoStokWorker,
-            IRemoveFifoStokWorker removeFifoStokWorker, 
-            IRollBackStokWorker rollBackStokWorker, 
-            IStokBalanceWarehouseDal stokBalanceWarehouseDal)
+            IRemoveFifoStokWorker removeFifoStokWorker,
+            IRollBackStokWorker rollBackStokWorker,
+            IStokBalanceWarehouseDal stokBalanceWarehouseDal,
+            IRemovePriorityStokWorker removePriorityStokWorker)
         {
             _stokOpBuilder = stokOpBuilder;
             _brgBuilder = brgBuilder;
@@ -53,15 +54,24 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
             _removeFifoStokWorker = removeFifoStokWorker;
             _rollBackStokWorker = rollBackStokWorker;
             _stokBalanceWarehouseDal = stokBalanceWarehouseDal;
+            _removePriorityStokWorker = removePriorityStokWorker;
         }
 
         public GenStokStokOpResult Execute(GenStokStokOpRequest req)
         {
             var stokOp = _stokOpBuilder.Load(req).Build();
+            var qty = GetCurrentStok(stokOp);
+            if (stokOp.QtyPcsAdjust == 0)
+                return new GenStokStokOpResult
+                {
+                    QtyPcsAwal = qty,
+                    QtyPcsAdjust = 0,
+                    QtyPcsAkhir = qty
+                };
+            
             using (var trans = TransHelper.NewScope())
             {
-                RollBackStokOp(stokOp);
-                var qty = GetCurrentStok(stokOp);
+                //  gen stok hanya dilakukan jika ada qtyAdjustment saja
                 var qtyAdjust = CalcAdjustment(stokOp, qty);
                 var brg = _brgBuilder.Load(stokOp).Build();
                 var satuanKecil = brg.ListSatuan?.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty;
@@ -79,14 +89,14 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                         -qtyAdjust, satuanKecil, 0, stokOp.StokOpId, "STOKOP", ketarangn);
                     _removeFifoStokWorker.Execute(cmd);
                 }
-                trans.Complete();
-
                 var result = new GenStokStokOpResult
                 {
                     QtyPcsAwal = qty,
                     QtyPcsAdjust = qtyAdjust,
                     QtyPcsAkhir = qty + qtyAdjust
                 };
+
+                trans.Complete();
                 return result;
             }
             
@@ -104,12 +114,6 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                            ?? new List<StokBalanceWarehouseModel>();
             var result = listStok.FirstOrDefault(x => x.WarehouseId == stokOp.WarehouseId)?.Qty ?? 0;
             return result;
-        }
-
-        private void RollBackStokOp(IStokOpKey stokOp)
-        {
-            var req = new RollBackStokRequest(stokOp.StokOpId);
-            _rollBackStokWorker.Execute(req);
         }
     }
 }

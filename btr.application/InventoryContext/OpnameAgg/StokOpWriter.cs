@@ -4,7 +4,8 @@ using btr.nuna.Domain;
 
 namespace btr.application.InventoryContext.OpnameAgg
 {
-    public interface IStokOpWriter : INunaWriter2<StokOpModel>
+    public interface IStokOpWriter 
+        : INunaWriter2<StokOpModel>, INunaDelete<StokOpModel>
     {
     }
     public class StokOpWriter : IStokOpWriter
@@ -28,6 +29,11 @@ namespace btr.application.InventoryContext.OpnameAgg
             else
                 _stokOpDal.Update(model);
             return model;
+        }
+
+        public void Delete(StokOpModel model)
+        {
+            _stokOpDal.Delete(model);
         }
     }
 }

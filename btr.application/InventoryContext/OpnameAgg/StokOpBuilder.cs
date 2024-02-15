@@ -110,9 +110,18 @@ namespace btr.application.InventoryContext.OpnameAgg
         public IStokOpBuilder QtyAwal(int qtyPcs)
         {
             // ReSharper disable once PossibleLossOfFraction
-            decimal qtyBesar = qtyPcs / GetConversion(_aggregate);
-            _aggregate.QtyBesarAwal =  (int)Math.Floor(qtyBesar);
-            _aggregate.QtyKecilAwal = qtyPcs % GetConversion(_aggregate);
+            var conversion = GetConversion(_aggregate);
+            if (conversion > 1)
+            {
+                decimal qtyBesar = qtyPcs / GetConversion(_aggregate);
+                _aggregate.QtyBesarAwal = (int)Math.Floor(qtyBesar);
+                _aggregate.QtyKecilAwal = qtyPcs % GetConversion(_aggregate);
+            }
+            else
+            {
+                _aggregate.QtyBesarAwal = 0;
+                _aggregate.QtyKecilAwal = qtyPcs ;
+            }
             _aggregate.QtyPcsAwal = qtyPcs;
             return this;
         }

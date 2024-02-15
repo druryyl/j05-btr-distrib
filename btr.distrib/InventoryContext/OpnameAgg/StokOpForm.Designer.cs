@@ -37,6 +37,7 @@
             this.WarehouseCombo = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.ListBrgButton = new System.Windows.Forms.Button();
+            this.ExcelButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.BrgGrid)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -69,6 +70,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.PaleTurquoise;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.ExcelButton);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.KategoriCombo);
             this.panel1.Controls.Add(this.label3);
@@ -135,6 +137,17 @@
             this.ListBrgButton.Text = "List Stok";
             this.ListBrgButton.UseVisualStyleBackColor = false;
             // 
+            // ExcelButton
+            // 
+            this.ExcelButton.BackColor = System.Drawing.Color.PowderBlue;
+            this.ExcelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ExcelButton.Location = new System.Drawing.Point(652, 16);
+            this.ExcelButton.Name = "ExcelButton";
+            this.ExcelButton.Size = new System.Drawing.Size(100, 23);
+            this.ExcelButton.TabIndex = 9;
+            this.ExcelButton.Text = "Excel";
+            this.ExcelButton.UseVisualStyleBackColor = false;
+            // 
             // StokOpForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -164,5 +177,6 @@
         private System.Windows.Forms.ComboBox WarehouseCombo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button ListBrgButton;
+        private System.Windows.Forms.Button ExcelButton;
     }
 }
