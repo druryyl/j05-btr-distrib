@@ -44,7 +44,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
 
             using (var trans = TransHelper.NewScope())
             {
-                var reqRemove = new RemoveRollbackRequest(returJual.ReturJualId,"RETURJUAL-VOID");
+                var reqRemove = new RemoveRollbackRequest(returJual.ReturJualId,"RETURJUAL-VOID", returJual.ReturJualDate);
                 _removeRollbackStokWorker.Execute(reqRemove);
                 
                 foreach (var item in returJual.ListItem)
@@ -53,7 +53,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                     var satuan = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty;
 
                     var reqAddStok = new AddStokRequest(item.BrgId,
-                        returJual.WarehouseId, item.Qty, satuan, brg.Hpp, returJual.ReturJualId, "RETURJUAL", returJual.CustomerName);
+                        returJual.WarehouseId, item.Qty, satuan, brg.Hpp, returJual.ReturJualId, "RETURJUAL", returJual.CustomerName, returJual.ReturJualDate);
                     _addStokWorker.Execute(reqAddStok);
                 }
                 trans.Complete();

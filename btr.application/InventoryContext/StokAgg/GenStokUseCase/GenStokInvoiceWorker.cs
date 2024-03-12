@@ -43,7 +43,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
 
             using (var trans = TransHelper.NewScope())
             {
-                var reqRemove = new RemoveRollbackRequest(invoice.InvoiceId,"INVOICE-VOID");
+                var reqRemove = new RemoveRollbackRequest(invoice.InvoiceId,"INVOICE-VOID", invoice.InvoiceDate);
                 _removeRollbackStokWorker.Execute(reqRemove);
                 
                 foreach (var item in invoice.ListItem)
@@ -54,7 +54,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                     if (item.QtyBeli != 0)
                     {
                         var reqAddStok = new AddStokRequest(item.BrgId,
-                            invoice.WarehouseId, item.QtyBeli, satuan, item.HppSat, invoice.InvoiceId, "INVOICE", invoice.SupplierName);
+                            invoice.WarehouseId, item.QtyBeli, satuan, item.HppSat, invoice.InvoiceId, "INVOICE", invoice.SupplierName, invoice.InvoiceDate);
                         _addStokWorker.Execute(reqAddStok);
                     }
 
@@ -63,7 +63,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                         continue;
 
                     var reqBonus = new AddStokRequest(item.BrgId,
-                        invoice.WarehouseId, qtyBonus, satuan, 0, invoice.InvoiceId, "INVOICE-BONUS", invoice.SupplierName);
+                        invoice.WarehouseId, qtyBonus, satuan, 0, invoice.InvoiceId, "INVOICE-BONUS", invoice.SupplierName, invoice.InvoiceDate);
                     _addStokWorker.Execute(reqBonus);
                 }
                 trans.Complete();

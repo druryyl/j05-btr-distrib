@@ -75,7 +75,7 @@ namespace btr.application.InventoryContext.OpnameAgg
                 0,
                 stokOp.StokOpId,
                 "STOKOP", stokOp.StokOpId,
-                "Rollback StokOp");
+                "Rollback StokOp", stokOp.StokOpDate);
             _removePriorityStokWorker.Execute(req);
         }
    }

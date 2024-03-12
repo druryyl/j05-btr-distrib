@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.StokBalanceAgg;
@@ -13,7 +14,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
     public class AddStokRequest : IBrgKey, IWarehouseKey
     {
         public AddStokRequest(string brgId, string warehouseId, int qty, string satuan, decimal nilai, string reffId, string jenisMutasi,
-            string keterangan)
+            string keterangan, DateTime mutasiDate)
         {
             BrgId = brgId;
             WarehouseId = warehouseId;
@@ -23,6 +24,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
             ReffId = reffId;
             JenisMutasi = jenisMutasi;
             Keterangan = keterangan;
+            MutasiDate = mutasiDate;
         }
         public string BrgId { get; set; }
         public string WarehouseId { get; set; }
@@ -32,6 +34,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
         public string ReffId { get; set; }
         public string JenisMutasi { get; set; }
         public string Keterangan { get; set; }
+        public DateTime MutasiDate { get; }
     }
     public interface IAddStokWorker : INunaService<bool, AddStokRequest>
     {
@@ -76,7 +79,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
             var qtyKecil = request.Qty * konversi;
             var nilaiKecil = request.Nilai / konversi;
             _aggregate = _stokBuilder
-                .Create(request, request, qtyKecil, nilaiKecil, request.ReffId, request.JenisMutasi, request.Keterangan)
+                .Create(request, request, qtyKecil, nilaiKecil, request.ReffId, request.JenisMutasi, request.Keterangan, request.MutasiDate)
                 .Build();
 
             //  WRITE

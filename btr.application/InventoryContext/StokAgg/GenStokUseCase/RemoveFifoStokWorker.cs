@@ -13,7 +13,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
     public class RemoveFifoStokRequest : IBrgKey, IWarehouseKey
     {
         public RemoveFifoStokRequest(string brgId, string warehouseId, int qty, string satuan, 
-            decimal hargaJual, string reffId, string jenisMutasi, string keterangan)
+            decimal hargaJual, string reffId, string jenisMutasi, string keterangan, DateTime mutasiDate)
         {
             BrgId = brgId;
             WarehouseId = warehouseId;
@@ -23,6 +23,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
             ReffId = reffId;
             JenisMutasi = jenisMutasi;
             Keterangan = keterangan;
+            MutasiDate = mutasiDate;
         }
         public string BrgId { get; set; }
         public string WarehouseId { get; set; }
@@ -32,6 +33,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
         public string ReffId { get; set; }
         public string JenisMutasi { get; set; }
         public string Keterangan { get; set; }
+        public DateTime MutasiDate { get; set; }
     }
 
     public interface IRemoveFifoStokWorker : INunaServiceVoid<RemoveFifoStokRequest>
@@ -82,7 +84,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                 var pengurang = Math.Min(sisa, stok.Qty);
                 stok = _stokBuilder
                     .Load(stok)
-                    .RemoveStok(pengurang, hargaKecil, request.ReffId, request.JenisMutasi, request.Keterangan)
+                    .RemoveStok(pengurang, hargaKecil, request.ReffId, request.JenisMutasi, request.Keterangan, request.MutasiDate)
                     .Build();
 
                 listStok.RemoveAll(x => x.StokId == stok.StokId);

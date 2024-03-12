@@ -1,17 +1,20 @@
 ﻿using btr.domain.InventoryContext.StokAgg;
 using btr.nuna.Application;
+using System;
 
 namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
 {
     public class RemoveRollbackRequest : IReffKey
     {
-        public RemoveRollbackRequest(string id, string jenisMutasi)
+        public RemoveRollbackRequest(string id, string jenisMutasi, DateTime mutasiDate)
         {
             ReffId = id;
             JenisMutasi = jenisMutasi;
+            MutasiDate = mutasiDate;
         }
         public string ReffId { get; set; }
         public string JenisMutasi { get; set; }
+        public DateTime MutasiDate { get; }
     }
 
     public interface IRemoveRollbackStokWorker : INunaServiceVoid<RemoveRollbackRequest>
@@ -52,7 +55,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                 //  jika sudah ada barang keluar, maka remove priority;
                 var req = new RemovePriorityStokRequest(
                     item.BrgId, item.WarehouseId, item.Qty, string.Empty, 
-                    item.NilaiPersediaan, request.ReffId, request.JenisMutasi, request.ReffId, "Rollback");
+                    item.NilaiPersediaan, request.ReffId, request.JenisMutasi, request.ReffId, "Rollback", request.MutasiDate);
                 _removePriorityStokWorker.Execute(req);
             }
         }

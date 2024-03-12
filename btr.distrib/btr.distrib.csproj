@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>115</ApplicationRevision>
+    <ApplicationRevision>116</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -422,6 +422,12 @@
     <Compile Include="InventoryContext\StokBrgSupplierRpt\StokBrgSupplierForm.Designer.cs">
       <DependentUpon>StokBrgSupplierForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InventoryContext\StokHarianAgg\StokHarianForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryContext\StokHarianAgg\StokHarianForm.Designer.cs">
+      <DependentUpon>StokHarianForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="InventoryContext\WarehouseAgg\WarehouseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -663,6 +669,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\StokBrgSupplierRpt\StokBrgSupplierForm.resx">
       <DependentUpon>StokBrgSupplierForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InventoryContext\StokHarianAgg\StokHarianForm.resx">
+      <DependentUpon>StokHarianForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PurchaseContext\InvoiceAgg\InvoiceForm.resx">
       <DependentUpon>InvoiceForm.cs</DependentUpon>

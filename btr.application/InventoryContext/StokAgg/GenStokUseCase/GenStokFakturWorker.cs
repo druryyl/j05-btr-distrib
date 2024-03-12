@@ -51,16 +51,16 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                     if (item.QtyJual != 0)
                     {
                         var reqRemoveStok = new RemoveFifoStokRequest(item.BrgId,
-                            faktur.WarehouseId, item.QtyJual, satuan, item.HrgSat, faktur.FakturId, "FAKTUR", faktur.CustomerName);
+                            faktur.WarehouseId, item.QtyJual, satuan, item.HrgSat, faktur.FakturId, "FAKTUR", faktur.CustomerName, faktur.FakturDate);
                         _removeFifoStokWorker.Execute(reqRemoveStok);
                     }
 
                     var qtyBonus = item.QtyPotStok - item.QtyJual;
                     if (qtyBonus == 0)
-                        break;
+                        continue;
 
                     var reqBonus = new RemoveFifoStokRequest(item.BrgId,
-                        faktur.WarehouseId, qtyBonus , satuan, 0, faktur.FakturId, "FAKTUR-BONUS", faktur.CustomerName);
+                        faktur.WarehouseId, qtyBonus , satuan, 0, faktur.FakturId, "FAKTUR-BONUS", faktur.CustomerName, faktur.FakturDate);
                     _removeFifoStokWorker.Execute(reqBonus);
                 }
                 trans.Complete();
