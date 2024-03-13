@@ -1,63 +1,69 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows.Forms;
 using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.StokAgg.GenStokUseCase;
 using btr.application.InventoryContext.StokBalanceAgg;
 using btr.application.InventoryContext.WarehouseAgg;
+using btr.application.SalesContext.FakturAgg.Contracts;
+using btr.nuna.Application;
+using btr.nuna.Domain;
+using Polly;
+using Syncfusion.DataSource.Extensions;
 
 namespace btr.distrib.SharedForm
 {
     public partial class StokBalancerForm : Form
     {
-        private readonly IBrgDal _brgDal;
-        private readonly IWarehouseDal _warehouseDal;
-        private readonly IGenStokBalanceWorker _genStokBalanceWorker;
+        private readonly IFakturDal _fakturDal;
+        private readonly IGenStokFakturRegenWorker _genStokFaktur;
 
-        public StokBalancerForm(IBrgDal brgDal, IWarehouseDal warehouseDal, IGenStokBalanceWorker genStokBalanceWorker)
+        public StokBalancerForm(IFakturDal fakturDal, 
+            IGenStokFakturRegenWorker genStokFaktur)
         {
-            _brgDal = brgDal;
-            _warehouseDal = warehouseDal;
+            _fakturDal = fakturDal;
+            _genStokFaktur = genStokFaktur;
             InitializeComponent();
-            _genStokBalanceWorker = genStokBalanceWorker;
         }
 
         private void button1_Click(object sender, System.EventArgs e)
         {
-            if (textBox1.Text == string.Empty)
-                GenAll();
-            else
-                GenSatuBrg(textBox1.Text);
+            if (textBox1.Text != @"jude")
+                return;
+
+            GenStokFaktur();
         }
 
-        private void GenSatuBrg(string brgId)
+        private void GenStokFaktur()
         {
-            var listWareHouse = _warehouseDal.ListData();
-            foreach (var warehouse in listWareHouse)
+            var listFaktur = _fakturDal.ListData(new Periode(new DateTime(2023,10,1), new DateTime(2024,3,31)));
+            
+            var fallback = Policy<bool>
+                .Handle<KeyNotFoundException>()
+                .Or<ArgumentException>()
+                .Fallback(() => false);
+
+            foreach (var faktur in listFaktur.OrderBy(x => x.FakturId))
             {
-                label1.Text = $"Processing {brgId} - {warehouse.WarehouseId}";
-                Debug.WriteLine($"Processing {brgId} - {warehouse.WarehouseId}");
-                this.Invalidate();
-                _genStokBalanceWorker.Execute(new GenStokBalanceRequest(brgId, warehouse.WarehouseId));
-            }
-            label1.Text = "Done";
-        }
-        private void GenAll()
-        {
-            var listWareHouse = _warehouseDal.ListData();
-            var listBrg = _brgDal.ListData();
-            foreach (var warehouse in listWareHouse)
-            {
-                foreach (var brg in listBrg)
+                var isSuccess = fallback.Execute(() =>
                 {
-                    label1.Text = $"Processing {brg.BrgId} - {warehouse.WarehouseId}";
-                    Debug.WriteLine($"Processing {brg.BrgId} - {warehouse.WarehouseId}");
-                    this.Invalidate();
-                    _genStokBalanceWorker.Execute(new GenStokBalanceRequest(brg.BrgId, warehouse.WarehouseId));
-                }
+                    _genStokFaktur.Execute(new GenStokFakturRequest(faktur.FakturId));
+                    return true;
+                });
+                var text = isSuccess
+                    ? $@"Processing {faktur.FakturDate:yyyy-MM-dd} - {faktur.FakturId}"
+                    : $@"Failed {faktur.FakturDate:yyyy-MM-dd} - {faktur.FakturId}";
+
+                label1.Text = text;
+                Debug.WriteLine(text);
+
+                this.Invalidate();
             }
-            label1.Text = "Done";
+
+            label1.Text = @"Done";
         }
 
     }

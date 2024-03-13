@@ -50,6 +50,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
                 .Load(req)
                 .Void((IUserKey)req)
                 .Build();
+            
             //  unpost faktur control
             var fakturControl = _fakturControlBuilder
                 .LoadOrCreate(req)
@@ -67,7 +68,6 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
                 _fakturControlWriter.Save(fakturControl);
                 trans.Complete();
             }
-
         }
     }
 }

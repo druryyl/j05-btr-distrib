@@ -8,11 +8,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
 {
     public class GenStokFakturRequest : IFakturKey
     {
-        public GenStokFakturRequest(string fakturId)
-        {
-            FakturId = fakturId;
-        }
-
+        public GenStokFakturRequest(string fakturId) => FakturId = fakturId;
         public string FakturId { get; set; }
     }
 
@@ -40,6 +36,14 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
         {
             var faktur = _fakturBuilder.Load(req).Build();
 
+            if (!faktur.IsVoid)
+                ExecuteGenStok(faktur);
+            else
+                ExecuteVoid(faktur);
+        }
+        
+        private void ExecuteGenStok(FakturModel faktur)
+        {
             using (var trans = TransHelper.NewScope())
             {
                 _rollBackStokWorker.Execute(new RollBackStokRequest(faktur.FakturId));
@@ -66,5 +70,12 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                 trans.Complete();
             }
         }
+        private void ExecuteVoid(IFakturKey req)
+        {
+            var rollBackReq = new RollBackStokRequest(req.FakturId);
+            _rollBackStokWorker.Execute(rollBackReq);
+        }
+
+        
     }
 }

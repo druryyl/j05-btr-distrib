@@ -1,6 +1,6 @@
 ﻿CREATE TABLE BTR_StokMutasi(
     StokId VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_StokMutasi_StokId DEFAULT(''),
-    StokMutasiId VARCHAR(17) NOT NULL CONSTRAINT DF_BTR_StokMutasi_StokMutasiId DEFAULT(''),
+    StokMutasiId VARCHAR(18) NOT NULL CONSTRAINT DF_BTR_StokMutasi_StokMutasiId DEFAULT(''),
     BrgId VARCHAR(6) NOT NULL CONSTRAINT DF_BTR_StokMutasi_BrgId  DEFAULT(''),
     WarehouseId VARCHAR(5) NOT NULL CONSTRAINT DF_BTR_StokMutasi_WarehouseId DEFAULT(''),
 
@@ -21,7 +21,7 @@ GO
 
 CREATE INDEX IX_BTR_StokMutasi_StokId
     ON BTR_StokMutasi (StokId, StokMutasiId)
-    WITH(FILLFACTOR=95)
+    WITH(FILLFACTOR=95)                                   
 GO
 
 

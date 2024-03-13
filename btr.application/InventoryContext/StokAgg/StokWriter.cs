@@ -35,7 +35,7 @@ namespace btr.application.InventoryContext.StokAgg
 
             var id = model.StokId;
             model.ListMutasi.ForEach(x => x.StokId = id);
-            model.ListMutasi.ForEach(x => x.StokMutasiId = $"{id}-{x.NoUrut.ToString().PadLeft(2, '0')}");
+            model.ListMutasi.ForEach(x => x.StokMutasiId = $"{id}-{x.NoUrut.ToString().PadLeft(4, '0')}");
 
             var db = _stokDal.GetData(model);
 
