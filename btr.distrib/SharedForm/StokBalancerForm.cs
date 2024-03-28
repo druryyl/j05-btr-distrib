@@ -39,13 +39,13 @@ namespace btr.distrib.SharedForm
 
         private void GenStokFaktur()
         {
+            label1.Text = @"Proses Re-generate stok...";
             var listFaktur = _fakturDal.ListData(new Periode(new DateTime(2023,10,1), new DateTime(2024,3,31)));
             
             var fallback = Policy<bool>
                 .Handle<KeyNotFoundException>()
                 .Or<ArgumentException>()
                 .Fallback(() => false);
-
             foreach (var faktur in listFaktur.OrderBy(x => x.FakturId))
             {
                 var isSuccess = fallback.Execute(() =>
@@ -63,7 +63,7 @@ namespace btr.distrib.SharedForm
                 this.Invalidate();
             }
 
-            label1.Text = @"Done";
+            label1.Text = @"Proses Re-generate stok... done";
         }
 
     }

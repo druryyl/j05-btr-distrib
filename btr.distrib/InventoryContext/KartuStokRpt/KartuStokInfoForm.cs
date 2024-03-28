@@ -200,6 +200,21 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
         {
             var listKartuStok = _kartuStokDal.ListData(periode, brgKey)?.ToList()
                 ?? new List<KartuStokView>();
+            //  sum QtyIn, QtyOut grouped by ReffId
+            var listKartuStokGrouped = listKartuStok
+                .GroupBy(x => new { x.ReffId, x.JenisMutasi, x.WarehouseId })
+                .Select(x => new KartuStokView
+                {
+                    ReffId = x.Key.ReffId,
+                    JenisMutasi = x.Key.JenisMutasi,
+                    WarehouseId = x.Key.WarehouseId,
+                    QtyIn = x.Sum(y => y.QtyIn),
+                    QtyOut = x.Sum(y => y.QtyOut),
+                    Hpp = x.Average(y => y.Hpp),
+                    HargaJual = x.Average(y => y.HargaJual),
+                    Keterangan = x.First().Keterangan,
+                    MutasiDate = x.First().MutasiDate
+                }).ToList();
             var listSaldoAwal = GetSaldoAwal(periode, brgKey);
             var listWarehouse = _warehouseDal.ListData()?.ToList() ?? new List<WarehouseModel>();
             var result = new List<KartuStokItemInfoDto>();
@@ -220,7 +235,7 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
                 });
                 var saldo = saldoAwal?.QtyAkhir ?? 0;
                 var kartuStok = new KartuStokItemInfoDto();
-                foreach(var item in listKartuStok.Where(x => x.WarehouseId == warehouse.WarehouseId))
+                foreach(var item in listKartuStokGrouped.Where(x => x.WarehouseId == warehouse.WarehouseId))
                 {
                     kartuStok = new KartuStokItemInfoDto
                     {
@@ -242,8 +257,8 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
                 var saldoAkhir = kartuStok.Adapt<KartuStokItemInfoDto>();
                 saldoAkhir.JenisMutasi = "Saldo Akhir";
                 saldoAkhir.Keterangan = "Saldo Akhir";
-                saldoAkhir.QtyMasuk = listKartuStok.Where(x => x.WarehouseId == warehouse.WarehouseId).Sum(x => x.QtyIn);
-                saldoAkhir.QtyKeluar = listKartuStok.Where(x => x.WarehouseId == warehouse.WarehouseId).Sum(x => x.QtyOut);
+                saldoAkhir.QtyMasuk = listKartuStokGrouped.Where(x => x.WarehouseId == warehouse.WarehouseId).Sum(x => x.QtyIn);
+                saldoAkhir.QtyKeluar = listKartuStokGrouped.Where(x => x.WarehouseId == warehouse.WarehouseId).Sum(x => x.QtyOut);
                 saldoAkhir.Hpp = 0;
                 saldoAkhir.HargaJual = 0;
                 result.Add(saldoAkhir);
