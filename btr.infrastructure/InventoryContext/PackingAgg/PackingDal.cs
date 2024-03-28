@@ -64,7 +64,7 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
             dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
 
             dp.AddParam("@DriverId", model.DriverId, SqlDbType.VarChar);
-            dp.AddParam("@DeliveryDate", model.DeliveryDate, SqlDbType.VarChar);
+            dp.AddParam("@DeliveryDate", model.DeliveryDate, SqlDbType.DateTime);
             dp.AddParam("@Route", model.Route, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
