@@ -73,8 +73,8 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             if (e.RowIndex == -1) return;
             var brgId = BrgGrid.Rows[e.RowIndex].Cells["BrgId"].Value.ToString();
             var periode = new Periode(Periode1Date.Value, Periode2Date.Value);
-            // GenKartuStok(periode, new BrgModel(brgId));
-            SummaryGrid.DataSource = GetSaldoAwal(periode, new BrgModel(brgId));
+            GenKartuStok(periode, new BrgModel(brgId));
+            //SummaryGrid.DataSource = GetSaldoAwal(periode, new BrgModel(brgId));
         }
 
         private void ListBarangButton_Click(object sender, EventArgs e)
@@ -122,7 +122,7 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
                 DataPropertyName = "BrgName",
                 HeaderText = @"Nama Barang",
                 Name = "BrgName",
-                Width = 200,
+                Width = 300,
                 ReadOnly = true
             });
         }
@@ -154,7 +154,7 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             col.GetCol("QtyAkhir").Width = 50;
             col.GetCol("Hpp").Width = 70;
             col.GetCol("HargaJual").Width = 70;
-            col.GetCol("Keterangan").Width = 250;
+            col.GetCol("Keterangan").Width = 400;
 
             foreach(DataGridViewColumn item in KartuStokGrid.Columns)
                 item.ReadOnly = true;

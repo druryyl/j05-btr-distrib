@@ -35,11 +35,10 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             this.Periode2Date = new System.Windows.Forms.DateTimePicker();
             this.panel1 = new System.Windows.Forms.Panel();
             this.SearchBrgText = new System.Windows.Forms.TextBox();
-            this.ListBarangButton = new System.Windows.Forms.Button();
             this.BrgGrid = new System.Windows.Forms.DataGridView();
+            this.ListBarangButton = new System.Windows.Forms.Button();
             this.KartuStokGrid = new System.Windows.Forms.DataGridView();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.SummaryGrid = new Syncfusion.WinForms.DataGrid.SfDataGrid();
             this.DetilGrid = new Syncfusion.WinForms.DataGrid.SfDataGrid();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BrgGrid)).BeginInit();
@@ -48,7 +47,6 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SummaryGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DetilGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -67,12 +65,13 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             this.Periode2Date.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.Periode2Date.Location = new System.Drawing.Point(143, 6);
             this.Periode2Date.Name = "Periode2Date";
-            this.Periode2Date.Size = new System.Drawing.Size(138, 22);
+            this.Periode2Date.Size = new System.Drawing.Size(131, 22);
             this.Periode2Date.TabIndex = 1;
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.PaleTurquoise;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -83,7 +82,7 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             this.panel1.Controls.Add(this.Periode2Date);
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(351, 177);
+            this.panel1.Size = new System.Drawing.Size(371, 442);
             this.panel1.TabIndex = 2;
             // 
             // SearchBrgText
@@ -93,20 +92,8 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             this.SearchBrgText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.SearchBrgText.Location = new System.Drawing.Point(7, 34);
             this.SearchBrgText.Name = "SearchBrgText";
-            this.SearchBrgText.Size = new System.Drawing.Size(274, 22);
+            this.SearchBrgText.Size = new System.Drawing.Size(294, 22);
             this.SearchBrgText.TabIndex = 4;
-            // 
-            // ListBarangButton
-            // 
-            this.ListBarangButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ListBarangButton.BackColor = System.Drawing.Color.PowderBlue;
-            this.ListBarangButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ListBarangButton.Location = new System.Drawing.Point(287, 6);
-            this.ListBarangButton.Name = "ListBarangButton";
-            this.ListBarangButton.Size = new System.Drawing.Size(55, 50);
-            this.ListBarangButton.TabIndex = 3;
-            this.ListBarangButton.Text = "List Barang";
-            this.ListBarangButton.UseVisualStyleBackColor = false;
             // 
             // BrgGrid
             // 
@@ -117,8 +104,20 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             this.BrgGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.BrgGrid.Location = new System.Drawing.Point(7, 61);
             this.BrgGrid.Name = "BrgGrid";
-            this.BrgGrid.Size = new System.Drawing.Size(335, 107);
+            this.BrgGrid.Size = new System.Drawing.Size(355, 372);
             this.BrgGrid.TabIndex = 3;
+            // 
+            // ListBarangButton
+            // 
+            this.ListBarangButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListBarangButton.BackColor = System.Drawing.Color.PowderBlue;
+            this.ListBarangButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ListBarangButton.Location = new System.Drawing.Point(307, 6);
+            this.ListBarangButton.Name = "ListBarangButton";
+            this.ListBarangButton.Size = new System.Drawing.Size(55, 50);
+            this.ListBarangButton.TabIndex = 3;
+            this.ListBarangButton.Text = "List Barang";
+            this.ListBarangButton.UseVisualStyleBackColor = false;
             // 
             // KartuStokGrid
             // 
@@ -127,22 +126,21 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             | System.Windows.Forms.AnchorStyles.Right)));
             this.KartuStokGrid.BackgroundColor = System.Drawing.Color.LightSlateGray;
             this.KartuStokGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.KartuStokGrid.Location = new System.Drawing.Point(18, 330);
+            this.KartuStokGrid.Location = new System.Drawing.Point(3, 3);
             this.KartuStokGrid.Name = "KartuStokGrid";
-            this.KartuStokGrid.Size = new System.Drawing.Size(195, 107);
+            this.KartuStokGrid.Size = new System.Drawing.Size(616, 442);
             this.KartuStokGrid.TabIndex = 4;
-            this.KartuStokGrid.Visible = false;
             // 
             // splitContainer1
             // 
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.SummaryGrid);
             this.splitContainer1.Panel1.Controls.Add(this.panel1);
             // 
             // splitContainer1.Panel2
@@ -150,33 +148,22 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             this.splitContainer1.Panel2.Controls.Add(this.DetilGrid);
             this.splitContainer1.Panel2.Controls.Add(this.KartuStokGrid);
             this.splitContainer1.Size = new System.Drawing.Size(1007, 450);
-            this.splitContainer1.SplitterDistance = 359;
+            this.splitContainer1.SplitterDistance = 379;
             this.splitContainer1.TabIndex = 5;
-            // 
-            // SummaryGrid
-            // 
-            this.SummaryGrid.AccessibleName = "Table";
-            this.SummaryGrid.AllowResizingColumns = true;
-            this.SummaryGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.SummaryGrid.AutoSizeColumnsMode = Syncfusion.WinForms.DataGrid.Enums.AutoSizeColumnsMode.AllCells;
-            this.SummaryGrid.Location = new System.Drawing.Point(3, 184);
-            this.SummaryGrid.Name = "SummaryGrid";
-            this.SummaryGrid.Size = new System.Drawing.Size(351, 260);
-            this.SummaryGrid.TabIndex = 7;
-            this.SummaryGrid.Text = "sfDataGrid1";
             // 
             // DetilGrid
             // 
             this.DetilGrid.AccessibleName = "Table";
-            this.DetilGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.DetilGrid.Location = new System.Drawing.Point(1, 3);
+            this.DetilGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DetilGrid.AutoSizeColumnsMode = Syncfusion.WinForms.DataGrid.Enums.AutoSizeColumnsMode.AllCells;
+            this.DetilGrid.Location = new System.Drawing.Point(3, 2);
             this.DetilGrid.Name = "DetilGrid";
-            this.DetilGrid.Size = new System.Drawing.Size(638, 442);
+            this.DetilGrid.Size = new System.Drawing.Size(618, 443);
             this.DetilGrid.TabIndex = 6;
             this.DetilGrid.Text = "sfDataGrid1";
+            this.DetilGrid.Visible = false;
             // 
             // KartuStokInfoForm
             // 
@@ -196,7 +183,6 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.SummaryGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DetilGrid)).EndInit();
             this.ResumeLayout(false);
 
@@ -212,7 +198,6 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
         private System.Windows.Forms.Button ListBarangButton;
         private System.Windows.Forms.TextBox SearchBrgText;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private Syncfusion.WinForms.DataGrid.SfDataGrid SummaryGrid;
         private Syncfusion.WinForms.DataGrid.SfDataGrid DetilGrid;
     }
 }
