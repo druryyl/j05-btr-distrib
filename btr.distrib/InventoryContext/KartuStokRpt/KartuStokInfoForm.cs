@@ -73,7 +73,8 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             if (e.RowIndex == -1) return;
             var brgId = BrgGrid.Rows[e.RowIndex].Cells["BrgId"].Value.ToString();
             var periode = new Periode(Periode1Date.Value, Periode2Date.Value);
-            GenKartuStok(periode, new BrgModel(brgId));
+            // GenKartuStok(periode, new BrgModel(brgId));
+            SummaryGrid.DataSource = GetSaldoAwal(periode, new BrgModel(brgId));
         }
 
         private void ListBarangButton_Click(object sender, EventArgs e)
@@ -105,7 +106,7 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
                 DataPropertyName = "BrgId",
                 HeaderText = @"BrgId",
                 Name = "BrgId",
-                Visible = true,
+                Visible = false,
                 ReadOnly = true
             });
             BrgGrid.Columns.Add(new DataGridViewTextBoxColumn
@@ -123,7 +124,6 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
                 Name = "BrgName",
                 Width = 200,
                 ReadOnly = true
-
             });
         }
 
@@ -264,6 +264,7 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
                 result.Add(saldoAkhir);
             }
             KartuStokGrid.DataSource = result;
+            DetilGrid.DataSource = result;
         }
 
         private IEnumerable<KartuStokStokAwalView> GetSaldoAwal(Periode periode, IBrgKey brgKey)
@@ -279,9 +280,10 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
                     QtyAkhir = 0
                 });
             return result;
-
         }
     }
+
+
 
     public class KartuStokItemInfoDto 
     {
