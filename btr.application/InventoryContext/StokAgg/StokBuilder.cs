@@ -14,10 +14,10 @@ namespace btr.application.InventoryContext.StokAgg
     public interface IStokBuilder : INunaBuilder<StokModel>
     {
         IStokBuilder Create(IBrgKey brgKey, IWarehouseKey warehouseKey, 
-            int qty, decimal nilai, string reffId, string jenisMutasi, string keterangan);
+            int qty, decimal nilai, string reffId, string jenisMutasi, string keterangan, DateTime mutasiDate);
         IStokBuilder Load(IStokKey stokKey);
         IStokBuilder Attach(StokModel stok);
-        IStokBuilder RemoveStok(int qty, decimal hargaJual, string reffId, string jenisMutasi, string keterangan);
+        IStokBuilder RemoveStok(int qty, decimal hargaJual, string reffId, string jenisMutasi, string keterangan, DateTime mutasiDate);
         IStokBuilder RollBack(IReffKey reffKey);
     }
     
@@ -50,7 +50,7 @@ namespace btr.application.InventoryContext.StokAgg
         }
 
         public IStokBuilder Create(IBrgKey brgKey, IWarehouseKey warehouseKey, 
-            int qty, decimal nilai, string reffId, string jenisMutasi, string keterangan)
+            int qty, decimal nilai, string reffId, string jenisMutasi, string keterangan, DateTime mutasiDate)
         {
             var brg = _brgDal.GetData(brgKey)
                 ?? throw new KeyNotFoundException($"[Create-Stok] BrgId invalid ({brgKey.BrgId})");
@@ -66,7 +66,7 @@ namespace btr.application.InventoryContext.StokAgg
                 Qty = qty,
                 QtyIn = qty,
                 ReffId = reffId,
-                StokDate = _dateTime.Now,
+                StokDate = mutasiDate,
                 NilaiPersediaan = nilai,
                 ListMutasi = new List<StokMutasiModel>()
             };
@@ -77,7 +77,8 @@ namespace btr.application.InventoryContext.StokAgg
                 ReffId = reffId,
                 JenisMutasi = jenisMutasi,
                 NoUrut = 0,
-                MutasiDate = _dateTime.Now,
+                MutasiDate = mutasiDate,
+                PencatatanDate = _dateTime.Now,
                 QtyIn = qty,
                 QtyOut = 0,
                 HargaJual = 0,
@@ -96,7 +97,7 @@ namespace btr.application.InventoryContext.StokAgg
             return this;
         }
 
-        public IStokBuilder RemoveStok(int qty, decimal hargaJual, string reffId, string jenisMutasi, string keterangan)
+        public IStokBuilder RemoveStok(int qty, decimal hargaJual, string reffId, string jenisMutasi, string keterangan, DateTime mutasiDate)
         {
             if (_agg.Qty < qty)
                 throw new ArgumentException("Stok tidak mencukupi");
@@ -110,7 +111,8 @@ namespace btr.application.InventoryContext.StokAgg
                 ReffId = reffId,
                 BrgId = _agg.BrgId,
                 WarehouseId = _agg.WarehouseId,
-                MutasiDate = _dateTime.Now,
+                MutasiDate = mutasiDate,
+                PencatatanDate = _dateTime.Now,
                 JenisMutasi = jenisMutasi,
                 NoUrut = noUrut,
                 Keterangan = keterangan

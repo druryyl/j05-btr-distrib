@@ -41,6 +41,7 @@
             this.SF3FakturSupplierButton = new System.Windows.Forms.RibbonButton();
             this.SF4FakturCustomerButton = new System.Windows.Forms.RibbonButton();
             this.SF5FakturPajakButton = new System.Windows.Forms.RibbonButton();
+            this.SF6FakturCashButton = new System.Windows.Forms.RibbonButton();
             this.MasterSalesPanel = new System.Windows.Forms.RibbonPanel();
             this.OutletButton = new System.Windows.Forms.RibbonButton();
             this.SalesPersonButton = new System.Windows.Forms.RibbonButton();
@@ -87,7 +88,6 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.SF6FakturCashButton = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -218,6 +218,15 @@
             this.SF5FakturPajakButton.Text = "SF5-Faktur Pajak";
             this.SF5FakturPajakButton.DoubleClick += new System.EventHandler(this.SF5FakturPajakButton_DoubleClick);
             this.SF5FakturPajakButton.Click += new System.EventHandler(this.SF5FakturPajakButton_Click);
+            // 
+            // SF6FakturCashButton
+            // 
+            this.SF6FakturCashButton.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.SF6FakturCashButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.SF6FakturCashButton.Name = "SF6FakturCashButton";
+            this.SF6FakturCashButton.SmallImage = global::btr.distrib.Properties.Resources.icons8_documents;
+            this.SF6FakturCashButton.Text = "SF6-Faktur Cash";
+            this.SF6FakturCashButton.Click += new System.EventHandler(this.SF6FakturCashButton_Click);
             // 
             // MasterSalesPanel
             // 
@@ -411,7 +420,6 @@
             this.ReportingPanel.Items.Add(this.IF4StokPerSupplierButton);
             this.ReportingPanel.Name = "ReportingPanel";
             this.ReportingPanel.Text = "Reporting";
-            this.ReportingPanel.Click += new System.EventHandler(this.IF4StokSupplierButton_Click);
             // 
             // IF1StokBalanceButton
             // 
@@ -610,15 +618,6 @@
             this.ServerDbStatus.Name = "ServerDbStatus";
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
-            // 
-            // SF6FakturCashButton
-            // 
-            this.SF6FakturCashButton.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.SF6FakturCashButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.SF6FakturCashButton.Name = "SF6FakturCashButton";
-            this.SF6FakturCashButton.SmallImage = global::btr.distrib.Properties.Resources.icons8_documents;
-            this.SF6FakturCashButton.Text = "SF6-Faktur Cash";
-            this.SF6FakturCashButton.Click += new System.EventHandler(this.SF6FakturCashButton_Click);
             // 
             // MainForm
             // 

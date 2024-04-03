@@ -34,6 +34,7 @@ namespace btr.infrastructure.InventoryContext.StokAgg
 
                 bcp.AddMap("NoUrut", "NoUrut");
                 bcp.AddMap("MutasiDate", "MutasiDate");
+                bcp.AddMap("PencatatanDate", "PencatatanDate");
                 bcp.AddMap("QtyIn", "QtyIn");
                 bcp.AddMap("QtyOut", "QtyOut");
                 bcp.AddMap("HargaJual", "HargaJual");
@@ -69,11 +70,12 @@ namespace btr.infrastructure.InventoryContext.StokAgg
             const string sql = @"
             SELECT
                 StokId, StokMutasiId, BrgId, WarehouseId, ReffId, NoUrut, 
-                JenisMutasi, MutasiDate, QtyIn, QtyOut, HargaJual, Keterangan
+                JenisMutasi, MutasiDate, PencatatanDate, QtyIn, QtyOut, HargaJual, Keterangan
             FROM 
                 BTR_StokMutasi aa
             WHERE
                 aa.StokId = @StokId ";
+
             var dp = new DynamicParameters();
             dp.AddParam("@StokId", stok.StokId, SqlDbType.VarChar);
 
@@ -88,11 +90,12 @@ namespace btr.infrastructure.InventoryContext.StokAgg
             const string sql = @"
             SELECT
                 StokId, StokMutasiId, BrgId, WarehouseId, ReffId, NoUrut, 
-                JenisMutasi, MutasiDate, QtyIn, QtyOut, HargaJual
+                JenisMutasi, MutasiDate, PencatatanDate, QtyIn, QtyOut, HargaJual
             FROM 
                 BTR_StokMutasi aa
             WHERE
                 aa.ReffId = @ReffId ";
+
             var dp = new DynamicParameters();
             dp.AddParam("@ReffId", reffKey.ReffId, SqlDbType.VarChar);
 

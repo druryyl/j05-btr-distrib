@@ -51,8 +51,8 @@
             this.FakturKananGrid = new System.Windows.Forms.DataGridView();
             this.FakturBrgGrid = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.PreviewFakturButton = new System.Windows.Forms.Button();
-            this.PreviewBrgButton = new System.Windows.Forms.Button();
+            this.PreviewPerSupplierButton = new System.Windows.Forms.Button();
+            this.PreviewPerFakturButton = new System.Windows.Forms.Button();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.SupplierGrid = new System.Windows.Forms.DataGridView();
             this.SupplierBrgGrid = new System.Windows.Forms.DataGridView();
@@ -84,8 +84,7 @@
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.PaleTurquoise;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.SearchButton);
@@ -143,9 +142,7 @@
             // 
             // FakturKiriGrid
             // 
-            this.FakturKiriGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FakturKiriGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.FakturKiriGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.FakturKiriGrid.Location = new System.Drawing.Point(0, 72);
             this.FakturKiriGrid.Name = "FakturKiriGrid";
@@ -154,8 +151,7 @@
             // 
             // panel3
             // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BackColor = System.Drawing.Color.PaleTurquoise;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.tableLayoutPanel1);
@@ -263,9 +259,7 @@
             // 
             // PackingTab
             // 
-            this.PackingTab.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PackingTab.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.PackingTab.Controls.Add(this.tabPage1);
             this.PackingTab.Controls.Add(this.tabPage2);
             this.PackingTab.Location = new System.Drawing.Point(2, 100);
@@ -324,8 +318,8 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.tabPage2.Controls.Add(this.PreviewFakturButton);
-            this.tabPage2.Controls.Add(this.PreviewBrgButton);
+            this.tabPage2.Controls.Add(this.PreviewPerSupplierButton);
+            this.tabPage2.Controls.Add(this.PreviewPerFakturButton);
             this.tabPage2.Controls.Add(this.splitContainer2);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -334,31 +328,29 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Per-Supplier";
             // 
-            // PreviewFakturButton
+            // PreviewPerSupplierButton
             // 
-            this.PreviewFakturButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.PreviewFakturButton.Location = new System.Drawing.Point(366, 295);
-            this.PreviewFakturButton.Name = "PreviewFakturButton";
-            this.PreviewFakturButton.Size = new System.Drawing.Size(106, 23);
-            this.PreviewFakturButton.TabIndex = 4;
-            this.PreviewFakturButton.Text = "Preview Faktur";
-            this.PreviewFakturButton.UseVisualStyleBackColor = true;
+            this.PreviewPerSupplierButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.PreviewPerSupplierButton.Location = new System.Drawing.Point(326, 295);
+            this.PreviewPerSupplierButton.Name = "PreviewPerSupplierButton";
+            this.PreviewPerSupplierButton.Size = new System.Drawing.Size(124, 23);
+            this.PreviewPerSupplierButton.TabIndex = 4;
+            this.PreviewPerSupplierButton.Text = "Preview Per-Supplier";
+            this.PreviewPerSupplierButton.UseVisualStyleBackColor = true;
             // 
-            // PreviewBrgButton
+            // PreviewPerFakturButton
             // 
-            this.PreviewBrgButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.PreviewBrgButton.Location = new System.Drawing.Point(478, 295);
-            this.PreviewBrgButton.Name = "PreviewBrgButton";
-            this.PreviewBrgButton.Size = new System.Drawing.Size(113, 23);
-            this.PreviewBrgButton.TabIndex = 3;
-            this.PreviewBrgButton.Text = "Preview Brg";
-            this.PreviewBrgButton.UseVisualStyleBackColor = true;
+            this.PreviewPerFakturButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.PreviewPerFakturButton.Location = new System.Drawing.Point(456, 295);
+            this.PreviewPerFakturButton.Name = "PreviewPerFakturButton";
+            this.PreviewPerFakturButton.Size = new System.Drawing.Size(135, 23);
+            this.PreviewPerFakturButton.TabIndex = 3;
+            this.PreviewPerFakturButton.Text = "Preview Faktur";
+            this.PreviewPerFakturButton.UseVisualStyleBackColor = true;
             // 
             // splitContainer2
             // 
-            this.splitContainer2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer2.Location = new System.Drawing.Point(3, 3);
             this.splitContainer2.Name = "splitContainer2";
             this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -394,9 +386,7 @@
             // 
             // splitContainer3
             // 
-            this.splitContainer3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer3.Location = new System.Drawing.Point(6, 10);
             this.splitContainer3.Name = "splitContainer3";
             // 
@@ -449,7 +439,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
             this.ResumeLayout(false);
-
         }
 
         #endregion
@@ -480,7 +469,7 @@
         private System.Windows.Forms.Label JumlahFakturLabel;
         private System.Windows.Forms.Label JumlahSupplierLabel;
         private System.Windows.Forms.Label PackingIdLabel;
-        private System.Windows.Forms.Button PreviewFakturButton;
-        private System.Windows.Forms.Button PreviewBrgButton;
+        private System.Windows.Forms.Button PreviewPerSupplierButton;
+        private System.Windows.Forms.Button PreviewPerFakturButton;
     }
 }

@@ -47,12 +47,13 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
 
         private void GenMutasiKeluar(GenStokMutasiRequest req)
         {
+            var mutasiOri = _mutasiBuilder.Load(req).Build();
             //  nnt buatkan balikannya dulu
             //      void mutasi keluar-nya
             var rollbackReq = new RollBackStokRequest(req.MutasiId);
             _rollBackStok.Execute(rollbackReq);
             //      void mutasi masuk-nya
-            var removeRollbackReq = new RemoveRollbackRequest(req.MutasiId, "MUTASI-MASUK-VOID");
+            var removeRollbackReq = new RemoveRollbackRequest(req.MutasiId, "MUTASI-MASUK-VOID", mutasiOri.MutasiDate);
             _removeRollbackStokWorker.Execute(removeRollbackReq);
             
             var mutasi = _mutasiBuilder.Load(req).Build();
@@ -66,7 +67,8 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                     item.Hpp, 
                     req.MutasiId,
                     "MUTASI-KELUAR",
-                    mutasi.Keterangan));
+                    mutasi.Keterangan,
+                    mutasi.MutasiDate));
 
                 _addStok.Execute(new AddStokRequest(
                     item.BrgId, 
@@ -75,7 +77,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                     item.Sat, 
                     item.Hpp, 
                     req.MutasiId,
-                    "MUTASI-MASUK", mutasi.Keterangan));
+                    "MUTASI-MASUK", mutasi.Keterangan, mutasi.MutasiDate));
             }
         }
         private void GenMutasiMasuk(GenStokMutasiRequest req)
@@ -91,7 +93,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                     item.Sat, 
                     item.Hpp, 
                     req.MutasiId,
-                    "MUTASI-KELUAR", mutasi.Keterangan));
+                    "MUTASI-KELUAR", mutasi.Keterangan, mutasi.MutasiDate));
                 
                 _addStok.Execute(new AddStokRequest(
                     item.BrgId, 
@@ -100,7 +102,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                     item.Sat, 
                     item.Hpp, 
                     req.MutasiId,
-                    "MUTASI-MASUK", mutasi.Keterangan));
+                    "MUTASI-MASUK", mutasi.Keterangan, mutasi.MutasiDate));
             }
         }
     }

@@ -74,6 +74,7 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             var brgId = BrgGrid.Rows[e.RowIndex].Cells["BrgId"].Value.ToString();
             var periode = new Periode(Periode1Date.Value, Periode2Date.Value);
             GenKartuStok(periode, new BrgModel(brgId));
+            //SummaryGrid.DataSource = GetSaldoAwal(periode, new BrgModel(brgId));
         }
 
         private void ListBarangButton_Click(object sender, EventArgs e)
@@ -105,7 +106,7 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
                 DataPropertyName = "BrgId",
                 HeaderText = @"BrgId",
                 Name = "BrgId",
-                Visible = true,
+                Visible = false,
                 ReadOnly = true
             });
             BrgGrid.Columns.Add(new DataGridViewTextBoxColumn
@@ -121,9 +122,8 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
                 DataPropertyName = "BrgName",
                 HeaderText = @"Nama Barang",
                 Name = "BrgName",
-                Width = 200,
+                Width = 300,
                 ReadOnly = true
-
             });
         }
 
@@ -154,7 +154,7 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             col.GetCol("QtyAkhir").Width = 50;
             col.GetCol("Hpp").Width = 70;
             col.GetCol("HargaJual").Width = 70;
-            col.GetCol("Keterangan").Width = 250;
+            col.GetCol("Keterangan").Width = 400;
 
             foreach(DataGridViewColumn item in KartuStokGrid.Columns)
                 item.ReadOnly = true;
@@ -200,6 +200,21 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
         {
             var listKartuStok = _kartuStokDal.ListData(periode, brgKey)?.ToList()
                 ?? new List<KartuStokView>();
+            //  sum QtyIn, QtyOut grouped by ReffId
+            var listKartuStokGrouped = listKartuStok
+                .GroupBy(x => new { x.ReffId, x.JenisMutasi, x.WarehouseId })
+                .Select(x => new KartuStokView
+                {
+                    ReffId = x.Key.ReffId,
+                    JenisMutasi = x.Key.JenisMutasi,
+                    WarehouseId = x.Key.WarehouseId,
+                    QtyIn = x.Sum(y => y.QtyIn),
+                    QtyOut = x.Sum(y => y.QtyOut),
+                    Hpp = x.Average(y => y.Hpp),
+                    HargaJual = x.Average(y => y.HargaJual),
+                    Keterangan = x.First().Keterangan,
+                    MutasiDate = x.First().MutasiDate
+                }).ToList();
             var listSaldoAwal = GetSaldoAwal(periode, brgKey);
             var listWarehouse = _warehouseDal.ListData()?.ToList() ?? new List<WarehouseModel>();
             var result = new List<KartuStokItemInfoDto>();
@@ -220,7 +235,7 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
                 });
                 var saldo = saldoAwal?.QtyAkhir ?? 0;
                 var kartuStok = new KartuStokItemInfoDto();
-                foreach(var item in listKartuStok.Where(x => x.WarehouseId == warehouse.WarehouseId))
+                foreach(var item in listKartuStokGrouped.Where(x => x.WarehouseId == warehouse.WarehouseId))
                 {
                     kartuStok = new KartuStokItemInfoDto
                     {
@@ -242,13 +257,14 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
                 var saldoAkhir = kartuStok.Adapt<KartuStokItemInfoDto>();
                 saldoAkhir.JenisMutasi = "Saldo Akhir";
                 saldoAkhir.Keterangan = "Saldo Akhir";
-                saldoAkhir.QtyMasuk = listKartuStok.Where(x => x.WarehouseId == warehouse.WarehouseId).Sum(x => x.QtyIn);
-                saldoAkhir.QtyKeluar = listKartuStok.Where(x => x.WarehouseId == warehouse.WarehouseId).Sum(x => x.QtyOut);
+                saldoAkhir.QtyMasuk = listKartuStokGrouped.Where(x => x.WarehouseId == warehouse.WarehouseId).Sum(x => x.QtyIn);
+                saldoAkhir.QtyKeluar = listKartuStokGrouped.Where(x => x.WarehouseId == warehouse.WarehouseId).Sum(x => x.QtyOut);
                 saldoAkhir.Hpp = 0;
                 saldoAkhir.HargaJual = 0;
                 result.Add(saldoAkhir);
             }
             KartuStokGrid.DataSource = result;
+            DetilGrid.DataSource = result;
         }
 
         private IEnumerable<KartuStokStokAwalView> GetSaldoAwal(Periode periode, IBrgKey brgKey)
@@ -264,9 +280,10 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
                     QtyAkhir = 0
                 });
             return result;
-
         }
     }
+
+
 
     public class KartuStokItemInfoDto 
     {

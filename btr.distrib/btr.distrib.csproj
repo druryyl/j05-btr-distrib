@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>114</ApplicationRevision>
+    <ApplicationRevision>121</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -158,6 +158,7 @@
       <HintPath>..\packages\SixLabors.Fonts.1.0.0\lib\netstandard2.0\SixLabors.Fonts.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.Core.WinForms, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Data.WinForms, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.DataSource.WinForms, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.Diagram.Base, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.Diagram.Windows, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
@@ -165,6 +166,8 @@
     <Reference Include="Syncfusion.Grid.Windows, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.GridCommon.WinForms, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.Grouping.Base, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.SfDataGrid.WinForms, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.SfInput.WinForms, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.SfListView.WinForms, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.Shared.Base, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.Shared.Windows, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
@@ -212,6 +215,7 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
@@ -402,12 +406,6 @@
       <DependentUpon>KategoriForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InventoryContext\OpnameAgg\BrgOpnameFormDto.cs" />
-    <Compile Include="InventoryContext\OpnameAgg\OpnameForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="InventoryContext\OpnameAgg\OpnameForm.Designer.cs">
-      <DependentUpon>OpnameForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="InventoryContext\OpnameAgg\ReportOpnameFormDto.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingFakturDto.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingForm.cs">
@@ -421,6 +419,12 @@
     </Compile>
     <Compile Include="InventoryContext\StokBrgSupplierRpt\StokBrgSupplierForm.Designer.cs">
       <DependentUpon>StokBrgSupplierForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryContext\StokHarianAgg\StokHarianForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryContext\StokHarianAgg\StokHarianForm.Designer.cs">
+      <DependentUpon>StokHarianForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InventoryContext\WarehouseAgg\WarehouseForm.cs">
       <SubType>Form</SubType>
@@ -664,6 +668,9 @@
     <EmbeddedResource Include="InventoryContext\StokBrgSupplierRpt\StokBrgSupplierForm.resx">
       <DependentUpon>StokBrgSupplierForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="InventoryContext\StokHarianAgg\StokHarianForm.resx">
+      <DependentUpon>StokHarianForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PurchaseContext\InvoiceAgg\InvoiceForm.resx">
       <DependentUpon>InvoiceForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -716,9 +723,6 @@
     <None Include="Resources\icons8_user_account_32.png" />
     <EmbeddedResource Include="InventoryContext\StokBalanceRpt\StokBalanceInfoForm.resx">
       <DependentUpon>StokBalanceInfoForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="InventoryContext\OpnameAgg\OpnameForm.resx">
-      <DependentUpon>OpnameForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\PackingAgg\PackingForm.resx">
       <DependentUpon>PackingForm.cs</DependentUpon>
@@ -831,6 +835,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SharedForm\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="btr.distrib_TemporaryKey.pfx" />
     <None Include="packages.config" />

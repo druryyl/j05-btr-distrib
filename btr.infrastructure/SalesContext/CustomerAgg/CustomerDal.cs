@@ -23,12 +23,12 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
         {
             const string sql = @"
             INSERT INTO BTR_Customer(
-                CustomerId, CustomerName, WilayahId, KlasifikasiId, HargaTypeId, 
+                CustomerId, CustomerName, CustomerCode, WilayahId, KlasifikasiId, HargaTypeId, 
                 Address1, Address2, Kota, KodePos, NoTelp, NoFax, 
                 Npwp, Nppkp, NamaWp, AddressWp, AddressWp2, IsKenaPajak, 
                 IsSuspend, Plafond, CreditBalance)
             VALUES (
-                @CustomerId, @CustomerName, @WilayahId, @KlasifikasiId, @HargaTypeId, 
+                @CustomerId, @CustomerName, @CustomerCode, @WilayahId, @KlasifikasiId, @HargaTypeId, 
                 @Address1, @Address2, @Kota, @KodePos, @NoTelp, @NoFax, 
                 @Npwp, @Nppkp, @NamaWp, @AddressWp, @AddressWp2, @IsKenaPajak, 
                 @IsSuspend, @Plafond, @CreditBalance)";
@@ -36,6 +36,7 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
             var dp = new DynamicParameters();
             dp.AddParam("@CustomerId", model.CustomerId, SqlDbType.VarChar);
             dp.AddParam("@CustomerName", model.CustomerName, SqlDbType.VarChar);
+            dp.AddParam("@CustomerCode", model.CustomerCode, SqlDbType.VarChar);
             
             dp.AddParam("@WilayahId", model.WilayahId, SqlDbType.VarChar);
             dp.AddParam("@KlasifikasiId", model.KlasifikasiId, SqlDbType.VarChar);
@@ -74,6 +75,7 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
             SET
                 CustomerId = @CustomerId,
                 CustomerName = @CustomerName,
+                CustomerCode = @CustomerCode,
                 WilayahId = @WilayahId,
                 KlasifikasiId = @KlasifikasiId,
                 HargaTypeId = @HargaTypeId,
@@ -99,6 +101,7 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
             var dp = new DynamicParameters();
             dp.AddParam("@CustomerId", model.CustomerId, SqlDbType.VarChar);
             dp.AddParam("@CustomerName", model.CustomerName, SqlDbType.VarChar);
+            dp.AddParam("@CustomerCode", model.CustomerCode, SqlDbType.VarChar);
 
             dp.AddParam("@WilayahId", model.WilayahId, SqlDbType.VarChar);
             dp.AddParam("@KlasifikasiId", model.KlasifikasiId, SqlDbType.VarChar);

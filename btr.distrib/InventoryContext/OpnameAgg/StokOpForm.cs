@@ -294,7 +294,7 @@ namespace btr.distrib.InventoryContext.OpnameAgg
 
             var qtys = ParseStringMultiNumber(qtyOpnameInputStr,2);
 
-            if (qtys[0] > conversion)
+            if (qtys[1] > conversion)
             {
                 var addedQty = Convert.ToInt16(qtys[0] / conversion);
                 qtys[1] += addedQty;

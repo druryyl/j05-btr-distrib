@@ -136,16 +136,15 @@ namespace btr.distrib.InventoryContext.ImportOpnameAgg
 
             if (qtyAdjust > 0)
             {
-                var req = new AddStokRequest(opname.BrgId, opname.WarehouseId, qtyAdjust, opname.Satuan1, opname.Nilai, opname.OpnameId, "OPNAME", "Import Opname");
+                var req = new AddStokRequest(opname.BrgId, opname.WarehouseId, qtyAdjust, opname.Satuan1, opname.Nilai, opname.OpnameId, "OPNAME", "Import Opname", opname.OpnameDate);
                 _addStokWorker.Execute(req);
             }
 
             if (qtyAdjust < 0)
             {
-                var req = new RemoveFifoStokRequest(opname.BrgId, opname.WarehouseId, qtyAdjust * (-1), opname.Satuan1, opname.Nilai, opname.OpnameId, "OPNAME", "Import Opname");
+                var req = new RemoveFifoStokRequest(opname.BrgId, opname.WarehouseId, qtyAdjust * (-1), opname.Satuan1, opname.Nilai, opname.OpnameId, "OPNAME", "Import Opname", opname.OpnameDate);
                 _removeFifoStokWorker.Execute(req);
             }
         }
-
     }
 }
