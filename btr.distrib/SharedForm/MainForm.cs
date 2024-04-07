@@ -268,9 +268,9 @@ namespace btr.distrib.SharedForm
 
         private void IT3PackingButton_Click(object sender, EventArgs e)
         {
-            if (BringMdiChildToFrontIfLoaded<PackingForm>())
+            if (BringMdiChildToFrontIfLoaded<Packing2Form>())
                 return;
-            var form = _servicesProvider.GetRequiredService<PackingForm>();
+            var form = _servicesProvider.GetRequiredService<Packing2Form>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
