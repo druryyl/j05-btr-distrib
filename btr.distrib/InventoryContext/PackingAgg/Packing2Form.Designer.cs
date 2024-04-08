@@ -49,6 +49,7 @@
             this.WarehouseCombo = new System.Windows.Forms.ComboBox();
             this.DriverCombo = new System.Windows.Forms.ComboBox();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.SearchButton = new System.Windows.Forms.Button();
             this.SearchText = new System.Windows.Forms.TextBox();
@@ -56,28 +57,37 @@
             this.Faktur1Date = new System.Windows.Forms.DateTimePicker();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.ListFakturGrid = new Syncfusion.WinForms.DataGrid.SfDataGrid();
+            this.FakturGrid = new Syncfusion.WinForms.DataGrid.SfDataGrid();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.FakturSelectedGrid = new Syncfusion.WinForms.DataGrid.SfDataGrid();
+            this.FakturSelectedBrgGrid = new Syncfusion.WinForms.DataGrid.SfDataGrid();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.PerFakturAtasGrid = new Syncfusion.WinForms.DataGrid.SfDataGrid();
-            this.PerFakturBawahGrid = new Syncfusion.WinForms.DataGrid.SfDataGrid();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.SupplierGrid = new Syncfusion.WinForms.DataGrid.SfDataGrid();
+            this.SupplierBrgGrid = new Syncfusion.WinForms.DataGrid.SfDataGrid();
             this.panel1.SuspendLayout();
             this.InfoStatusStrip.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ListFakturGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FakturGrid)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PerFakturAtasGrid)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PerFakturBawahGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FakturSelectedGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FakturSelectedBrgGrid)).BeginInit();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SupplierGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SupplierBrgGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -299,6 +309,15 @@
             this.panel3.Size = new System.Drawing.Size(474, 144);
             this.panel3.TabIndex = 3;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(13, 102);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(38, 13);
+            this.label8.TabIndex = 16;
+            this.label8.Text = "label8";
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -358,7 +377,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.ListFakturGrid);
+            this.tabPage1.Controls.Add(this.FakturGrid);
             this.tabPage1.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -368,19 +387,21 @@
             this.tabPage1.Text = "List Faktur";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // ListFakturGrid
+            // FakturGrid
             // 
-            this.ListFakturGrid.AccessibleName = "Table";
-            this.ListFakturGrid.AllowResizingColumns = true;
-            this.ListFakturGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.FakturGrid.AccessibleName = "Table";
+            this.FakturGrid.AllowResizingColumns = true;
+            this.FakturGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ListFakturGrid.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ListFakturGrid.Location = new System.Drawing.Point(6, 6);
-            this.ListFakturGrid.Name = "ListFakturGrid";
-            this.ListFakturGrid.Size = new System.Drawing.Size(913, 296);
-            this.ListFakturGrid.TabIndex = 0;
-            this.ListFakturGrid.Text = "ListFakturGrid";
+            this.FakturGrid.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FakturGrid.Location = new System.Drawing.Point(6, 6);
+            this.FakturGrid.Name = "FakturGrid";
+            this.FakturGrid.Size = new System.Drawing.Size(913, 296);
+            this.FakturGrid.Style.HeaderStyle.BackColor = System.Drawing.Color.CadetBlue;
+            this.FakturGrid.Style.RowHeaderStyle.BackColor = System.Drawing.Color.CadetBlue;
+            this.FakturGrid.TabIndex = 0;
+            this.FakturGrid.Text = "ListFakturGrid";
             // 
             // tabPage2
             // 
@@ -393,35 +414,6 @@
             this.tabPage2.Text = "List Brg Per Faktur";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // tabPage3
-            // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(925, 308);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "List Brg Per Supplier";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.PowderBlue;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(864, 496);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Save";
-            this.button1.UseVisualStyleBackColor = false;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(13, 102);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(38, 13);
-            this.label8.TabIndex = 16;
-            this.label8.Text = "label8";
-            // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -431,38 +423,109 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.PerFakturAtasGrid);
+            this.splitContainer1.Panel1.Controls.Add(this.FakturSelectedGrid);
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.PerFakturBawahGrid);
+            this.splitContainer1.Panel2.Controls.Add(this.FakturSelectedBrgGrid);
             this.splitContainer1.Size = new System.Drawing.Size(919, 302);
             this.splitContainer1.SplitterDistance = 108;
             this.splitContainer1.TabIndex = 0;
             // 
-            // PerFakturAtasGrid
+            // FakturSelectedGrid
             // 
-            this.PerFakturAtasGrid.AccessibleName = "Table";
-            this.PerFakturAtasGrid.AllowResizingColumns = true;
-            this.PerFakturAtasGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PerFakturAtasGrid.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PerFakturAtasGrid.Location = new System.Drawing.Point(0, 0);
-            this.PerFakturAtasGrid.Name = "PerFakturAtasGrid";
-            this.PerFakturAtasGrid.Size = new System.Drawing.Size(919, 108);
-            this.PerFakturAtasGrid.TabIndex = 1;
-            this.PerFakturAtasGrid.Text = "sfDataGrid1";
+            this.FakturSelectedGrid.AccessibleName = "Table";
+            this.FakturSelectedGrid.AllowResizingColumns = true;
+            this.FakturSelectedGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FakturSelectedGrid.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FakturSelectedGrid.Location = new System.Drawing.Point(0, 0);
+            this.FakturSelectedGrid.Name = "FakturSelectedGrid";
+            this.FakturSelectedGrid.Size = new System.Drawing.Size(919, 108);
+            this.FakturSelectedGrid.Style.HeaderStyle.BackColor = System.Drawing.Color.PowderBlue;
+            this.FakturSelectedGrid.Style.RowHeaderStyle.BackColor = System.Drawing.Color.PowderBlue;
+            this.FakturSelectedGrid.TabIndex = 1;
+            this.FakturSelectedGrid.Text = "sfDataGrid1";
             // 
-            // PerFakturBawahGrid
+            // FakturSelectedBrgGrid
             // 
-            this.PerFakturBawahGrid.AccessibleName = "Table";
-            this.PerFakturBawahGrid.AllowResizingColumns = true;
-            this.PerFakturBawahGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PerFakturBawahGrid.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PerFakturBawahGrid.Location = new System.Drawing.Point(0, 0);
-            this.PerFakturBawahGrid.Name = "PerFakturBawahGrid";
-            this.PerFakturBawahGrid.Size = new System.Drawing.Size(919, 190);
-            this.PerFakturBawahGrid.TabIndex = 1;
-            this.PerFakturBawahGrid.Text = "sfDataGrid2";
+            this.FakturSelectedBrgGrid.AccessibleName = "Table";
+            this.FakturSelectedBrgGrid.AllowResizingColumns = true;
+            this.FakturSelectedBrgGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FakturSelectedBrgGrid.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FakturSelectedBrgGrid.Location = new System.Drawing.Point(0, 0);
+            this.FakturSelectedBrgGrid.Name = "FakturSelectedBrgGrid";
+            this.FakturSelectedBrgGrid.Size = new System.Drawing.Size(919, 190);
+            this.FakturSelectedBrgGrid.Style.HeaderStyle.BackColor = System.Drawing.Color.PowderBlue;
+            this.FakturSelectedBrgGrid.Style.RowHeaderStyle.BackColor = System.Drawing.Color.PowderBlue;
+            this.FakturSelectedBrgGrid.TabIndex = 1;
+            this.FakturSelectedBrgGrid.Text = "sfDataGrid2";
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.splitContainer2);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(925, 308);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "List Brg Per Supplier";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.BackColor = System.Drawing.Color.PowderBlue;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Location = new System.Drawing.Point(864, 496);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Save";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.SupplierGrid);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.SupplierBrgGrid);
+            this.splitContainer2.Size = new System.Drawing.Size(925, 308);
+            this.splitContainer2.SplitterDistance = 315;
+            this.splitContainer2.TabIndex = 0;
+            // 
+            // SupplierGrid
+            // 
+            this.SupplierGrid.AccessibleName = "Table";
+            this.SupplierGrid.AllowResizingColumns = true;
+            this.SupplierGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SupplierGrid.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SupplierGrid.Location = new System.Drawing.Point(0, 0);
+            this.SupplierGrid.Name = "SupplierGrid";
+            this.SupplierGrid.Size = new System.Drawing.Size(315, 308);
+            this.SupplierGrid.Style.HeaderStyle.BackColor = System.Drawing.Color.PowderBlue;
+            this.SupplierGrid.Style.RowHeaderStyle.BackColor = System.Drawing.Color.PowderBlue;
+            this.SupplierGrid.TabIndex = 2;
+            this.SupplierGrid.Text = "sfDataGrid1";
+            // 
+            // SupplierBrgGrid
+            // 
+            this.SupplierBrgGrid.AccessibleName = "Table";
+            this.SupplierBrgGrid.AllowResizingColumns = true;
+            this.SupplierBrgGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SupplierBrgGrid.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SupplierBrgGrid.Location = new System.Drawing.Point(0, 0);
+            this.SupplierBrgGrid.Name = "SupplierBrgGrid";
+            this.SupplierBrgGrid.Size = new System.Drawing.Size(606, 308);
+            this.SupplierBrgGrid.Style.HeaderStyle.BackColor = System.Drawing.Color.PowderBlue;
+            this.SupplierBrgGrid.Style.RowHeaderStyle.BackColor = System.Drawing.Color.PowderBlue;
+            this.SupplierBrgGrid.TabIndex = 2;
+            this.SupplierBrgGrid.Text = "sfDataGrid1";
             // 
             // Packing2Form
             // 
@@ -489,14 +552,21 @@
             this.panel3.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ListFakturGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FakturGrid)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.PerFakturAtasGrid)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PerFakturBawahGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FakturSelectedGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FakturSelectedBrgGrid)).EndInit();
+            this.tabPage3.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.SupplierGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SupplierBrgGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -534,11 +604,14 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
-        private Syncfusion.WinForms.DataGrid.SfDataGrid ListFakturGrid;
+        private Syncfusion.WinForms.DataGrid.SfDataGrid FakturGrid;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private Syncfusion.WinForms.DataGrid.SfDataGrid PerFakturAtasGrid;
-        private Syncfusion.WinForms.DataGrid.SfDataGrid PerFakturBawahGrid;
+        private Syncfusion.WinForms.DataGrid.SfDataGrid FakturSelectedGrid;
+        private Syncfusion.WinForms.DataGrid.SfDataGrid FakturSelectedBrgGrid;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private Syncfusion.WinForms.DataGrid.SfDataGrid SupplierGrid;
+        private Syncfusion.WinForms.DataGrid.SfDataGrid SupplierBrgGrid;
     }
 }

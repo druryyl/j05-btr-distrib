@@ -2,18 +2,20 @@
 using btr.application.InventoryContext.WarehouseAgg;
 using btr.application.SalesContext.FakturAgg.Contracts;
 using btr.nuna.Domain;
-using Syncfusion.WinForms.DataGrid;
 using Syncfusion.WinForms.DataGrid.Events;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using btr.application.SalesContext.FakturAgg.Workers;
 using btr.domain.SalesContext.FakturAgg;
 using Mapster;
-using Syncfusion.DataSource;
+using btr.application.BrgContext.BrgAgg;
+using btr.domain.BrgContext.BrgAgg;
+using btr.application.PurchaseContext.SupplierAgg.Contracts;
+using btr.domain.PurchaseContext.SupplierAgg;
 
 namespace btr.distrib.InventoryContext.PackingAgg
 {
@@ -23,15 +25,24 @@ namespace btr.distrib.InventoryContext.PackingAgg
         private readonly IDriverDal _driverDal;
         private readonly IFakturDal _fakturDal;
         private readonly IFakturBuilder _fakturBuilder;
-        private readonly ObservableCollection<Packing2FakturDto> _listFaktur = new ObservableCollection<Packing2FakturDto>();
-        private readonly ObservableCollection<Packing2FakturDto> _listFakturSelected = new ObservableCollection<Packing2FakturDto>();
-        private readonly ObservableCollection<Packing2FakturBrgDto> _listFakturSelectedBrg =
-            new ObservableCollection<Packing2FakturBrgDto>();
-        
+        private readonly IBrgDal _brgDal;
+        private readonly ISupplierDal _supplierDal;
+
+        private readonly ObservableCollection<Packing2FakturDto> _listFaktur;
+        private readonly ObservableCollection<Packing2FakturDto> _listFakturSelected;
+        private readonly ObservableCollection<Packing2FakturBrgDto> _listFakturSelectedBrg;
+        private readonly ObservableCollection<Packing2SupplierDto> _listSupplier;
+        private readonly ObservableCollection<Packing2SupplierBrgDto> _listSupplierBrg;
+
+
+        private readonly List<Packing2AllBrgSupplierDto> _listAllBrg;
+
         public Packing2Form(IWarehouseDal warehouseDal,
             IDriverDal driverDal,
-            IFakturDal fakturDal, 
-            IFakturBuilder fakturBuilder)
+            IFakturDal fakturDal,
+            IFakturBuilder fakturBuilder,
+            IBrgDal brgDal,
+            ISupplierDal supplierDal)
         {
             InitializeComponent();
 
@@ -40,9 +51,18 @@ namespace btr.distrib.InventoryContext.PackingAgg
             _fakturDal = fakturDal;
             _fakturBuilder = fakturBuilder;
 
+            _listFaktur = new ObservableCollection<Packing2FakturDto>();
+            _listFakturSelected = new ObservableCollection<Packing2FakturDto>();
+            _listFakturSelectedBrg = new ObservableCollection<Packing2FakturBrgDto>();
+            _listSupplier = new ObservableCollection<Packing2SupplierDto>();
+            _listSupplierBrg = new ObservableCollection<Packing2SupplierBrgDto>();
+            _listAllBrg = new List<Packing2AllBrgSupplierDto>();
+
             InitComboBox();
-            InitGrid();            
+            InitGrid();
             InitEventHandler();
+            _brgDal = brgDal;
+            _supplierDal = supplierDal;
         }
 
         private void InitComboBox()
@@ -59,61 +79,117 @@ namespace btr.distrib.InventoryContext.PackingAgg
         private void InitGrid()
         {
             //  Grid Faktur
-            ListFakturGrid.DataSource = _listFaktur;
-            ListFakturGrid.Style.CellStyle.Font.Facename = "Consolas";
-            ListFakturGrid.Columns["FakturId"].Visible = false;
-            ListFakturGrid.Columns["FakturCode"].Width = 90;
-            ListFakturGrid.Columns["FakturDate"].Width = 90;
-            ListFakturGrid.Columns["CustomerName"].Width = 225;
-            ListFakturGrid.Columns["Address"].Width = 225;
-            ListFakturGrid.Columns["Kota"].Width = 100;
-            ListFakturGrid.Columns["GrandTotal"].Width = 100;
-            ListFakturGrid.Columns["Pilih"].Width = 50;
-            ListFakturGrid.CellCheckBoxClick += ListFakturGrid_CellCheckBoxClick;
+            FakturGrid.DataSource = _listFaktur;
+            FakturGrid.Style.CellStyle.Font.Facename = "Consolas";
+            FakturGrid.Columns["FakturId"].Visible = false;
+            FakturGrid.Columns["FakturCode"].Width = 90;
+            FakturGrid.Columns["FakturDate"].Width = 90;
+            FakturGrid.Columns["CustomerName"].Width = 225;
+            FakturGrid.Columns["Address"].Width = 225;
+            FakturGrid.Columns["Kota"].Width = 100;
+            FakturGrid.Columns["GrandTotal"].Width = 100;
+            FakturGrid.Columns["Pilih"].Width = 50;
+            FakturGrid.Style.HeaderStyle.BackColor = Color.PowderBlue;
+            FakturGrid.CellCheckBoxClick += FakturGrid_CellCheckBoxClick;
             
             //  Grid PerBrg-Faktur
-            PerFakturAtasGrid.DataSource = _listFakturSelected;
-            PerFakturAtasGrid.Style.CellStyle.Font.Facename = "Consolas";
-            PerFakturAtasGrid.Columns["FakturId"].Visible = false;
-            PerFakturAtasGrid.Columns["FakturCode"].Width = 90;
-            PerFakturAtasGrid.Columns["FakturDate"].Width = 90;
-            PerFakturAtasGrid.Columns["CustomerName"].Width = 225;
-            PerFakturAtasGrid.Columns["Address"].Width = 225;
-            PerFakturAtasGrid.Columns["Kota"].Width = 100;
-            PerFakturAtasGrid.Columns["GrandTotal"].Width = 100;
-            PerFakturAtasGrid.Columns["Pilih"].Width = 50;
-            PerFakturAtasGrid.CellCheckBoxClick += PerFakturAtasGrid_CellCheckBoxClick;
-            PerFakturAtasGrid.CurrentCellActivated += PerFakturAtasGrid_CurrentCellActivated;
+            FakturSelectedGrid.DataSource = _listFakturSelected;
+            FakturSelectedGrid.Style.CellStyle.Font.Facename = "Consolas";
+            FakturSelectedGrid.Columns["FakturId"].Visible = false;
+            FakturSelectedGrid.Columns["FakturCode"].Width = 90;
+            FakturSelectedGrid.Columns["FakturDate"].Width = 90;
+            FakturSelectedGrid.Columns["CustomerName"].Width = 225;
+            FakturSelectedGrid.Columns["Address"].Width = 225;
+            FakturSelectedGrid.Columns["Kota"].Width = 100;
+            FakturSelectedGrid.Columns["GrandTotal"].Width = 100;
+            FakturSelectedGrid.Columns["Pilih"].Width = 50;
+            FakturSelectedGrid.Style.HeaderStyle.BackColor = Color.PowderBlue;
+            FakturSelectedGrid.CellCheckBoxClick += FakturSelectedGrid_CellCheckBoxClick;
+            FakturSelectedGrid.CurrentCellActivated += FakturSelectedGrid_CurrentCellActivated;
 
-            PerFakturBawahGrid.DataSource = _listFakturSelectedBrg;
-            PerFakturBawahGrid.Style.CellStyle.Font.Facename = "Consolas";
-            PerFakturBawahGrid.Columns["BrgId"].Width = 90;
-            PerFakturBawahGrid.Columns["BrgCode"].Width = 120;
-            PerFakturBawahGrid.Columns["BrgName"].Width = 250;
-            PerFakturBawahGrid.Columns["QtyBesar"].Width = 80;
-            PerFakturBawahGrid.Columns["SatBesar"].Width = 50;
-            PerFakturBawahGrid.Columns["QtyKecil"].Width = 80;
-            PerFakturBawahGrid.Columns["SatKecil"].Width = 50;
-            PerFakturBawahGrid.Columns["HargaJual"].Width = 120;            
-            
+            FakturSelectedBrgGrid.DataSource = _listFakturSelectedBrg;
+            FakturSelectedBrgGrid.Style.CellStyle.Font.Facename = "Consolas";
+            FakturSelectedBrgGrid.Columns["BrgId"].Width = 90;
+            FakturSelectedBrgGrid.Columns["BrgCode"].Width = 120;
+            FakturSelectedBrgGrid.Columns["BrgName"].Width = 250;
+            FakturSelectedBrgGrid.Columns["QtyBesar"].Width = 80;
+            FakturSelectedBrgGrid.Columns["SatBesar"].Width = 50;
+            FakturSelectedBrgGrid.Columns["QtyKecil"].Width = 80;
+            FakturSelectedBrgGrid.Columns["SatKecil"].Width = 50;
+            FakturSelectedBrgGrid.Columns["HargaJual"].Width = 120;            
+            FakturSelectedBrgGrid.Style.HeaderStyle.BackColor = Color.PowderBlue;
+
+            SupplierGrid.DataSource = _listSupplier;
+            SupplierGrid.Style.CellStyle.Font.Facename = "Consolas";
+            SupplierGrid.Columns["SupplierId"].Visible = false;
+            SupplierGrid.Columns["SupplierName"].Width = 220;
+            SupplierGrid.Columns["JumItem"].Width = 80;
+            SupplierGrid.Style.HeaderStyle.BackColor = Color.PowderBlue;
+            SupplierGrid.CurrentCellActivated += SupplierGrid_CurrentCellActivated;
+
+            SupplierBrgGrid.DataSource = _listSupplierBrg;
+            SupplierBrgGrid.Style.CellStyle.Font.Facename = "Consolas";
+            SupplierBrgGrid.Columns["BrgId"].Visible = false;
+            SupplierBrgGrid.Columns["BrgCode"].Width = 75;
+            SupplierBrgGrid.Columns["BrgName"].Width = 200;
+            SupplierBrgGrid.Columns["QtyBesar"].Width = 65;
+            SupplierBrgGrid.Columns["SatBesar"].Width = 60;
+            SupplierBrgGrid.Columns["QtyKecil"].Width = 65;
+            SupplierBrgGrid.Columns["SatKecil"].Width = 60;
+            SupplierBrgGrid.Columns["Faktur"].Width = 65;
+            SupplierBrgGrid.Style.HeaderStyle.BackColor = Color.PowderBlue;
         }
 
-        private void PerFakturAtasGrid_CurrentCellActivated(object sender, CurrentCellActivatedEventArgs e)
+        private void SupplierGrid_CurrentCellActivated(object sender, CurrentCellActivatedEventArgs e)
+        {
+            var row = e.DataRow.RowIndex;
+            var supplierId = _listSupplier[row - 1].SupplierId;
+
+            var listBrg = (
+                from c in _listAllBrg
+                where c.SupplierId == supplierId
+                group c by new { c.BrgId, c.BrgCode, c.BrgName, c.SatBesar, c.SatKecil } into g
+                select new Packing2SupplierBrgDto
+                {
+                    BrgId = g.Key.BrgId,
+                    BrgCode = g.Key.BrgCode,
+                    BrgName = g.Key.BrgName,
+                    SatBesar = g.Key.SatBesar,
+                    SatKecil = g.Key.SatKecil,
+                    QtyBesar = g.Sum(x => x.QtyBesar),
+                    QtyKecil = g.Sum(x => x.QtyKecil),
+                    Faktur = g.Select(x => x.FakturId).Distinct().Count()
+                }).ToList();
+
+            _listSupplierBrg.Clear();
+            listBrg.ForEach(x => _listSupplierBrg.Add(x));
+        }
+
+        private void InitEventHandler()
+        {
+            SearchButton.Click += SearchButton_Click;
+        }
+
+        private void FakturSelectedGrid_CurrentCellActivated(object sender, CurrentCellActivatedEventArgs e)
         {
             var row = e.DataRow.RowIndex;
             var fakturId = _listFakturSelected[row - 1].FakturId;
+            var listBrg =
+                from c in _listAllBrg
+                where c.FakturId == fakturId
+                select new Packing2FakturBrgDto(c.BrgId, c.BrgName, c.BrgCode,
+                    c.QtyBesar, c.SatBesar, c.QtyKecil, c.SatKecil, c.HargaJual);
+
+
             var faktur = _fakturBuilder.Load(new FakturModel(fakturId)).Build();
             _listFakturSelectedBrg.Clear();
-            foreach (var item in faktur.ListItem)
+            foreach (var item in listBrg)
             {
-                _listFakturSelectedBrg.Add(new Packing2FakturBrgDto(item.BrgId, item.BrgName, item.BrgCode, 
-                    item.QtyBesar, item.SatBesar, item.QtyKecil, item.SatKecil, item.HrgSat));
+                _listFakturSelectedBrg.Add(item);
             }
-
         }
 
-
-        private void PerFakturAtasGrid_CellCheckBoxClick(object sender, CellCheckBoxClickEventArgs e)
+        private void FakturSelectedGrid_CellCheckBoxClick(object sender, CellCheckBoxClickEventArgs e)
         {
             var row = e.RowIndex;
             var fakturSelected = _listFakturSelected[row -1];
@@ -122,6 +198,7 @@ namespace btr.distrib.InventoryContext.PackingAgg
             {
                 if (item.FakturId != fakturId) continue;
                 _listFakturSelected.Remove(item);
+                RemoveFakturFromAllBrg(item.FakturId);
                 break;
             }
             var faktur = _listFaktur.FirstOrDefault(x => x.FakturId == fakturId) ?? new Packing2FakturDto();
@@ -129,12 +206,7 @@ namespace btr.distrib.InventoryContext.PackingAgg
 
         }
 
-        private void InitEventHandler()
-        {
-            SearchButton.Click += SearchButton_Click;
-        }
-
-        private void ListFakturGrid_CellCheckBoxClick(object sender, CellCheckBoxClickEventArgs e)
+        private void FakturGrid_CellCheckBoxClick(object sender, CellCheckBoxClickEventArgs e)
         {
             var row = e.RowIndex;
             var faktur = _listFaktur[row -1];
@@ -143,11 +215,13 @@ namespace btr.distrib.InventoryContext.PackingAgg
                 var newFaktur = faktur.Adapt<Packing2FakturDto>();
                 newFaktur.Pilih = true;
                 _listFakturSelected.Add(newFaktur);
+                AddFakturToAllBrg(faktur.FakturId);
             }
             else
             {
                 var fakturSelected = _listFakturSelected.FirstOrDefault(x => x.FakturId == faktur.FakturId);
                 _listFakturSelected.Remove(fakturSelected);
+                RemoveFakturFromAllBrg(fakturSelected.FakturId);
             }
         }
 
@@ -165,8 +239,56 @@ namespace btr.distrib.InventoryContext.PackingAgg
                 Address = x.Address,
                 Kota = x.Kota,
                 GrandTotal = x.GrandTotal,
-                Pilih = false,
+                Pilih = _listFakturSelected.Any(y => y.FakturId == x.FakturId) ? true : false,
             }));
+        }
+
+        private void AddFakturToAllBrg(string fakturId)
+        {
+            var faktur = _fakturBuilder.Load(new FakturModel(fakturId)).Build();
+            foreach(var item in faktur.ListItem)
+            {
+                var brg = _brgDal.GetData(new BrgModel(item.BrgId)) ?? new BrgModel { SupplierId = string.Empty};
+                _listAllBrg.Add(new Packing2AllBrgSupplierDto(item.FakturId, brg.SupplierId, 
+                    item.BrgId, item.BrgName, item.BrgCode, 
+                    item.QtyBesar, item.SatBesar, 
+                    item.QtyKecil, item.SatKecil, item.HrgSat));
+            }
+            UpdateSupplierGrid();
+            UpdateStatusBar();
+        }
+
+        private void UpdateStatusBar()
+        {
+            var jumFaktur = _listAllBrg.Select(x => x.FakturId).Distinct().Count();
+            var jumItemBrg = _listAllBrg.Select(x => x.BrgId).Distinct().Count();
+            var jumSupplier = _listAllBrg.Select(x => x.SupplierId).Distinct().Count();
+
+            JumlahFakturStatusLabel.Text = $"Jumlah Faktur: {jumFaktur}";
+            JumlahItemStatusLabel.Text = $"Jumlah Item Brg: {jumItemBrg}";
+            JumlahSupplierStatusLabel.Text = $"Jumlah Supplier: {jumSupplier}";
+        }
+
+        private void RemoveFakturFromAllBrg(string fakturId)
+        {
+            _listAllBrg.RemoveAll(x => x.FakturId == fakturId);
+            UpdateSupplierGrid();
+            UpdateStatusBar();
+        }
+
+        private void UpdateSupplierGrid()
+        {
+            var listAllSupplier = _supplierDal.ListData() ?? new List<SupplierModel>();
+            var listSupplierGroupByBrg =
+                from c in _listAllBrg
+                join d in listAllSupplier on c.SupplierId equals d.SupplierId
+                group new { c.SupplierId, d.SupplierName, c.BrgId, c.BrgName } 
+                by new { c.SupplierId, d.SupplierName } into g
+                select new Packing2SupplierDto(g.Key.SupplierId,g.Key.SupplierName, g.Select(s => s.BrgId).Distinct().Count());
+
+            _listSupplier.Clear();
+            foreach(var item in listSupplierGroupByBrg)
+                _listSupplier.Add(item);
         }
     }
 
@@ -181,6 +303,7 @@ namespace btr.distrib.InventoryContext.PackingAgg
         public decimal GrandTotal { get; set; }
         public bool Pilih { get; set; }
     }
+
     internal class Packing2FakturBrgDto
     {
         public Packing2FakturBrgDto(string id, string name, string code,
@@ -205,6 +328,63 @@ namespace btr.distrib.InventoryContext.PackingAgg
         public int QtyKecil { get; private set; }
         public string SatKecil { get; private set; }
         public decimal HargaJual { get; private set; }
+    }
+
+    internal class Packing2SupplierDto
+    {
+        public Packing2SupplierDto(string id, string name, int jumItem)
+        {
+            SupplierId = id;
+            SupplierName = name;
+            JumItem = jumItem;
+        }
+        public string SupplierId { get; private set; }  
+        public string SupplierName { get; private set; }
+        public int JumItem { get; private set; }
+    }
+
+    internal class Packing2AllBrgSupplierDto
+    {
+        public Packing2AllBrgSupplierDto(string fakturId, 
+            string supplierId,  string brgId, string brgName, string code,
+            int qtyBesar, string satBesar, int qtyKecil, string satKecil,
+            decimal hargaJual)
+        {
+            FakturId = fakturId;
+            SupplierId = supplierId;
+            BrgId = brgId;
+            BrgName = brgName;
+            BrgCode = code;
+            QtyBesar = qtyBesar;
+            SatBesar = satBesar;
+            QtyKecil = qtyKecil;
+            SatKecil = satKecil;
+            HargaJual = hargaJual;
+        }
+
+        public string FakturId { get; set; }
+        public string SupplierId { get; set; }
+        public string BrgId { get; set; }
+        public string BrgCode { get; private set; }
+        public string BrgName { get; private set; }
+        public int QtyBesar { get; private set; }
+        public string SatBesar { get; private set; }
+        public int QtyKecil { get; private set; }
+        public string SatKecil { get; private set; }
+        public decimal HargaJual { get; private set; }
+    }
+
+    internal class Packing2SupplierBrgDto
+    {
+        public string BrgId { get; set; }
+        public string BrgCode { get; set; }
+        public string BrgName { get; set; }
+        public int QtyBesar { get;  set; }
+        public string SatBesar { get;  set; }
+        public int QtyKecil { get;  set; }
+        public string SatKecil { get;  set; }
+        public int Faktur { get;  set; }
+
     }
 
 }
