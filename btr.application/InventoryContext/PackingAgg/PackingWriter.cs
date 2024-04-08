@@ -1,8 +1,6 @@
 ﻿using btr.domain.InventoryContext.PackingAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace btr.application.InventoryContext.PackingAgg
 {
@@ -15,17 +13,17 @@ namespace btr.application.InventoryContext.PackingAgg
         private readonly INunaCounterBL _counter;
         private readonly IPackingDal _packingDal;
         private readonly IPackingFakturDal _packingFakturDal;
-        private readonly IPackingBrgDal _packingSupplierDal;
+        private readonly IPackingFakturBrgDal _packingFakturSupplierDal;
 
         public PackingWriter(INunaCounterBL counter, 
             IPackingDal packingDal, 
             IPackingFakturDal packingFakturDal, 
-            IPackingBrgDal packingSupplierDal)
+            IPackingFakturBrgDal packingFakturSupplierDal)
         {
             _counter = counter;
             _packingDal = packingDal;
             _packingFakturDal = packingFakturDal;
-            _packingSupplierDal = packingSupplierDal;
+            _packingFakturSupplierDal = packingFakturSupplierDal;
         }
 
         public PackingModel Save(PackingModel model)
@@ -34,10 +32,7 @@ namespace btr.application.InventoryContext.PackingAgg
                 model.PackingId = _counter.Generate("PACK", IDFormatEnum.PREFYYMnnnnnC);
 
             model.ListFaktur.ForEach(x => x.PackingId = model.PackingId);
-            model.ListSupplier.ForEach(x => x.PackingId = model.PackingId);
-            var listAllBrg = model.ListSupplier
-                .SelectMany(hdr => hdr.ListBrg, (hdr, dtl) => dtl)?.ToList()??new List<PackingBrgModel>();
-            listAllBrg.ForEach(x => x.PackingId = model.PackingId);
+            model.ListBrg.ForEach(x => x.PackingId = model.PackingId);
 
             var db = _packingDal.GetData(model);
             using (var trans = TransHelper.NewScope())
@@ -48,9 +43,9 @@ namespace btr.application.InventoryContext.PackingAgg
                     _packingDal.Update(model);
 
                 _packingFakturDal.Delete(model);
-                _packingSupplierDal.Delete(model);
+                _packingFakturSupplierDal.Delete(model);
                 _packingFakturDal.Insert(model.ListFaktur);
-                _packingSupplierDal.Insert(listAllBrg);
+                _packingFakturSupplierDal.Insert(model.ListBrg);
                 trans.Complete();
             }
 

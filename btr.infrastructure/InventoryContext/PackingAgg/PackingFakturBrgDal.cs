@@ -11,11 +11,11 @@ using Microsoft.Extensions.Options;
 
 namespace btr.infrastructure.InventoryContext.PackingAgg
 {
-    public class PackingBrgDal : IPackingBrgDal
+    public class PackingFakturBrgDal : IPackingFakturBrgDal
     {
         private readonly DatabaseOptions _opt;
 
-        public PackingBrgDal(IOptions<DatabaseOptions> opt)
+        public PackingFakturBrgDal(IOptions<DatabaseOptions> opt)
         {
             _opt = opt.Value;
         }
@@ -27,8 +27,8 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
             {
                 conn.Open();
                 bcp.AddMap("PackingId", "PackingId");
+                bcp.AddMap("FakturId", "FakturId");
                 bcp.AddMap("SupplierId", "SupplierId");
-                bcp.AddMap("NoUrut", "NoUrut");
                 bcp.AddMap("BrgId", "BrgId");
 
                 bcp.AddMap("QtyKecil", "QtyKecil");
@@ -39,7 +39,7 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
 
                 var fetched = listModel.ToList();
                 bcp.BatchSize = fetched.Count;
-                bcp.DestinationTableName = "dbo.BTR_PackingBrg";
+                bcp.DestinationTableName = "dbo.BTR_PackingFakturBrg";
                 bcp.WriteToServer(fetched.AsDataTable());
             }
         }
@@ -48,7 +48,7 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
         {
             const string sql = @"
             DELETE FROM 
-                BTR_PackingBrg
+                BTR_PackingFakturBrg
             WHERE
                 PackingId = @PackingId ";
 
@@ -65,14 +65,14 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
         {
             const string sql = @"
             SELECT
-                aa.PackingId, aa.SupplierId, aa.NoUrut, aa.BrgId, 
+                aa.PackingId, aa.FakturId, aa.SupplierId, aa.BrgId, 
                 aa.QtyKecil, aa.SatuanKecil, aa.QtyBesar, aa.SatuanBesar,
                 aa.HargaJual,
                 ISNULL(bb.SupplierName, '') AS SupplierName,
                 ISNULL(cc.BrgName, '') AS BrgName,
                 ISNULL(cc.BrgCode, '') AS BrgCode
             FROM 
-                BTR_PackingBrg aa
+                BTR_PackingFakturBrg aa
                 LEFT JOIN BTR_Supplier bb ON aa.SupplierId = bb.SupplierId
                 LEFT JOIN BTR_Brg cc ON aa.BrgId = cc.BrgId
             WHERE

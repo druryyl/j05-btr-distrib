@@ -3,7 +3,7 @@ using btr.nuna.Infrastructure;
 
 namespace btr.application.InventoryContext.PackingAgg
 {
-    public interface IPackingBrgDal :
+    public interface IPackingFakturBrgDal :
         IInsertBulk<PackingBrgModel>,
         IDelete<IPackingKey>,
         IListData<PackingBrgModel, IPackingKey>

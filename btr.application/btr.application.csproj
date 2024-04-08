@@ -145,7 +145,7 @@
     <Compile Include="InventoryContext\OpnameAgg\StokOpWriter.cs" />
     <Compile Include="InventoryContext\PackingAgg\IPackingDal.cs" />
     <Compile Include="InventoryContext\PackingAgg\IPackingFakturDal.cs" />
-    <Compile Include="InventoryContext\PackingAgg\IPackingBrgDal.cs" />
+    <Compile Include="InventoryContext\PackingAgg\IPackingFakturBrgDal.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingBuilder.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingWriter.cs" />
     <Compile Include="InventoryContext\ReturJualAgg\Contracts\IReturJualDal.cs" />

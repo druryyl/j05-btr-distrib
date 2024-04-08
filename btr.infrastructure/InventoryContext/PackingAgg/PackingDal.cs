@@ -36,7 +36,10 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
             dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
             dp.AddParam("@DriverId", model.DriverId, SqlDbType.VarChar);
             dp.AddParam("@DeliveryDate", model.DeliveryDate, SqlDbType.DateTime);
-            dp.AddParam("@Route", model.Route, SqlDbType.VarChar);
+            dp.AddParam("@TglAwalFaktur", model.TglAwalFaktur, SqlDbType.DateTime);
+            dp.AddParam("@TglAkhirFaktur", model.TglAkhirFaktur, SqlDbType.DateTime);
+            dp.AddParam("@KeywordSearch", model.KeywordSearch, SqlDbType.DateTime);
+            
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -54,7 +57,9 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
                 WarehouseId = @WarehouseId,
                 DriverId = @DriverId,
                 DeliveryDate = @DeliveryDate,
-                Route = @Route
+                TglAKhirFaktur = @TglAkhirFaktur,
+                TglAwalFaktur = @TglAwalFaktur,
+                KeywordSearch = @KeywordSearch
             WHERE
                 PackingId = @PackingId ";
 
@@ -65,7 +70,10 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
 
             dp.AddParam("@DriverId", model.DriverId, SqlDbType.VarChar);
             dp.AddParam("@DeliveryDate", model.DeliveryDate, SqlDbType.DateTime);
-            dp.AddParam("@Route", model.Route, SqlDbType.VarChar);
+
+            dp.AddParam("@TglAwalFaktur", model.TglAwalFaktur, SqlDbType.DateTime);
+            dp.AddParam("@TglAkhirFaktur", model.TglAkhirFaktur, SqlDbType.DateTime);
+            dp.AddParam("@KeywordSearch", model.KeywordSearch, SqlDbType.DateTime);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -95,7 +103,8 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
             const string sql = @"
             SELECT
                 aa.PackingId, aa.PackingDate, aa.WarehouseId,
-                aa.DriverId, aa.DeliveryDate, aa.Route,
+                aa.DriverId, aa.DeliveryDate, 
+                aa.TglAwalFaktur, aa.TglAKhirFaktur, aa.KeywordSearch,
                 ISNULL(bb.WarehouseName, '') AS WarehouseName,
                 ISNULL(cc.DriverName, '') AS DriverName
             FROM
@@ -119,7 +128,8 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
             const string sql = @"
             SELECT
                 aa.PackingId, aa.PackingDate, aa.WarehouseId,
-                aa.DriverId, aa.DeliveryDate, aa.Route,
+                aa.DriverId, aa.DeliveryDate, 
+                aa.TglAwalFaktur, aa.TglAKhirFaktur, aa.KeywordSearch,
                 ISNULL(bb.WarehouseName, '') AS WarehouseName,
                 ISNULL(cc.DriverName, '') AS DriverName
             FROM
