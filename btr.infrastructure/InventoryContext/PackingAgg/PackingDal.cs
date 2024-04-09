@@ -49,6 +49,7 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
             }
         }
 
+     
         public void Update(PackingModel model)
         {
             const string sql = @"
