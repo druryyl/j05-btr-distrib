@@ -13,9 +13,15 @@ using btr.application.SalesContext.FakturAgg.Workers;
 using btr.domain.SalesContext.FakturAgg;
 using Mapster;
 using btr.application.BrgContext.BrgAgg;
+using btr.application.InventoryContext.PackingAgg;
 using btr.domain.BrgContext.BrgAgg;
 using btr.application.PurchaseContext.SupplierAgg.Contracts;
+using btr.distrib.SharedForm;
+using btr.domain.InventoryContext.DriverAgg;
+using btr.domain.InventoryContext.PackingAgg;
+using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.PurchaseContext.SupplierAgg;
+using btr.domain.SupportContext.UserAgg;
 
 namespace btr.distrib.InventoryContext.PackingAgg
 {
@@ -28,6 +34,9 @@ namespace btr.distrib.InventoryContext.PackingAgg
         private readonly IBrgDal _brgDal;
         private readonly ISupplierDal _supplierDal;
 
+        private readonly IPackingBuilder _builder;
+        private readonly IPackingWriter _writer;
+
         private readonly ObservableCollection<Packing2FakturDto> _listFaktur;
         private readonly ObservableCollection<Packing2FakturDto> _listFakturSelected;
         private readonly ObservableCollection<Packing2FakturBrgDto> _listFakturSelectedBrg;
@@ -35,14 +44,16 @@ namespace btr.distrib.InventoryContext.PackingAgg
         private readonly ObservableCollection<Packing2SupplierBrgDto> _listSupplierBrg;
 
 
-        private readonly List<Packing2AllBrgSupplierDto> _listAllBrg;
+        private readonly List<Packing2BrgDto> _listBrg;
 
         public Packing2Form(IWarehouseDal warehouseDal,
             IDriverDal driverDal,
             IFakturDal fakturDal,
             IFakturBuilder fakturBuilder,
             IBrgDal brgDal,
-            ISupplierDal supplierDal)
+            ISupplierDal supplierDal, 
+            IPackingBuilder builder, 
+            IPackingWriter writer)
         {
             InitializeComponent();
 
@@ -50,19 +61,21 @@ namespace btr.distrib.InventoryContext.PackingAgg
             _driverDal = driverDal;
             _fakturDal = fakturDal;
             _fakturBuilder = fakturBuilder;
+            _brgDal = brgDal;
+            _supplierDal = supplierDal;
+            _builder = builder;
+            _writer = writer;
 
             _listFaktur = new ObservableCollection<Packing2FakturDto>();
             _listFakturSelected = new ObservableCollection<Packing2FakturDto>();
             _listFakturSelectedBrg = new ObservableCollection<Packing2FakturBrgDto>();
             _listSupplier = new ObservableCollection<Packing2SupplierDto>();
             _listSupplierBrg = new ObservableCollection<Packing2SupplierBrgDto>();
-            _listAllBrg = new List<Packing2AllBrgSupplierDto>();
+            _listBrg = new List<Packing2BrgDto>();
 
             InitComboBox();
             InitGrid();
-            InitEventHandler();
-            _brgDal = brgDal;
-            _supplierDal = supplierDal;
+            InitButton();
         }
 
         private void InitComboBox()
@@ -140,13 +153,146 @@ namespace btr.distrib.InventoryContext.PackingAgg
             SupplierBrgGrid.Style.HeaderStyle.BackColor = Color.PowderBlue;
         }
 
+        private void InitButton()
+        {
+            SearchButton.Click += SearchButton_Click;
+            SaveButton.Click += SaveButton_Click;
+        }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            var packing = PackingIdText.Text.Trim() == string.Empty 
+                ? _builder.Create().Build() 
+                : _builder.Load(new PackingModel(PackingIdText.Text)).Build();
+            var mainform = (MainForm)this.Parent.Parent;
+            
+            packing = _builder
+                .Attach(packing)
+                .User(new UserModel(mainform.UserId.UserId))
+                .Warehouse(new WarehouseModel(WarehouseCombo.SelectedValue.ToString()))
+                .Driver(new DriverModel(DriverCombo.SelectedValue.ToString()))
+                .DeliveryDate(DeliveryDateText.Value)
+                .FilterFakturDate(new Periode(Faktur1Date.Value, Faktur2Date.Value))
+                .Build();
+            
+            packing.ListFaktur.Clear();
+            packing = _listFakturSelected
+                .Aggregate(packing, (current, faktur) => _builder
+                    .Attach(current)
+                    .AddFaktur(new FakturModel(faktur.FakturId))
+                    .Build());
+
+            packing.ListBrg.Clear();
+            packing = _listBrg
+                .Aggregate(packing, (current, brg) => _builder
+                    .Attach(current)
+                    .AddBrg(brg, brg.QtyBesar, brg.SatBesar, brg.QtyKecil, brg.SatBesar, brg.HargaJual)
+                    .Build());
+
+            packing = _writer.Save(packing);
+            LastIdStatusLabel.Text = packing.PackingId;
+            ClearForm();
+        }
+
+        private void ClearForm()
+        {
+            PackingIdText.Clear();
+            PackingDateText.Value = DateTime.Now;
+            UserText.Clear();
+            DeliveryDateText.Value = DateTime.Now.AddDays(1);
+            DriverCombo.SelectedIndex = 0;
+            _listFaktur.Clear();
+            _listFakturSelected.Clear();
+            _listFakturSelectedBrg.Clear();
+            _listSupplier.Clear();
+            _listSupplierBrg.Clear();
+            _listBrg.Clear();
+
+            UpdateStatusBar();
+            DriverCombo.Focus();
+        }
+        private void FakturGrid_CellCheckBoxClick(object sender, CellCheckBoxClickEventArgs e)
+        {
+            var row = e.RowIndex;
+            var faktur = _listFaktur[row -1];
+            if (e.NewValue == CheckState.Checked)
+            {
+                var newFaktur = faktur.Adapt<Packing2FakturDto>();
+                newFaktur.Pilih = true;
+                _listFakturSelected.Add(newFaktur);
+                AddFakturToListBrg(faktur.FakturId);
+            }
+            else
+            {
+                var fakturSelected = _listFakturSelected.FirstOrDefault(x => x.FakturId == faktur.FakturId) ?? new Packing2FakturDto();
+                _listFakturSelected.Remove(fakturSelected);
+                RemoveFakturFromListBrg(fakturSelected.FakturId);
+            }
+        }
+        
+        private void FakturSelectedGrid_CurrentCellActivated(object sender, CurrentCellActivatedEventArgs e)
+        {
+            var row = e.DataRow.RowIndex;
+            var fakturId = _listFakturSelected[row - 1].FakturId;
+            var listBrg =
+                from c in _listBrg
+                where c.FakturId == fakturId
+                select new Packing2FakturBrgDto(c.BrgId, c.BrgName, c.BrgCode,
+                    c.QtyBesar, c.SatBesar, c.QtyKecil, c.SatKecil, c.HargaJual);
+
+            _listFakturSelectedBrg.Clear();
+            foreach (var item in listBrg)
+            {
+                _listFakturSelectedBrg.Add(item);
+            }
+        }
+
+        private void FakturSelectedGrid_CellCheckBoxClick(object sender, CellCheckBoxClickEventArgs e)
+        {
+            var row = e.RowIndex;
+            var fakturSelected = _listFakturSelected[row -1];
+            var fakturId = fakturSelected.FakturId;
+            foreach (var item in _listFakturSelected)
+            {
+                if (item.FakturId != fakturId) continue;
+                _listFakturSelected.Remove(item);
+                RemoveFakturFromListBrg(item.FakturId);
+                break;
+            }
+            var faktur = _listFaktur.FirstOrDefault(x => x.FakturId == fakturId) ?? new Packing2FakturDto();
+            faktur.Pilih = false;
+
+        }
+
+        private void AddFakturToListBrg(string fakturId)
+        {
+            var faktur = _fakturBuilder.Load(new FakturModel(fakturId)).Build();
+            foreach(var item in faktur.ListItem)
+            {
+                var brg = _brgDal.GetData(new BrgModel(item.BrgId)) ?? new BrgModel { SupplierId = string.Empty};
+                _listBrg.Add(new Packing2BrgDto(item.FakturId, brg.SupplierId, 
+                    item.BrgId, item.BrgName, item.BrgCode, 
+                    item.QtyBesar, item.SatBesar, 
+                    item.QtyKecil, item.SatKecil, item.HrgSat));
+            }
+            UpdateSupplierGrid();
+            UpdateStatusBar();
+        }
+
+        private void RemoveFakturFromListBrg(string fakturId)
+        {
+            _listBrg.RemoveAll(x => x.FakturId == fakturId);
+            UpdateSupplierGrid();
+            UpdateStatusBar();
+        }
+
         private void SupplierGrid_CurrentCellActivated(object sender, CurrentCellActivatedEventArgs e)
         {
             var row = e.DataRow.RowIndex;
             var supplierId = _listSupplier[row - 1].SupplierId;
 
             var listBrg = (
-                from c in _listAllBrg
+                from c in _listBrg
                 where c.SupplierId == supplierId
                 group c by new { c.BrgId, c.BrgCode, c.BrgName, c.SatBesar, c.SatKecil } into g
                 select new Packing2SupplierBrgDto
@@ -165,66 +311,32 @@ namespace btr.distrib.InventoryContext.PackingAgg
             listBrg.ForEach(x => _listSupplierBrg.Add(x));
         }
 
-        private void InitEventHandler()
+        private void UpdateSupplierGrid()
         {
-            SearchButton.Click += SearchButton_Click;
+            var listAllSupplier = _supplierDal.ListData() ?? new List<SupplierModel>();
+            var listSupplierGroupByBrg =
+                from c in _listBrg
+                join d in listAllSupplier on c.SupplierId equals d.SupplierId
+                group new { c.SupplierId, d.SupplierName, c.BrgId, c.BrgName } 
+                    by new { c.SupplierId, d.SupplierName } into g
+                select new Packing2SupplierDto(g.Key.SupplierId,g.Key.SupplierName, g.Select(s => s.BrgId).Distinct().Count());
+
+            _listSupplier.Clear();
+            foreach(var item in listSupplierGroupByBrg)
+                _listSupplier.Add(item);
         }
 
-        private void FakturSelectedGrid_CurrentCellActivated(object sender, CurrentCellActivatedEventArgs e)
+        private void UpdateStatusBar()
         {
-            var row = e.DataRow.RowIndex;
-            var fakturId = _listFakturSelected[row - 1].FakturId;
-            var listBrg =
-                from c in _listAllBrg
-                where c.FakturId == fakturId
-                select new Packing2FakturBrgDto(c.BrgId, c.BrgName, c.BrgCode,
-                    c.QtyBesar, c.SatBesar, c.QtyKecil, c.SatKecil, c.HargaJual);
+            var jumFaktur = _listBrg.Select(x => x.FakturId).Distinct().Count();
+            var jumItemBrg = _listBrg.Select(x => x.BrgId).Distinct().Count();
+            var jumSupplier = _listBrg.Select(x => x.SupplierId).Distinct().Count();
 
-
-            var faktur = _fakturBuilder.Load(new FakturModel(fakturId)).Build();
-            _listFakturSelectedBrg.Clear();
-            foreach (var item in listBrg)
-            {
-                _listFakturSelectedBrg.Add(item);
-            }
+            JumlahFakturStatusLabel.Text = $@"[Jumlah Faktur] {jumFaktur}";
+            JumlahItemStatusLabel.Text = $@"Jumlah Item Brg: {jumItemBrg}";
+            JumlahSupplierStatusLabel.Text = $@"Jumlah Supplier: {jumSupplier}";
         }
-
-        private void FakturSelectedGrid_CellCheckBoxClick(object sender, CellCheckBoxClickEventArgs e)
-        {
-            var row = e.RowIndex;
-            var fakturSelected = _listFakturSelected[row -1];
-            var fakturId = fakturSelected.FakturId;
-            foreach (var item in _listFakturSelected)
-            {
-                if (item.FakturId != fakturId) continue;
-                _listFakturSelected.Remove(item);
-                RemoveFakturFromAllBrg(item.FakturId);
-                break;
-            }
-            var faktur = _listFaktur.FirstOrDefault(x => x.FakturId == fakturId) ?? new Packing2FakturDto();
-            faktur.Pilih = false;
-
-        }
-
-        private void FakturGrid_CellCheckBoxClick(object sender, CellCheckBoxClickEventArgs e)
-        {
-            var row = e.RowIndex;
-            var faktur = _listFaktur[row -1];
-            if (e.NewValue == CheckState.Checked)
-            {
-                var newFaktur = faktur.Adapt<Packing2FakturDto>();
-                newFaktur.Pilih = true;
-                _listFakturSelected.Add(newFaktur);
-                AddFakturToAllBrg(faktur.FakturId);
-            }
-            else
-            {
-                var fakturSelected = _listFakturSelected.FirstOrDefault(x => x.FakturId == faktur.FakturId);
-                _listFakturSelected.Remove(fakturSelected);
-                RemoveFakturFromAllBrg(fakturSelected.FakturId);
-            }
-        }
-
+        
         private void SearchButton_Click(object sender, EventArgs e)
         {
             var periode = new Periode(Faktur1Date.Value, Faktur2Date.Value);
@@ -239,152 +351,8 @@ namespace btr.distrib.InventoryContext.PackingAgg
                 Address = x.Address,
                 Kota = x.Kota,
                 GrandTotal = x.GrandTotal,
-                Pilih = _listFakturSelected.Any(y => y.FakturId == x.FakturId) ? true : false,
+                Pilih = _listFakturSelected.Any(y => y.FakturId == x.FakturId),
             }));
         }
-
-        private void AddFakturToAllBrg(string fakturId)
-        {
-            var faktur = _fakturBuilder.Load(new FakturModel(fakturId)).Build();
-            foreach(var item in faktur.ListItem)
-            {
-                var brg = _brgDal.GetData(new BrgModel(item.BrgId)) ?? new BrgModel { SupplierId = string.Empty};
-                _listAllBrg.Add(new Packing2AllBrgSupplierDto(item.FakturId, brg.SupplierId, 
-                    item.BrgId, item.BrgName, item.BrgCode, 
-                    item.QtyBesar, item.SatBesar, 
-                    item.QtyKecil, item.SatKecil, item.HrgSat));
-            }
-            UpdateSupplierGrid();
-            UpdateStatusBar();
-        }
-
-        private void UpdateStatusBar()
-        {
-            var jumFaktur = _listAllBrg.Select(x => x.FakturId).Distinct().Count();
-            var jumItemBrg = _listAllBrg.Select(x => x.BrgId).Distinct().Count();
-            var jumSupplier = _listAllBrg.Select(x => x.SupplierId).Distinct().Count();
-
-            JumlahFakturStatusLabel.Text = $"Jumlah Faktur: {jumFaktur}";
-            JumlahItemStatusLabel.Text = $"Jumlah Item Brg: {jumItemBrg}";
-            JumlahSupplierStatusLabel.Text = $"Jumlah Supplier: {jumSupplier}";
-        }
-
-        private void RemoveFakturFromAllBrg(string fakturId)
-        {
-            _listAllBrg.RemoveAll(x => x.FakturId == fakturId);
-            UpdateSupplierGrid();
-            UpdateStatusBar();
-        }
-
-        private void UpdateSupplierGrid()
-        {
-            var listAllSupplier = _supplierDal.ListData() ?? new List<SupplierModel>();
-            var listSupplierGroupByBrg =
-                from c in _listAllBrg
-                join d in listAllSupplier on c.SupplierId equals d.SupplierId
-                group new { c.SupplierId, d.SupplierName, c.BrgId, c.BrgName } 
-                by new { c.SupplierId, d.SupplierName } into g
-                select new Packing2SupplierDto(g.Key.SupplierId,g.Key.SupplierName, g.Select(s => s.BrgId).Distinct().Count());
-
-            _listSupplier.Clear();
-            foreach(var item in listSupplierGroupByBrg)
-                _listSupplier.Add(item);
-        }
     }
-
-    internal class Packing2FakturDto
-    {
-        public string FakturId { get; set; }
-        public string FakturCode { get; set; }
-        public string FakturDate { get; set; }
-        public string CustomerName { get; set; }
-        public string Address { get; set; }
-        public string Kota { get; set; }
-        public decimal GrandTotal { get; set; }
-        public bool Pilih { get; set; }
-    }
-
-    internal class Packing2FakturBrgDto
-    {
-        public Packing2FakturBrgDto(string id, string name, string code,
-            int qtyBesar, string satBesar, int qtyKecil, string satKecil,
-            decimal hargaJual)
-        {
-            BrgId = id;
-            BrgName = name;
-            BrgCode = code;
-            QtyBesar = qtyBesar;
-            SatBesar = satBesar;
-            QtyKecil = qtyKecil;
-            SatKecil = satKecil;
-            HargaJual = hargaJual;
-        }
-
-        public string BrgId { get; set; }
-        public string BrgCode { get; private set; }
-        public string BrgName { get; private set; }
-        public int QtyBesar { get; private set; }
-        public string SatBesar { get; private set; }
-        public int QtyKecil { get; private set; }
-        public string SatKecil { get; private set; }
-        public decimal HargaJual { get; private set; }
-    }
-
-    internal class Packing2SupplierDto
-    {
-        public Packing2SupplierDto(string id, string name, int jumItem)
-        {
-            SupplierId = id;
-            SupplierName = name;
-            JumItem = jumItem;
-        }
-        public string SupplierId { get; private set; }  
-        public string SupplierName { get; private set; }
-        public int JumItem { get; private set; }
-    }
-
-    internal class Packing2AllBrgSupplierDto
-    {
-        public Packing2AllBrgSupplierDto(string fakturId, 
-            string supplierId,  string brgId, string brgName, string code,
-            int qtyBesar, string satBesar, int qtyKecil, string satKecil,
-            decimal hargaJual)
-        {
-            FakturId = fakturId;
-            SupplierId = supplierId;
-            BrgId = brgId;
-            BrgName = brgName;
-            BrgCode = code;
-            QtyBesar = qtyBesar;
-            SatBesar = satBesar;
-            QtyKecil = qtyKecil;
-            SatKecil = satKecil;
-            HargaJual = hargaJual;
-        }
-
-        public string FakturId { get; set; }
-        public string SupplierId { get; set; }
-        public string BrgId { get; set; }
-        public string BrgCode { get; private set; }
-        public string BrgName { get; private set; }
-        public int QtyBesar { get; private set; }
-        public string SatBesar { get; private set; }
-        public int QtyKecil { get; private set; }
-        public string SatKecil { get; private set; }
-        public decimal HargaJual { get; private set; }
-    }
-
-    internal class Packing2SupplierBrgDto
-    {
-        public string BrgId { get; set; }
-        public string BrgCode { get; set; }
-        public string BrgName { get; set; }
-        public int QtyBesar { get;  set; }
-        public string SatBesar { get;  set; }
-        public int QtyKecil { get;  set; }
-        public string SatKecil { get;  set; }
-        public int Faktur { get;  set; }
-
-    }
-
 }

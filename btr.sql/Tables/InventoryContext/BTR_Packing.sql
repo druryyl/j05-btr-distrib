@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[BTR_Packing]
+﻿CREATE  TABLE [dbo].[BTR_Packing]
 (
 	PackingId VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_Packing_PackingId DEFAULT(''),
 	PackingDate DATETIME NOT NULL CONSTRAINT DF_BTR_Packing_PackingDate DEFAULT(''),

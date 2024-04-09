@@ -25,10 +25,12 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
             const string sql = @"
             INSERT INTO BTR_Packing(
                 PackingId, PackingDate, WarehouseId, 
-                DriverId, DeliveryDate, Route)
+                DriverId, DeliveryDate,
+                TglAwalFaktur, TglAKhirFaktur, KeywordSearch)
             VALUES (
                 @PackingId, @PackingDate, @WarehouseId, 
-                @DriverId, @DeliveryDate, @Route)";
+                @DriverId, @DeliveryDate,
+                @TglAwalFaktur, @TglAKhirFaktur, @KeywordSearch)";
 
             var @dp = new DynamicParameters();
             dp.AddParam("@PackingId", model.PackingId, SqlDbType.VarChar);
@@ -38,7 +40,7 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
             dp.AddParam("@DeliveryDate", model.DeliveryDate, SqlDbType.DateTime);
             dp.AddParam("@TglAwalFaktur", model.TglAwalFaktur, SqlDbType.DateTime);
             dp.AddParam("@TglAkhirFaktur", model.TglAkhirFaktur, SqlDbType.DateTime);
-            dp.AddParam("@KeywordSearch", model.KeywordSearch, SqlDbType.DateTime);
+            dp.AddParam("@KeywordSearch", model.KeywordSearch, SqlDbType.VarChar);
             
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))

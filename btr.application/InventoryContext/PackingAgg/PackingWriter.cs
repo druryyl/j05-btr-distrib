@@ -13,12 +13,12 @@ namespace btr.application.InventoryContext.PackingAgg
         private readonly INunaCounterBL _counter;
         private readonly IPackingDal _packingDal;
         private readonly IPackingFakturDal _packingFakturDal;
-        private readonly IPackingFakturBrgDal _packingFakturSupplierDal;
+        private readonly IPackingBrgDal _packingFakturSupplierDal;
 
         public PackingWriter(INunaCounterBL counter, 
             IPackingDal packingDal, 
             IPackingFakturDal packingFakturDal, 
-            IPackingFakturBrgDal packingFakturSupplierDal)
+            IPackingBrgDal packingFakturSupplierDal)
         {
             _counter = counter;
             _packingDal = packingDal;

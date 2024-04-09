@@ -3,10 +3,11 @@ using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SalesContext.FakturAgg;
 using System;
 using System.Collections.Generic;
+using btr.domain.SupportContext.UserAgg;
 
 namespace btr.domain.InventoryContext.PackingAgg
 {
-    public class PackingModel : IPackingKey, IDriverKey, IWarehouseKey
+    public class PackingModel : IPackingKey, IDriverKey, IWarehouseKey, IUserKey
     {
         public PackingModel()
         {
@@ -15,6 +16,8 @@ namespace btr.domain.InventoryContext.PackingAgg
 
         public string PackingId { get; set; }
         public DateTime PackingDate { get; set; }
+        public string UserId { get; set; }
+        public string UserName { get; set; }
 
         public string WarehouseId { get; set; }
         public string WarehouseName { get; set; }

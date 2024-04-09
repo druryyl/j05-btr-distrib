@@ -384,12 +384,17 @@
     <Compile Include="InventoryContext\OpnameAgg\StokOpForm.Designer.cs">
       <DependentUpon>StokOpForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InventoryContext\PackingAgg\Packing2BrgDto.cs" />
+    <Compile Include="InventoryContext\PackingAgg\Packing2FakturBrgDto.cs" />
+    <Compile Include="InventoryContext\PackingAgg\Packing2FakturDto.cs" />
     <Compile Include="InventoryContext\PackingAgg\Packing2Form.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="InventoryContext\PackingAgg\Packing2Form.Designer.cs">
       <DependentUpon>Packing2Form.cs</DependentUpon>
     </Compile>
+    <Compile Include="InventoryContext\PackingAgg\Packing2SupplierBrgDto.cs" />
+    <Compile Include="InventoryContext\PackingAgg\Packing2SupplierDto.cs" />
     <Compile Include="InventoryContext\ReturJualAgg\ReturJualForm.cs">
       <SubType>Form</SubType>
     </Compile>

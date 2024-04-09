@@ -14,8 +14,10 @@ using Mapster;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using btr.application.SupportContext.UserAgg;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.PurchaseContext.SupplierAgg;
+using btr.domain.SupportContext.UserAgg;
 
 namespace btr.application.InventoryContext.PackingAgg
 {
@@ -24,11 +26,13 @@ namespace btr.application.InventoryContext.PackingAgg
         IPackingBuilder Create();
         IPackingBuilder Load(IPackingKey packingKey);
         IPackingBuilder Attach(PackingModel model);
-
+        IPackingBuilder User(IUserKey user);
         IPackingBuilder Warehouse(IWarehouseKey wareouseKey);
         IPackingBuilder DeliveryDate(DateTime deliveryDate);
 
         IPackingBuilder Driver(IDriverKey driverKey);
+        IPackingBuilder FilterFakturDate(Periode periode);
+        IPackingBuilder KeywordSearch(string keyword);
         IPackingBuilder AddFaktur(IFakturKey fakturKey);
         IPackingBuilder RemoveFaktur(IFakturKey fakturKey);
         IPackingBuilder AddBrg<T>(T fakturSupplierBrg, int qtyBesar, string satBesar, 
@@ -45,23 +49,24 @@ namespace btr.application.InventoryContext.PackingAgg
 
         private readonly IPackingDal _packingDal;
         private readonly IPackingFakturDal _packingFakturDal;
-        private readonly IPackingFakturBrgDal _packingFakturSupplierDal;
+        private readonly IPackingBrgDal _packingFakturSupplierDal;
         private readonly IFakturDal _fakturDal;
         private readonly IDriverDal _driverDal;
         private readonly IWarehouseDal _warehouseDal;
         private readonly ITglJamDal _dateTime;
         private readonly IFakturBuilder _fakturBuilder;
         private readonly IBrgBuilder _brgBuilder;
+        private readonly IUserDal _userDal;
 
         public PackingBuilder(IPackingDal packingDal,
             IPackingFakturDal packingFakturDal,
-            IPackingFakturBrgDal packingFakturSupplierDal,
+            IPackingBrgDal packingFakturSupplierDal,
             IDriverDal driverDal,
             IWarehouseDal warehouseDal,
             ITglJamDal dateTime,
             IFakturDal fakturDal,
             IFakturBuilder fakturBuilder,
-            IBrgBuilder brgBuilder)
+            IBrgBuilder brgBuilder, IUserDal userDal)
         {
             _packingDal = packingDal;
             _packingFakturDal = packingFakturDal;
@@ -72,6 +77,7 @@ namespace btr.application.InventoryContext.PackingAgg
             _fakturDal = fakturDal;
             _fakturBuilder = fakturBuilder;
             _brgBuilder = brgBuilder;
+            _userDal = userDal;
         }
 
 
@@ -112,6 +118,15 @@ namespace btr.application.InventoryContext.PackingAgg
             return this;
         }
 
+        public IPackingBuilder User(IUserKey userKey)
+        {
+            var user = _userDal.GetData(userKey)
+                       ?? throw new KeyNotFoundException("User not found");
+            _aggregate.UserId = user.UserId;
+            _aggregate.UserName = user.UserName;
+            return this;
+        }
+
         public IPackingBuilder Warehouse(IWarehouseKey wareouseKey)
         {
             var warehouse = _warehouseDal.GetData(wareouseKey)
@@ -123,7 +138,8 @@ namespace btr.application.InventoryContext.PackingAgg
 
         public IPackingBuilder DeliveryDate(DateTime deliveryDate)
         {
-            throw new NotImplementedException();
+            _aggregate.DeliveryDate = deliveryDate;
+            return this;
         }
 
         public IPackingBuilder Driver(IDriverKey driverKey)
@@ -132,6 +148,19 @@ namespace btr.application.InventoryContext.PackingAgg
                 ?? throw new KeyNotFoundException("DriverId invalid");
             _aggregate.DriverId = driver.DriverId;
             _aggregate.DriverName = driver.DriverName;
+            return this;
+        }
+
+        public IPackingBuilder FilterFakturDate(Periode periode)
+        {
+            _aggregate.TglAwalFaktur = periode.Tgl1;
+            _aggregate.TglAkhirFaktur = periode.Tgl2;
+            return this;
+        }
+
+        public IPackingBuilder KeywordSearch(string keyword)
+        {
+            _aggregate.KeywordSearch = keyword;
             return this;
         }
 

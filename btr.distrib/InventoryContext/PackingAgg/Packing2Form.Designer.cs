@@ -31,7 +31,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.UserText = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.InputDateText = new System.Windows.Forms.DateTimePicker();
+            this.PackingDateText = new System.Windows.Forms.DateTimePicker();
             this.label6 = new System.Windows.Forms.Label();
             this.MutasiButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -63,10 +63,10 @@
             this.FakturSelectedGrid = new Syncfusion.WinForms.DataGrid.SfDataGrid();
             this.FakturSelectedBrgGrid = new Syncfusion.WinForms.DataGrid.SfDataGrid();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.SupplierGrid = new Syncfusion.WinForms.DataGrid.SfDataGrid();
             this.SupplierBrgGrid = new Syncfusion.WinForms.DataGrid.SfDataGrid();
+            this.SaveButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.InfoStatusStrip.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -96,7 +96,7 @@
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.UserText);
             this.panel1.Controls.Add(this.label7);
-            this.panel1.Controls.Add(this.InputDateText);
+            this.panel1.Controls.Add(this.PackingDateText);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.MutasiButton);
             this.panel1.Controls.Add(this.label1);
@@ -124,23 +124,23 @@
             this.label7.TabIndex = 17;
             this.label7.Text = "User";
             // 
-            // InputDateText
+            // PackingDateText
             // 
-            this.InputDateText.CustomFormat = "ddd, dd-MMM-yyyy";
-            this.InputDateText.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.InputDateText.Location = new System.Drawing.Point(9, 63);
-            this.InputDateText.Name = "InputDateText";
-            this.InputDateText.Size = new System.Drawing.Size(182, 22);
-            this.InputDateText.TabIndex = 2;
+            this.PackingDateText.CustomFormat = "ddd, dd-MMM-yyyy";
+            this.PackingDateText.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.PackingDateText.Location = new System.Drawing.Point(9, 63);
+            this.PackingDateText.Name = "PackingDateText";
+            this.PackingDateText.Size = new System.Drawing.Size(182, 22);
+            this.PackingDateText.TabIndex = 2;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(6, 47);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(62, 13);
+            this.label6.Size = new System.Drawing.Size(74, 13);
             this.label6.TabIndex = 16;
-            this.label6.Text = "Input Date";
+            this.label6.Text = "Packing Date";
             // 
             // MutasiButton
             // 
@@ -173,11 +173,7 @@
             // 
             // InfoStatusStrip
             // 
-            this.InfoStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.LastIdStatusLabel,
-            this.JumlahFakturStatusLabel,
-            this.JumlahItemStatusLabel,
-            this.JumlahSupplierStatusLabel});
+            this.InfoStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.LastIdStatusLabel, this.JumlahFakturStatusLabel, this.JumlahItemStatusLabel, this.JumlahSupplierStatusLabel });
             this.InfoStatusStrip.Location = new System.Drawing.Point(0, 522);
             this.InfoStatusStrip.Name = "InfoStatusStrip";
             this.InfoStatusStrip.Size = new System.Drawing.Size(947, 24);
@@ -187,9 +183,7 @@
             // LastIdStatusLabel
             // 
             this.LastIdStatusLabel.BackColor = System.Drawing.SystemColors.Control;
-            this.LastIdStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.LastIdStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.LastIdStatusLabel.Name = "LastIdStatusLabel";
             this.LastIdStatusLabel.Size = new System.Drawing.Size(54, 19);
             this.LastIdStatusLabel.Text = "[Last ID]";
@@ -197,9 +191,7 @@
             // JumlahFakturStatusLabel
             // 
             this.JumlahFakturStatusLabel.BackColor = System.Drawing.SystemColors.Control;
-            this.JumlahFakturStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.JumlahFakturStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.JumlahFakturStatusLabel.Name = "JumlahFakturStatusLabel";
             this.JumlahFakturStatusLabel.Size = new System.Drawing.Size(93, 19);
             this.JumlahFakturStatusLabel.Text = "[Jumlah Faktur]";
@@ -207,9 +199,7 @@
             // JumlahItemStatusLabel
             // 
             this.JumlahItemStatusLabel.BackColor = System.Drawing.SystemColors.Control;
-            this.JumlahItemStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.JumlahItemStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.JumlahItemStatusLabel.Name = "JumlahItemStatusLabel";
             this.JumlahItemStatusLabel.Size = new System.Drawing.Size(84, 19);
             this.JumlahItemStatusLabel.Text = "[Jumlah Item]";
@@ -217,9 +207,7 @@
             // JumlahSupplierStatusLabel
             // 
             this.JumlahSupplierStatusLabel.BackColor = System.Drawing.SystemColors.Control;
-            this.JumlahSupplierStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.JumlahSupplierStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.JumlahSupplierStatusLabel.Name = "JumlahSupplierStatusLabel";
             this.JumlahSupplierStatusLabel.Size = new System.Drawing.Size(103, 19);
             this.JumlahSupplierStatusLabel.Text = "[Jumlah Supplier]";
@@ -294,8 +282,7 @@
             // 
             // panel3
             // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BackColor = System.Drawing.Color.PowderBlue;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.label8);
@@ -363,9 +350,7 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
@@ -391,9 +376,7 @@
             // 
             this.FakturGrid.AccessibleName = "Table";
             this.FakturGrid.AllowResizingColumns = true;
-            this.FakturGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FakturGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.FakturGrid.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FakturGrid.Location = new System.Drawing.Point(6, 6);
             this.FakturGrid.Name = "FakturGrid";
@@ -470,18 +453,6 @@
             this.tabPage3.Text = "List Brg Per Supplier";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.BackColor = System.Drawing.Color.PowderBlue;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(864, 496);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Save";
-            this.button1.UseVisualStyleBackColor = false;
-            // 
             // splitContainer2
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -527,13 +498,25 @@
             this.SupplierBrgGrid.TabIndex = 2;
             this.SupplierBrgGrid.Text = "sfDataGrid1";
             // 
+            // SaveButton
+            // 
+            this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.SaveButton.BackColor = System.Drawing.Color.PowderBlue;
+            this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveButton.Location = new System.Drawing.Point(864, 496);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.Size = new System.Drawing.Size(75, 23);
+            this.SaveButton.TabIndex = 5;
+            this.SaveButton.Text = "Save";
+            this.SaveButton.UseVisualStyleBackColor = false;
+            // 
             // Packing2Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(947, 546);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
@@ -569,7 +552,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.SupplierBrgGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
@@ -598,14 +580,14 @@
         private System.Windows.Forms.ToolStripStatusLabel JumlahSupplierStatusLabel;
         private System.Windows.Forms.TextBox UserText;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.DateTimePicker InputDateText;
+        private System.Windows.Forms.DateTimePicker PackingDateText;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private Syncfusion.WinForms.DataGrid.SfDataGrid FakturGrid;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private Syncfusion.WinForms.DataGrid.SfDataGrid FakturSelectedGrid;

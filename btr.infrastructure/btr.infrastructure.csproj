@@ -104,7 +104,7 @@
     <Compile Include="InventoryContext\OpnameAgg\StokOpDal.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingDal.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingFakturDal.cs" />
-    <Compile Include="InventoryContext\PackingAgg\PackingFakturBrgDal.cs" />
+    <Compile Include="InventoryContext\PackingAgg\PackingBrgDal.cs" />
     <Compile Include="InventoryContext\ReturJualAgg\ReturJualDal.cs" />
     <Compile Include="InventoryContext\ReturJualAgg\ReturJualItemDal.cs" />
     <Compile Include="InventoryContext\ReturJualAgg\ReturJualItemDiscDal.cs" />
