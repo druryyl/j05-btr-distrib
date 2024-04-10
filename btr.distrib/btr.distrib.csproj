@@ -162,6 +162,7 @@
     <Reference Include="Syncfusion.DataSource.WinForms, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.Diagram.Base, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.Diagram.Windows, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.Grid.Base, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.Grid.Grouping.Windows, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.Grid.Windows, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.GridCommon.WinForms, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
@@ -171,6 +172,9 @@
     <Reference Include="Syncfusion.SfListView.WinForms, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.Shared.Base, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.Shared.Windows, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.SpellChecker.Base, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Tools.Base, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Tools.Windows, Version=22.1460.34.0, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -380,6 +384,17 @@
     <Compile Include="InventoryContext\OpnameAgg\StokOpForm.Designer.cs">
       <DependentUpon>StokOpForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InventoryContext\PackingAgg\Packing2BrgDto.cs" />
+    <Compile Include="InventoryContext\PackingAgg\Packing2FakturBrgDto.cs" />
+    <Compile Include="InventoryContext\PackingAgg\Packing2FakturDto.cs" />
+    <Compile Include="InventoryContext\PackingAgg\Packing2Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryContext\PackingAgg\Packing2Form.Designer.cs">
+      <DependentUpon>Packing2Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryContext\PackingAgg\Packing2SupplierBrgDto.cs" />
+    <Compile Include="InventoryContext\PackingAgg\Packing2SupplierDto.cs" />
     <Compile Include="InventoryContext\ReturJualAgg\ReturJualForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -407,13 +422,6 @@
     </Compile>
     <Compile Include="InventoryContext\OpnameAgg\BrgOpnameFormDto.cs" />
     <Compile Include="InventoryContext\OpnameAgg\ReportOpnameFormDto.cs" />
-    <Compile Include="InventoryContext\PackingAgg\PackingFakturDto.cs" />
-    <Compile Include="InventoryContext\PackingAgg\PackingForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="InventoryContext\PackingAgg\PackingForm.Designer.cs">
-      <DependentUpon>PackingForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="InventoryContext\StokBrgSupplierRpt\StokBrgSupplierForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -659,6 +667,9 @@
     <EmbeddedResource Include="InventoryContext\OpnameAgg\StokOpForm.resx">
       <DependentUpon>StokOpForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="InventoryContext\PackingAgg\Packing2Form.resx">
+      <DependentUpon>Packing2Form.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\ReturJualAgg\ReturJualForm.resx">
       <DependentUpon>ReturJualForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -723,9 +734,6 @@
     <None Include="Resources\icons8_user_account_32.png" />
     <EmbeddedResource Include="InventoryContext\StokBalanceRpt\StokBalanceInfoForm.resx">
       <DependentUpon>StokBalanceInfoForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="InventoryContext\PackingAgg\PackingForm.resx">
-      <DependentUpon>PackingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SalesContext\FakturControlAgg\FakturControlForm.resx">
       <DependentUpon>FakturControlForm.cs</DependentUpon>

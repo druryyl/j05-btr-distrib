@@ -27,14 +27,14 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
             {
                 conn.Open();
                 bcp.AddMap("PackingId", "PackingId");
+                bcp.AddMap("FakturId", "FakturId");
                 bcp.AddMap("SupplierId", "SupplierId");
-                bcp.AddMap("NoUrut", "NoUrut");
                 bcp.AddMap("BrgId", "BrgId");
 
                 bcp.AddMap("QtyKecil", "QtyKecil");
-                bcp.AddMap("SatuanKecil", "SatuanKecil");
+                bcp.AddMap("SatKecil", "SatKecil");
                 bcp.AddMap("QtyBesar", "QtyBesar");
-                bcp.AddMap("SatuanBesar", "SatuanBesar");
+                bcp.AddMap("SatBesar", "SatBesar");
                 bcp.AddMap("HargaJual", "HargaJual");
 
                 var fetched = listModel.ToList();
@@ -65,8 +65,8 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
         {
             const string sql = @"
             SELECT
-                aa.PackingId, aa.SupplierId, aa.NoUrut, aa.BrgId, 
-                aa.QtyKecil, aa.SatuanKecil, aa.QtyBesar, aa.SatuanBesar,
+                aa.PackingId, aa.FakturId, aa.SupplierId, aa.BrgId, 
+                aa.QtyKecil, aa.SatKecil, aa.QtyBesar, aa.SatBesar,
                 aa.HargaJual,
                 ISNULL(bb.SupplierName, '') AS SupplierName,
                 ISNULL(cc.BrgName, '') AS BrgName,
