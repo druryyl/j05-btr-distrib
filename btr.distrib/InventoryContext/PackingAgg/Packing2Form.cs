@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using btr.application.SalesContext.FakturAgg.Workers;
@@ -16,12 +17,14 @@ using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.PackingAgg;
 using btr.domain.BrgContext.BrgAgg;
 using btr.application.PurchaseContext.SupplierAgg.Contracts;
+using btr.distrib.Browsers;
 using btr.distrib.SharedForm;
 using btr.domain.InventoryContext.DriverAgg;
 using btr.domain.InventoryContext.PackingAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.PurchaseContext.SupplierAgg;
 using btr.domain.SupportContext.UserAgg;
+using ClosedXML.Excel;
 
 namespace btr.distrib.InventoryContext.PackingAgg
 {
@@ -36,6 +39,7 @@ namespace btr.distrib.InventoryContext.PackingAgg
 
         private readonly IPackingBuilder _builder;
         private readonly IPackingWriter _writer;
+        private readonly IBrowser<PackingBrowserView> _fakturBrowser;
 
         private readonly ObservableCollection<Packing2FakturDto> _listFaktur;
         private readonly ObservableCollection<Packing2FakturDto> _listFakturSelected;
@@ -53,7 +57,8 @@ namespace btr.distrib.InventoryContext.PackingAgg
             IBrgDal brgDal,
             ISupplierDal supplierDal, 
             IPackingBuilder builder, 
-            IPackingWriter writer)
+            IPackingWriter writer, 
+            IBrowser<PackingBrowserView> fakturBrowser)
         {
             InitializeComponent();
 
@@ -65,6 +70,7 @@ namespace btr.distrib.InventoryContext.PackingAgg
             _supplierDal = supplierDal;
             _builder = builder;
             _writer = writer;
+            _fakturBrowser = fakturBrowser;
 
             _listFaktur = new ObservableCollection<Packing2FakturDto>();
             _listFakturSelected = new ObservableCollection<Packing2FakturDto>();
@@ -76,6 +82,7 @@ namespace btr.distrib.InventoryContext.PackingAgg
             InitComboBox();
             InitGrid();
             InitButton();
+            InitTextBox();
         }
 
         private void InitComboBox()
@@ -157,6 +164,77 @@ namespace btr.distrib.InventoryContext.PackingAgg
         {
             SearchButton.Click += SearchButton_Click;
             SaveButton.Click += SaveButton_Click;
+            PackingIdButton.Click += PackingIdButton_Click;
+            PreviewPerFakturButton.Click += PreviewFakturButton_Click;
+            PreviewPerSupplier.Click += PreviewPerSupplierButton_Click;
+        }
+
+        private void InitTextBox()
+        {
+            PackingIdText.Validated += PackingIdText_Validated;
+        }
+
+        private void PackingIdText_Validated(object sender, EventArgs e)
+        {
+            PackingModel packing;
+            if (PackingIdText.Text.Trim() == string.Empty)
+                packing = _builder.Create().Build();
+            else
+                packing = _builder
+                    .Load(new PackingModel(PackingIdText.Text))
+                    .Build();
+
+            PackingDateText.Value = packing.PackingDate;
+            UserText.Text = packing.UserId;
+            DeliveryDateText.Value = packing.DeliveryDate;
+            WarehouseCombo.SelectedValue = packing.WarehouseId;
+            DriverCombo.SelectedValue = packing.DriverId;
+            Faktur1Date.Value = packing.TglAwalFaktur;
+            Faktur2Date.Value = packing.TglAkhirFaktur;
+            SearchText.Text = packing.KeywordSearch;
+            
+            _listFakturSelected.Clear();
+            packing.ListFaktur.ForEach(x => _listFakturSelected.Add(new Packing2FakturDto
+            {
+                FakturId = x.FakturId,
+                FakturCode = x.FakturCode,
+                FakturDate = $"{x.FakturDate:dd-MMM HH:mm}",
+                Address = x.Address,
+                Kota = x.Kota,
+                CustomerName = x.CustomerName,
+                GrandTotal = x.GrandTotal,
+                Pilih = true
+            }));
+            
+            _listFaktur.Clear();
+            packing.ListFaktur.ForEach(x => _listFaktur.Add(new Packing2FakturDto
+            {
+                FakturId = x.FakturId,
+                FakturCode = x.FakturCode,
+                FakturDate = $"{x.FakturDate:dd-MMM HH:mm}",
+                Address = x.Address,
+                Kota = x.Kota,
+                CustomerName = x.CustomerName,
+                GrandTotal = x.GrandTotal,
+                Pilih = true
+            }));
+            
+            _listBrg.Clear();
+            packing.ListBrg.ForEach(x => _listBrg.Add(new Packing2BrgDto(
+                x.FakturId, x.SupplierId, x.BrgId, x.BrgName,
+                x.BrgCode, x.QtyBesar, x.SatBesar, x.QtyKecil, x.SatKecil,
+                x.HargaJual)));
+            
+            UpdateSupplierGrid();
+            UpdateStatusBar();
+        }
+
+        private void PackingIdButton_Click(object sender, EventArgs e)
+        {
+            _fakturBrowser.Filter.Date = new Periode(DateTime.Now);
+
+            PackingIdText.Text = _fakturBrowser.Browse(PackingIdText.Text);
+            PackingIdText_Validated(PackingIdText, null);
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
@@ -194,6 +272,206 @@ namespace btr.distrib.InventoryContext.PackingAgg
             ClearForm();
         }
 
+        private void PreviewFakturButton_Click(object sender, EventArgs e)
+        {
+            var path = Path.GetTempPath();
+            var fileName = $"{path}\\PackingListFaktur_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+
+            using (var workbook = new XLWorkbook())
+            {
+                var ws = workbook.Worksheets.Add("PackingPerFaktur");
+                var baris = 1;
+                ws.Cell($"A{baris}").Value = "CV BINTANG TIMUR RAHAYU";
+                ws.Cell($"A{baris}").Style
+                    .Font.SetFontSize(12)
+                    .Font.SetBold(false)
+                    .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"F{baris}")).Merge();
+                baris++;
+
+                ws.Cell($"A{baris}").Value = "Jl.Kaliurang Km 5.5 Gg. Durmo No.18"; 
+                ws.Cell($"A{baris}").Style
+                    .Font.SetFontSize(10)
+                    .Font.SetBold(false)
+                    .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"F{baris}")).Merge();
+                baris++;
+
+                ws.Cell($"A{baris}").Value = "LAPORAN PACKING LIST";
+                ws.Cell($"A{baris}").Style
+                    .Font.SetFontSize(16)
+                    .Font.SetBold(true)
+                    .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"F{baris}")).Merge();
+                baris++;
+
+                ws.Cell($"A{baris}").Value = $"{DeliveryDateText.Value:dd MMMM yyyy}";
+                ws.Cell($"A{baris}").Style
+                    .Font.SetFontSize(10)
+                    .Font.SetBold(false)
+                    .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"F{baris}")).Merge();
+                baris++;
+                baris++;
+
+                ws.Cell($"A{baris}").Value = $"Driver";
+                ws.Cell($"B{baris}").Value = $"{DriverCombo.Text}";
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"E{baris}")).Style
+                    .Font.SetFontSize(11)
+                    .Font.SetBold(true);
+
+                baris++;
+                ws.Cell($"A{baris}").Style
+                    .Font.SetFontSize(11)
+                    .Font.SetBold(true);
+                baris++;
+                var barisStart = baris;
+                ws.Cell($"A{baris}").Value = "No";
+                ws.Cell($"B{baris}").Value = "FakturNo";
+                ws.Cell($"C{baris}").Value = "Nama Customer";
+                ws.Cell($"D{baris}").Value = "Alamat";
+                ws.Cell($"E{baris}").Value = "Total";
+                ws.Cell($"F{baris}").Value = "Keterangan";
+                baris++;
+                var i = 1;
+                var startTableRow = baris;
+                foreach(var item in _listFakturSelected)
+                {
+                    ws.Cell($"A{baris}").Value = i;
+                    ws.Cell($"B{baris}").Value = item.FakturCode;
+                    ws.Cell($"C{baris}").Value = item.CustomerName;
+                    ws.Cell($"D{baris}").Value = item.Address;
+                    ws.Cell($"E{baris}").Value = item.GrandTotal;
+                    ws.Cell($"F{baris}").Value = "";
+                    baris++;
+                    i++;
+                }
+                ws.Cell($"B{baris}").Value = $"Grand Total";
+                ws.Cell($"E{baris}").Value = _listFakturSelected.Sum(x => x.GrandTotal);
+                ws.Range(ws.Cell($"E{startTableRow}"), ws.Cell($"E{baris}"))
+                    .Style.NumberFormat.Format = "#,##";
+                
+                ws.Range(ws.Cell($"A{barisStart}"), ws.Cell($"F{baris}")).Style
+                    .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
+                    .Border.SetInsideBorder(XLBorderStyleValues.Hair);
+                ws.Range(ws.Cell($"A{barisStart}"), ws.Cell($"F{barisStart}")).Style
+                    .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
+                    .Font.SetBold(true);
+
+                ws.Column("A").Width = 8;
+                ws.Column("B").Width = 12;
+                ws.Column("C").Width = 30;
+                ws.Column("D").Width = 35;
+                ws.Column("F").Width = 25;
+                workbook.SaveAs(fileName);
+            }
+            System.Diagnostics.Process.Start(fileName);
+        }
+        private void PreviewPerSupplierButton_Click(object sender, EventArgs e)
+        {
+            var path = Path.GetTempPath();
+            var fileName = $"{path}\\PackingListSupplier_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+
+            using (var workbook = new XLWorkbook())
+            {
+                var ws = workbook.Worksheets.Add("PackingPerSupplier");
+                var baris = 1;
+                ws.Cell($"A{baris}").Value = "CV BINTANG TIMUR RAHAYU";
+                ws.Cell($"A{baris}").Style
+                    .Font.SetFontSize(12)
+                    .Font.SetBold(false)
+                    .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"E{baris}")).Merge();
+                baris++;
+
+                ws.Cell($"A{baris}").Value = "Jl.Kaliurang Km 5.5 Gg. Durmo No.18"; 
+                ws.Cell($"A{baris}").Style
+                    .Font.SetFontSize(10)
+                    .Font.SetBold(false)
+                    .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"E{baris}")).Merge();
+                baris++;
+
+                ws.Cell($"A{baris}").Value = "LAPORAN PACKING LIST";
+                ws.Cell($"A{baris}").Style
+                    .Font.SetFontSize(16)
+                    .Font.SetBold(true)
+                    .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"E{baris}")).Merge();
+                baris++;
+
+                ws.Cell($"A{baris}").Value = $"{DeliveryDateText.Value:dd MMMM yyyy}";
+                ws.Cell($"A{baris}").Style
+                    .Font.SetFontSize(10)
+                    .Font.SetBold(false)
+                    .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"E{baris}")).Merge();
+                baris++;
+                baris++;
+
+                ws.Cell($"A{baris}").Value = $"Driver";
+                ws.Cell($"B{baris}").Value = $"{DriverCombo.Text}";
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"E{baris}")).Style
+                    .Font.SetFontSize(11)
+                    .Font.SetBold(true);
+
+                baris++;
+                baris++;
+
+                foreach(var item in _listSupplier)
+                {
+                    ws.Cell($"A{baris}").Value = $"Supplier: {item.SupplierName}";
+                    ws.Cell($"A{baris}").Style
+                        .Font.SetFontSize(11)
+                        .Font.SetBold(true);
+                    baris++;
+                    var barisStart = baris;
+                    ws.Cell($"A{baris}").Value = "Kode";
+                    ws.Cell($"B{baris}").Value = "Nama Barang";
+                    ws.Cell($"C{baris}").Value = "Satuan 1";
+                    ws.Cell($"D{baris}").Value = "Satuan 2";
+                    ws.Cell($"E{baris}").Value = "Harga Jual";
+                    baris++;
+                    var startTableRow = baris;
+                    var listBrgThisSupplier = _listBrg
+                        .Where(x => x.SupplierId == item.SupplierId)
+                        .OrderBy(x => x.BrgCode)
+                        .ToList(); 
+                    foreach (var brg in listBrgThisSupplier)
+                    {
+                        ws.Cell($"A{baris}").Value = $"{brg.BrgCode}";
+                        ws.Cell($"B{baris}").Value = $"{brg.BrgName}";
+                        ws.Cell($"C{baris}").Value = $"{brg.QtyBesar:N0} {brg.SatBesar}";
+                        ws.Cell($"D{baris}").Value = $"{brg.QtyKecil:N0} {brg.SatKecil}";
+                        ws.Cell($"E{baris}").Value = brg.HargaJual;
+                        baris++;
+                    }
+                    ws.Cell($"B{baris}").Value = $"Sub Total";
+                    ws.Cell($"C{baris}").Value = listBrgThisSupplier.Sum(x => x.QtyBesar);
+                    ws.Cell($"D{baris}").Value = $"";
+                    ws.Cell($"E{baris}").Value = listBrgThisSupplier.Sum(x => x.HargaJual);
+                    ws.Range(ws.Cell($"E{startTableRow}"), ws.Cell($"E{baris}"))
+                        .Style.NumberFormat.Format = "#,##";
+                    
+                    ws.Range(ws.Cell($"A{barisStart}"), ws.Cell($"E{baris}")).Style
+                        .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
+                        .Border.SetInsideBorder(XLBorderStyleValues.Hair);
+                    ws.Range(ws.Cell($"A{barisStart}"), ws.Cell($"E{barisStart}")).Style
+                        .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
+                        .Font.SetBold(true);
+
+                    baris++;
+                    baris++;
+                }
+                ws.Column("A").Width = 12;
+                ws.Column("B").Width = 45;
+                ws.Column("E").Width = 15;
+                workbook.SaveAs(fileName);
+            }
+            System.Diagnostics.Process.Start(fileName);
+        }
+        
+        
         private void ClearForm()
         {
             PackingIdText.Clear();
@@ -211,6 +489,7 @@ namespace btr.distrib.InventoryContext.PackingAgg
             UpdateStatusBar();
             DriverCombo.Focus();
         }
+
         private void FakturGrid_CellCheckBoxClick(object sender, CellCheckBoxClickEventArgs e)
         {
             var row = e.RowIndex;

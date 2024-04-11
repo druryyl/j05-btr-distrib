@@ -17,7 +17,7 @@ namespace btr.distrib.Browsers
             _fakturDal = fakturDal;
             Filter = new BrowseFilter();
             Filter.IsDate = true;
-            Filter.HideAllRows = false;
+        Filter.HideAllRows = false;
         }
 
         public string Browse(string defaultValue)

@@ -287,6 +287,7 @@
     <Compile Include="Browsers\InvoiceBrowser.cs" />
     <Compile Include="Browsers\KategoriBrowser.cs" />
     <Compile Include="Browsers\MutasiBrowser.cs" />
+    <Compile Include="Browsers\PackingBrowser.cs" />
     <Compile Include="Browsers\ReturJualBrowser.cs" />
     <Compile Include="Browsers\SalesPersonBrowser.cs" />
     <Compile Include="Browsers\TagihanBrowser.cs" />
