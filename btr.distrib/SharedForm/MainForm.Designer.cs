@@ -61,7 +61,6 @@
             this.IT2PrintFakturButton = new System.Windows.Forms.RibbonButton();
             this.IT3PackingButton = new System.Windows.Forms.RibbonButton();
             this.IT4MutasiButton = new System.Windows.Forms.RibbonButton();
-            this.IT5ReturJualButton = new System.Windows.Forms.RibbonButton();
             this.ribbonButton1 = new System.Windows.Forms.RibbonButton();
             this.ReportingPanel = new System.Windows.Forms.RibbonPanel();
             this.IF1StokBalanceButton = new System.Windows.Forms.RibbonButton();
@@ -88,6 +87,7 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.FT3ReturJualButton = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -353,7 +353,6 @@
             this.InventoryTrsPanel.Items.Add(this.IT2PrintFakturButton);
             this.InventoryTrsPanel.Items.Add(this.IT3PackingButton);
             this.InventoryTrsPanel.Items.Add(this.IT4MutasiButton);
-            this.InventoryTrsPanel.Items.Add(this.IT5ReturJualButton);
             this.InventoryTrsPanel.Items.Add(this.ribbonButton1);
             this.InventoryTrsPanel.Name = "InventoryTrsPanel";
             this.InventoryTrsPanel.Text = "Transaction";
@@ -393,15 +392,6 @@
             this.IT4MutasiButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IT4MutasiButton.SmallImage")));
             this.IT4MutasiButton.Text = "IT4-Mutasi";
             this.IT4MutasiButton.Click += new System.EventHandler(this.IT4MutasiButton_Click);
-            // 
-            // IT5ReturJualButton
-            // 
-            this.IT5ReturJualButton.Image = global::btr.distrib.Properties.Resources.icons8_kaspersky_32;
-            this.IT5ReturJualButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_kaspersky_32;
-            this.IT5ReturJualButton.Name = "IT5ReturJualButton";
-            this.IT5ReturJualButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IT5ReturJualButton.SmallImage")));
-            this.IT5ReturJualButton.Text = "IT5-Retur Jual";
-            this.IT5ReturJualButton.Click += new System.EventHandler(this.IT5ReturJualButton_Click);
             // 
             // ribbonButton1
             // 
@@ -503,6 +493,7 @@
             // 
             this.ribbonPanel1.Items.Add(this.FT1LunasPiutangButton);
             this.ribbonPanel1.Items.Add(this.FT2TagihanSalesButton);
+            this.ribbonPanel1.Items.Add(this.FT3ReturJualButton);
             this.ribbonPanel1.Name = "ribbonPanel1";
             this.ribbonPanel1.Text = "";
             // 
@@ -619,6 +610,15 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
+            // FT3ReturJualButton
+            // 
+            this.FT3ReturJualButton.Image = global::btr.distrib.Properties.Resources.icons8_kaspersky_32;
+            this.FT3ReturJualButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_kaspersky_32;
+            this.FT3ReturJualButton.Name = "FT3ReturJualButton";
+            this.FT3ReturJualButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FT3ReturJualButton.SmallImage")));
+            this.FT3ReturJualButton.Text = "FT3-Retur Jual";
+            this.FT3ReturJualButton.Click += new System.EventHandler(this.FT3ReturJualButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -700,10 +700,10 @@
         private System.Windows.Forms.RibbonButton FF2PenerimaanSalesButton;
         private System.Windows.Forms.RibbonButton KategoriAButton;
         private System.Windows.Forms.RibbonPanel ribbonPanel2;
-        private System.Windows.Forms.RibbonButton IT5ReturJualButton;
         private System.Windows.Forms.RibbonButton ST3FakturPajakButton;
         private System.Windows.Forms.RibbonButton SF5FakturPajakButton;
         private System.Windows.Forms.RibbonButton ribbonButton1;
         private System.Windows.Forms.RibbonButton SF6FakturCashButton;
+        private System.Windows.Forms.RibbonButton FT3ReturJualButton;
     }
 }

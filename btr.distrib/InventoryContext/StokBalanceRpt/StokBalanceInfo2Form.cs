@@ -139,9 +139,9 @@ namespace btr.distrib.InventoryContext.StokBalanceRpt
 
                 //  set format for  column  number 
                 ws.Range(ws.Cell($"H{2}"), ws.Cell($"O{_dataSource.Count + 1}"))
-                    .Style.NumberFormat.Format = "#,##";
+                    .Style.NumberFormat.Format = "#,##0";
                 ws.Range(ws.Cell($"A{2}"), ws.Cell($"A{_dataSource.Count + 1}"))
-                    .Style.NumberFormat.Format = "#,##";
+                    .Style.NumberFormat.Format = "#,##0";
                 //  add rownumbering
                 ws.Cell($"A1").Value = "No";
                 for (var i = 0; i < _dataSource.Count; i++)

@@ -347,6 +347,16 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
+        private void FT3ReturJualButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<ReturJualForm>())
+                return;
+            var form = _servicesProvider.GetRequiredService<ReturJualForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
         private void P1InvoiceInfoButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<InvoiceInfoForm>())

@@ -199,11 +199,11 @@ namespace btr.distrib.InventoryContext.StokBrgSupplierRpt
                 for (var i = 0; i < listToExcel.Count; i++)
                     ws.Cell($"A{i + 2}").Value = i + 1;
                 ws.Range(ws.Cell("A2"), ws.Cell($"A{listToExcel.Count + 1}"))
-                    .Style.NumberFormat.Format = "#,##";
+                    .Style.NumberFormat.Format = "#,##0";
 
                 //  format numeric column  
                 ws.Range(ws.Cell("G2"), ws.Cell($"W{listToExcel.Count + 1}"))
-                    .Style.NumberFormat.Format = "#,##";
+                    .Style.NumberFormat.Format = "#,##0";
                 
                 //  add row footer: sum column NilaiStokBesar, NilaiStokKecil, NilaiInPcs
                 ws.Cell($"K{listToExcel.Count + 2}").FormulaA1 = $"=SUM(K2:K{listToExcel.Count + 1})";
@@ -214,7 +214,7 @@ namespace btr.distrib.InventoryContext.StokBrgSupplierRpt
                 ws.Range(ws.Cell($"K{listToExcel.Count + 2}"), ws.Cell($"W{listToExcel.Count + 2}")).Style
                     .Font.SetFontName("Concolas")
                     .Font.SetBold()
-                    .NumberFormat.SetFormat("#,##")
+                    .NumberFormat.SetFormat("#,##0")
                     .Fill.SetBackgroundColor(XLColor.Yellow)
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair);
