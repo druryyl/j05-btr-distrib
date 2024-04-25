@@ -80,13 +80,13 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                 if (qtyAdjust > 0)
                 {
                     var cmd = new AddStokRequest(stokOp.BrgId, stokOp.WarehouseId,
-                        qtyAdjust, satuanKecil, nilaiPersediaan, stokOp.StokOpId, "STOKOP",ketarangn, stokOp.StokOpDate);
+                        qtyAdjust, satuanKecil, nilaiPersediaan, stokOp.StokOpId, "STOKOP",ketarangn, stokOp.PeriodeOp);
                     _addStokWorker.Execute(cmd);
                 }
                 else
                 {
                     var cmd = new RemoveFifoStokRequest(stokOp.BrgId, stokOp.WarehouseId,
-                        -qtyAdjust, satuanKecil, 0, stokOp.StokOpId, "STOKOP", ketarangn, stokOp.StokOpDate);
+                        -qtyAdjust, satuanKecil, 0, stokOp.StokOpId, "STOKOP", ketarangn, stokOp.PeriodeOp);
                     _removeFifoStokWorker.Execute(cmd);
                 }
                 var result = new GenStokStokOpResult
