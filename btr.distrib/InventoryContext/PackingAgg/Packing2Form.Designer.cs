@@ -30,10 +30,8 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.UserText = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.PackingDateText = new System.Windows.Forms.DateTimePicker();
-            this.label6 = new System.Windows.Forms.Label();
-            this.MutasiButton = new System.Windows.Forms.Button();
+            this.PackingIdButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.PackingIdText = new System.Windows.Forms.TextBox();
             this.InfoStatusStrip = new System.Windows.Forms.StatusStrip();
@@ -49,7 +47,6 @@
             this.WarehouseCombo = new System.Windows.Forms.ComboBox();
             this.DriverCombo = new System.Windows.Forms.ComboBox();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.label8 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.SearchButton = new System.Windows.Forms.Button();
             this.SearchText = new System.Windows.Forms.TextBox();
@@ -67,6 +64,8 @@
             this.SupplierGrid = new Syncfusion.WinForms.DataGrid.SfDataGrid();
             this.SupplierBrgGrid = new Syncfusion.WinForms.DataGrid.SfDataGrid();
             this.SaveButton = new System.Windows.Forms.Button();
+            this.PreviewPerSupplier = new System.Windows.Forms.Button();
+            this.PreviewPerFakturButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.InfoStatusStrip.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -95,10 +94,8 @@
             this.panel1.BackColor = System.Drawing.Color.PowderBlue;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.UserText);
-            this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.PackingDateText);
-            this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.MutasiButton);
+            this.panel1.Controls.Add(this.PackingIdButton);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.PackingIdText);
             this.panel1.Location = new System.Drawing.Point(6, 6);
@@ -109,49 +106,31 @@
             // UserText
             // 
             this.UserText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.UserText.Location = new System.Drawing.Point(9, 103);
+            this.UserText.Location = new System.Drawing.Point(9, 78);
             this.UserText.Name = "UserText";
             this.UserText.ReadOnly = true;
             this.UserText.Size = new System.Drawing.Size(182, 22);
             this.UserText.TabIndex = 3;
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 88);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(30, 13);
-            this.label7.TabIndex = 17;
-            this.label7.Text = "User";
-            // 
             // PackingDateText
             // 
             this.PackingDateText.CustomFormat = "ddd, dd-MMM-yyyy";
             this.PackingDateText.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.PackingDateText.Location = new System.Drawing.Point(9, 63);
+            this.PackingDateText.Location = new System.Drawing.Point(9, 50);
             this.PackingDateText.Name = "PackingDateText";
             this.PackingDateText.Size = new System.Drawing.Size(182, 22);
             this.PackingDateText.TabIndex = 2;
             // 
-            // label6
+            // PackingIdButton
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 47);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(74, 13);
-            this.label6.TabIndex = 16;
-            this.label6.Text = "Packing Date";
-            // 
-            // MutasiButton
-            // 
-            this.MutasiButton.BackColor = System.Drawing.Color.CadetBlue;
-            this.MutasiButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.MutasiButton.Location = new System.Drawing.Point(165, 22);
-            this.MutasiButton.Name = "MutasiButton";
-            this.MutasiButton.Size = new System.Drawing.Size(26, 22);
-            this.MutasiButton.TabIndex = 1;
-            this.MutasiButton.Text = "...";
-            this.MutasiButton.UseVisualStyleBackColor = false;
+            this.PackingIdButton.BackColor = System.Drawing.Color.CadetBlue;
+            this.PackingIdButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PackingIdButton.Location = new System.Drawing.Point(165, 22);
+            this.PackingIdButton.Name = "PackingIdButton";
+            this.PackingIdButton.Size = new System.Drawing.Size(26, 22);
+            this.PackingIdButton.TabIndex = 1;
+            this.PackingIdButton.Text = "...";
+            this.PackingIdButton.UseVisualStyleBackColor = false;
             // 
             // label1
             // 
@@ -285,7 +264,6 @@
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BackColor = System.Drawing.Color.PowderBlue;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.label8);
             this.panel3.Controls.Add(this.label4);
             this.panel3.Controls.Add(this.SearchButton);
             this.panel3.Controls.Add(this.SearchText);
@@ -295,15 +273,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(474, 144);
             this.panel3.TabIndex = 3;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(13, 102);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(38, 13);
-            this.label8.TabIndex = 16;
-            this.label8.Text = "label8";
             // 
             // label4
             // 
@@ -316,12 +285,15 @@
             // 
             // SearchButton
             // 
+            this.SearchButton.BackColor = System.Drawing.Color.CadetBlue;
+            this.SearchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SearchButton.ForeColor = System.Drawing.SystemColors.ControlText;
             this.SearchButton.Location = new System.Drawing.Point(364, 48);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(75, 23);
             this.SearchButton.TabIndex = 10;
             this.SearchButton.Text = "List";
-            this.SearchButton.UseVisualStyleBackColor = true;
+            this.SearchButton.UseVisualStyleBackColor = false;
             // 
             // SearchText
             // 
@@ -503,12 +475,36 @@
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.SaveButton.BackColor = System.Drawing.Color.PowderBlue;
             this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SaveButton.Location = new System.Drawing.Point(864, 496);
+            this.SaveButton.Location = new System.Drawing.Point(590, 496);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
             this.SaveButton.TabIndex = 5;
             this.SaveButton.Text = "Save";
             this.SaveButton.UseVisualStyleBackColor = false;
+            // 
+            // PreviewPerSupplier
+            // 
+            this.PreviewPerSupplier.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.PreviewPerSupplier.BackColor = System.Drawing.Color.PowderBlue;
+            this.PreviewPerSupplier.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PreviewPerSupplier.Location = new System.Drawing.Point(803, 496);
+            this.PreviewPerSupplier.Name = "PreviewPerSupplier";
+            this.PreviewPerSupplier.Size = new System.Drawing.Size(136, 23);
+            this.PreviewPerSupplier.TabIndex = 6;
+            this.PreviewPerSupplier.Text = "Preview Per-Supplier";
+            this.PreviewPerSupplier.UseVisualStyleBackColor = false;
+            // 
+            // PreviewPerFakturButton
+            // 
+            this.PreviewPerFakturButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.PreviewPerFakturButton.BackColor = System.Drawing.Color.PowderBlue;
+            this.PreviewPerFakturButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PreviewPerFakturButton.Location = new System.Drawing.Point(671, 496);
+            this.PreviewPerFakturButton.Name = "PreviewPerFakturButton";
+            this.PreviewPerFakturButton.Size = new System.Drawing.Size(126, 23);
+            this.PreviewPerFakturButton.TabIndex = 7;
+            this.PreviewPerFakturButton.Text = "Preview Per-Faktur";
+            this.PreviewPerFakturButton.UseVisualStyleBackColor = false;
             // 
             // Packing2Form
             // 
@@ -516,6 +512,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(947, 546);
+            this.Controls.Add(this.PreviewPerFakturButton);
+            this.Controls.Add(this.PreviewPerSupplier);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panel3);
@@ -554,10 +552,13 @@
             this.PerformLayout();
         }
 
+        private System.Windows.Forms.Button PreviewPerSupplier;
+        private System.Windows.Forms.Button PreviewPerFakturButton;
+
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button MutasiButton;
+        private System.Windows.Forms.Button PackingIdButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox PackingIdText;
         private System.Windows.Forms.StatusStrip InfoStatusStrip;
@@ -579,16 +580,13 @@
         private System.Windows.Forms.ToolStripStatusLabel JumlahItemStatusLabel;
         private System.Windows.Forms.ToolStripStatusLabel JumlahSupplierStatusLabel;
         private System.Windows.Forms.TextBox UserText;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DateTimePicker PackingDateText;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private Syncfusion.WinForms.DataGrid.SfDataGrid FakturGrid;
         private System.Windows.Forms.Button SaveButton;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private Syncfusion.WinForms.DataGrid.SfDataGrid FakturSelectedGrid;
         private Syncfusion.WinForms.DataGrid.SfDataGrid FakturSelectedBrgGrid;

@@ -1,14 +1,9 @@
 ﻿using btr.application.InventoryContext.StokBrgSupplierRpt;
 using btr.infrastructure.Helpers;
 using btr.nuna.Infrastructure;
-using Dapper;
 using Microsoft.Extensions.Options;
-using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace btr.infrastructure.InventoryContext.StokBrgSupplierRpt
 {
@@ -63,10 +58,7 @@ namespace btr.infrastructure.InventoryContext.StokBrgSupplierRpt
                         SELECT BrgId, HargaTypeId, Harga
                         FROM BTR_BrgHarga
                         WHERE HargaTypeId = 'MT'
-                    ) ggMT ON cc.BrgId = ggMT.BrgId
-    
-                WHERE
-                    aa.Qty > 0";
+                    ) ggMT ON cc.BrgId = ggMT.BrgId";
 
             //  connect db and execute query
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))

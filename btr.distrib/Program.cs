@@ -34,7 +34,7 @@ namespace btr.distrib
                 .Build();
             ConfigureServices(services, configuration);
 
-            if (!IsSuccessLogin(services, out string user))
+            if (!IsSuccessLogin(services, out var user))
                 return;
             else
             {
@@ -54,16 +54,13 @@ namespace btr.distrib
         private static bool IsSuccessLogin(ServiceCollection services, out string user)
         {
             user = string.Empty;
-            var _servicesProvider = services.BuildServiceProvider();
-            var login = _servicesProvider.GetRequiredService<LoginForm>();
+            var servicesProvider = services.BuildServiceProvider();
+            var login = servicesProvider.GetRequiredService<LoginForm>();
             login.StartPosition = FormStartPosition.CenterScreen;
             var diagResult = login.ShowDialog();
-            if (diagResult == DialogResult.OK)
-            {
-                user = login.UserId;
-                return true;
-            }
-            return false;
+            if (diagResult != DialogResult.OK) return false;
+            user = login.UserId;
+            return true;
         }
             
         private static void ConfigureServices(IServiceCollection services, IConfiguration configuration)

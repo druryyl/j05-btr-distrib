@@ -41,6 +41,7 @@ namespace btr.domain.InventoryContext.PackingAgg
         public string PackingFakturId { get; set; }
         public string FakturId { get; set; }
         public string FakturCode { get; set; }
+        public DateTime FakturDate { get; set; }
         public string CustomerName { get; set; }
         public string Address { get; set; }
         public string Kota { get; set; }

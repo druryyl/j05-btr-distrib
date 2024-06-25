@@ -413,6 +413,7 @@ namespace btr.distrib.FinanceContext.TagihanAgg
     public class TagihanDto
     {
         public string FakturCode { get; set; }
+
         public string FakturDate { get; set; }
         public string CustomerId { get; set; }
         public string CustomerName { get; set; }

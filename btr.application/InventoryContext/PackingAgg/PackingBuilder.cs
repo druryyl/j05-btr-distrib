@@ -92,6 +92,9 @@ namespace btr.application.InventoryContext.PackingAgg
             _aggregate = new PackingModel
             {
                 PackingDate = DateTime.Now,
+                DeliveryDate = DateTime.Now.AddDays(1),
+                TglAwalFaktur = DateTime.Now.AddDays(-1),
+                TglAkhirFaktur = DateTime.Now,
                 ListBrg = new List<PackingBrgModel>(),
                 ListFaktur = new List<PackingFakturModel>()
             };

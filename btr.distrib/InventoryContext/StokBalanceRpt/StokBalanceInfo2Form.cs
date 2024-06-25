@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using btr.application.InventoryContext.StokBalanceInfo;
+using btr.distrib.InventoryContext.StokBrgSupplierRpt;
 using btr.nuna.Domain;
 using ClosedXML.Excel;
 using Syncfusion.DataSource;
@@ -120,31 +121,36 @@ namespace btr.distrib.InventoryContext.StokBalanceRpt
                 filePath = saveFileDialog.FileName;
             }
 
-            
+            var filtered = this.InfoGrid.Table.FilteredRecords;
+            var listToExcel = new List<StokBalanceInfoDto>();
+            foreach (var item in filtered)
+            {
+                listToExcel.Add(item.GetData() as StokBalanceInfoDto);
+            }
 
 
             using (IXLWorkbook wb = new XLWorkbook())
             {
                 wb.AddWorksheet("stok-balance-info")
                 .Cell($"B1")
-                    .InsertTable(_dataSource, false);
+                    .InsertTable(listToExcel, false);
                 var ws = wb.Worksheets.First();
                 //  set border and font
-                ws.Range(ws.Cell($"A{1}"), ws.Cell($"O{_dataSource.Count + 1}")).Style
+                ws.Range(ws.Cell($"A{1}"), ws.Cell($"O{listToExcel.Count + 1}")).Style
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair);
-                ws.Range(ws.Cell($"A{1}"), ws.Cell($"O{_dataSource.Count + 1}")).Style
+                ws.Range(ws.Cell($"A{1}"), ws.Cell($"O{listToExcel.Count + 1}")).Style
                     .Font.SetFontName("Consolas")
                     .Font.SetFontSize(9);
 
                 //  set format for  column  number 
-                ws.Range(ws.Cell($"H{2}"), ws.Cell($"O{_dataSource.Count + 1}"))
-                    .Style.NumberFormat.Format = "#,##";
-                ws.Range(ws.Cell($"A{2}"), ws.Cell($"A{_dataSource.Count + 1}"))
-                    .Style.NumberFormat.Format = "#,##";
+                ws.Range(ws.Cell($"H{2}"), ws.Cell($"O{listToExcel.Count + 1}"))
+                    .Style.NumberFormat.Format = "#,##0";
+                ws.Range(ws.Cell($"A{2}"), ws.Cell($"A{listToExcel.Count + 1}"))
+                    .Style.NumberFormat.Format = "#,##0";
                 //  add rownumbering
                 ws.Cell($"A1").Value = "No";
-                for (var i = 0; i < _dataSource.Count; i++)
+                for (var i = 0; i < listToExcel.Count; i++)
                     ws.Cell($"A{i + 2}").Value = i + 1;
                 ws.Columns().AdjustToContents();
                 wb.SaveAs(filePath);

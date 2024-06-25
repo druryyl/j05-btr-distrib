@@ -42,6 +42,7 @@ using btr.distrib.PurchaseContext.InvoiceHarianDetilRpt;
 using btr.distrib.InventoryContext.AdjustmentAgg;
 using btr.distrib.SalesContext.FakturPajakRpt;
 using btr.distrib.SalesContext.FakturCashRpt;
+using btr.distrib.InventoryContext.ReturJualRpt;
 
 namespace btr.distrib.SharedForm
 {
@@ -337,7 +338,17 @@ namespace btr.distrib.SharedForm
         }
 
 
-        private void IT5ReturJualButton_Click(object sender, EventArgs e)
+        private void RT15ReturJualButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<ReturJualForm>())
+                return;
+            var form = _servicesProvider.GetRequiredService<ReturJualForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void FT3ReturJualButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<ReturJualForm>())
                 return;
@@ -417,11 +428,11 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-        private void IF4StokSupplierButton_Click(object sender, EventArgs e)
+        private void SF7OmzetSupplierButton_Click(object sender, EventArgs e)
         {
-            if (BringMdiChildToFrontIfLoaded<StokBrgSupplierForm>())
+            if (BringMdiChildToFrontIfLoaded<OmzetSupplierInfoForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<StokBrgSupplierForm>();
+            var form = _servicesProvider.GetRequiredService<OmzetSupplierInfoForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -479,6 +490,26 @@ namespace btr.distrib.SharedForm
             if (BringMdiChildToFrontIfLoaded<FakturCashInfoForm>())
                 return;
             var form = _servicesProvider.GetRequiredService<FakturCashInfoForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void IF4StokPerSupplierButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<StokBrgSupplierForm>())
+                return;
+            var form = _servicesProvider.GetRequiredService<StokBrgSupplierForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void RF1ReturJualInfo_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<ReturJjualReportForm>())
+                return;
+            var form = _servicesProvider.GetRequiredService<ReturJjualReportForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

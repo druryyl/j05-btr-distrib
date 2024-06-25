@@ -42,6 +42,7 @@
             this.SF4FakturCustomerButton = new System.Windows.Forms.RibbonButton();
             this.SF5FakturPajakButton = new System.Windows.Forms.RibbonButton();
             this.SF6FakturCashButton = new System.Windows.Forms.RibbonButton();
+            this.SF7OmzetPerSupplier = new System.Windows.Forms.RibbonButton();
             this.MasterSalesPanel = new System.Windows.Forms.RibbonPanel();
             this.OutletButton = new System.Windows.Forms.RibbonButton();
             this.SalesPersonButton = new System.Windows.Forms.RibbonButton();
@@ -61,12 +62,10 @@
             this.IT2PrintFakturButton = new System.Windows.Forms.RibbonButton();
             this.IT3PackingButton = new System.Windows.Forms.RibbonButton();
             this.IT4MutasiButton = new System.Windows.Forms.RibbonButton();
-            this.IT5ReturJualButton = new System.Windows.Forms.RibbonButton();
             this.ribbonButton1 = new System.Windows.Forms.RibbonButton();
             this.ReportingPanel = new System.Windows.Forms.RibbonPanel();
             this.IF1StokBalanceButton = new System.Windows.Forms.RibbonButton();
             this.IF2KartuStokButton = new System.Windows.Forms.RibbonButton();
-            this.IF3OmzetPerSupplierButton = new System.Windows.Forms.RibbonButton();
             this.IF4StokPerSupplierButton = new System.Windows.Forms.RibbonButton();
             this.InventoryMasterPanel = new System.Windows.Forms.RibbonPanel();
             this.BrgButton = new System.Windows.Forms.RibbonButton();
@@ -79,6 +78,11 @@
             this.FinanceInfoTab = new System.Windows.Forms.RibbonPanel();
             this.FF1PiutangSalesWilayahButton = new System.Windows.Forms.RibbonButton();
             this.FF2PenerimaanSalesButton = new System.Windows.Forms.RibbonButton();
+            this.ReturTab = new System.Windows.Forms.RibbonTab();
+            this.ribbonPanel3 = new System.Windows.Forms.RibbonPanel();
+            this.RT1ReturJualButton = new System.Windows.Forms.RibbonButton();
+            this.ribbonPanel4 = new System.Windows.Forms.RibbonPanel();
+            this.RF1ReturJualInfo = new System.Windows.Forms.RibbonButton();
             this.SettingTab = new System.Windows.Forms.RibbonTab();
             this.DeliveryPanel = new System.Windows.Forms.RibbonPanel();
             this.UserButton = new System.Windows.Forms.RibbonButton();
@@ -113,6 +117,7 @@
             this.ribbon1.Tabs.Add(this.PurchaseTab);
             this.ribbon1.Tabs.Add(this.InventoryTab);
             this.ribbon1.Tabs.Add(this.FinanceTab);
+            this.ribbon1.Tabs.Add(this.ReturTab);
             this.ribbon1.Tabs.Add(this.SettingTab);
             this.ribbon1.Text = "ribbon1";
             this.ribbon1.ThemeColor = System.Windows.Forms.RibbonTheme.Blue_2010;
@@ -170,6 +175,7 @@
             this.SalesInfoPanel.Items.Add(this.SF4FakturCustomerButton);
             this.SalesInfoPanel.Items.Add(this.SF5FakturPajakButton);
             this.SalesInfoPanel.Items.Add(this.SF6FakturCashButton);
+            this.SalesInfoPanel.Items.Add(this.SF7OmzetPerSupplier);
             this.SalesInfoPanel.Name = "SalesInfoPanel";
             this.SalesInfoPanel.Text = "Reporting";
             // 
@@ -227,6 +233,15 @@
             this.SF6FakturCashButton.SmallImage = global::btr.distrib.Properties.Resources.icons8_documents;
             this.SF6FakturCashButton.Text = "SF6-Faktur Cash";
             this.SF6FakturCashButton.Click += new System.EventHandler(this.SF6FakturCashButton_Click);
+            // 
+            // SF7OmzetPerSupplier
+            // 
+            this.SF7OmzetPerSupplier.Image = global::btr.distrib.Properties.Resources.icons8_documents;
+            this.SF7OmzetPerSupplier.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents;
+            this.SF7OmzetPerSupplier.Name = "SF7OmzetPerSupplier";
+            this.SF7OmzetPerSupplier.SmallImage = ((System.Drawing.Image)(resources.GetObject("SF7OmzetPerSupplier.SmallImage")));
+            this.SF7OmzetPerSupplier.Text = "SF7-Omzet PerSupplier";
+            this.SF7OmzetPerSupplier.Click += new System.EventHandler(this.SF7OmzetSupplierButton_Click);
             // 
             // MasterSalesPanel
             // 
@@ -353,7 +368,6 @@
             this.InventoryTrsPanel.Items.Add(this.IT2PrintFakturButton);
             this.InventoryTrsPanel.Items.Add(this.IT3PackingButton);
             this.InventoryTrsPanel.Items.Add(this.IT4MutasiButton);
-            this.InventoryTrsPanel.Items.Add(this.IT5ReturJualButton);
             this.InventoryTrsPanel.Items.Add(this.ribbonButton1);
             this.InventoryTrsPanel.Name = "InventoryTrsPanel";
             this.InventoryTrsPanel.Text = "Transaction";
@@ -394,15 +408,6 @@
             this.IT4MutasiButton.Text = "IT4-Mutasi";
             this.IT4MutasiButton.Click += new System.EventHandler(this.IT4MutasiButton_Click);
             // 
-            // IT5ReturJualButton
-            // 
-            this.IT5ReturJualButton.Image = global::btr.distrib.Properties.Resources.icons8_kaspersky_32;
-            this.IT5ReturJualButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_kaspersky_32;
-            this.IT5ReturJualButton.Name = "IT5ReturJualButton";
-            this.IT5ReturJualButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IT5ReturJualButton.SmallImage")));
-            this.IT5ReturJualButton.Text = "IT5-Retur Jual";
-            this.IT5ReturJualButton.Click += new System.EventHandler(this.IT5ReturJualButton_Click);
-            // 
             // ribbonButton1
             // 
             this.ribbonButton1.Image = global::btr.distrib.Properties.Resources.icons8_adjust_32;
@@ -416,7 +421,6 @@
             // 
             this.ReportingPanel.Items.Add(this.IF1StokBalanceButton);
             this.ReportingPanel.Items.Add(this.IF2KartuStokButton);
-            this.ReportingPanel.Items.Add(this.IF3OmzetPerSupplierButton);
             this.ReportingPanel.Items.Add(this.IF4StokPerSupplierButton);
             this.ReportingPanel.Name = "ReportingPanel";
             this.ReportingPanel.Text = "Reporting";
@@ -439,15 +443,6 @@
             this.IF2KartuStokButton.Text = "IF2-Kartu Stok";
             this.IF2KartuStokButton.Click += new System.EventHandler(this.IF2KartuStokButton_Click);
             // 
-            // IF3OmzetPerSupplierButton
-            // 
-            this.IF3OmzetPerSupplierButton.Image = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
-            this.IF3OmzetPerSupplierButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
-            this.IF3OmzetPerSupplierButton.Name = "IF3OmzetPerSupplierButton";
-            this.IF3OmzetPerSupplierButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IF3OmzetPerSupplierButton.SmallImage")));
-            this.IF3OmzetPerSupplierButton.Text = "IF3-Omzet Supplier";
-            this.IF3OmzetPerSupplierButton.Click += new System.EventHandler(this.IF3OmzetPerSupplierButton_Click);
-            // 
             // IF4StokPerSupplierButton
             // 
             this.IF4StokPerSupplierButton.Image = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
@@ -455,7 +450,7 @@
             this.IF4StokPerSupplierButton.Name = "IF4StokPerSupplierButton";
             this.IF4StokPerSupplierButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IF4StokPerSupplierButton.SmallImage")));
             this.IF4StokPerSupplierButton.Text = "IF4-Stok Supplier";
-            this.IF4StokPerSupplierButton.Click += new System.EventHandler(this.IF4StokSupplierButton_Click);
+            this.IF4StokPerSupplierButton.Click += new System.EventHandler(this.IF4StokPerSupplierButton_Click);
             // 
             // InventoryMasterPanel
             // 
@@ -548,6 +543,43 @@
             this.FF2PenerimaanSalesButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FF2PenerimaanSalesButton.SmallImage")));
             this.FF2PenerimaanSalesButton.Text = "FF2-Penerimaan Sales";
             this.FF2PenerimaanSalesButton.Click += new System.EventHandler(this.FF2PenerimaanSalesButton_Click);
+            // 
+            // ReturTab
+            // 
+            this.ReturTab.Name = "ReturTab";
+            this.ReturTab.Panels.Add(this.ribbonPanel3);
+            this.ReturTab.Panels.Add(this.ribbonPanel4);
+            this.ReturTab.Text = "Retur";
+            // 
+            // ribbonPanel3
+            // 
+            this.ribbonPanel3.Items.Add(this.RT1ReturJualButton);
+            this.ribbonPanel3.Name = "ribbonPanel3";
+            this.ribbonPanel3.Text = "";
+            // 
+            // RT1ReturJualButton
+            // 
+            this.RT1ReturJualButton.Image = global::btr.distrib.Properties.Resources.icons8_kaspersky_32;
+            this.RT1ReturJualButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_kaspersky_32;
+            this.RT1ReturJualButton.Name = "RT1ReturJualButton";
+            this.RT1ReturJualButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("RT1ReturJualButton.SmallImage")));
+            this.RT1ReturJualButton.Text = "RT1-Retur Jual";
+            this.RT1ReturJualButton.Click += new System.EventHandler(this.FT3ReturJualButton_Click);
+            // 
+            // ribbonPanel4
+            // 
+            this.ribbonPanel4.Items.Add(this.RF1ReturJualInfo);
+            this.ribbonPanel4.Name = "ribbonPanel4";
+            this.ribbonPanel4.Text = "";
+            // 
+            // RF1ReturJualInfo
+            // 
+            this.RF1ReturJualInfo.Image = global::btr.distrib.Properties.Resources.icons8_hashtag_activity_feed_32;
+            this.RF1ReturJualInfo.LargeImage = global::btr.distrib.Properties.Resources.icons8_hashtag_activity_feed_32;
+            this.RF1ReturJualInfo.Name = "RF1ReturJualInfo";
+            this.RF1ReturJualInfo.SmallImage = ((System.Drawing.Image)(resources.GetObject("RF1ReturJualInfo.SmallImage")));
+            this.RF1ReturJualInfo.Text = "RF1-Info Retur";
+            this.RF1ReturJualInfo.Click += new System.EventHandler(this.RF1ReturJualInfo_Click);
             // 
             // SettingTab
             // 
@@ -684,7 +716,6 @@
         private System.Windows.Forms.RibbonButton IT4MutasiButton;
         private System.Windows.Forms.RibbonPanel ribbonPanel1;
         private System.Windows.Forms.RibbonButton FT1LunasPiutangButton;
-        private System.Windows.Forms.RibbonButton IF3OmzetPerSupplierButton;
         private System.Windows.Forms.RibbonButton IF4StokPerSupplierButton;
         private System.Windows.Forms.RibbonButton P01InvoiceInfoButton;
         private System.Windows.Forms.RibbonButton P2InvoiceBrgInfoButton;
@@ -700,10 +731,15 @@
         private System.Windows.Forms.RibbonButton FF2PenerimaanSalesButton;
         private System.Windows.Forms.RibbonButton KategoriAButton;
         private System.Windows.Forms.RibbonPanel ribbonPanel2;
-        private System.Windows.Forms.RibbonButton IT5ReturJualButton;
         private System.Windows.Forms.RibbonButton ST3FakturPajakButton;
         private System.Windows.Forms.RibbonButton SF5FakturPajakButton;
         private System.Windows.Forms.RibbonButton ribbonButton1;
         private System.Windows.Forms.RibbonButton SF6FakturCashButton;
+        private System.Windows.Forms.RibbonButton SF7OmzetPerSupplier;
+        private System.Windows.Forms.RibbonTab ReturTab;
+        private System.Windows.Forms.RibbonPanel ribbonPanel3;
+        private System.Windows.Forms.RibbonButton RT1ReturJualButton;
+        private System.Windows.Forms.RibbonPanel ribbonPanel4;
+        private System.Windows.Forms.RibbonButton RF1ReturJualInfo;
     }
 }

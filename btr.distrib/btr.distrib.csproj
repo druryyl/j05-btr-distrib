@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>121</ApplicationRevision>
+    <ApplicationRevision>130</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -287,6 +287,7 @@
     <Compile Include="Browsers\InvoiceBrowser.cs" />
     <Compile Include="Browsers\KategoriBrowser.cs" />
     <Compile Include="Browsers\MutasiBrowser.cs" />
+    <Compile Include="Browsers\PackingBrowser.cs" />
     <Compile Include="Browsers\ReturJualBrowser.cs" />
     <Compile Include="Browsers\SalesPersonBrowser.cs" />
     <Compile Include="Browsers\TagihanBrowser.cs" />
@@ -402,17 +403,17 @@
       <DependentUpon>ReturJualForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InventoryContext\ReturJualAgg\ReturJualItemDto.cs" />
+    <Compile Include="InventoryContext\ReturJualRpt\ReturJjualReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryContext\ReturJualRpt\ReturJjualReportForm.Designer.cs">
+      <DependentUpon>ReturJjualReportForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="InventoryContext\StokBalanceRpt\StokBalanceInfo2Form.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="InventoryContext\StokBalanceRpt\StokBalanceInfo2Form.Designer.cs">
       <DependentUpon>StokBalanceInfo2Form.cs</DependentUpon>
-    </Compile>
-    <Compile Include="InventoryContext\StokBalanceRpt\StokBalanceInfoForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="InventoryContext\StokBalanceRpt\StokBalanceInfoForm.Designer.cs">
-      <DependentUpon>StokBalanceInfoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InventoryContext\KategoriAgg\KategoriForm.cs">
       <SubType>Form</SubType>
@@ -673,6 +674,9 @@
     <EmbeddedResource Include="InventoryContext\ReturJualAgg\ReturJualForm.resx">
       <DependentUpon>ReturJualForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="InventoryContext\ReturJualRpt\ReturJjualReportForm.resx">
+      <DependentUpon>ReturJjualReportForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\StokBalanceRpt\StokBalanceInfo2Form.resx">
       <DependentUpon>StokBalanceInfo2Form.cs</DependentUpon>
     </EmbeddedResource>
@@ -732,9 +736,6 @@
     <None Include="Resources\icons8_to_do_32.png" />
     <None Include="Resources\key_48px.png" />
     <None Include="Resources\icons8_user_account_32.png" />
-    <EmbeddedResource Include="InventoryContext\StokBalanceRpt\StokBalanceInfoForm.resx">
-      <DependentUpon>StokBalanceInfoForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SalesContext\FakturControlAgg\FakturControlForm.resx">
       <DependentUpon>FakturControlForm.cs</DependentUpon>
     </EmbeddedResource>
