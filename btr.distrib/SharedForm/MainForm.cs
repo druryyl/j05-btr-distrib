@@ -42,6 +42,7 @@ using btr.distrib.PurchaseContext.InvoiceHarianDetilRpt;
 using btr.distrib.InventoryContext.AdjustmentAgg;
 using btr.distrib.SalesContext.FakturPajakRpt;
 using btr.distrib.SalesContext.FakturCashRpt;
+using btr.distrib.InventoryContext.ReturJualRpt;
 
 namespace btr.distrib.SharedForm
 {
@@ -499,6 +500,16 @@ namespace btr.distrib.SharedForm
             if (BringMdiChildToFrontIfLoaded<StokBrgSupplierForm>())
                 return;
             var form = _servicesProvider.GetRequiredService<StokBrgSupplierForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void RF1ReturJualInfo_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<ReturJjualReportForm>())
+                return;
+            var form = _servicesProvider.GetRequiredService<ReturJjualReportForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

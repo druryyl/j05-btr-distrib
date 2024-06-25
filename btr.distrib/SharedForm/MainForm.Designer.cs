@@ -579,6 +579,7 @@
             this.RF1ReturJualInfo.Name = "RF1ReturJualInfo";
             this.RF1ReturJualInfo.SmallImage = ((System.Drawing.Image)(resources.GetObject("RF1ReturJualInfo.SmallImage")));
             this.RF1ReturJualInfo.Text = "RF1-Info Retur";
+            this.RF1ReturJualInfo.Click += new System.EventHandler(this.RF1ReturJualInfo_Click);
             // 
             // SettingTab
             // 
