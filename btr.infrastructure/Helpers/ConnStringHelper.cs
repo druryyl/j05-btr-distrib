@@ -16,7 +16,7 @@
         {
             const string uid = "btrLogin";
             const string pass = "btr123!";
-            var result = $"Server={server};Database={db};User Id={uid};Password={pass};";
+            var result = $"Server={server};Database={db};User Id={uid};Password={pass};TrustServerCertificate=True";
             return result;
         }
     }
