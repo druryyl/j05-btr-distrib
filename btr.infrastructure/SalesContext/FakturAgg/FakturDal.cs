@@ -27,12 +27,12 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 FakturId, FakturDate, FakturCode, SalesPersonId, CustomerId, HargaTypeId,
                 WarehouseId, TglRencanaKirim, TermOfPayment, DueDate, Total,
                 Discount, Tax, GrandTotal, UangMuka, KurangBayar, NoFakturPajak,
-                CreateTime, LastUpdate, UserId, VoidDate, UserIdVoid)
+                CreateTime, LastUpdate, UserId, VoidDate, UserIdVoid, Note)
             VALUES(
                 @FakturId, @FakturDate, @FakturCode, @SalesPersonId, @CustomerId, @HargaTypeId,
                 @WarehouseId, @TglRencanaKirim, @TermOfPayment, @DueDate, @Total,
                 @Discount, @Tax, @GrandTotal, @UangMuka, @KurangBayar, @NoFakturPajak,
-                @CreateTime, @LastUpdate, @UserId, @VoidDate, @UserIdVoid) ";
+                @CreateTime, @LastUpdate, @UserId, @VoidDate, @UserIdVoid, Note) ";
 
             var dp = new DynamicParameters();
 
@@ -61,6 +61,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             dp.AddParam("@UserId", model.UserId, SqlDbType.VarChar);
             dp.AddParam("@VoidDate", model.VoidDate, SqlDbType.DateTime);
             dp.AddParam("@UserIdVoid", model.UserIdVoid, SqlDbType.VarChar);
+            dp.AddParam("@Note", model.Note, SqlDbType.VarChar);
 
 
 
@@ -98,7 +99,8 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 LastUpdate = @LastUpdate, 
                 UserId = @UserId,
                 VoidDate = @VoidDate,
-                UserIdVoid = @UserIdVoid
+                UserIdVoid = @UserIdVoid,
+                Note = @Note
             WHERE
                 FakturId = @FakturId ";
 
@@ -129,6 +131,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             dp.AddParam("@UserId", model.UserId, SqlDbType.VarChar);
             dp.AddParam("@VoidDate", model.VoidDate, SqlDbType.DateTime);
             dp.AddParam("@UserIdVoid", model.UserIdVoid, SqlDbType.VarChar);
+            dp.AddParam("@Note", model.Note, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -160,7 +163,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 aa.FakturId, aa.FakturDate, aa.FakturCode, aa.SalesPersonId, aa.CustomerId, aa.HargaTypeId,
                 aa.WarehouseId, aa.TglRencanaKirim, aa.TermOfPayment, aa.DueDate, aa.Total,
                 aa.Discount, aa.Tax, aa.GrandTotal, aa.UangMuka, aa.KurangBayar, aa.NoFakturPajak,
-                aa.CreateTime, aa.LastUpdate, aa.UserId, aa.VoidDate, aa.UserIdVoid,
+                aa.CreateTime, aa.LastUpdate, aa.UserId, aa.VoidDate, aa.UserIdVoid, aa.Note,
                 ISNULL(bb.SalesPersonName, '') AS SalesPersonName,
                 ISNULL(cc.CustomerName, '') AS CustomerName,
                 ISNULL(cc.CustomerCode, '') AS CustomerCode,
@@ -194,7 +197,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 aa.FakturId, aa.FakturDate, aa.FakturCode, aa.SalesPersonId, aa.CustomerId, aa.HargaTypeId,
                 aa.WarehouseId, aa.TglRencanaKirim, aa.TermOfPayment, aa.DueDate, aa.Total,
                 aa.Discount, aa.Tax, aa.GrandTotal, aa.UangMuka, aa.KurangBayar, aa.NoFakturPajak,
-                aa.CreateTime, aa.LastUpdate, aa.UserId, aa.VoidDate, aa.UserIdVoid,
+                aa.CreateTime, aa.LastUpdate, aa.UserId, aa.VoidDate, aa.UserIdVoid, aa.Note,
                 ISNULL(bb.SalesPersonName, '') AS SalesPersonName,
                 ISNULL(cc.CustomerName, '') AS CustomerName,
                 ISNULL(cc.CustomerCode, '') AS CustomerCode,
@@ -273,7 +276,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 aa.FakturId, aa.FakturDate, aa.FakturCode, aa.SalesPersonId, aa.CustomerId, aa.HargaTypeId,
                 aa.WarehouseId, aa.TglRencanaKirim, aa.TermOfPayment, aa.DueDate, aa.Total,
                 aa.Discount, aa.Tax, aa.GrandTotal, aa.UangMuka, aa.KurangBayar, aa.NoFakturPajak,
-                aa.CreateTime, aa.LastUpdate, aa.UserId, aa.VoidDate, aa.UserIdVoid,
+                aa.CreateTime, aa.LastUpdate, aa.UserId, aa.VoidDate, aa.UserIdVoid, aa.Note,
                 ISNULL(bb.SalesPersonName, '') AS SalesPersonName,
                 ISNULL(cc.CustomerName, '') AS CustomerName,
                 ISNULL(cc.CustomerCode, '') AS CustomerCode,

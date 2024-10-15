@@ -164,21 +164,32 @@ namespace btr.distrib.PrintDocs
             grandTotal = decimal.Floor(grandTotal);
             var terbilang = $"{grandTotal.Eja()} rupiah".WrapText(70);
             var terbilang2 = terbilang.Length > 1 ? terbilang[1] : string.Empty;
+            var note____________________________________________ = FixWidthString(model.Note, 50);
+
             sb.Append($"{terbilang[0].FixWidth(70)}                SubTotal   :{subTotal.ToString("N0").FixWidthRight(11)}\n");
             sb.Append($"{terbilang2.FixWidth(70)}                Discount   :{discount.ToString("N0").FixWidthRight(11)}\n");
             sb.Append($"                                                                                      Total      :{total2.ToString("N0").FixWidthRight(11)}\n");
-            sb.Append($"                                                                                      PPN 11%    :{ppn.ToString("N0").FixWidthRight(11)}\n");
+            sb.Append($"Note: {note____________________________________________}                              PPN 11%    :{ppn.ToString("N0").FixWidthRight(11)}\n");
             sb.Append($"                                                                                      Grand Total:{grandTotal.ToString("N0").FixWidthRight(11)}\n");
             sb.Append($"\n");
             sb.Append($"Tanda Terima,                            Pengirim,                             Yogyakarta, {model.FakturDate:dd-MM-yyyy}\n");
             sb.Append($"\n");
             sb.Append($"\n");
             sb.Append($"\n");
-            sb.Append($"\n");
             sb.Append($"___________________                      ___________________                   {model.UserId}\n");
             sb.Append($"(Nama Terang/Cap)\n");
-
+            sb.Append($"\n");
+            sb.Append($"                #Telitilah jumlah barang dan harga sebelum faktur ini dibayar/ditanda-tangani#                ");
             _content = sb.ToString();
+        }
+
+        private string FixWidthString(string input, int width)
+        {
+            if (input.Length > width)
+            {
+                return input.Substring(0, width);
+            }
+            return input.PadRight(width);
         }
 
         private static string[] GetQty(int qtyParam, string satuan, int length)

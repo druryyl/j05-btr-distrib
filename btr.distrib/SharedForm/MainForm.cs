@@ -65,9 +65,10 @@ namespace btr.distrib.SharedForm
         public void SetUser(string user)
         {
             var dbOpt =  _servicesProvider.GetRequiredService<IOptions<DatabaseOptions>>();
-
+            var server = ConnStringHelper.Server;
+            var db = ConnStringHelper.Database;
             LoginStatus.Text = $@"User ID: {user}";
-            ServerDbStatus.Text = $@"Connected Database: {dbOpt.Value.DbName}@{dbOpt.Value.ServerName}";
+            ServerDbStatus.Text = $@"Connected Database: {db}@{server}";
             UserId = new UserModel(user);
             if (dbOpt.Value.ServerName == "JUDE7")
                 this.BackgroundImage = null;

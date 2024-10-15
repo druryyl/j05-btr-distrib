@@ -144,6 +144,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             WarehouseNameText.Text = string.Empty;
             TglRencanaKirimTextBox.Value= DateTime.Now.AddDays(1);
             TermOfPaymentCombo.SelectedIndex = 0;
+            NoteTextBox.Clear();
 
             TotalText.Value = 0;
             DiscountText.Value = 0;
@@ -220,7 +221,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             UangMukaText.Value = faktur.UangMuka;
             SisaText.Value = faktur.KurangBayar;
             LastIdLabel.Text = $@"{faktur.FakturCode}";
-
+            NoteTextBox.Text = faktur.Note;
             _listItem.Clear();
             foreach (var item in faktur.ListItem)
             {
@@ -634,6 +635,8 @@ namespace btr.distrib.SalesContext.FakturAgg
                 DueDate = DueDateText.Value.ToString("yyyy-MM-dd"),
                 UserId = mainform.UserId.UserId,
                 Cash = UangMukaText.Value,
+                Note = NoteTextBox.Text,
+                
             };
 
             var listItem = (

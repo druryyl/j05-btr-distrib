@@ -43,6 +43,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         IFakturBuilder User(IUserKey user);
         IFakturBuilder Cash(decimal cash);
         IFakturBuilder CalcTotal();
+        IFakturBuilder Note(string note);
     }
 
     public class FakturBuilder : IFakturBuilder
@@ -256,6 +257,12 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         {
             _aggRoot.UangMuka = cash;
             CalcTotal();
+            return this;
+        }
+
+        public IFakturBuilder Note(string note)
+        {
+            _aggRoot.Note = note;
             return this;
         }
     }

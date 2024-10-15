@@ -29,6 +29,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
         public string DueDate { get; set; }
         public string UserId { get; set; }
         public decimal Cash { get; set; }
+        public string Note { get; set; }
         public IEnumerable<SaveFakturRequestItem> ListBrg { get; set; }
     }
 
@@ -150,6 +151,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
                 .TermOfPayment((TermOfPaymentEnum)req.TermOfPayment)
                 .DueDate(req.DueDate.ToDate(DateFormatEnum.YMD))
                 .Cash(req.Cash)
+                .Note(req.Note)
                 .Build();
 
             foreach (var item in req.ListBrg)

@@ -59,6 +59,7 @@ namespace btr.domain.SalesContext.FakturAgg
         public DateTime VoidDate { get; set; }
         public string UserIdVoid { get; set; }
         public bool IsVoid { get => VoidDate != new DateTime(3000,1,1); }
+        public string Note { get; set; }
     
         public List<FakturItemModel> ListItem { get; set; }
     }
