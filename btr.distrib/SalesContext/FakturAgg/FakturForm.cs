@@ -661,6 +661,13 @@ namespace btr.distrib.SalesContext.FakturAgg
 
             LastIdLabel.Text = $@"{result.FakturId} - {fakturDb.FakturCode}";
             PrintFaktur(result);
+            //PrintFakturRdlc(result);
+        }
+
+        private void PrintFakturRdlc(FakturModel faktur)
+        {
+            var form = new FakturPrintOutForm(faktur);
+            form.ShowDialog();
         }
 
         private void PrintFaktur(IFakturKey fakturKey)
