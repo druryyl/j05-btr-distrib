@@ -220,10 +220,10 @@ namespace btr.distrib.PrintDocs
             var addr3 = cust.Address2.Length > 0 ? cust.Kota : string.Empty ;
             
 
-            var hdr1 = $"CV BINTANG TIMUR RAHAYU                                                      Tgl: {model.FakturDate:dd-MMM-yyyy}\n";
-            var hdr2 = $"Jl.Kaliurang Km 5.5 Gg Durmo No 18         FAKTUR PENJUALAN                  Kepada Yth Customer-{custId}\n";
-            var hdr3 = $"Yogyakarta 0274-546079                                                       {cust.CustomerName.FixWidth(40)}\n";
-            var hdr4 = $"                                                                             {addr1.FixWidth(40)}\n";
+            var hdr1 = $"CV BINTANG TIMUR RAHARDIAN                                                   Tgl: {model.FakturDate:dd-MMM-yyyy}\n";
+            var hdr2 = $"Jl.Magelang-Salaman Km.3                   FAKTUR PENJUALAN                  Kepada Yth Customer-{custId}\n";
+            var hdr3 = $"Kp.Glagah RT.01/RW.03 Banjarnegoro                                           {cust.CustomerName.FixWidth(40)}\n";
+            var hdr4 = $"Mertoyudan-Magelang 56172                                                    {addr1.FixWidth(40)}\n";
             var hdr5 = $"                                                                             {addr2.FixWidth(40)}\n";
             var hdr6 = $"No.Faktur: {noFakturrrr}      Sales: {salesNameee}       Jenis: {jnsJl}      Tempo:{jatuhTmpo}\n";
             var hdr7 = $"──┬──────────┬───────────────────────────┬───────────────┬───────────────────┬───────────────────┬───────────\n";

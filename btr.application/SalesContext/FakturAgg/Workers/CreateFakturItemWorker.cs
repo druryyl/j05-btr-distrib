@@ -85,12 +85,12 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             item.HrgSatKecil = hrgs[1] != 0
                 ? hrgs[1]
                 : hrgs[0] != 0
-                    ? hrgs[0] / pembagi : 0;
+                    ? hrgs[0] / pembagi : 0M;
             item.HrgSatKecil = item.HrgSatKecil == 0
-                ? brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == req.HargaTypeId)?.Harga ?? 0
+                ? brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == req.HargaTypeId)?.Harga ?? 0M
                 : item.HrgSatKecil ;
             item.HrgSatBesar = item.HrgSatKecil * item.Conversion;
-            item.HrgInputStr = $"{item.HrgSatBesar:N0}; {item.HrgSatKecil:N0}";
+            item.HrgInputStr = $"{item.HrgSatBesar:N0}; {item.HrgSatKecil:N2}";
 
             //  jika cuman punya satu satuan, pindah qty jadi satuan kecil
             if (item.Conversion == 0)

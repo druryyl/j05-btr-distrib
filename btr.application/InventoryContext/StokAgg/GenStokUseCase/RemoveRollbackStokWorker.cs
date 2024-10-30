@@ -56,6 +56,8 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                 var req = new RemovePriorityStokRequest(
                     item.BrgId, item.WarehouseId, item.Qty, string.Empty, 
                     item.NilaiPersediaan, request.ReffId, request.JenisMutasi, request.ReffId, "Rollback", request.MutasiDate);
+                if (req.Qty == 0)
+                    continue;
                 _removePriorityStokWorker.Execute(req);
             }
         }

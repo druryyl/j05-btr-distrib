@@ -32,7 +32,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 @FakturId, @FakturDate, @FakturCode, @SalesPersonId, @CustomerId, @HargaTypeId,
                 @WarehouseId, @TglRencanaKirim, @TermOfPayment, @DueDate, @Total,
                 @Discount, @Tax, @GrandTotal, @UangMuka, @KurangBayar, @NoFakturPajak,
-                @CreateTime, @LastUpdate, @UserId, @VoidDate, @UserIdVoid, Note) ";
+                @CreateTime, @LastUpdate, @UserId, @VoidDate, @UserIdVoid, @Note) ";
 
             var dp = new DynamicParameters();
 

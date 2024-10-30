@@ -8,7 +8,7 @@
     HrgDetilStr VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_InvoiceItem_HrgDetilStr DEFAULT(''),
 
     QtyInputStr VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_InvoiceItem_QtyInputStr DEFAULT(''),
-    QtyDetilStr VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_InvoiceItem_QtyDetilStr DEFAULT(''),
+    QtyDetilStr VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_InvoiceItem_QtyDetilStr DEFAULT(''),
     
     QtyBesar INT NOT NULL CONSTRAINT DF_BTR_InvoiceItem_QtyBesar DEFAULT(0),
     SatBesar VARCHAR(10) NOT NULL CONSTRAINT DF_BTR_InvoiceItem_SatBesar DEFAULT(''),

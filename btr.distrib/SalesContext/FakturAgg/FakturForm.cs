@@ -647,6 +647,7 @@ namespace btr.distrib.SalesContext.FakturAgg
                     BrgId = c.BrgId,
                     StokHarga = c.StokHargaStr,
                     QtyString = c.QtyInputStr,
+                    HrgString = c.HrgInputStr,
                     DiscountString = c.DiscInputStr,
                     PpnProsen = c.PpnProsen,
                 }).ToList();
@@ -669,6 +670,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             _fakturPrinter.CreateDoc(faktur);
             _fakturPrinter.PrintDoc();
         }
+
         private static string GetPrinterName()
         {
             string defaultPrinterName;
@@ -684,7 +686,15 @@ namespace btr.distrib.SalesContext.FakturAgg
             }
 
             return defaultPrinterName;
-        }        
+        }
+
+        private void PrintFakturExcel(IFakturKey fakturKey)
+        {
+            var faktur = _fakturBuilder.Load(fakturKey).Build();
+
+
+        }
+
         #endregion
     }
 }
