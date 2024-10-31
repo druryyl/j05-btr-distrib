@@ -538,6 +538,7 @@
       <DependentUpon>FakturForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SalesContext\FakturAgg\FakturItemDto.cs" />
+    <Compile Include="SalesContext\FakturAgg\FakturPrintOutDto.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturPrintOutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -670,6 +671,10 @@
     <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\DataSources\btr.distrib.SalesContext.FakturAgg.FakturItemDto.datasource" />
+    <None Include="Properties\DataSources\btr.distrib.SalesContext.FakturAgg.FakturPrintOutDto.datasource" />
+    <None Include="Properties\DataSources\btr.distrib.SalesContext.FakturAgg.FakturPrintOutForm.datasource" />
+    <None Include="Properties\DataSources\btr.distrib.SalesContext.FakturAgg.FakturPrintOutItemDto.datasource" />
     <None Include="Properties\DataSources\btr.domain.SalesContext.FakturAgg.FakturModel.datasource" />
     <None Include="Resources\icons8_report_card_32.png" />
     <None Include="Resources\icons8_pipe_organ_32.png" />
