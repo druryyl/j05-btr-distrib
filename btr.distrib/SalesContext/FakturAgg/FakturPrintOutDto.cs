@@ -32,42 +32,47 @@ namespace btr.distrib.SalesContext.FakturAgg
             UserName = faktur.UserId;
 
             ListItem = new List<FakturPrintOutItemDto>();
+            var noUrut = 1;
             foreach(var item in faktur.ListItem)
             {
-                var qtyBesar = item.QtyBesar == 0 ? "-" :
-                    $"{item.QtyBesar:N0} {item.SatBesar}";
-                var qtyKecil = item.QtyKecil == 0 ? "-" :
-                    $"{item.QtyKecil:N0} {item.SatKecil}";
-                var disc1 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 1)?.DiscProsen ?? 0;
-                var disc2 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 2)?.DiscProsen ?? 0;
-                var disc3 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 3)?.DiscProsen ?? 0;
-                var disc4 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 4)?.DiscProsen ?? 0;
-                var newItem = new FakturPrintOutItemDto
+                if (item.QtyBesar != 0 || item.QtyKecil != 0)
                 {
-                    NoUrut = $"{item.NoUrut}",
-                    BrgCode = item.BrgCode,
-                    BrgName = item.BrgName,
-                    QtyBesar = qtyBesar,
-                    QtyKecil = qtyKecil,
-                    HrgBesar = item.HrgSatBesar == 0 ? "-" : $"{DecToStr(item.HrgSatBesar)}",
-                    HrgKecil = item.HrgSatKecil == 0 ? "-" : $"{DecToStr(item.HrgSatKecil)}",
-                    Disc1 = disc1 == 0 ? "-" : $"{DecToStr(disc1)}%",
-                    Disc2 = disc2 == 0 ? "-" : $"{DecToStr(disc2)}%",
-                    Disc3 = disc3 == 0 ? "-" : $"{DecToStr(disc3)}%",
-                    Disc4 = disc4 == 0 ? "-" : $"{DecToStr(disc4)}%",
-                    Total = $"{DecToStr(item.Total)}",
-                };
-                ListItem.Add(newItem);
+                    var qtyBesar = item.QtyBesar == 0 ? "-" :
+                        $"{item.QtyBesar:N0} {item.SatBesar}";
+                    var qtyKecil = item.QtyKecil == 0 ? "-" :
+                        $"{item.QtyKecil:N0} {item.SatKecil}";
+                    var disc1 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 1)?.DiscProsen ?? 0;
+                    var disc2 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 2)?.DiscProsen ?? 0;
+                    var disc3 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 3)?.DiscProsen ?? 0;
+                    var disc4 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 4)?.DiscProsen ?? 0;
+                    var newItem = new FakturPrintOutItemDto
+                    {
+                        NoUrut = $"{noUrut}",
+                        BrgCode = item.BrgCode,
+                        BrgName = item.BrgName,
+                        QtyBesar = qtyBesar,
+                        QtyKecil = qtyKecil,
+                        HrgBesar = item.HrgSatBesar == 0 ? "-" : $"{DecToStr(item.HrgSatBesar)}",
+                        HrgKecil = item.HrgSatKecil == 0 ? "-" : $"{DecToStr(item.HrgSatKecil)}",
+                        Disc1 = disc1 == 0 ? "-" : $"{DecToStr(disc1)}%",
+                        Disc2 = disc2 == 0 ? "-" : $"{DecToStr(disc2)}%",
+                        Disc3 = disc3 == 0 ? "-" : $"{DecToStr(disc3)}%",
+                        Disc4 = disc4 == 0 ? "-" : $"{DecToStr(disc4)}%",
+                        Total = $"{DecToStr(item.Total)}",
+                    };
+                    ListItem.Add(newItem);
+                    noUrut++;
+                }
 
                 if (item.QtyBonus != 0)
                 {
                     var itemBonus = new FakturPrintOutItemDto
                     {
-                        NoUrut = string.Empty,
-                        BrgCode = string.Empty,
-                        BrgName = "Bonus",
+                        NoUrut = $"{noUrut}",
+                        BrgCode = item.BrgCode,
+                        BrgName = $"{item.BrgName}",
                         QtyBesar = "-",
-                        QtyKecil = $"{DecToStr(item.QtyBonus)}",
+                        QtyKecil = $"{item.QtyKecil:N0} {item.SatKecil}",
                         HrgBesar = "-",
                         HrgKecil = "-",
                         Disc1 = "-",
@@ -77,6 +82,7 @@ namespace btr.distrib.SalesContext.FakturAgg
                         Total = "-",
                     };
                     ListItem.Add(itemBonus);
+                    noUrut++;
                 }
             }
 
