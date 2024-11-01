@@ -1,5 +1,7 @@
 ﻿using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.FakturAgg;
+using btr.nuna.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,10 +22,14 @@ namespace btr.distrib.SalesContext.FakturAgg
             SalesName = $"Sales: {faktur.SalesPersonName}";
             JenisBayar = $"Jenis:{faktur.TermOfPayment}";
 
+            Terbilang = $"Terbilang #{Math.Round(faktur.GrandTotal,0).Eja()}#";
+            Note = $"Note: {faktur.Note}";
+
             SubTotal = $"{faktur.Total:N0}";
             Discount = $"{faktur.Discount:N0}";
             Ppn = $"{faktur.ListItem.Sum(x => x.PpnRp):N0}";
             GrandTotal = $"{faktur.GrandTotal:N0}";
+            UserName = faktur.UserId;
 
             ListItem = new List<FakturPrintOutItemDto>();
             foreach(var item in faktur.ListItem)
@@ -92,6 +98,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         public string GrandTotal { get; set; }
 
         public string Terbilang { get; set; }
+        public string Note { get; set; }
         public string UserName { get; set; }
 
         public List<FakturPrintOutItemDto> ListItem { get; set; }

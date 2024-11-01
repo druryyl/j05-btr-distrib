@@ -48,6 +48,8 @@ namespace btr.distrib.SalesContext.FakturAgg
                     reportViewer1.LocalReport.DataSources.Add(new ReportDataSource("FakturJualDataset", new List<FakturPrintOutDto> { _faktur }));
                     reportViewer1.LocalReport.DataSources.Add(new ReportDataSource("FakturJualItemDataset", _faktur.ListItem));
                     reportViewer1.RefreshReport();
+                    reportViewer1.ZoomMode = ZoomMode.Percent;
+                    reportViewer1.ZoomPercent = 150;
                 });
             });
         }

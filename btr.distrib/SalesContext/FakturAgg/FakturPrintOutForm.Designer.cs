@@ -49,6 +49,7 @@
             this.Controls.Add(this.reportViewer1);
             this.Name = "FakturPrintOutForm";
             this.Text = "FakturPrintOutForm";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FakturPrintOutForm_Load);
             this.ResumeLayout(false);
 
