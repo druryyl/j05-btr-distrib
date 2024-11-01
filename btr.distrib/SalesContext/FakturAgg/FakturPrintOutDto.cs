@@ -72,7 +72,7 @@ namespace btr.distrib.SalesContext.FakturAgg
                         BrgCode = item.BrgCode,
                         BrgName = $"{item.BrgName}",
                         QtyBesar = "-",
-                        QtyKecil = $"{item.QtyKecil:N0} {item.SatKecil}",
+                        QtyKecil = $"{item.QtyBonus:N0} {item.SatKecil}",
                         HrgBesar = "-",
                         HrgKecil = "-",
                         Disc1 = "-",
