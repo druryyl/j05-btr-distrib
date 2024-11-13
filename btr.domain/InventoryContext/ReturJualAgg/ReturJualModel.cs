@@ -16,6 +16,7 @@ namespace btr.domain.InventoryContext.ReturJualAgg
         public string ReturJualId { get;  set; }
         public DateTime ReturJualDate { get;  set; }
         public string UserId { get;  set; }
+        public string JenisRetur { get; set; }
 
         public string CustomerId { get;  set; }
         public string CustomerName { get;  set; }

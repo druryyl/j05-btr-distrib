@@ -2,6 +2,7 @@
 CREATE TABLE [dbo].[BTR_ReturJual](
 	ReturJualId VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_ReturJual_ReturJualId DEFAULT(''),
 	ReturJualDate DATETIME NOT NULL CONSTRAINT DF_BTR_ReturJual_ReturJualDate DEFAULT(''),
+	JenisRetur VARCHAR(5) NOT NULL CONSTRAINT DF_BTR_ReturJual_JenisRetur DEFAULT(''),
 
 	CustomerId VARCHAR(6) NOT NULL CONSTRAINT DF_BTR_ReturJual_CustomerId DEFAULT(''),
 	WarehouseId VARCHAR(3) NOT NULL CONSTRAINT DF_BTR_ReturJual_WarehouseId DEFAULT(''),

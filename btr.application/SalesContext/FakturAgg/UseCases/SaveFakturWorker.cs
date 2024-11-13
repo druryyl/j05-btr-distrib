@@ -94,6 +94,8 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
                     return result;
                 }
 
+                //  
+
                 if (IsItemBerubah(existingFaktur, result))
                 {
                     _genStokWorker.Execute(genStokReq);

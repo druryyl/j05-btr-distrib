@@ -118,10 +118,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
 
             // register event handler for grid
             FakturItemGrid.CellContentClick += FakturItemGrid_CellContentClick;
-            // FakturItemGrid.CellValueChanged += FakturItemGrid_CellValueChanged;
             FakturItemGrid.CellValidated += FakturItemGrid_CellValidated;
-            // FakturItemGrid.KeyDown += FakturItemGrid_KeyDown;
-            // FakturItemGrid.EditingControlShowing += FakturItemGrid_EditingControlShowing;
             
             SaveButton.Click += SaveButton_Click;
         }
@@ -186,7 +183,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             _listItem.Clear();
             foreach (var item in returJual.ListItem)
             {
-                var createReturJualItemRequest = new CreateReturJualItemRequest(item.BrgId, CustomerIdText.Text, item.HrgInputStr, item.QtyInputStr, item.QtyInputStrRusak, item.DiscInputStr, 11);
+                var createReturJualItemRequest = new CreateReturJualItemRequest(item.BrgId, CustomerIdText.Text, item.HrgInputStr, item.QtyInputStr, item.DiscInputStr, 11);
                 var newItemModel = _createReturJualItemWorker.Execute(createReturJualItemRequest);
                 var newItemDto = newItemModel.Adapt<ReturJualItemDto>();
                 _listItem.Add(newItemDto);
@@ -469,11 +466,6 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             cols.GetCol("QtyInputStr").Width = 50;
             cols.GetCol("QtyInputStr").HeaderText = @"Qty Bagus";
 
-            cols.GetCol("QtyInputStrRusak").Visible = true;
-            cols.GetCol("QtyInputStrRusak").Width = 50;
-            cols.GetCol("QtyInputStrRusak").HeaderText = @"Qty Rusak";
-
-            
             cols.GetCol("HrgInputStr").Visible = true;
             cols.GetCol("HrgInputStr").Width = 100;
             cols.GetCol("HrgInputStr").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
@@ -551,11 +543,12 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
         {
             var item = _listItem[rowIndex];
             var req = new CreateReturJualItemRequest(item.BrgId, CustomerIdText.Text, 
-                item.HrgInputStr, item.QtyInputStr, item.QtyInputStrRusak, item.DiscInputStr, 11);
+                item.HrgInputStr, item.QtyInputStr, item.DiscInputStr, 11);
             var newItem = _createReturJualItemWorker.Execute(req);
             
             _listItem[rowIndex] = newItem.Adapt<ReturJualItemDto>();
             FakturItemGrid.Refresh();
+            CalcTotal();   
         }
         #endregion
 

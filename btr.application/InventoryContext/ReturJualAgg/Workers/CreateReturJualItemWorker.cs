@@ -18,7 +18,6 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
             string customerId,
             string hrgInputStr, 
             string qtyInputStr, 
-            string qtyInputStrRusak, 
             string discInputStr,
             decimal ppnProsen) 
         {
@@ -27,7 +26,6 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
 
             HrgInputStr = hrgInputStr;
             QtyInputStr = qtyInputStr;
-            QtyInputStrRusak = qtyInputStrRusak;
             DiscInputStr = discInputStr;
             PpnProsen = ppnProsen;
         }
@@ -35,7 +33,6 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
         public string CustomerId { get; set; }
         public string HrgInputStr { get; set; }
         public string QtyInputStr { get; set; }
-        public string QtyInputStrRusak { get; set; }
         public string DiscInputStr { get; set; }
         public decimal PpnProsen { get; set; }
     }
@@ -65,7 +62,6 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
             {
                 BrgId = req.BrgId,
                 QtyInputStr = req.QtyInputStr,
-                QtyInputStrRusak = req.QtyInputStrRusak,
                 HrgInputStr = req.HrgInputStr,
                 DiscInputStr = req.DiscInputStr,
             };
@@ -92,7 +88,7 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
             result.BrgName = brg.BrgName ?? string.Empty;
             result = NormalizeInput(result, brg, req.CustomerId);
             
-            result.ListQtyHrg = GetQtyHrg(result.QtyInputStr, result.QtyInputStrRusak, result.HrgInputStr, brg).ToList();
+            result.ListQtyHrg = GetQtyHrg(result.QtyInputStr, result.HrgInputStr, brg).ToList();
             result.ListDisc = GenListDisc(result.DiscInputStr,
                 result.ListQtyHrg.Sum(x => x.SubTotal),
                 brg).ToList();
@@ -109,9 +105,6 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
             result.Qty = result.ListQtyHrg
                 .Where(x => x.JenisQty == JenisQtyEnum.SatuanBesar || x.JenisQty == JenisQtyEnum.SatuanKecil)
                 .Sum(x => x.Qty * x.Conversion);
-            result.QtyRusak = result.ListQtyHrg
-                .Where(x => x.JenisQty == JenisQtyEnum.SatuanBesarRusak || x.JenisQty == JenisQtyEnum.SatuanKecilRusak)
-                .Sum(x => x.Qty);
             result.HrgSat = result.ListQtyHrg.First(x => x.Conversion == 1).HrgSat;
             result.SubTotal = result.ListQtyHrg.Sum(x => x.SubTotal);
             result.DiscRp = result.ListDisc.Sum(x => x.DiscRp);
@@ -122,15 +115,13 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
         }
 
         private static IEnumerable<ReturJualItemQtyHrgModel> GetQtyHrg(string qtyInputStr,
-            string qtyInputStrRusak, string hrgInputStr, BrgModel brgModel)
+            string hrgInputStr, BrgModel brgModel)
         {
             var listQty = qtyInputStr.Split(';').ToList();
             var listHrg = hrgInputStr.Split(';').ToList();
-            var listQtyRusak = qtyInputStrRusak.Split(';').ToList();
             
             listQty.ForEach(x => HilangkanKomaRibuan(x));
             listHrg.ForEach(x => HilangkanKomaRibuan(x));
-            listQtyRusak.ForEach(x => HilangkanKomaRibuan(x));
             
             var item1 = new ReturJualItemQtyHrgModel
             {
@@ -152,32 +143,10 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
                 HrgSat = decimal.Parse(listHrg[1]),
                 Satuan = brgModel.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty,
             };
-            var item3 = new ReturJualItemQtyHrgModel
-            {
-                NoUrut = 3,
-                BrgId = brgModel.BrgId,
-                JenisQty = JenisQtyEnum.SatuanBesarRusak,
-                Conversion = brgModel.ListSatuan.Max(x => x.Conversion),
-                Qty = int.Parse(listQtyRusak[0]),
-                HrgSat = decimal.Parse(listHrg[0]),
-                Satuan = brgModel.ListSatuan.FirstOrDefault(x => x.Conversion > 1)?.Satuan ?? string.Empty,
-            };
-            var item4 = new ReturJualItemQtyHrgModel
-            {
-                NoUrut = 4,
-                BrgId = brgModel.BrgId,
-                JenisQty = JenisQtyEnum.SatuanKecilRusak,
-                Conversion = 1,
-                Qty = int.Parse(listQtyRusak[1]),
-                HrgSat = decimal.Parse(listHrg[1]),
-                Satuan = brgModel.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty,
-            };
 
-            var result = new List<ReturJualItemQtyHrgModel> { item1, item2, item3, item4 };
+            var result = new List<ReturJualItemQtyHrgModel> { item1, item2};
             if (item1.Satuan == string.Empty)
                 result.RemoveAll(x => x.JenisQty == JenisQtyEnum.SatuanBesar);
-            if (item3.Satuan == string.Empty)
-                result.RemoveAll(x => x.JenisQty == JenisQtyEnum.SatuanBesarRusak);
             
             result.ForEach(x => x.SubTotal = x.Qty * x.HrgSat);
             return result;
@@ -239,11 +208,6 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
                 inputStr.HrgInputStr = "0;0";
             inputStr.QtyInputStr = ParsingQty(inputStr.QtyInputStr, brg);
 
-            //  qtyInputRusak
-            if (inputStr.QtyInputStrRusak.IsNullOrEmpty())
-                inputStr.QtyInputStrRusak = "0;0";
-            inputStr.QtyInputStrRusak = ParsingQty(inputStr.QtyInputStrRusak, brg);
-            
             //      discInput
             if (inputStr.DiscInputStr.IsNullOrEmpty())
                 inputStr.DiscInputStr = "0;0;0;0";

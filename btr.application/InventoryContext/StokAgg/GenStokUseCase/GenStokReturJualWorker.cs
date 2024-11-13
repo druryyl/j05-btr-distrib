@@ -49,6 +49,9 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                 
                 foreach (var item in returJual.ListItem)
                 {
+                    if (item.Qty == 0)
+                        continue;
+
                     var brg = _brgBuilder.Load(item).Build();
                     var satuan = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty;
 

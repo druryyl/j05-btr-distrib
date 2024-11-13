@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>151</ApplicationRevision>
+    <ApplicationRevision>153</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -737,6 +737,7 @@
     <EmbeddedResource Include="InventoryContext\ReturJualAgg\ReturJualForm.resx">
       <DependentUpon>ReturJualForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="InventoryContext\ReturJualAgg\ReturJualPrintOut.rdlc" />
     <EmbeddedResource Include="InventoryContext\ReturJualRpt\ReturJjualReportForm.resx">
       <DependentUpon>ReturJjualReportForm.cs</DependentUpon>
     </EmbeddedResource>
