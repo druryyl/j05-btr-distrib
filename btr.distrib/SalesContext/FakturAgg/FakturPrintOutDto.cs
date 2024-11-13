@@ -4,6 +4,8 @@ using btr.nuna.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Globalization;
+using btr.distrib.Helpers;
 
 namespace btr.distrib.SalesContext.FakturAgg
 {
@@ -22,7 +24,10 @@ namespace btr.distrib.SalesContext.FakturAgg
             SalesName = $"Sales: {faktur.SalesPersonName}";
             JenisBayar = $"Jenis:{faktur.TermOfPayment}";
 
-            Terbilang = $"Terbilang #{Math.Round(faktur.GrandTotal,0).Eja()}#";
+            TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+            Terbilang = $"Terbilang #{Math.Round(faktur.GrandTotal, 0).Eja()} rupiah#";
+            Terbilang = textInfo.ToTitleCase(Terbilang);
+
             Note = $"Note: {faktur.Note}";
 
             SubTotal = $"{faktur.Total:N0}";
@@ -52,13 +57,13 @@ namespace btr.distrib.SalesContext.FakturAgg
                         BrgName = item.BrgName,
                         QtyBesar = qtyBesar,
                         QtyKecil = qtyKecil,
-                        HrgBesar = item.HrgSatBesar == 0 ? "-" : $"{DecToStr(item.HrgSatBesar)}",
-                        HrgKecil = item.HrgSatKecil == 0 ? "-" : $"{DecToStr(item.HrgSatKecil)}",
-                        Disc1 = disc1 == 0 ? "-" : $"{DecToStr(disc1)}%",
-                        Disc2 = disc2 == 0 ? "-" : $"{DecToStr(disc2)}%",
-                        Disc3 = disc3 == 0 ? "-" : $"{DecToStr(disc3)}%",
-                        Disc4 = disc4 == 0 ? "-" : $"{DecToStr(disc4)}%",
-                        Total = $"{DecToStr(item.Total)}",
+                        HrgBesar = item.HrgSatBesar == 0 ? "-" : $"{DecFormatter.ToStr(item.HrgSatBesar)}",
+                        HrgKecil = item.HrgSatKecil == 0 ? "-" : $"{DecFormatter.ToStr(item.HrgSatKecil)}",
+                        Disc1 = disc1 == 0 ? "-" : $"{DecFormatter.ToStr(disc1)}%",
+                        Disc2 = disc2 == 0 ? "-" : $"{DecFormatter.ToStr(disc2)}%",
+                        Disc3 = disc3 == 0 ? "-" : $"{DecFormatter.ToStr(disc3)}%",
+                        Disc4 = disc4 == 0 ? "-" : $"{DecFormatter.ToStr(disc4)}%",
+                        Total = $"{DecFormatter.ToStr(item.Total)}",
                     };
                     ListItem.Add(newItem);
                     noUrut++;
@@ -85,8 +90,8 @@ namespace btr.distrib.SalesContext.FakturAgg
                     noUrut++;
                 }
             }
-
         }
+
         public string FakturCode { get; set; }
         public string FakturDate { get; set; }
         public string CustomerId { get; set; }
@@ -109,35 +114,6 @@ namespace btr.distrib.SalesContext.FakturAgg
 
         public List<FakturPrintOutItemDto> ListItem { get; set; }
 
-        private string DecToStr(decimal number)
-        {
-            var decNumber = GetDecimalPlaces(number);
-            if (decNumber == 0)
-                return $"{number:N0}";
-
-            if (decNumber == 1)
-                return $"{number:N1}";
-
-            return $"{number:N2}";
-        }
-        public bool HasDecimalPlaces(decimal number)
-        {
-            return number % 1 != 0;
-        }
-        private int GetDecimalPlaces(decimal number)
-        {
-            if ( !HasDecimalPlaces(number))
-                return 0;
-
-            // Convert to string and split at the decimal point
-            string[] parts = number.ToString().Split('.');
-
-            // Check if there is a decimal part
-            if (parts.Length > 1)
-                return parts[1].Length; // Length of decimal part
-
-            return 0; // No decimal places
-        }
     }
 
     public class FakturPrintOutItemDto

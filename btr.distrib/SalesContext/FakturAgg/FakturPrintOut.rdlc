@@ -605,7 +605,7 @@
                             </TextRun>
                           </TextRuns>
                           <Style>
-                            <TextAlign>Right</TextAlign>
+                            <TextAlign>Center</TextAlign>
                           </Style>
                         </Paragraph>
                       </Paragraphs>
@@ -646,7 +646,7 @@
                             </TextRun>
                           </TextRuns>
                           <Style>
-                            <TextAlign>Right</TextAlign>
+                            <TextAlign>Center</TextAlign>
                           </Style>
                         </Paragraph>
                       </Paragraphs>
@@ -687,7 +687,7 @@
                             </TextRun>
                           </TextRuns>
                           <Style>
-                            <TextAlign>Right</TextAlign>
+                            <TextAlign>Center</TextAlign>
                           </Style>
                         </Paragraph>
                       </Paragraphs>
@@ -728,7 +728,7 @@
                             </TextRun>
                           </TextRuns>
                           <Style>
-                            <TextAlign>Right</TextAlign>
+                            <TextAlign>Center</TextAlign>
                           </Style>
                         </Paragraph>
                       </Paragraphs>
@@ -750,6 +750,7 @@
                         <PaddingBottom>1pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -826,7 +827,7 @@
         <DataSetName>FakturJualItemDataset</DataSetName>
         <Top>1.09724in</Top>
         <Left>0.03125in</Left>
-        <Height>0.4in</Height>
+        <Height>0.38in</Height>
         <Width>7.75in</Width>
         <Style>
           <Border>
@@ -1203,7 +1204,7 @@
               <TextRun>
                 <Value>CV.BINTANG TIMUR RAHARDIAN</Value>
                 <Style>
-                  <FontFamily>Lucida Console</FontFamily>
+                  <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
@@ -1215,7 +1216,7 @@
               <TextRun>
                 <Value>Jl.Magelang-Salaman Km.3</Value>
                 <Style>
-                  <FontFamily>Lucida Console</FontFamily>
+                  <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
@@ -1225,9 +1226,9 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Kp.Glagah RT.01/RW.03 </Value>
+                <Value>Kp.Glagah RT.01/RW.03 Banjarnegoro, </Value>
                 <Style>
-                  <FontFamily>Lucida Console</FontFamily>
+                  <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
@@ -1237,21 +1238,9 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Banjarnegoro, Mertoyudan</Value>
+                <Value>Mertoyudan, Magelang - 56172</Value>
                 <Style>
-                  <FontFamily>Lucida Console</FontFamily>
-                  <FontSize>9pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Magelang - 56172</Value>
-                <Style>
-                  <FontFamily>Lucida Console</FontFamily>
+                  <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
@@ -1261,8 +1250,8 @@
         </Paragraphs>
         <Top>0.02778in</Top>
         <Left>0.03473in</Left>
-        <Height>0.70833in</Height>
-        <Width>2.19861in</Width>
+        <Height>0.63888in</Height>
+        <Width>2.53125in</Width>
         <ZIndex>9</ZIndex>
         <Style>
           <Border>
@@ -1292,7 +1281,7 @@
             <Style />
           </Paragraph>
         </Paragraphs>
-        <Top>0.79166in</Top>
+        <Top>0.70416in</Top>
         <Left>0.03473in</Left>
         <Height>0.23958in</Height>
         <Width>1.4375in</Width>
@@ -1330,9 +1319,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox13</rd:DefaultName>
         <Top>0.02778in</Top>
-        <Left>2.30278in</Left>
-        <Height>0.69444in</Height>
-        <Width>3.00277in</Width>
+        <Left>2.63542in</Left>
+        <Height>0.62499in</Height>
+        <Width>2.43125in</Width>
         <ZIndex>11</ZIndex>
         <Style>
           <Border>
@@ -1364,10 +1353,10 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>0.79166in</Top>
+        <Top>0.70416in</Top>
         <Left>1.47223in</Left>
         <Height>0.23958in</Height>
-        <Width>1.12569in</Width>
+        <Width>1.16319in</Width>
         <ZIndex>12</ZIndex>
         <Style>
           <Border>
@@ -1399,10 +1388,10 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>0.79166in</Top>
-        <Left>2.60417in</Left>
+        <Top>0.70416in</Top>
+        <Left>2.63542in</Left>
         <Height>0.23958in</Height>
-        <Width>1.05625in</Width>
+        <Width>1.025in</Width>
         <ZIndex>13</ZIndex>
         <Style>
           <Border>
@@ -1434,7 +1423,7 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>0.79166in</Top>
+        <Top>0.70416in</Top>
         <Left>3.66042in</Left>
         <Height>0.23958in</Height>
         <Width>1.40625in</Width>

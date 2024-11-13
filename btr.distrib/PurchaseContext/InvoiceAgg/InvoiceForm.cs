@@ -25,6 +25,7 @@ using btr.application.PurchaseContext.InvoiceAgg;
 using btr.distrib.PrintDocs;
 using btr.domain.InventoryContext.StokAgg;
 using JetBrains.Annotations;
+using btr.distrib.SalesContext.FakturAgg;
 
 namespace btr.distrib.PurchaseContext.InvoiceAgg
 {
@@ -113,7 +114,14 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
         {
             PrintInvoice(InvoiceIdText.Text);
         }
-
+        private void PrintInvoiceRdlc(string invoiceId)
+        {
+            var invoice = _invoiceBuilder.Load(new InvoiceModel(invoiceId)).Build();
+            var supplier = _supplierDal.GetData(invoice);
+            var invoicePrintOut = new InvoicePrintOutDto(invoice, supplier);
+            var form = new InvoicePrintOutForm(invoicePrintOut);
+            form.ShowDialog();
+        }
         private void PrintInvoice(string invoiceId)
         {
             var invoice = _invoiceBuilder.Load(new InvoiceModel(invoiceId)).Build();
@@ -499,7 +507,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             //  untuk deteksi apa perlu gen-stok
             var result = SaveInvoice();
 
-            PrintInvoice(result.InvoiceId);
+            PrintInvoiceRdlc(result.InvoiceId);
 
             ClearForm();
         }

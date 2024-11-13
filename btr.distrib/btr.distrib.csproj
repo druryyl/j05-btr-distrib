@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>150</ApplicationRevision>
+    <ApplicationRevision>151</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -353,6 +353,7 @@
     </Compile>
     <Compile Include="Helpers\BrowseFilter.cs" />
     <Compile Include="Helpers\CodeRedReporting.cs" />
+    <Compile Include="Helpers\DecimalStringFormatter.cs" />
     <Compile Include="Helpers\IBrowseEngine.cs" />
     <Compile Include="Browsers\SupplierBrowser.cs" />
     <Compile Include="Browsers\WarehouseBrowser.cs" />
@@ -486,6 +487,13 @@
     </Compile>
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceForm.Designer.cs">
       <DependentUpon>InvoiceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PurchaseContext\InvoiceAgg\InvoicePrintOutDto.cs" />
+    <Compile Include="PurchaseContext\InvoiceAgg\InvoicePrintOutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PurchaseContext\InvoiceAgg\InvoicePrintOutForm.Designer.cs">
+      <DependentUpon>InvoicePrintOutForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PurchaseContext\InvoiceHarianDetilRpt\InvoiceHarianDetilForm.cs">
       <SubType>Form</SubType>
@@ -671,6 +679,7 @@
     <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\DataSources\btr.distrib.PurchaseContext.InvoiceAgg.InvoicePrintOutDto.datasource" />
     <None Include="Properties\DataSources\btr.distrib.SalesContext.FakturAgg.FakturItemDto.datasource" />
     <None Include="Properties\DataSources\btr.distrib.SalesContext.FakturAgg.FakturPrintOutDto.datasource" />
     <None Include="Properties\DataSources\btr.distrib.SalesContext.FakturAgg.FakturPrintOutForm.datasource" />
@@ -742,6 +751,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PurchaseContext\InvoiceAgg\InvoiceForm.resx">
       <DependentUpon>InvoiceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PurchaseContext\InvoiceAgg\InvoicePrintOut.rdlc" />
+    <EmbeddedResource Include="PurchaseContext\InvoiceAgg\InvoicePrintOutForm.resx">
+      <DependentUpon>InvoicePrintOutForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PurchaseContext\InvoiceHarianDetilRpt\InvoiceHarianDetilForm.resx">
       <DependentUpon>InvoiceHarianDetilForm.cs</DependentUpon>
