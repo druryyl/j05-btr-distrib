@@ -13,8 +13,6 @@ using btr.domain.InventoryContext.DriverAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.SalesPersonAgg;
-using btr.domain.SupportContext.UserAgg;
-using Mapster;
 
 namespace btr.application.InventoryContext.ReturJualAgg.Workers
 {
@@ -23,6 +21,7 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
         IReturJualBuilder Load(IReturJualKey returJualKey);
         IReturJualBuilder Create();
         IReturJualBuilder Attach(ReturJualModel model);
+        IReturJualBuilder JenisRetur(string JenisRetur);
         IReturJualBuilder Customer(ICustomerKey customerKey);
         IReturJualBuilder Warehouse(IWarehouseKey warehouseKey);
         IReturJualBuilder SalesPerson(ISalesPersonKey salesPersonKey);
@@ -68,16 +67,6 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
             
             _aggregate.ListItem = _returJualItemDal.ListData(returJualKey)?.ToList()
                                   ?? new List<ReturJualItemModel>();
-            //var listQtyHrg = _returJualItemQtyHrgDal.ListData(returJualKey)?.ToList()
-            //    ?? new List<ReturJualItemQtyHrgModel>();
-            //var listDisc = _returJualItemDiscDal.ListData(returJualKey)?.ToList()
-            //    ?? new List<ReturJualItemDiscModel>();
-
-            //_aggregate.ListItem.ForEach(item =>
-            //{
-            //    item.ListQtyHrg = listQtyHrg.Where(x => x.ReturJualItemId == item.ReturJualItemId).ToList();
-            //    item.ListDisc = listDisc.Where(x => x.ReturJualItemId == item.ReturJualItemId).ToList();
-            //});
             return this;
         }
 
@@ -167,6 +156,17 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
         {
             _aggregate.RemoveNull();
             return _aggregate;
+        }
+
+        public IReturJualBuilder JenisRetur(string JenisRetur)
+        {
+            if (JenisRetur == null)
+                throw new ArgumentNullException($"JenisRetur null");
+            var validJenisRetur = new string[] { "BAGUS", "RUSAK" };
+            if (!validJenisRetur.Contains(JenisRetur.ToUpper()))
+                throw new ArgumentException("Jenis Retur hanya boleh BAGUS atau RUSAK");
+            _aggregate.JenisRetur = JenisRetur;
+            return this;
         }
     }
 }

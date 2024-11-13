@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.SalesPersonAgg;
+using btr.domain.SupportContext.UserAgg;
 
 namespace btr.domain.InventoryContext.ReturJualAgg
 {
-    public class ReturJualModel : IReturJualKey, ICustomerKey, IWarehouseKey
+    public class ReturJualModel : IReturJualKey, ICustomerKey, IWarehouseKey, IUserKey
     {
         public ReturJualModel(string id) => ReturJualId = id;
 
@@ -17,6 +18,7 @@ namespace btr.domain.InventoryContext.ReturJualAgg
         public DateTime ReturJualDate { get;  set; }
         public string UserId { get;  set; }
         public string JenisRetur { get; set; }
+        public string ReturJualCode { get; set; }
 
         public string CustomerId { get;  set; }
         public string CustomerName { get;  set; }

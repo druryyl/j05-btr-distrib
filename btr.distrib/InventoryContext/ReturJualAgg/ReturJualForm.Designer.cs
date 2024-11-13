@@ -71,6 +71,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.SaveButton = new System.Windows.Forms.Button();
             this.NewButton = new System.Windows.Forms.Button();
+            this.JenisReturCombo = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.CodeLabel = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.PanelAtas4.SuspendLayout();
@@ -109,14 +112,14 @@
             this.WarehouseIdText.Location = new System.Drawing.Point(11, 122);
             this.WarehouseIdText.Name = "WarehouseIdText";
             this.WarehouseIdText.Size = new System.Drawing.Size(147, 22);
-            this.WarehouseIdText.TabIndex = 8;
+            this.WarehouseIdText.TabIndex = 7;
             // 
             // WarehouseButton
             // 
             this.WarehouseButton.Location = new System.Drawing.Point(164, 121);
             this.WarehouseButton.Name = "WarehouseButton";
             this.WarehouseButton.Size = new System.Drawing.Size(28, 20);
-            this.WarehouseButton.TabIndex = 9;
+            this.WarehouseButton.TabIndex = 8;
             this.WarehouseButton.Text = "...";
             this.WarehouseButton.UseVisualStyleBackColor = true;
             // 
@@ -154,7 +157,7 @@
             this.CustomerIdText.Location = new System.Drawing.Point(11, 25);
             this.CustomerIdText.Name = "CustomerIdText";
             this.CustomerIdText.Size = new System.Drawing.Size(147, 22);
-            this.CustomerIdText.TabIndex = 4;
+            this.CustomerIdText.TabIndex = 5;
             // 
             // CustomerNameText
             // 
@@ -170,7 +173,7 @@
             this.CustomerButton.Location = new System.Drawing.Point(164, 24);
             this.CustomerButton.Name = "CustomerButton";
             this.CustomerButton.Size = new System.Drawing.Size(28, 20);
-            this.CustomerButton.TabIndex = 5;
+            this.CustomerButton.TabIndex = 6;
             this.CustomerButton.Text = "...";
             this.CustomerButton.UseVisualStyleBackColor = true;
             // 
@@ -216,7 +219,7 @@
             this.DriverIdText.Location = new System.Drawing.Point(6, 93);
             this.DriverIdText.Name = "DriverIdText";
             this.DriverIdText.Size = new System.Drawing.Size(147, 22);
-            this.DriverIdText.TabIndex = 14;
+            this.DriverIdText.TabIndex = 11;
             // 
             // DriverNameText
             // 
@@ -232,7 +235,7 @@
             this.DriverButton.Location = new System.Drawing.Point(159, 95);
             this.DriverButton.Name = "DriverButton";
             this.DriverButton.Size = new System.Drawing.Size(28, 20);
-            this.DriverButton.TabIndex = 15;
+            this.DriverButton.TabIndex = 12;
             this.DriverButton.Text = "...";
             this.DriverButton.UseVisualStyleBackColor = true;
             // 
@@ -252,7 +255,7 @@
             this.SalesIdText.Location = new System.Drawing.Point(6, 24);
             this.SalesIdText.Name = "SalesIdText";
             this.SalesIdText.Size = new System.Drawing.Size(147, 22);
-            this.SalesIdText.TabIndex = 11;
+            this.SalesIdText.TabIndex = 9;
             // 
             // SalesNameText
             // 
@@ -268,7 +271,7 @@
             this.SalesButton.Location = new System.Drawing.Point(159, 26);
             this.SalesButton.Name = "SalesButton";
             this.SalesButton.Size = new System.Drawing.Size(28, 20);
-            this.SalesButton.TabIndex = 12;
+            this.SalesButton.TabIndex = 10;
             this.SalesButton.Text = "...";
             this.SalesButton.UseVisualStyleBackColor = true;
             // 
@@ -346,7 +349,7 @@
             this.FakturItemGrid.Location = new System.Drawing.Point(6, 217);
             this.FakturItemGrid.Name = "FakturItemGrid";
             this.FakturItemGrid.Size = new System.Drawing.Size(1015, 292);
-            this.FakturItemGrid.TabIndex = 17;
+            this.FakturItemGrid.TabIndex = 13;
             // 
             // PanelTengah
             // 
@@ -471,6 +474,9 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.Cornsilk;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.CodeLabel);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.JenisReturCombo);
             this.panel1.Controls.Add(this.LastIdText);
             this.panel1.Controls.Add(this.ReturJualIdText);
             this.panel1.Controls.Add(this.ReturJualDateText);
@@ -485,7 +491,7 @@
             // LastIdText
             // 
             this.LastIdText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.LastIdText.Location = new System.Drawing.Point(11, 51);
+            this.LastIdText.Location = new System.Drawing.Point(11, 75);
             this.LastIdText.Name = "LastIdText";
             this.LastIdText.ReadOnly = true;
             this.LastIdText.Size = new System.Drawing.Size(176, 22);
@@ -495,7 +501,7 @@
             // 
             this.ReturJualDateText.CustomFormat = "ddd dd-MM-yyyy HH:mm";
             this.ReturJualDateText.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.ReturJualDateText.Location = new System.Drawing.Point(11, 92);
+            this.ReturJualDateText.Location = new System.Drawing.Point(11, 116);
             this.ReturJualDateText.Name = "ReturJualDateText";
             this.ReturJualDateText.ShowUpDown = true;
             this.ReturJualDateText.Size = new System.Drawing.Size(176, 22);
@@ -504,7 +510,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 76);
+            this.label2.Location = new System.Drawing.Point(8, 100);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(62, 13);
             this.label2.TabIndex = 3;
@@ -547,6 +553,36 @@
             this.NewButton.TabIndex = 23;
             this.NewButton.Text = "New";
             this.NewButton.UseVisualStyleBackColor = true;
+            // 
+            // JenisReturCombo
+            // 
+            this.JenisReturCombo.FormattingEnabled = true;
+            this.JenisReturCombo.Items.AddRange(new object[] {
+            "BAGUS",
+            "RUSAK"});
+            this.JenisReturCombo.Location = new System.Drawing.Point(11, 157);
+            this.JenisReturCombo.Name = "JenisReturCombo";
+            this.JenisReturCombo.Size = new System.Drawing.Size(176, 21);
+            this.JenisReturCombo.TabIndex = 4;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(8, 141);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(63, 13);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "Jenis Retur";
+            // 
+            // CodeLabel
+            // 
+            this.CodeLabel.AutoSize = true;
+            this.CodeLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CodeLabel.Location = new System.Drawing.Point(8, 48);
+            this.CodeLabel.Name = "CodeLabel";
+            this.CodeLabel.Size = new System.Drawing.Size(81, 13);
+            this.CodeLabel.TabIndex = 18;
+            this.CodeLabel.Text = "Retur Jual Code";
             // 
             // ReturJualForm
             // 
@@ -629,5 +665,8 @@
         private System.Windows.Forms.TextBox SalesNameText;
         private System.Windows.Forms.Button SalesButton;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox JenisReturCombo;
+        private System.Windows.Forms.Label CodeLabel;
     }
 }

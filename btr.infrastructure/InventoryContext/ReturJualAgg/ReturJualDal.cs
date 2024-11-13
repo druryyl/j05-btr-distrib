@@ -27,14 +27,14 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
             const string sql = @"
                 INSERT INTO 
                     BTR_ReturJual (
-                        ReturJualId, ReturJualDate, JenisRetur,
+                        ReturJualId, ReturJualDate, JenisRetur, ReturJualCode,
                         CustomerId, WarehouseId, UserId,
                         SalesPersonId, DriverId,
                         Total, DiscRp, PpnRp, GrandTotal,
                         VoidDate, UserIdVoid
                     )
                 VALUES (
-                        @ReturJualId, @ReturJualDate, @JenisRetur,
+                        @ReturJualId, @ReturJualDate, @JenisRetur, @ReturJualCode,
                         @CustomerId, @WarehouseId, @UserId,
                         @SalesPersonId, @DriverId,
                         @Total, @DiscRp, @PpnRp, @GrandTotal,
@@ -46,6 +46,7 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
             dp.AddParam("@ReturJualId", model.ReturJualId, SqlDbType.VarChar);
             dp.AddParam("@ReturJualDate", model.ReturJualDate, SqlDbType.DateTime);
             dp.AddParam("@JenisRetur", model.JenisRetur, SqlDbType.VarChar);
+            dp.AddParam("@ReturJualCode", model.ReturJualCode, SqlDbType.VarChar);
             dp.AddParam("@CustomerId", model.CustomerId, SqlDbType.VarChar);
             dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
             dp.AddParam("@SalesPersonId", model.SalesPersonId, SqlDbType.VarChar);
@@ -74,6 +75,7 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
                 SET 
                     ReturJualDate = @ReturJualDate,
                     JenisRetur = @JenisRetur,
+                    ReturJualCode = @ReturJualCode,
                     UserId = @UserId,
 
                     CustomerId = @CustomerId,
@@ -96,6 +98,7 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
             dp.AddParam("@ReturJualId", model.ReturJualId, SqlDbType.VarChar);
             dp.AddParam("@ReturJualDate", model.ReturJualDate, SqlDbType.DateTime);
             dp.AddParam("@JenisRetur", model.JenisRetur, SqlDbType.VarChar);
+            dp.AddParam("@ReturJualCode", model.ReturJualCode, SqlDbType.VarChar);
             dp.AddParam("@CustomerId", model.CustomerId, SqlDbType.VarChar);
             dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
             dp.AddParam("@SalesPersonId", model.SalesPersonId, SqlDbType.VarChar);
@@ -141,7 +144,8 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
             //  create query select for ReturJualModel from table BTR_ReturJual
             const string sql = @"
                 SELECT 
-                    aa.ReturJualId, aa.ReturJualDate, aa.UserId, aa.JenisRetur,
+                    aa.ReturJualId, aa.ReturJualDate, aa.UserId, 
+                    aa.JenisRetur, aa.ReturJualCode,
                     aa.CustomerId, aa.WarehouseId, 
                     aa.SalesPersonId, aa.DriverId,
                     aa.Total, aa.DiscRp, aa.PpnRp, aa.GrandTotal,
@@ -175,7 +179,8 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
             //  create query select for ReturJualModel from table BTR_ReturJual with filter ReturJualDate
             const string sql = @"
                 SELECT 
-                    aa.ReturJualId, aa.ReturJualDate, aa.UserId, aa.JenisRetur
+                    aa.ReturJualId, aa.ReturJualDate, aa.UserId, 
+                    aa.JenisRetur, aa.ReturJualCode,
                     aa.CustomerId, aa.WarehouseId, 
                     aa.SalesPersonId, aa.DriverId,
                     aa.Total, aa.DiscRp, aa.PpnRp, aa.GrandTotal,

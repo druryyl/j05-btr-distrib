@@ -35,14 +35,12 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
                 bcp.ColumnMappings.Add("BrgId", "BrgId");
 
                 bcp.ColumnMappings.Add("QtyInputStr", "QtyInputStr");
-                bcp.ColumnMappings.Add("QtyInputStrRusak", "QtyInputStrRusak");
                 bcp.ColumnMappings.Add("HrgInputStr", "HrgInputStr");
                 bcp.ColumnMappings.Add("QtyHrgDetilStr", "QtyHrgDetilStr");
                 bcp.ColumnMappings.Add("DiscInputStr", "DiscInputStr");
                 bcp.ColumnMappings.Add("DiscDetilStr", "DiscDetilStr");
 
                 bcp.ColumnMappings.Add("Qty", "Qty");
-                bcp.ColumnMappings.Add("QtyRusak", "QtyRusak");
                 bcp.ColumnMappings.Add("HrgSat", "HrgSat");
                 bcp.ColumnMappings.Add("SubTotal", "SubTotal");
                 bcp.ColumnMappings.Add("DiscRp", "DiscRp");
@@ -82,8 +80,8 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
             const string sql = @"
                 SELECT 
                     ReturJualId, ReturJualItemId, NoUrut, BrgId, 
-                    QtyInputStr, QtyInputStrRusak, HrgInputStr, DiscInputStr, 
-                    Qty, QtyRusak, HrgSat, SubTotal, DiscRp, PpnRp, Total
+                    QtyInputStr, HrgInputStr, DiscInputStr, 
+                    Qty, HrgSat, SubTotal, DiscRp, PpnRp, Total
                 FROM 
                     BTR_ReturJualItem
                 WHERE 

@@ -22,6 +22,8 @@ using btr.nuna.Domain;
 using JetBrains.Annotations;
 using Mapster;
 using Polly;
+using btr.domain.SupportContext.UserAgg;
+using btr.distrib.SharedForm;
 
 namespace btr.distrib.InventoryContext.ReturJualAgg
 {
@@ -162,7 +164,8 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             returJual.RemoveNull();
             CustomerNameText.Text = returJual.CustomerName;
             CustomerIdText.Text = returJual.CustomerId;
-
+            JenisReturCombo.SelectedItem = returJual.JenisRetur;
+            CodeLabel.Text = returJual.ReturJualCode;
             ReturJualDateText.Value = returJual.ReturJualDate;
             SalesIdText.Text = returJual.SalesPersonId;
             SalesNameText.Text = returJual.SalesPersonName;
@@ -181,9 +184,10 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             GrandTotalText.Value = returJual.GrandTotal;
 
             _listItem.Clear();
+            var jenisRetur = JenisReturCombo.SelectedItem.ToString();
             foreach (var item in returJual.ListItem)
             {
-                var createReturJualItemRequest = new CreateReturJualItemRequest(item.BrgId, CustomerIdText.Text, item.HrgInputStr, item.QtyInputStr, item.DiscInputStr, 11);
+                var createReturJualItemRequest = new CreateReturJualItemRequest(item.BrgId, CustomerIdText.Text, item.HrgInputStr, item.QtyInputStr, item.DiscInputStr, 11, jenisRetur);
                 var newItemModel = _createReturJualItemWorker.Execute(createReturJualItemRequest);
                 var newItemDto = newItemModel.Adapt<ReturJualItemDto>();
                 _listItem.Add(newItemDto);
@@ -274,7 +278,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
                 resultBuildReturJual = ReturJualIdText.Text.Length != 0 
                     ? _builder.Load(new ReturJualModel(ReturJualIdText.Text)).Build() 
                     : _builder.Create().Build();
-                
+                var mainform = (MainForm)this.Parent.Parent;
                 resultBuildReturJual = _builder
                     .Attach(resultBuildReturJual)
                     .Customer(new CustomerModel(CustomerIdText.Text))
@@ -282,6 +286,8 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
                     .SalesPerson(new SalesPersonModel(SalesIdText.Text))
                     .Driver(new DriverModel(DriverIdText.Text))
                     .ReturJualDate(ReturJualDateText.Value)
+                    .JenisRetur(JenisReturCombo.SelectedItem.ToString())
+                    .User(mainform.UserId.UserId)
                     .Build();
                 
                 //  clearkan list item lebih dulu karna akan diisi ulang
@@ -464,7 +470,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
 
             cols.GetCol("QtyInputStr").Visible = true;
             cols.GetCol("QtyInputStr").Width = 50;
-            cols.GetCol("QtyInputStr").HeaderText = @"Qty Bagus";
+            cols.GetCol("QtyInputStr").HeaderText = @"Qty";
 
             cols.GetCol("HrgInputStr").Visible = true;
             cols.GetCol("HrgInputStr").Width = 100;
@@ -512,7 +518,6 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             {
                 case "BrgId":
                 case "QtyInputStr":
-                case "QtyInputStrRusak":
                 case "HrgInputStr":
                 case "DiscInputStr":
                     if (grid.CurrentCell.Value is null)
@@ -542,8 +547,9 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
         private void ValidateRow(int rowIndex)
         {
             var item = _listItem[rowIndex];
+            var jenisRetur = JenisReturCombo.SelectedItem.ToString();
             var req = new CreateReturJualItemRequest(item.BrgId, CustomerIdText.Text, 
-                item.HrgInputStr, item.QtyInputStr, item.DiscInputStr, 11);
+                item.HrgInputStr, item.QtyInputStr, item.DiscInputStr, 11, jenisRetur);
             var newItem = _createReturJualItemWorker.Execute(req);
             
             _listItem[rowIndex] = newItem.Adapt<ReturJualItemDto>();

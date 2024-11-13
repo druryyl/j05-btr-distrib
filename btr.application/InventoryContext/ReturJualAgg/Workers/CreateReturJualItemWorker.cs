@@ -14,12 +14,13 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
 {
     public class CreateReturJualItemRequest : IBrgKey
     {
-        public CreateReturJualItemRequest(string brgId, 
+        public CreateReturJualItemRequest(string brgId,
             string customerId,
-            string hrgInputStr, 
-            string qtyInputStr, 
+            string hrgInputStr,
+            string qtyInputStr,
             string discInputStr,
-            decimal ppnProsen) 
+            decimal ppnProsen,
+            string jenisRetur) 
         {
             BrgId = brgId;
             CustomerId = customerId;
@@ -28,6 +29,7 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
             QtyInputStr = qtyInputStr;
             DiscInputStr = discInputStr;
             PpnProsen = ppnProsen;
+            JenisRetur = jenisRetur;
         }
         public string BrgId { get; set; }
         public string CustomerId { get; set; }
@@ -35,6 +37,7 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
         public string QtyInputStr { get; set; }
         public string DiscInputStr { get; set; }
         public decimal PpnProsen { get; set; }
+        public string JenisRetur { get; set; }
     }
 
     public interface ICreateReturJualItemWorker : INunaService<ReturJualItemModel, CreateReturJualItemRequest>
@@ -88,7 +91,7 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
             result.BrgName = brg.BrgName ?? string.Empty;
             result = NormalizeInput(result, brg, req.CustomerId);
             
-            result.ListQtyHrg = GetQtyHrg(result.QtyInputStr, result.HrgInputStr, brg).ToList();
+            result.ListQtyHrg = GetQtyHrg(result.QtyInputStr, result.HrgInputStr, brg, req.JenisRetur).ToList();
             result.ListDisc = GenListDisc(result.DiscInputStr,
                 result.ListQtyHrg.Sum(x => x.SubTotal),
                 brg).ToList();
@@ -115,7 +118,7 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
         }
 
         private static IEnumerable<ReturJualItemQtyHrgModel> GetQtyHrg(string qtyInputStr,
-            string hrgInputStr, BrgModel brgModel)
+            string hrgInputStr, BrgModel brgModel, string jenisRetur)
         {
             var listQty = qtyInputStr.Split(';').ToList();
             var listHrg = hrgInputStr.Split(';').ToList();
@@ -130,7 +133,7 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
                 JenisQty = JenisQtyEnum.SatuanBesar,
                 Conversion = brgModel.ListSatuan.Max(x => x.Conversion),
                 Qty = int.Parse(listQty[0]),
-                HrgSat = decimal.Parse(listHrg[0]),
+                HrgSat = jenisRetur == "BAGUS" ? decimal.Parse(listHrg[0]) : 0,
                 Satuan = brgModel.ListSatuan.FirstOrDefault(x => x.Conversion > 1)?.Satuan ?? string.Empty,
             };
             var item2 = new ReturJualItemQtyHrgModel
@@ -140,9 +143,10 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
                 JenisQty = JenisQtyEnum.SatuanKecil,
                 Conversion = 1,
                 Qty = int.Parse(listQty[1]),
-                HrgSat = decimal.Parse(listHrg[1]),
+                HrgSat = jenisRetur == "BAGUS" ? decimal.Parse(listHrg[1]) : 0,
                 Satuan = brgModel.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty,
             };
+
 
             var result = new List<ReturJualItemQtyHrgModel> { item1, item2};
             if (item1.Satuan == string.Empty)
