@@ -48,6 +48,7 @@
             this.ListButton = new System.Windows.Forms.Button();
             this.Periode2Date = new System.Windows.Forms.DateTimePicker();
             this.Periode1Date = new System.Windows.Forms.DateTimePicker();
+            this.AllOutstandingCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -254,6 +255,7 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.Cornsilk;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.AllOutstandingCheckBox);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.ListButton);
             this.panel1.Controls.Add(this.Periode2Date);
@@ -277,11 +279,11 @@
             // 
             // ListButton
             // 
-            this.ListButton.Location = new System.Drawing.Point(172, 54);
+            this.ListButton.Location = new System.Drawing.Point(160, 54);
             this.ListButton.Name = "ListButton";
-            this.ListButton.Size = new System.Drawing.Size(80, 23);
+            this.ListButton.Size = new System.Drawing.Size(92, 23);
             this.ListButton.TabIndex = 2;
-            this.ListButton.Text = "List";
+            this.ListButton.Text = "List Faktur";
             this.ListButton.UseVisualStyleBackColor = true;
             // 
             // Periode2Date
@@ -304,6 +306,16 @@
             this.Periode1Date.Size = new System.Drawing.Size(120, 22);
             this.Periode1Date.TabIndex = 0;
             // 
+            // AllOutstandingCheckBox
+            // 
+            this.AllOutstandingCheckBox.AutoSize = true;
+            this.AllOutstandingCheckBox.Location = new System.Drawing.Point(6, 58);
+            this.AllOutstandingCheckBox.Name = "AllOutstandingCheckBox";
+            this.AllOutstandingCheckBox.Size = new System.Drawing.Size(108, 17);
+            this.AllOutstandingCheckBox.TabIndex = 14;
+            this.AllOutstandingCheckBox.Text = "All Outstanding";
+            this.AllOutstandingCheckBox.UseVisualStyleBackColor = true;
+            // 
             // AlokasiFpForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -324,6 +336,7 @@
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.FakturGrid)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -352,5 +365,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label SisaFpLabel;
+        private System.Windows.Forms.CheckBox AllOutstandingCheckBox;
     }
 }

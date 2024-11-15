@@ -94,7 +94,6 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             AlokasiGrid.MouseClick += AlokasiGrid_MouseClick;
 
             ListButton.Click += ListButton_Click;
-            
             FakturGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
             FakturGrid.ColumnHeaderMouseDoubleClick +=FakturGrid_ColumnHeaderMouseDoubleClick;
             FakturGrid.MouseClick += FakturGrid_MouseClick;
@@ -103,6 +102,7 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             ExportEFakturButton.Click += ExportEFakturButton_Click;
             ExportExcelButton.Click += ExportExcelButton_Click; 
         }
+
 
         #region EXPORT EXCEL
         private void ExportExcelButton_Click(object sender, EventArgs e)
@@ -394,7 +394,7 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
         #endregion
 
         #region GRID-FAKTUR
-        
+
         #region --UPDATE-CONTENT
         private void InitFakturGrid()
         {
@@ -436,9 +436,15 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
         }
         private void RefreshFakturGrid()
         {
+            List<FakturAlokasiFpItemView> listFaktur = null;
             var periode = new Periode(Periode1Date.Value, Periode2Date.Value);
-            var listFaktur = _fakturAlokasiFpItemDal.ListData(periode)?.ToList()
-                ?? new List<FakturAlokasiFpItemView>();
+
+            if (AllOutstandingCheckBox.Checked)
+                listFaktur = _fakturAlokasiFpItemDal.ListData()?.ToList()
+                    ?? new List<FakturAlokasiFpItemView>();
+            else
+                listFaktur = _fakturAlokasiFpItemDal.ListData(periode)?.ToList()
+                    ?? new List<FakturAlokasiFpItemView>();
 
             var dataSource = listFaktur
                 .Where(x => x.VoidDate == new DateTime(3000, 1, 1))
@@ -448,8 +454,9 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             FakturGrid.DataSource = _listFaktur;
             FakturGrid.Refresh();
         }
+
         #endregion
-        
+
         #region --SET-UNSET-NOMOR-FAKTUR-PAJAK
         private void FakturGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
