@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>144</ApplicationRevision>
+    <ApplicationRevision>153</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -148,6 +148,24 @@
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1001\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1652.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1652.0\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1652.0\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1652.0\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1652.0\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -335,6 +353,7 @@
     </Compile>
     <Compile Include="Helpers\BrowseFilter.cs" />
     <Compile Include="Helpers\CodeRedReporting.cs" />
+    <Compile Include="Helpers\DecimalStringFormatter.cs" />
     <Compile Include="Helpers\IBrowseEngine.cs" />
     <Compile Include="Browsers\SupplierBrowser.cs" />
     <Compile Include="Browsers\WarehouseBrowser.cs" />
@@ -413,6 +432,7 @@
       <DependentUpon>ReturJualForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InventoryContext\ReturJualAgg\ReturJualItemDto.cs" />
+    <Compile Include="InventoryContext\ReturJualAgg\ReturJualPrintOutDto.cs" />
     <Compile Include="InventoryContext\ReturJualRpt\ReturJjualReportForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -469,6 +489,13 @@
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceForm.Designer.cs">
       <DependentUpon>InvoiceForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PurchaseContext\InvoiceAgg\InvoicePrintOutDto.cs" />
+    <Compile Include="PurchaseContext\InvoiceAgg\InvoicePrintOutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PurchaseContext\InvoiceAgg\InvoicePrintOutForm.Designer.cs">
+      <DependentUpon>InvoicePrintOutForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="PurchaseContext\InvoiceHarianDetilRpt\InvoiceHarianDetilForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -520,6 +547,13 @@
       <DependentUpon>FakturForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SalesContext\FakturAgg\FakturItemDto.cs" />
+    <Compile Include="SalesContext\FakturAgg\FakturPrintOutDto.cs" />
+    <Compile Include="SalesContext\FakturAgg\FakturPrintOutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SalesContext\FakturAgg\FakturPrintOutForm.Designer.cs">
+      <DependentUpon>FakturPrintOutForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SalesContext\FakturCashRpt\FakturCashInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -630,8 +664,29 @@
     <Compile Include="SharedForm\VoidReasonForm.Designer.cs">
       <DependentUpon>VoidReasonForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="WinformAssemblyAnchor.cs" />
     <Content Include="icons8_truck.ico" />
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Properties\DataSources\btr.distrib.InventoryContext.ReturJualAgg.ReturJualPrintOutDto.datasource" />
+    <None Include="Properties\DataSources\btr.distrib.PurchaseContext.InvoiceAgg.InvoicePrintOutDto.datasource" />
+    <None Include="Properties\DataSources\btr.distrib.SalesContext.FakturAgg.FakturItemDto.datasource" />
+    <None Include="Properties\DataSources\btr.distrib.SalesContext.FakturAgg.FakturPrintOutDto.datasource" />
+    <None Include="Properties\DataSources\btr.distrib.SalesContext.FakturAgg.FakturPrintOutForm.datasource" />
+    <None Include="Properties\DataSources\btr.distrib.SalesContext.FakturAgg.FakturPrintOutItemDto.datasource" />
+    <None Include="Properties\DataSources\btr.domain.SalesContext.FakturAgg.FakturModel.datasource" />
     <None Include="Resources\icons8_report_card_32.png" />
     <None Include="Resources\icons8_pipe_organ_32.png" />
     <None Include="Resources\icons8_test_passed_32.png" />
@@ -684,6 +739,7 @@
     <EmbeddedResource Include="InventoryContext\ReturJualAgg\ReturJualForm.resx">
       <DependentUpon>ReturJualForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="InventoryContext\ReturJualAgg\ReturJualPrintOut.rdlc" />
     <EmbeddedResource Include="InventoryContext\ReturJualRpt\ReturJjualReportForm.resx">
       <DependentUpon>ReturJjualReportForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -699,6 +755,10 @@
     <EmbeddedResource Include="PurchaseContext\InvoiceAgg\InvoiceForm.resx">
       <DependentUpon>InvoiceForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PurchaseContext\InvoiceAgg\InvoicePrintOut.rdlc" />
+    <EmbeddedResource Include="PurchaseContext\InvoiceAgg\InvoicePrintOutForm.resx">
+      <DependentUpon>InvoicePrintOutForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PurchaseContext\InvoiceHarianDetilRpt\InvoiceHarianDetilForm.resx">
       <DependentUpon>InvoiceHarianDetilForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -710,6 +770,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ReportingContext\CustomerChartRpt.resx">
       <DependentUpon>CustomerChartRpt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SalesContext\FakturAgg\FakturPrintOut.rdlc" />
+    <EmbeddedResource Include="SalesContext\FakturAgg\FakturPrintOutForm.resx">
+      <DependentUpon>FakturPrintOutForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SalesContext\FakturCashRpt\FakturCashInfoForm.resx">
       <DependentUpon>FakturCashInfoForm.cs</DependentUpon>

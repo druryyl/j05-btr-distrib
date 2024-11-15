@@ -35,7 +35,6 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
                 bcp.ColumnMappings.Add("ReturJualItemDiscId", "ReturJualItemDiscId");
                 bcp.ColumnMappings.Add("NoUrut", "NoUrut");
                 bcp.ColumnMappings.Add("BrgId", "BrgId");
-                bcp.ColumnMappings.Add("DiscNo", "DiscNo");
                 bcp.ColumnMappings.Add("BaseHrg", "BaseHrg");
                 bcp.ColumnMappings.Add("DiscProsen", "DiscProsen");
                 bcp.ColumnMappings.Add("DiscRp", "DiscRp");

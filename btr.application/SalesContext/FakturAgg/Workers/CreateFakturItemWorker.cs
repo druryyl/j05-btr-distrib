@@ -71,7 +71,6 @@ namespace btr.application.SalesContext.FakturAgg.Workers
                 
                 QtyKecil = (int)qtys[1],
                 SatKecil = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty,
-                //HrgSatKecil = brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == req.HargaTypeId)?.Harga ?? 0,
                 QtyBesar = (int)qtys[0],
                 SatBesar = brg.ListSatuan.FirstOrDefault(x => x.Conversion > 1)?.Satuan ?? string.Empty,
                 Conversion = brg.ListSatuan.FirstOrDefault(x => x.Conversion > 1)?.Conversion ?? 0,

@@ -660,7 +660,16 @@ namespace btr.distrib.SalesContext.FakturAgg
                 .Build();
 
             LastIdLabel.Text = $@"{result.FakturId} - {fakturDb.FakturCode}";
-            PrintFaktur(result);
+            //PrintFaktur(result);
+            var customer = _customerDal.GetData(result);
+            var fakturPrintout = new FakturPrintOutDto(result, customer);
+            PrintFakturRdlc(fakturPrintout);
+        }
+
+        private void PrintFakturRdlc(FakturPrintOutDto faktur)
+        {
+            var form = new FakturPrintOutForm(faktur);
+            form.ShowDialog();
         }
 
         private void PrintFaktur(IFakturKey fakturKey)
@@ -691,7 +700,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private void PrintFakturExcel(IFakturKey fakturKey)
         {
             var faktur = _fakturBuilder.Load(fakturKey).Build();
-
+    
 
         }
 

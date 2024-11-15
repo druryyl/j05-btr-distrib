@@ -10,6 +10,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
     {
         public ReturJualItemDto()
         {
+            PpnProsen = 11; 
         }
 
         public string BrgId { get; set; }
@@ -18,7 +19,6 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
         
         //  input
         public string QtyInputStr { get; set; }
-        public string QtyInputStrRusak { get; set; }
         public string HrgInputStr { get; set; }
         public string QtyHrgDetilStr { get; private set; }
         public string DiscInputStr { get; set; }
@@ -32,6 +32,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
         public decimal SubTotal { get; private set; }
         public decimal DiscRp { get; private set; }
         public decimal PpnRp { get; private set; }
+        public decimal PpnProsen { get; set; }
         public decimal Total { get; private set; }
     }
 }

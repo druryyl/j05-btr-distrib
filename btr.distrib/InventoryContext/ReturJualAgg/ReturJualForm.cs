@@ -22,6 +22,8 @@ using btr.nuna.Domain;
 using JetBrains.Annotations;
 using Mapster;
 using Polly;
+using btr.domain.SupportContext.UserAgg;
+using btr.distrib.SharedForm;
 
 namespace btr.distrib.InventoryContext.ReturJualAgg
 {
@@ -84,6 +86,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
 
             RegisterEventHandler();
             InitGrid();
+            ClearDisplay();
         }
 
         private void RegisterEventHandler()
@@ -118,10 +121,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
 
             // register event handler for grid
             FakturItemGrid.CellContentClick += FakturItemGrid_CellContentClick;
-            // FakturItemGrid.CellValueChanged += FakturItemGrid_CellValueChanged;
             FakturItemGrid.CellValidated += FakturItemGrid_CellValidated;
-            // FakturItemGrid.KeyDown += FakturItemGrid_KeyDown;
-            // FakturItemGrid.EditingControlShowing += FakturItemGrid_EditingControlShowing;
             
             SaveButton.Click += SaveButton_Click;
         }
@@ -165,7 +165,8 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             returJual.RemoveNull();
             CustomerNameText.Text = returJual.CustomerName;
             CustomerIdText.Text = returJual.CustomerId;
-
+            JenisReturCombo.SelectedItem = returJual.JenisRetur;
+            CodeLabel.Text = returJual.ReturJualCode;
             ReturJualDateText.Value = returJual.ReturJualDate;
             SalesIdText.Text = returJual.SalesPersonId;
             SalesNameText.Text = returJual.SalesPersonName;
@@ -184,9 +185,10 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             GrandTotalText.Value = returJual.GrandTotal;
 
             _listItem.Clear();
+            var jenisRetur = JenisReturCombo.SelectedItem.ToString();
             foreach (var item in returJual.ListItem)
             {
-                var createReturJualItemRequest = new CreateReturJualItemRequest(item.BrgId, CustomerIdText.Text, item.HrgInputStr, item.QtyInputStr, item.QtyInputStrRusak, item.DiscInputStr, 11);
+                var createReturJualItemRequest = new CreateReturJualItemRequest(item.BrgId, CustomerIdText.Text, item.HrgInputStr, item.QtyInputStr, item.DiscInputStr, item.PpnProsen, jenisRetur);
                 var newItemModel = _createReturJualItemWorker.Execute(createReturJualItemRequest);
                 var newItemDto = newItemModel.Adapt<ReturJualItemDto>();
                 _listItem.Add(newItemDto);
@@ -251,6 +253,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             DriverIdText.Clear();
             DriverNameText.Clear();
             _listItem.Clear();
+            _listItem.Add(new ReturJualItemDto());
             FakturItemGrid.Refresh();
         }
         #endregion
@@ -268,6 +271,8 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             }
             LastIdText.Text = returJual.ReturJualId;
             ClearDisplay();
+            var customer = _customerDal.GetData(returJual) ?? new CustomerModel();
+            var printOut = new ReturJualPrintOutDto(returJual, customer);
             return;
 
             //  LOCAL-FUNCTION
@@ -277,7 +282,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
                 resultBuildReturJual = ReturJualIdText.Text.Length != 0 
                     ? _builder.Load(new ReturJualModel(ReturJualIdText.Text)).Build() 
                     : _builder.Create().Build();
-                
+                var mainform = (MainForm)this.Parent.Parent;
                 resultBuildReturJual = _builder
                     .Attach(resultBuildReturJual)
                     .Customer(new CustomerModel(CustomerIdText.Text))
@@ -285,6 +290,8 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
                     .SalesPerson(new SalesPersonModel(SalesIdText.Text))
                     .Driver(new DriverModel(DriverIdText.Text))
                     .ReturJualDate(ReturJualDateText.Value)
+                    .JenisRetur(JenisReturCombo.SelectedItem.ToString())
+                    .User(mainform.UserId.UserId)
                     .Build();
                 
                 //  clearkan list item lebih dulu karna akan diisi ulang
@@ -294,8 +301,13 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
                     .Aggregate(resultBuildReturJual, (current, item) 
                         => _builder
                             .Attach(current)
-                            .AddItem(item.Adapt<ReturJualItemModel>())
+                            .AddItem(_createReturJualItemWorker.Execute(
+                                new CreateReturJualItemRequest(item.BrgId, current.CustomerId, 
+                                    item.HrgInputStr, item.QtyInputStr, item.DiscInputStr, 
+                                    item.PpnProsen, current.JenisRetur)))
+                            //.AddItem(item.Adapt<ReturJualItemModel>())
                             .Build());
+
                 return resultBuildReturJual;
             }
         }
@@ -467,13 +479,8 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
 
             cols.GetCol("QtyInputStr").Visible = true;
             cols.GetCol("QtyInputStr").Width = 50;
-            cols.GetCol("QtyInputStr").HeaderText = @"Qty Bagus";
+            cols.GetCol("QtyInputStr").HeaderText = @"Qty";
 
-            cols.GetCol("QtyInputStrRusak").Visible = true;
-            cols.GetCol("QtyInputStrRusak").Width = 50;
-            cols.GetCol("QtyInputStrRusak").HeaderText = @"Qty Rusak";
-
-            
             cols.GetCol("HrgInputStr").Visible = true;
             cols.GetCol("HrgInputStr").Width = 100;
             cols.GetCol("HrgInputStr").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
@@ -493,7 +500,8 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             cols.GetCol("DiscDetilStr").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
 
             cols.GetCol("DiscInputStr").HeaderText = @"Disc %";
-            
+            cols.GetCol("PpnProsen").HeaderText= "PPn";
+
             cols.GetCol("Qty").Visible = false;
             cols.GetCol("HrgSat").Visible = false;
             
@@ -520,8 +528,8 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             {
                 case "BrgId":
                 case "QtyInputStr":
-                case "QtyInputStrRusak":
                 case "HrgInputStr":
+                case "PpnProsen":
                 case "DiscInputStr":
                     if (grid.CurrentCell.Value is null)
                         return;
@@ -549,13 +557,17 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
         }
         private void ValidateRow(int rowIndex)
         {
+
             var item = _listItem[rowIndex];
-            var req = new CreateReturJualItemRequest(item.BrgId, CustomerIdText.Text, 
-                item.HrgInputStr, item.QtyInputStr, item.QtyInputStrRusak, item.DiscInputStr, 11);
+            var jenisRetur = JenisReturCombo.SelectedItem.ToString();
+            var req = new CreateReturJualItemRequest(
+                item.BrgId ?? string.Empty, CustomerIdText.Text, 
+                item.HrgInputStr, item.QtyInputStr, item.DiscInputStr, item.PpnProsen, jenisRetur);
             var newItem = _createReturJualItemWorker.Execute(req);
             
             _listItem[rowIndex] = newItem.Adapt<ReturJualItemDto>();
             FakturItemGrid.Refresh();
+            CalcTotal();   
         }
         #endregion
 
