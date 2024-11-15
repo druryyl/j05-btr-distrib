@@ -21,7 +21,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             Address2 = customer.Address2.Length != 0 ?
                 $"{customer.Address2}-{customer.Kota}" : $"{customer.Kota}";
             SalesName = $"Sales: {retJual.SalesPersonName}";
-            JenisRetur = $"Jenis:{retJual.JenisRetur}";
+            JenisRetur = $"Jenis Retur: BRG {retJual.JenisRetur}";
 
             TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
             Terbilang = $"Terbilang #{Math.Round(retJual.GrandTotal, 0).Eja()} rupiah#";

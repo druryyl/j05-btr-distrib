@@ -5,13 +5,14 @@ using System.Drawing.Printing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace btr.distrib.SalesContext.FakturAgg
+namespace btr.distrib.InventoryContext.ReturJualAgg
 {
-    public partial class FakturPrintOutForm : Form
+    public partial class ReturJualPrintOutForm : Form
     {
-        private FakturPrintOutDto _faktur;
+        private ReturJualPrintOutDto _retJual;
 
-        public FakturPrintOutForm(FakturPrintOutDto faktur)
+
+        public ReturJualPrintOutForm(ReturJualPrintOutDto retJual)
         {
             InitializeComponent();
             reportViewer1.Print += ReportViewer1_Print;
@@ -21,7 +22,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             pageSettings.Margins = new Margins(25, 25, 25, 25); // Left, Right, Top, Bottom
             reportViewer1.SetPageSettings(pageSettings);
 
-            _faktur = faktur;
+            _retJual = retJual;            
         }
 
         private void ReportViewer1_Print(object sender, ReportPrintEventArgs e)
@@ -29,7 +30,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             this.Close();
         }
 
-        private async void FakturPrintOutForm_Load(object sender, EventArgs e)
+        private async void ReturJualPrintOutForm_Load(object sender, EventArgs e)
         {
             await Task.Run(() =>
             {
@@ -39,8 +40,8 @@ namespace btr.distrib.SalesContext.FakturAgg
                     reportViewer1.SetDisplayMode(DisplayMode.PrintLayout); // Print layout is generally non-interactive
                     reportViewer1.ZoomMode = ZoomMode.PageWidth; // Simplify 
                     reportViewer1.LocalReport.DataSources.Clear();
-                    reportViewer1.LocalReport.DataSources.Add(new ReportDataSource("FakturJualDataset", new List<FakturPrintOutDto> { _faktur }));
-                    reportViewer1.LocalReport.DataSources.Add(new ReportDataSource("FakturJualItemDataset", _faktur.ListItem));
+                    reportViewer1.LocalReport.DataSources.Add(new ReportDataSource("ReturJualDataset", new List<ReturJualPrintOutDto> { _retJual }));
+                    reportViewer1.LocalReport.DataSources.Add(new ReportDataSource("ReturJualItemDataset", _retJual.ListItem));
                     reportViewer1.RefreshReport();
                     reportViewer1.ZoomMode = ZoomMode.Percent;
                     reportViewer1.ZoomPercent = 150;

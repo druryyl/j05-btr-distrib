@@ -24,6 +24,7 @@ using Mapster;
 using Polly;
 using btr.domain.SupportContext.UserAgg;
 using btr.distrib.SharedForm;
+using btr.distrib.SalesContext.FakturAgg;
 
 namespace btr.distrib.InventoryContext.ReturJualAgg
 {
@@ -273,6 +274,8 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             ClearDisplay();
             var customer = _customerDal.GetData(returJual) ?? new CustomerModel();
             var printOut = new ReturJualPrintOutDto(returJual, customer);
+            PrintRdlc(printOut);
+
             return;
 
             //  LOCAL-FUNCTION
@@ -311,9 +314,14 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
                 return resultBuildReturJual;
             }
         }
+        private void PrintRdlc(ReturJualPrintOutDto retJual)
+        {
+            var form = new ReturJualPrintOutForm(retJual);
+            form.ShowDialog();
+        }
 
 
-        
+
         #region CUSTOMER
         private void CustomerButton_Click(object sender, EventArgs e)
         {
