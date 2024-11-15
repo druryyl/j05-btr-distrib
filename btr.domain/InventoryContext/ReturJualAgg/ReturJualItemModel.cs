@@ -27,6 +27,7 @@ namespace btr.domain.InventoryContext.ReturJualAgg
         public decimal SubTotal { get; set; }
         public decimal DiscRp { get; set; }
         public decimal PpnRp { get; set; }
+        public decimal PpnProsen { get; set; }
         public decimal Total { get; set; }
 
         public List<ReturJualItemQtyHrgModel> ListQtyHrg { get; set; }

@@ -86,6 +86,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
 
             RegisterEventHandler();
             InitGrid();
+            ClearDisplay();
         }
 
         private void RegisterEventHandler()
@@ -187,7 +188,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             var jenisRetur = JenisReturCombo.SelectedItem.ToString();
             foreach (var item in returJual.ListItem)
             {
-                var createReturJualItemRequest = new CreateReturJualItemRequest(item.BrgId, CustomerIdText.Text, item.HrgInputStr, item.QtyInputStr, item.DiscInputStr, 11, jenisRetur);
+                var createReturJualItemRequest = new CreateReturJualItemRequest(item.BrgId, CustomerIdText.Text, item.HrgInputStr, item.QtyInputStr, item.DiscInputStr, item.PpnProsen, jenisRetur);
                 var newItemModel = _createReturJualItemWorker.Execute(createReturJualItemRequest);
                 var newItemDto = newItemModel.Adapt<ReturJualItemDto>();
                 _listItem.Add(newItemDto);
@@ -252,6 +253,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             DriverIdText.Clear();
             DriverNameText.Clear();
             _listItem.Clear();
+            _listItem.Add(new ReturJualItemDto());
             FakturItemGrid.Refresh();
         }
         #endregion
@@ -269,6 +271,8 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             }
             LastIdText.Text = returJual.ReturJualId;
             ClearDisplay();
+            var customer = _customerDal.GetData(returJual) ?? new CustomerModel();
+            var printOut = new ReturJualPrintOutDto(returJual, customer);
             return;
 
             //  LOCAL-FUNCTION
@@ -297,8 +301,13 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
                     .Aggregate(resultBuildReturJual, (current, item) 
                         => _builder
                             .Attach(current)
-                            .AddItem(item.Adapt<ReturJualItemModel>())
+                            .AddItem(_createReturJualItemWorker.Execute(
+                                new CreateReturJualItemRequest(item.BrgId, current.CustomerId, 
+                                    item.HrgInputStr, item.QtyInputStr, item.DiscInputStr, 
+                                    item.PpnProsen, current.JenisRetur)))
+                            //.AddItem(item.Adapt<ReturJualItemModel>())
                             .Build());
+
                 return resultBuildReturJual;
             }
         }
@@ -491,7 +500,8 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             cols.GetCol("DiscDetilStr").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
 
             cols.GetCol("DiscInputStr").HeaderText = @"Disc %";
-            
+            cols.GetCol("PpnProsen").HeaderText= "PPn";
+
             cols.GetCol("Qty").Visible = false;
             cols.GetCol("HrgSat").Visible = false;
             
@@ -519,6 +529,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
                 case "BrgId":
                 case "QtyInputStr":
                 case "HrgInputStr":
+                case "PpnProsen":
                 case "DiscInputStr":
                     if (grid.CurrentCell.Value is null)
                         return;
@@ -546,10 +557,12 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
         }
         private void ValidateRow(int rowIndex)
         {
+
             var item = _listItem[rowIndex];
             var jenisRetur = JenisReturCombo.SelectedItem.ToString();
-            var req = new CreateReturJualItemRequest(item.BrgId, CustomerIdText.Text, 
-                item.HrgInputStr, item.QtyInputStr, item.DiscInputStr, 11, jenisRetur);
+            var req = new CreateReturJualItemRequest(
+                item.BrgId ?? string.Empty, CustomerIdText.Text, 
+                item.HrgInputStr, item.QtyInputStr, item.DiscInputStr, item.PpnProsen, jenisRetur);
             var newItem = _createReturJualItemWorker.Execute(req);
             
             _listItem[rowIndex] = newItem.Adapt<ReturJualItemDto>();

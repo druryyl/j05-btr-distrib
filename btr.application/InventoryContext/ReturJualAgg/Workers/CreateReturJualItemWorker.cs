@@ -63,10 +63,11 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
         {
             var result = new ReturJualItemModel
             {
-                BrgId = req.BrgId,
+                BrgId = req.BrgId ?? string.Empty,
                 QtyInputStr = req.QtyInputStr,
                 HrgInputStr = req.HrgInputStr,
                 DiscInputStr = req.DiscInputStr,
+                PpnProsen = req.PpnProsen
             };
 
             //      load brg
@@ -111,7 +112,7 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
             result.HrgSat = result.ListQtyHrg.First(x => x.Conversion == 1).HrgSat;
             result.SubTotal = result.ListQtyHrg.Sum(x => x.SubTotal);
             result.DiscRp = result.ListDisc.Sum(x => x.DiscRp);
-            result.PpnRp = result.SubTotal * req.PpnProsen / 100;
+            result.PpnRp = result.SubTotal * result.PpnProsen / 100;
             result.Total = result.SubTotal - result.DiscRp + result.PpnRp;
 
             return result;

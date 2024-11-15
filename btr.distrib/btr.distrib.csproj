@@ -432,6 +432,7 @@
       <DependentUpon>ReturJualForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InventoryContext\ReturJualAgg\ReturJualItemDto.cs" />
+    <Compile Include="InventoryContext\ReturJualAgg\ReturJualPrintOutDto.cs" />
     <Compile Include="InventoryContext\ReturJualRpt\ReturJjualReportForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -679,6 +680,7 @@
     <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\DataSources\btr.distrib.InventoryContext.ReturJualAgg.ReturJualPrintOutDto.datasource" />
     <None Include="Properties\DataSources\btr.distrib.PurchaseContext.InvoiceAgg.InvoicePrintOutDto.datasource" />
     <None Include="Properties\DataSources\btr.distrib.SalesContext.FakturAgg.FakturItemDto.datasource" />
     <None Include="Properties\DataSources\btr.distrib.SalesContext.FakturAgg.FakturPrintOutDto.datasource" />

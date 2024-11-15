@@ -4,6 +4,7 @@ using btr.domain.InventoryContext.ReturJualAgg;
 using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
+using System.Linq;
 
 namespace btr.application.InventoryContext.ReturJualAgg.Workers
 {
@@ -15,18 +16,21 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
     {
         private readonly IReturJualDal _returJualDal;
         private readonly IReturJualItemDal _returJualItemDal;
+        private readonly IReturJualItemDiscDal _returJualItemDiscDal;
         private readonly INunaCounterBL _counter;
         private readonly IUserBuilder _userBuilder;
 
         public ReturJualWriter(IReturJualDal returJualDal,
             IReturJualItemDal returJualItemDal,
             INunaCounterBL counter,
-            IUserBuilder userBuilder)
+            IUserBuilder userBuilder,
+            IReturJualItemDiscDal returJualItemDiscDal)
         {
             _returJualDal = returJualDal;
             _returJualItemDal = returJualItemDal;
             _counter = counter;
             _userBuilder = userBuilder;
+            _returJualItemDiscDal = returJualItemDiscDal;
         }
 
 
@@ -44,11 +48,18 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
             {
                 x.ReturJualId = returJualId;
                 x.ReturJualItemId = $"{returJualId}-{x.NoUrut:D2}";
+                x.ListDisc.ForEach(y =>
+                {
+                    y.ReturJualId = x.ReturJualId;
+                    y.ReturJualItemId = x.ReturJualItemId;
+                    y.ReturJualItemDiscId = $"{x.ReturJualItemId}-{y.NoUrut:D1}";
+                });
             });
 
             var db = _returJualDal.GetData(model);
-            
-            using(var trans = TransHelper.NewScope())
+            var allDiscount = model.ListItem.SelectMany(x => x.ListDisc, (hdr, dtl) => dtl);
+
+            using (var trans = TransHelper.NewScope())
             {
                 if (db is null)
                     _returJualDal.Insert(model);
@@ -57,6 +68,9 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
 
                 _returJualItemDal.Delete(model);
                 _returJualItemDal.Insert(model.ListItem);
+
+                _returJualItemDiscDal.Delete(model);
+                _returJualItemDiscDal.Insert(allDiscount);
                 trans.Complete();
             }
             return model;

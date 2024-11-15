@@ -1269,7 +1269,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!FakturCode.Value, "FakturJualDataset")</Value>
+                <Value>=First(Fields!ReturJualCode.Value, "ReturJualDataset")</Value>
                 <Style>
                   <FontFamily>Lucida Console</FontFamily>
                   <FontSize>8pt</FontSize>
@@ -1340,7 +1340,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!SalesName.Value, "FakturJualDataset")</Value>
+                <Value>=First(Fields!SalesName.Value, "ReturJualDataset")</Value>
                 <Style>
                   <FontFamily>Lucida Console</FontFamily>
                   <FontSize>8pt</FontSize>
@@ -1375,7 +1375,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!JenisBayar.Value, "FakturJualDataset")</Value>
+                <Value>=First(Fields!JenisRetur.Value, "ReturJualDataset")</Value>
                 <Style>
                   <FontFamily>Lucida Console</FontFamily>
                   <FontSize>8pt</FontSize>
@@ -1390,43 +1390,8 @@
         <Top>0.69962in</Top>
         <Left>2.63542in</Left>
         <Height>0.23958in</Height>
-        <Width>1.025in</Width>
+        <Width>1.80208in</Width>
         <ZIndex>13</ZIndex>
-        <Style>
-          <Border>
-            <Style>Solid</Style>
-          </Border>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="JatuhTempoText">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!JatuhTempo.Value, "FakturJualDataset")</Value>
-                <Style>
-                  <FontFamily>Lucida Console</FontFamily>
-                  <FontSize>8pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Center</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <Top>0.69962in</Top>
-        <Left>3.66042in</Left>
-        <Height>0.23958in</Height>
-        <Width>1.40625in</Width>
-        <ZIndex>14</ZIndex>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -1445,7 +1410,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!FakturDate.Value, "FakturJualDataset")</Value>
+                <Value>=First(Fields!ReturJualDate.Value, "ReturJualDataset")</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1459,7 +1424,7 @@
         <Left>5.375in</Left>
         <Height>0.16945in</Height>
         <Width>2.375in</Width>
-        <ZIndex>15</ZIndex>
+        <ZIndex>14</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1478,7 +1443,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!CustomerId.Value, "FakturJualDataset")</Value>
+                <Value>=First(Fields!CustomerId.Value, "ReturJualDataset")</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1493,7 +1458,7 @@
         <Left>5.375in</Left>
         <Height>0.16945in</Height>
         <Width>2.375in</Width>
-        <ZIndex>16</ZIndex>
+        <ZIndex>15</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1512,7 +1477,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!CustomerName.Value, "FakturJualDataset")</Value>
+                <Value>=First(Fields!CustomerName.Value, "ReturJualDataset")</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1527,7 +1492,7 @@
         <Left>5.375in</Left>
         <Height>0.16945in</Height>
         <Width>2.375in</Width>
-        <ZIndex>17</ZIndex>
+        <ZIndex>16</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1546,7 +1511,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!Address1.Value, "FakturJualDataset")</Value>
+                <Value>=First(Fields!Address1.Value, "ReturJualDataset")</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1560,7 +1525,7 @@
         <Left>5.375in</Left>
         <Height>0.16945in</Height>
         <Width>2.375in</Width>
-        <ZIndex>18</ZIndex>
+        <ZIndex>17</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1579,7 +1544,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!Address2.Value, "FakturJualDataset")</Value>
+                <Value>=First(Fields!Address2.Value, "ReturJualDataset")</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1593,7 +1558,7 @@
         <Left>5.375in</Left>
         <Height>0.16945in</Height>
         <Width>2.375in</Width>
-        <ZIndex>19</ZIndex>
+        <ZIndex>18</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1628,7 +1593,7 @@
         <Left>0.03473in</Left>
         <Height>0.20556in</Height>
         <Width>5.03194in</Width>
-        <ZIndex>20</ZIndex>
+        <ZIndex>19</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1661,7 +1626,7 @@
         <Top>1.86771in</Top>
         <Height>0.30834in</Height>
         <Width>5.06667in</Width>
-        <ZIndex>21</ZIndex>
+        <ZIndex>20</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1694,7 +1659,7 @@
         <Left>0.03125in</Left>
         <Height>0.20556in</Height>
         <Width>1.31598in</Width>
-        <ZIndex>22</ZIndex>
+        <ZIndex>21</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1728,7 +1693,7 @@
         <Left>0.03125in</Left>
         <Height>0.20556in</Height>
         <Width>1.31598in</Width>
-        <ZIndex>23</ZIndex>
+        <ZIndex>22</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1745,7 +1710,7 @@
         <Left>0.03473in</Left>
         <Height>0in</Height>
         <Width>1.3125in</Width>
-        <ZIndex>24</ZIndex>
+        <ZIndex>23</ZIndex>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -1774,7 +1739,7 @@
         <Left>2.60069in</Left>
         <Height>0.20556in</Height>
         <Width>1.31598in</Width>
-        <ZIndex>25</ZIndex>
+        <ZIndex>24</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1791,7 +1756,7 @@
         <Left>2.60417in</Left>
         <Height>0in</Height>
         <Width>1.3125in</Width>
-        <ZIndex>26</ZIndex>
+        <ZIndex>25</ZIndex>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -1820,7 +1785,7 @@
         <Left>5.49652in</Left>
         <Height>0.20556in</Height>
         <Width>1.31598in</Width>
-        <ZIndex>27</ZIndex>
+        <ZIndex>26</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1854,7 +1819,7 @@
         <Left>5.49652in</Left>
         <Height>0.20556in</Height>
         <Width>1.31598in</Width>
-        <ZIndex>28</ZIndex>
+        <ZIndex>27</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1871,7 +1836,7 @@
         <Left>5.5in</Left>
         <Height>0in</Height>
         <Width>1.3125in</Width>
-        <ZIndex>29</ZIndex>
+        <ZIndex>28</ZIndex>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -1883,7 +1848,7 @@
         <Left>0.03473in</Left>
         <Height>0in</Height>
         <Width>7.7375in</Width>
-        <ZIndex>30</ZIndex>
+        <ZIndex>29</ZIndex>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -1903,6 +1868,161 @@
     <Style />
   </Page>
   <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="btrdistribInventoryContextReturJualAgg">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>32307f92-b0c9-4e2c-b146-6eea76f1b430</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="btrdistribInventoryContextReturJualAgg1">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>79cf8ee8-9f54-439e-8d91-2596fbf54e78</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="btrdistribInventoryContextReturJualAgg2">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>391f8b29-d159-4b6c-9853-9fed0bbf89fa</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="btrdistribInventoryContextReturJualAgg3">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>133cfcd1-8afa-4af3-8982-5d74598943f6</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="ReturJualDataset">
+      <Query>
+        <DataSourceName>btrdistribInventoryContextReturJualAgg2</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Address1">
+          <DataField>Address1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Address2">
+          <DataField>Address2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CustomerId">
+          <DataField>CustomerId</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CustomerName">
+          <DataField>CustomerName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Discount">
+          <DataField>Discount</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="GrandTotal">
+          <DataField>GrandTotal</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="JenisRetur">
+          <DataField>JenisRetur</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Ppn">
+          <DataField>Ppn</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ReturJualCode">
+          <DataField>ReturJualCode</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ReturJualDate">
+          <DataField>ReturJualDate</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SalesName">
+          <DataField>SalesName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SubTotal">
+          <DataField>SubTotal</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Terbilang">
+          <DataField>Terbilang</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="UserName">
+          <DataField>UserName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>btr.distrib.InventoryContext.ReturJualAgg</rd:DataSetName>
+        <rd:TableName>ReturJualPrintOutDto</rd:TableName>
+        <rd:ObjectDataSourceType>btr.distrib.InventoryContext.ReturJualAgg.ReturJualPrintOutDto, btr.distrib, Version=1.0.0.12, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="ReturJualItemDataset">
+      <Query>
+        <DataSourceName>btrdistribInventoryContextReturJualAgg3</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="BrgCode">
+          <DataField>BrgCode</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="BrgName">
+          <DataField>BrgName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Disc1">
+          <DataField>Disc1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Disc2">
+          <DataField>Disc2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Disc3">
+          <DataField>Disc3</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Disc4">
+          <DataField>Disc4</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Hrg">
+          <DataField>Hrg</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NoUrut">
+          <DataField>NoUrut</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Qty">
+          <DataField>Qty</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Total">
+          <DataField>Total</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>btr.distrib.InventoryContext.ReturJualAgg</rd:DataSetName>
+        <rd:TableName>ReturJualPrintOutDto</rd:TableName>
+        <rd:ObjectDataSourceSelectMethod>ListItem</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>btr.distrib.InventoryContext.ReturJualAgg.ReturJualPrintOutDto, btr.distrib, Version=1.0.0.12, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+  </DataSets>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>80ef0f1b-71ef-493b-a988-d61f7456d401</rd:ReportID>
 </Report>
