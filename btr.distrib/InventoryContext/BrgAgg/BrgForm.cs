@@ -473,10 +473,24 @@ namespace btr.distrib.InventoryContext.BrgAgg
         {
             _listBrg.Clear();
             var listBrg = _brgDal.ListData()?.ToList() ?? new List<BrgModel>();
+            var listHarga = _brgHargaDal.ListData();
+            var listSatuan = _brgSatuanDal.ListData();
             foreach (var item in listBrg)
             {
+                var harga = listHarga.Where(x => x.BrgId == item.BrgId).ToList();
+                var konversi = listSatuan.Where(x => x.BrgId == item.BrgId).FirstOrDefault(y => y.Conversion != 1) ?? new BrgSatuanModel { Conversion = 1 };
+                var hpp1 = item.Hpp;
+                var gt = harga.FirstOrDefault(x => x.HargaTypeId == "GT") ?? new BrgHargaModel { Harga = 0 };
+                var mt = harga.FirstOrDefault(x => x.HargaTypeId == "MT") ?? new BrgHargaModel { Harga = 0 };
+                var hargaGt1 = gt.Harga;
+                var hargaMt1 = mt.Harga;
+                var hpp2 = konversi.Conversion != 1 ? hpp1 * konversi.Conversion : 0;
+                var hargaGt2 = konversi.Conversion != 1 ?  hargaGt1 * konversi.Conversion : 0;
+                var hargaMt2 = konversi.Conversion != 1 ? hargaMt1 * konversi.Conversion : 0;
+
                 var brg = new BrgFormBrgDto(
-                    item.BrgId, item.BrgCode, item.BrgName, item.KategoriName, item.SupplierName);
+                    item.BrgId, item.BrgCode, item.BrgName, item.KategoriName, item.SupplierName,
+                    hpp1, hargaGt1, hargaMt1, hpp2, hargaGt2, hargaMt2);
                 _listBrg.Add(brg);
             }
 
@@ -493,6 +507,15 @@ namespace btr.distrib.InventoryContext.BrgAgg
             BrgGrid.Columns.GetCol("Code").Width = 80;
             BrgGrid.Columns.GetCol("BrgName").Width = 150;
             BrgGrid.Columns.GetCol("Kategori").Width = 100;
+
+            BrgGrid.Columns.GetCol("Hpp1").DefaultCellStyle.BackColor = Color.LightYellow;
+            BrgGrid.Columns.GetCol("HargaGt1").DefaultCellStyle.BackColor = Color.LightYellow;
+            BrgGrid.Columns.GetCol("HargaMt1").DefaultCellStyle.BackColor = Color.LightYellow;
+
+            BrgGrid.Columns.GetCol("Hpp2").DefaultCellStyle.BackColor = Color.LightGreen;
+            BrgGrid.Columns.GetCol("HargaGt2").DefaultCellStyle.BackColor = Color.LightGreen;
+            BrgGrid.Columns.GetCol("HargaMt2").DefaultCellStyle.BackColor = Color.LightGreen;
+
             if (BrgGrid.Rows.Count == 0)
                 return;
             BrgGrid.FirstDisplayedScrollingRowIndex = BrgGrid.Rows.Count - 1;

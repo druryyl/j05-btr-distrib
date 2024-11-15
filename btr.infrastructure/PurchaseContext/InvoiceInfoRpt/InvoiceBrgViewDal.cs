@@ -28,9 +28,11 @@ namespace btr.infrastructure.PurchaseContext.InvoiceInfoRpt
             const string sql = @"
                 SELECT
                     aa.InvoiceId, aa.InvoiceCode, aa.InvoiceDate AS Tgl,  
-                    ISNULL(bb.SatKecil, 0) AS Satuan, 
                     ISNULL(bb.HppSat, 0) AS Hpp, 
+                    ISNULL(bb.QtyBesar, 0) AS QtyBesar, 
+                    ISNULL(bb.SatBesar, 0) AS SatuanBesar, 
                     ISNULL(bb.QtyKecil, 0) AS Qty, 
+                    ISNULL(bb.SatKecil, 0) AS Satuan, 
                     ISNULL(bb.SubTotal, 0) AS SubTotal, 
                     ISNULL(bb.DiscRp, 0) AS Disc, 
                     ISNULL(bb.PpnRp, 0) AS Tax, 

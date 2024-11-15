@@ -420,6 +420,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                 item.Kembali = listStatus
                     .Where(x => x.FakturId == item.FakturId)
                     .FirstOrDefault(x => x.StatusFaktur == StatusFakturEnum.KembaliFaktur) != null;
+                item.SetPajak(item.NoFakturPajak.Trim().Length == 0 ? false : true);
                 item.FormatFakturCode();
 
             }

@@ -12,9 +12,11 @@ namespace btr.application.PurchaseContext.InvoiceBrgInfo
         public string SupplierName { get; set; }
         public string Kategori { get; set; }
 
-        public string Satuan { get; set; }
         public decimal Hpp { get; set; }
+        public string QtyBesar { get; set; }
+        public string SatuanBesar { get; set; }
         public int Qty { get; set; }
+        public string Satuan { get; set; }
         public decimal SubTotal { get; set; }
         public decimal Disc { get; set; }
         public decimal Tax { get; set; }
