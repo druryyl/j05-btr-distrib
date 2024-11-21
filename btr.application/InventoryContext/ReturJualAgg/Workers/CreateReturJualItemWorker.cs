@@ -134,7 +134,7 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
                 JenisQty = JenisQtyEnum.SatuanBesar,
                 Conversion = brgModel.ListSatuan.Max(x => x.Conversion),
                 Qty = int.Parse(listQty[0]),
-                HrgSat = jenisRetur == "BAGUS" ? decimal.Parse(listHrg[0]) : 0,
+                HrgSat = decimal.Parse(listHrg[0]),
                 Satuan = brgModel.ListSatuan.FirstOrDefault(x => x.Conversion > 1)?.Satuan ?? string.Empty,
             };
             var item2 = new ReturJualItemQtyHrgModel
@@ -144,7 +144,7 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
                 JenisQty = JenisQtyEnum.SatuanKecil,
                 Conversion = 1,
                 Qty = int.Parse(listQty[1]),
-                HrgSat = jenisRetur == "BAGUS" ? decimal.Parse(listHrg[1]) : 0,
+                HrgSat = decimal.Parse(listHrg[1]),
                 Satuan = brgModel.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty,
             };
 

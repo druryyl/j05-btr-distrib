@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using btr.application.FinanceContext.TagihanAgg;
 using btr.domain.FinanceContext.TagihanAgg;
+using btr.domain.SalesContext.FakturAgg;
 using btr.infrastructure.Helpers;
 using btr.nuna.Infrastructure;
 using Dapper;
@@ -60,7 +61,6 @@ namespace btr.infrastructure.FinanceContext.TagihanAgg
 
         public IEnumerable<TagihanFakturModel> ListData(ITagihanKey filter)
         {
-            // query select table BTR_TagihanFaktur by TagihanId
             const string sql = @"
                 SELECT
                     aa.TagihanId, aa.NoUrut, aa.FakturId,
@@ -83,6 +83,33 @@ namespace btr.infrastructure.FinanceContext.TagihanAgg
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
                 return conn.Read<TagihanFakturModel>(sql, dp);
+            }
+        }
+
+        public IEnumerable<TagihanFakturViewDto> ListData(IFakturKey filter)
+        {
+            const string sql = @"
+                SELECT
+                    aa.FakturId, aa.TagihanId, 
+                    ISNULL(bb.TagihanDate, GetDate()) TagihanDate,
+                    ISNULL(cc.SalesPersonName, '') SalesPersonName
+                FROM
+                    BTR_TagihanFaktur aa
+                    LEFT JOIN BTR_Tagihan bb ON aa.TagihanId = bb.TagihanId
+                    LEFT JOIN BTR_SalesPerson cc ON bb.SalesPersonId = cc.SalesPersonId
+                WHERE
+                    aa.FakturId = @FakturId 
+                ORDER BY
+                    aa.TagihanId";
+
+            // parameter
+            var dp = new DynamicParameters();
+            dp.AddParam("@FakturId", filter.FakturId, SqlDbType.VarChar);
+
+            //  execute query
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                return conn.Read<TagihanFakturViewDto>(sql, dp);
             }
         }
     }

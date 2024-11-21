@@ -17,6 +17,7 @@ namespace btr.application.FinanceContext.PiutangAgg.UseCases
         
         public decimal Nilai { get; set; }
         public DateTime LunasDate { get; set; }
+        public string TagihanId { get; set; }
         public JenisLunasEnum JenisLunas { get; set; }
         public DateTime JatuhTempoBg { get; set; }
         public string NoBgRek { get; set; }
@@ -59,12 +60,12 @@ namespace btr.application.FinanceContext.PiutangAgg.UseCases
                 if (req.JenisLunas == JenisLunasEnum.Cash)
                     piutang = _piutangBuilder
                         .Attach(piutang)
-                        .AddLunasCash(req.Nilai, req.LunasDate)
+                        .AddLunasCash(req.Nilai, req.LunasDate, req.TagihanId)
                         .Build();
                 else
                     piutang = _piutangBuilder
                         .Attach(piutang)
-                        .AddLunasBg(req.Nilai, req.LunasDate, req.JatuhTempoBg, req.NamaBank, req.NoBgRek, req.AtasNamaBank)
+                        .AddLunasBg(req.Nilai, req.LunasDate, req.TagihanId, req.JatuhTempoBg, req.NamaBank, req.NoBgRek, req.AtasNamaBank)
                         .Build();
 
             _piutangWriter.Save(ref piutang);

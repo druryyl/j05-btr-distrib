@@ -22,9 +22,9 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
         IPiutangBuilder AddPlusElement(PiutangElementEnum elementTag, decimal value);
         IPiutangBuilder AddMinusElement(PiutangElementEnum elementTag, decimal value);
         IPiutangBuilder ClearElement();
-        IPiutangBuilder AddLunasCash(decimal value, DateTime lunasDate);
-        IPiutangBuilder AddLunasBg(decimal value, DateTime lunasDate, DateTime jatuhTempo, string namaBank, string noRek, string atasNama);
-        IPiutangBuilder RemoveLunas(int noUrut);
+        IPiutangBuilder AddLunasCash(decimal value, DateTime lunasDate, string tagihanId);
+        IPiutangBuilder AddLunasBg(decimal value, DateTime lunasDate, string tagihanId, DateTime jatuhTempo, string namaBank, string noRek, string atasNama);
+        IPiutangBuilder RemoveLunas(string tagihanId);
     }
     public class PiutangBuilder : IPiutangBuilder
     {
@@ -148,24 +148,25 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
 
         private void ReCalc()
         {
-            _aggregate.Total = _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.NilaiAwalPiutang).Sum(x => x.NilaiPlus - x.NilaiMinus);
+            //_aggregate.Total = _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.NilaiAwalPiutang).Sum(x => x.NilaiPlus - x.NilaiMinus);
             
-            var potongan = _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Retur).Sum(x => x.NilaiPlus - x.NilaiMinus);
-            potongan += _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Potongan).Sum(x => x.NilaiPlus - x.NilaiMinus);
-            potongan += _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Materai).Sum(x => x.NilaiPlus - x.NilaiMinus);
-            potongan += _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Admin).Sum(x => x.NilaiPlus - x.NilaiMinus);
+            var potonganBiayaLain = _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Retur).Sum(x => x.NilaiMinus * -1);
+            potonganBiayaLain += _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Potongan).Sum(x => x.NilaiMinus * -1);
+            potonganBiayaLain += _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Materai).Sum(x => x.NilaiPlus);
+            potonganBiayaLain += _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Admin).Sum(x => x.NilaiPlus);
 
-            _aggregate.Potongan = Math.Abs(potongan);
+            _aggregate.Potongan = potonganBiayaLain;
 
             _aggregate.Terbayar = _aggregate.ListLunas.Sum(x => x.Nilai);
-            _aggregate.Sisa = _aggregate.Total - _aggregate.Potongan - _aggregate.Terbayar;
+            _aggregate.Sisa = _aggregate.Total + _aggregate.Potongan - _aggregate.Terbayar;
         }
 
-        public IPiutangBuilder AddLunasCash(decimal value, DateTime lunasDate)
+        public IPiutangBuilder AddLunasCash(decimal value, DateTime lunasDate, string tagihanId)
         {
             var lunas = new PiutangLunasModel
             {
                 LunasDate = lunasDate,
+                TagihanId = tagihanId,
                 Nilai = value,
                 JenisLunas = JenisLunasEnum.Cash,
                 JatuhTempoBg = new DateTime(3000,1,1),
@@ -187,13 +188,14 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
             _aggregate.Sisa = _aggregate.Total - _aggregate.Terbayar;
         }
 
-        public IPiutangBuilder AddLunasBg(decimal value, DateTime lunasDate, DateTime jatuhTempo, string namaBank, string noRek, string atasNama)
+        public IPiutangBuilder AddLunasBg(decimal value, DateTime lunasDate, string tagihanId, DateTime jatuhTempo, string namaBank, string noRek, string atasNama)
         {
             if (value == 0)
                 return this;
             var lunas = new PiutangLunasModel
             {
                 LunasDate = lunasDate,
+                TagihanId = tagihanId,
                 Nilai = value,
                 JenisLunas = JenisLunasEnum.CekBg,
                 JatuhTempoBg = jatuhTempo,
@@ -206,9 +208,9 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
             return this;
         }
 
-        public IPiutangBuilder RemoveLunas(int noUrut)
+        public IPiutangBuilder RemoveLunas(string tagihanId)
         {
-            _aggregate.ListLunas.RemoveAll(x => x.NoUrut == noUrut);
+            _aggregate.ListLunas.RemoveAll(x => x.TagihanId== tagihanId);
             ReCalc();
             return this;
         }

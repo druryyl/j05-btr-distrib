@@ -13,13 +13,13 @@ using Syncfusion.Windows.Forms.Grid.Grouping;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using btr.application.SalesContext.FakturAgg.Contracts;
-using btr.domain.SupportContext.UserAgg;
 using Polly;
-using DocumentFormat.OpenXml.Wordprocessing;
+using btr.application.FinanceContext.TagihanAgg;
+using System.Drawing;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace btr.distrib.FinanceContext.LunasPiutangAgg
 {
@@ -28,10 +28,9 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
         private readonly IPiutangBuilder _piutangBuilder;
         private readonly IPiutangWriter _piutangWriter;
         private readonly IPiutangLunasViewDal _piutangLunasViewDal;
+        private readonly ITagihanFakturDal _tagihanFakturDal;
         private readonly IFakturBuilder _fakturBuilder;
         private readonly IFakturDal _fakturDal;
-        private readonly IAddLunasPiutangWorker _addLunasPiutangWorker;
-        private readonly IRemoveLunasPiutangWorker _removeLunasPiutangWorker;
         
         private BindingList<PiutangLunasView> _listPiutangLunasView;
         private BindingList<LunasPiutangBayarView> _listLunasPiutangBayar;
@@ -42,22 +41,23 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
         public LunasPiutang2Form(IPiutangLunasViewDal piutangLunasViewDal,
             IPiutangBuilder piutangBuilder,
             IFakturBuilder fakturBuilder,
-            IAddLunasPiutangWorker addLunasPiutangWorker, IFakturDal fakturDal,
-            IRemoveLunasPiutangWorker removeLunasPiutangWorker, IPiutangWriter piutangWriter)
+            IFakturDal fakturDal,
+            IPiutangWriter piutangWriter, 
+            ITagihanFakturDal tagihanFakturDal)
         {
+            InitializeComponent();
+
             _piutangLunasViewDal = piutangLunasViewDal;
             _piutangBuilder = piutangBuilder;
             _fakturBuilder = fakturBuilder;
-            _addLunasPiutangWorker = addLunasPiutangWorker;
             _fakturDal = fakturDal;
-            _removeLunasPiutangWorker = removeLunasPiutangWorker;
+            _piutangWriter = piutangWriter;
+            _tagihanFakturDal = tagihanFakturDal;
 
-            InitializeComponent();
             InitGrid();
             IniGridBayar();
             InitJenisBayarCombo();
             RegisterEventHandler();
-            _piutangWriter = piutangWriter;
         }
 
         private void InitJenisBayarCombo()
@@ -77,12 +77,97 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             ListPiutangGrid.TableControlCellDoubleClick += ListPiutangGrid_TableControlCellDoubleClick;
             ListPiutangGrid.TableControlCurrentCellActivated += ListPiutangGrid_TableControlCurrentCellActivated;
             ListPiutangGrid.TableControlCurrentCellValidated += ListPiutangGrid_TableControlCurrentCellValidated;
+            
             SaveButton.Click += SaveButton_Click;
+            DeleteButton.Click += DeleteButton_Click;
+            UpdateElementButton.Click += UpdateElementButton_Click;
             JenisBayarCombo.SelectedIndexChanged += JenisBayarCombo_SelectedIndexChanged;
             NilaiPelunasanText.KeyDown += NilaiPelunasanText_KeyDown;
             FakturCodeText.Validating += FakturCodeText_Validating;
             FakturCodeText.KeyDown += FakturCodeText_KeyDown;
-            BayarGrid.CellDoubleClick += BayarGrid_CellDoubleClick;
+            //BayarGrid.CellDoubleClick += BayarGrid_CellDoubleClick;
+            TagihanCombo.SelectedIndexChanged += TagihanCombo_SelectedIndexChanged;
+            BayarGrid.CellFormatting += BayarGrid_CellFormatting;
+        }
+
+        private void DeleteElementButton_Click(object sender, EventArgs e)
+        {
+            var piutang = _piutangBuilder
+                .Load(new PiutangModel(_piutangId))
+                .Build();
+            piutang.ListElement.Clear();
+            piutang = _piutangBuilder
+                .Attach(piutang)
+                .AddMinusElement(PiutangElementEnum.Retur, 0)
+                .AddMinusElement(PiutangElementEnum.Potongan, 0)
+                .AddPlusElement(PiutangElementEnum.Materai, 0)
+                .AddPlusElement(PiutangElementEnum.Admin, 0)
+                .Build();
+            piutang.ListElement.RemoveAll(x => x.NilaiPlus + x.NilaiMinus == 0);
+            _piutangWriter.Save(ref piutang);
+            RefreshGridBayar(piutang);
+        }
+
+        private void UpdateElementButton_Click(object sender, EventArgs e)
+        {
+            var piutang = _piutangBuilder
+                .Load(new PiutangModel(_piutangId))
+                .Build();
+            piutang.ListElement.Clear();
+            piutang = _piutangBuilder
+                .Attach(piutang)
+                .AddMinusElement(PiutangElementEnum.Retur, ReturText.Value)
+                .AddMinusElement(PiutangElementEnum.Potongan, PotonganText.Value)
+                .AddPlusElement(PiutangElementEnum.Materai, MateraiText.Value)
+                .AddPlusElement(PiutangElementEnum.Admin, AdminText.Value)
+                .Build();
+
+            _piutangWriter.Save(ref piutang);
+            RefreshGridBayar(piutang);
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            DeleteTagihan();
+        }
+
+        private void TagihanCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var tagihanId = TagihanCombo.SelectedValue.ToString();
+            if (tagihanId == "-")
+                return;
+            LoadTagihan(tagihanId);
+        }
+
+        private void LoadTagihan(string tagihanId)
+        {
+            ClearTagihan();
+            var piutang = _piutangBuilder
+                .Load(new PiutangModel(_piutangId))
+                .Build();
+            var tagihan = piutang.ListLunas.FirstOrDefault(x => x.TagihanId == tagihanId);
+
+            if (tagihan == null)
+                return;
+
+            NilaiPelunasanText.Value = tagihan.Nilai;
+            JenisBayarCombo.SelectedIndex = (int)tagihan.JenisLunas;
+            LunasDateText.Value = tagihan.LunasDate;
+            NoRekBgText.Text = tagihan.NoRekBg;
+            BankNameText.Text = tagihan.NamaBank;
+            AtasNamaText.Text = tagihan.AtasNamaBank;
+            JatuhTempBgText.Value = tagihan.JatuhTempoBg;
+        }
+
+        private void ClearTagihan()
+        {
+            NilaiPelunasanText.Value = 0;
+            JenisBayarCombo.SelectedIndex = 0;
+            LunasDateText.Value = DateTime.Now;
+            NoRekBgText.Clear(); 
+            BankNameText.Clear();
+            AtasNamaText.Clear();
+            JatuhTempBgText.Value = DateTime.Now;
         }
 
         private void FakturCodeText_KeyDown(object sender, KeyEventArgs e)
@@ -93,59 +178,58 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
                 SelectNextControl(textBox, true, true, true, true);
         }
 
-        private void BayarGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            var grid = sender as DataGridView;
-            if (e.RowIndex == -1) return;
-            if (e.RowIndex == 0) return;
-            if (e.RowIndex == grid?.Rows.Count - 1) return;
+        //private void BayarGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        //{
+        //    var grid = sender as DataGridView;
+        //    if (e.RowIndex == -1) return;
+        //    if (e.RowIndex == 0) return;
+        //    if (e.RowIndex == grid?.Rows.Count - 1) return;
             
-            var deleted = _listLunasPiutangBayar[e.RowIndex];
-            _listLunasPiutangBayar.Remove(deleted);
-            BayarGrid.Refresh();
+        //    var deleted = _listLunasPiutangBayar[e.RowIndex];
+        //    _listLunasPiutangBayar.Remove(deleted);
+        //    BayarGrid.Refresh();
 
-            if (deleted.Keterangan == "Potongan")
-                RemovePotongan();
-            else
-                RemovePelunasan(deleted, e.RowIndex);
+        //    if (deleted.Keterangan == "Potongan")
+        //        RemovePotongan();
+        //    else
+        //        RemovePelunasan(deleted, e.RowIndex);
 
-            NoRekBgText.Text = string.Empty;
-            BankNameText.Text = string.Empty;
-            AtasNamaText.Text = string.Empty;
-        }
+        //    NoRekBgText.Text = string.Empty;
+        //    BankNameText.Text = string.Empty;
+        //    AtasNamaText.Text = string.Empty;
+        //}
 
-        private void RemovePotongan()
-        {
-            var piutang = _piutangBuilder.Load(new PiutangModel(_piutangId)).Build();
+        //private void RemovePotongan()
+        //{
+        //    var piutang = _piutangBuilder.Load(new PiutangModel(_piutangId)).Build();
 
-            ReturText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Retur)?.NilaiMinus ?? 0;
-            PotonganText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Potongan)?.NilaiMinus ?? 0;
-            MateraiText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Materai)?.NilaiMinus ?? 0;
-            AdminText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Admin)?.NilaiMinus ?? 0;
+        //    ReturText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Retur)?.NilaiMinus ?? 0;
+        //    PotonganText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Potongan)?.NilaiMinus ?? 0;
+        //    MateraiText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Materai)?.NilaiMinus ?? 0;
+        //    AdminText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Admin)?.NilaiMinus ?? 0;
 
-            piutang = _piutangBuilder
-                .Attach(piutang)
-                .ClearElement()
-                .Build();
+        //    piutang = _piutangBuilder
+        //        .Attach(piutang)
+        //        .ClearElement()
+        //        .Build();
 
-            _piutangWriter.Save(ref piutang);
-            RefreshGridBayar(piutang);
-            RefreshGrid();
-        }
+        //    _piutangWriter.Save(ref piutang);
+        //    RefreshGridBayar(piutang);
+        //    RefreshGrid();
+        //}
 
-        private void RemovePelunasan(LunasPiutangBayarView deletedItem, int noUrut)
-        {
-            var removeLunasReq = new RemoveLunasPiutangRequest
-            {
-                PiutangId = _piutangId,
-                NoUrut = noUrut
-            };
-            _removeLunasPiutangWorker.Execute(removeLunasReq);
-            NilaiPelunasanText.Value = Math.Abs(deletedItem.Nilai);
-            JenisBayarCombo.SelectedIndex = deletedItem.Keterangan == "Pelunasan Cash" ? 0 : 1;
-            JatuhTempBgText.Value = deletedItem.Tgl;
-
-        }
+        //private void RemovePelunasan(LunasPiutangBayarView deletedItem, int noUrut)
+        //{
+        //    var removeLunasReq = new RemoveLunasPiutangRequest
+        //    {
+        //        PiutangId = _piutangId,
+        //        NoUrut = noUrut
+        //    };
+        //    _removeLunasPiutangWorker.Execute(removeLunasReq);
+        //    NilaiPelunasanText.Value = Math.Abs(deletedItem.Nilai);
+        //    JenisBayarCombo.SelectedIndex = deletedItem.Keterangan == "Pelunasan Cash" ? 0 : 1;
+        //    JatuhTempBgText.Value = deletedItem.Tgl;
+        //}
 
         private void FakturCodeText_Validating(object sender, CancelEventArgs e)
         {
@@ -201,20 +285,22 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             BayarGrid.DataSource = _listLunasPiutangBayar;
             BayarGrid.DefaultCellStyle = new DataGridViewCellStyle
             {
-                BackColor = System.Drawing.Color.Thistle,
+                BackColor = System.Drawing.Color.LavenderBlush,
                 Font = new System.Drawing.Font("Consolas", 8.25F),
-
             };
+
             var cols = BayarGrid.Columns;
             RefreshGridBayar(new PiutangModel { ListLunas = new List<PiutangLunasModel>()});
             cols.GetCol("Tgl").DefaultCellStyle.Format = "ddd, dd-MMM-yyyy";
             cols.GetCol("Nilai").DefaultCellStyle.Format = "N0";
             cols.GetCol("Nilai").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
-            cols.GetCol("Tgl").Width = 120;
-            cols.GetCol("Keterangan").Width = 120;
-            cols.GetCol("Nilai").Width = 80;
-            cols.GetCol("Nilai").DefaultCellStyle.BackColor = System.Drawing.Color.LavenderBlush;
+            //cols.GetCol("Tgl").Width = 120;
+            //cols.GetCol("Keterangan").Width = 120;
+            //cols.GetCol("Nilai").Width = 80;
+            //cols.GetCol("Nilai").DefaultCellStyle.BackColor = System.Drawing.Color.LavenderBlush;
+
+            cols.GetCol("JenisData").Visible = false;
 
             //  hide row header
             BayarGrid.RowHeadersVisible = false;
@@ -223,48 +309,80 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             BayarGrid.AllowUserToAddRows = false;
             BayarGrid.AllowUserToDeleteRows = false;
         }
+        private void BayarGrid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            var conditionValue = BayarGrid.Rows[e.RowIndex].Cells["JenisData"].Value?.ToString(); // Replace with your column name
+
+            if (!string.IsNullOrEmpty(conditionValue))
+            {
+                if (conditionValue == "1") // Replace with your condition
+                {
+                    BayarGrid.Rows[e.RowIndex].DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
+                }
+                else if (conditionValue == "2") // Another condition
+                {
+                    BayarGrid.Rows[e.RowIndex].DefaultCellStyle.ForeColor= System.Drawing.Color.Gray;
+                }
+                else
+                {
+                    BayarGrid.Rows[e.RowIndex].DefaultCellStyle.ForeColor = System.Drawing.Color.DarkRed;
+                }
+            }
+        }
 
         private void RefreshGridBayar(PiutangModel piutang)
         {
             piutang.RemoveNull();
+            int noUrut = 1;
             _listLunasPiutangBayar = new BindingList<LunasPiutangBayarView>
             {
-                new LunasPiutangBayarView
-                {
-                    Tgl = piutang.PiutangDate,
-                    Keterangan = "Tagihan",
-                    Nilai = piutang.Total,
-                }
+                new LunasPiutangBayarView(
+                    noUrut,
+                    piutang.PiutangDate,
+                    "Tagihan",
+                    piutang.Total,
+                    1)
             };
-            var potongan = piutang.ListElement?.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Retur)?.NilaiMinus ?? 0;
-            potongan += piutang.ListElement?.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Potongan)?.NilaiMinus ?? 0;
-            potongan += piutang.ListElement?.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Materai)?.NilaiMinus ?? 0;
-            potongan += piutang.ListElement?.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Admin)?.NilaiMinus ?? 0;
-            
-            if (potongan > 0)
-                _listLunasPiutangBayar.Add(new LunasPiutangBayarView
-                {
-                    Tgl = piutang.PiutangDate,
-                    Keterangan = $"Potongan",
-                    Nilai = -potongan
-                });
-            
+
+
+            var retur = piutang.ListElement?.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Retur)?.NilaiMinus ?? 0;
+            var pot = piutang.ListElement?.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Potongan)?.NilaiMinus ?? 0;
+            var materai = piutang.ListElement?.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Materai)?.NilaiPlus ?? 0;
+            var admin = piutang.ListElement?.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Admin)?.NilaiPlus ?? 0;
+
+            var potBiayaLain = materai + admin - retur - pot;
+
+            if(potBiayaLain != 0)
+            {
+                noUrut++;
+                var caption = "Biaya Lain";
+                if (potBiayaLain < 0)
+                    caption = "   Potongan";
+                _listLunasPiutangBayar.Add(new LunasPiutangBayarView(noUrut, piutang.PiutangDate, caption, potBiayaLain,2));
+            }
+
+
             foreach (var pelunasan in piutang.ListLunas)
             {
-                _listLunasPiutangBayar.Add(new LunasPiutangBayarView
-                {
-                    Tgl = pelunasan.LunasDate,
-                    Keterangan = $"Pelunasan {pelunasan.JenisLunas}",
-                    Nilai = -pelunasan.Nilai
-                });
+                noUrut++;
+                _listLunasPiutangBayar.Add(new LunasPiutangBayarView(
+                    noUrut,
+                    pelunasan.LunasDate,
+                    $"   Pelunasan {pelunasan.JenisLunas}",
+                    -pelunasan.Nilai,3));
             }
-            _listLunasPiutangBayar.Add(new LunasPiutangBayarView
-            {
-                Tgl = DateTime.Now,
-                Keterangan = "Sisa Tagihan",
-                Nilai = piutang.Sisa
-            });
+
+            noUrut++;
+            _listLunasPiutangBayar.Add(new LunasPiutangBayarView(noUrut, DateTime.Now, "Sisa Tagihan", piutang.Sisa,1));
+
             BayarGrid.DataSource = _listLunasPiutangBayar;
+            var cols = BayarGrid.Columns;
+            cols.GetCol("No").Width = 30;
+            cols.GetCol("Tgl").Width = 70;
+            cols.GetCol("Keterangan").Width = 150;
+            cols.GetCol("Nilai").Width = 80;
+            //BayarGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells; // Auto-resize all columns
+            //BayarGrid.AutoResizeColumns(); // E
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
@@ -274,26 +392,48 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
 
         private void Save()
         {
-            var addLunasReq = new AddLunasPiutangRequest
-            {
-                PiutangId = _piutangId,
-                Retur = ReturText.Value,
-                Potongan = PotonganText.Value,
-                Materai = MateraiText.Value,
-                Admin = AdminText.Value,
-                Nilai = NilaiPelunasanText.Value,
-                JenisLunas = JenisBayarCombo.Text == @"Tunai" ? JenisLunasEnum.Cash : JenisLunasEnum.CekBg,
-                LunasDate = LunasDateText.Value,
-                JatuhTempoBg = JatuhTempBgText.Value,
-                NoBgRek = NoRekBgText.Text,
-                NamaBank = BankNameText.Text,
-                AtasNamaBank = AtasNamaText.Text,
-            };
-            _addLunasPiutangWorker.Execute(addLunasReq);
-            RefreshGrid();
             var piutang = _piutangBuilder.Load(new PiutangModel(_piutangId)).Build();
+            var tagihanId = TagihanCombo.SelectedValue.ToString();
+            piutang.ListLunas.RemoveAll(x => x.TagihanId == tagihanId);
+
+            if (JenisBayarCombo.SelectedIndex == 0)
+                piutang = _piutangBuilder
+                    .Attach(piutang)
+                    .AddLunasCash(NilaiPelunasanText.Value, LunasDateText.Value, tagihanId)
+                    .Build();
+            else
+                piutang = _piutangBuilder
+                    .Attach(piutang)
+                    .AddLunasBg(NilaiPelunasanText.Value, LunasDateText.Value, tagihanId,
+                                JatuhTempBgText.Value, BankNameText.Text, NoRekBgText.Text, AtasNamaText.Text)
+                    .Build();
+
+            piutang.ListLunas.RemoveAll(x => x.Nilai == 0);
+            piutang.ListLunas = piutang.ListLunas.OrderBy(x => x.TagihanId)?.ToList();
+            int i = 1;
+            foreach(var item in piutang.ListLunas)
+            {
+                item.NoUrut = i;
+                i++;
+            }
+
+            _piutangWriter.Save(ref piutang);
             RefreshGridBayar(piutang);
         }
+
+        private void DeleteTagihan()
+        {
+            var piutang = _piutangBuilder.Load(new PiutangModel(_piutangId)).Build();
+            var tagihanId = TagihanCombo.SelectedValue.ToString();
+            piutang = _piutangBuilder
+                .Attach(piutang)
+                .RemoveLunas(tagihanId)
+                .Build();
+            _piutangWriter.Save(ref piutang);
+            RefreshGridBayar(piutang);
+            LoadTagihan(tagihanId);
+        }
+
 
         private void ListPiutangGrid_TableControlCurrentCellValidated(object sender, GridTableControlEventArgs e)
         {
@@ -306,11 +446,12 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             AddressText.Text = string.Empty;
 
             FakturCodeText.Text = string.Empty;
-            TglFakturText.Value= DateTime.Now;
-            JatuhTempoText.Value = DateTime.Now;
+            TglFakturText2.Text = DateTime.Now.ToString("dd-MM-yyyy");
+            JatuhTempoText2.Text = DateTime.Now.ToString("dd-MM-yyyy");
             SalesText.Text = string.Empty;
             LunasDateText.Value = DateTime.Now;
-            
+            TagihanCombo.DataSource = new List<string>() { "-" };
+
             ReturText.Value = 0;
             PotonganText.Value = 0;
             MateraiText.Value = 0;
@@ -338,15 +479,32 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
 
             ReturText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Retur)?.NilaiMinus ?? 0;
             PotonganText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Potongan )?.NilaiMinus ?? 0;
-            MateraiText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Materai)?.NilaiMinus ?? 0;
-            AdminText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Admin)?.NilaiMinus ?? 0;
+            MateraiText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Materai)?.NilaiPlus ?? 0;
+            AdminText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Admin)?.NilaiPlus ?? 0;
 
             FakturCodeText.Text = fc;
-            TglFakturText.Text= piutang.PiutangDate.ToString("dd MMM yyyy");
-            JatuhTempoText.Text = piutang.DueDate.ToString("dd MMM yyyy");
+            TglFakturText2.Text= piutang.PiutangDate.ToString("dd-MM-yyyy");
             SalesText.Text = faktur.SalesPersonName;
             LunasDateText.Value = DateTime.Now;
+
+            SetTagihanComboDataSource(faktur);
+
             RefreshGridBayar(piutang);
+        }
+
+        private void SetTagihanComboDataSource(IFakturKey faktur)
+        {
+            var listTagihan = _tagihanFakturDal.ListData(faktur)?.ToList() 
+                ?? new List<TagihanFakturViewDto>();
+            var datasource = listTagihan.Select((x,y) => new
+            {
+                x.TagihanId,
+                TagihanDisplay = $"[{y+1:D0}] {x.TagihanDate:dd-MM-yyyy}  {x.TagihanId}  {x.SalesPersonName}"
+            }).ToList();
+            TagihanCombo.DataSource = datasource;
+            TagihanCombo.DisplayMember = "TagihanDisplay";
+            TagihanCombo.ValueMember = "TagihanId";
+            LoadTagihan(datasource.First().TagihanId);
         }
 
         #region GRID
@@ -450,8 +608,19 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
 
     public class LunasPiutangBayarView
     {
-        public DateTime Tgl { get; set; }
+
+        public LunasPiutangBayarView(int no, DateTime tgl, string keterangan, decimal nilai, int jenisData)
+        {
+            No = no;
+            Tgl = tgl.ToString("dd-MM-yyyy");
+            Keterangan = keterangan;
+            Nilai = nilai;
+            JenisData = jenisData;
+        }
+        public int No { get; set; }
+        public string Tgl { get; set; }
         public string Keterangan { get; set; }
         public decimal Nilai { get; set; }
+        public int JenisData { get; set; }
     }
 }

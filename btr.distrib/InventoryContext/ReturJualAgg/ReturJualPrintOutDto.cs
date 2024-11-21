@@ -16,7 +16,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             ReturJualCode = $"No.Faktur: {retJual.ReturJualCode}";
             ReturJualDate = $"Tgl: {retJual.ReturJualDate:dd MMM yyyy}";
             CustomerId = $"Kepada Yth Customer-{retJual.CustomerId}";
-            CustomerName = $"{retJual.CustomerName}";
+            CustomerName = $"{customer.CustomerName}";
             Address1 = $"{customer.Address1}";
             Address2 = customer.Address2.Length != 0 ?
                 $"{customer.Address2}-{customer.Kota}" : $"{customer.Kota}";

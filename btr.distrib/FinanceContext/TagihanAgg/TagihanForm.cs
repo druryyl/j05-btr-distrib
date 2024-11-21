@@ -171,6 +171,7 @@ namespace btr.distrib.FinanceContext.TagihanAgg
                 MessageBox.Show(@"Sales tidak sesuai dengan faktur");
                 _listTagihan[e.RowIndex].FakturCode  = "";
                 _listTagihan[e.RowIndex].FakturId  = "";
+                _listTagihan[e.RowIndex].FakturDate = "";
                 _listTagihan[e.RowIndex].CustomerId  = "";
                 _listTagihan[e.RowIndex].CustomerName  = "";
                 _listTagihan[e.RowIndex].Alamat = "";
@@ -179,10 +180,11 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             }
             
             _listTagihan[e.RowIndex].FakturId  = faktur.FakturId;
+            _listTagihan[e.RowIndex].FakturDate = $"{faktur.FakturDate:dd-MM-yyyy}";
             _listTagihan[e.RowIndex].CustomerId  = faktur.CustomerId;
             _listTagihan[e.RowIndex].CustomerName  = faktur.CustomerName;
             _listTagihan[e.RowIndex].Alamat  = faktur.Address;
-            _listTagihan[e.RowIndex].Nilai  = faktur.Total;
+            _listTagihan[e.RowIndex].Nilai  = faktur.GrandTotal;
 
             RefreshGrid();
         }
