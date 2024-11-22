@@ -35,7 +35,7 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
         private BindingList<PiutangLunasView> _listPiutangLunasView;
         private BindingList<LunasPiutangBayarView> _listLunasPiutangBayar;
         private BindingSource _bindingSource;
-        private string _piutangId;
+        private string _piutangId = string.Empty;
 
 
         public LunasPiutang2Form(IPiutangLunasViewDal piutangLunasViewDal,
@@ -450,7 +450,10 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             JatuhTempoText2.Text = DateTime.Now.ToString("dd-MM-yyyy");
             SalesText.Text = string.Empty;
             LunasDateText.Value = DateTime.Now;
-            TagihanCombo.DataSource = new List<string>() { "-" };
+            TagihanCombo.DataSource = new List<TagihanView>
+            {
+                new TagihanView("-", "---tidak ada tagihan---")
+            };
 
             ReturText.Value = 0;
             PotonganText.Value = 0;
@@ -496,11 +499,10 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
         {
             var listTagihan = _tagihanFakturDal.ListData(faktur)?.ToList() 
                 ?? new List<TagihanFakturViewDto>();
-            var datasource = listTagihan.Select((x,y) => new
-            {
-                x.TagihanId,
-                TagihanDisplay = $"[{y+1:D0}] {x.TagihanDate:dd-MM-yyyy}  {x.TagihanId}  {x.SalesPersonName}"
-            }).ToList();
+            var datasource = listTagihan.Select((x, y) => new TagihanView(
+                x.TagihanId, $"[{y + 1:D0}] {x.TagihanDate:dd-MM-yyyy}  {x.TagihanId}  {x.SalesPersonName}"))
+                .ToList();
+
             TagihanCombo.DataSource = datasource;
             TagihanCombo.DisplayMember = "TagihanDisplay";
             TagihanCombo.ValueMember = "TagihanId";
@@ -622,5 +624,18 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
         public string Keterangan { get; set; }
         public decimal Nilai { get; set; }
         public int JenisData { get; set; }
+    }
+
+    public class TagihanView
+    {
+        public TagihanView(string tagihanId, string tagihanDisplay)
+        {
+            TagihanId = tagihanId;
+            TagihanDisplay = tagihanDisplay;
+        }
+
+        public string TagihanId { get; set; }
+
+        public string TagihanDisplay { get; set; }
     }
 }

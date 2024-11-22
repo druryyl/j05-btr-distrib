@@ -25,6 +25,7 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
         IPiutangBuilder AddLunasCash(decimal value, DateTime lunasDate, string tagihanId);
         IPiutangBuilder AddLunasBg(decimal value, DateTime lunasDate, string tagihanId, DateTime jatuhTempo, string namaBank, string noRek, string atasNama);
         IPiutangBuilder RemoveLunas(string tagihanId);
+        IPiutangBuilder NilaiPiutang(decimal nilai);
     }
     public class PiutangBuilder : IPiutangBuilder
     {
@@ -148,8 +149,6 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
 
         private void ReCalc()
         {
-            //_aggregate.Total = _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.NilaiAwalPiutang).Sum(x => x.NilaiPlus - x.NilaiMinus);
-            
             var potonganBiayaLain = _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Retur).Sum(x => x.NilaiMinus * -1);
             potonganBiayaLain += _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Potongan).Sum(x => x.NilaiMinus * -1);
             potonganBiayaLain += _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Materai).Sum(x => x.NilaiPlus);
@@ -218,6 +217,13 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
         public IPiutangBuilder ClearElement()
         {
             _aggregate.ListElement.Where(x => x.NoUrut > 1).ToList().ForEach(x => _aggregate.ListElement.Remove(x));
+            ReCalc();
+            return this;
+        }
+
+        public IPiutangBuilder NilaiPiutang(decimal nilai)
+        {
+            _aggregate.Total = nilai;
             ReCalc();
             return this;
         }

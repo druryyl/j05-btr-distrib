@@ -42,7 +42,7 @@ namespace btr.application.FinanceContext.PiutangAgg.UseCases
                 .Customer(faktur)
                 .PiutangDate(faktur.FakturDate)
                 .DueDate(faktur.DueDate)
-                .AddPlusElement(PiutangElementEnum.NilaiAwalPiutang, faktur.KurangBayar)
+                .NilaiPiutang(faktur.GrandTotal)
                 .Build();
 
             _piutangWriter.Save(ref piutang);
