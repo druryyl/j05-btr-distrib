@@ -260,6 +260,8 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                 FakturProses(faktur, statusFaktur, user);
             else
                 FakturRollback(faktur, statusFaktur, user);
+
+            RefreshGrid();
         }
 
         private void FakturProses(IFakturKey fakturKey, StatusFakturEnum statusFaktur, IUserKey userKey)
@@ -289,8 +291,8 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                     _createPiutangWorker.Execute(fakturControl);
                     break;
                 case StatusFakturEnum.Lunas:
-                    var changeToCashReq = new ChangeToCashFakturRequest(fakturKey.FakturId, userKey.UserId);
-                    _changeToCashFakturWorker.Execute(changeToCashReq);
+                    //var changeToCashReq = new ChangeToCashFakturRequest(fakturKey.FakturId, userKey.UserId);
+                    //_changeToCashFakturWorker.Execute(changeToCashReq);
                     break;
                 case StatusFakturEnum.Pajak:
                     break;
@@ -330,8 +332,8 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                     break;
                 
                 case StatusFakturEnum.Lunas:
-                    var changeToCreditReq = new ChangeToCreditFakturRequest(fakturKey.FakturId, userKey.UserId);
-                    _changeToCreditFakturWorker.Execute(changeToCreditReq);
+                    //var changeToCreditReq = new ChangeToCreditFakturRequest(fakturKey.FakturId, userKey.UserId);
+                    //_changeToCreditFakturWorker.Execute(changeToCreditReq);
                     break;
                 case StatusFakturEnum.Pajak:
                     break;

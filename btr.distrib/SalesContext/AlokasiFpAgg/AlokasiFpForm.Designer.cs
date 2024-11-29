@@ -44,11 +44,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.FakturGrid = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.AllOutstandingCheckBox = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.ListButton = new System.Windows.Forms.Button();
             this.Periode2Date = new System.Windows.Forms.DateTimePicker();
             this.Periode1Date = new System.Windows.Forms.DateTimePicker();
-            this.AllOutstandingCheckBox = new System.Windows.Forms.CheckBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -74,6 +76,8 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.label3);
+            this.splitContainer1.Panel2.Controls.Add(this.textBox1);
             this.splitContainer1.Panel2.Controls.Add(this.ExportExcelButton);
             this.splitContainer1.Panel2.Controls.Add(this.ExportEFakturButton);
             this.splitContainer1.Panel2.Controls.Add(this.panel3);
@@ -246,9 +250,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.FakturGrid.BackgroundColor = System.Drawing.Color.DarkKhaki;
             this.FakturGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.FakturGrid.Location = new System.Drawing.Point(3, 97);
+            this.FakturGrid.Location = new System.Drawing.Point(3, 125);
             this.FakturGrid.Name = "FakturGrid";
-            this.FakturGrid.Size = new System.Drawing.Size(773, 347);
+            this.FakturGrid.Size = new System.Drawing.Size(773, 319);
             this.FakturGrid.TabIndex = 3;
             // 
             // panel1
@@ -264,6 +268,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(263, 84);
             this.panel1.TabIndex = 2;
+            // 
+            // AllOutstandingCheckBox
+            // 
+            this.AllOutstandingCheckBox.AutoSize = true;
+            this.AllOutstandingCheckBox.Location = new System.Drawing.Point(6, 58);
+            this.AllOutstandingCheckBox.Name = "AllOutstandingCheckBox";
+            this.AllOutstandingCheckBox.Size = new System.Drawing.Size(108, 17);
+            this.AllOutstandingCheckBox.TabIndex = 14;
+            this.AllOutstandingCheckBox.Text = "All Outstanding";
+            this.AllOutstandingCheckBox.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
@@ -306,15 +320,21 @@
             this.Periode1Date.Size = new System.Drawing.Size(120, 22);
             this.Periode1Date.TabIndex = 0;
             // 
-            // AllOutstandingCheckBox
+            // textBox1
             // 
-            this.AllOutstandingCheckBox.AutoSize = true;
-            this.AllOutstandingCheckBox.Location = new System.Drawing.Point(6, 58);
-            this.AllOutstandingCheckBox.Name = "AllOutstandingCheckBox";
-            this.AllOutstandingCheckBox.Size = new System.Drawing.Size(108, 17);
-            this.AllOutstandingCheckBox.TabIndex = 14;
-            this.AllOutstandingCheckBox.Text = "All Outstanding";
-            this.AllOutstandingCheckBox.UseVisualStyleBackColor = true;
+            this.textBox1.Location = new System.Drawing.Point(68, 97);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 22);
+            this.textBox1.TabIndex = 11;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(4, 100);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(58, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "No.Faktur";
             // 
             // AlokasiFpForm
             // 
@@ -328,6 +348,7 @@
             this.Text = "Nomor Seri Faktur Pajak";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -366,5 +387,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label SisaFpLabel;
         private System.Windows.Forms.CheckBox AllOutstandingCheckBox;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

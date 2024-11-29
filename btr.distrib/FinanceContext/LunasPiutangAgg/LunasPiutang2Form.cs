@@ -1,5 +1,4 @@
 ﻿using btr.application.FinanceContext.PiutangAgg.Contracts;
-using btr.application.FinanceContext.PiutangAgg.UseCases;
 using btr.application.FinanceContext.PiutangAgg.Workers;
 using btr.application.SalesContext.FakturAgg.Workers;
 using btr.distrib.Helpers;
@@ -18,8 +17,6 @@ using System.Windows.Forms;
 using btr.application.SalesContext.FakturAgg.Contracts;
 using Polly;
 using btr.application.FinanceContext.TagihanAgg;
-using System.Drawing;
-using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace btr.distrib.FinanceContext.LunasPiutangAgg
 {
@@ -36,7 +33,6 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
         private BindingList<LunasPiutangBayarView> _listLunasPiutangBayar;
         private BindingSource _bindingSource;
         private string _piutangId = string.Empty;
-
 
         public LunasPiutang2Form(IPiutangLunasViewDal piutangLunasViewDal,
             IPiutangBuilder piutangBuilder,
@@ -85,7 +81,6 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             NilaiPelunasanText.KeyDown += NilaiPelunasanText_KeyDown;
             FakturCodeText.Validating += FakturCodeText_Validating;
             FakturCodeText.KeyDown += FakturCodeText_KeyDown;
-            //BayarGrid.CellDoubleClick += BayarGrid_CellDoubleClick;
             TagihanCombo.SelectedIndexChanged += TagihanCombo_SelectedIndexChanged;
             BayarGrid.CellFormatting += BayarGrid_CellFormatting;
         }
@@ -177,59 +172,6 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
                 //  set focus to next control
                 SelectNextControl(textBox, true, true, true, true);
         }
-
-        //private void BayarGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        //{
-        //    var grid = sender as DataGridView;
-        //    if (e.RowIndex == -1) return;
-        //    if (e.RowIndex == 0) return;
-        //    if (e.RowIndex == grid?.Rows.Count - 1) return;
-            
-        //    var deleted = _listLunasPiutangBayar[e.RowIndex];
-        //    _listLunasPiutangBayar.Remove(deleted);
-        //    BayarGrid.Refresh();
-
-        //    if (deleted.Keterangan == "Potongan")
-        //        RemovePotongan();
-        //    else
-        //        RemovePelunasan(deleted, e.RowIndex);
-
-        //    NoRekBgText.Text = string.Empty;
-        //    BankNameText.Text = string.Empty;
-        //    AtasNamaText.Text = string.Empty;
-        //}
-
-        //private void RemovePotongan()
-        //{
-        //    var piutang = _piutangBuilder.Load(new PiutangModel(_piutangId)).Build();
-
-        //    ReturText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Retur)?.NilaiMinus ?? 0;
-        //    PotonganText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Potongan)?.NilaiMinus ?? 0;
-        //    MateraiText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Materai)?.NilaiMinus ?? 0;
-        //    AdminText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Admin)?.NilaiMinus ?? 0;
-
-        //    piutang = _piutangBuilder
-        //        .Attach(piutang)
-        //        .ClearElement()
-        //        .Build();
-
-        //    _piutangWriter.Save(ref piutang);
-        //    RefreshGridBayar(piutang);
-        //    RefreshGrid();
-        //}
-
-        //private void RemovePelunasan(LunasPiutangBayarView deletedItem, int noUrut)
-        //{
-        //    var removeLunasReq = new RemoveLunasPiutangRequest
-        //    {
-        //        PiutangId = _piutangId,
-        //        NoUrut = noUrut
-        //    };
-        //    _removeLunasPiutangWorker.Execute(removeLunasReq);
-        //    NilaiPelunasanText.Value = Math.Abs(deletedItem.Nilai);
-        //    JenisBayarCombo.SelectedIndex = deletedItem.Keterangan == "Pelunasan Cash" ? 0 : 1;
-        //    JatuhTempBgText.Value = deletedItem.Tgl;
-        //}
 
         private void FakturCodeText_Validating(object sender, CancelEventArgs e)
         {
@@ -329,7 +271,6 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
                 }
             }
         }
-
         private void RefreshGridBayar(PiutangModel piutang)
         {
             piutang.RemoveNull();
@@ -344,12 +285,10 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
                     1)
             };
 
-
             var retur = piutang.ListElement?.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Retur)?.NilaiMinus ?? 0;
             var pot = piutang.ListElement?.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Potongan)?.NilaiMinus ?? 0;
             var materai = piutang.ListElement?.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Materai)?.NilaiPlus ?? 0;
             var admin = piutang.ListElement?.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Admin)?.NilaiPlus ?? 0;
-
             var potBiayaLain = materai + admin - retur - pot;
 
             if(potBiayaLain != 0)
@@ -418,6 +357,10 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             }
 
             _piutangWriter.Save(ref piutang);
+            //var faktur = _fakturBuilder
+            //    .Load(new FakturModel(_piutangId))
+            //    .Build();
+
             RefreshGridBayar(piutang);
         }
 
