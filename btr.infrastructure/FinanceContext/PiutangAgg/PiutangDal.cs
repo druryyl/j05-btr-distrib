@@ -144,5 +144,27 @@ namespace btr.infrastructure.FinanceContext.PiutangAgg
                 return conn.Read<PiutangModel>(sql, dp);
             }
         }
+
+        public IEnumerable<PiutangModel> ListData(IEnumerable<IPiutangKey> filter)
+        {
+            const string sql = @"
+                SELECT
+                    aa.PiutangId, aa.PiutangDate, aa.DueDate, aa.CustomerId, 
+                    aa.Total, aa.Potongan, aa.Terbayar, aa.Sisa,
+                    ISNULL(bb.CustomerName, '') AS CustomerName
+                FROM
+                    BTR_Piutang aa
+                    LEFT JOIN BTR_Customer bb ON aa.CustomerId = bb.CustomerId
+                WHERE
+                    PiutangId IN @listPiutangId";
+
+            var dp = new DynamicParameters();
+            dp.Add("@listPiutangId", filter.Select(x => x.PiutangId));
+
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                return conn.Read<PiutangModel>(sql, dp);
+            }
+        }
     }
 }

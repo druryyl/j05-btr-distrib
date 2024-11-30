@@ -17,6 +17,8 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using JetBrains.Annotations;
+using btr.application.FinanceContext.PiutangAgg.Contracts;
+using btr.domain.FinanceContext.PiutangAgg;
 
 namespace btr.distrib.SalesContext.FakturControlAgg
 {
@@ -33,6 +35,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
         private readonly IChangeToCreditFakturWorker _changeToCreditFakturWorker;
         private readonly IReactivateFakturWorker _reactivateFakturWorker;
         private readonly ICreatePiutangWorker _createPiutangWorker;
+        private readonly IPiutangDal _piutangDal;
 
         private ContextMenu _gridContextMenu;
 
@@ -45,23 +48,27 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             IChangeToCashFakturWorker changeToCashFakturWorker,
             IChangeToCreditFakturWorker changeToCreditFakturWorker,
             IReactivateFakturWorker reactivateFakturWorker,
-            ICreatePiutangWorker createPiutangWorker)
+            ICreatePiutangWorker createPiutangWorker,
+            IPiutangDal piutangDal)
         {
+            InitializeComponent();
+
             _listFaktorControlWorker = listFaktorControlWorker;
             _fakturControlStatusDal = fakturControlStatusDal;
             _builder = builder;
             _writer = writer;
 
-            InitializeComponent();
-            InitGrid();
-            InitContextMenu();
-            RefreshGrid();
-            RegisterEventHandler();
             _voidFakturWorker = voidFakturWorker;
             _changeToCashFakturWorker = changeToCashFakturWorker;
             _changeToCreditFakturWorker = changeToCreditFakturWorker;
             _reactivateFakturWorker = reactivateFakturWorker;
             _createPiutangWorker = createPiutangWorker;
+            _piutangDal = piutangDal;
+
+            InitGrid();
+            InitContextMenu();
+            RefreshGrid();
+            RegisterEventHandler();
         }
 
         private void RegisterEventHandler()
@@ -95,7 +102,6 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             _gridContextMenu.MenuItems.Add(new MenuItem("Print All", PrintAll_OnClick));
             _gridContextMenu.MenuItems.Add(new MenuItem("Print Kembali", PrintKembali_OnClick));
             _gridContextMenu.MenuItems.Add(new MenuItem("Print Belum Kembali", PrintBelumKembali_OnClick));
-
 
             FakturGrid.ContextMenu = _gridContextMenu;
         }
@@ -288,7 +294,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                         .KembaliFaktur(userKey)
                         .Build();
                     _writer.Save(fakturControl);
-                    _createPiutangWorker.Execute(fakturControl);
+                    //_createPiutangWorker.Execute(fakturControl);
                     break;
                 case StatusFakturEnum.Lunas:
                     //var changeToCashReq = new ChangeToCashFakturRequest(fakturKey.FakturId, userKey.UserId);
@@ -410,6 +416,9 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             _listItem = new BindingList<FakturControlView>(listTemp);
 
             var listStatus = _fakturControlStatusDal.ListData(periode)?.ToList() ?? new List<FakturControlStatusModel>();
+
+            var listPiutangKey = listStatus.Select(x => new PiutangModel(x.FakturId));
+            var listPiutang = _piutangDal.ListData(listPiutangKey)?.ToList() ?? new List<PiutangModel>();
             foreach(var item in _listItem)
             {
                 item.Posted = listStatus
@@ -424,6 +433,16 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                     .FirstOrDefault(x => x.StatusFaktur == StatusFakturEnum.KembaliFaktur) != null;
                 item.SetPajak(item.NoFakturPajak.Trim().Length == 0 ? false : true);
                 item.FormatFakturCode();
+
+                var piutang = listPiutang.FirstOrDefault(x => x.PiutangId == item.FakturId);
+                if (piutang is null)
+                    continue;
+
+                item.SetNilai(piutang.Total - piutang.Potongan, piutang.Terbayar);
+                if (item.Sisa == 0)
+                    item.SetLunas(true);
+                //else
+                //    item.SetLunas(false);
 
             }
 

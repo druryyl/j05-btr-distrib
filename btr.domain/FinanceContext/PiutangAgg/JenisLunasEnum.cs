@@ -2,6 +2,6 @@
 {
     public enum JenisLunasEnum
     {
-        Cash, CekBg
+        Cash, CekBg, UangMuka
     }
 }

@@ -128,6 +128,9 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
 
         private void TagihanCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (TagihanCombo.DataSource == null)
+                return;
+
             var tagihanId = TagihanCombo.SelectedValue.ToString();
             if (tagihanId == "-")
                 return;
@@ -198,7 +201,7 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             if (e.KeyCode == Keys.F1)
             {
                 var piutang = _piutangBuilder.Load(new PiutangModel(_piutangId)).Build();
-                textBox.Value = piutang.Sisa - ReturText.Value - PotonganText.Value - MateraiText.Value - AdminText.Value;
+                textBox.Value = piutang.Sisa; // piutang.Sisa - ReturText.Value - PotonganText.Value - MateraiText.Value - AdminText.Value;
             }
         }
 
@@ -307,7 +310,7 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
                 _listLunasPiutangBayar.Add(new LunasPiutangBayarView(
                     noUrut,
                     pelunasan.LunasDate,
-                    $"   Pelunasan {pelunasan.JenisLunas}",
+                    $"   Pembayaran {pelunasan.JenisLunas}",
                     -pelunasan.Nilai,3));
             }
 
@@ -440,10 +443,21 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
 
         private void SetTagihanComboDataSource(IFakturKey faktur)
         {
-            var listTagihan = _tagihanFakturDal.ListData(faktur)?.ToList() 
-                ?? new List<TagihanFakturViewDto>();
+            SaveButton.Enabled = true;
+            DeleteButton.Enabled = true;
+
+            var listTagihan = _tagihanFakturDal.ListData(faktur)?.ToList();
+            if (listTagihan is null)
+            {
+                TagihanCombo.DataSource = null;
+                TagihanCombo.Text = "--[tidak ada tagihan]--";
+                SaveButton.Enabled = false;
+                DeleteButton.Enabled = false;
+                return;
+            }
+
             var datasource = listTagihan.Select((x, y) => new TagihanView(
-                x.TagihanId, $"[{y + 1:D0}] {x.TagihanDate:dd-MM-yyyy}  {x.TagihanId}  {x.SalesPersonName}"))
+                x.TagihanId, $"[{y + 1:D0}] {x.TagihanDate:dd-MMM} {x.SalesPersonName}"))
                 .ToList();
 
             TagihanCombo.DataSource = datasource;

@@ -24,6 +24,7 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
         IPiutangBuilder ClearElement();
         IPiutangBuilder AddLunasCash(decimal value, DateTime lunasDate, string tagihanId);
         IPiutangBuilder AddLunasBg(decimal value, DateTime lunasDate, string tagihanId, DateTime jatuhTempo, string namaBank, string noRek, string atasNama);
+        IPiutangBuilder SetUangMuka(decimal value);
         IPiutangBuilder RemoveLunas(string tagihanId);
         IPiutangBuilder NilaiPiutang(decimal nilai);
     }
@@ -206,6 +207,23 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
             AddLunas(lunas);
             return this;
         }
+        public IPiutangBuilder SetUangMuka(decimal value)
+        {
+            if (value == 0)
+                return this;
+            var lunas = new PiutangLunasModel
+            {
+                LunasDate = _aggregate.PiutangDate,
+                TagihanId = _aggregate.PiutangId,
+                Nilai = value,
+                JenisLunas = JenisLunasEnum.UangMuka,
+                JatuhTempoBg = new DateTime(3000,1,1),
+            };
+            lunas.RemoveNull();
+            _aggregate.ListLunas.RemoveAll(x => x.JenisLunas == JenisLunasEnum.UangMuka);
+            AddLunas(lunas);
+            return this;
+        }
 
         public IPiutangBuilder RemoveLunas(string tagihanId)
         {
@@ -227,5 +245,6 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
             ReCalc();
             return this;
         }
+
     }
 }

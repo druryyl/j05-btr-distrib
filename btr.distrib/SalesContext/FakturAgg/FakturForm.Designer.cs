@@ -227,6 +227,11 @@
             0,
             0,
             0});
+            this.SisaText.Minimum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            -2147483648});
             this.SisaText.Name = "SisaText";
             this.SisaText.ReadOnly = true;
             this.SisaText.Size = new System.Drawing.Size(117, 20);

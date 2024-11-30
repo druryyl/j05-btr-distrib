@@ -1,6 +1,7 @@
 ﻿using btr.domain.FinanceContext.PiutangAgg;
 using btr.nuna.Domain;
 using btr.nuna.Infrastructure;
+using System.Collections.Generic;
 
 namespace btr.application.FinanceContext.PiutangAgg.Contracts
 {
@@ -9,7 +10,8 @@ namespace btr.application.FinanceContext.PiutangAgg.Contracts
         IUpdate<PiutangModel>,
         IDelete<IPiutangKey>,
         IGetData<PiutangModel, IPiutangKey>,
-        IListData<PiutangModel, Periode>
+        IListData<PiutangModel, Periode>,
+        IListData<PiutangModel, IEnumerable<IPiutangKey>>
     {
     }
 }

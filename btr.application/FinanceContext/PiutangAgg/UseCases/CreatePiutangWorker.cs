@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace btr.application.FinanceContext.PiutangAgg.UseCases
 {
-    public interface ICreatePiutangWorker : INunaServiceVoid<IFakturKey>
+    public interface ICreatePiutangWorker : INunaService<PiutangModel, IFakturKey>
     {
     }
     public class CreatePiutangWorker : ICreatePiutangWorker
@@ -32,7 +32,7 @@ namespace btr.application.FinanceContext.PiutangAgg.UseCases
             _cancelPiutangWorker = cancelPiutangWorker;
         }
 
-        public void Execute(IFakturKey req)
+        public PiutangModel Execute(IFakturKey req)
         {
             _cancelPiutangWorker.Execute(new PiutangModel(req.FakturId));
 
@@ -46,6 +46,7 @@ namespace btr.application.FinanceContext.PiutangAgg.UseCases
                 .Build();
 
             _piutangWriter.Save(ref piutang);
+            return piutang;
         }
     }
 }

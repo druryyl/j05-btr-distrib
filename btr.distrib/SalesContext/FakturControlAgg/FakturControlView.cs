@@ -26,6 +26,12 @@ namespace btr.distrib.SalesContext.FakturControlAgg
 
         public void SetLunas(bool val) => Lunas = val;
         public void SetPajak(bool val) => Pajak = val;
+        public void SetNilai(decimal grandTotal, decimal bayar)
+        {
+            GrandTotal = grandTotal;
+            Bayar = bayar;
+            Sisa = grandTotal - bayar;
+        }
         
         public void FormatFakturCode()=> FakturCode = $"{FakturCode.Substring(0, 1)}-{FakturCode.Substring(1, 3)}-{FakturCode.Substring(4, 4)}";
     }

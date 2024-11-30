@@ -162,9 +162,16 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             var fakturCode = _listTagihan[e.RowIndex].FakturCode;
             var faktur = GetFaktur(fakturCode);
             var piutang = GetPiutang(fakturCode);
-            
-            if (piutang == null) return;
-            if (piutang.Sisa <= 0) return;
+
+            if (piutang == null)
+            {
+                MessageBox.Show("Faktur tidak ditemukan");
+            }
+            if (piutang.Sisa <= 0)
+            {
+                MessageBox.Show("Faktur sudah lunas");
+                return;
+            }
             
             if (faktur.SalesPersonId != SalesCombo.SelectedValue.ToString())
             {

@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Printing;
 using System.Linq;
 using System.Windows.Forms;
 using btr.distrib.Helpers;
@@ -21,9 +20,10 @@ using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.WarehouseAgg;
 using btr.application.SupportContext.TglJamAgg;
 using btr.application.SalesContext.FakturAgg.Workers;
-using btr.distrib.PrintDocs;
 using btr.domain.SalesContext.FakturAgg;
 using Mapster;
+using btr.domain.FinanceContext.PiutangAgg;
+using btr.application.FinanceContext.PiutangAgg.Workers;
 
 namespace btr.distrib.SalesContext.FakturAgg
 {
@@ -46,8 +46,10 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly IFakturBuilder _fakturBuilder;
         private readonly ISaveFakturWorker _saveFakturWorker;
         private readonly ICreateFakturItemWorker _createItemWorker;
+        private readonly IPiutangBuilder _piutangBuilder;
+        private readonly IPiutangWriter _piutangWriter;
 
-        private readonly IFakturPrintDoc _fakturPrinter;
+
         private string _tipeHarga = string.Empty;
 
 
@@ -65,7 +67,9 @@ namespace btr.distrib.SalesContext.FakturAgg
             IBrgDal brgDal,
             IFakturBuilder fakturBuilder,
             ISaveFakturWorker saveFakturWorker,
-            ICreateFakturItemWorker createItemWorker, IFakturPrintDoc fakturPrinter)
+            ICreateFakturItemWorker createItemWorker,
+            IPiutangBuilder piutangBuilder,
+            IPiutangWriter piutangWriter)
         {
             _warehouseBrowser = warehouseBrowser;
             _salesBrowser = salesBrowser;
@@ -84,12 +88,13 @@ namespace btr.distrib.SalesContext.FakturAgg
             _fakturBuilder = fakturBuilder;
             _saveFakturWorker = saveFakturWorker;
             _createItemWorker = createItemWorker;
-            _fakturPrinter = fakturPrinter;
+            _piutangBuilder = piutangBuilder;
 
             InitializeComponent();
             InitGrid();
             ClearForm();
             RegisterEventHandler();
+            _piutangWriter = piutangWriter;
         }
 
         private void RegisterEventHandler()
@@ -115,6 +120,15 @@ namespace btr.distrib.SalesContext.FakturAgg
             FakturItemGrid.EditingControlShowing += FakturItemGrid_EditingControlShowing;
 
             NewButton.Click += NewButton_Click;
+            UangMukaText.KeyDown += UangMukaText_KeyDown;
+        }
+
+        private void UangMukaText_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F1)
+            {
+                UangMukaText.Value = GrandTotalText.Value;
+            }
         }
 
         public void ShowFaktur(string fakturId)
@@ -622,6 +636,22 @@ namespace btr.distrib.SalesContext.FakturAgg
         #region SAVE
         private void SaveButton_Click(object sender, EventArgs e)
         {
+            var faktur = SaveFaktur();
+            SavePiutang(faktur);
+
+            ClearForm();
+            
+            var fakturDb = _fakturBuilder
+                .Load(faktur)
+                .Build();
+            LastIdLabel.Text = $@"{faktur.FakturId} - {fakturDb.FakturCode}";
+            var customer = _customerDal.GetData(faktur);
+            var fakturPrintout = new FakturPrintOutDto(faktur, customer);
+            PrintFakturRdlc(fakturPrintout);
+        }
+
+        private FakturModel SaveFaktur()
+        {
             var mainform = (MainForm)this.Parent.Parent;
             var cmd = new SaveFakturRequest
             {
@@ -636,9 +666,8 @@ namespace btr.distrib.SalesContext.FakturAgg
                 UserId = mainform.UserId.UserId,
                 Cash = UangMukaText.Value,
                 Note = NoteTextBox.Text,
-                
-            };
 
+            };
             var listItem = (
                 from c in _listItem
                 where c.BrgName?.Length > 0
@@ -653,17 +682,31 @@ namespace btr.distrib.SalesContext.FakturAgg
                 }).ToList();
             cmd.ListBrg = listItem;
             var result = _saveFakturWorker.Execute(cmd);
+            return result;
+        }
 
-            ClearForm();
-            var fakturDb = _fakturBuilder
-                .Load(result)
+        private void SavePiutang(FakturModel faktur)
+        {
+            PiutangModel piutang = null;
+            try
+            {
+                piutang = _piutangBuilder.Load(new PiutangModel(faktur.FakturId)).Build();
+            }
+            catch (KeyNotFoundException)
+            {
+                piutang = _piutangBuilder
+                    .Create(faktur)
+                    .Customer(faktur)
+                    .PiutangDate(faktur.FakturDate)
+                    .DueDate(faktur.DueDate)
+                    .NilaiPiutang(faktur.GrandTotal)
+                    .Build();
+            }
+            piutang = _piutangBuilder
+                .Attach(piutang)
+                .SetUangMuka(faktur.UangMuka)
                 .Build();
-
-            LastIdLabel.Text = $@"{result.FakturId} - {fakturDb.FakturCode}";
-            //PrintFaktur(result);
-            var customer = _customerDal.GetData(result);
-            var fakturPrintout = new FakturPrintOutDto(result, customer);
-            PrintFakturRdlc(fakturPrintout);
+            _piutangWriter.Save(ref piutang);
         }
 
         private void PrintFakturRdlc(FakturPrintOutDto faktur)
@@ -671,39 +714,6 @@ namespace btr.distrib.SalesContext.FakturAgg
             var form = new FakturPrintOutForm(faktur);
             form.ShowDialog();
         }
-
-        private void PrintFaktur(IFakturKey fakturKey)
-        {
-            var faktur = _fakturBuilder.Load(fakturKey).Build();
-            _fakturPrinter.DefaultPrinter = GetPrinterName();
-            _fakturPrinter.CreateDoc(faktur);
-            _fakturPrinter.PrintDoc();
-        }
-
-        private static string GetPrinterName()
-        {
-            string defaultPrinterName;
-
-            try
-            {
-                var printDocument = new PrintDocument();
-                defaultPrinterName = "Printer : " + printDocument.PrinterSettings.PrinterName;
-            }
-            catch (Exception ex)
-            {
-                defaultPrinterName = "Printer Error : " + ex.Message;
-            }
-
-            return defaultPrinterName;
-        }
-
-        private void PrintFakturExcel(IFakturKey fakturKey)
-        {
-            var faktur = _fakturBuilder.Load(fakturKey).Build();
-    
-
-        }
-
         #endregion
     }
 }
