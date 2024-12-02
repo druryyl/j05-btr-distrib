@@ -345,6 +345,7 @@
     <Compile Include="FinanceContext\TagihanAgg\TagihanForm.Designer.cs">
       <DependentUpon>TagihanForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="FinanceContext\TagihanAgg\TagihanPrintOutDto.cs" />
     <Compile Include="Helpers\BrowseFilter.cs" />
     <Compile Include="Helpers\CodeRedReporting.cs" />
     <Compile Include="Helpers\DecimalStringFormatter.cs" />
@@ -712,6 +713,7 @@
     <EmbeddedResource Include="FinanceContext\TagihanAgg\TagihanForm.resx">
       <DependentUpon>TagihanForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FinanceContext\TagihanAgg\TagihanPrintOut.rdlc" />
     <EmbeddedResource Include="InventoryContext\AdjustmentAgg\AdjustmentForm.resx">
       <DependentUpon>AdjustmentForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -18,7 +18,7 @@ namespace btr.application.FinanceContext.TagihanAgg
         ITagihanBuilder Attach(TagihanModel tagihan);
         ITagihanBuilder TglTagihan(DateTime tglTagihan);
         ITagihanBuilder Sales(ISalesPersonKey salesKey);
-        ITagihanBuilder AddFaktur(IFakturKey fakturKey, decimal sisaTagihan);
+        ITagihanBuilder AddFaktur(IFakturKey fakturKey, decimal total, decimal terbayar, decimal sisaTagihan);
        ITagihanBuilder RemoveFaktur(IFakturKey fakturKey); 
     }
     public class TagihanBuilder : ITagihanBuilder
@@ -85,7 +85,7 @@ namespace btr.application.FinanceContext.TagihanAgg
             return this;
         }
 
-        public ITagihanBuilder AddFaktur(IFakturKey fakturKey, decimal sisaTagihan)
+        public ITagihanBuilder AddFaktur(IFakturKey fakturKey, decimal total, decimal terbayar, decimal tagih)
         {
             var faktur = _fakturDal.GetData(fakturKey)
                 ?? throw new KeyNotFoundException("Faktur not found"); 
@@ -98,9 +98,11 @@ namespace btr.application.FinanceContext.TagihanAgg
                 CustomerId = faktur.CustomerId,
                 CustomerName = faktur.CustomerName,
                 Alamat = faktur.Address,
-                Nilai = sisaTagihan
+                NilaiTotal = total,
+                NilaiTerbayar = terbayar,
+                NilaiTagih = tagih
             };
-            _aggregate.TotalTagihan += sisaTagihan;
+            _aggregate.TotalTagihan += tagih;
             _aggregate.ListFaktur.Add(tagihanFaktur);
             return this;
         }
@@ -109,7 +111,7 @@ namespace btr.application.FinanceContext.TagihanAgg
         {
             // remove faktur from list faktur
             _aggregate.ListFaktur.RemoveAll(x => x.FakturId == fakturKey.FakturId);
-            _aggregate.TotalTagihan = _aggregate.ListFaktur.Sum(x => x.Nilai);
+            _aggregate.TotalTagihan = _aggregate.ListFaktur.Sum(x => x.NilaiTotal);
             return this;
         }
     }

@@ -32,8 +32,10 @@ namespace btr.infrastructure.FinanceContext.TagihanAgg
                 bcp.AddMap("NoUrut", "NoUrut");
                 bcp.AddMap("FakturId", "FakturId");
                 bcp.AddMap("CustomerId", "CustomerId");
-                bcp.AddMap("Nilai", "Nilai");
-                
+                bcp.AddMap("NilaiTotal", "NilaiTotal");
+                bcp.AddMap("NilaiTerbayar", "NilaiTerbayar");
+                bcp.AddMap("NilaiTagih", "NilaiTagih");
+
                 var fetched = listModel.ToList();
                 bcp.BatchSize = fetched.Count;
                 bcp.DestinationTableName = "BTR_TagihanFaktur";
@@ -62,10 +64,13 @@ namespace btr.infrastructure.FinanceContext.TagihanAgg
         public IEnumerable<TagihanFakturModel> ListData(ITagihanKey filter)
         {
             const string sql = @"
-                SELECT
-                    aa.TagihanId, aa.NoUrut, aa.FakturId,
-                    bb.FakturCode, aa.CustomerId, cc.CustomerName,
-                    cc.Address1, aa.Nilai
+                SELECT  
+                    aa.TagihanId, aa.NoUrut, aa.FakturId, 
+                    aa.CustomerId, aa.NilaiTotal, aa.NilaiTerbayar, aa.NilaiTagih,
+                    ISNULL(bb.FakturCode, '') AS FakturCode,
+                    ISNULL(bb.FakturDate, '3000-01-01') AS FakturDate,
+                    ISNULL(cc.CustomerName, '') CustomerName, 
+                    ISNULL(cc.Address1, '') Alamat
                 FROM
                     BTR_TagihanFaktur aa
                     LEFT JOIN BTR_Faktur bb ON aa.FakturId = bb.FakturId
@@ -92,11 +97,13 @@ namespace btr.infrastructure.FinanceContext.TagihanAgg
                 SELECT
                     aa.FakturId, aa.TagihanId, 
                     ISNULL(bb.TagihanDate, GetDate()) TagihanDate,
-                    ISNULL(cc.SalesPersonName, '') SalesPersonName
+                    ISNULL(cc.SalesPersonName, '') SalesPersonName,
+                    ISNULL(dd.Address1, '') Alamat
                 FROM
                     BTR_TagihanFaktur aa
                     LEFT JOIN BTR_Tagihan bb ON aa.TagihanId = bb.TagihanId
                     LEFT JOIN BTR_SalesPerson cc ON bb.SalesPersonId = cc.SalesPersonId
+                    LEFT JOIN BTR_Customer dd ON aa.CustomerId = dd.CustomerId
                 WHERE
                     aa.FakturId = @FakturId 
                 ORDER BY

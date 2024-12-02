@@ -32,9 +32,12 @@ namespace btr.domain.FinanceContext.TagihanAgg
         public int NoUrut { get; set; }
         public string FakturId { get; set; }
         public string FakturCode { get; set; }
+        public DateTime FakturDate { get; set; }
         public string CustomerId { get; set; }
         public string CustomerName { get; set; }
         public string Alamat { get; set; }
-        public decimal Nilai { get; set; }
+        public decimal NilaiTotal { get; set; }
+        public decimal NilaiTerbayar { get; set; }
+        public decimal NilaiTagih { get; set; }
     }
 }

@@ -4,10 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 using btr.application.FinanceContext.PiutangAgg.Workers;
 using btr.application.FinanceContext.TagihanAgg;
 using btr.application.SalesContext.FakturAgg.Contracts;
@@ -15,7 +12,6 @@ using btr.application.SalesContext.FakturAgg.Workers;
 using btr.application.SalesContext.SalesPersonAgg.Contracts;
 using btr.distrib.Browsers;
 using btr.distrib.Helpers;
-using btr.distrib.SalesContext.FakturAgg;
 using btr.domain.FinanceContext.PiutangAgg;
 using btr.domain.FinanceContext.TagihanAgg;
 using btr.domain.SalesContext.FakturAgg;
@@ -31,7 +27,7 @@ namespace btr.distrib.FinanceContext.TagihanAgg
     public partial class TagihanForm : Form
     {
         private BindingSource _bindingSource = new BindingSource();
-        private BindingList<TagihanDto> _listTagihan = new BindingList<TagihanDto>();
+        private BindingList<TagihanFakturDto> _listTagihan = new BindingList<TagihanFakturDto>();
         private readonly IFakturBuilder _fakturBuilder;
         private readonly IFakturDal _fakturDal;
         private readonly IPiutangBuilder _piutangBuilder;
@@ -70,7 +66,6 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             SaveButton.Click += SaveButtonOnClick;
             TagihanButton.Click += TagihanButton_Click;
             TagihanIdText.Validating += TagihanIdText_Validating;
-
         }
 
         private void TagihanIdText_Validating(object sender, CancelEventArgs e)
@@ -111,7 +106,18 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             _listTagihan.Clear();
             foreach (var item in tagihan.ListFaktur)
             {
-                var newItem = item.Adapt<TagihanDto>();
+                var newItem = new TagihanFakturDto();
+                newItem.FakturId = item.FakturId;
+                newItem.FakturCode = item.FakturCode;
+                newItem.FakturDate = $"{item.FakturDate:dd-MMM-yyyy}";
+                newItem.CustomerId = item.CustomerId;
+                newItem.CustomerName = item.CustomerName;
+                newItem.Alamat = item.Alamat;
+                newItem.NilaiTerbayar = item.NilaiTerbayar;
+                newItem.NilaiTotal = item.NilaiTotal;
+                newItem.NilaiTagih = item.NilaiTagih;
+                //  TODO: Masih salah saat load Tagihan!!
+                //newItem.F
                 _listTagihan.Add(newItem);
             }
 
@@ -134,7 +140,7 @@ namespace btr.distrib.FinanceContext.TagihanAgg
                 .TglTagihan(TglTagihText.Value)
                 .Build();
             tagihan = _listTagihan.Aggregate(tagihan, (current, item) => _tagihanBuilder.Attach(current)
-                .AddFaktur(new FakturModel(item.FakturId), item.Nilai)
+                .AddFaktur(new FakturModel(item.FakturId), item.NilaiTotal, item.NilaiTerbayar, item.NilaiTagih)
                 .Build());
             _tagihanWriter.Save(tagihan);
             LastIdLabel.Text = tagihan.TagihanId;
@@ -182,7 +188,9 @@ namespace btr.distrib.FinanceContext.TagihanAgg
                 _listTagihan[e.RowIndex].CustomerId  = "";
                 _listTagihan[e.RowIndex].CustomerName  = "";
                 _listTagihan[e.RowIndex].Alamat = "";
-                _listTagihan[e.RowIndex].Nilai = 0;
+                _listTagihan[e.RowIndex].NilaiTotal = 0;
+                _listTagihan[e.RowIndex].NilaiTerbayar = 0;
+                _listTagihan[e.RowIndex].NilaiTagih = 0;
                 return;
             }
             
@@ -191,14 +199,16 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             _listTagihan[e.RowIndex].CustomerId  = faktur.CustomerId;
             _listTagihan[e.RowIndex].CustomerName  = faktur.CustomerName;
             _listTagihan[e.RowIndex].Alamat  = faktur.Address;
-            _listTagihan[e.RowIndex].Nilai  = faktur.GrandTotal;
+            _listTagihan[e.RowIndex].NilaiTotal  = piutang.Total - piutang.Potongan;
+            _listTagihan[e.RowIndex].NilaiTerbayar = piutang.Terbayar;
+            _listTagihan[e.RowIndex].NilaiTagih = piutang.Sisa;
 
             RefreshGrid();
         }
 
         private void RefreshGrid()
         {
-            TotalTagihanText.Value = _listTagihan.Sum(x => x.Nilai);
+            TotalTagihanText.Value = _listTagihan.Sum(x => x.NilaiTagih);
             FakturGrid.Refresh();
         }
 
@@ -389,37 +399,49 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             col.GetCol("CustomerId").HeaderText = @"Cust Id";
             col.GetCol("CustomerName").HeaderText = @"Customer";
             col.GetCol("Alamat").HeaderText = @"Alamat";
-            col.GetCol("Nilai").HeaderText = @"Total Tagihan";
+            col.GetCol("NilaiTotal").HeaderText = @"Total Faktur";
+            col.GetCol("NilaiTerbayar").HeaderText = @"Terbayar";
+            col.GetCol("NilaiTagih").HeaderText = @"Tagihanr";
 
             col.GetCol("FakturId").Visible = false;
             
             col.GetCol("FakturDate").DefaultCellStyle.Format = "dd MMM yyyy";
-            col.GetCol("Nilai").DefaultCellStyle.Format = "N0";
-            col.GetCol("Nilai").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            
-            col.GetCol("FakturCode").Width = 80;
+            col.GetCol("NilaiTotal").DefaultCellStyle.Format = "N0";
+            col.GetCol("NilaiTotal").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            col.GetCol("NilaiTerbayar").DefaultCellStyle.Format = "N0";
+            col.GetCol("NilaiTerbayar").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            col.GetCol("NilaiTagih").DefaultCellStyle.Format = "N0";
+            col.GetCol("NilaiTagih").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            col.GetCol("FakturCode").Width = 60;
             col.GetCol("FakturDate").Width = 80;
             col.GetCol("CustomerId").Width = 80;
-            col.GetCol("CustomerName").Width = 200;
-            col.GetCol("Alamat").Width = 200;
-            col.GetCol("Nilai").Width = 100;
-            
+            col.GetCol("CustomerName").Width = 100;
+            col.GetCol("Alamat").Width = 160;
+            col.GetCol("NilaiTotal").Width = 80;
+            col.GetCol("NilaiTerbayar").Width = 80;
+            col.GetCol("NilaiTagih").Width = 80;
+
             col.GetCol("FakturDate").ReadOnly = true;
             col.GetCol("CustomerId").ReadOnly = true;
             col.GetCol("CustomerName").ReadOnly = true;
             col.GetCol("Alamat").ReadOnly = true;
-            col.GetCol("Nilai").ReadOnly = true;
-            
+            col.GetCol("NilaiTotal").ReadOnly = true;
+            col.GetCol("NilaiTerbayar").ReadOnly = true;
+            col.GetCol("NilaiTagih").ReadOnly = true;
+
             col.GetCol("FakturDate").DefaultCellStyle.BackColor = Color.LightBlue;
             col.GetCol("CustomerId").DefaultCellStyle.BackColor = Color.LightBlue;
             col.GetCol("CustomerName").DefaultCellStyle.BackColor = Color.LightBlue;
             col.GetCol("Alamat").DefaultCellStyle.BackColor = Color.LightBlue;
-            col.GetCol("Nilai").DefaultCellStyle.BackColor = Color.Beige;
+            col.GetCol("NilaiTotal").DefaultCellStyle.BackColor = Color.Beige;
+            col.GetCol("NilaiTerbayar").DefaultCellStyle.BackColor = Color.Beige;
+            col.GetCol("NilaiTagih").DefaultCellStyle.BackColor = Color.Beige;
         }
     }
 
     [PublicAPI]
-    public class TagihanDto
+    public class TagihanFakturDto
     {
         public string FakturCode { get; set; }
 
@@ -427,7 +449,9 @@ namespace btr.distrib.FinanceContext.TagihanAgg
         public string CustomerId { get; set; }
         public string CustomerName { get; set; }
         public string Alamat { get; set; }
-        public decimal Nilai { get; set; }
+        public decimal NilaiTotal { get; set; }
+        public decimal NilaiTerbayar { get; set; }
+        public decimal NilaiTagih { get; set; }
         public string FakturId { get; set; }
     }
 }
