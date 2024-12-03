@@ -53,6 +53,7 @@
     <Compile Include="BrgContext\JenisBrgAgg\JenisBrgModel.cs" />
     <Compile Include="BrgContext\KategoriAgg\IKategoryKey.cs" />
     <Compile Include="BrgContext\KategoriAgg\KategoriModel.cs" />
+    <Compile Include="FinanceContext\FakturPotBalanceAgg\FakturPotBalancePostModel.cs" />
     <Compile Include="FinanceContext\HutangAgg\HutangModel.cs" />
     <Compile Include="FinanceContext\HutangAgg\IHutangKey.cs" />
     <Compile Include="FinanceContext\PiutangAgg\IPiutangKey.cs" />
@@ -61,6 +62,9 @@
     <Compile Include="FinanceContext\PiutangAgg\PiutangLunasModel.cs" />
     <Compile Include="FinanceContext\PiutangAgg\PiutangLunasView.cs" />
     <Compile Include="FinanceContext\PiutangAgg\PiutangModel.cs" />
+    <Compile Include="FinanceContext\FakturPotBalanceAgg\FakturPotBalanceModel.cs" />
+    <Compile Include="FinanceContext\ReturBalanceAgg\ReturBalanceModel.cs" />
+    <Compile Include="FinanceContext\ReturBalanceAgg\ReturBalancePostModel.cs" />
     <Compile Include="FinanceContext\TagihanAgg\TagihanModel.cs" />
     <Compile Include="InventoryContext\AdjustmentAgg\AdjustmentModel.cs" />
     <Compile Include="InventoryContext\AdjustmentAgg\IAdjustmentKey.cs" />
@@ -139,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="FinanceContext\CreditNoteAgg\" />
+    <Folder Include="FinanceContext\NewFolder1\" />
     <Folder Include="InventoryContext\StokBalanceRpt\" />
     <Folder Include="SalesContext\FakturInfoAgg\" />
   </ItemGroup>

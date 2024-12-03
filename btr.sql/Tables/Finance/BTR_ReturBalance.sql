@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[BTR_ReturBalance]
+(
+	ReturJualId VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_ReturBalance_ReturJualId DEFAULT(''),
+	NilaiRetur DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturBalance_NilaiRetur DEFAULT(0),
+	NilaiSumPost DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturBalance_NilaiSumPost DEFAULT(0),
+
+	CONSTRAINT PK_BTR_ReturBalance PRIMARY KEY CLUSTERED (ReturJualId)
+)

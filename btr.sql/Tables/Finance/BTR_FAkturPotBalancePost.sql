@@ -1,0 +1,12 @@
+﻿CREATE TABLE [dbo].[BTR_FakturPotBalancePost]
+(
+	FakturId VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_FakturPotBalancePost_FakturId DEFAULT(''),
+	NoUrut INT NOT NULL CONSTRAINT DF_BTR_FakturPotBalancePost_NoUrut DEFAULT(0),
+	PostDate DATETIME NOT NULL CONSTRAINT DF_BTR_FakturPotBalancePost_PostDate DEFAULT('3000-01-01'),
+	UserId VARCHAR(20) NOT NULL CONSTRAINT DF_BTR_FakturPotBalancePost_USerId DEFAULT(''),
+	ReturJualId VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_FakturPotBalancePost_ReturJualId DEFAULT(''),
+	NilaiRetur DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_FakturPotBalancePost_NilaiRetur DEFAULT(0),
+	NilaiPost DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_FakturPotBalancePost_NilaiPost DEFAULT(0),
+
+	CONSTRAINT PK_BTR_FakturPotBalancePost PRIMARY KEY CLUSTERED (FakturId, NoUrut)
+)

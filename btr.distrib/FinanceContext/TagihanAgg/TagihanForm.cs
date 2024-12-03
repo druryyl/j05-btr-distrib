@@ -116,8 +116,6 @@ namespace btr.distrib.FinanceContext.TagihanAgg
                 newItem.NilaiTerbayar = item.NilaiTerbayar;
                 newItem.NilaiTotal = item.NilaiTotal;
                 newItem.NilaiTagih = item.NilaiTagih;
-                //  TODO: Masih salah saat load Tagihan!!
-                //newItem.F
                 _listTagihan.Add(newItem);
             }
 

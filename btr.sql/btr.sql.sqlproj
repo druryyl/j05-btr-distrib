@@ -63,6 +63,7 @@
     <Folder Include="DataSeeds\" />
     <Folder Include="Tables\PurchaseContext\" />
     <Folder Include="Tables\Finance" />
+    <Folder Include="Tables\InventoryContext\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="DataSeeds\SpecialWarehouse.sql" />
@@ -117,5 +118,9 @@
     <Build Include="Tables\InventoryContext\BTR_StokOp.sql" />
     <Build Include="Tables\Finance\BTR_Tagihan.sql" />
     <Build Include="Tables\Finance\BTR_TagihanFaktur.sql" />
+    <Build Include="Tables\Finance\BTR_ReturBalance.sql" />
+    <Build Include="Tables\Finance\BTR_ReturBalancePost.sql" />
+    <Build Include="Tables\Finance\BTR_FakturPotBalance.sql" />
+    <Build Include="Tables\Finance\BTR_FAkturPotBalancePost.sql" />
   </ItemGroup>
 </Project>
