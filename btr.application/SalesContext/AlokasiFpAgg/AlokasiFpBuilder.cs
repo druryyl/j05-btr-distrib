@@ -66,8 +66,11 @@ namespace btr.application.SalesContext.AlokasiFpAgg
 
         public IAlokasiFpBuilder NomorSeri(string noAwal, string noAkhir)
         {
-            const string pattern = @"(^\d{3}\-\d{3}-\d{2}\-)(\d{8})$";
+            //  const string pattern = @"(^\d{3}\-\d{3}-\d{2}\-)(\d{8})$";
             //  sample string  "010.000-10.23456789";
+
+            const string pattern = @"(^\d{3}\.\d{2}\.)(\d{8})$";
+            //  sample string = 011.24.30651933
 
             var match1 = Regex.Match(noAwal, pattern);
             if (!match1.Success)

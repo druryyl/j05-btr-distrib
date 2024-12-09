@@ -43,6 +43,7 @@ using btr.distrib.InventoryContext.AdjustmentAgg;
 using btr.distrib.SalesContext.FakturPajakRpt;
 using btr.distrib.SalesContext.FakturCashRpt;
 using btr.distrib.InventoryContext.ReturJualRpt;
+using btr.distrib.FinanceContext.ReturBalanceAgg;
 
 namespace btr.distrib.SharedForm
 {
@@ -514,6 +515,17 @@ namespace btr.distrib.SharedForm
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
+        }
+
+        private void RT2PostingRetur_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<ReturBalanceForm>())
+                return;
+            var form = _servicesProvider.GetRequiredService<ReturBalanceForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+
         }
     }
 }

@@ -96,6 +96,7 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
                 SELECT
                     aa.FakturId, aa.NilaiFaktur, aa.NilaiPotong, aa.NilaiSumPost,
                     ISNULL(bb.FakturDate, '3000-01-01') FakturDate,
+                    ISNULL(bb.FakturCode, '') FakturCode,
                     ISNULL(bb.CustomerId, '') CustomerId,
                     ISNULL(cc.CustomerName, '') CustomerName
                 FROM
@@ -103,7 +104,7 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
                     LEFT JOIN BTR_Faktur bb ON aa.FakturId = bb.FakturId
                     LEFT JOIN BTR_Customer cc ON bb.CustomerId = cc.CustomerId
                 WHERE
-                    FakturId = @FakturId";
+                    aa.FakturId = @FakturId";
 
             var dp = new DynamicParameters();
             dp.AddParam("@FakturId", key.FakturId, SqlDbType.VarChar);
@@ -120,6 +121,7 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
                 SELECT
                     aa.FakturId, aa.NilaiFaktur, aa.NilaiPotong, aa.NilaiSumPost,
                     ISNULL(bb.FakturDate, '3000-01-01') FakturDate,
+                    ISNULL(bb.FakturCode, '') FakturCode,
                     ISNULL(bb.CustomerId, '') CustomerId,
                     ISNULL(cc.CustomerName, '') CustomerName
                 FROM
@@ -144,6 +146,7 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
                 SELECT
                     aa.FakturId, aa.NilaiFaktur, aa.NilaiPotong, aa.NilaiSumPost,
                     ISNULL(bb.FakturDate, '3000-01-01') FakturDate,
+                    ISNULL(bb.FakturCode, '') FakturCode,
                     ISNULL(bb.CustomerId, '') CustomerId,
                     ISNULL(cc.CustomerName, '') CustomerName
                 FROM

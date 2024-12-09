@@ -70,7 +70,7 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
             const string sql = @"
                 SELECT
                     ReturJualId, ReturJualItemId, ReturJualItemDiscId, 
-                    NoUrut, BrgId, DiscNo, BaseHrg, DiscProsen, DiscRp
+                    NoUrut, BrgId, BaseHrg, DiscProsen, DiscRp
                 FROM
                     BTR_ReturJualItemDisc
                 WHERE

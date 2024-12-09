@@ -92,6 +92,7 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.RT2PostingRetur = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -554,6 +555,7 @@
             // ribbonPanel3
             // 
             this.ribbonPanel3.Items.Add(this.RT1ReturJualButton);
+            this.ribbonPanel3.Items.Add(this.RT2PostingRetur);
             this.ribbonPanel3.Name = "ribbonPanel3";
             this.ribbonPanel3.Text = "";
             // 
@@ -651,6 +653,15 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
+            // RT2PostingRetur
+            // 
+            this.RT2PostingRetur.Image = global::btr.distrib.Properties.Resources.icons8_uninstalling_updates_32;
+            this.RT2PostingRetur.LargeImage = global::btr.distrib.Properties.Resources.icons8_uninstalling_updates_32;
+            this.RT2PostingRetur.Name = "RT2PostingRetur";
+            this.RT2PostingRetur.SmallImage = ((System.Drawing.Image)(resources.GetObject("RT2PostingRetur.SmallImage")));
+            this.RT2PostingRetur.Text = "RT2-Posting Retur";
+            this.RT2PostingRetur.Click += new System.EventHandler(this.RT2PostingRetur_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -741,5 +752,6 @@
         private System.Windows.Forms.RibbonButton RT1ReturJualButton;
         private System.Windows.Forms.RibbonPanel ribbonPanel4;
         private System.Windows.Forms.RibbonButton RF1ReturJualInfo;
+        private System.Windows.Forms.RibbonButton RT2PostingRetur;
     }
 }

@@ -67,6 +67,13 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
             
             _aggregate.ListItem = _returJualItemDal.ListData(returJualKey)?.ToList()
                                   ?? new List<ReturJualItemModel>();
+
+            var listDisc = _returJualItemDiscDal.ListData(returJualKey)?.ToList()
+                ?? new List<ReturJualItemDiscModel>();
+            foreach(var item in _aggregate.ListItem)
+                item.ListDisc = listDisc
+                    .Where(x => x.ReturJualItemId == item.ReturJualItemId)?
+                    .ToList() ?? new List<ReturJualItemDiscModel> ();
             return this;
         }
 

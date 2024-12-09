@@ -33,6 +33,7 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
                 bcp.ColumnMappings.Add("ReturJualItemId", "ReturJualItemId");
                 bcp.ColumnMappings.Add("NoUrut", "NoUrut");
                 bcp.ColumnMappings.Add("BrgId", "BrgId");
+                bcp.ColumnMappings.Add("BrgCode", "BrgCode");
 
                 bcp.ColumnMappings.Add("QtyInputStr", "QtyInputStr");
                 bcp.ColumnMappings.Add("HrgInputStr", "HrgInputStr");
@@ -80,11 +81,13 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
             //  QUERY
             const string sql = @"
                 SELECT 
-                    ReturJualId, ReturJualItemId, NoUrut, BrgId, 
-                    QtyInputStr, HrgInputStr, DiscInputStr, 
-                    Qty, HrgSat, SubTotal, DiscRp, PpnRp, PpnProsen, Total
+                    aa.ReturJualId, aa.ReturJualItemId, aa.NoUrut, aa.BrgId, aa.BrgCode,
+                    aa.QtyInputStr, aa.HrgInputStr, aa.DiscInputStr, 
+                    aa.Qty, aa.HrgSat, aa.SubTotal, aa.DiscRp, aa.PpnRp, aa.PpnProsen, aa.Total,
+                    ISNULL(bb.BrgName, '') BrgName
                 FROM 
-                    BTR_ReturJualItem
+                    BTR_ReturJualItem aa
+                    LEFT JOIN BTR_Brg bb ON aa.BrgId = bb.BrgId
                 WHERE 
                     ReturJualId = @ReturJualId
                 ORDER BY 

@@ -339,6 +339,12 @@
       <DependentUpon>PiutangSalesWilayahForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FinanceContext\PiutangSalesWilayahRpt\PiutangSalesWilayahView.cs" />
+    <Compile Include="FinanceContext\ReturBalanceAgg\ReturBalanceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FinanceContext\ReturBalanceAgg\ReturBalanceForm.Designer.cs">
+      <DependentUpon>ReturBalanceForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FinanceContext\TagihanAgg\TagihanForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -710,6 +716,9 @@
     <EmbeddedResource Include="FinanceContext\PiutangSalesWilayahRpt\PiutangSalesWilayahForm.resx">
       <DependentUpon>PiutangSalesWilayahForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FinanceContext\ReturBalanceAgg\ReturBalanceForm.resx">
+      <DependentUpon>ReturBalanceForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FinanceContext\TagihanAgg\TagihanForm.resx">
       <DependentUpon>TagihanForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -967,8 +976,6 @@
       <Name>btr.nuna</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="FinanceContext\NewFolder1\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

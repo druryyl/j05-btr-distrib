@@ -151,6 +151,7 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
                     aa.Total, aa.DiscRp, aa.PpnRp, aa.GrandTotal,
                     aa.VoidDate, aa.UserIdVoid,
                     ISNULL(bb.CustomerName, '') AS CustomerName,
+                    ISNULL(bb.Address1, '') AS Address,
                     ISNULL(cc.WarehouseName, '') AS WarehouseName,
                     ISNULL(dd.SalesPersonName, '') AS SalesPersonName,
                     ISNULL(ee.DriverName, '') AS DriverName
@@ -186,6 +187,7 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
                     aa.Total, aa.DiscRp, aa.PpnRp, aa.GrandTotal,
                     aa.VoidDate, aa.UserIdVoid,
                     ISNULL(bb.CustomerName, '') AS CustomerName,
+                    ISNULL(bb.Address1, '') AS Address,
                     ISNULL(cc.WarehouseName, '') AS WarehouseName,
                     ISNULL(dd.SalesPersonName, '') AS SalesPersonName,
                     ISNULL(ee.DriverName, '') AS DriverName

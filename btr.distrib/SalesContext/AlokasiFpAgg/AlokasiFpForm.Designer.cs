@@ -35,6 +35,8 @@
             this.NoAwalText = new System.Windows.Forms.MaskedTextBox();
             this.NoAkhirText = new System.Windows.Forms.MaskedTextBox();
             this.AlokasiGrid = new System.Windows.Forms.DataGridView();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.ExportExcelButton = new System.Windows.Forms.Button();
             this.ExportEFakturButton = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -49,8 +51,6 @@
             this.ListButton = new System.Windows.Forms.Button();
             this.Periode2Date = new System.Windows.Forms.DateTimePicker();
             this.Periode1Date = new System.Windows.Forms.DateTimePicker();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -127,7 +127,7 @@
             // 
             this.NoAwalText.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NoAwalText.Location = new System.Drawing.Point(5, 28);
-            this.NoAwalText.Mask = "000-000-00-00000000";
+            this.NoAwalText.Mask = "000.00.00000000";
             this.NoAwalText.Name = "NoAwalText";
             this.NoAwalText.Size = new System.Drawing.Size(120, 20);
             this.NoAwalText.TabIndex = 9;
@@ -136,7 +136,7 @@
             // 
             this.NoAkhirText.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NoAkhirText.Location = new System.Drawing.Point(5, 54);
-            this.NoAkhirText.Mask = "000-000-00-00000000";
+            this.NoAkhirText.Mask = "000.00.00000000";
             this.NoAkhirText.Name = "NoAkhirText";
             this.NoAkhirText.Size = new System.Drawing.Size(120, 20);
             this.NoAkhirText.TabIndex = 10;
@@ -152,6 +152,22 @@
             this.AlokasiGrid.Name = "AlokasiGrid";
             this.AlokasiGrid.Size = new System.Drawing.Size(229, 347);
             this.AlokasiGrid.TabIndex = 4;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(4, 100);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(58, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "No.Faktur";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(68, 97);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 22);
+            this.textBox1.TabIndex = 11;
             // 
             // ExportExcelButton
             // 
@@ -319,22 +335,6 @@
             this.Periode1Date.Name = "Periode1Date";
             this.Periode1Date.Size = new System.Drawing.Size(120, 22);
             this.Periode1Date.TabIndex = 0;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(68, 97);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 22);
-            this.textBox1.TabIndex = 11;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(4, 100);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 13);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "No.Faktur";
             // 
             // AlokasiFpForm
             // 

@@ -2,6 +2,7 @@
 using btr.application.SupportContext.TglJamAgg;
 using btr.domain.FinanceContext.PiutangAgg;
 using btr.domain.FinanceContext.ReturBalanceAgg;
+using btr.domain.InventoryContext.ReturJualAgg;
 using btr.domain.SalesContext.FakturAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
@@ -15,7 +16,7 @@ namespace btr.application.FinanceContext.ReturBalanceAgg
 {
     public interface IReturBalanceBuilder : INunaBuilder<ReturBalanceModel>
     {
-        IReturBalanceBuilder LoadOrCreate(ReturBalanceModel retur);
+        IReturBalanceBuilder LoadOrCreate(ReturJualModel retur);
         IReturBalanceBuilder AddPost(FakturModel faktur, string userId, decimal nilaiPost);
         IReturBalanceBuilder RemovePost(FakturModel faktur);
     }
@@ -45,7 +46,7 @@ namespace btr.application.FinanceContext.ReturBalanceAgg
             return _agg;
         }
 
-        public IReturBalanceBuilder LoadOrCreate(ReturBalanceModel retur)
+        public IReturBalanceBuilder LoadOrCreate(ReturJualModel retur)
         {
             _agg = _returBalanceDal.GetData(retur) ?? 
                 new ReturBalanceModel
@@ -54,7 +55,7 @@ namespace btr.application.FinanceContext.ReturBalanceAgg
                     ReturJualDate = retur.ReturJualDate,
                     CustomerId = retur.CustomerId,
                     CustomerName = retur.CustomerName,
-                    NilaiRetur = retur.NilaiRetur,
+                    NilaiRetur = retur.GrandTotal,
                     ListPost = new List<ReturBalancePostModel>()
                 };
 

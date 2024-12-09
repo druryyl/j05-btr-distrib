@@ -17,6 +17,7 @@ using System.Windows.Forms;
 using btr.application.SalesContext.FakturAgg.Contracts;
 using Polly;
 using btr.application.FinanceContext.TagihanAgg;
+using btr.application.FinanceContext.FakturPotBalanceAgg;
 
 namespace btr.distrib.FinanceContext.LunasPiutangAgg
 {
@@ -27,6 +28,8 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
         private readonly IPiutangLunasViewDal _piutangLunasViewDal;
         private readonly ITagihanFakturDal _tagihanFakturDal;
         private readonly IFakturBuilder _fakturBuilder;
+        private readonly IFakturPotBalanceBuilder _fakturPotBalanceBuilder;
+        private readonly IFakturPotBalanceWriter _fakturPotBalanceWriter;
         private readonly IFakturDal _fakturDal;
         
         private BindingList<PiutangLunasView> _listPiutangLunasView;
@@ -38,8 +41,10 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             IPiutangBuilder piutangBuilder,
             IFakturBuilder fakturBuilder,
             IFakturDal fakturDal,
-            IPiutangWriter piutangWriter, 
-            ITagihanFakturDal tagihanFakturDal)
+            IPiutangWriter piutangWriter,
+            ITagihanFakturDal tagihanFakturDal,
+            IFakturPotBalanceBuilder fakturPotBalanceBuilder,
+            IFakturPotBalanceWriter fakturPotBalanceWriter)
         {
             InitializeComponent();
 
@@ -49,6 +54,8 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             _fakturDal = fakturDal;
             _piutangWriter = piutangWriter;
             _tagihanFakturDal = tagihanFakturDal;
+            _fakturPotBalanceBuilder = fakturPotBalanceBuilder;
+            _fakturPotBalanceWriter = fakturPotBalanceWriter;
 
             InitGrid();
             IniGridBayar();
@@ -105,6 +112,7 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
 
         private void UpdateElementButton_Click(object sender, EventArgs e)
         {
+            //  piutang
             var piutang = _piutangBuilder
                 .Load(new PiutangModel(_piutangId))
                 .Build();
@@ -116,9 +124,18 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
                 .AddPlusElement(PiutangElementEnum.Materai, MateraiText.Value)
                 .AddPlusElement(PiutangElementEnum.Admin, AdminText.Value)
                 .Build();
-
             _piutangWriter.Save(ref piutang);
             RefreshGridBayar(piutang);
+
+            //  faktur-pot-balance
+            var nilaiRetur = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Retur)
+                ?? new PiutangElementModel { NilaiMinus = 0 };
+            var faktur = _fakturBuilder.Load(new FakturModel(piutang.PiutangId)).Build();
+            var fakturPotBalance = _fakturPotBalanceBuilder
+                .LoadOrCreate(faktur).Build();
+            fakturPotBalance.NilaiPotong = nilaiRetur.NilaiMinus;
+            _ = _fakturPotBalanceWriter.Save(fakturPotBalance);
+
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)

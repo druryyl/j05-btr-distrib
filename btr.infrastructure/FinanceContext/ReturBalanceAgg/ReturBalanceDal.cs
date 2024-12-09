@@ -97,7 +97,7 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
                     LEFT JOIN BTR_ReturJual bb ON aa.ReturJualId = bb.ReturJualId
                     LEFT JOIN BTR_Customer cc ON bb.CustomerId = cc.CustomerId
                 WHERE
-                    ReturJualId = @ReturJualId";
+                    aa.ReturJualId = @ReturJualId";
 
             var dp = new DynamicParameters();
             dp.AddParam("@ReturJualId", key.ReturJualId, SqlDbType.VarChar);
@@ -125,6 +125,30 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
 
             var dp = new DynamicParameters();
             dp.AddParam("@CustomerId", filter.CustomerId, SqlDbType.VarChar);
+
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                return conn.Read<ReturBalanceModel>(sql, dp);
+            }
+        }
+
+        public IEnumerable<ReturBalanceModel> ListData(IEnumerable<IReturJualKey> filter)
+        {
+            const string sql = @"
+                SELECT
+                    aa.ReturJualId, NilaiRetur, NilaiSumPost,
+                    ISNULL(bb.ReturJualDate, '3000-01-01') ReturJualDate,
+                    ISNULL(bb.CustomerId, '') CustomerId,
+                    ISNULL(cc.CustomerName, '') CustomerName
+                FROM
+                    BTR_ReturBalance aa
+                    LEFT JOIN BTR_ReturJual bb ON aa.ReturJualId = bb.ReturJualId
+                    LEFT JOIN BTR_Customer cc ON bb.CustomerId = cc.CustomerId
+                WHERE
+                    aa.ReturJualId IN @filter";
+
+            var dp = new DynamicParameters();
+            dp.Add("@filter", filter.Select(x => x.ReturJualId));
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
