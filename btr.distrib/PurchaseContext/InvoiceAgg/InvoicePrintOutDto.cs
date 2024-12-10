@@ -53,13 +53,13 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
                         BrgName = item.BrgName,
                         QtyBesar = qtyBesar,
                         QtyKecil = qtyKecil,
-                        HrgBesar = item.HppSatBesar== 0 ? "-" : $"{DecFormatter.ToStr(item.HppSatBesar)}",
-                        HrgKecil = item.HppSatKecil == 0 ? "-" : $"{DecFormatter.ToStr(item.HppSatKecil)}",
-                        Disc1 = disc1 == 0 ? "-" : $"{DecFormatter.ToStr(disc1)}%",
-                        Disc2 = disc2 == 0 ? "-" : $"{DecFormatter.ToStr(disc2)}%",
-                        Disc3 = disc3 == 0 ? "-" : $"{DecFormatter.ToStr(disc3)}%",
-                        Disc4 = disc4 == 0 ? "-" : $"{DecFormatter.ToStr(disc4)}%",
-                        Total = $"{DecFormatter.ToStr(item.Total)}",
+                        HrgBesar = item.HppSatBesar== 0 ? "-" : $"{item.HppSatBesar:N0}",
+                        HrgKecil = item.HppSatKecil == 0 ? "-" : $"{item.HppSatKecil:N0}",
+                        Disc1 = disc1 == 0 ? "-" : $"{disc1:N0}%",
+                        Disc2 = disc2 == 0 ? "-" : $"{disc2:N0}%",
+                        Disc3 = disc3 == 0 ? "-" : $"{disc3:N0}%",
+                        Disc4 = disc4 == 0 ? "-" : $"{disc4:N0}%",
+                        Total = $"{(item.Total):N0}",
                     };
                     ListItem.Add(newItem);
                     noUrut++;
@@ -79,7 +79,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
                         Disc1 = "-",
                         Disc2 = "-",
                         Disc3 = "-",
-                        Disc4 = "-".PadLeft(8),
+                        Disc4 = "-".PadLeft(8), 
                         Total = "-",
                     };
                     ListItem.Add(itemBonus);

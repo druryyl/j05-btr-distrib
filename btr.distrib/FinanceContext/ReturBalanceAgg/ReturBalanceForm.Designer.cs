@@ -46,15 +46,19 @@
             this.ReturJualDateText = new System.Windows.Forms.TextBox();
             this.ReturJualCodeText = new System.Windows.Forms.TextBox();
             this.ReturJualIdText = new System.Windows.Forms.TextBox();
-            this.ListReturItemGrid = new Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl();
-            this.gridGroupingControl1 = new Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl();
+            this.ListFakturPotGrid = new Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.ListReturItemGrid = new Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl();
+            this.TotalReturTextBox = new System.Windows.Forms.TextBox();
+            this.BalanceTextBox = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ListReturGrid)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ListFakturPotGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ListReturItemGrid)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridGroupingControl1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -120,6 +124,11 @@
             // 
             this.panel2.BackColor = System.Drawing.Color.Thistle;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.label7);
+            this.panel2.Controls.Add(this.label6);
+            this.panel2.Controls.Add(this.BalanceTextBox);
+            this.panel2.Controls.Add(this.TotalReturTextBox);
+            this.panel2.Controls.Add(this.ListReturItemGrid);
             this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.label3);
@@ -134,7 +143,7 @@
             this.panel2.Controls.Add(this.ReturJualIdText);
             this.panel2.Location = new System.Drawing.Point(639, 6);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(554, 99);
+            this.panel2.Size = new System.Drawing.Size(554, 307);
             this.panel2.TabIndex = 4;
             // 
             // label5
@@ -252,33 +261,19 @@
             this.ReturJualIdText.Size = new System.Drawing.Size(120, 22);
             this.ReturJualIdText.TabIndex = 1;
             // 
-            // ListReturItemGrid
+            // ListFakturPotGrid
             // 
-            this.ListReturItemGrid.AlphaBlendSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.ListReturItemGrid.BackColor = System.Drawing.SystemColors.Window;
-            this.ListReturItemGrid.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ListReturItemGrid.Location = new System.Drawing.Point(639, 111);
-            this.ListReturItemGrid.Name = "ListReturItemGrid";
-            this.ListReturItemGrid.ShowCurrentCellBorderBehavior = Syncfusion.Windows.Forms.Grid.GridShowCurrentCellBorder.GrayWhenLostFocus;
-            this.ListReturItemGrid.Size = new System.Drawing.Size(554, 171);
-            this.ListReturItemGrid.TabIndex = 8;
-            this.ListReturItemGrid.Text = "gridGroupingControl1";
-            this.ListReturItemGrid.UseRightToLeftCompatibleTextBox = true;
-            this.ListReturItemGrid.VersionInfo = "22.1460.34";
-            // 
-            // gridGroupingControl1
-            // 
-            this.gridGroupingControl1.AlphaBlendSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.gridGroupingControl1.BackColor = System.Drawing.SystemColors.Window;
-            this.gridGroupingControl1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gridGroupingControl1.Location = new System.Drawing.Point(639, 288);
-            this.gridGroupingControl1.Name = "gridGroupingControl1";
-            this.gridGroupingControl1.ShowCurrentCellBorderBehavior = Syncfusion.Windows.Forms.Grid.GridShowCurrentCellBorder.GrayWhenLostFocus;
-            this.gridGroupingControl1.Size = new System.Drawing.Size(554, 256);
-            this.gridGroupingControl1.TabIndex = 9;
-            this.gridGroupingControl1.Text = "gridGroupingControl1";
-            this.gridGroupingControl1.UseRightToLeftCompatibleTextBox = true;
-            this.gridGroupingControl1.VersionInfo = "22.1460.34";
+            this.ListFakturPotGrid.AlphaBlendSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.ListFakturPotGrid.BackColor = System.Drawing.SystemColors.Window;
+            this.ListFakturPotGrid.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ListFakturPotGrid.Location = new System.Drawing.Point(639, 319);
+            this.ListFakturPotGrid.Name = "ListFakturPotGrid";
+            this.ListFakturPotGrid.ShowCurrentCellBorderBehavior = Syncfusion.Windows.Forms.Grid.GridShowCurrentCellBorder.GrayWhenLostFocus;
+            this.ListFakturPotGrid.Size = new System.Drawing.Size(554, 225);
+            this.ListFakturPotGrid.TabIndex = 9;
+            this.ListFakturPotGrid.Text = "gridGroupingControl1";
+            this.ListFakturPotGrid.UseRightToLeftCompatibleTextBox = true;
+            this.ListFakturPotGrid.VersionInfo = "22.1460.34";
             // 
             // button1
             // 
@@ -298,6 +293,60 @@
             this.button2.Text = "Delete";
             this.button2.UseVisualStyleBackColor = true;
             // 
+            // ListReturItemGrid
+            // 
+            this.ListReturItemGrid.AlphaBlendSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.ListReturItemGrid.BackColor = System.Drawing.SystemColors.Window;
+            this.ListReturItemGrid.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ListReturItemGrid.Location = new System.Drawing.Point(6, 85);
+            this.ListReturItemGrid.Name = "ListReturItemGrid";
+            this.ListReturItemGrid.ShowCurrentCellBorderBehavior = Syncfusion.Windows.Forms.Grid.GridShowCurrentCellBorder.GrayWhenLostFocus;
+            this.ListReturItemGrid.Size = new System.Drawing.Size(540, 159);
+            this.ListReturItemGrid.TabIndex = 13;
+            this.ListReturItemGrid.Text = "gridGroupingControl1";
+            this.ListReturItemGrid.UseRightToLeftCompatibleTextBox = true;
+            this.ListReturItemGrid.VersionInfo = "22.1460.34";
+            // 
+            // TotalReturTextBox
+            // 
+            this.TotalReturTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.TotalReturTextBox.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalReturTextBox.Location = new System.Drawing.Point(424, 250);
+            this.TotalReturTextBox.Name = "TotalReturTextBox";
+            this.TotalReturTextBox.ReadOnly = true;
+            this.TotalReturTextBox.Size = new System.Drawing.Size(91, 22);
+            this.TotalReturTextBox.TabIndex = 14;
+            this.TotalReturTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // BalanceTextBox
+            // 
+            this.BalanceTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.BalanceTextBox.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BalanceTextBox.Location = new System.Drawing.Point(424, 276);
+            this.BalanceTextBox.Name = "BalanceTextBox";
+            this.BalanceTextBox.ReadOnly = true;
+            this.BalanceTextBox.Size = new System.Drawing.Size(91, 22);
+            this.BalanceTextBox.TabIndex = 15;
+            this.BalanceTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(356, 252);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(62, 13);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "Total Retur";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(371, 278);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(47, 13);
+            this.label7.TabIndex = 17;
+            this.label7.Text = "Balance";
+            // 
             // ReturBalanceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -306,8 +355,7 @@
             this.ClientSize = new System.Drawing.Size(1199, 578);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.gridGroupingControl1);
-            this.Controls.Add(this.ListReturItemGrid);
+            this.Controls.Add(this.ListFakturPotGrid);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.ListReturGrid);
@@ -318,8 +366,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.ListReturGrid)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ListFakturPotGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ListReturItemGrid)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridGroupingControl1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -339,14 +387,18 @@
         private System.Windows.Forms.TextBox ReturJualCodeText;
         private System.Windows.Forms.TextBox JenisReturText;
         private System.Windows.Forms.TextBox SalesText;
-        private Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl ListReturItemGrid;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl gridGroupingControl1;
+        private Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl ListFakturPotGrid;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl ListReturItemGrid;
+        private System.Windows.Forms.TextBox BalanceTextBox;
+        private System.Windows.Forms.TextBox TotalReturTextBox;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
     }
 }

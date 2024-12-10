@@ -15,7 +15,7 @@ namespace btr.domain.FinanceContext.ReturBalanceAgg
         public string CustomerName { get; set; }
         public decimal NilaiFaktur { get; set; }
         public decimal NilaiPotong { get; set; }
-        public decimal NilaiSumPost { get => ListPost.Sum(x => x.NilaiPost); }
+        public decimal NilaiSumPost { get; set; }
 
         public List<FakturPotBalancePostModel> ListPost { get; set; }
     }

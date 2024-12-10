@@ -750,7 +750,6 @@
                         <PaddingBottom>1pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -864,7 +863,8 @@
             <Style>Solid</Style>
           </Border>
           <TopBorder>
-            <Style>None</Style>
+            <Color>Black</Color>
+            <Width>1pt</Width>
           </TopBorder>
           <BottomBorder>
             <Style>None</Style>
@@ -1045,7 +1045,8 @@
             <Style>Solid</Style>
           </Border>
           <TopBorder>
-            <Style>None</Style>
+            <Color>Black</Color>
+            <Width>1pt</Width>
           </TopBorder>
           <BottomBorder>
             <Style>None</Style>
@@ -1170,6 +1171,7 @@
                 <Value>=First(Fields!GrandTotal.Value, "FakturJualDataset")</Value>
                 <Style>
                   <FontFamily>Lucida Console</FontFamily>
+                  <FontSize>9pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
@@ -1550,7 +1552,7 @@
                 <Value>=First(Fields!Address1.Value, "FakturJualDataset")</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1583,7 +1585,7 @@
                 <Value>=First(Fields!Address2.Value, "FakturJualDataset")</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1617,7 +1619,7 @@
                 <Style>
                   <FontStyle>Italic</FontStyle>
                   <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1625,7 +1627,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>1.61113in</Top>
+        <Top>1.53613in</Top>
         <Left>0.03473in</Left>
         <Height>0.20556in</Height>
         <Width>5.03194in</Width>
@@ -1651,7 +1653,7 @@
                 <Value>=First(Fields!Note.Value, "FakturJualDataset")</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1659,8 +1661,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>1.87225in</Top>
-        <Height>0.30834in</Height>
+        <Top>1.80975in</Top>
+        <Height>0.42779in</Height>
         <Width>5.06667in</Width>
         <ZIndex>21</ZIndex>
         <Style>
@@ -1916,10 +1918,10 @@
         </Style>
       </Textbox>
       <Line Name="Line4">
-        <Top>1.50974in</Top>
+        <Top>1.48474in</Top>
         <Left>0.03473in</Left>
         <Height>0in</Height>
-        <Width>7.7375in</Width>
+        <Width>7.75in</Width>
         <ZIndex>31</ZIndex>
         <Style>
           <Border>
