@@ -126,8 +126,9 @@ namespace btr.application.SalesContext.FakturAgg.Workers
 
             item.QtyDetilStr = GenQtyDetilStr(item);
 
-            item.DiscInputStr = req.DiscInputStr ?? string.Empty;
-            var listDisc = GenListDiscount(req.BrgId, item.SubTotal, req.DiscInputStr).ToList();
+            var discInputStr = UbahKomaJadiTitik(req.DiscInputStr);
+            item.DiscInputStr = discInputStr;
+            var listDisc = GenListDiscount(req.BrgId, item.SubTotal, item.DiscInputStr).ToList();
             item.DiscDetilStr = GenDiscDetilStr(listDisc);
             item.DiscRp = listDisc.Sum(x => x.DiscRp);
             item.ListDiscount = listDisc;
@@ -148,6 +149,15 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             item.QtyInputStr = $"{item.QtyBesar};{item.QtyKecil};{item.QtyBonus}";
 
             return item;
+        }
+
+        private string UbahKomaJadiTitik(string discInputStr)
+        {
+            if (discInputStr is null)
+                return string.Empty;
+
+            var result = discInputStr.Replace(',', '.');
+            return result;
         }
 
         private string GenQtyDetilStr(FakturItemModel item)
