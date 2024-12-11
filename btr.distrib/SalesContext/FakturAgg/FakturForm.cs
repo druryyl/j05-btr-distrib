@@ -644,9 +644,9 @@ namespace btr.distrib.SalesContext.FakturAgg
             var fakturDb = _fakturBuilder
                 .Load(faktur)
                 .Build();
-            LastIdLabel.Text = $@"{faktur.FakturId} - {fakturDb.FakturCode}";
-            var customer = _customerDal.GetData(faktur);
-            var fakturPrintout = new FakturPrintOutDto(faktur, customer);
+            LastIdLabel.Text = $@"{fakturDb.FakturId} - {fakturDb.FakturCode}";
+            var customer = _customerDal.GetData(fakturDb);
+            var fakturPrintout = new FakturPrintOutDto(fakturDb, customer);
             PrintFakturRdlc(fakturPrintout);
         }
 

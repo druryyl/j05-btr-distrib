@@ -99,7 +99,9 @@ namespace btr.infrastructure.InventoryContext.WarehouseAgg
             SELECT
                 WarehouseId, WarehouseName
             FROM
-                BTR_Warehouse";
+                BTR_Warehouse
+            WHERE
+                IsAktif = 1";
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {

@@ -77,44 +77,23 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
             
             ListReturGrid.QueryCellStyleInfo += AllGrid_QueryCellStyleInfo;
             ListReturItemGrid.QueryCellStyleInfo += AllGrid_QueryCellStyleInfo;
-            ListFakturPotGrid.QueryCellStyleInfo += AllGrid_QueryCellStyleInfo;
 
             ListReturGrid.TableControlCellDoubleClick += ListReturGrid_TableControlCellDoubleClick;
             ListReturGrid.TableControlCurrentCellActivated += ListReturGrid_TableControlCurrentCellActivated;
             ListReturGrid.TableControlCurrentCellValidated += ListReturGrid_TableControlCurrentCellValidated;
 
-            ListFakturPotGrid.TableControlCheckBoxClick += ListFakturPotGrid_TableControlCheckBoxClick;
-
+            ListFakturPotGrid.CellContentClick += ListFakturPotGrid_CellContentClick;
         }
 
-        private void ListFakturPotGrid_TableControlCheckBoxClick(object sender, GridTableControlCellClickEventArgs e)
+        private void ListFakturPotGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            var grid = (GridGroupingControl)sender;
-            var currentCell = e.TableControl.CurrentCell;
-            var record = e.TableControl.Table.CurrentRecord;
+            var grid = (DataGridView)sender;
+            if (!(grid.CurrentCell is DataGridViewCheckBoxCell))
+                return;
 
-            if (currentCell != null && record != null)
-            {
-                // Get the field name of the current cell
-                string fieldName = e.TableControl.TableDescriptor.Columns[currentCell.ColIndex].MappingName;
-
-                if (fieldName == "Post")
-                {
-                    // Directly update the bound object's property
-                    var item = record.GetData() as FakturPotDetilViewDto;
-                    if (item != null)
-                    {
-                        bool newValue = !(bool)record.GetValue("Post");
-                        item.Post = newValue; // Set the property directly
-
-                        // Refresh the grid to reflect the change
-                        record.SetValue("Post", newValue);
-                        grid.Refresh();
-                    }
-                }
-            }
+            ListFakturPotGrid.EndEdit();
+            ListFakturPotGrid.Refresh();
         }
-
 
         private void InitGrid()
         {
@@ -178,18 +157,29 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
         private void InitGridFakturPot()
         {
             ListFakturPotGrid.DataSource = _fakturPotHeader.ListDetil;
-            ListFakturPotGrid.TableDescriptor.AllowNew = false;
-            ListFakturPotGrid.TableDescriptor.AllowRemove = false;
+            ListFakturPotGrid.Columns["NilaiFaktur"].DefaultCellStyle.Format = "N0";
 
-            ListFakturPotGrid.TableDescriptor.VisibleColumns.Remove("FakturId");
-            //ListFakturPotGrid.TableDescriptor.VisibleColumns.Remove("NilaiReturBalance");
+            ListFakturPotGrid.Columns["NilaiFaktur"].DefaultCellStyle.Format = "N0";
+            ListFakturPotGrid.Columns["NilaiPotongan"].DefaultCellStyle.Format = "N0";
+            ListFakturPotGrid.Columns["NilaiPosting"].DefaultCellStyle.Format = "N0";
 
-            ListFakturPotGrid.TableDescriptor.Columns["NilaiFaktur"].Appearance.AnyRecordFieldCell.Format = "N0";
-            ListFakturPotGrid.TableDescriptor.Columns["NilaiPotongan"].Appearance.AnyRecordFieldCell.Format = "N0";
-            ListFakturPotGrid.TableDescriptor.Columns["NilaiPosting"].Appearance.AnyRecordFieldCell.Format = "N0";
-            ListFakturPotGrid.TableDescriptor.Columns["NilaiFaktur"].HeaderText = "Grand Total";
-            ListFakturPotGrid.TableDescriptor.Columns["NilaiPotongan"].HeaderText = "Potongan";
-            ListFakturPotGrid.TableDescriptor.Columns["NilaiPosting"].HeaderText = "Posting";
+            ListFakturPotGrid.Columns["NilaiFaktur"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            ListFakturPotGrid.Columns["NilaiPotongan"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            ListFakturPotGrid.Columns["NilaiPosting"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            ListFakturPotGrid.Columns["NilaiFaktur"].HeaderText = "Grand Total";
+            ListFakturPotGrid.Columns["NilaiPotongan"].HeaderText = "Potongan";
+            ListFakturPotGrid.Columns["NilaiPosting"].HeaderText = "Posting";
+
+            ListFakturPotGrid.Columns["No"].Width = 25;
+            ListFakturPotGrid.Columns["FakturCode"].Width = 70;
+            ListFakturPotGrid.Columns["FakturDate"].Width = 70;
+            ListFakturPotGrid.Columns["NilaiFaktur"].Width = 70;
+            ListFakturPotGrid.Columns["NilaiPotongan"].Width = 70;
+            ListFakturPotGrid.Columns["Post"].Width = 40;
+            ListFakturPotGrid.Columns["NilaiPosting"].Width = 70;
+
+            ListFakturPotGrid.Columns["FakturId"].Visible = false;
 
         }
 
@@ -260,7 +250,7 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
 
             var listExisting = returBalance.ListPost
                 .Select((x, idx) => new FakturPotDetilViewDto(
-                    idx + 1, x.FakturId, x.FakturCode,
+                    idx + 1, x.FakturId, x.FakturCode, 
                     $"{x.FakturDate:dd-MMM-yyyy}", x.NilaiFaktur, x.NilaiPotong, x.NilaiPost, true))
                 ?.ToList()
                 ?? new List<FakturPotDetilViewDto>();
