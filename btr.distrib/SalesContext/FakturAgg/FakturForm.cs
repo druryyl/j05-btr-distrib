@@ -690,7 +690,13 @@ namespace btr.distrib.SalesContext.FakturAgg
             PiutangModel piutang = null;
             try
             {
-                piutang = _piutangBuilder.Load(new PiutangModel(faktur.FakturId)).Build();
+                piutang = _piutangBuilder
+                    .Load(new PiutangModel(faktur.FakturId))
+                    .Customer(faktur)
+                    .PiutangDate(faktur.FakturDate)
+                    .DueDate(faktur.DueDate)
+                    .NilaiPiutang(faktur.GrandTotal)
+                    .Build();
             }
             catch (KeyNotFoundException)
             {

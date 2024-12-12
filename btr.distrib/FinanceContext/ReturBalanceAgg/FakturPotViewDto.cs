@@ -1,33 +1,50 @@
-﻿using DocumentFormat.OpenXml.Drawing;
-using System;
+﻿using System;
 using System.ComponentModel;
+using System.Linq;
 
 namespace btr.distrib.FinanceContext.ReturBalanceAgg
 {
-    public class FakturPotHeaderViewDto
+    public class FakturPotHeaderViewDto : IReCalc
     {
-        private decimal _nilaiReturBalance;
-        public decimal NilaiReturBalance 
+        public FakturPotHeaderViewDto()
         {
-            get => _nilaiReturBalance;
-            set
-            {
-                _nilaiReturBalance = value;
-                if (ListDetil is null)
-                    return;
-                foreach(var item in ListDetil)
-                    item.SetNilaiReturBalance(value);
-            }
+            NilaiRetur = 0;
+            ListDetil = new BindingList<FakturPotDetilViewDto>();
+        }
+        public decimal NilaiRetur { get; private set; }
+        public decimal NilaiSumPost => ListDetil.Sum(x => x.NilaiPosting);
+        public decimal NilaiBalance => NilaiRetur - NilaiSumPost;
+
+        public void SetNilaiRetur(decimal nilaiRetur) => NilaiRetur = nilaiRetur;
+        public void ReCalc()
+        {
+            foreach (var item in ListDetil)
+                item.SetNilaiBalance(NilaiBalance);
         }
         public BindingList<FakturPotDetilViewDto> ListDetil { get; set; }
+        public void AddItem(FakturPotDetilViewDto item)
+        {
+            ListDetil.Add(item);
+            item.SetReCalc(this);
+            ReCalc();
+        }
+
+    }
+
+    public interface IReCalc
+    {
+        void ReCalc();
     }
 
     public class FakturPotDetilViewDto
     {
-        private bool _post;
+        private bool _isPost;
+        private IReCalc _reCalc;
+        private decimal _nilaiPosting;
+
         public FakturPotDetilViewDto(int no, string fakturId, string fakturCode,
             string fakturDate, decimal nilaiFaktur, decimal nilaiPotongan, 
-            decimal nilaiPosting, bool post)
+            decimal nilaiPosting)
         {
             No = no;
             FakturId = fakturId;
@@ -35,8 +52,9 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
             FakturDate = fakturDate;
             NilaiFaktur = nilaiFaktur;
             NilaiPotongan = nilaiPotongan;
-            NilaiPosting = nilaiPosting;
-            _post = post;
+            
+            _nilaiPosting = nilaiPosting;
+            _isPost = nilaiPosting == 0 ? false : true;
         }
 
         public int No { get; private set; }
@@ -46,26 +64,40 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
 
         public decimal NilaiFaktur { get; private set; }
         public decimal NilaiPotongan { get; private set; }
-        public bool Post 
+        public bool IsPost 
         {
-            get => _post;
+            get => _isPost;
             set
             {
-                _post = value;
-                if (!_post)
+                _isPost = value;
+                if (!_isPost)
                 {
-                    NilaiPosting = 0;
+                    _nilaiPosting = 0;
                     return;
                 }
-                NilaiPosting = Math.Min(NilaiPotongan, NilaiReturBalance);
-                NilaiReturBalance -= NilaiPosting;
+                _nilaiPosting = Math.Min(NilaiPotongan, NilaiBalance);
+                AskHeaderToReCalc();
             }
         }
-        public decimal NilaiPosting { get; set; }
-        public decimal NilaiReturBalance { get; private set; }
-        public void SetNilaiReturBalance(decimal nilai)
-        {
-            NilaiReturBalance = nilai;
+        public decimal NilaiPosting 
+        { 
+            get => _nilaiPosting;
+            //set
+            //{
+            //    _nilaiPosting = value;
+            //    AskHeaderToReCalc();
+            //}
         }
+        public decimal NilaiBalance { get; private set; }
+        private void AskHeaderToReCalc()
+        {
+            _reCalc.ReCalc();
+        }
+        public void SetNilaiBalance(decimal nilai)
+        {
+            NilaiBalance = nilai;
+        }
+        public void SetReCalc(IReCalc reCalc)
+            => _reCalc = reCalc;
     }
 }

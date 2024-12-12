@@ -55,7 +55,8 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
             _returGridDataSource = new BindingList<ReturBalanceViewDto>();
             _returnItemGridDataSource = new BindingList<ReturItemViewDto>();
             _returItemBindingSource = new BindingSource();
-            _fakturPotHeader = new FakturPotHeaderViewDto { ListDetil = new BindingList<FakturPotDetilViewDto>()};
+            _fakturPotHeader = new FakturPotHeaderViewDto();
+
 
             _returJualDal = returJualDal;
             _returBalanceDal = returBalanceDal;
@@ -93,6 +94,7 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
 
             ListFakturPotGrid.EndEdit();
             ListFakturPotGrid.Refresh();
+            BalanceTextBox.Text = $"{_fakturPotHeader.NilaiBalance:N0}";
         }
 
         private void InitGrid()
@@ -157,7 +159,8 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
         private void InitGridFakturPot()
         {
             ListFakturPotGrid.DataSource = _fakturPotHeader.ListDetil;
-            ListFakturPotGrid.Columns["NilaiFaktur"].DefaultCellStyle.Format = "N0";
+            ListFakturPotGrid.Columns["NilaiBalance"].Visible = false;
+
 
             ListFakturPotGrid.Columns["NilaiFaktur"].DefaultCellStyle.Format = "N0";
             ListFakturPotGrid.Columns["NilaiPotongan"].DefaultCellStyle.Format = "N0";
@@ -176,7 +179,7 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
             ListFakturPotGrid.Columns["FakturDate"].Width = 70;
             ListFakturPotGrid.Columns["NilaiFaktur"].Width = 70;
             ListFakturPotGrid.Columns["NilaiPotongan"].Width = 70;
-            ListFakturPotGrid.Columns["Post"].Width = 40;
+            ListFakturPotGrid.Columns["IsPost"].Width = 40;
             ListFakturPotGrid.Columns["NilaiPosting"].Width = 70;
 
             ListFakturPotGrid.Columns["FakturId"].Visible = false;
@@ -245,13 +248,13 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
 
         private void LoadFakturPot(ReturBalanceModel returBalance)
         {
-            _fakturPotHeader.NilaiReturBalance = returBalance.NilaiRetur - returBalance.NilaiSumPost;
+            _fakturPotHeader.SetNilaiRetur(returBalance.NilaiRetur);
             _fakturPotHeader.ListDetil.Clear();
 
             var listExisting = returBalance.ListPost
                 .Select((x, idx) => new FakturPotDetilViewDto(
                     idx + 1, x.FakturId, x.FakturCode, 
-                    $"{x.FakturDate:dd-MMM-yyyy}", x.NilaiFaktur, x.NilaiPotong, x.NilaiPost, true))
+                    $"{x.FakturDate:dd-MMM-yyyy}", x.NilaiFaktur, x.NilaiPotong, x.NilaiPost))
                 ?.ToList()
                 ?? new List<FakturPotDetilViewDto>();
 
@@ -261,17 +264,18 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
             var listAvailable = listFakturPot
                 .Select((x, idx) => new FakturPotDetilViewDto(
                     idx + 1, x.FakturId, x.FakturCode, $"{x.FakturDate:dd-MM-yyyy}",
-                    x.NilaiFaktur, x.NilaiPotong, x.NilaiSumPost, false))
+                    x.NilaiFaktur, x.NilaiPotong, x.NilaiSumPost))
                 ?.ToList()
                 ?? new List<FakturPotDetilViewDto>();
 
             var listGabung = listExisting.Union(listAvailable);
             var datasource = listGabung.Select((x, idx) => new FakturPotDetilViewDto(
-                    idx + 1, x.FakturId, x.FakturCode, x.FakturDate, x.NilaiFaktur, x.NilaiPotongan, x.NilaiPosting, x.Post));
+                    idx + 1, x.FakturId, x.FakturCode, x.FakturDate, x.NilaiFaktur, 
+                    x.NilaiPotongan, x.NilaiPosting));
+            foreach(var item in datasource)
+                _fakturPotHeader.AddItem(item);
 
-            _fakturPotHeader.ListDetil = new BindingList<FakturPotDetilViewDto>(datasource.ToList());
             ListFakturPotGrid.DataSource = _fakturPotHeader.ListDetil;
-            _fakturPotHeader.NilaiReturBalance = returBalance.NilaiRetur - returBalance.NilaiSumPost;
         }
 
         private void RefreshGridRetur()
