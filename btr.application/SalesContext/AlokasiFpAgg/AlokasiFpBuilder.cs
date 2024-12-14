@@ -17,7 +17,7 @@ namespace btr.application.SalesContext.AlokasiFpAgg
         IAlokasiFpBuilder Create();
         IAlokasiFpBuilder Load(IAlokasiFpKey nsfpKey);
         IAlokasiFpBuilder Attach(AlokasiFpModel nsfp);
-        IAlokasiFpBuilder NomorSeri(string noAwal, string noAkhir);
+        IAlokasiFpBuilder NomorSeri(string noAwal, string noAkhir, string formatFlag);
         IAlokasiFpBuilder SetFaktur<T>(string nomorSeri, T faktur)
             where T: IFakturKey, IFakturCode;
         IAlokasiFpBuilder SetFaktur<T>(T faktur)
@@ -64,13 +64,23 @@ namespace btr.application.SalesContext.AlokasiFpAgg
             return this;
         }
 
-        public IAlokasiFpBuilder NomorSeri(string noAwal, string noAkhir)
+        public IAlokasiFpBuilder NomorSeri(string noAwal, string noAkhir, string formatFlag)
         {
-            //  const string pattern = @"(^\d{3}\-\d{3}-\d{2}\-)(\d{8})$";
-            //  sample string  "010.000-10.23456789";
-
-            const string pattern = @"(^\d{3}\.\d{2}\.)(\d{8})$";
-            //  sample string = 011.24.30651933
+            var pattern = string.Empty;
+            
+            switch(formatFlag)
+            {
+                case "16":
+                    pattern = @"(^\d{3}\.\d{3}-\d{2}\.)(\d{8})$";
+                    //  sample: "010.000-10.23456789";
+                    //           000.000-00.00000000
+                    break;
+                case "13":
+                    pattern = @"(^\d{3}\.\d{2}\.)(\d{8})$";
+                    //  sample: "011.24.30651933"
+                    //           000.00.00000000
+                    break;
+            };
 
             var match1 = Regex.Match(noAwal, pattern);
             if (!match1.Success)

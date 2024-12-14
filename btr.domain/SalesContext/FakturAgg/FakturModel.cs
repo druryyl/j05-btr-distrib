@@ -1,4 +1,5 @@
-﻿using btr.domain.InventoryContext.WarehouseAgg;
+﻿using btr.domain.InventoryContext.DriverAgg;
+using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.SalesPersonAgg;
 using btr.domain.SupportContext.UserAgg;
@@ -12,7 +13,7 @@ namespace btr.domain.SalesContext.FakturAgg
         Credit, Cash
     }
 
-    public class FakturModel : IFakturKey, ISalesPersonKey, ICustomerKey, IWarehouseKey, IUserKey, IFakturCode, INoFakturPajak
+    public class FakturModel : IFakturKey, ISalesPersonKey, ICustomerKey, IWarehouseKey, IUserKey, IFakturCode, INoFakturPajak, IDriverKey
     {
         public FakturModel()
         {
@@ -39,6 +40,9 @@ namespace btr.domain.SalesContext.FakturAgg
         public string WarehouseId { get; set; }
         public string WarehouseName { get; set; }
         public DateTime TglRencanaKirim { get; set; }
+        public string DriverId { get; set; }
+        public string DriverName { get; set; }
+
 
         public TermOfPaymentEnum TermOfPayment { get; set; }
         public DateTime DueDate { get; set; }

@@ -4,6 +4,7 @@ using btr.application.SupportContext.TglJamAgg;
 using btr.domain.FinanceContext.PiutangAgg;
 using btr.domain.FinanceContext.ReturBalanceAgg;
 using btr.domain.InventoryContext.ReturJualAgg;
+using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.FakturAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
@@ -18,6 +19,7 @@ namespace btr.application.FinanceContext.FakturPotBalanceAgg
     public interface IFakturPotBalanceBuilder : INunaBuilder<FakturPotBalanceModel>
     {
         IFakturPotBalanceBuilder LoadOrCreate(FakturModel faktur);
+        IFakturPotBalanceBuilder CreateHeap(CustomerModel customer);
         IFakturPotBalanceBuilder AddPost(ReturJualModel retur, string userId, decimal nilai);
         IFakturPotBalanceBuilder RemovePost(ReturJualModel retur);
     }
@@ -56,6 +58,7 @@ namespace btr.application.FinanceContext.FakturPotBalanceAgg
                 {
                     FakturId = faktur.FakturId,
                     FakturDate = faktur.FakturDate,
+                    IsHeapFaktur = false,
                     CustomerId = faktur.CustomerId,
                     CustomerName = faktur.CustomerName,
                     NilaiFaktur = faktur.GrandTotal,
@@ -68,6 +71,30 @@ namespace btr.application.FinanceContext.FakturPotBalanceAgg
             _agg.ListPost = listPost;
             return this;
         }
+
+        public IFakturPotBalanceBuilder CreateHeap(CustomerModel customer)
+        {
+            var tgl = _dateTime.Now;
+            var periodeTgl = tgl.Year.ToString().Reverse().Take(2);
+            var periodeBln = tgl.Month.ToString("X").Reverse().Take(1);
+            var periode = $"{periodeTgl}{periodeBln}";
+            var fakturPotKey = new FakturModel($"FKTR{periode}{customer.CustomerId}");
+
+            _agg = new FakturPotBalanceModel
+                {
+                    FakturId = fakturPotKey.FakturId,
+                    FakturDate = tgl.AddDays(-tgl.Day + 1),
+                    FakturCode = "HEAP",
+                    IsHeapFaktur = true,
+                    CustomerId = customer.CustomerId,
+                    CustomerName = customer.CustomerName,
+                    NilaiFaktur = 1,
+                    NilaiPotong = 1,
+                    ListPost = new List<FakturPotBalancePostModel>()
+                };
+                return this;
+        }
+
 
         public IFakturPotBalanceBuilder AddPost(ReturJualModel retur, string userId, decimal nilaiPost)
         {

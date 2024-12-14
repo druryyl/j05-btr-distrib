@@ -23,6 +23,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             JatuhTempo = $"Tempo: {faktur.DueDate:dd MMM yyyy}";
             SalesName = $"Sales: {faktur.SalesPersonName}";
             JenisBayar = $"Jenis:{faktur.TermOfPayment}";
+            DriverName = $"{faktur.DriverName}";
 
             TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
             Terbilang = $"Terbilang #{Math.Round(faktur.GrandTotal, 0).Eja()} rupiah#";
@@ -102,7 +103,8 @@ namespace btr.distrib.SalesContext.FakturAgg
 
         public string SalesName { get; set; }
         public string JenisBayar { get; set; }
-
+        public string DriverName { get; set; }
+        
         public string SubTotal { get; set; }
         public string Discount { get; set; }
         public string Ppn { get; set; }

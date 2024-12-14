@@ -6,6 +6,7 @@
 	UserId VARCHAR(20) NOT NULL CONSTRAINT DF_BTR_ReturJualBalancePost_UserId DEFAULT(''),
 
 	FakturId VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_ReturJualBalancePost_FakturId DEFAULT(''),
+	IsHeapFaktur BIT NOT NULL CONSTRAINT DF_BTR_ReturBalancePost_IsHeapFaktur DEFAULT(''),
 	NilaiFaktur DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturJualBalancePost_NilaiFaktur DEFAULT(0),
 	NilaiPotong DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturJualBalancePost_NilaiPotong DEFAULT(0),
 	NilaiPost DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturJualBalancePost_NilaiPost DEFAULT(0),

@@ -228,6 +228,7 @@
     <Compile Include="SalesContext\CustomerAgg\UseCases\ListCustomerQuery.cs" />
     <Compile Include="SalesContext\CustomerAgg\Workers\CustomerBuilder.cs" />
     <Compile Include="SalesContext\CustomerAgg\Workers\CustomerWriter.cs" />
+    <Compile Include="SalesContext\DriverFakturRpt\IDriverFakturInfoDal.cs" />
     <Compile Include="SalesContext\EFakturAgg\EfakturBuilder.cs" />
     <Compile Include="SalesContext\FakturAgg\Contracts\IFakturAlokasiFpItemDal.cs" />
     <Compile Include="SalesContext\FakturAgg\Contracts\IFakturDal.cs" />

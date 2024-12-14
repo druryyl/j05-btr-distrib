@@ -30,6 +30,8 @@
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.Digit13Option = new System.Windows.Forms.RadioButton();
+            this.Digit16Option = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
             this.AlokasiButton = new System.Windows.Forms.Button();
             this.NoAwalText = new System.Windows.Forms.MaskedTextBox();
@@ -93,14 +95,40 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.Cornsilk;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.Digit13Option);
+            this.panel2.Controls.Add(this.Digit16Option);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.AlokasiButton);
             this.panel2.Controls.Add(this.NoAwalText);
             this.panel2.Controls.Add(this.NoAkhirText);
             this.panel2.Location = new System.Drawing.Point(6, 7);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(229, 84);
+            this.panel2.Size = new System.Drawing.Size(229, 112);
             this.panel2.TabIndex = 5;
+            // 
+            // Digit13Option
+            // 
+            this.Digit13Option.AutoSize = true;
+            this.Digit13Option.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Digit13Option.Location = new System.Drawing.Point(76, 28);
+            this.Digit13Option.Name = "Digit13Option";
+            this.Digit13Option.Size = new System.Drawing.Size(64, 17);
+            this.Digit13Option.TabIndex = 14;
+            this.Digit13Option.Text = "13 Digit";
+            this.Digit13Option.UseVisualStyleBackColor = true;
+            // 
+            // Digit16Option
+            // 
+            this.Digit16Option.AutoSize = true;
+            this.Digit16Option.Checked = true;
+            this.Digit16Option.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Digit16Option.Location = new System.Drawing.Point(5, 28);
+            this.Digit16Option.Name = "Digit16Option";
+            this.Digit16Option.Size = new System.Drawing.Size(64, 17);
+            this.Digit16Option.TabIndex = 13;
+            this.Digit16Option.TabStop = true;
+            this.Digit16Option.Text = "16 Digit";
+            this.Digit16Option.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -118,7 +146,7 @@
             // 
             this.AlokasiButton.Location = new System.Drawing.Point(131, 54);
             this.AlokasiButton.Name = "AlokasiButton";
-            this.AlokasiButton.Size = new System.Drawing.Size(90, 22);
+            this.AlokasiButton.Size = new System.Drawing.Size(90, 49);
             this.AlokasiButton.TabIndex = 11;
             this.AlokasiButton.Text = "Create Alokasi";
             this.AlokasiButton.UseVisualStyleBackColor = true;
@@ -126,8 +154,8 @@
             // NoAwalText
             // 
             this.NoAwalText.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NoAwalText.Location = new System.Drawing.Point(5, 28);
-            this.NoAwalText.Mask = "000.00.00000000";
+            this.NoAwalText.Location = new System.Drawing.Point(5, 55);
+            this.NoAwalText.Mask = "000.000-00.00000000";
             this.NoAwalText.Name = "NoAwalText";
             this.NoAwalText.Size = new System.Drawing.Size(120, 20);
             this.NoAwalText.TabIndex = 9;
@@ -135,8 +163,8 @@
             // NoAkhirText
             // 
             this.NoAkhirText.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NoAkhirText.Location = new System.Drawing.Point(5, 54);
-            this.NoAkhirText.Mask = "000.00.00000000";
+            this.NoAkhirText.Location = new System.Drawing.Point(5, 81);
+            this.NoAkhirText.Mask = "000.000-00.00000000";
             this.NoAkhirText.Name = "NoAkhirText";
             this.NoAkhirText.Size = new System.Drawing.Size(120, 20);
             this.NoAkhirText.TabIndex = 10;
@@ -148,9 +176,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.AlokasiGrid.BackgroundColor = System.Drawing.Color.DarkKhaki;
             this.AlokasiGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.AlokasiGrid.Location = new System.Drawing.Point(6, 97);
+            this.AlokasiGrid.Location = new System.Drawing.Point(6, 125);
             this.AlokasiGrid.Name = "AlokasiGrid";
-            this.AlokasiGrid.Size = new System.Drawing.Size(229, 347);
+            this.AlokasiGrid.Size = new System.Drawing.Size(229, 319);
             this.AlokasiGrid.TabIndex = 4;
             // 
             // label3
@@ -389,5 +417,7 @@
         private System.Windows.Forms.CheckBox AllOutstandingCheckBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.RadioButton Digit16Option;
+        private System.Windows.Forms.RadioButton Digit13Option;
     }
 }

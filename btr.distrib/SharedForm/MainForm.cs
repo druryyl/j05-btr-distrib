@@ -44,6 +44,7 @@ using btr.distrib.SalesContext.FakturPajakRpt;
 using btr.distrib.SalesContext.FakturCashRpt;
 using btr.distrib.InventoryContext.ReturJualRpt;
 using btr.distrib.FinanceContext.ReturBalanceAgg;
+using btr.distrib.SalesContext.DriverFakturRpt;
 
 namespace btr.distrib.SharedForm
 {
@@ -526,6 +527,16 @@ namespace btr.distrib.SharedForm
             form.MdiParent = this;
             form.Show();
 
+        }
+
+        private void SF8DriverFaktur_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<DriverFakturInfoForm>())
+                return;
+            var form = _servicesProvider.GetRequiredService<DriverFakturInfoForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
         }
     }
 }

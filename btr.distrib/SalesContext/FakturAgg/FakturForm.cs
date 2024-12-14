@@ -24,6 +24,8 @@ using btr.domain.SalesContext.FakturAgg;
 using Mapster;
 using btr.domain.FinanceContext.PiutangAgg;
 using btr.application.FinanceContext.PiutangAgg.Workers;
+using btr.application.InventoryContext.DriverAgg;
+using btr.domain.InventoryContext.DriverAgg;
 
 namespace btr.distrib.SalesContext.FakturAgg
 {
@@ -36,6 +38,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly IBrowser<WarehouseBrowserView> _warehouseBrowser;
         private readonly IBrowser<BrgStokBrowserView> _brgStokBrowser;
         private readonly IBrowser<Faktur2BrowserView> _fakturBrowser;
+        private readonly IBrowser<DriverBrowserView> _driverBrowser;
 
         private readonly ISalesPersonDal _salesPersonDal;
         private readonly ICustomerDal _customerDal;
@@ -43,6 +46,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly IBrgBuilder _brgBuilder;
         private readonly ITglJamDal _dateTime;
         private readonly IBrgDal _brgDal;
+        private readonly IDriverDal _driverDal;
         private readonly IFakturBuilder _fakturBuilder;
         private readonly ISaveFakturWorker _saveFakturWorker;
         private readonly ICreateFakturItemWorker _createItemWorker;
@@ -69,7 +73,9 @@ namespace btr.distrib.SalesContext.FakturAgg
             ISaveFakturWorker saveFakturWorker,
             ICreateFakturItemWorker createItemWorker,
             IPiutangBuilder piutangBuilder,
-            IPiutangWriter piutangWriter)
+            IPiutangWriter piutangWriter,
+            IBrowser<DriverBrowserView> driverBrowser,
+            IDriverDal driverDal)
         {
             _warehouseBrowser = warehouseBrowser;
             _salesBrowser = salesBrowser;
@@ -89,12 +95,14 @@ namespace btr.distrib.SalesContext.FakturAgg
             _saveFakturWorker = saveFakturWorker;
             _createItemWorker = createItemWorker;
             _piutangBuilder = piutangBuilder;
+            _piutangWriter = piutangWriter;
+            _driverBrowser = driverBrowser;
+            _driverDal = driverDal;
 
             InitializeComponent();
             InitGrid();
             ClearForm();
             RegisterEventHandler();
-            _piutangWriter = piutangWriter;
         }
 
         private void RegisterEventHandler()
@@ -113,14 +121,47 @@ namespace btr.distrib.SalesContext.FakturAgg
             WarehouseButton.Click += WarehouseButton_Click;
             WarehouseIdText.KeyDown += WarehouseIdText_KeyDown;
 
+            DriverIdText.Validated += DriverIdText_Validated;
+            DriverButton.Click += DriverButton_Click;
+            DriverIdText.KeyDown += DriverIdTextBox_KeyDown;
+
             FakturItemGrid.CellContentClick += FakturItemGrid_CellContentClick;
             FakturItemGrid.CellValueChanged += FakturItemGrid_CellValueChanged;
             FakturItemGrid.CellValidated += FakturItemGrid_CellValidated;
             FakturItemGrid.KeyDown += FakturItemGrid_KeyDown;
             FakturItemGrid.EditingControlShowing += FakturItemGrid_EditingControlShowing;
 
+
             NewButton.Click += NewButton_Click;
             UangMukaText.KeyDown += UangMukaText_KeyDown;
+        }
+
+        private void DriverIdTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F1)
+            {
+                _driverBrowser.Filter.UserKeyword = DriverIdText.Text;
+                DriverIdText.Text = _driverBrowser.Browse(DriverIdText.Text);
+                DriverIdText_Validated(DriverIdText, null);
+                if (DriverNameText.Text.Length > 0)
+                    TermOfPaymentCombo.Focus();
+            }
+        }
+
+        private void DriverButton_Click(object sender, EventArgs e)
+        {
+            DriverIdText.Text = _driverBrowser.Browse(DriverIdText.Text);
+            DriverIdText_Validated(DriverIdText, null);
+        }
+
+        private void DriverIdText_Validated(object sender, EventArgs e)
+        {
+            var textbox = (TextBox)sender;
+            if (textbox.Text.Length == 0)
+                return;
+
+            var driver = _driverDal.GetData(new DriverModel(textbox.Text));
+            DriverNameText.Text = driver?.DriverName ?? string.Empty;
         }
 
         private void UangMukaText_KeyDown(object sender, KeyEventArgs e)
@@ -159,6 +200,8 @@ namespace btr.distrib.SalesContext.FakturAgg
             TglRencanaKirimTextBox.Value= DateTime.Now.AddDays(1);
             TermOfPaymentCombo.SelectedIndex = 0;
             NoteTextBox.Clear();
+            DriverIdText.Clear();
+            DriverNameText.Clear();
 
             TotalText.Value = 0;
             DiscountText.Value = 0;
@@ -226,6 +269,9 @@ namespace btr.distrib.SalesContext.FakturAgg
             WarehouseIdText.Text = faktur.WarehouseId;
             WarehouseNameText.Text = faktur.WarehouseName;
             TglRencanaKirimTextBox.Value = faktur.TglRencanaKirim;
+            DriverIdText.Text = faktur.DriverId;
+            DriverNameText.Text = faktur.DriverName;
+
             TermOfPaymentCombo.SelectedIndex = (int)faktur.TermOfPayment;
             DueDateText.Value = faktur.DueDate;
             TotalText.Value = faktur.Total;
@@ -661,6 +707,7 @@ namespace btr.distrib.SalesContext.FakturAgg
                 SalesPersonId = SalesIdText.Text,
                 WarehouseId = WarehouseIdText.Text,
                 RencanaKirimDate = TglRencanaKirimTextBox.Value.ToString("yyyy-MM-dd"),
+                DriverId = DriverIdText.Text,
                 TermOfPayment = TermOfPaymentCombo.SelectedIndex,
                 DueDate = DueDateText.Value.ToString("yyyy-MM-dd"),
                 UserId = mainform.UserId.UserId,

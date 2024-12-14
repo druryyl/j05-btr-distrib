@@ -19,6 +19,7 @@ using btr.application.SalesContext.FakturAgg.Contracts;
 using Syncfusion.Windows.Forms.Grid;
 using System.Windows.Forms.DataVisualization.Charting;
 using DocumentFormat.OpenXml.Drawing.Charts;
+using btr.application.SalesContext.CustomerAgg.Contracts;
 
 namespace btr.distrib.FinanceContext.ReturBalanceAgg
 {
@@ -29,6 +30,7 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
         private readonly IReturBalanceBuilder _returBalanceBuilder;
         private readonly IReturJualBuilder _returJualBuilder;
         private readonly IBrgSatuanDal _brgSatuanDal;
+        private readonly ICustomerDal _customerDal;
         private readonly IFakturPotBalanceDal _fakturPotBalanceDal;
         private readonly IFakturPotBalanceBuilder _fakturPotBalanceBuilder;
         private readonly IFakturPotBalanceBuilder _fakturPotBalanceWriter;
@@ -48,7 +50,8 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
             IFakturPotBalanceDal fakturPotBalanceDal,
             IFakturPotBalanceBuilder fakturPotBalanceBuilder,
             IFakturPotBalanceBuilder fakturPotBalanceWriter,
-            IFakturDal fakturDal)
+            IFakturDal fakturDal,
+            ICustomerDal customerDal)
         {
             InitializeComponent();
 
@@ -70,6 +73,7 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
 
             RegisterEventHandler();
             InitGrid();
+            _customerDal = customerDal;
         }
 
         private void RegisterEventHandler()
@@ -254,7 +258,7 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
             var listExisting = returBalance.ListPost
                 .Select((x, idx) => new FakturPotDetilViewDto(
                     idx + 1, x.FakturId, x.FakturCode, 
-                    $"{x.FakturDate:dd-MMM-yyyy}", x.NilaiFaktur, x.NilaiPotong, x.NilaiPost))
+                    $"{x.FakturDate:dd-MMM-yyyy}", x.NilaiFaktur, x.NilaiPotong, x.NilaiPost, x.IHeapFaktur))
                 ?.ToList()
                 ?? new List<FakturPotDetilViewDto>();
 
@@ -264,17 +268,34 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
             var listAvailable = listFakturPot
                 .Select((x, idx) => new FakturPotDetilViewDto(
                     idx + 1, x.FakturId, x.FakturCode, $"{x.FakturDate:dd-MM-yyyy}",
-                    x.NilaiFaktur, x.NilaiPotong, x.NilaiSumPost))
+                    x.NilaiFaktur, x.NilaiPotong, x.NilaiSumPost, x.IsHeapFaktur))
                 ?.ToList()
                 ?? new List<FakturPotDetilViewDto>();
 
-            var listGabung = listExisting.Union(listAvailable);
-            var datasource = listGabung.Select((x, idx) => new FakturPotDetilViewDto(
+            //  create heap-faktur jika belum ada
+            var listGabung = listExisting.Union(listAvailable)?.ToList() ?? new List<FakturPotDetilViewDto>();
+            if (!listGabung.Any(x => x.IsHeapFaktur))
+            {
+                var cust = _customerDal.GetData(returBalance)
+                    ?? throw new KeyNotFoundException("Customer not found. Create Heap-Faktur failed");
+                var heapFaktur = _fakturPotBalanceBuilder.CreateHeap(cust).Build();
+                listGabung.Add(new FakturPotDetilViewDto(
+                    999, heapFaktur.FakturId, heapFaktur.FakturCode, $"{heapFaktur.FakturDate:dd-MM-yyyy}",
+                    heapFaktur.NilaiFaktur, heapFaktur.NilaiPotong,
+                    heapFaktur.NilaiSumPost, heapFaktur.IsHeapFaktur));
+            }
+
+            var datasource = listGabung
+                .Select((x, idx) => new FakturPotDetilViewDto(
                     idx + 1, x.FakturId, x.FakturCode, x.FakturDate, x.NilaiFaktur, 
-                    x.NilaiPotongan, x.NilaiPosting));
+                    x.NilaiPotongan, x.NilaiPosting, x.IsHeapFaktur));
             foreach(var item in datasource)
                 _fakturPotHeader.AddItem(item);
 
+            //  TODO: set nilai sisa potong semua fakturpot
+
+
+            //  tampilkan di grid
             ListFakturPotGrid.DataSource = _fakturPotHeader.ListDetil;
         }
 

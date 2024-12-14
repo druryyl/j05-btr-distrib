@@ -100,7 +100,20 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             FakturGrid.CellContentClick += FakturGrid_CellContentClick;
 
             ExportEFakturButton.Click += ExportEFakturButton_Click;
-            ExportExcelButton.Click += ExportExcelButton_Click; 
+            ExportExcelButton.Click += ExportExcelButton_Click;
+
+            Digit16Option.CheckedChanged += Digit1316Option_CheckedChanged;
+            Digit13Option.CheckedChanged += Digit1316Option_CheckedChanged;
+        }
+
+        private void Digit1316Option_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Digit16Option.Checked)
+                NoAwalText.Mask = "000.000-00.00000000";
+            else
+                NoAwalText.Mask = "000.00.00000000";
+
+            NoAkhirText.Mask = NoAwalText.Mask;
         }
 
 
@@ -267,9 +280,10 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
 
         private void CreateAlokasi()
         {
+            var formatFlag = Digit16Option.Checked ? "16" : "13";
             var nsfp = _alokasiBuilder
                 .Create()
-                .NomorSeri(NoAwalText.Text, NoAkhirText.Text)
+                .NomorSeri(NoAwalText.Text, NoAkhirText.Text, formatFlag)
                 .Build();
             _alokasiWriter.Save(nsfp);
         }

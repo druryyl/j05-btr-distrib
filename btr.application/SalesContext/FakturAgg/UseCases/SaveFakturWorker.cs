@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using btr.application.InventoryContext.StokAgg.GenStokUseCase;
 using btr.application.SalesContext.FakturAgg.Workers;
 using btr.domain.BrgContext.BrgAgg;
+using btr.domain.InventoryContext.DriverAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.FakturAgg;
@@ -17,7 +18,7 @@ using Polly;
 
 namespace btr.application.SalesContext.FakturAgg.UseCases
 {
-    public class SaveFakturRequest : IFakturKey, ICustomerKey, ISalesPersonKey, IWarehouseKey, IUserKey
+    public class SaveFakturRequest : IFakturKey, ICustomerKey, ISalesPersonKey, IWarehouseKey, IUserKey, IDriverKey
     {
         public string FakturId { get; set; }
         public string FakturDate { get; set; }
@@ -25,6 +26,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
         public string SalesPersonId { get; set; }
         public string WarehouseId { get; set; }
         public string RencanaKirimDate { get; set; }
+        public string DriverId { get; set; }
         public int TermOfPayment { get; set; }
         public string DueDate { get; set; }
         public string UserId { get; set; }
@@ -149,6 +151,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
                 .SalesPerson(req)
                 .Warehouse(req)
                 .TglRencanaKirim(req.RencanaKirimDate.ToDate(DateFormatEnum.YMD))
+                .Driver(req)
                 .User(req)
                 .TermOfPayment((TermOfPaymentEnum)req.TermOfPayment)
                 .DueDate(req.DueDate.ToDate(DateFormatEnum.YMD))

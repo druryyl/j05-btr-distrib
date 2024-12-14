@@ -81,6 +81,7 @@
             this.ReturTab = new System.Windows.Forms.RibbonTab();
             this.ribbonPanel3 = new System.Windows.Forms.RibbonPanel();
             this.RT1ReturJualButton = new System.Windows.Forms.RibbonButton();
+            this.RT2PostingRetur = new System.Windows.Forms.RibbonButton();
             this.ribbonPanel4 = new System.Windows.Forms.RibbonPanel();
             this.RF1ReturJualInfo = new System.Windows.Forms.RibbonButton();
             this.SettingTab = new System.Windows.Forms.RibbonTab();
@@ -92,7 +93,7 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.RT2PostingRetur = new System.Windows.Forms.RibbonButton();
+            this.SF8DriverFaktur = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -177,6 +178,7 @@
             this.SalesInfoPanel.Items.Add(this.SF5FakturPajakButton);
             this.SalesInfoPanel.Items.Add(this.SF6FakturCashButton);
             this.SalesInfoPanel.Items.Add(this.SF7OmzetPerSupplier);
+            this.SalesInfoPanel.Items.Add(this.SF8DriverFaktur);
             this.SalesInfoPanel.Name = "SalesInfoPanel";
             this.SalesInfoPanel.Text = "Reporting";
             // 
@@ -568,6 +570,15 @@
             this.RT1ReturJualButton.Text = "RT1-Retur Jual";
             this.RT1ReturJualButton.Click += new System.EventHandler(this.FT3ReturJualButton_Click);
             // 
+            // RT2PostingRetur
+            // 
+            this.RT2PostingRetur.Image = global::btr.distrib.Properties.Resources.icons8_uninstalling_updates_32;
+            this.RT2PostingRetur.LargeImage = global::btr.distrib.Properties.Resources.icons8_uninstalling_updates_32;
+            this.RT2PostingRetur.Name = "RT2PostingRetur";
+            this.RT2PostingRetur.SmallImage = ((System.Drawing.Image)(resources.GetObject("RT2PostingRetur.SmallImage")));
+            this.RT2PostingRetur.Text = "RT2-Posting Retur";
+            this.RT2PostingRetur.Click += new System.EventHandler(this.RT2PostingRetur_Click);
+            // 
             // ribbonPanel4
             // 
             this.ribbonPanel4.Items.Add(this.RF1ReturJualInfo);
@@ -653,19 +664,20 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
-            // RT2PostingRetur
+            // SF8DriverFaktur
             // 
-            this.RT2PostingRetur.Image = global::btr.distrib.Properties.Resources.icons8_uninstalling_updates_32;
-            this.RT2PostingRetur.LargeImage = global::btr.distrib.Properties.Resources.icons8_uninstalling_updates_32;
-            this.RT2PostingRetur.Name = "RT2PostingRetur";
-            this.RT2PostingRetur.SmallImage = ((System.Drawing.Image)(resources.GetObject("RT2PostingRetur.SmallImage")));
-            this.RT2PostingRetur.Text = "RT2-Posting Retur";
-            this.RT2PostingRetur.Click += new System.EventHandler(this.RT2PostingRetur_Click);
+            this.SF8DriverFaktur.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.SF8DriverFaktur.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.SF8DriverFaktur.Name = "SF8DriverFaktur";
+            this.SF8DriverFaktur.SmallImage = ((System.Drawing.Image)(resources.GetObject("SF8DriverFaktur.SmallImage")));
+            this.SF8DriverFaktur.Text = "SF8-Driver Faktur";
+            this.SF8DriverFaktur.Click += new System.EventHandler(this.SF8DriverFaktur_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::btr.distrib.Properties.Resources.app_wallpaper_5;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1139, 450);
             this.Controls.Add(this.AppStatus);
@@ -753,5 +765,6 @@
         private System.Windows.Forms.RibbonPanel ribbonPanel4;
         private System.Windows.Forms.RibbonButton RF1ReturJualInfo;
         private System.Windows.Forms.RibbonButton RT2PostingRetur;
+        private System.Windows.Forms.RibbonButton SF8DriverFaktur;
     }
 }

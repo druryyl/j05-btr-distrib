@@ -1929,6 +1929,40 @@
           </Border>
         </Style>
       </Line>
+      <Textbox Name="Textbox21">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!DriverName.Value, "FakturJualDataset")</Value>
+                <Style>
+                  <FontFamily>Segoe UI</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox14</rd:DefaultName>
+        <Top>3.13618in</Top>
+        <Left>2.60069in</Left>
+        <Height>0.20556in</Height>
+        <Width>1.31598in</Width>
+        <ZIndex>32</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <VerticalAlign>Middle</VerticalAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
     </ReportItems>
     <Height>3.66542in</Height>
     <Style>
@@ -1989,6 +2023,10 @@
           <DataField>Discount</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="DriverName">
+          <DataField>DriverName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="FakturCode">
           <DataField>FakturCode</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -2009,6 +2047,10 @@
           <DataField>JenisBayar</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="Note">
+          <DataField>Note</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="Ppn">
           <DataField>Ppn</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -2023,10 +2065,6 @@
         </Field>
         <Field Name="Terbilang">
           <DataField>Terbilang</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Note">
-          <DataField>Note</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="UserName">
@@ -2056,27 +2094,27 @@
         </Field>
         <Field Name="Disc1">
           <DataField>Disc1</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Disc2">
           <DataField>Disc2</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Disc3">
           <DataField>Disc3</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Disc4">
           <DataField>Disc4</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="HrgBesar">
           <DataField>HrgBesar</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="HrgKecil">
           <DataField>HrgKecil</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="NoUrut">
           <DataField>NoUrut</DataField>
@@ -2092,7 +2130,7 @@
         </Field>
         <Field Name="Total">
           <DataField>Total</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>

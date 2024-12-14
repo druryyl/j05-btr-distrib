@@ -33,15 +33,16 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
         {
             const string sql = @"
                 INSERT INTO BTR_FakturPotBalance(
-                    FakturId, NilaiFaktur, NilaiPotong, NilaiSumPost)
+                    FakturId, NilaiFaktur, NilaiPotong, NilaiSumPost, IsHeapFaktur)
                 VALUES (
-                    @FakturId, @NilaiFaktur, @NilaiPotong, @NilaiSumPost)";
+                    @FakturId, @NilaiFaktur, @NilaiPotong, @NilaiSumPost, @IsHeapFaktur)";
 
             var dp = new DynamicParameters();
             dp.AddParam("@FakturId", model.FakturId, SqlDbType.VarChar);
             dp.AddParam("@NilaiFaktur", model.NilaiFaktur, SqlDbType.Decimal);
             dp.AddParam("@NilaiPotong", model.NilaiPotong, SqlDbType.Decimal);
             dp.AddParam("@NilaiSumPost", model.NilaiSumPost, SqlDbType.Decimal);
+            dp.AddParam("@IsHeapFaktur", model.IsHeapFaktur, SqlDbType.Bit);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -57,7 +58,8 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
                 SET
                     NilaiFaktur = @NilaiFaktur,
                     NilaiPotong = @NilaiPotong, 
-                    NilaiSumPost = @NilaiSumPost
+                    NilaiSumPost = @NilaiSumPost,
+                    IsHeapFaktur = @IsHeapFaktur
                 WHERE
                     FakturId= @FakturId";
 
@@ -66,6 +68,7 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
             dp.AddParam("@NilaiFaktur", model.NilaiFaktur, SqlDbType.Decimal);
             dp.AddParam("@NilaiPotong", model.NilaiPotong, SqlDbType.Decimal);
             dp.AddParam("@NilaiSumPost", model.NilaiSumPost, SqlDbType.Decimal);
+            dp.AddParam("@IsHeapFaktur", model.IsHeapFaktur, SqlDbType.Bit);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -94,7 +97,8 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
         {
             const string sql = @"
                 SELECT
-                    aa.FakturId, aa.NilaiFaktur, aa.NilaiPotong, aa.NilaiSumPost,
+                    aa.FakturId, aa.NilaiFaktur, aa.NilaiPotong, 
+                    aa.NilaiSumPost, aa.IsHeapFaktur,
                     ISNULL(bb.FakturDate, '3000-01-01') FakturDate,
                     ISNULL(bb.FakturCode, '') FakturCode,
                     ISNULL(bb.CustomerId, '') CustomerId,
@@ -119,7 +123,8 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
         {
             const string sql = @"
                 SELECT
-                    aa.FakturId, aa.NilaiFaktur, aa.NilaiPotong, aa.NilaiSumPost,
+                    aa.FakturId, aa.NilaiFaktur, aa.NilaiPotong, 
+                    aa.NilaiSumPost, aa.IsHeapFaktur,
                     ISNULL(bb.FakturDate, '3000-01-01') FakturDate,
                     ISNULL(bb.FakturCode, '') FakturCode,
                     ISNULL(bb.CustomerId, '') CustomerId,
@@ -144,7 +149,8 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
         {
             const string sql = @"
                 SELECT
-                    aa.FakturId, aa.NilaiFaktur, aa.NilaiPotong, aa.NilaiSumPost,
+                    aa.FakturId, aa.NilaiFaktur, aa.NilaiPotong, 
+                    aa.NilaiSumPost, aa.IsHeapFaktur,
                     ISNULL(bb.FakturDate, '3000-01-01') FakturDate,
                     ISNULL(bb.FakturCode, '') FakturCode,
                     ISNULL(bb.CustomerId, '') CustomerId,

@@ -1,5 +1,4 @@
-﻿using btr.application.SalesContext.FakturInfo;
-using btr.nuna.Domain;
+﻿using btr.nuna.Domain;
 using ClosedXML.Excel;
 using Syncfusion.Grouping;
 using Syncfusion.Windows.Forms.Grid.Grouping;

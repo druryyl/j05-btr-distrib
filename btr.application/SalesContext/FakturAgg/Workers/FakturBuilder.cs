@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using btr.application.BrgContext.BrgAgg;
+using btr.application.InventoryContext.DriverAgg;
 using btr.application.InventoryContext.WarehouseAgg;
 using btr.application.SalesContext.CustomerAgg.Contracts;
 using btr.application.SalesContext.FakturAgg.Contracts;
 using btr.application.SalesContext.SalesPersonAgg.Contracts;
 using btr.application.SupportContext.TglJamAgg;
 using btr.domain.BrgContext.BrgAgg;
+using btr.domain.InventoryContext.DriverAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.FakturAgg;
@@ -30,6 +32,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         IFakturBuilder SalesPerson(ISalesPersonKey salesPersonKey);
         IFakturBuilder Warehouse(IWarehouseKey warehouseKey);
         IFakturBuilder TglRencanaKirim(DateTime tglRencanaKirim);
+        IFakturBuilder Driver(IDriverKey driverKey);
         IFakturBuilder TermOfPayment(TermOfPaymentEnum termOfPayment);
         IFakturBuilder DueDate(DateTime dueDate);
 
@@ -56,6 +59,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         private readonly ICustomerDal _customerDal;
         private readonly ISalesPersonDal _salesPersonDal;
         private readonly IWarehouseDal _warehouseDal;
+        private readonly IDriverDal _driverDal;
         private readonly IBrgBuilder _brgBuilder;
         private readonly ITglJamDal _dateTime;
         private readonly ICreateFakturItemWorker _createFakturItemWorker;
@@ -68,7 +72,8 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             IWarehouseDal warehouseDal,
             IBrgBuilder brgBuilder,
             ITglJamDal dateTime,
-            ICreateFakturItemWorker createFakturItemWorker)
+            ICreateFakturItemWorker createFakturItemWorker,
+            IDriverDal driverDal)
         {
             _fakturDal = fakturDal;
             _fakturItemDal = fakturItemDal;
@@ -80,6 +85,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             _brgBuilder = brgBuilder;
             _dateTime = dateTime;
             _createFakturItemWorker = createFakturItemWorker;
+            _driverDal = driverDal;
         }
 
         public FakturModel Build()
@@ -175,6 +181,15 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         public IFakturBuilder TglRencanaKirim(DateTime tglRencanaKirim)
         {
             _aggRoot.TglRencanaKirim = tglRencanaKirim;
+            return this;
+        }
+
+        public IFakturBuilder Driver(IDriverKey driverKey)
+        {
+            var driver = _driverDal.GetData(driverKey) 
+                ?? throw new KeyNotFoundException($"DriverId not found ({driverKey.DriverId})");
+            _aggRoot.DriverId = driver.DriverId;
+            _aggRoot.DriverName = driver.DriverName;
             return this;
         }
 

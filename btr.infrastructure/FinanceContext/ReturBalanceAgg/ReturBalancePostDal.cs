@@ -32,6 +32,7 @@ namespace btr.infrastructure.FinanceContext.ReturBalanceAgg
                 bcp.AddMap("PostDate", "PostDate");
                 bcp.AddMap("UserId", "UserId");
                 bcp.AddMap("FakturId","FakturId");
+                bcp.AddMap("IsHeapFaktur", "IsHeapFaktur");
                 bcp.AddMap("NilaiFaktur","NilaiFaktur");
                 bcp.AddMap("NilaiPotong","NilaiPotong");
                 bcp.AddMap("NilaiPost", "NilaiPost");
@@ -65,7 +66,7 @@ namespace btr.infrastructure.FinanceContext.ReturBalanceAgg
             const string sql = @"
                 SELECT
                     aa.ReturJualId, aa.NoUrut, aa.PostDate, aa.UserId, aa.FakturId, 
-                    aa.NilaiFaktur, aa.NilaiPotong,  aa.NilaiPost,  
+                    aa.NilaiFaktur, aa.NilaiPotong,  aa.NilaiPost,  aa.IsHeapFaktur,
                     ISNULL(bb.FakturCode, '') FakturCode,
                     ISNULL(bb.FakturDate, '3000-01-01') FakturDate
                 FROM

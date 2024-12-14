@@ -25,12 +25,12 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             const string sql = @"
             INSERT INTO BTR_Faktur(
                 FakturId, FakturDate, FakturCode, SalesPersonId, CustomerId, HargaTypeId,
-                WarehouseId, TglRencanaKirim, TermOfPayment, DueDate, Total,
+                WarehouseId, TglRencanaKirim, DriverId, TermOfPayment, DueDate, Total,
                 Discount, Tax, GrandTotal, UangMuka, KurangBayar, NoFakturPajak,
                 CreateTime, LastUpdate, UserId, VoidDate, UserIdVoid, Note)
             VALUES(
                 @FakturId, @FakturDate, @FakturCode, @SalesPersonId, @CustomerId, @HargaTypeId,
-                @WarehouseId, @TglRencanaKirim, @TermOfPayment, @DueDate, @Total,
+                @WarehouseId, @TglRencanaKirim, @DriverId, @TermOfPayment, @DueDate, @Total,
                 @Discount, @Tax, @GrandTotal, @UangMuka, @KurangBayar, @NoFakturPajak,
                 @CreateTime, @LastUpdate, @UserId, @VoidDate, @UserIdVoid, @Note) ";
 
@@ -45,6 +45,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
 
             dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
             dp.AddParam("@TglRencanaKirim", model.TglRencanaKirim, SqlDbType.DateTime);
+            dp.AddParam("@DriverId", model.DriverId, SqlDbType.VarChar);
             dp.AddParam("@TermOfPayment", model.TermOfPayment, SqlDbType.Int);
             dp.AddParam("@DueDate", model.DueDate, SqlDbType.DateTime);
 
@@ -84,6 +85,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 HargaTypeId = @HargaTypeId,
                 WarehouseId = @WarehouseId, 
                 TglRencanaKirim = @TglRencanaKirim, 
+                DriverId = @DriverId,
                 TermOfPayment = @TermOfPayment, 
                 DueDate = @DueDate,
 
@@ -113,8 +115,10 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             dp.AddParam("@SalesPersonId", model.SalesPersonId, SqlDbType.VarChar);
             dp.AddParam("@CustomerId", model.CustomerId, SqlDbType.VarChar);
             dp.AddParam("@HargaTypeId", model.HargaTypeId, SqlDbType.VarChar);
+
             dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
             dp.AddParam("@TglRencanaKirim", model.TglRencanaKirim, SqlDbType.DateTime);
+            dp.AddParam("@DriverId", model.DriverId, SqlDbType.VarChar);
             dp.AddParam("@TermOfPayment", model.TermOfPayment, SqlDbType.Int);
             dp.AddParam("@DueDate", model.DueDate, SqlDbType.DateTime);
 
@@ -161,7 +165,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             const string sql = @"
             SELECT
                 aa.FakturId, aa.FakturDate, aa.FakturCode, aa.SalesPersonId, aa.CustomerId, aa.HargaTypeId,
-                aa.WarehouseId, aa.TglRencanaKirim, aa.TermOfPayment, aa.DueDate, aa.Total,
+                aa.WarehouseId, aa.TglRencanaKirim, aa.DriverId, aa.TermOfPayment, aa.DueDate, aa.Total,
                 aa.Discount, aa.Tax, aa.GrandTotal, aa.UangMuka, aa.KurangBayar, aa.NoFakturPajak,
                 aa.CreateTime, aa.LastUpdate, aa.UserId, aa.VoidDate, aa.UserIdVoid, aa.Note,
                 ISNULL(bb.SalesPersonName, '') AS SalesPersonName,
@@ -172,12 +176,14 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 ISNULL(cc.CreditBalance, 0) AS CreditBalance,
                 ISNULL(cc.Address1, '') AS Address,
                 ISNULL(cc.Kota, '') AS Kota,
-                ISNULL(dd.WarehouseName, '') AS WarehouseName
+                ISNULL(dd.WarehouseName, '') AS WarehouseName,
+                ISNULL(ee.DriverName, '') AS DriverName
             FROM 
                 BTR_Faktur aa
                 LEFT JOIN BTR_SalesPerson bb ON aa.SalesPersonId = bb.SalesPersonId
                 LEFT JOIN BTR_Customer cc ON aa.CustomerId = cc.CustomerId
                 LEFT JOIN BTR_Warehouse dd on aa.WarehouseId = dd.WarehouseId
+                LEFT JOIN BTR_Driver ee ON aa.DriverId = ee.DriverId
             WHERE
                 aa.FakturId = @FakturId ";
 
@@ -195,7 +201,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             const string sql = @"
             SELECT
                 aa.FakturId, aa.FakturDate, aa.FakturCode, aa.SalesPersonId, aa.CustomerId, aa.HargaTypeId,
-                aa.WarehouseId, aa.TglRencanaKirim, aa.TermOfPayment, aa.DueDate, aa.Total,
+                aa.WarehouseId, aa.TglRencanaKirim, aa.DriverId, aa.TermOfPayment, aa.DueDate, aa.Total,
                 aa.Discount, aa.Tax, aa.GrandTotal, aa.UangMuka, aa.KurangBayar, aa.NoFakturPajak,
                 aa.CreateTime, aa.LastUpdate, aa.UserId, aa.VoidDate, aa.UserIdVoid, aa.Note,
                 ISNULL(bb.SalesPersonName, '') AS SalesPersonName,
@@ -206,12 +212,14 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 ISNULL(cc.CreditBalance, 0) AS CreditBalance,
                 ISNULL(cc.Address1, '') AS Address,
                 ISNULL(cc.Kota, '') AS Kota,
-                ISNULL(dd.WarehouseName, '') AS WarehouseName
+                ISNULL(dd.WarehouseName, '') AS WarehouseName,
+                ISNULL(ee.DriverName, '') AS DriverName
             FROM 
                 BTR_Faktur aa
                 LEFT JOIN BTR_SalesPerson bb ON aa.SalesPersonId = bb.SalesPersonId
                 LEFT JOIN BTR_Customer cc ON aa.CustomerId = cc.CustomerId
                 LEFT JOIN BTR_Warehouse dd on aa.WarehouseId = dd.WarehouseId
+                LEFT JOIN BTR_Driver ee ON aa.DriverId = ee.DriverId
             WHERE
                 aa.FakturDate BETWEEN @Tgl1 AND @Tgl2 
                 AND aa.VoidDate = '3000-01-01'";
@@ -275,7 +283,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             const string sql = @"
             SELECT
                 aa.FakturId, aa.FakturDate, aa.FakturCode, aa.SalesPersonId, aa.CustomerId, aa.HargaTypeId,
-                aa.WarehouseId, aa.TglRencanaKirim, aa.TermOfPayment, aa.DueDate, aa.Total,
+                aa.WarehouseId, aa.TglRencanaKirim, aa.DriverId, aa.TermOfPayment, aa.DueDate, aa.Total,
                 aa.Discount, aa.Tax, aa.GrandTotal, aa.UangMuka, aa.KurangBayar, aa.NoFakturPajak,
                 aa.CreateTime, aa.LastUpdate, aa.UserId, aa.VoidDate, aa.UserIdVoid, aa.Note,
                 ISNULL(bb.SalesPersonName, '') AS SalesPersonName,
@@ -286,12 +294,14 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 ISNULL(cc.CreditBalance, 0) AS CreditBalance,
                 ISNULL(cc.Address1, '') AS Address,
                 ISNULL(cc.Kota, '') AS Kota,
-                ISNULL(dd.WarehouseName, '') AS WarehouseName
+                ISNULL(dd.WarehouseName, '') AS WarehouseName,
+                ISNULL(ee.DriverName, '') AS DriverName
             FROM 
                 BTR_Faktur aa
                 LEFT JOIN BTR_SalesPerson bb ON aa.SalesPersonId = bb.SalesPersonId
                 LEFT JOIN BTR_Customer cc ON aa.CustomerId = cc.CustomerId
                 LEFT JOIN BTR_Warehouse dd on aa.WarehouseId = dd.WarehouseId
+                LEFT JOIN BTR_Driver ee ON aa.DriverId = ee.DriverId
             WHERE
                 aa.FakturCode = @FakturCode ";
 

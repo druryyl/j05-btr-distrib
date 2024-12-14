@@ -44,7 +44,7 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
 
         public FakturPotDetilViewDto(int no, string fakturId, string fakturCode,
             string fakturDate, decimal nilaiFaktur, decimal nilaiPotongan, 
-            decimal nilaiPosting)
+            decimal nilaiPosting, bool isHeapFaktur)
         {
             No = no;
             FakturId = fakturId;
@@ -52,18 +52,22 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
             FakturDate = fakturDate;
             NilaiFaktur = nilaiFaktur;
             NilaiPotongan = nilaiPotongan;
-            
+            NilaiSisaPotong = 0;
+
             _nilaiPosting = nilaiPosting;
             _isPost = nilaiPosting == 0 ? false : true;
+            IsHeapFaktur = isHeapFaktur;
         }
 
         public int No { get; private set; }
         public string FakturId { get; private set; }
         public string FakturCode { get; private set; }
         public string FakturDate { get; private set; }
+        public bool IsHeapFaktur { get; private set; }
 
         public decimal NilaiFaktur { get; private set; }
         public decimal NilaiPotongan { get; private set; }
+        public decimal NilaiSisaPotong { get; private set; }
         public bool IsPost 
         {
             get => _isPost;
@@ -75,18 +79,14 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
                     _nilaiPosting = 0;
                     return;
                 }
-                _nilaiPosting = Math.Min(NilaiPotongan, NilaiBalance);
+                _nilaiPosting = Math.Min(NilaiSisaPotong, NilaiBalance);
                 AskHeaderToReCalc();
             }
         }
+
         public decimal NilaiPosting 
         { 
             get => _nilaiPosting;
-            //set
-            //{
-            //    _nilaiPosting = value;
-            //    AskHeaderToReCalc();
-            //}
         }
         public decimal NilaiBalance { get; private set; }
         private void AskHeaderToReCalc()
@@ -99,5 +99,7 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
         }
         public void SetReCalc(IReCalc reCalc)
             => _reCalc = reCalc;
+        private void SetNilaiSisaPotong(decimal nilaiSisaPotong)
+            => NilaiSisaPotong = nilaiSisaPotong;
     }
 }

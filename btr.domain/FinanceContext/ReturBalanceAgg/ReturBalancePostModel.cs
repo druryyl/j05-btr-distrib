@@ -14,6 +14,7 @@ namespace btr.domain.FinanceContext.ReturBalanceAgg
         public string FakturId { get; set; }
         public string FakturCode { get; set; }
         public DateTime FakturDate { get; set; }
+        public bool IHeapFaktur { get; set; }
 
         public decimal NilaiFaktur { get; set; }
         public decimal NilaiPotong { get; set; }

@@ -82,6 +82,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.TermOfPaymentCombo = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.DriverIdText = new System.Windows.Forms.TextBox();
+            this.DriverNameText = new System.Windows.Forms.TextBox();
+            this.DriverButton = new System.Windows.Forms.Button();
             this.PanelAtas4.SuspendLayout();
             this.VoidPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturItemGrid)).BeginInit();
@@ -167,7 +170,7 @@
             this.FakturItemGrid.Location = new System.Drawing.Point(6, 201);
             this.FakturItemGrid.Name = "FakturItemGrid";
             this.FakturItemGrid.Size = new System.Drawing.Size(1000, 284);
-            this.FakturItemGrid.TabIndex = 18;
+            this.FakturItemGrid.TabIndex = 19;
             // 
             // PanelTengah
             // 
@@ -204,7 +207,7 @@
             this.TaxText.Name = "TaxText";
             this.TaxText.ReadOnly = true;
             this.TaxText.Size = new System.Drawing.Size(117, 20);
-            this.TaxText.TabIndex = 21;
+            this.TaxText.TabIndex = 22;
             this.TaxText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.TaxText.ThousandsSeparator = true;
             this.TaxText.Validated += new System.EventHandler(this.BiayaLainText_Validated);
@@ -214,7 +217,7 @@
             this.BiayaLainLabel.AutoSize = true;
             this.BiayaLainLabel.Location = new System.Drawing.Point(8, 86);
             this.BiayaLainLabel.Name = "BiayaLainLabel";
-            this.BiayaLainLabel.Size = new System.Drawing.Size(23, 13);
+            this.BiayaLainLabel.Size = new System.Drawing.Size(22, 13);
             this.BiayaLainLabel.TabIndex = 14;
             this.BiayaLainLabel.Text = "Tax";
             // 
@@ -235,7 +238,7 @@
             this.SisaText.Name = "SisaText";
             this.SisaText.ReadOnly = true;
             this.SisaText.Size = new System.Drawing.Size(117, 20);
-            this.SisaText.TabIndex = 24;
+            this.SisaText.TabIndex = 25;
             this.SisaText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.SisaText.ThousandsSeparator = true;
             // 
@@ -259,7 +262,7 @@
             0});
             this.UangMukaText.Name = "UangMukaText";
             this.UangMukaText.Size = new System.Drawing.Size(117, 20);
-            this.UangMukaText.TabIndex = 23;
+            this.UangMukaText.TabIndex = 24;
             this.UangMukaText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.UangMukaText.ThousandsSeparator = true;
             this.UangMukaText.Validated += new System.EventHandler(this.UangMukaText_Validated);
@@ -285,7 +288,7 @@
             this.GrandTotalText.Name = "GrandTotalText";
             this.GrandTotalText.ReadOnly = true;
             this.GrandTotalText.Size = new System.Drawing.Size(117, 20);
-            this.GrandTotalText.TabIndex = 22;
+            this.GrandTotalText.TabIndex = 23;
             this.GrandTotalText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.GrandTotalText.ThousandsSeparator = true;
             // 
@@ -294,7 +297,7 @@
             this.GrandTotalLabel.AutoSize = true;
             this.GrandTotalLabel.Location = new System.Drawing.Point(8, 125);
             this.GrandTotalLabel.Name = "GrandTotalLabel";
-            this.GrandTotalLabel.Size = new System.Drawing.Size(67, 13);
+            this.GrandTotalLabel.Size = new System.Drawing.Size(66, 13);
             this.GrandTotalLabel.TabIndex = 8;
             this.GrandTotalLabel.Text = "Grand Total";
             // 
@@ -310,7 +313,7 @@
             this.DiscountText.Name = "DiscountText";
             this.DiscountText.ReadOnly = true;
             this.DiscountText.Size = new System.Drawing.Size(117, 20);
-            this.DiscountText.TabIndex = 20;
+            this.DiscountText.TabIndex = 21;
             this.DiscountText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.DiscountText.ThousandsSeparator = true;
             this.DiscountText.Validated += new System.EventHandler(this.DiscountLainText_Validated);
@@ -336,7 +339,7 @@
             this.TotalText.Name = "TotalText";
             this.TotalText.ReadOnly = true;
             this.TotalText.Size = new System.Drawing.Size(117, 20);
-            this.TotalText.TabIndex = 19;
+            this.TotalText.TabIndex = 20;
             this.TotalText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.TotalText.ThousandsSeparator = true;
             // 
@@ -345,7 +348,7 @@
             this.TotalLabel.AutoSize = true;
             this.TotalLabel.Location = new System.Drawing.Point(8, 8);
             this.TotalLabel.Name = "TotalLabel";
-            this.TotalLabel.Size = new System.Drawing.Size(32, 13);
+            this.TotalLabel.Size = new System.Drawing.Size(31, 13);
             this.TotalLabel.TabIndex = 4;
             this.TotalLabel.Text = "Total";
             // 
@@ -355,7 +358,7 @@
             this.SaveButton.Location = new System.Drawing.Point(1075, 491);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
-            this.SaveButton.TabIndex = 25;
+            this.SaveButton.TabIndex = 26;
             this.SaveButton.Text = "Save";
             this.SaveButton.UseVisualStyleBackColor = true;
             this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
@@ -558,7 +561,7 @@
             this.CreditBalanceLabel.AutoSize = true;
             this.CreditBalanceLabel.Location = new System.Drawing.Point(55, 110);
             this.CreditBalanceLabel.Name = "CreditBalanceLabel";
-            this.CreditBalanceLabel.Size = new System.Drawing.Size(90, 13);
+            this.CreditBalanceLabel.Size = new System.Drawing.Size(91, 13);
             this.CreditBalanceLabel.TabIndex = 18;
             this.CreditBalanceLabel.Text = "-  Credit Balance";
             // 
@@ -604,6 +607,9 @@
             // 
             this.panel3.BackColor = System.Drawing.Color.Cornsilk;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.DriverIdText);
+            this.panel3.Controls.Add(this.DriverNameText);
+            this.panel3.Controls.Add(this.DriverButton);
             this.panel3.Controls.Add(this.WarehouseIdText);
             this.panel3.Controls.Add(this.TglRencanaKirimTextBox);
             this.panel3.Controls.Add(this.TglRencanaKirimLabel);
@@ -628,7 +634,7 @@
             // 
             this.TglRencanaKirimTextBox.CustomFormat = "ddd dd-MM-yyyy";
             this.TglRencanaKirimTextBox.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.TglRencanaKirimTextBox.Location = new System.Drawing.Point(11, 93);
+            this.TglRencanaKirimTextBox.Location = new System.Drawing.Point(11, 96);
             this.TglRencanaKirimTextBox.Name = "TglRencanaKirimTextBox";
             this.TglRencanaKirimTextBox.Size = new System.Drawing.Size(176, 22);
             this.TglRencanaKirimTextBox.TabIndex = 14;
@@ -636,11 +642,11 @@
             // TglRencanaKirimLabel
             // 
             this.TglRencanaKirimLabel.AutoSize = true;
-            this.TglRencanaKirimLabel.Location = new System.Drawing.Point(8, 77);
+            this.TglRencanaKirimLabel.Location = new System.Drawing.Point(8, 80);
             this.TglRencanaKirimLabel.Name = "TglRencanaKirimLabel";
-            this.TglRencanaKirimLabel.Size = new System.Drawing.Size(79, 13);
+            this.TglRencanaKirimLabel.Size = new System.Drawing.Size(119, 13);
             this.TglRencanaKirimLabel.TabIndex = 17;
-            this.TglRencanaKirimLabel.Text = "Rencana Kirim";
+            this.TglRencanaKirimLabel.Text = "Rencana Kirim - Driver";
             // 
             // WarehouseNameText
             // 
@@ -691,14 +697,14 @@
             this.DueDateText.Location = new System.Drawing.Point(6, 71);
             this.DueDateText.Name = "DueDateText";
             this.DueDateText.Size = new System.Drawing.Size(176, 22);
-            this.DueDateText.TabIndex = 16;
+            this.DueDateText.TabIndex = 18;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(3, 55);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(72, 13);
+            this.label5.Size = new System.Drawing.Size(71, 13);
             this.label5.TabIndex = 21;
             this.label5.Text = "Jatuh Tempo";
             // 
@@ -711,16 +717,45 @@
             this.TermOfPaymentCombo.Location = new System.Drawing.Point(6, 24);
             this.TermOfPaymentCombo.Name = "TermOfPaymentCombo";
             this.TermOfPaymentCombo.Size = new System.Drawing.Size(175, 21);
-            this.TermOfPaymentCombo.TabIndex = 15;
+            this.TermOfPaymentCombo.TabIndex = 17;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(3, 8);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(93, 13);
+            this.label4.Size = new System.Drawing.Size(92, 13);
             this.label4.TabIndex = 19;
             this.label4.Text = "Term Of Payment";
+            // 
+            // DriverIdText
+            // 
+            this.DriverIdText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DriverIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DriverIdText.Location = new System.Drawing.Point(11, 124);
+            this.DriverIdText.Name = "DriverIdText";
+            this.DriverIdText.Size = new System.Drawing.Size(147, 22);
+            this.DriverIdText.TabIndex = 15;
+            // 
+            // DriverNameText
+            // 
+            this.DriverNameText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DriverNameText.Location = new System.Drawing.Point(11, 151);
+            this.DriverNameText.Name = "DriverNameText";
+            this.DriverNameText.ReadOnly = true;
+            this.DriverNameText.Size = new System.Drawing.Size(176, 22);
+            this.DriverNameText.TabIndex = 24;
+            // 
+            // DriverButton
+            // 
+            this.DriverButton.BackColor = System.Drawing.Color.Moccasin;
+            this.DriverButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DriverButton.Location = new System.Drawing.Point(160, 124);
+            this.DriverButton.Name = "DriverButton";
+            this.DriverButton.Size = new System.Drawing.Size(26, 22);
+            this.DriverButton.TabIndex = 16;
+            this.DriverButton.Text = "...";
+            this.DriverButton.UseVisualStyleBackColor = false;
             // 
             // FakturForm
             // 
@@ -821,5 +856,8 @@
         private System.Windows.Forms.Panel VoidPanel;
         private System.Windows.Forms.Label CancelLabel;
         private System.Windows.Forms.TextBox CustomerAddressText;
+        private System.Windows.Forms.TextBox DriverIdText;
+        private System.Windows.Forms.TextBox DriverNameText;
+        private System.Windows.Forms.Button DriverButton;
     }
 }
