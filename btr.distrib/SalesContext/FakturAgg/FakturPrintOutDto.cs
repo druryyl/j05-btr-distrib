@@ -59,7 +59,7 @@ namespace btr.distrib.SalesContext.FakturAgg
                         QtyBesar = qtyBesar,
                         QtyKecil = qtyKecil,
                         HrgBesar = item.HrgSatBesar == 0 ? "-" : $"{item.HrgSatBesar:N0}",
-                        HrgKecil = item.HrgSatKecil == 0 ? "-" : $"{item.HrgSatBesar:N0}",
+                        HrgKecil = item.HrgSatKecil == 0 ? "-" : $"{item.HrgSatKecil:N0}",
                         Disc1 = disc1 == 0 ? "-" : $"{DecFormatter.ToStr(disc1)}%",
                         Disc2 = disc2 == 0 ? "-" : $"{DecFormatter.ToStr(disc2)}%",
                         Disc3 = disc3 == 0 ? "-" : $"{DecFormatter.ToStr(disc3)}%",
