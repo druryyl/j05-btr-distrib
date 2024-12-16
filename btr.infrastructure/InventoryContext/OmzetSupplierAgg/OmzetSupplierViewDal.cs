@@ -36,6 +36,7 @@ namespace btr.infrastructure.InventoryContext.OmzetSupplierAgg
                     LEFT JOIN BTR_Supplier dd ON cc.SupplierId = dd.SupplierId
                 WHERE
                     bb.FakturDate BETWEEN @Tgl1 AND @Tgl2
+                    AND bb.VoidDate = '3000-01-01'
                 GROUP BY
                     dd.SupplierName, CONVERT(Date, bb.FakturDate)";
 

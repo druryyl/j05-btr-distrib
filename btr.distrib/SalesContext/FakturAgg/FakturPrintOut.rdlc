@@ -18,13 +18,13 @@
               <Width>0.48958in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.54167in</Width>
+              <Width>0.73959in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.77083in</Width>
+              <Width>0.59375in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.63542in</Width>
+              <Width>0.58334in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>0.42708in</Width>
@@ -39,7 +39,7 @@
               <Width>0.39583in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1in</Width>
+              <Width>0.9625in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -476,7 +476,7 @@
                             <TextRun>
                               <Value>=Fields!QtyKecil.Value</Value>
                               <Style>
-                                <FontFamily>Arial Narrow</FontFamily>
+                                <FontFamily>Lucida Console</FontFamily>
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
@@ -827,7 +827,7 @@
         <Top>1.09724in</Top>
         <Left>0.03125in</Left>
         <Height>0.38in</Height>
-        <Width>7.75in</Width>
+        <Width>7.68125in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -854,9 +854,9 @@
           </Paragraph>
         </Paragraphs>
         <Top>1.52224in</Top>
-        <Left>5.5in</Left>
+        <Left>5.475in</Left>
         <Height>0.19445in</Height>
-        <Width>1.28125in</Width>
+        <Width>1.2375in</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -904,9 +904,9 @@
           </Paragraph>
         </Paragraphs>
         <Top>1.71669in</Top>
-        <Left>5.5in</Left>
+        <Left>5.475in</Left>
         <Height>0.19445in</Height>
-        <Width>1.28125in</Width>
+        <Width>1.2375in</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
@@ -953,9 +953,9 @@
           </Paragraph>
         </Paragraphs>
         <Top>1.91114in</Top>
-        <Left>5.5in</Left>
+        <Left>5.475in</Left>
         <Height>0.19445in</Height>
-        <Width>1.28125in</Width>
+        <Width>1.2375in</Width>
         <ZIndex>3</ZIndex>
         <Style>
           <Border>
@@ -1002,9 +1002,9 @@
           </Paragraph>
         </Paragraphs>
         <Top>2.10559in</Top>
-        <Left>5.5in</Left>
+        <Left>5.475in</Left>
         <Height>0.19445in</Height>
-        <Width>1.28125in</Width>
+        <Width>1.2375in</Width>
         <ZIndex>4</ZIndex>
         <Style>
           <Border>
@@ -1036,9 +1036,9 @@
           </Paragraph>
         </Paragraphs>
         <Top>1.52224in</Top>
-        <Left>6.78125in</Left>
+        <Left>6.75625in</Left>
         <Height>0.19445in</Height>
-        <Width>1in</Width>
+        <Width>0.95625in</Width>
         <ZIndex>5</ZIndex>
         <Style>
           <Border>
@@ -1085,9 +1085,9 @@
           </Paragraph>
         </Paragraphs>
         <Top>1.71669in</Top>
-        <Left>6.78125in</Left>
+        <Left>6.75625in</Left>
         <Height>0.19445in</Height>
-        <Width>1in</Width>
+        <Width>0.95625in</Width>
         <ZIndex>6</ZIndex>
         <Style>
           <Border>
@@ -1133,9 +1133,9 @@
           </Paragraph>
         </Paragraphs>
         <Top>1.91114in</Top>
-        <Left>6.78125in</Left>
+        <Left>6.75625in</Left>
         <Height>0.19445in</Height>
-        <Width>1in</Width>
+        <Width>0.95625in</Width>
         <ZIndex>7</ZIndex>
         <Style>
           <Border>
@@ -1182,9 +1182,9 @@
           </Paragraph>
         </Paragraphs>
         <Top>2.10559in</Top>
-        <Left>6.78125in</Left>
+        <Left>6.75625in</Left>
         <Height>0.19445in</Height>
-        <Width>1in</Width>
+        <Width>0.95625in</Width>
         <ZIndex>8</ZIndex>
         <Style>
           <Border>
@@ -1459,7 +1459,7 @@
           </Paragraph>
         </Paragraphs>
         <Top>0.01386in</Top>
-        <Left>5.375in</Left>
+        <Left>5.3375in</Left>
         <Height>0.16945in</Height>
         <Width>2.375in</Width>
         <ZIndex>15</ZIndex>
@@ -1493,7 +1493,7 @@
           </Paragraph>
         </Paragraphs>
         <Top>0.18331in</Top>
-        <Left>5.375in</Left>
+        <Left>5.3375in</Left>
         <Height>0.16945in</Height>
         <Width>2.375in</Width>
         <ZIndex>16</ZIndex>
@@ -1527,7 +1527,7 @@
           </Paragraph>
         </Paragraphs>
         <Top>0.35276in</Top>
-        <Left>5.375in</Left>
+        <Left>5.3375in</Left>
         <Height>0.16945in</Height>
         <Width>2.375in</Width>
         <ZIndex>17</ZIndex>
@@ -1560,7 +1560,7 @@
           </Paragraph>
         </Paragraphs>
         <Top>0.52221in</Top>
-        <Left>5.375in</Left>
+        <Left>5.3375in</Left>
         <Height>0.16945in</Height>
         <Width>2.375in</Width>
         <ZIndex>18</ZIndex>
@@ -1593,7 +1593,7 @@
           </Paragraph>
         </Paragraphs>
         <Top>0.69166in</Top>
-        <Left>5.375in</Left>
+        <Left>5.3375in</Left>
         <Height>0.16945in</Height>
         <Width>2.375in</Width>
         <ZIndex>19</ZIndex>
@@ -1820,9 +1820,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
         <Top>2.38097in</Top>
-        <Left>5.49652in</Left>
+        <Left>5.47152in</Left>
         <Height>0.20556in</Height>
-        <Width>1.31598in</Width>
+        <Width>1.27223in</Width>
         <ZIndex>27</ZIndex>
         <Style>
           <Border>
@@ -1921,7 +1921,7 @@
         <Top>1.48474in</Top>
         <Left>0.03473in</Left>
         <Height>0in</Height>
-        <Width>7.75in</Width>
+        <Width>7.6875in</Width>
         <ZIndex>31</ZIndex>
         <Style>
           <Border>
@@ -1971,7 +1971,7 @@
       </Border>
     </Style>
   </Body>
-  <Width>7.84723in</Width>
+  <Width>7.7639in</Width>
   <Page>
     <LeftMargin>1in</LeftMargin>
     <RightMargin>1in</RightMargin>

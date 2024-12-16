@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>165</ApplicationRevision>
+    <ApplicationRevision>169</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -386,6 +386,12 @@
     <Compile Include="InventoryContext\BrgAgg\BrgFormHargaDto.cs" />
     <Compile Include="InventoryContext\BrgAgg\BrgFormSatuanDto.cs" />
     <Compile Include="InventoryContext\BrgAgg\BrgFormStokDto.cs" />
+    <Compile Include="InventoryContext\DriverAgg\DriverForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryContext\DriverAgg\DriverForm.Designer.cs">
+      <DependentUpon>DriverForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="InventoryContext\ImportOpnameAgg\ImportOpnameForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -734,6 +740,9 @@
     <EmbeddedResource Include="FinanceContext\TagihanAgg\TagihanPrintOut.rdlc" />
     <EmbeddedResource Include="InventoryContext\AdjustmentAgg\AdjustmentForm.resx">
       <DependentUpon>AdjustmentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InventoryContext\DriverAgg\DriverForm.resx">
+      <DependentUpon>DriverForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\ImportOpnameAgg\ImportOpnameForm.resx">
       <DependentUpon>ImportOpnameForm.cs</DependentUpon>

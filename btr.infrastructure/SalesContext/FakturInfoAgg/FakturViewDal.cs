@@ -40,7 +40,8 @@ namespace btr.infrastructure.SalesContext.FakturInfoAgg
                     LEFT JOIN BTR_SalesPerson ee ON aa.SalesPersonId = ee.SalesPersonId 
                     LEFT JOIN BTR_Warehouse ff ON aa.WarehouseId = ff.WarehouseId
                 WHERE
-                    aa.FakturDate BETWEEN @Tgl1 AND @Tgl2 ";
+                    aa.FakturDate BETWEEN @Tgl1 AND @Tgl2  
+                    AND aa.VoidDate = '3000-01-01'";
 
             var dp = new DynamicParameters();
             dp.AddParam("@Tgl1", filter.Tgl1, SqlDbType.DateTime);

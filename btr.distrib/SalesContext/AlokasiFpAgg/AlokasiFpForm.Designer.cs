@@ -37,8 +37,7 @@
             this.NoAwalText = new System.Windows.Forms.MaskedTextBox();
             this.NoAkhirText = new System.Windows.Forms.MaskedTextBox();
             this.AlokasiGrid = new System.Windows.Forms.DataGridView();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.SearchText = new System.Windows.Forms.TextBox();
             this.ExportExcelButton = new System.Windows.Forms.Button();
             this.ExportEFakturButton = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -53,6 +52,7 @@
             this.ListButton = new System.Windows.Forms.Button();
             this.Periode2Date = new System.Windows.Forms.DateTimePicker();
             this.Periode1Date = new System.Windows.Forms.DateTimePicker();
+            this.SearchButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -78,8 +78,8 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.label3);
-            this.splitContainer1.Panel2.Controls.Add(this.textBox1);
+            this.splitContainer1.Panel2.Controls.Add(this.SearchButton);
+            this.splitContainer1.Panel2.Controls.Add(this.SearchText);
             this.splitContainer1.Panel2.Controls.Add(this.ExportExcelButton);
             this.splitContainer1.Panel2.Controls.Add(this.ExportEFakturButton);
             this.splitContainer1.Panel2.Controls.Add(this.panel3);
@@ -181,21 +181,12 @@
             this.AlokasiGrid.Size = new System.Drawing.Size(229, 319);
             this.AlokasiGrid.TabIndex = 4;
             // 
-            // label3
+            // SearchText
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(4, 100);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 13);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "No.Faktur";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(68, 97);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 22);
-            this.textBox1.TabIndex = 11;
+            this.SearchText.Location = new System.Drawing.Point(3, 97);
+            this.SearchText.Name = "SearchText";
+            this.SearchText.Size = new System.Drawing.Size(198, 22);
+            this.SearchText.TabIndex = 11;
             // 
             // ExportExcelButton
             // 
@@ -364,6 +355,15 @@
             this.Periode1Date.Size = new System.Drawing.Size(120, 22);
             this.Periode1Date.TabIndex = 0;
             // 
+            // SearchButton
+            // 
+            this.SearchButton.Location = new System.Drawing.Point(207, 97);
+            this.SearchButton.Name = "SearchButton";
+            this.SearchButton.Size = new System.Drawing.Size(92, 23);
+            this.SearchButton.TabIndex = 13;
+            this.SearchButton.Text = "Search";
+            this.SearchButton.UseVisualStyleBackColor = true;
+            // 
             // AlokasiFpForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -415,9 +415,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label SisaFpLabel;
         private System.Windows.Forms.CheckBox AllOutstandingCheckBox;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox SearchText;
         private System.Windows.Forms.RadioButton Digit16Option;
         private System.Windows.Forms.RadioButton Digit13Option;
+        private System.Windows.Forms.Button SearchButton;
     }
 }

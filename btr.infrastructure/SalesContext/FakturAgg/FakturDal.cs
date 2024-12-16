@@ -64,8 +64,6 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             dp.AddParam("@UserIdVoid", model.UserIdVoid, SqlDbType.VarChar);
             dp.AddParam("@Note", model.Note, SqlDbType.VarChar);
 
-
-
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
                 conn.Execute(sql, dp);

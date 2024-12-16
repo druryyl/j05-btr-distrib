@@ -43,6 +43,7 @@
             this.SF5FakturPajakButton = new System.Windows.Forms.RibbonButton();
             this.SF6FakturCashButton = new System.Windows.Forms.RibbonButton();
             this.SF7OmzetPerSupplier = new System.Windows.Forms.RibbonButton();
+            this.SF8DriverFaktur = new System.Windows.Forms.RibbonButton();
             this.MasterSalesPanel = new System.Windows.Forms.RibbonPanel();
             this.OutletButton = new System.Windows.Forms.RibbonButton();
             this.SalesPersonButton = new System.Windows.Forms.RibbonButton();
@@ -93,7 +94,7 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.SF8DriverFaktur = new System.Windows.Forms.RibbonButton();
+            this.DriverButton = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -245,6 +246,15 @@
             this.SF7OmzetPerSupplier.SmallImage = ((System.Drawing.Image)(resources.GetObject("SF7OmzetPerSupplier.SmallImage")));
             this.SF7OmzetPerSupplier.Text = "SF7-Omzet PerSupplier";
             this.SF7OmzetPerSupplier.Click += new System.EventHandler(this.SF7OmzetSupplierButton_Click);
+            // 
+            // SF8DriverFaktur
+            // 
+            this.SF8DriverFaktur.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.SF8DriverFaktur.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
+            this.SF8DriverFaktur.Name = "SF8DriverFaktur";
+            this.SF8DriverFaktur.SmallImage = ((System.Drawing.Image)(resources.GetObject("SF8DriverFaktur.SmallImage")));
+            this.SF8DriverFaktur.Text = "SF8-Driver Faktur";
+            this.SF8DriverFaktur.Click += new System.EventHandler(this.SF8DriverFaktur_Click);
             // 
             // MasterSalesPanel
             // 
@@ -460,6 +470,7 @@
             this.InventoryMasterPanel.Items.Add(this.BrgButton);
             this.InventoryMasterPanel.Items.Add(this.WarehouseButton);
             this.InventoryMasterPanel.Items.Add(this.KategoriAButton);
+            this.InventoryMasterPanel.Items.Add(this.DriverButton);
             this.InventoryMasterPanel.Name = "InventoryMasterPanel";
             this.InventoryMasterPanel.Text = "Master Data";
             // 
@@ -664,14 +675,14 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
-            // SF8DriverFaktur
+            // DriverButton
             // 
-            this.SF8DriverFaktur.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.SF8DriverFaktur.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.SF8DriverFaktur.Name = "SF8DriverFaktur";
-            this.SF8DriverFaktur.SmallImage = ((System.Drawing.Image)(resources.GetObject("SF8DriverFaktur.SmallImage")));
-            this.SF8DriverFaktur.Text = "SF8-Driver Faktur";
-            this.SF8DriverFaktur.Click += new System.EventHandler(this.SF8DriverFaktur_Click);
+            this.DriverButton.Image = global::btr.distrib.Properties.Resources.icons8_user_account_32;
+            this.DriverButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_user_account_32;
+            this.DriverButton.Name = "DriverButton";
+            this.DriverButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("DriverButton.SmallImage")));
+            this.DriverButton.Text = "IM4-Driver";
+            this.DriverButton.Click += new System.EventHandler(this.DriverButton_Click);
             // 
             // MainForm
             // 
@@ -766,5 +777,6 @@
         private System.Windows.Forms.RibbonButton RF1ReturJualInfo;
         private System.Windows.Forms.RibbonButton RT2PostingRetur;
         private System.Windows.Forms.RibbonButton SF8DriverFaktur;
+        private System.Windows.Forms.RibbonButton DriverButton;
     }
 }

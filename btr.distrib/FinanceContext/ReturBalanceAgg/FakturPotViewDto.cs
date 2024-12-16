@@ -28,7 +28,6 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
             item.SetReCalc(this);
             ReCalc();
         }
-
     }
 
     public interface IReCalc

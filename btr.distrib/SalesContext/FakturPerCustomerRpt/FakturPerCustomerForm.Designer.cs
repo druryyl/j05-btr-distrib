@@ -52,7 +52,7 @@
             this.panel1.Controls.Add(this.SearchText);
             this.panel1.Location = new System.Drawing.Point(7, 7);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(787, 34);
+            this.panel1.Size = new System.Drawing.Size(832, 34);
             this.panel1.TabIndex = 8;
             // 
             // Tgl2Date
@@ -114,7 +114,7 @@
             this.InfoGrid.Location = new System.Drawing.Point(7, 47);
             this.InfoGrid.Name = "InfoGrid";
             this.InfoGrid.ShowCurrentCellBorderBehavior = Syncfusion.Windows.Forms.Grid.GridShowCurrentCellBorder.GrayWhenLostFocus;
-            this.InfoGrid.Size = new System.Drawing.Size(787, 397);
+            this.InfoGrid.Size = new System.Drawing.Size(832, 397);
             this.InfoGrid.TabIndex = 9;
             this.InfoGrid.Text = "gridGroupingControl1";
             this.InfoGrid.UseRightToLeftCompatibleTextBox = true;
@@ -125,7 +125,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(845, 450);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.InfoGrid);
             this.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

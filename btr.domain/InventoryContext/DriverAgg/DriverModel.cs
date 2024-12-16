@@ -8,5 +8,6 @@
         }
         public string DriverId { get; set; }
         public string DriverName { get; set; }
+        public bool IsAktif { get; set; }
     }
 }

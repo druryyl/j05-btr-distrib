@@ -132,6 +132,7 @@
     <Compile Include="InventoryContext\AdjustmentAgg\AdjustmentWriter.cs" />
     <Compile Include="InventoryContext\AdjustmentAgg\AdjustmnetBuilder.cs" />
     <Compile Include="InventoryContext\AdjustmentAgg\IAdjustmentDal.cs" />
+    <Compile Include="InventoryContext\DriverAgg\DriverWriter.cs" />
     <Compile Include="InventoryContext\DriverAgg\IDriverDal.cs" />
     <Compile Include="InventoryContext\ImportOpnameAgg\Contracts\IImportOpnameDal.cs" />
     <Compile Include="InventoryContext\KartuStokRpt\IKartuStokDal.cs" />

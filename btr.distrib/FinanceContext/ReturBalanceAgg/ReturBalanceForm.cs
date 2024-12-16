@@ -294,7 +294,6 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
 
             //  TODO: set nilai sisa potong semua fakturpot
 
-
             //  tampilkan di grid
             ListFakturPotGrid.DataSource = _fakturPotHeader.ListDetil;
         }

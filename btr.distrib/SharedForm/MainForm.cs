@@ -45,6 +45,7 @@ using btr.distrib.SalesContext.FakturCashRpt;
 using btr.distrib.InventoryContext.ReturJualRpt;
 using btr.distrib.FinanceContext.ReturBalanceAgg;
 using btr.distrib.SalesContext.DriverFakturRpt;
+using btr.distrib.InventoryContext.DriverAgg;
 
 namespace btr.distrib.SharedForm
 {
@@ -534,6 +535,16 @@ namespace btr.distrib.SharedForm
             if (BringMdiChildToFrontIfLoaded<DriverFakturInfoForm>())
                 return;
             var form = _servicesProvider.GetRequiredService<DriverFakturInfoForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void DriverButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<DriverForm>())
+                return;
+            var form = _servicesProvider.GetRequiredService<DriverForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

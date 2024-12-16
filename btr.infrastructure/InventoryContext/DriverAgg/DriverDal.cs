@@ -23,13 +23,14 @@ namespace btr.infrastructure.InventoryContext.DriverAgg
         {
             const string sql = @"
             INSERT INTO BTR_Driver(
-                DriverId, DriverName)
+                DriverId, DriverName, IsAktif)
             VALUES (
-                @DriverId, @DriverName)";
+                @DriverId, @DriverName, @IsAktif)";
 
             var dp = new DynamicParameters();
             dp.AddParam("@DriverId", model.DriverId, SqlDbType.VarChar);
             dp.AddParam("@DriverName", model.DriverName, SqlDbType.VarChar);
+            dp.AddParam("@IsAktif", model.IsAktif, SqlDbType.Bit);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -43,13 +44,15 @@ namespace btr.infrastructure.InventoryContext.DriverAgg
             UPDATE 
                 BTR_Driver
             SET
-                DriverName = @DriverName
+                DriverName = @DriverName,
+                IsAktif = @IsAktif
             WHERE
                 DriverId = @DriverId ";
 
             var dp = new DynamicParameters();
             dp.AddParam("@DriverId", model.DriverId, SqlDbType.VarChar);
             dp.AddParam("@DriverName", model.DriverName, SqlDbType.VarChar);
+            dp.AddParam("@IsAktif", model.IsAktif, SqlDbType.Bit);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -78,7 +81,7 @@ namespace btr.infrastructure.InventoryContext.DriverAgg
         {
             const string sql = @"
             SELECT
-                DriverId, DriverName
+                DriverId, DriverName, IsAktif
             FROM
                 BTR_Driver
             WHERE
@@ -97,9 +100,11 @@ namespace btr.infrastructure.InventoryContext.DriverAgg
         {
             const string sql = @"
             SELECT
-                DriverId, DriverName
+                DriverId, DriverName, IsAktif
             FROM
-                BTR_Driver";
+                BTR_Driver
+            WHERE
+                IsAktif = 1";
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {

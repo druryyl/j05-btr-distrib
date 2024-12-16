@@ -46,7 +46,8 @@ namespace btr.infrastructure.SalesContext.FakturCashRpt
                     LEFT JOIN BTR_Warehouse ff ON aa.WarehouseId = ff.WarehouseId
                 WHERE
                     aa.FakturDate BETWEEN @Tgl1 AND @Tgl2 
-                    AND aa.UangMuka > 0 ";
+                    AND aa.UangMuka > 0 
+                    AND aa.VoidDate = '3000-01-01'";
 
             var dp = new DynamicParameters();
             dp.AddParam("@Tgl1", filter.Tgl1, SqlDbType.DateTime);

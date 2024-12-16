@@ -6,12 +6,9 @@ using Syncfusion.Windows.Forms.Grid.Grouping;
 using Syncfusion.Windows.Forms.Grid;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Syncfusion.Drawing;
 
@@ -55,6 +52,7 @@ namespace btr.distrib.SalesContext.FakturPerCustomerRpt
             {
                 column.AllowFilter = true;
             }
+            InfoGrid.TableDescriptor.VisibleColumns.Remove("StatusFaktur");
 
             var sumColSubTotal = new GridSummaryColumnDescriptor("SubTotal", SummaryType.DoubleAggregate, "SubTotal", "{Sum}");
             sumColSubTotal.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.Yellow);
@@ -255,11 +253,5 @@ namespace btr.distrib.SalesContext.FakturPerCustomerRpt
                 .Union(listFilteredCustomer);
             return result.ToList();
         }
-
-        private void SearchText_TextChanged(object sender, EventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
-
     }
 }

@@ -61,7 +61,8 @@ namespace btr.infrastructure.SalesContext.FakturPerSupplierRpt
                     LEFT JOIN (SELECT FakturItemId, DiscProsen, DiscRp FROM BTR_FakturDiscount WHERE NoUrut = 4) ff4 ON aa.FakturItemId = ff4.FakturItemId
                     LEFT JOIN BTR_Supplier gg ON cc.SupplierId = gg.SupplierId
                 WHERE
-                    bb.FakturDate BETWEEN @Tgl1 AND @Tgl2 ";
+                    bb.FakturDate BETWEEN @Tgl1 AND @Tgl2  
+                    AND bb.VoidDate = '3000-01-01'";
 
             var dp = new DynamicParameters();
             dp.AddParam("@Tgl1", periode.Tgl1, SqlDbType.DateTime);

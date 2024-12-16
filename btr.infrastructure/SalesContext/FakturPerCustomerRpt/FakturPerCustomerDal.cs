@@ -57,7 +57,8 @@ namespace btr.infrastructure.SalesContext.FakturPerCustomerRpt
                     ISNULL(aa.DiscRp, 0) AS TotalDisc,
                     aa.SubTotal - ISNULL(aa.DiscRp, 0) TotalSebelumTax,
                     aa.PpnRp,
-                    aa.Total
+                    aa.Total,
+                    ISNULL(jj.StatusFaktur,0) StatusFaktur
                 FROM
                     BTR_FakturItem aa
                     LEFT JOIN BTR_Faktur bb ON aa.FakturId = bb.FakturId
@@ -71,8 +72,10 @@ namespace btr.infrastructure.SalesContext.FakturPerCustomerRpt
                     LEFT JOIN BTR_Supplier gg ON cc.SupplierId = gg.SupplierId
                     LEFT JOIN BTR_Kategori hh ON cc.KategoriId = hh.KategoriId
                     LEFT JOIN BTR_Wilayah ii ON dd.WilayahId = ii.WilayahId
+                    LEFT JOIN BTR_FakturControlStatus jj ON bb.FakturId = jj.FakturId AND StatusFaktur = 2
                 WHERE
-                    bb.FakturDate BETWEEN @Tgl1 AND @Tgl2";
+                    bb.FakturDate BETWEEN @Tgl1 AND @Tgl2 
+                    AND bb.VoidDate = '3000-01-01'";
 
             var dp = new DynamicParameters();
             dp.AddParam("@Tgl1", filter.Tgl1, SqlDbType.DateTime);

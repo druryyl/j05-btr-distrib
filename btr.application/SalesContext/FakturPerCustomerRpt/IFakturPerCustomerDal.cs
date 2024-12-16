@@ -1,11 +1,6 @@
-﻿using btr.domain.SalesContext.CustomerAgg;
-using btr.nuna.Domain;
+﻿using btr.nuna.Domain;
 using btr.nuna.Infrastructure;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace btr.application.SalesContext.FakturPerCustomerRpt
 {
@@ -48,5 +43,7 @@ namespace btr.application.SalesContext.FakturPerCustomerRpt
         public decimal TotalSebelumTax {get;set;}
         public decimal PpnRp {get;set;}
         public decimal Total { get; set; }
+        public int StatusFaktur { get; set; }
+        public bool Kembali => StatusFaktur == 2 ? true : false;
     }
 }

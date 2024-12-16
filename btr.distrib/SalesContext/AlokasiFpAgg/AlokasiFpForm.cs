@@ -8,6 +8,7 @@ using System.Linq;
 using System.Media;
 using System.Text;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using btr.application.SalesContext.AlokasiFpAgg;
 using btr.application.SalesContext.EFakturAgg;
 using btr.application.SalesContext.FakturAgg.Contracts;
@@ -72,6 +73,9 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             _fakturAlokasiFpItemDal = fakturAlokasiFpItemDal;
             _efakturBuilder = efakturBuilder;
             _fakturPajakVoidBuilder = fakturPajakVoidBuilder;
+            _fakturPajakVoidWriter = fakturPajakVoidWriter;
+            _fakturPajakVoidDal = fakturPajakVoidDal;
+            _alokasiFpItemDal = alokasiFpItemDal;
 
             _agg = new AlokasiFpModel();
 
@@ -81,9 +85,6 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             InitFakturGrid();
             InitAlokasiGrid();
             InitContextMenu();
-            _fakturPajakVoidWriter = fakturPajakVoidWriter;
-            _fakturPajakVoidDal = fakturPajakVoidDal;
-            _alokasiFpItemDal = alokasiFpItemDal;
         }
 
         private void RegisterEventHandler()
@@ -94,6 +95,8 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             AlokasiGrid.MouseClick += AlokasiGrid_MouseClick;
 
             ListButton.Click += ListButton_Click;
+            SearchButton.Click += SearchButton_Click;
+
             FakturGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
             FakturGrid.ColumnHeaderMouseDoubleClick +=FakturGrid_ColumnHeaderMouseDoubleClick;
             FakturGrid.MouseClick += FakturGrid_MouseClick;
@@ -104,6 +107,19 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
 
             Digit16Option.CheckedChanged += Digit1316Option_CheckedChanged;
             Digit13Option.CheckedChanged += Digit1316Option_CheckedChanged;
+        }
+
+        private void SearchButton_Click(object sender, EventArgs e)
+        {
+            if (SearchText.Text.Length == 0) 
+            {
+                LoadFakturGrid();
+                return; 
+            }
+            var filterFakturCode = _listFaktur.Where(x => x.FakturCode == SearchText.Text)?.ToList();
+            var filterCustomerName = _listFaktur.Where(x => x.CustomerName.ContainMultiWord(SearchText.Text))?.ToList();
+            var result = filterFakturCode.Union(filterCustomerName);
+            RefreshFakturGrid(result);
         }
 
         private void Digit1316Option_CheckedChanged(object sender, EventArgs e)
@@ -390,14 +406,14 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             }
 
             RefreshAlokasiGrid();
-            RefreshFakturGrid();
+            LoadFakturGrid();
         }
         #endregion
 
         #region PERIODE
         private void ListButton_Click(object sender, EventArgs e)
         {
-            RefreshFakturGrid();
+            LoadFakturGrid();
         }
 
         private void InitPeriode()
@@ -448,7 +464,7 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             g.GetCol("VoidDate").Visible = false;
             g.GetCol("UserIdVoid").Visible = false;
         }
-        private void RefreshFakturGrid()
+        private void LoadFakturGrid()
         {
             List<FakturAlokasiFpItemView> listFaktur = null;
             var periode = new Periode(Periode1Date.Value, Periode2Date.Value);
@@ -464,8 +480,17 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
                 .Where(x => x.VoidDate == new DateTime(3000, 1, 1))
                 .OrderBy(x => x.FakturId)
                 .Adapt<List<FakturAlokasiFpItemView>>();
-            _listFaktur = new BindingList<FakturAlokasiFpItemView>(dataSource);
-            FakturGrid.DataSource = _listFaktur;
+
+            RefreshFakturGrid(dataSource);
+        }
+        private void RefreshFakturGrid(IEnumerable<FakturAlokasiFpItemView> listFakturAlokasiItem)
+        {
+            _listFaktur = new BindingList<FakturAlokasiFpItemView>(listFakturAlokasiItem.ToList());
+            var binding = new BindingSource
+            {
+                DataSource = _listFaktur
+            };
+            FakturGrid.DataSource = binding;
             FakturGrid.Refresh();
         }
 
@@ -492,7 +517,7 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             catch (ArgumentException ex)
             {
                 MessageBox.Show(ex.Message);
-                RefreshFakturGrid();
+                LoadFakturGrid();
                 return;
             }
         }
@@ -616,10 +641,7 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
                     break;
             }
 
-
-            var binding = new BindingSource();
-            binding.DataSource = _listFaktur;
-            grid.DataSource = binding;
+            RefreshFakturGrid(_listFaktur);
             _sortAsc = !_sortAsc;
         }
         #endregion

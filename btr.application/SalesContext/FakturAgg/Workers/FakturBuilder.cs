@@ -186,8 +186,10 @@ namespace btr.application.SalesContext.FakturAgg.Workers
 
         public IFakturBuilder Driver(IDriverKey driverKey)
         {
-            var driver = _driverDal.GetData(driverKey) 
-                ?? throw new KeyNotFoundException($"DriverId not found ({driverKey.DriverId})");
+            var driver = _driverDal.GetData(driverKey);
+            if (driver is null)
+                return this;
+            
             _aggRoot.DriverId = driver.DriverId;
             _aggRoot.DriverName = driver.DriverName;
             return this;
