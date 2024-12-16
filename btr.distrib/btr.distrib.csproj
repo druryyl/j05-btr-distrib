@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>170</ApplicationRevision>
+    <ApplicationRevision>171</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -550,6 +550,7 @@
     <Compile Include="ReportingContext\CustomerChartRpt.Designer.cs">
       <DependentUpon>CustomerChartRpt.cs</DependentUpon>
     </Compile>
+    <Compile Include="SalesContext\AlokasiFpAgg\AlokasiFpAlokasiDto.cs" />
     <Compile Include="SalesContext\CustomerAgg\CustomerForm.cs">
       <SubType>Form</SubType>
     </Compile>

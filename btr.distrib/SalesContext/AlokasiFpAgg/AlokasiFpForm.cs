@@ -149,12 +149,12 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
                     return;
                 filePath = saveFileDialog.FileName;
             }
-
+            var filteredData = _listFaktur.Where(x => x.IsExport).ToList();
             using (IXLWorkbook wb = new XLWorkbook())
             {
                 wb.AddWorksheet("Alokasi E-Faktur")
                     .FirstCell()
-                    .InsertTable(_listFaktur, false);
+                    .InsertTable(filteredData, false);
                 wb.SaveAs(filePath);
             }
             System.Diagnostics.Process.Start(filePath);
@@ -167,6 +167,7 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             var listEFaktur = new List<EFakturModel>();
             listEFaktur.AddRange(_listFaktur
                 .Where(x => x.NoFakturPajak.Length > 0)
+                .Where(x => x.IsExport)
                 .Select(item => _fakturBuilder.Load(item).Build())
                 .Select(faktur => _efakturBuilder.Create(faktur).Build()));
             SaveToCsv(listEFaktur);
@@ -174,7 +175,9 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
 
         private  void SaveToCsv(List<EFakturModel> listEFaktur)
         {
-            var toBeExported = listEFaktur.Where(x => x.NOMOR_FAKTUR.Length > 0).ToList();
+            var toBeExported = listEFaktur
+                .Where(x => x.NOMOR_FAKTUR.Length > 0)
+                .ToList();
             var sb = new StringBuilder();
             //      header
             sb.Append(
@@ -458,6 +461,9 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
 
             g.GetCol("IsSet").Width = 30;
             g.GetCol("IsSet").HeaderText= "Set";
+            
+            g.GetCol("IsExport").Width = 40;
+            g.GetCol("IsExport").HeaderText = "Export";
 
             g.GetCol("NoFakturPajak").Width = 140;
 
@@ -695,18 +701,5 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
         #endregion
 
         #endregion
-    }
-
-    public class AlokasiFpAlokasiDto
-    {
-        public AlokasiFpAlokasiDto(string alokasiId, string noSeriFp, int sisa)
-        {
-            AlokasiId = alokasiId;
-            NoSeriFp = noSeriFp;
-            Sisa = sisa;
-        }
-        public string AlokasiId { get; private set; }
-        public string NoSeriFp { get; private set; }
-        public int Sisa { get; private set; }
     }
 }
