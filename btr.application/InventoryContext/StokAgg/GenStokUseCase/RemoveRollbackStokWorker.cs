@@ -1,6 +1,10 @@
-﻿using btr.domain.InventoryContext.StokAgg;
+﻿using btr.application.BrgContext.BrgAgg;
+using btr.domain.BrgContext.BrgAgg;
+using btr.domain.InventoryContext.StokAgg;
 using btr.nuna.Application;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
 {
@@ -26,14 +30,17 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
         private readonly IStokDal _stokDal;
         private readonly IStokMutasiDal _stokMutasiDal;
         private readonly IRemovePriorityStokWorker _removePriorityStokWorker;
+        private readonly IBrgBuilder _brgBuilder;
 
-        public RemoveRollbackStokWorker(IStokDal stokDal, 
-            IStokMutasiDal stokMutasiDal, 
-            IRemovePriorityStokWorker removePriorityStokWorker)
+        public RemoveRollbackStokWorker(IStokDal stokDal,
+            IStokMutasiDal stokMutasiDal,
+            IRemovePriorityStokWorker removePriorityStokWorker,
+            IBrgBuilder brgBuilder)
         {
             _stokDal = stokDal;
             _stokMutasiDal = stokMutasiDal;
             _removePriorityStokWorker = removePriorityStokWorker;
+            _brgBuilder = brgBuilder;
         }
 
         public void Execute(RemoveRollbackRequest request)
@@ -41,7 +48,6 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
             var listStok = _stokDal.ListData(new StokModel { ReffId = request.ReffId });
             if (listStok == null) 
                 return;
-
             foreach(var item in listStok)
             {
                 //  jika belum ada barang keluar, maka hapus
@@ -52,10 +58,15 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                     continue;
                 }
 
+                var brg = _brgBuilder.Load(new BrgModel(item.BrgId)).Build();
+                var satKecil = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan
+                    ?? throw new KeyNotFoundException($"Satuan Kecil {item.BrgId} not found. Rollback Stock failed");
+
                 //  jika sudah ada barang keluar, maka remove priority;
                 var req = new RemovePriorityStokRequest(
-                    item.BrgId, item.WarehouseId, item.Qty, string.Empty, 
-                    item.NilaiPersediaan, request.ReffId, request.JenisMutasi, request.ReffId, "Rollback", request.MutasiDate);
+                    item.BrgId, item.WarehouseId, item.Qty, satKecil, 
+                    item.NilaiPersediaan, request.ReffId, request.JenisMutasi, 
+                    request.ReffId, "Rollback", request.MutasiDate);
                 if (req.Qty == 0)
                     continue;
                 _removePriorityStokWorker.Execute(req);

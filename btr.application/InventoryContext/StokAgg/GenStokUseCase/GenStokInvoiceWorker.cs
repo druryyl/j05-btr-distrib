@@ -43,6 +43,8 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
 
             using (var trans = TransHelper.NewScope())
             {
+                //  TODO: Harusnya di sini remove kembali stok yang tidak bisa di-rollback
+                //        (setelah add stok invoice hasil edit)  
                 var reqRemove = new RemoveRollbackRequest(invoice.InvoiceId,"INVOICE-VOID", invoice.InvoiceDate);
                 _removeRollbackStokWorker.Execute(reqRemove);
                 
@@ -66,6 +68,8 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                         invoice.WarehouseId, qtyBonus, satuan, 0, invoice.InvoiceId, "INVOICE-BONUS", invoice.SupplierName, invoice.InvoiceDate);
                     _addStokWorker.Execute(reqBonus);
                 }
+
+                //  TODO: nah di sini pross remove
                 trans.Complete();
             }
         }
