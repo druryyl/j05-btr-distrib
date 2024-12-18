@@ -569,12 +569,12 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             FakturGrid.Refresh();
             RefreshAlokasiGrid();
         }
-        private void ProsesUnsetNoSeriFaktur(int rowIndex)
+        private string  ProsesUnsetNoSeriFaktur(int rowIndex)
         {
             //  GUARD
             var item = _listFaktur[rowIndex];
             if (item.NoFakturPajak.Length == 0)
-                return;
+                return string.Empty;
             var noSeriRemove = item.NoFakturPajak;
 
             //  BUILD
@@ -590,6 +590,7 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
                 .Attach(alokasi)
                 .UnSetFaktur(faktur)
                 .Build();
+            var lastNoSerFp = faktur.NoFakturPajak;
             faktur.NoFakturPajak = string.Empty;
 
             //  APPLY
@@ -601,6 +602,48 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             }
             item.SetNoFakturPajak(string.Empty);
             FakturGrid.Refresh();
+            RefreshAlokasiGrid();
+
+            return lastNoSerFp;
+
+            //  INNER-HELPER
+            AlokasiFpModel BuildAlokasi(string noSeriFaktur)
+            {
+                var alokasiItem = _alokasiFpItemDal.GetData(new FakturModel { NoFakturPajak = noSeriFaktur })
+                    ?? new AlokasiFpItemModel();
+                alokasiItem.RemoveNull();
+                var fallbackAlokasi = Policy<AlokasiFpModel>
+                    .Handle<KeyNotFoundException>()
+                    .Fallback(new AlokasiFpModel { ListItem = new List<AlokasiFpItemModel>() });
+                var result = fallbackAlokasi.Execute(
+                    () => _alokasiBuilder
+                        .Load(alokasiItem)
+                        .Build());
+                return result;
+            }
+        }
+        private void ProsesVoidSeriFaktur(string nomorSeriFp)
+        {
+            //  GUARD
+            if (nomorSeriFp.Length == 0)
+                return;
+
+            //  BUILD
+            //      1. build aggregate;
+            var alokasi = BuildAlokasi(nomorSeriFp);
+
+            //      2. modify aggregate
+            if (alokasi.AlokasiFpId == (_agg.AlokasiFpId ?? string.Empty))
+                alokasi = _agg;
+
+            alokasi = _alokasiBuilder
+                .Attach(alokasi)
+                .Void(nomorSeriFp)
+                .Build();
+
+            //  APPLY
+            _alokasiWriter.Save(alokasi);
+
             RefreshAlokasiGrid();
 
             //  INNER-HELPER
@@ -619,6 +662,7 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
                 return result;
             }
         }
+
         #endregion
 
         #region --SORT-COLUMN
@@ -691,7 +735,8 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             _fakturPajakVoidWriter.Save(voidFaktur);
 
             //      unset alokasi
-            ProsesUnsetNoSeriFaktur(FakturGrid.CurrentRow.Index);
+            var noSeriFp = ProsesUnsetNoSeriFaktur(FakturGrid.CurrentRow.Index);
+            ProsesVoidSeriFaktur(noSeriFp);
             _listFaktur[FakturGrid.CurrentRow.Index].IsSet = false;
 
             //      update tampilan grid

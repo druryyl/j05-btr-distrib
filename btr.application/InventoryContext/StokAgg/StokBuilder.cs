@@ -18,7 +18,9 @@ namespace btr.application.InventoryContext.StokAgg
         IStokBuilder Load(IStokKey stokKey);
         IStokBuilder Attach(StokModel stok);
         IStokBuilder RemoveStok(int qty, decimal hargaJual, string reffId, string jenisMutasi, string keterangan, DateTime mutasiDate);
+        IStokBuilder AddStok(int qty, decimal hargaBeli, string reffId, string jenisMutasi, string keterangan, DateTime mutasiDate);
         IStokBuilder RollBack(IReffKey reffKey);
+        IStokBuilder RemoveLastIn(string reffId);
     }
     
     public class StokBuilder : IStokBuilder
@@ -132,6 +134,58 @@ namespace btr.application.InventoryContext.StokAgg
         public IStokBuilder Attach(StokModel stok)
         {
             _agg = stok;
+            return this;
+        }
+
+        public IStokBuilder RemoveLastIn(string reffId)
+        {
+            var mutasiItemLastIn = _agg.ListMutasi
+                .OrderBy(x => x.NoUrut)
+                .LastOrDefault(x => x.QtyIn != 0);
+            if (mutasiItemLastIn is null)
+                return this;
+
+            var noUrut = _agg.ListMutasi.DefaultIfEmpty(new StokMutasiModel { NoUrut = 0 }).Max(x => x.NoUrut);
+            noUrut++;
+            var newMutasi = new StokMutasiModel
+            {
+                QtyIn = 0,
+                QtyOut = mutasiItemLastIn.QtyIn,
+                HargaJual = mutasiItemLastIn.HargaJual,
+                ReffId = reffId,
+                BrgId = _agg.BrgId,
+                WarehouseId = _agg.WarehouseId,
+                MutasiDate = mutasiItemLastIn.MutasiDate,
+                PencatatanDate = _dateTime.Now,
+                JenisMutasi = "INVOICE-VOID",
+                NoUrut = noUrut,
+                Keterangan = mutasiItemLastIn.Keterangan
+            };
+            _agg.Qty -= mutasiItemLastIn.QtyIn;
+            _agg.ListMutasi.Add(newMutasi);
+            return this;
+        }
+
+        public IStokBuilder AddStok(int qty, decimal hargaBeli, string reffId, string jenisMutasi, string keterangan, DateTime mutasiDate)
+        {
+            var noUrut = _agg.ListMutasi.DefaultIfEmpty(new StokMutasiModel { NoUrut = 0 }).Max(x => x.NoUrut);
+            noUrut++;
+            var newMutasi = new StokMutasiModel
+            {
+                QtyIn = qty,
+                QtyOut = 0,
+                HargaJual = -hargaBeli,
+                ReffId = reffId,
+                BrgId = _agg.BrgId,
+                WarehouseId = _agg.WarehouseId,
+                MutasiDate = mutasiDate,
+                PencatatanDate = _dateTime.Now,
+                JenisMutasi = jenisMutasi,
+                NoUrut = noUrut,
+                Keterangan = keterangan
+            };
+            _agg.Qty += qty;
+            _agg.ListMutasi.Add(newMutasi);
             return this;
         }
     }

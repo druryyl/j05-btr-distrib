@@ -23,6 +23,7 @@ namespace btr.application.SalesContext.AlokasiFpAgg
         IAlokasiFpBuilder SetFaktur<T>(T faktur)
             where T : IFakturKey, IFakturCode;
         IAlokasiFpBuilder UnSetFaktur(IFakturKey faktur);
+        IAlokasiFpBuilder Void(string nomorSeri);
 
         IAlokasiFpBuilder ClearListNomor();
 
@@ -182,6 +183,18 @@ namespace btr.application.SalesContext.AlokasiFpAgg
         {
             _aggregate.ListItem.Clear();
             _aggregate.Sisa = _aggregate.Kapasitas;
+            return this;
+        }
+
+        public IAlokasiFpBuilder Void(string nomorSeri)
+        {
+            var selected = _aggregate.ListItem
+                .FirstOrDefault(x => x.NoFakturPajak == nomorSeri)
+                ?? throw new ArgumentException("Faktur tidak ditemukan dalam alokasi");
+
+            selected.FakturId = "VOID";
+            selected.FakturCode = "VOID";
+            _aggregate.Sisa = _aggregate.ListItem.Count(x => x.FakturId.Length == 0);
             return this;
         }
     }
