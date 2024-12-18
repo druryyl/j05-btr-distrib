@@ -27,8 +27,8 @@ namespace btr.infrastructure.InventoryContext.KartuStokRpt
             //  query table BTR_StokMutasi and project to KartuStokView
             const string sql = @"
                 SELECT
-                    aa.WarehouseId, aa.MutasiDate, aa.JenisMutasi, aa.ReffId, aa.MutasiDate, aa.QtyIn, aa.QtyOut, 
-                    aa.HargaJual, aa.Keterangan, 
+                    aa.WarehouseId, aa.StokId, aa.NoUrut, aa.MutasiDate, aa.JenisMutasi, 
+                    aa.ReffId, aa.MutasiDate, aa.QtyIn, aa.QtyOut, aa.HargaJual, aa.Keterangan, 
                     bb.NilaiPersediaan as Hpp
                 FROM
                     BTR_StokMutasi aa
@@ -37,7 +37,7 @@ namespace btr.infrastructure.InventoryContext.KartuStokRpt
                     aa.BrgId = @BrgId AND
                     aa.MutasiDate BETWEEN @StartDate AND @EndDate
                 ORDER BY
-                    aa.MutasiDate";
+                    aa.StokId, aa.NoUrut ";
 
             var dp = new DynamicParameters();
             dp.AddParam("@BrgId", brgKey.BrgId, SqlDbType.VarChar);

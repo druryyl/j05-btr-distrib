@@ -341,7 +341,7 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
         {
             RefreshAlokasiGrid();
             var g = AlokasiGrid.Columns;
-            g.SetDefaultCellStyle(Color.LightCyan);
+            //g.SetDefaultCellStyle(Color.LightCyan);
             g.GetCol("AlokasiId").Visible = false;
             g.GetCol("NoSeriFp").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             g.GetCol("NoSeriFp").Width = 130;
@@ -437,7 +437,7 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
             FakturGrid.DataSource = binding;
 
             var g = FakturGrid.Columns;
-            g.SetDefaultCellStyle(Color.Wheat);
+            g.SetDefaultCellStyle(Color.White);
             g.GetCol("FakturId").Visible = false;
 
             g.GetCol("FakturCode").Width = 60;
@@ -458,6 +458,7 @@ namespace btr.distrib.SalesContext.AlokasiFpAgg
 
             g.GetCol("Address").Width = 100;
             g.GetCol("GrandTotal").Width = 80;
+            g.GetCol("GrandTotal").DefaultCellStyle.Format = "N0";
 
             g.GetCol("IsSet").Width = 30;
             g.GetCol("IsSet").HeaderText= "Set";

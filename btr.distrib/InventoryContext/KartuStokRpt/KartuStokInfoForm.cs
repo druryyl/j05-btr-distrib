@@ -74,7 +74,6 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             var brgId = BrgGrid.Rows[e.RowIndex].Cells["BrgId"].Value.ToString();
             var periode = new Periode(Periode1Date.Value, Periode2Date.Value);
             GenKartuStok(periode, new BrgModel(brgId));
-            //SummaryGrid.DataSource = GetSaldoAwal(periode, new BrgModel(brgId));
         }
 
         private void ListBarangButton_Click(object sender, EventArgs e)
@@ -145,13 +144,14 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             col.GetCol("HargaJual").HeaderText = @"Harga Jual";
             col.GetCol("Keterangan").HeaderText = @"Keterangan";
 
-            col.GetCol("WarehouseName").Width = 120;
+            col.GetCol("WarehouseName").Width = 80;
+            col.GetCol("No").Width = 40;
             col.GetCol("MutasiDate").Width = 80;
             col.GetCol("JenisMutasi").Width = 100;
-            col.GetCol("QtyAwal").Width = 50;
-            col.GetCol("QtyMasuk").Width = 50;
-            col.GetCol("QtyKeluar").Width = 50;
-            col.GetCol("QtyAkhir").Width = 50;
+            col.GetCol("QtyAwal").Width = 40;
+            col.GetCol("QtyMasuk").Width = 40;
+            col.GetCol("QtyKeluar").Width = 40;
+            col.GetCol("QtyAkhir").Width = 40;
             col.GetCol("Hpp").Width = 70;
             col.GetCol("HargaJual").Width = 70;
             col.GetCol("Keterangan").Width = 400;
@@ -183,13 +183,13 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             col.GetCol("MutasiDate").DefaultCellStyle.Font = new System.Drawing.Font("Consolas", 8.25F);
             col.GetCol("Keterangan").DefaultCellStyle.Font = new System.Drawing.Font("Consolas", 8.25F);
 
-            col.GetCol("QtyAwal").DefaultCellStyle.BackColor = System.Drawing.Color.Bisque;
-            col.GetCol("QtyMasuk").DefaultCellStyle.BackColor = System.Drawing.Color.LightYellow;
-            col.GetCol("QtyKeluar").DefaultCellStyle.BackColor = System.Drawing.Color.LightYellow;
-            col.GetCol("QtyAkhir").DefaultCellStyle.BackColor = System.Drawing.Color.Bisque;
+            col.GetCol("QtyAwal").DefaultCellStyle.ForeColor = System.Drawing.Color.Gray;
+            //col.GetCol("QtyMasuk").DefaultCellStyle.BackColor = System.Drawing.Color.LightYellow;
+            //col.GetCol("QtyKeluar").DefaultCellStyle.BackColor = System.Drawing.Color.LightYellow;
+            col.GetCol("QtyAkhir").DefaultCellStyle.ForeColor = System.Drawing.Color.Gray;
 
-            col.GetCol("Hpp").DefaultCellStyle.BackColor = System.Drawing.Color.LightGreen;
-            col.GetCol("HargaJual").DefaultCellStyle.BackColor = System.Drawing.Color.LightGreen;
+            col.GetCol("Hpp").DefaultCellStyle.BackColor = Color.LightGreen;
+            col.GetCol("HargaJual").DefaultCellStyle.BackColor = Color.LightGreen;
 
             col.GetCol("JenisMutasi").Visible = false;
             col.GetCol("Hpp").Visible = false;
@@ -202,18 +202,17 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
                 ?? new List<KartuStokView>();
             //  sum QtyIn, QtyOut grouped by ReffId
             var listKartuStokGrouped = listKartuStok
-                .GroupBy(x => new { x.ReffId, x.JenisMutasi, x.WarehouseId })
                 .Select(x => new KartuStokView
                 {
-                    ReffId = x.Key.ReffId,
-                    JenisMutasi = x.Key.JenisMutasi,
-                    WarehouseId = x.Key.WarehouseId,
-                    QtyIn = x.Sum(y => y.QtyIn),
-                    QtyOut = x.Sum(y => y.QtyOut),
-                    Hpp = x.Average(y => y.Hpp),
-                    HargaJual = x.Average(y => y.HargaJual),
-                    Keterangan = x.First().Keterangan,
-                    MutasiDate = x.First().MutasiDate
+                    ReffId = x.ReffId,
+                    JenisMutasi = x.JenisMutasi,
+                    WarehouseId = x.WarehouseId,
+                    QtyIn = x.QtyIn,
+                    QtyOut = x.QtyOut,
+                    Hpp = x.Hpp,
+                    HargaJual = x.HargaJual,
+                    Keterangan = x.Keterangan,
+                    MutasiDate = x.MutasiDate
                 }).ToList();
             var listSaldoAwal = GetSaldoAwal(periode, brgKey);
             var listWarehouse = _warehouseDal.ListData()?.ToList() ?? new List<WarehouseModel>();
@@ -225,40 +224,49 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
                 {
                     WarehouseName = warehouse.WarehouseName,
                     JenisMutasi = "Saldo Awal",
-                    QtyAwal = saldoAwal?.QtyAkhir ?? 0,
-                    QtyMasuk = 0,
-                    QtyKeluar = 0,
-                    QtyAkhir = 0,
+                    QtyAwal = $"{saldoAwal?.QtyAkhir.ToString("N0") ?? string.Empty}",
+                    QtyMasuk = string.Empty,
+                    QtyKeluar = string.Empty,
+                    QtyAkhir = string.Empty,
                     Hpp = 0,
                     HargaJual = 0,
                     Keterangan = "Saldo Awal"
                 });
                 var saldo = saldoAwal?.QtyAkhir ?? 0;
                 var kartuStok = new KartuStokItemInfoDto();
-                foreach(var item in listKartuStokGrouped.Where(x => x.WarehouseId == warehouse.WarehouseId))
+                var noUrut = 1;
+                foreach (var item in listKartuStokGrouped.Where(x => x.WarehouseId == warehouse.WarehouseId))
                 {
+                    var qtyIn = item.QtyIn == 0 ? string.Empty : $"{item.QtyIn:N0}";
+                    var qtyOut = item.QtyOut == 0 ? string.Empty : $"{item.QtyOut:N0}";
                     kartuStok = new KartuStokItemInfoDto
                     {
+                        No = noUrut,
                         WarehouseName = string.Empty,
                         MutasiDate = item.MutasiDate,
                         JenisMutasi = item.JenisMutasi,
-                        QtyAwal = saldo,
-                        QtyMasuk = item.QtyIn,
-                        QtyKeluar = item.QtyOut,
-                        QtyAkhir = saldo + item.QtyIn - item.QtyOut,
+                        QtyAwal = string.Empty, //$"{saldo:N0}",
+                        QtyMasuk = qtyIn,
+                        QtyKeluar = qtyOut,
+                        QtyAkhir = $"{(saldo + item.QtyIn - item.QtyOut):N0}",
                         Hpp = item.Hpp,
                         HargaJual = item.HargaJual,
                         Keterangan = $"{item.JenisMutasi} : {item.ReffId} - {item.Keterangan}"
                     };
                     result.Add(kartuStok);
                     saldo += item.QtyIn - item.QtyOut;
+                    noUrut++;
                 }
 
                 var saldoAkhir = kartuStok.Adapt<KartuStokItemInfoDto>();
+                //noUrut++;
+                saldoAkhir.No = noUrut;
                 saldoAkhir.JenisMutasi = "Saldo Akhir";
                 saldoAkhir.Keterangan = "Saldo Akhir";
-                saldoAkhir.QtyMasuk = listKartuStokGrouped.Where(x => x.WarehouseId == warehouse.WarehouseId).Sum(x => x.QtyIn);
-                saldoAkhir.QtyKeluar = listKartuStokGrouped.Where(x => x.WarehouseId == warehouse.WarehouseId).Sum(x => x.QtyOut);
+                var saldoQtyMasuk = listKartuStokGrouped.Where(x => x.WarehouseId == warehouse.WarehouseId).Sum(x => x.QtyIn);
+                var saldoQtyKeluar = listKartuStokGrouped.Where(x => x.WarehouseId == warehouse.WarehouseId).Sum(x => x.QtyOut);
+                saldoAkhir.QtyMasuk = $"{saldoQtyMasuk:N0}";
+                saldoAkhir.QtyKeluar = $"{saldoQtyKeluar:N0}";
                 saldoAkhir.Hpp = 0;
                 saldoAkhir.HargaJual = 0;
                 result.Add(saldoAkhir);
@@ -288,12 +296,13 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
     public class KartuStokItemInfoDto 
     {
         public string WarehouseName { get; set; }
+        public int No { get; set; }
         public string JenisMutasi { get; set; }
         public DateTime MutasiDate { get; set; }
-        public int QtyAwal { get; set; }
-        public int QtyMasuk { get; set; }
-        public int QtyKeluar { get; set; }
-        public int QtyAkhir { get; set; }
+        public string QtyAwal { get; set; }
+        public string QtyMasuk { get; set; }
+        public string QtyKeluar { get; set; }
+        public string QtyAkhir { get; set; }
         public decimal Hpp{ get; set; }
         public decimal HargaJual { get; set; }
         public string Keterangan { get; set; }
