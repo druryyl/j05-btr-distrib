@@ -1,6 +1,6 @@
 ﻿CREATE TABLE BTR_InvoiceItem(
     InvoiceId VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_InvoiceItem_InvoiceId DEFAULT(''),
-    InvoiceItemId VARCHAR(16) NOT NULL CONSTRAINT DF_BTR_InvoiceItem_InvoiceItemId DEFAULT('3000-01-01'),
+    InvoiceItemId VARCHAR(17) NOT NULL CONSTRAINT DF_BTR_InvoiceItem_InvoiceItemId DEFAULT(''),
     NoUrut INT NOT NULL CONSTRAINT DF_BTR_InvoiceItem_NoUrut DEFAULT(0),
     BrgId VARCHAR(6) NOT NULL CONSTRAINT DF_BTR_InvoiceItem_BrgId DEFAULT(''),
 

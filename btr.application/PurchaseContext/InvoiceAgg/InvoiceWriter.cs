@@ -46,7 +46,7 @@ namespace btr.application.PurchaseContext.InvoiceAgg
             foreach (var item in model.ListItem)
             {
                 item.InvoiceId = model.InvoiceId;
-                item.InvoiceItemId = $"{model.InvoiceId}-{item.NoUrut:D2}";
+                item.InvoiceItemId = $"{model.InvoiceId}-{item.NoUrut:D3}";
                 foreach (var item2 in item.ListDisc)
                 {
                     item2.InvoiceId = model.InvoiceId;

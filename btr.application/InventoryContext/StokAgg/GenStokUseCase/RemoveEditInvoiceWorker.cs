@@ -94,10 +94,10 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
         private IEnumerable<StokModel> ListOnlyLastInvoice(IEnumerable<StokModel> listStok)
         {
             var result = listStok
-                .GroupBy(item => item.ReffId)
+                .GroupBy(item => item.BrgId)
                 .Select(group => group.Last())
                 .ToList();
-            return result;
+            return result;  
         }
     }
 }

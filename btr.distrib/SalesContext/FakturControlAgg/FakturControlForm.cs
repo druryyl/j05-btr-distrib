@@ -415,7 +415,11 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             var listTemp = listData.Select(x => x.Adapt<FakturControlView>()).ToList();
             _listItem = new BindingList<FakturControlView>(listTemp);
 
-            var listStatus = _fakturControlStatusDal.ListData(periode)?.ToList() ?? new List<FakturControlStatusModel>();
+            var listStatusAll = _fakturControlStatusDal.ListData(periode)?.ToList() ?? new List<FakturControlStatusModel>();
+            var listStatus = (
+                from c in listStatusAll
+                join d in listData on c.FakturId equals d.FakturId
+                select c).ToList();
 
             var listPiutangKey = listStatus.Select(x => new PiutangModel(x.FakturId));
             var listPiutang = _piutangDal.ListData(listPiutangKey)?.ToList() ?? new List<PiutangModel>();
@@ -472,10 +476,10 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             var listSales = listData.Where(x => x.SalesPersonName.ToLower().StartsWith(keyword.ToLower())).ToList();
             var listAdmin = listData.Where(x => string.Equals(x.UserId, keyword, StringComparison.CurrentCultureIgnoreCase));
             var result = listCustomerName
-                .Concat(listCustomerId)
-                .Concat(listFakturCode)
-                .Concat(listSales)
-                .Concat(listAdmin)
+                .Union(listCustomerId)
+                .Union(listFakturCode)
+                .Union(listSales)
+                .Union(listAdmin)
                 .OrderBy(x => x.FakturDate);
 
             return result.ToList();

@@ -17,8 +17,6 @@ using btr.domain.BrgContext.BrgAgg;
 using btr.application.FinanceContext.FakturPotBalanceAgg;
 using btr.application.SalesContext.FakturAgg.Contracts;
 using Syncfusion.Windows.Forms.Grid;
-using System.Windows.Forms.DataVisualization.Charting;
-using DocumentFormat.OpenXml.Drawing.Charts;
 using btr.application.SalesContext.CustomerAgg.Contracts;
 
 namespace btr.distrib.FinanceContext.ReturBalanceAgg

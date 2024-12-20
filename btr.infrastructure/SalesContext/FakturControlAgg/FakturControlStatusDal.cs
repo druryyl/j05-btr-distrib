@@ -64,9 +64,10 @@ namespace btr.infrastructure.SalesContext.FakturControlAgg
             const string sql = @"
             SELECT
                 aa.FakturId, aa.FakturDate, aa.StatusFaktur, aa.StatusDate,
-                aa.Keterangan, UserId
+                aa.Keterangan, aa.UserId
             FROM 
                 BTR_FakturControlStatus aa
+                INNER JOIN BTR_Faktur bb ON aa.FakturId = bb.FakturId
             WHERE
                 aa.FakturId = @FakturId ";
 
@@ -84,11 +85,12 @@ namespace btr.infrastructure.SalesContext.FakturControlAgg
             const string sql = @"
             SELECT
                 aa.FakturId, aa.FakturDate, aa.StatusFaktur, aa.StatusDate,
-                aa.Keterangan, UserId
+                aa.Keterangan, aa.UserId
             FROM 
                 BTR_FakturControlStatus aa
+                INNER JOIN BTR_Faktur bb ON aa.FakturId = bb.FakturId
             WHERE
-                aa.FakturDate BETWEEN @Tgl1 AND @Tgl2";
+                bb.FakturDate BETWEEN @Tgl1 AND @Tgl2";
 
             var dp = new DynamicParameters();
             dp.AddParam("@Tgl1", filter.Tgl1, SqlDbType.DateTime);

@@ -19,13 +19,10 @@ using System.Drawing;
 using System.Drawing.Printing;
 using System.Linq;
 using System.Windows.Forms;
-using btr.application.InventoryContext.StokAgg;
 using btr.application.InventoryContext.StokAgg.GenStokUseCase;
 using btr.application.PurchaseContext.InvoiceAgg;
 using btr.distrib.PrintDocs;
-using btr.domain.InventoryContext.StokAgg;
 using JetBrains.Annotations;
-using btr.distrib.SalesContext.FakturAgg;
 
 namespace btr.distrib.PurchaseContext.InvoiceAgg
 {
@@ -142,7 +139,6 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             {
                 defaultPrinterName = "Printer Error : " + ex.Message;
             }
-
             return defaultPrinterName;
         }
 
