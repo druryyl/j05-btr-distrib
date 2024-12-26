@@ -76,6 +76,7 @@
             this.SaveButton = new System.Windows.Forms.Button();
             this.NewButton = new System.Windows.Forms.Button();
             this.PrintButton = new System.Windows.Forms.Button();
+            this.PerbaikanStokButton = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -95,7 +96,9 @@
             // TermOfPaymentCombo
             // 
             this.TermOfPaymentCombo.FormattingEnabled = true;
-            this.TermOfPaymentCombo.Items.AddRange(new object[] { "Credit", "Cash" });
+            this.TermOfPaymentCombo.Items.AddRange(new object[] {
+            "Credit",
+            "Cash"});
             this.TermOfPaymentCombo.Location = new System.Drawing.Point(6, 24);
             this.TermOfPaymentCombo.Name = "TermOfPaymentCombo";
             this.TermOfPaymentCombo.Size = new System.Drawing.Size(175, 21);
@@ -264,7 +267,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(3, 48);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(72, 13);
+            this.label5.Size = new System.Drawing.Size(71, 13);
             this.label5.TabIndex = 21;
             this.label5.Text = "Jatuh Tempo";
             // 
@@ -273,13 +276,14 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(3, 8);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(93, 13);
+            this.label4.Size = new System.Drawing.Size(92, 13);
             this.label4.TabIndex = 19;
             this.label4.Text = "Term Of Payment";
             // 
             // PanelAtas4
             // 
-            this.PanelAtas4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.PanelAtas4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.PanelAtas4.BackColor = System.Drawing.Color.Cornsilk;
             this.PanelAtas4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PanelAtas4.Controls.Add(this.VoidPanel);
@@ -314,7 +318,9 @@
             // 
             // NoteTextBox
             // 
-            this.NoteTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.NoteTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.NoteTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.NoteTextBox.Location = new System.Drawing.Point(11, 24);
             this.NoteTextBox.Multiline = true;
@@ -334,7 +340,9 @@
             // 
             // InvoiceItemGrid
             // 
-            this.InvoiceItemGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.InvoiceItemGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.InvoiceItemGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.InvoiceItemGrid.Location = new System.Drawing.Point(6, 201);
             this.InvoiceItemGrid.Name = "InvoiceItemGrid";
@@ -343,7 +351,8 @@
             // 
             // PanelTengah
             // 
-            this.PanelTengah.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Right)));
+            this.PanelTengah.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.PanelTengah.BackColor = System.Drawing.Color.Honeydew;
             this.PanelTengah.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PanelTengah.Controls.Add(this.TaxText);
@@ -367,7 +376,11 @@
             // 
             this.TaxText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TaxText.Location = new System.Drawing.Point(11, 102);
-            this.TaxText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
+            this.TaxText.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
             this.TaxText.Name = "TaxText";
             this.TaxText.ReadOnly = true;
             this.TaxText.Size = new System.Drawing.Size(117, 20);
@@ -380,7 +393,7 @@
             this.BiayaLainLabel.AutoSize = true;
             this.BiayaLainLabel.Location = new System.Drawing.Point(8, 86);
             this.BiayaLainLabel.Name = "BiayaLainLabel";
-            this.BiayaLainLabel.Size = new System.Drawing.Size(23, 13);
+            this.BiayaLainLabel.Size = new System.Drawing.Size(22, 13);
             this.BiayaLainLabel.TabIndex = 14;
             this.BiayaLainLabel.Text = "Tax";
             // 
@@ -388,7 +401,11 @@
             // 
             this.SisaText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SisaText.Location = new System.Drawing.Point(11, 248);
-            this.SisaText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
+            this.SisaText.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
             this.SisaText.Name = "SisaText";
             this.SisaText.ReadOnly = true;
             this.SisaText.Size = new System.Drawing.Size(117, 20);
@@ -409,7 +426,11 @@
             // 
             this.UangMukaText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UangMukaText.Location = new System.Drawing.Point(11, 209);
-            this.UangMukaText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
+            this.UangMukaText.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
             this.UangMukaText.Name = "UangMukaText";
             this.UangMukaText.Size = new System.Drawing.Size(117, 20);
             this.UangMukaText.TabIndex = 23;
@@ -429,7 +450,11 @@
             // 
             this.GrandTotalText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GrandTotalText.Location = new System.Drawing.Point(9, 141);
-            this.GrandTotalText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
+            this.GrandTotalText.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
             this.GrandTotalText.Name = "GrandTotalText";
             this.GrandTotalText.ReadOnly = true;
             this.GrandTotalText.Size = new System.Drawing.Size(117, 20);
@@ -442,7 +467,7 @@
             this.GrandTotalLabel.AutoSize = true;
             this.GrandTotalLabel.Location = new System.Drawing.Point(8, 125);
             this.GrandTotalLabel.Name = "GrandTotalLabel";
-            this.GrandTotalLabel.Size = new System.Drawing.Size(67, 13);
+            this.GrandTotalLabel.Size = new System.Drawing.Size(66, 13);
             this.GrandTotalLabel.TabIndex = 8;
             this.GrandTotalLabel.Text = "Grand Total";
             // 
@@ -450,7 +475,11 @@
             // 
             this.DiscountText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DiscountText.Location = new System.Drawing.Point(11, 63);
-            this.DiscountText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
+            this.DiscountText.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
             this.DiscountText.Name = "DiscountText";
             this.DiscountText.ReadOnly = true;
             this.DiscountText.Size = new System.Drawing.Size(117, 20);
@@ -471,7 +500,11 @@
             // 
             this.TotalText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalText.Location = new System.Drawing.Point(11, 24);
-            this.TotalText.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
+            this.TotalText.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
             this.TotalText.Name = "TotalText";
             this.TotalText.ReadOnly = true;
             this.TotalText.Size = new System.Drawing.Size(117, 20);
@@ -484,7 +517,7 @@
             this.TotalLabel.AutoSize = true;
             this.TotalLabel.Location = new System.Drawing.Point(8, 8);
             this.TotalLabel.Name = "TotalLabel";
-            this.TotalLabel.Size = new System.Drawing.Size(32, 13);
+            this.TotalLabel.Size = new System.Drawing.Size(31, 13);
             this.TotalLabel.TabIndex = 4;
             this.TotalLabel.Text = "Total";
             // 
@@ -601,12 +634,23 @@
             this.PrintButton.Text = "Print";
             this.PrintButton.UseVisualStyleBackColor = true;
             // 
+            // PerbaikanStokButton
+            // 
+            this.PerbaikanStokButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.PerbaikanStokButton.Location = new System.Drawing.Point(168, 491);
+            this.PerbaikanStokButton.Name = "PerbaikanStokButton";
+            this.PerbaikanStokButton.Size = new System.Drawing.Size(106, 23);
+            this.PerbaikanStokButton.TabIndex = 56;
+            this.PerbaikanStokButton.Text = "Perbaikan Stok";
+            this.PerbaikanStokButton.UseVisualStyleBackColor = true;
+            // 
             // InvoiceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.ClientSize = new System.Drawing.Size(1106, 523);
+            this.Controls.Add(this.PerbaikanStokButton);
             this.Controls.Add(this.PrintButton);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel3);
@@ -641,6 +685,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
+
         }
 
         private System.Windows.Forms.Button PrintButton;
@@ -693,5 +738,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.MaskedTextBox NoFakturPajakText;
         private System.Windows.Forms.Label LastIdLabel;
+        private System.Windows.Forms.Button PerbaikanStokButton;
     }
 }

@@ -105,6 +105,12 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             SaveButton.Click += SaveButton_Click;
             NewButton.Click += NewButton_Click;
             PrintButton.Click += PrintButton_Click;
+            PerbaikanStokButton.Click += PerbaikanStokButton_Click;
+        }
+
+        private void PerbaikanStokButton_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void PrintButton_Click(object sender, EventArgs e)

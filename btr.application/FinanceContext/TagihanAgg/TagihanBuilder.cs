@@ -95,6 +95,7 @@ namespace btr.application.FinanceContext.TagihanAgg
                 FakturId = faktur.FakturId,
                 NoUrut = noUrut,
                 FakturCode = faktur.FakturCode,
+                FakturDate = faktur.FakturDate,
                 CustomerId = faktur.CustomerId,
                 CustomerName = faktur.CustomerName,
                 Alamat = faktur.Address,

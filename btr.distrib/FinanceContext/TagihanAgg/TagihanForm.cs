@@ -12,10 +12,12 @@ using btr.application.SalesContext.FakturAgg.Workers;
 using btr.application.SalesContext.SalesPersonAgg.Contracts;
 using btr.distrib.Browsers;
 using btr.distrib.Helpers;
+using btr.distrib.SalesContext.FakturAgg;
 using btr.domain.FinanceContext.PiutangAgg;
 using btr.domain.FinanceContext.TagihanAgg;
 using btr.domain.SalesContext.FakturAgg;
 using btr.domain.SalesContext.SalesPersonAgg;
+using btr.infrastructure.SalesContext.FakturAgg;
 using btr.nuna.Domain;
 using ClosedXML.Excel;
 using JetBrains.Annotations;
@@ -132,19 +134,38 @@ namespace btr.distrib.FinanceContext.TagihanAgg
 
         private void SaveButtonOnClick(object sender, EventArgs e)
         {
-            var tagihan = _tagihanBuilder
-                .Create()
-                .Sales(new SalesPersonModel(SalesCombo.SelectedValue.ToString()))
-                .TglTagihan(TglTagihText.Value)
-                .Build();
+            var tagihan = new TagihanModel();
+            if (TagihanIdText.Text.Trim().Length == 0)
+                tagihan = _tagihanBuilder
+                    .Create()
+                    .Sales(new SalesPersonModel(SalesCombo.SelectedValue.ToString()))
+                    .TglTagihan(TglTagihText.Value)
+                    .Build();
+            else
+                tagihan = _tagihanBuilder
+                    .Load(new TagihanModel(TagihanIdText.Text))
+                    .Sales(new SalesPersonModel(SalesCombo.SelectedValue.ToString()))
+                    .TglTagihan(TglTagihText.Value)
+                    .Build();
+
+            tagihan.ListFaktur.Clear();
+            tagihan.TotalTagihan = 0;
             tagihan = _listTagihan.Aggregate(tagihan, (current, item) => _tagihanBuilder.Attach(current)
                 .AddFaktur(new FakturModel(item.FakturId), item.NilaiTotal, item.NilaiTerbayar, item.NilaiTagih)
                 .Build());
             _tagihanWriter.Save(tagihan);
             LastIdLabel.Text = tagihan.TagihanId;
             ClearForm();
-            
-            PrintToExcel(tagihan);
+
+            //PrintToExcel(tagihan);
+            var tagihanPrintout = new TagihanPrintOutDto(tagihan);
+            PrintRdlc(tagihanPrintout);
+        }
+
+        private void PrintRdlc(TagihanPrintOutDto tagihan)
+        {
+            var form = new TagihanPrintOutForm(tagihan);
+            form.ShowDialog();
         }
 
         private void ClearForm()

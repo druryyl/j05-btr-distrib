@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>178</ApplicationRevision>
+    <ApplicationRevision>183</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -355,6 +355,13 @@
       <DependentUpon>TagihanForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FinanceContext\TagihanAgg\TagihanPrintOutDto.cs" />
+    <Compile Include="FinanceContext\TagihanAgg\TagihanPrintOutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FinanceContext\TagihanAgg\TagihanPrintOutForm.Designer.cs">
+      <DependentUpon>TagihanPrintOutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FinanceContext\TagihanAgg\TagihanPrintOutItemDto.cs" />
     <Compile Include="Helpers\BrowseFilter.cs" />
     <Compile Include="Helpers\CodeRedReporting.cs" />
     <Compile Include="Helpers\DecimalStringFormatter.cs" />
@@ -577,6 +584,7 @@
     <Compile Include="SalesContext\FakturAgg\FakturPrintOutForm.Designer.cs">
       <DependentUpon>FakturPrintOutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SalesContext\FakturAgg\FakturPrintOutItemDto.cs" />
     <Compile Include="SalesContext\FakturCashRpt\FakturCashInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -703,6 +711,8 @@
     <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\DataSources\btr.distrib.FinanceContext.TagihanAgg.TagihanPrintOutDto.datasource" />
+    <None Include="Properties\DataSources\btr.distrib.FinanceContext.TagihanAgg.TagihanPrintOutItemDto.datasource" />
     <None Include="Properties\DataSources\btr.distrib.InventoryContext.ReturJualAgg.ReturJualPrintOutDto.datasource" />
     <None Include="Properties\DataSources\btr.distrib.PurchaseContext.InvoiceAgg.InvoicePrintOutDto.datasource" />
     <None Include="Properties\DataSources\btr.distrib.SalesContext.FakturAgg.FakturItemDto.datasource" />
@@ -739,6 +749,9 @@
       <DependentUpon>TagihanForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FinanceContext\TagihanAgg\TagihanPrintOut.rdlc" />
+    <EmbeddedResource Include="FinanceContext\TagihanAgg\TagihanPrintOutForm.resx">
+      <DependentUpon>TagihanPrintOutForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\AdjustmentAgg\AdjustmentForm.resx">
       <DependentUpon>AdjustmentForm.cs</DependentUpon>
     </EmbeddedResource>

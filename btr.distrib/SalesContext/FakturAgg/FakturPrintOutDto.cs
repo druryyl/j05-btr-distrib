@@ -64,7 +64,7 @@ namespace btr.distrib.SalesContext.FakturAgg
                         Disc2 = disc2 == 0 ? "-" : $"{DecFormatter.ToStr(disc2)}%",
                         Disc3 = disc3 == 0 ? "-" : $"{DecFormatter.ToStr(disc3)}%",
                         Disc4 = disc4 == 0 ? "-" : $"{DecFormatter.ToStr(disc4)}%",
-                        Total = $"{DecFormatter.ToStr(item.Total)}",
+                        Total = $"{DecFormatter.ToStr(item.Total - item.PpnRp + item.DiscRp)}",
                     };
                     ListItem.Add(newItem);
                     noUrut++;
@@ -116,21 +116,5 @@ namespace btr.distrib.SalesContext.FakturAgg
 
         public List<FakturPrintOutItemDto> ListItem { get; set; }
 
-    }
-
-    public class FakturPrintOutItemDto
-    {
-        public string NoUrut { get; set; }
-        public string BrgCode { get; set; }
-        public string BrgName { get; set; }
-        public string QtyBesar { get; set; }
-        public string QtyKecil { get; set; }
-        public string HrgBesar { get; set; }
-        public string HrgKecil { get; set; }
-        public string Disc1 { get; set; }
-        public string Disc2 { get; set; }
-        public string Disc3 { get; set; }
-        public string Disc4 { get; set; }
-        public string Total { get; set; }
     }
 }

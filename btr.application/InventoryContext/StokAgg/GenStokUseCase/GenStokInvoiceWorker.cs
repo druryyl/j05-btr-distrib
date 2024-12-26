@@ -64,6 +64,12 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                     var brg = _brgBuilder.Load(item).Build();
                     var satuan = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty;
 
+                    if (item.BrgId == "BR005C")
+                    {
+                        var x1 = 1;
+
+                    }
+
                     if (item.QtyBeli != 0)
                     {
                         var reqAddStok = new AddStokRequest(item.BrgId,
