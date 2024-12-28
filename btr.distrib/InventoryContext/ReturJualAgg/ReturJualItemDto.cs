@@ -10,7 +10,11 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
     {
         public ReturJualItemDto()
         {
-            PpnProsen = 11; 
+        }
+
+        public void SetPpnProsen(decimal ppnProsen)
+        {
+            PpnProsen = ppnProsen;
         }
 
         public string BrgId { get; set; }

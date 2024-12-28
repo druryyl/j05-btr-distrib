@@ -4,8 +4,12 @@
     {
         public FakturItemDto()
         {
-            PpnProsen = 11; 
         }
+        public void SetPPnProsen(decimal ppnProsen)
+        {
+            PpnProsen = ppnProsen;
+        }
+
         public string BrgId { get; set; }
         public string BrgCode { get; private set; }
         public string BrgName { get; private set; }

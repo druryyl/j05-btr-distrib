@@ -72,6 +72,7 @@
             this.BrgButton = new System.Windows.Forms.RibbonButton();
             this.WarehouseButton = new System.Windows.Forms.RibbonButton();
             this.KategoriAButton = new System.Windows.Forms.RibbonButton();
+            this.DriverButton = new System.Windows.Forms.RibbonButton();
             this.FinanceTab = new System.Windows.Forms.RibbonTab();
             this.ribbonPanel1 = new System.Windows.Forms.RibbonPanel();
             this.FT1LunasPiutangButton = new System.Windows.Forms.RibbonButton();
@@ -94,7 +95,6 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.DriverButton = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -501,6 +501,15 @@
             this.KategoriAButton.Text = "IM3-Kategori";
             this.KategoriAButton.Click += new System.EventHandler(this.IM3KategoriButton_Click);
             // 
+            // DriverButton
+            // 
+            this.DriverButton.Image = global::btr.distrib.Properties.Resources.icons8_user_account_32;
+            this.DriverButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_user_account_32;
+            this.DriverButton.Name = "DriverButton";
+            this.DriverButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("DriverButton.SmallImage")));
+            this.DriverButton.Text = "IM4-Driver";
+            this.DriverButton.Click += new System.EventHandler(this.DriverButton_Click);
+            // 
             // FinanceTab
             // 
             this.FinanceTab.Name = "FinanceTab";
@@ -630,12 +639,12 @@
             // 
             // TestingButton
             // 
-            this.TestingButton.Image = global::btr.distrib.Properties.Resources.icons8_microscope_32;
-            this.TestingButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_microscope_32;
+            this.TestingButton.Image = global::btr.distrib.Properties.Resources.icons8_vue_js_32;
+            this.TestingButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_vue_js_32;
             this.TestingButton.Name = "TestingButton";
             this.TestingButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("TestingButton.SmallImage")));
-            this.TestingButton.Text = "Testing";
-            this.TestingButton.Click += new System.EventHandler(this.TestingButton_Click);
+            this.TestingButton.Text = "Parameter Sistem";
+            this.TestingButton.Click += new System.EventHandler(this.ParamSistemButton_Click);
             // 
             // ReceivingPanel
             // 
@@ -674,15 +683,6 @@
             this.ServerDbStatus.Name = "ServerDbStatus";
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
-            // 
-            // DriverButton
-            // 
-            this.DriverButton.Image = global::btr.distrib.Properties.Resources.icons8_user_account_32;
-            this.DriverButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_user_account_32;
-            this.DriverButton.Name = "DriverButton";
-            this.DriverButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("DriverButton.SmallImage")));
-            this.DriverButton.Text = "IM4-Driver";
-            this.DriverButton.Click += new System.EventHandler(this.DriverButton_Click);
             // 
             // MainForm
             // 

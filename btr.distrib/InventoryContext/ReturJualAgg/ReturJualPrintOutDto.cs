@@ -30,6 +30,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             SubTotal = $"{retJual.Total:N0}";
             Discount = $"{retJual.DiscRp:N0}";
             Ppn = $"{retJual.ListItem.Sum(x => x.PpnRp):N0}";
+            PpnProsen = $"PPN {DecFormatter.ToStr(retJual.ListItem.FirstOrDefault().PpnProsen)}% :";
             GrandTotal = $"{retJual.GrandTotal:N0}";
             UserName = retJual.UserId;
 
@@ -74,6 +75,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
         public string SubTotal { get; set; }
         public string Discount { get; set; }
         public string Ppn { get; set; }
+        public string PpnProsen { get; set; }
         public string GrandTotal { get; set; }
 
         public string Terbilang { get; set; }

@@ -29,6 +29,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             SubTotal = $"{invoice.Total:N0}";
             Discount = $"{invoice.Disc:N0}";
             Ppn = $"{invoice.ListItem.Sum(x => x.PpnRp):N0}";
+            PpnProsen = $"PPN {DecFormatter.ToStr(invoice.ListItem.FirstOrDefault().PpnProsen)}% :";
             GrandTotal = $"{invoice.GrandTotal:N0}";
             UserName = invoice.UserId;
 
@@ -100,6 +101,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
         public string Discount { get; set; }
         public string GrandTotal { get; set; }
         public string Ppn { get; set; }
+        public string PpnProsen { get; set; }
         public string Terbilang { get; set; }
         public string UserName { get; set; }
         public List<InvoicePrintOutItemDto> ListItem { get; set; }

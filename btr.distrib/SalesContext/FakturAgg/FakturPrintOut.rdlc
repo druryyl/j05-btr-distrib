@@ -827,7 +827,7 @@
         <Top>1.09724in</Top>
         <Left>0.03125in</Left>
         <Height>0.38in</Height>
-        <Width>7.68125in</Width>
+        <Width>7.68126in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -940,7 +940,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>PPN 11% :</Value>
+                <Value>=First(Fields!PpnProsen.Value, "FakturJualDataset")</Value>
                 <Style>
                   <FontFamily>Lucida Console</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -2053,6 +2053,10 @@
         </Field>
         <Field Name="Ppn">
           <DataField>Ppn</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PpnProsen">
+          <DataField>PpnProsen</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="SalesName">

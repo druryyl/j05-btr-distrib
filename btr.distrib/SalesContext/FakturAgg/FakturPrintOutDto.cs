@@ -34,6 +34,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             SubTotal = $"{faktur.Total:N0}";
             Discount = $"{faktur.Discount:N0}";
             Ppn = $"{faktur.ListItem.Sum(x => x.PpnRp):N0}";
+            PpnProsen = $"PPN {DecFormatter.ToStr(faktur.ListItem.FirstOrDefault().PpnProsen)}% :";
             GrandTotal = $"{faktur.GrandTotal:N0}";
             UserName = faktur.UserId;
 
@@ -109,6 +110,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         public string Discount { get; set; }
         public string Ppn { get; set; }
         public string GrandTotal { get; set; }
+        public string PpnProsen { get; set; }
 
         public string Terbilang { get; set; }
         public string Note { get; set; }

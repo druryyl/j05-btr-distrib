@@ -25,6 +25,8 @@ using Polly;
 using btr.domain.SupportContext.UserAgg;
 using btr.distrib.SharedForm;
 using btr.distrib.SalesContext.FakturAgg;
+using btr.application.SupportContext.ParamSistemAgg;
+using btr.domain.SupportContext.ParamSistemAgg;
 
 namespace btr.distrib.InventoryContext.ReturJualAgg
 {
@@ -46,9 +48,11 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
         private readonly IDriverDal _driverDal;
         private readonly IReturJualBuilder _builder;
         private readonly IReturJualWriter _writer;
+        private readonly IParamSistemDal _paramSistemDal;
 
         private readonly ICreateReturJualItemWorker _createReturJualItemWorker;
         private readonly IGenStokReturJualWorker _genStokReturJualWorker;
+        private decimal _ppnProsen;
 
         public ReturJualForm(
             IBrowser<CustomerBrowserView> customerBrowser,
@@ -58,13 +62,14 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             IBrowser<BrgBrowserView> brgBrowser,
             ICustomerDal customerDal,
             ISalesPersonDal salesPersonDal,
-            IWarehouseDal warehouseDal, 
-            IDriverDal driverDal, 
-            ICreateReturJualItemWorker createReturJualItemWorker, 
-            IReturJualBuilder builder, 
-            IReturJualWriter writer, 
-            IBrowser<ReturJualBrowserView> returJualBrowser, 
-            IGenStokReturJualWorker genStokReturJualWorker)
+            IWarehouseDal warehouseDal,
+            IDriverDal driverDal,
+            ICreateReturJualItemWorker createReturJualItemWorker,
+            IReturJualBuilder builder,
+            IReturJualWriter writer,
+            IBrowser<ReturJualBrowserView> returJualBrowser,
+            IGenStokReturJualWorker genStokReturJualWorker,
+            IParamSistemDal paramSistemDal)
         {
             InitializeComponent();
 
@@ -78,16 +83,26 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             _customerDal = customerDal;
             _warehouseDal = warehouseDal;
             _driverDal = driverDal;
-            
+
             _createReturJualItemWorker = createReturJualItemWorker;
             _builder = builder;
             _writer = writer;
             _returJualBrowser = returJualBrowser;
             _genStokReturJualWorker = genStokReturJualWorker;
+            _paramSistemDal = paramSistemDal;
 
             RegisterEventHandler();
             InitGrid();
+            InitParamSistem();
+
             ClearDisplay();
+        }
+
+        private void InitParamSistem()
+        {
+            var paramKey = new ParamSistemModel("SISTEM_PPN_PROSEN");
+            var paramPpn = _paramSistemDal.GetData(paramKey).ParamValue ?? "0";
+            _ppnProsen = Convert.ToDecimal(paramPpn);
         }
 
         private void RegisterEventHandler()
@@ -254,7 +269,10 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             DriverIdText.Clear();
             DriverNameText.Clear();
             _listItem.Clear();
-            _listItem.Add(new ReturJualItemDto());
+
+            var newItem = new ReturJualItemDto();
+            newItem.SetPpnProsen(_ppnProsen);
+            _listItem.Add(newItem);
             FakturItemGrid.Refresh();
         }
         #endregion

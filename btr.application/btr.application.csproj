@@ -286,6 +286,7 @@
     <Compile Include="SupportContext\DocAgg\DocWriter.cs" />
     <Compile Include="SupportContext\DocAgg\IDocActionDal.cs" />
     <Compile Include="SupportContext\DocAgg\IDocDal.cs" />
+    <Compile Include="SupportContext\ParamSistemAgg\IParamSistemDal.cs" />
     <Compile Include="SupportContext\ParamUserAgg\IParamUserDal.cs" />
     <Compile Include="SupportContext\PlaygroundAgg\IImportOpnameDal.cs" />
     <Compile Include="SupportContext\TglJamAgg\ITglJamDal.cs" />

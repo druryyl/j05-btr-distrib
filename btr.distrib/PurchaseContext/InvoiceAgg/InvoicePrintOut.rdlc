@@ -940,7 +940,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>PPN 11% :</Value>
+                <Value>=First(Fields!PpnProsen.Value, "InvoiceBeliDataset")</Value>
                 <Style>
                   <FontFamily>Lucida Console</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1858,6 +1858,10 @@
         </Field>
         <Field Name="Ppn">
           <DataField>Ppn</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PpnProsen">
+          <DataField>PpnProsen</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="SubTotal">

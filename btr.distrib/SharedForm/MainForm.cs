@@ -392,11 +392,11 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-        private void TestingButton_Click(object sender, EventArgs e)
+        private void ParamSistemButton_Click(object sender, EventArgs e)
         {
-            if (BringMdiChildToFrontIfLoaded<StokBalancerForm>())
+            if (BringMdiChildToFrontIfLoaded<ParamSistemForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<StokBalancerForm>();
+            var form = _servicesProvider.GetRequiredService<ParamSistemForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

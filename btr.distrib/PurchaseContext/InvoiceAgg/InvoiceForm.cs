@@ -23,6 +23,8 @@ using btr.application.InventoryContext.StokAgg.GenStokUseCase;
 using btr.application.PurchaseContext.InvoiceAgg;
 using btr.distrib.PrintDocs;
 using JetBrains.Annotations;
+using btr.application.SupportContext.ParamSistemAgg;
+using btr.domain.SupportContext.ParamSistemAgg;
 
 namespace btr.distrib.PurchaseContext.InvoiceAgg
 {
@@ -37,6 +39,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
         private readonly IWarehouseDal _warehouseDal;
         private readonly IBrgDal _brgDal;
         private readonly ITglJamDal _dateTime;
+        private readonly IParamSistemDal _paramSistemDal;
 
         private readonly ICreateInvoiceItemWorker _createItemWorker;
         private readonly ISaveInvoiceWorker _saveInvoiceWorker;
@@ -47,6 +50,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
         private readonly IGenStokInvoiceWorker _genStokInvoiceWorker;
 
         private readonly BindingList<InvoiceItemDto> _listItem = new BindingList<InvoiceItemDto>();
+        private decimal _ppnProsen;
 
 
         public InvoiceForm(IBrowser<SupplierBrowserView> supplierBrowser,
@@ -60,8 +64,8 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             ISaveInvoiceWorker saveInvoiceWorker,
             IInvoiceBuilder invoiceBuilder,
             ITglJamDal dateTime,
-            IBrowser<InvoiceBrowserView> invoiceBrowser, 
-            IInvoicePrintDoc invoicePrinter, IGenStokInvoiceWorker genStokInvoiceWorker)
+            IBrowser<InvoiceBrowserView> invoiceBrowser,
+            IInvoicePrintDoc invoicePrinter, IGenStokInvoiceWorker genStokInvoiceWorker, IParamSistemDal paramSistemDal)
         {
             InitializeComponent();
 
@@ -74,9 +78,6 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
 
             _brgBuilder = brgBuilder;
             _createItemWorker = createItemWorker;
-
-            RegisterEventHandler();
-            InitGrid();
             _brgStokBrowser = brgStokBrowser;
             _saveInvoiceWorker = saveInvoiceWorker;
             _invoiceBuilder = invoiceBuilder;
@@ -84,6 +85,19 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             _invoiceBrowser = invoiceBrowser;
             _invoicePrinter = invoicePrinter;
             _genStokInvoiceWorker = genStokInvoiceWorker;
+            _paramSistemDal = paramSistemDal;
+
+            RegisterEventHandler();
+            InitGrid();
+            InitParamSistem();
+            ClearForm();
+        }
+
+        private void InitParamSistem()
+        {
+            var paramKey = new ParamSistemModel("SISTEM_PPN_PROSEN");
+            var paramPpn = _paramSistemDal.GetData(paramKey).ParamValue ?? "0";
+            _ppnProsen = Convert.ToDecimal(paramPpn);
         }
 
         private void RegisterEventHandler()
@@ -105,7 +119,6 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             SaveButton.Click += SaveButton_Click;
             NewButton.Click += NewButton_Click;
             PrintButton.Click += PrintButton_Click;
-            PerbaikanStokButton.Click += PerbaikanStokButton_Click;
         }
 
         private void PerbaikanStokButton_Click(object sender, EventArgs e)
@@ -565,7 +578,10 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             SisaText.Value = 0;
 
             _listItem.Clear();
-            _listItem.Add(new InvoiceItemDto());
+            var newItem = new InvoiceItemDto();
+            newItem.SetPpnProsen(_ppnProsen);
+            _listItem.Add(newItem);
+
             ShowAsActive();
         }
         private void ShowAsVoid(InvoiceModel invoice)
@@ -599,8 +615,13 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
     {
         public InvoiceItemDto()
         {
-            PpnProsen = 11;
         }
+
+        public void SetPpnProsen(decimal ppnProsen)
+        {
+            PpnProsen = ppnProsen;
+        }   
+
         public string BrgId { get; set; }
         public string BrgCode { get; private set; }
         public string BrgName { get; private set; }

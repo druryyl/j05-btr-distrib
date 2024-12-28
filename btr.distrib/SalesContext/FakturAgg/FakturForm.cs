@@ -26,6 +26,8 @@ using btr.domain.FinanceContext.PiutangAgg;
 using btr.application.FinanceContext.PiutangAgg.Workers;
 using btr.application.InventoryContext.DriverAgg;
 using btr.domain.InventoryContext.DriverAgg;
+using btr.application.SupportContext.ParamSistemAgg;
+using btr.domain.SupportContext.ParamSistemAgg;
 
 namespace btr.distrib.SalesContext.FakturAgg
 {
@@ -52,9 +54,11 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly ICreateFakturItemWorker _createItemWorker;
         private readonly IPiutangBuilder _piutangBuilder;
         private readonly IPiutangWriter _piutangWriter;
+        private readonly IParamSistemDal _paramSistemDal;
 
 
         private string _tipeHarga = string.Empty;
+        private decimal _ppnProsen = 0;
 
 
         public FakturForm(
@@ -75,7 +79,8 @@ namespace btr.distrib.SalesContext.FakturAgg
             IPiutangBuilder piutangBuilder,
             IPiutangWriter piutangWriter,
             IBrowser<DriverBrowserView> driverBrowser,
-            IDriverDal driverDal)
+            IDriverDal driverDal,
+            IParamSistemDal paramSIstemDal)
         {
             _warehouseBrowser = warehouseBrowser;
             _salesBrowser = salesBrowser;
@@ -98,11 +103,20 @@ namespace btr.distrib.SalesContext.FakturAgg
             _piutangWriter = piutangWriter;
             _driverBrowser = driverBrowser;
             _driverDal = driverDal;
+            _paramSistemDal = paramSIstemDal;
 
             InitializeComponent();
             InitGrid();
+            InitParamSistem();
             ClearForm();
             RegisterEventHandler();
+        }
+
+        private void InitParamSistem()
+        {
+            var paramKey = new ParamSistemModel("SISTEM_PPN_PROSEN");
+            var paramPpn = _paramSistemDal.GetData(paramKey).ParamValue ?? "0";
+            _ppnProsen = Convert.ToDecimal(paramPpn);
         }
 
         private void RegisterEventHandler()
@@ -211,7 +225,9 @@ namespace btr.distrib.SalesContext.FakturAgg
             _tipeHarga = string.Empty;
 
             _listItem.Clear();
-            _listItem.Add(new FakturItemDto());
+            var newItem = new FakturItemDto();
+            newItem.SetPPnProsen(_ppnProsen);
+            _listItem.Add(newItem);
             ShowAsActive();
         }
         #endregion

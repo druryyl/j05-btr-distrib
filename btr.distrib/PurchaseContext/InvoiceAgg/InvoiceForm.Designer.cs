@@ -76,7 +76,6 @@
             this.SaveButton = new System.Windows.Forms.Button();
             this.NewButton = new System.Windows.Forms.Button();
             this.PrintButton = new System.Windows.Forms.Button();
-            this.PerbaikanStokButton = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -616,7 +615,7 @@
             // 
             // NewButton
             // 
-            this.NewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.NewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.NewButton.Location = new System.Drawing.Point(6, 491);
             this.NewButton.Name = "NewButton";
             this.NewButton.Size = new System.Drawing.Size(75, 23);
@@ -626,7 +625,7 @@
             // 
             // PrintButton
             // 
-            this.PrintButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.PrintButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.PrintButton.Location = new System.Drawing.Point(87, 491);
             this.PrintButton.Name = "PrintButton";
             this.PrintButton.Size = new System.Drawing.Size(75, 23);
@@ -634,23 +633,12 @@
             this.PrintButton.Text = "Print";
             this.PrintButton.UseVisualStyleBackColor = true;
             // 
-            // PerbaikanStokButton
-            // 
-            this.PerbaikanStokButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.PerbaikanStokButton.Location = new System.Drawing.Point(168, 491);
-            this.PerbaikanStokButton.Name = "PerbaikanStokButton";
-            this.PerbaikanStokButton.Size = new System.Drawing.Size(106, 23);
-            this.PerbaikanStokButton.TabIndex = 56;
-            this.PerbaikanStokButton.Text = "Perbaikan Stok";
-            this.PerbaikanStokButton.UseVisualStyleBackColor = true;
-            // 
             // InvoiceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.ClientSize = new System.Drawing.Size(1106, 523);
-            this.Controls.Add(this.PerbaikanStokButton);
             this.Controls.Add(this.PrintButton);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel3);
@@ -738,6 +726,5 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.MaskedTextBox NoFakturPajakText;
         private System.Windows.Forms.Label LastIdLabel;
-        private System.Windows.Forms.Button PerbaikanStokButton;
     }
 }
