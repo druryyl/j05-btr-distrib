@@ -369,7 +369,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
                 _listItem[rowIndex].HrgInputStr,
                 _listItem[rowIndex].QtyInputStr,
                 _listItem[rowIndex].DiscInputStr,
-                _listItem[rowIndex].PpnProsen);
+                _listItem[rowIndex].PpnProsen == 0 ? _ppnProsen : _listItem[rowIndex].PpnProsen);
             var item = _createItemWorker.Execute(req);
             _listItem[rowIndex] = item.Adapt<InvoiceItemDto>();
             InvoiceItemGrid.Refresh();

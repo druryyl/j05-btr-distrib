@@ -71,6 +71,9 @@
             this.CustomerButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.DriverIdText = new System.Windows.Forms.TextBox();
+            this.DriverNameText = new System.Windows.Forms.TextBox();
+            this.DriverButton = new System.Windows.Forms.Button();
             this.WarehouseIdText = new System.Windows.Forms.TextBox();
             this.TglRencanaKirimTextBox = new System.Windows.Forms.DateTimePicker();
             this.TglRencanaKirimLabel = new System.Windows.Forms.Label();
@@ -82,9 +85,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.TermOfPaymentCombo = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.DriverIdText = new System.Windows.Forms.TextBox();
-            this.DriverNameText = new System.Windows.Forms.TextBox();
-            this.DriverButton = new System.Windows.Forms.Button();
+            this.DppText = new System.Windows.Forms.NumericUpDown();
             this.PanelAtas4.SuspendLayout();
             this.VoidPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturItemGrid)).BeginInit();
@@ -101,6 +102,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.PlafondTextBox)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DppText)).BeginInit();
             this.SuspendLayout();
             // 
             // PanelAtas4
@@ -178,6 +180,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PanelTengah.BackColor = System.Drawing.Color.Cornsilk;
             this.PanelTengah.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PanelTengah.Controls.Add(this.DppText);
             this.PanelTengah.Controls.Add(this.TaxText);
             this.PanelTengah.Controls.Add(this.BiayaLainLabel);
             this.PanelTengah.Controls.Add(this.SisaText);
@@ -198,7 +201,7 @@
             // TaxText
             // 
             this.TaxText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TaxText.Location = new System.Drawing.Point(11, 102);
+            this.TaxText.Location = new System.Drawing.Point(11, 128);
             this.TaxText.Maximum = new decimal(new int[] {
             999999999,
             0,
@@ -217,9 +220,9 @@
             this.BiayaLainLabel.AutoSize = true;
             this.BiayaLainLabel.Location = new System.Drawing.Point(8, 86);
             this.BiayaLainLabel.Name = "BiayaLainLabel";
-            this.BiayaLainLabel.Size = new System.Drawing.Size(22, 13);
+            this.BiayaLainLabel.Size = new System.Drawing.Size(54, 13);
             this.BiayaLainLabel.TabIndex = 14;
-            this.BiayaLainLabel.Text = "Tax";
+            this.BiayaLainLabel.Text = "Dpp - Tax";
             // 
             // SisaText
             // 
@@ -279,7 +282,7 @@
             // GrandTotalText
             // 
             this.GrandTotalText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GrandTotalText.Location = new System.Drawing.Point(9, 141);
+            this.GrandTotalText.Location = new System.Drawing.Point(11, 167);
             this.GrandTotalText.Maximum = new decimal(new int[] {
             999999999,
             0,
@@ -295,7 +298,7 @@
             // GrandTotalLabel
             // 
             this.GrandTotalLabel.AutoSize = true;
-            this.GrandTotalLabel.Location = new System.Drawing.Point(8, 125);
+            this.GrandTotalLabel.Location = new System.Drawing.Point(8, 151);
             this.GrandTotalLabel.Name = "GrandTotalLabel";
             this.GrandTotalLabel.Size = new System.Drawing.Size(66, 13);
             this.GrandTotalLabel.TabIndex = 8;
@@ -621,6 +624,35 @@
             this.panel3.Size = new System.Drawing.Size(200, 186);
             this.panel3.TabIndex = 38;
             // 
+            // DriverIdText
+            // 
+            this.DriverIdText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DriverIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DriverIdText.Location = new System.Drawing.Point(11, 124);
+            this.DriverIdText.Name = "DriverIdText";
+            this.DriverIdText.Size = new System.Drawing.Size(147, 22);
+            this.DriverIdText.TabIndex = 15;
+            // 
+            // DriverNameText
+            // 
+            this.DriverNameText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DriverNameText.Location = new System.Drawing.Point(11, 151);
+            this.DriverNameText.Name = "DriverNameText";
+            this.DriverNameText.ReadOnly = true;
+            this.DriverNameText.Size = new System.Drawing.Size(176, 22);
+            this.DriverNameText.TabIndex = 24;
+            // 
+            // DriverButton
+            // 
+            this.DriverButton.BackColor = System.Drawing.Color.Moccasin;
+            this.DriverButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DriverButton.Location = new System.Drawing.Point(160, 124);
+            this.DriverButton.Name = "DriverButton";
+            this.DriverButton.Size = new System.Drawing.Size(26, 22);
+            this.DriverButton.TabIndex = 16;
+            this.DriverButton.Text = "...";
+            this.DriverButton.UseVisualStyleBackColor = false;
+            // 
             // WarehouseIdText
             // 
             this.WarehouseIdText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -728,34 +760,21 @@
             this.label4.TabIndex = 19;
             this.label4.Text = "Term Of Payment";
             // 
-            // DriverIdText
+            // DppText
             // 
-            this.DriverIdText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.DriverIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DriverIdText.Location = new System.Drawing.Point(11, 124);
-            this.DriverIdText.Name = "DriverIdText";
-            this.DriverIdText.Size = new System.Drawing.Size(147, 22);
-            this.DriverIdText.TabIndex = 15;
-            // 
-            // DriverNameText
-            // 
-            this.DriverNameText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.DriverNameText.Location = new System.Drawing.Point(11, 151);
-            this.DriverNameText.Name = "DriverNameText";
-            this.DriverNameText.ReadOnly = true;
-            this.DriverNameText.Size = new System.Drawing.Size(176, 22);
-            this.DriverNameText.TabIndex = 24;
-            // 
-            // DriverButton
-            // 
-            this.DriverButton.BackColor = System.Drawing.Color.Moccasin;
-            this.DriverButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DriverButton.Location = new System.Drawing.Point(160, 124);
-            this.DriverButton.Name = "DriverButton";
-            this.DriverButton.Size = new System.Drawing.Size(26, 22);
-            this.DriverButton.TabIndex = 16;
-            this.DriverButton.Text = "...";
-            this.DriverButton.UseVisualStyleBackColor = false;
+            this.DppText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DppText.Location = new System.Drawing.Point(11, 102);
+            this.DppText.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.DppText.Name = "DppText";
+            this.DppText.ReadOnly = true;
+            this.DppText.Size = new System.Drawing.Size(117, 20);
+            this.DppText.TabIndex = 27;
+            this.DppText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.DppText.ThousandsSeparator = true;
             // 
             // FakturForm
             // 
@@ -797,6 +816,7 @@
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DppText)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -859,5 +879,6 @@
         private System.Windows.Forms.TextBox DriverIdText;
         private System.Windows.Forms.TextBox DriverNameText;
         private System.Windows.Forms.Button DriverButton;
+        private System.Windows.Forms.NumericUpDown DppText;
     }
 }

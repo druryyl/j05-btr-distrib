@@ -588,7 +588,9 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             var jenisRetur = JenisReturCombo.SelectedItem.ToString();
             var req = new CreateReturJualItemRequest(
                 item.BrgId ?? string.Empty, CustomerIdText.Text, 
-                item.HrgInputStr, item.QtyInputStr, item.DiscInputStr, item.PpnProsen, jenisRetur);
+                item.HrgInputStr, item.QtyInputStr, item.DiscInputStr, 
+                item.PpnProsen == 0 ? _ppnProsen : item.PpnProsen, 
+                jenisRetur);
             var newItem = _createReturJualItemWorker.Execute(req);
             
             _listItem[rowIndex] = newItem.Adapt<ReturJualItemDto>();

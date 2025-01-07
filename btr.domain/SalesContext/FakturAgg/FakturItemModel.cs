@@ -42,6 +42,8 @@ namespace btr.domain.SalesContext.FakturAgg
         public decimal DiscRp { get; set; }
         
         //  ppn
+        public decimal DppProsen { get; set; }
+        public decimal DppRp { get; set; }
         public decimal PpnProsen { get; set; }
         public decimal PpnRp { get; set; }
         

@@ -57,6 +57,8 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 bcp.AddMap("DiscDetilStr","DiscDetilStr"); 
                 bcp.AddMap("DiscRp","DiscRp"); 
 
+                bcp.AddMap("DppProsen", "DppProsen");
+                bcp.AddMap("DppRp", "DppRp");
                 bcp.AddMap("PpnProsen","PpnProsen"); 
                 bcp.AddMap("PpnRp","PpnRp"); 
                 bcp.AddMap("Total","Total"); 
@@ -97,6 +99,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 aa.QtyJual, aa.HrgSat, aa.SubTotal,
                 aa.QtyBonus, aa.QtyPotStok,
                 aa.DiscInputStr, aa.DiscDetilStr, aa.DiscRp,
+                aa.DppProsen, aa.DppRp,
                 aa.PpnProsen, aa.PpnRp, aa.Total,
                 ISNULL(bb.BrgName, '') AS BrgName
             FROM 

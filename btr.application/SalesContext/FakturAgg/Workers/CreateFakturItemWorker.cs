@@ -11,10 +11,11 @@ namespace btr.application.SalesContext.FakturAgg.Workers
 {
     public class CreateFakturItemRequest : IBrgKey
     {
-        public CreateFakturItemRequest(string brgId, 
-            string qtyInputStr, 
+        public CreateFakturItemRequest(string brgId,
+            string qtyInputStr,
             string discInputStr,
             string hrgInputStr,
+            decimal dppProsen,
             decimal ppnProsen, 
             string hargaTypeId,
             string warehouseId) 
@@ -23,6 +24,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             QtyInputStr = qtyInputStr;
             DiscInputStr = discInputStr;
             HrgInputStr = hrgInputStr;
+            DppProsen = dppProsen;
             PpnProsen = ppnProsen;
             HargaTypeId = hargaTypeId;
             WarehouseId = warehouseId;
@@ -31,6 +33,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         public string QtyInputStr { get; set; }
         public string DiscInputStr { get; set; }
         public string HrgInputStr { get; set; }
+        public decimal DppProsen { get; set; }
         public decimal PpnProsen { get; set; }
         public string HargaTypeId { get; set; }
         public string WarehouseId { get; set; }
@@ -132,9 +135,10 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             item.DiscDetilStr = GenDiscDetilStr(listDisc);
             item.DiscRp = listDisc.Sum(x => x.DiscRp);
             item.ListDiscount = listDisc;
-
+            item.DppProsen = req.DppProsen;
+            item.DppRp = (item.SubTotal - item.DiscRp) * req.DppProsen / 100;
             item.PpnProsen = req.PpnProsen;
-            item.PpnRp = (item.SubTotal - item.DiscRp) * req.PpnProsen / 100;
+            item.PpnRp = item.DppRp * req.PpnProsen / 100;
             item.Total = item.SubTotal - item.DiscRp + item.PpnRp;
 
             var stokKecil = stok.ListWarehouse.FirstOrDefault(x => x.WarehouseId == req.WarehouseId)?.Qty ?? 0;

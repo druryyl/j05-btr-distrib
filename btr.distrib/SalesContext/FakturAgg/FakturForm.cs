@@ -59,6 +59,7 @@ namespace btr.distrib.SalesContext.FakturAgg
 
         private string _tipeHarga = string.Empty;
         private decimal _ppnProsen = 0;
+        private decimal _dppProsen = 0;
 
 
         public FakturForm(
@@ -117,6 +118,10 @@ namespace btr.distrib.SalesContext.FakturAgg
             var paramKey = new ParamSistemModel("SISTEM_PPN_PROSEN");
             var paramPpn = _paramSistemDal.GetData(paramKey).ParamValue ?? "0";
             _ppnProsen = Convert.ToDecimal(paramPpn);
+
+            paramKey = new ParamSistemModel("SISTEM_DPP_PROSEN");
+            var paramDpp = _paramSistemDal.GetData(paramKey).ParamValue ?? "0";
+            _dppProsen = Convert.ToDecimal(paramDpp);
         }
 
         private void RegisterEventHandler()
@@ -219,6 +224,7 @@ namespace btr.distrib.SalesContext.FakturAgg
 
             TotalText.Value = 0;
             DiscountText.Value = 0;
+            DppText.Value = 0;
             TaxText.Value = 0;
             UangMukaText.Value = 0;
             SisaText.Value = 0;
@@ -292,6 +298,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             DueDateText.Value = faktur.DueDate;
             TotalText.Value = faktur.Total;
             DiscountText.Value = faktur.Discount;
+            DppText.Value = faktur.Dpp;
             TaxText.Value = faktur.Tax;
             GrandTotalText.Value = faktur.GrandTotal;
             UangMukaText.Value = faktur.UangMuka;
@@ -446,6 +453,8 @@ namespace btr.distrib.SalesContext.FakturAgg
                 CalcTotal();
             if (e.ColumnIndex == grid.Columns.GetCol("QtyInputStr").Index)
                 CalcTotal();
+            if (e.ColumnIndex == grid.Columns.GetCol("DppProsen").Index)
+                CalcTotal();
             if (e.ColumnIndex == grid.Columns.GetCol("DiscInputStr").Index)
                 CalcTotal();
             if (e.ColumnIndex == grid.Columns.GetCol("PpnProsen").Index)
@@ -536,11 +545,14 @@ namespace btr.distrib.SalesContext.FakturAgg
                 _listItem[rowIndex].QtyInputStr,
                 _listItem[rowIndex].DiscInputStr,
                 _listItem[rowIndex].HrgInputStr,
-                _listItem[rowIndex].PpnProsen,
+                _listItem[rowIndex].DppProsen == 0 ? _dppProsen : _listItem[rowIndex].DppProsen,
+                _listItem[rowIndex].PpnProsen == 0 ? _ppnProsen : _listItem[rowIndex].PpnProsen,
+
                 _tipeHarga,
                 WarehouseIdText.Text);
             var item = _createItemWorker.Execute(req);
             _listItem[rowIndex] = item.Adapt<FakturItemDto>();
+
             FakturItemGrid.Refresh();
             CalcTotal();
         }
@@ -656,6 +668,9 @@ namespace btr.distrib.SalesContext.FakturAgg
 
             cols.GetCol("DiscRp").Visible = false;
 
+            cols.GetCol("DppProsen").Visible = false;
+            cols.GetCol("DppRp").Visible = false;
+
             cols.GetCol("PpnProsen").Visible = true;
             cols.GetCol("PpnProsen").Width = 50;
             cols.GetCol("PpnProsen").HeaderText = @"Ppn";
@@ -677,6 +692,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         {
             TotalText.Value = _listItem.Sum(x => x.SubTotal);
             DiscountText.Value = _listItem.Sum(x => x.DiscRp);
+            DppText.Value = _listItem.Sum(x => x.DppRp);
             TaxText.Value = _listItem.Sum(x => x.PpnRp);
             GrandTotalText.Value = _listItem.Sum(x => x.Total);
             SisaText.Value = GrandTotalText.Value - UangMukaText.Value;
@@ -741,6 +757,7 @@ namespace btr.distrib.SalesContext.FakturAgg
                     QtyString = c.QtyInputStr,
                     HrgString = c.HrgInputStr,
                     DiscountString = c.DiscInputStr,
+                    DppProsen = c.DppProsen,
                     PpnProsen = c.PpnProsen,
                 }).ToList();
             cmd.ListBrg = listItem;

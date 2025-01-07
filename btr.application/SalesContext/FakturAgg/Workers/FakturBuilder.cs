@@ -36,7 +36,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         IFakturBuilder TermOfPayment(TermOfPaymentEnum termOfPayment);
         IFakturBuilder DueDate(DateTime dueDate);
 
-        IFakturBuilder AddItem(IBrgKey brgKey, string stokHrgStr, string qtyString, string hrgInputStr, string discountString, decimal ppnProsen);
+        IFakturBuilder AddItem(IBrgKey brgKey, string stokHrgStr, string qtyString, string hrgInputStr, string discountString, decimal dppProsen, decimal ppnProsen);
         IFakturBuilder ClearItem();
 
         IFakturBuilder FakturPajak(string noSeriFakturPajak);
@@ -215,11 +215,11 @@ namespace btr.application.SalesContext.FakturAgg.Workers
 
         #region GRID
         public IFakturBuilder AddItem(IBrgKey brgKey, string stokHrgStr, string qtyInputStr, string hrgInputStr,
-            string discInputStr, decimal ppnProsen)
+            string discInputStr, decimal dppProsen, decimal ppnProsen)
         {
             var item = _createFakturItemWorker.Execute(
                 new CreateFakturItemRequest(brgKey.BrgId, qtyInputStr, discInputStr, hrgInputStr, 
-                ppnProsen, _aggRoot.HargaTypeId, _aggRoot.WarehouseId));
+                dppProsen, ppnProsen, _aggRoot.HargaTypeId, _aggRoot.WarehouseId));
 
             var noUrutMax = _aggRoot.ListItem
                 .DefaultIfEmpty(new FakturItemModel() { NoUrut = 0 })

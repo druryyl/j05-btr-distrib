@@ -50,6 +50,7 @@ namespace btr.domain.SalesContext.FakturAgg
         public string HargaTypeId { get; set; }
         public decimal Total { get; set; }
         public decimal Discount { get; set; }
+        public decimal Dpp { get; set; }
         public decimal Tax { get; set; }
         public decimal GrandTotal { get; set; }
     

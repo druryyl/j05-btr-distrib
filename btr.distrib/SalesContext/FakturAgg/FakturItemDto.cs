@@ -1,4 +1,6 @@
-﻿namespace btr.distrib.SalesContext.FakturAgg
+﻿using System.Diagnostics;
+
+namespace btr.distrib.SalesContext.FakturAgg
 {
     public class FakturItemDto
     {
@@ -8,6 +10,10 @@
         public void SetPPnProsen(decimal ppnProsen)
         {
             PpnProsen = ppnProsen;
+        }
+        public void SetDppProsen(decimal dppProsen)
+        {
+            DppProsen = dppProsen;
         }
 
         public string BrgId { get; set; }
@@ -43,6 +49,8 @@
         public decimal DiscRp { get; private set; }
 
         //      ppn
+        public decimal DppProsen { get; set; }
+        public decimal DppRp { get; set; }
         public decimal PpnProsen { get; set; }
         public decimal PpnRp { get; private set; }
 
