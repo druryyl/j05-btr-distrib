@@ -82,8 +82,10 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
             {
                 //  stok
                 foreach (var item in listMovingStok)
-                {
                     _stokWriter.Save(item);
+
+                foreach(var item in listStok)
+                {
                     var stokBalanceReq = new GenStokBalanceRequest(item.BrgId, item.WarehouseId);
                     _stokBalanceWorker.Execute(stokBalanceReq);
                 }

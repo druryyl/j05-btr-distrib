@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.ribbon1 = new System.Windows.Forms.Ribbon();
             this.SalesTab = new System.Windows.Forms.RibbonTab();
@@ -95,6 +96,10 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.StokHealthIndicatorStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.StokHealthTimer = new System.Windows.Forms.Timer(this.components);
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.repairStokToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -665,7 +670,9 @@
             // 
             this.AppStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.LoginStatus,
-            this.ServerDbStatus});
+            this.ServerDbStatus,
+            this.StokHealthIndicatorStatus,
+            this.toolStripDropDownButton1});
             this.AppStatus.Location = new System.Drawing.Point(0, 428);
             this.AppStatus.Name = "AppStatus";
             this.AppStatus.Size = new System.Drawing.Size(1139, 22);
@@ -683,6 +690,36 @@
             this.ServerDbStatus.Name = "ServerDbStatus";
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
+            // 
+            // StokHealthIndicatorStatus
+            // 
+            this.StokHealthIndicatorStatus.Name = "StokHealthIndicatorStatus";
+            this.StokHealthIndicatorStatus.Size = new System.Drawing.Size(161, 17);
+            this.StokHealthIndicatorStatus.Text = "Stock Health Indicator : 100%";
+            // 
+            // StokHealthTimer
+            // 
+            this.StokHealthTimer.Enabled = true;
+            this.StokHealthTimer.Interval = 900000;
+            this.StokHealthTimer.Tick += new System.EventHandler(this.StokHealthTimer_Tick);
+            // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.repairStokToolStripMenuItem});
+            this.toolStripDropDownButton1.Image = global::btr.distrib.Properties.Resources.icons8_documents_16;
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 20);
+            this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
+            // 
+            // repairStokToolStripMenuItem
+            // 
+            this.repairStokToolStripMenuItem.Name = "repairStokToolStripMenuItem";
+            this.repairStokToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.repairStokToolStripMenuItem.Text = "Repair Stok";
+            this.repairStokToolStripMenuItem.Click += new System.EventHandler(this.repairStokToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -778,5 +815,9 @@
         private System.Windows.Forms.RibbonButton RT2PostingRetur;
         private System.Windows.Forms.RibbonButton SF8DriverFaktur;
         private System.Windows.Forms.RibbonButton DriverButton;
+        private System.Windows.Forms.ToolStripStatusLabel StokHealthIndicatorStatus;
+        private System.Windows.Forms.Timer StokHealthTimer;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripMenuItem repairStokToolStripMenuItem;
     }
 }

@@ -64,14 +64,14 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
 
             //  cancel piutang
             var piutangKey = new PiutangModel(faktur.FakturId);
-            _piutangWriter.Delete(piutangKey);
 
-            //  remove stok
+            //  rollback stok
             var rollBackReq = new RollBackStokRequest(req.FakturId);
 
             //  apply database
             using (var trans = TransHelper.NewScope())
             {
+                _piutangWriter.Delete(piutangKey);
                 _rollBackStokWorker.Execute(rollBackReq);
                 _ = _fakturWriter.Save(faktur);
                 _fakturControlWriter.Save(fakturControl);

@@ -178,6 +178,7 @@
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\RemoveEditInvoiceWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\RemovePriorityStokWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\RemoveRollbackStokWorker.cs" />
+    <Compile Include="InventoryContext\StokAgg\IGetStokBalanceHealthWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\IStokDal.cs" />
     <Compile Include="InventoryContext\StokAgg\IStokMutasiDal.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\RemoveFifoStokWorker.cs" />
@@ -206,6 +207,7 @@
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceValidator.cs" />
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceWriter.cs" />
     <Compile Include="PurchaseContext\InvoiceAgg\SaveInvoiceWorker.cs" />
+    <Compile Include="PurchaseContext\InvoiceAgg\VoidInvoiceWorker.cs" />
     <Compile Include="PurchaseContext\InvoiceBrgInfo\IInvoiceBrgViewDal.cs" />
     <Compile Include="PurchaseContext\InvoiceBrgInfo\InvoiceBrgViewDto.cs" />
     <Compile Include="PurchaseContext\InvoiceHarianDetilRpt\IInvoiceHarianDetilDal.cs" />

@@ -116,6 +116,7 @@
     <Compile Include="InventoryContext\ReturJualRpt\ReturJualBrgViewDal.cs" />
     <Compile Include="InventoryContext\StokAgg\StokDal.cs" />
     <Compile Include="InventoryContext\StokAgg\StokMutasiDal.cs" />
+    <Compile Include="InventoryContext\StokBalanceAgg\StokBalanceHealthDal.cs" />
     <Compile Include="InventoryContext\StokBalanceAgg\StokBalanceWarehouseDal.cs" />
     <Compile Include="InventoryContext\StokBalanceRpt\StokBalanceViewDal.cs" />
     <Compile Include="InventoryContext\StokBrgSupplierRpt\StokBrgSupplierDal.cs" />

@@ -43,6 +43,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
 
         private readonly ICreateInvoiceItemWorker _createItemWorker;
         private readonly ISaveInvoiceWorker _saveInvoiceWorker;
+        private readonly IVoidInvoiceWorker _voidInvoiceWorker;
 
         private readonly IBrgBuilder _brgBuilder;
         private readonly IInvoiceBuilder _invoiceBuilder;
@@ -65,7 +66,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             IInvoiceBuilder invoiceBuilder,
             ITglJamDal dateTime,
             IBrowser<InvoiceBrowserView> invoiceBrowser,
-            IInvoicePrintDoc invoicePrinter, IGenStokInvoiceWorker genStokInvoiceWorker, IParamSistemDal paramSistemDal)
+            IInvoicePrintDoc invoicePrinter, IGenStokInvoiceWorker genStokInvoiceWorker, IParamSistemDal paramSistemDal, IVoidInvoiceWorker voidInvoiceWorker)
         {
             InitializeComponent();
 
@@ -91,6 +92,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             InitGrid();
             InitParamSistem();
             ClearForm();
+            _voidInvoiceWorker = voidInvoiceWorker;
         }
 
         private void InitParamSistem()
@@ -117,6 +119,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             InvoiceItemGrid.EditingControlShowing += InvoiceItemGrid_EditingControlShowing;
 
             SaveButton.Click += SaveButton_Click;
+            DeleteButton.Click += DeleteButton_Click;
             NewButton.Click += NewButton_Click;
             PrintButton.Click += PrintButton_Click;
         }
@@ -200,6 +203,11 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
                 .Load(new InvoiceModel(textbox.Text))
                 .Build());
             if (invoice is null) return;
+            if (invoice.IsVoid)
+            {
+                MessageBox.Show("Invoice sudah dihapus");
+                return;
+            }
 
             invoice.RemoveNull();
             SupplierNameText.Text = invoice.SupplierName;
@@ -605,6 +613,27 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
 
             VoidPanel.Visible = false;
             SaveButton.Visible = true;
+        }
+        #endregion
+
+        #region DELETE
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            if (InvoiceIdText.Text == string.Empty)
+                return;
+
+            if (MessageBox.Show("Delete Invoice?", "Invoice", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                Delete();
+        }
+
+        private void Delete()
+        {
+            var mainMenu = this.Parent.Parent;
+            var user = ((MainForm)mainMenu).UserId;
+            var req = new VoidInvoiceRequest(InvoiceIdText.Text, user.UserId);
+            _voidInvoiceWorker.Execute(req);
+
+            ClearForm();
         }
         #endregion
 
