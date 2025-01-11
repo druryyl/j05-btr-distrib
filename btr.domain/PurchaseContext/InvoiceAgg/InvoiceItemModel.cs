@@ -39,6 +39,8 @@ namespace btr.domain.PurchaseContext.InvoiceAgg
         public string DiscDetilStr { get; set; }
         public decimal DiscRp { get; set; }
 
+        public decimal DppProsen { get; set; }
+        public decimal DppRp { get; set; }
         public decimal PpnProsen { get; set; }
         public decimal PpnRp { get; set; }
         public decimal Total { get; set; }

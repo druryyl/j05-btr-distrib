@@ -30,7 +30,7 @@ namespace btr.application.PurchaseContext.InvoiceAgg
         IInvoiceBuilder TermOfPayment(TermOfPaymentEnum termOfPayment);
         IInvoiceBuilder DueDate(DateTime dueDate);
 
-        IInvoiceBuilder AddItem(IBrgKey brgKey, string hrgInputStr, string qtyString, string discountString, decimal ppnProsen);
+        IInvoiceBuilder AddItem(IBrgKey brgKey, string hrgInputStr, string qtyString, string discountString, decimal dppProsen, decimal ppnProsen);
         IInvoiceBuilder ClearItem();
 
         IInvoiceBuilder FakturPajak(string noSeriFakturPajak);
@@ -175,12 +175,12 @@ namespace btr.application.PurchaseContext.InvoiceAgg
 
         #region GRID
         public IInvoiceBuilder AddItem(IBrgKey brgKey, string hrgInputStr, string qtyInputStr,
-            string discInputStr, decimal ppnProsen)
+            string discInputStr, decimal dppProsen, decimal ppnProsen)
         {
             var item = _createInvoiceItemWorker.Execute(
                 new CreateInvoiceItemRequest(
                     brgKey.BrgId, hrgInputStr, qtyInputStr, 
-                    discInputStr, ppnProsen));
+                    discInputStr, dppProsen, ppnProsen));
 
             var noUrutMax = _aggRoot.ListItem
                 .DefaultIfEmpty(new InvoiceItemModel() { NoUrut = 0 })

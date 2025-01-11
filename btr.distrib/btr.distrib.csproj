@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>186</ApplicationRevision>
+    <ApplicationRevision>193</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -320,6 +320,13 @@
     <Compile Include="Browsers\SalesPersonBrowser.cs" />
     <Compile Include="Browsers\TagihanBrowser.cs" />
     <Compile Include="Browsers\WilayahBrowser.cs" />
+    <Compile Include="FinanceContext\FpKeluaranAgg\FpKeluaranForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FinanceContext\FpKeluaranAgg\FpKeluaranForm.Designer.cs">
+      <DependentUpon>FpKeluaranForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FinanceContext\FpKeluaranAgg\FpKeluaranItemDto.cs" />
     <Compile Include="FinanceContext\LunasPiutangAgg\LunasPiutang2Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -512,6 +519,7 @@
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceForm.Designer.cs">
       <DependentUpon>InvoiceForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PurchaseContext\InvoiceAgg\InvoiceItemDto.cs" />
     <Compile Include="PurchaseContext\InvoiceAgg\InvoicePrintOutDto.cs" />
     <Compile Include="PurchaseContext\InvoiceAgg\InvoicePrintOutForm.cs">
       <SubType>Form</SubType>
@@ -739,6 +747,9 @@
     <None Include="Resources\icons8_uninstalling_updates_32.png" />
     <None Include="Resources\icons8_stack_overflow_32.png" />
     <None Include="Resources\icons8_stack_overflow_16.png" />
+    <EmbeddedResource Include="FinanceContext\FpKeluaranAgg\FpKeluaranForm.resx">
+      <DependentUpon>FpKeluaranForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FinanceContext\LunasPiutangAgg\LunasPiutang2Form.resx">
       <DependentUpon>LunasPiutang2Form.cs</DependentUpon>
     </EmbeddedResource>

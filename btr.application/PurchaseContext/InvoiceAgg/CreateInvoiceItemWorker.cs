@@ -16,18 +16,21 @@ namespace btr.application.PurchaseContext.InvoiceAgg
             string hrgInputStr,
             string qtyInputStr, 
             string discInputStr, 
+            decimal dppProsen,
             decimal ppnProsen) 
         {
             BrgId = brgId;
             HrgInputStr = hrgInputStr;
             QtyInputStr = qtyInputStr;
             DiscInputStr = discInputStr;
+            DppProsen = dppProsen;
             PpnProsen = ppnProsen;
         }
         public string BrgId { get; set; }
         public string HrgInputStr { get; set; }
         public string QtyInputStr { get; set; }
         public string DiscInputStr { get; set; }
+        public decimal DppProsen { get; set; }
         public decimal PpnProsen { get; set; }
     }
 
@@ -112,9 +115,11 @@ namespace btr.application.PurchaseContext.InvoiceAgg
             item.DiscDetilStr = GenDiscDetilStr(listDisc);
             item.DiscRp = listDisc.Sum(x => x.DiscRp);
             item.ListDisc = listDisc;
+            item.DppProsen = req.DppProsen;
+            item.DppRp = (item.SubTotal - item.DiscRp) * req.DppProsen / 100;
 
             item.PpnProsen = req.PpnProsen;
-            item.PpnRp = (item.SubTotal - item.DiscRp) * req.PpnProsen / 100;
+            item.PpnRp = item.DppRp * req.PpnProsen / 100;
             item.Total = item.SubTotal - item.DiscRp + item.PpnRp;
 
             item.QtyInputStr = $"{item.QtyBesar};{item.QtyKecil};{item.QtyBonus}";

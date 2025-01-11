@@ -29,6 +29,7 @@ namespace btr.domain.PurchaseContext.InvoiceAgg
         public DateTime DueDate { get; set; }
         public decimal Total { get; set; }
         public decimal Disc { get; set; }
+        public decimal Dpp { get; set; }
         public decimal Tax { get; set; }
         public decimal GrandTotal { get; set; }
 

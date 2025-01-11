@@ -77,6 +77,7 @@
             this.NewButton = new System.Windows.Forms.Button();
             this.PrintButton = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
+            this.DppText = new System.Windows.Forms.NumericUpDown();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -91,6 +92,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.DiscountText)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TotalText)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DppText)).BeginInit();
             this.SuspendLayout();
             // 
             // TermOfPaymentCombo
@@ -355,6 +357,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PanelTengah.BackColor = System.Drawing.Color.Honeydew;
             this.PanelTengah.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PanelTengah.Controls.Add(this.DppText);
             this.PanelTengah.Controls.Add(this.TaxText);
             this.PanelTengah.Controls.Add(this.BiayaLainLabel);
             this.PanelTengah.Controls.Add(this.SisaText);
@@ -375,7 +378,7 @@
             // TaxText
             // 
             this.TaxText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TaxText.Location = new System.Drawing.Point(11, 102);
+            this.TaxText.Location = new System.Drawing.Point(11, 128);
             this.TaxText.Maximum = new decimal(new int[] {
             999999999,
             0,
@@ -393,9 +396,9 @@
             this.BiayaLainLabel.AutoSize = true;
             this.BiayaLainLabel.Location = new System.Drawing.Point(8, 86);
             this.BiayaLainLabel.Name = "BiayaLainLabel";
-            this.BiayaLainLabel.Size = new System.Drawing.Size(22, 13);
+            this.BiayaLainLabel.Size = new System.Drawing.Size(54, 13);
             this.BiayaLainLabel.TabIndex = 14;
-            this.BiayaLainLabel.Text = "Tax";
+            this.BiayaLainLabel.Text = "Dpp - Tax";
             // 
             // SisaText
             // 
@@ -449,7 +452,7 @@
             // GrandTotalText
             // 
             this.GrandTotalText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GrandTotalText.Location = new System.Drawing.Point(9, 141);
+            this.GrandTotalText.Location = new System.Drawing.Point(9, 170);
             this.GrandTotalText.Maximum = new decimal(new int[] {
             999999999,
             0,
@@ -465,7 +468,7 @@
             // GrandTotalLabel
             // 
             this.GrandTotalLabel.AutoSize = true;
-            this.GrandTotalLabel.Location = new System.Drawing.Point(8, 125);
+            this.GrandTotalLabel.Location = new System.Drawing.Point(8, 154);
             this.GrandTotalLabel.Name = "GrandTotalLabel";
             this.GrandTotalLabel.Size = new System.Drawing.Size(66, 13);
             this.GrandTotalLabel.TabIndex = 8;
@@ -644,6 +647,22 @@
             this.DeleteButton.Text = "Delete";
             this.DeleteButton.UseVisualStyleBackColor = true;
             // 
+            // DppText
+            // 
+            this.DppText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DppText.Location = new System.Drawing.Point(11, 102);
+            this.DppText.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.DppText.Name = "DppText";
+            this.DppText.ReadOnly = true;
+            this.DppText.Size = new System.Drawing.Size(117, 20);
+            this.DppText.TabIndex = 25;
+            this.DppText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.DppText.ThousandsSeparator = true;
+            // 
             // InvoiceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -684,6 +703,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.TotalText)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DppText)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -739,5 +759,6 @@
         private System.Windows.Forms.MaskedTextBox NoFakturPajakText;
         private System.Windows.Forms.Label LastIdLabel;
         private System.Windows.Forms.Button DeleteButton;
+        private System.Windows.Forms.NumericUpDown DppText;
     }
 }

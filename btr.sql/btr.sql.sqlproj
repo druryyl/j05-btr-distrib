@@ -123,5 +123,7 @@
     <Build Include="Tables\Finance\BTR_FakturPotBalance.sql" />
     <Build Include="Tables\Finance\BTR_FAkturPotBalancePost.sql" />
     <Build Include="Tables\Helper\BTR_ParamSistem.sql" />
+    <Build Include="Tables\Finance\BTR_FpKeluaran.sql" />
+    <Build Include="Tables\Finance\BTR_FpKeluaranFaktur.sql" />
   </ItemGroup>
 </Project>

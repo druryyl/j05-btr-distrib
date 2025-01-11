@@ -12,6 +12,7 @@ namespace btr.application.SalesContext.FakturBrgInfo
     {
         public string ReturJualId { get; set; }
         public DateTime ReturJualDate { get; set; }
+        public string JenisRetur { get; set; }
         public string SalesName { get; set; }
         public string CustomerCode { get; set; }
         public string CustomerName { get; set; }
@@ -22,7 +23,6 @@ namespace btr.application.SalesContext.FakturBrgInfo
         public string SupplierName { get; set; }
         public string KategoriName { get; set; }
         public decimal Qty{ get; set; }
-        public decimal QtyRusak { get; set; }
         public decimal HrgSat { get; set; }
         public decimal SubTotal { get; set; }
         public decimal DiscRp { get; set; }

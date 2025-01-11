@@ -5,12 +5,9 @@ using Syncfusion.Windows.Forms.Grid.Grouping;
 using Syncfusion.Windows.Forms.Grid;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Syncfusion.Drawing;
 using Syncfusion.Grouping;
@@ -146,7 +143,6 @@ namespace btr.distrib.InventoryContext.ReturJualRpt
 
 
             InfoGrid.TableDescriptor.Columns["Qty"].Appearance.AnyRecordFieldCell.Format = "N0";//
-            InfoGrid.TableDescriptor.Columns["QtyRusak"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["HrgSat"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["SubTotal"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["DiscRp"].Appearance.AnyRecordFieldCell.Format = "N0";

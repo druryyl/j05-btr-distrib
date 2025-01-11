@@ -23,7 +23,7 @@ namespace btr.infrastructure.InventoryContext.FakturInfoAgg
         {
             const string sql = @"
                 SELECT 
-                    aa.ReturJualId, aa.ReturJualDate, 
+                    aa.ReturJualId, aa.ReturJualDate, aa.JenisRetur,
                     ISNULL(cc.CustomerCode, '') AS CustomerCode,
                     ISNULL(cc.CustomerName, '') AS CustomerName,
                     ISNULL(cc.Address1, '') AS Address,
@@ -33,9 +33,8 @@ namespace btr.infrastructure.InventoryContext.FakturInfoAgg
                     ISNULL(gg.KategoriName, '') AS KategoriName,
                     ISNULL(hh.SupplierName, '') AS SupplierName,
                     ISNULL(bb.Qty, 0) AS Qty,
-                    ISNULL(bb.QtyRusak, 0) AS QtyRusak,
                     ISNULL(bb.HrgSat, 0) AS HrgSat,
-                    (ISNULL(bb.Qty, 0) + ISNULL(bb.QtyRusak, 0)) * ISNULL(bb.HrgSat, 0) AS SubTotal,
+                    ISNULL(bb.Qty, 0) * ISNULL(bb.HrgSat, 0) AS SubTotal,
                     ISNULL(bb.DiscRp, 0) AS DiscRp,
                     ISNULL(bb.PpnRp, 0) AS PpnRp,
                     ISNULL(bb.Total, 0) AS Total

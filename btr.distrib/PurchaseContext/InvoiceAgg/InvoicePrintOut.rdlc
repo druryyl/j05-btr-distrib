@@ -1840,6 +1840,14 @@
           <DataField>Discount</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="Dpp">
+          <DataField>Dpp</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DppProsen">
+          <DataField>DppProsen</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="GrandTotal">
           <DataField>GrandTotal</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -1878,6 +1886,10 @@
         </Field>
         <Field Name="Terbilang">
           <DataField>Terbilang</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Total">
+          <DataField>Total</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="UserName">

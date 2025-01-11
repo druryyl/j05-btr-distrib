@@ -20,7 +20,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             Address1 = $"{faktur.Address}";
             Address2 = customer.Address2.Length != 0 ?
                 $"{customer.Address2}-{customer.Kota}" : $"{customer.Kota}";
-            JatuhTempo = $"Tempo: {faktur.DueDate:dd MMM yyyy}";
+            JatuhTempo = $"Tempo:{faktur.DueDate:dd-MM-yyyy}";
             SalesName = $"Sales: {faktur.SalesPersonName}";
             JenisBayar = $"Jenis:{faktur.TermOfPayment}";
             DriverName = $"{faktur.DriverName}";
@@ -33,16 +33,16 @@ namespace btr.distrib.SalesContext.FakturAgg
 
             SubTotal = $"{faktur.Total:N0}";
             Discount = $"{faktur.Discount:N0}";
-
+            Total = $"{faktur.Total:N0}";
             Dpp = $"{faktur.ListItem.Sum(x => x.DppRp):N0}";
             var dppProsen = faktur.ListItem.FirstOrDefault().DppProsen;
 
             if (dppProsen == 100M)
                 DppProsen = $"DPP :";
-            else if (dppProsen == 91.66M)
+            else //if (dppProsen == 91.660000M)
                 DppProsen = "DPP 11/12 :";
-            else
-                DppProsen = $"DPP {DecFormatter.ToStr(faktur.ListItem.FirstOrDefault().DppProsen)}% :";
+            //else
+            //    DppProsen = $"DPP {DecFormatter.ToStr(faktur.ListItem.FirstOrDefault().DppProsen)}% :";
 
             Ppn = $"{faktur.ListItem.Sum(x => x.PpnRp):N0}";
             PpnProsen = $"PPN {DecFormatter.ToStr(faktur.ListItem.FirstOrDefault().PpnProsen)}% :";
@@ -120,11 +120,12 @@ namespace btr.distrib.SalesContext.FakturAgg
         
         public string SubTotal { get; set; }
         public string Discount { get; set; }
+        public string Total { get; set; }
         public string Dpp { get; set; }
         public string DppProsen { get; set; }
         public string Ppn { get; set; }
-        public string GrandTotal { get; set; }
         public string PpnProsen { get; set; }
+        public string GrandTotal { get; set; }
 
         public string Terbilang { get; set; }
         public string Note { get; set; }

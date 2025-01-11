@@ -36,6 +36,7 @@ namespace btr.application.PurchaseContext.InvoiceAgg
         public string HrgInputStr { get; set; }
         public string QtyString { get; set; }
         public string DiscountString { get; set; }
+        public decimal DppProsen { get; set; }
         public decimal PpnProsen { get; set; }
     }
 
@@ -153,7 +154,7 @@ namespace btr.application.PurchaseContext.InvoiceAgg
             {
                 result = _invoiceBuilder
                     .Attach(result)
-                    .AddItem(item, item.HrgInputStr, item.QtyString, item.DiscountString, item.PpnProsen)
+                    .AddItem(item, item.HrgInputStr, item.QtyString, item.DiscountString, item.DppProsen, item.PpnProsen)
                     .Build();
             }
             result = _invoiceBuilder

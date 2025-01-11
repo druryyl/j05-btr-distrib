@@ -11,10 +11,10 @@ namespace btr.distrib.SalesContext.FakturAgg
         {
             PpnProsen = ppnProsen;
         }
-        public void SetDppProsen(decimal dppProsen)
-        {
-            DppProsen = dppProsen;
-        }
+        //public void SetDppProsen(decimal dppProsen)
+        //{
+        //    DppProsen = dppProsen;
+        //}
 
         public string BrgId { get; set; }
         public string BrgCode { get; private set; }

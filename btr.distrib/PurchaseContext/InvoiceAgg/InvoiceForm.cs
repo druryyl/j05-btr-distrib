@@ -22,7 +22,6 @@ using System.Windows.Forms;
 using btr.application.InventoryContext.StokAgg.GenStokUseCase;
 using btr.application.PurchaseContext.InvoiceAgg;
 using btr.distrib.PrintDocs;
-using JetBrains.Annotations;
 using btr.application.SupportContext.ParamSistemAgg;
 using btr.domain.SupportContext.ParamSistemAgg;
 
@@ -52,6 +51,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
 
         private readonly BindingList<InvoiceItemDto> _listItem = new BindingList<InvoiceItemDto>();
         private decimal _ppnProsen;
+        private decimal _dppProsen;
 
 
         public InvoiceForm(IBrowser<SupplierBrowserView> supplierBrowser,
@@ -100,6 +100,10 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             var paramKey = new ParamSistemModel("SISTEM_PPN_PROSEN");
             var paramPpn = _paramSistemDal.GetData(paramKey).ParamValue ?? "0";
             _ppnProsen = Convert.ToDecimal(paramPpn);
+
+            paramKey = new ParamSistemModel("SISTEM_DPP_PROSEN");
+            var paramDpp = _paramSistemDal.GetData(paramKey).ParamValue ?? "0";
+            _dppProsen = Convert.ToDecimal(paramDpp);
         }
 
         private void RegisterEventHandler()
@@ -377,6 +381,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
                 _listItem[rowIndex].HrgInputStr,
                 _listItem[rowIndex].QtyInputStr,
                 _listItem[rowIndex].DiscInputStr,
+                _listItem[rowIndex].DppProsen == 0 ? _dppProsen : _listItem[rowIndex].DppProsen,
                 _listItem[rowIndex].PpnProsen == 0 ? _ppnProsen : _listItem[rowIndex].PpnProsen);
             var item = _createItemWorker.Execute(req);
             _listItem[rowIndex] = item.Adapt<InvoiceItemDto>();
@@ -495,8 +500,10 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             cols.GetCol("DiscDetilStr").HeaderText = @"Disc Rp";
             cols.GetCol("DiscDetilStr").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             cols.GetCol("DiscDetilStr").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
-
             cols.GetCol("DiscRp").Visible = false;
+
+            cols.GetCol("DppProsen").Visible = false;
+            cols.GetCol("DppRp").Visible = false;
 
             cols.GetCol("PpnProsen").Visible = true;
             cols.GetCol("PpnProsen").Width = 50;
@@ -516,6 +523,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
         {
             TotalText.Value = _listItem.Sum(x => x.SubTotal);
             DiscountText.Value = _listItem.Sum(x => x.DiscRp);
+            DppText.Value = _listItem.Sum(x => x.DppRp);
             TaxText.Value = _listItem.Sum(x => x.PpnRp);
             GrandTotalText.Value = _listItem.Sum(x => x.Total);
             SisaText.Value = GrandTotalText.Value - UangMukaText.Value;
@@ -559,6 +567,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
                     HrgInputStr = c.HrgInputStr,
                     QtyString = c.QtyInputStr,
                     DiscountString = c.DiscInputStr,
+                    DppProsen = c.DppProsen,
                     PpnProsen = c.PpnProsen,
                 }).ToList();
             cmd.ListBrg = listItem;
@@ -581,6 +590,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
 
             TotalText.Value = 0;
             DiscountText.Value = 0;
+            DppText.Value = 0;
             TaxText.Value = 0;
             UangMukaText.Value = 0;
             SisaText.Value = 0;
@@ -636,57 +646,6 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             ClearForm();
         }
         #endregion
-
-    }
-
-    [PublicAPI]
-    public class InvoiceItemDto
-    {
-        public InvoiceItemDto()
-        {
-        }
-
-        public void SetPpnProsen(decimal ppnProsen)
-        {
-            PpnProsen = ppnProsen;
-        }   
-
-        public string BrgId { get; set; }
-        public string BrgCode { get; private set; }
-        public string BrgName { get; private set; }
-        public string HrgInputStr { get; set; }
-        public string HrgDetilStr { get; private set; }
-
-        public string QtyInputStr { get; set; }
-        public string QtyDetilStr { get; private set; }
-
-        public int QtyBesar { get; private set; }
-        public string SatBesar { get; private set; }
-        public int Conversion { get; private set; }
-        public decimal HppSatBesar { get; private set; }
-
-        public int QtyKecil { get; private set; }
-        public string SatKecil { get; private set; }
-        public decimal HppSatKecil { get; private set; }
-
-        //      harga
-        public int QtyBeli { get; private set; }
-        public decimal HppSat { get; private set; }
-        public decimal SubTotal { get; private set; }
-
-        public int QtyBonus { get; private set; }
-        public int QtyPotStok { get; private set; }
-
-        //      diskon
-        public string DiscInputStr { get; set; }
-        public string DiscDetilStr { get; private set; }
-        public decimal DiscRp { get; private set; }
-
-        //      ppn
-        public decimal PpnProsen { get; set; }
-        public decimal PpnRp { get; private set; }
-
-        public decimal Total { get; private set; }
 
     }
 }

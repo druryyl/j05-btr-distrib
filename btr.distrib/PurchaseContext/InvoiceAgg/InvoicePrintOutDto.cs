@@ -28,6 +28,16 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
 
             SubTotal = $"{invoice.Total:N0}";
             Discount = $"{invoice.Disc:N0}";
+            Total = $"{invoice.Total:N0}";
+
+            Dpp = $"{invoice.ListItem.Sum(x => x.DppRp):N0}";
+            var dppProsen = invoice.ListItem.FirstOrDefault().DppProsen;
+
+            if (dppProsen == 100M)
+                DppProsen = $"DPP :";
+            else 
+                DppProsen = "DPP 11/12 :";
+
             Ppn = $"{invoice.ListItem.Sum(x => x.PpnRp):N0}";
             PpnProsen = $"PPN {DecFormatter.ToStr(invoice.ListItem.FirstOrDefault().PpnProsen)}% :";
             GrandTotal = $"{invoice.GrandTotal:N0}";
@@ -56,10 +66,10 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
                         QtyKecil = qtyKecil,
                         HrgBesar = item.HppSatBesar== 0 ? "-" : $"{item.HppSatBesar:N0}",
                         HrgKecil = item.HppSatKecil == 0 ? "-" : $"{item.HppSatKecil:N0}",
-                        Disc1 = disc1 == 0 ? "-" : $"{disc1:N0}%",
-                        Disc2 = disc2 == 0 ? "-" : $"{disc2:N0}%",
-                        Disc3 = disc3 == 0 ? "-" : $"{disc3:N0}%",
-                        Disc4 = disc4 == 0 ? "-" : $"{disc4:N0}%",
+                        Disc1 = disc1 == 0 ? "-" : $"{DecFormatter.ToStr(disc1)}%",
+                        Disc2 = disc2 == 0 ? "-" : $"{DecFormatter.ToStr(disc2)}%",
+                        Disc3 = disc3 == 0 ? "-" : $"{DecFormatter.ToStr(disc3)}%",
+                        Disc4 = disc4 == 0 ? "-" : $"{DecFormatter.ToStr(disc4)}%",
                         Total = $"{(item.Total):N0}",
                     };
                     ListItem.Add(newItem);
@@ -99,9 +109,14 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
         public string JatuhTempo { get; set; }
         public string SubTotal { get; set; }
         public string Discount { get; set; }
-        public string GrandTotal { get; set; }
+        public string Total { get; set; }
+
+        public string Dpp { get; set; }
+        public string DppProsen { get; set; }
         public string Ppn { get; set; }
         public string PpnProsen { get; set; }
+        public string GrandTotal { get; set; }
+
         public string Terbilang { get; set; }
         public string UserName { get; set; }
         public List<InvoicePrintOutItemDto> ListItem { get; set; }

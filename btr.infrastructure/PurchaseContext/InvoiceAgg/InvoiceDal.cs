@@ -25,11 +25,11 @@ namespace btr.infrastructure.PurchaseContext.InvoiceAgg
             const string sql = @"
                 INSERT INTO BTR_Invoice (
                     InvoiceId, InvoiceDate, InvoiceCode, SupplierId,  WarehouseId, 
-                    NoFakturPajak, DueDate, Total, Disc, Tax, GrandTotal,
+                    NoFakturPajak, DueDate, Total, Disc, Dpp, Tax, GrandTotal,
                     CreateTime, LastUpdate, UserId, VoidDate, UserIdVoid)
                 VALUES(
                     @InvoiceId, @InvoiceDate, @InvoiceCode, @SupplierId,  @WarehouseId, 
-                    @NoFakturPajak, @DueDate, @Total, @Disc, @Tax, @GrandTotal,
+                    @NoFakturPajak, @DueDate, @Total, @Disc, @Dpp, @Tax, @GrandTotal,
                     @CreateTime, @LastUpdate, @UserId, @VoidDate, @UserIdVoid)";
 
             var dp = new DynamicParameters();
@@ -42,7 +42,8 @@ namespace btr.infrastructure.PurchaseContext.InvoiceAgg
             
             dp.AddParam("@DueDate", model.DueDate, SqlDbType.DateTime);
             dp.AddParam("@Total", model.Total, SqlDbType.Decimal);  
-            dp.AddParam("@Disc", model.Disc, SqlDbType.Decimal);  
+            dp.AddParam("@Disc", model.Disc, SqlDbType.Decimal);
+            dp.AddParam("@Dpp", model.Dpp, SqlDbType.Decimal);
             dp.AddParam("@Tax", model.Tax, SqlDbType.Decimal);  
             dp.AddParam("@GrandTotal", model.GrandTotal, SqlDbType.Decimal);
 
@@ -72,6 +73,7 @@ namespace btr.infrastructure.PurchaseContext.InvoiceAgg
                     DueDate = @DueDate, 
                     Total = @Total, 
                     Disc = @Disc, 
+                    Dpp = @Dpp,
                     Tax = @Tax, 
                     GrandTotal = @GrandTotal,
                     CreateTime = @CreateTime,
@@ -94,6 +96,7 @@ namespace btr.infrastructure.PurchaseContext.InvoiceAgg
             dp.AddParam("@DueDate", model.DueDate, SqlDbType.DateTime);
             dp.AddParam("@Total", model.Total, SqlDbType.Decimal);  
             dp.AddParam("@Disc", model.Disc, SqlDbType.Decimal);  
+            dp.AddParam("@Dpp", model.Dpp, SqlDbType.Decimal);
             dp.AddParam("@Tax", model.Tax, SqlDbType.Decimal);  
             dp.AddParam("@GrandTotal", model.GrandTotal, SqlDbType.Decimal);
 
@@ -131,7 +134,7 @@ namespace btr.infrastructure.PurchaseContext.InvoiceAgg
             const string sql = @"
                 SELECT
                     aa.InvoiceId, aa.InvoiceDate, aa.InvoiceCode, aa.SupplierId,  aa.WarehouseId, 
-                    aa.NoFakturPajak, aa.DueDate, aa.Total, aa.Disc, aa.Tax, aa.GrandTotal,
+                    aa.NoFakturPajak, aa.DueDate, aa.Total, aa.Disc, aa.Dpp, aa.Tax, aa.GrandTotal,
                     aa.CreateTime, aa.LastUpdate, aa.UserId, aa.VoidDate, aa.UserIdVoid,
                     ISNULL(bb.SupplierName, '') AS SupplierName,
                     ISNULL(cc.WarehouseName, '') AS WarehouseName
@@ -156,7 +159,7 @@ namespace btr.infrastructure.PurchaseContext.InvoiceAgg
             const string sql = @"
                 SELECT
                     aa.InvoiceId, aa.InvoiceDate, aa.InvoiceCode, aa.SupplierId,  aa.WarehouseId, 
-                    aa.NoFakturPajak, aa.DueDate, aa.Total, aa.Disc, aa.Tax, aa.GrandTotal,
+                    aa.NoFakturPajak, aa.DueDate, aa.Total, aa.Disc, aa.Dpp, aa.Tax, aa.GrandTotal,
                     aa.CreateTime, aa.LastUpdate, aa.UserId, aa.VoidDate, aa.UserIdVoid,
                     ISNULL(bb.SupplierName, '') AS SupplierName,
                     ISNULL(cc.WarehouseName, '') AS WarehouseName
@@ -165,7 +168,8 @@ namespace btr.infrastructure.PurchaseContext.InvoiceAgg
                     LEFT JOIN BTR_SUpplier bb ON aa.SupplierId = bb.SupplierId
                     LEFT JOIN BTR_Warehouse cc ON aa.WarehouseId = cc.WarehouseId
                 WHERE
-                    InvoiceDate BETWEEN @Tgl1 AND @Tgl2 ";
+                    InvoiceDate BETWEEN @Tgl1 AND @Tgl2
+                    AND aa.VoidDate = '3000-01-01'";
 
             var dp = new DynamicParameters();
             dp.AddParam("@Tgl1", filter.Tgl1, SqlDbType.DateTime); 

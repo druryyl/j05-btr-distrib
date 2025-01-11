@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[BTR_FpKeluaran]
+(
+	FpKeluaranId VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_FpKeluaran_FpKeluaranId DEFAULT (''),
+	FpKeluaranDate DATETIME NOT NULL CONSTRAINT DF_BTR_FpKeluaran_FpKeluaranDate DEFAULT ('3000-01-01'),
+	UserId VARCHAR(30) NOT NULL CONSTRAINT DF_BTR_FpKeluaran_UserId DEFAULT (''),
+
+	CONSTRAINT PK_BTR_FpKeluaran PRIMARY KEY CLUSTERED (FpKeluaranId ASC)
+)
