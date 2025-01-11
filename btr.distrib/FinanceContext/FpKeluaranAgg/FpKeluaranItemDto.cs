@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace btr.distrib.FinanceContext.FpKeluaranAgg
 {
-    public class FpKeluaranItemDto
+    public class FpKeluaranFakturDto
     {
-        public FpKeluaranItemDto(string id, string code, DateTime tgl, 
-            string customer, string npwp, string address, decimal grandTotal)
+        public FpKeluaranFakturDto(string id, string code, DateTime tgl, 
+            string customer, string npwp, string address, decimal grandTotal, bool isPilih)
         {
             FakturId = id;
             FakturCode = code;
@@ -18,6 +18,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             Npwp = npwp;
             Address = address;
             GrandTotal = grandTotal;
+            IsPilih = isPilih;
         }
         public string FakturId { get; private set; }
         public string FakturCode { get; private set; }

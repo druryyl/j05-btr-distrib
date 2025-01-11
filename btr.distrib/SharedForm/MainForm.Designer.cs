@@ -97,9 +97,10 @@
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.StokHealthIndicatorStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.StokHealthTimer = new System.Windows.Forms.Timer(this.components);
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.repairStokToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.StokHealthTimer = new System.Windows.Forms.Timer(this.components);
+            this.FT3FpKeluaranButton = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -526,6 +527,7 @@
             // 
             this.ribbonPanel1.Items.Add(this.FT1LunasPiutangButton);
             this.ribbonPanel1.Items.Add(this.FT2TagihanSalesButton);
+            this.ribbonPanel1.Items.Add(this.FT3FpKeluaranButton);
             this.ribbonPanel1.Name = "ribbonPanel1";
             this.ribbonPanel1.Text = "";
             // 
@@ -697,12 +699,6 @@
             this.StokHealthIndicatorStatus.Size = new System.Drawing.Size(161, 17);
             this.StokHealthIndicatorStatus.Text = "Stock Health Indicator : 100%";
             // 
-            // StokHealthTimer
-            // 
-            this.StokHealthTimer.Enabled = true;
-            this.StokHealthTimer.Interval = 900000;
-            this.StokHealthTimer.Tick += new System.EventHandler(this.StokHealthTimer_Tick);
-            // 
             // toolStripDropDownButton1
             // 
             this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -717,9 +713,24 @@
             // repairStokToolStripMenuItem
             // 
             this.repairStokToolStripMenuItem.Name = "repairStokToolStripMenuItem";
-            this.repairStokToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.repairStokToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.repairStokToolStripMenuItem.Text = "Repair Stok";
             this.repairStokToolStripMenuItem.Click += new System.EventHandler(this.repairStokToolStripMenuItem_Click);
+            // 
+            // StokHealthTimer
+            // 
+            this.StokHealthTimer.Enabled = true;
+            this.StokHealthTimer.Interval = 900000;
+            this.StokHealthTimer.Tick += new System.EventHandler(this.StokHealthTimer_Tick);
+            // 
+            // FT3FpKeluaranButton
+            // 
+            this.FT3FpKeluaranButton.Image = global::btr.distrib.Properties.Resources.tax2;
+            this.FT3FpKeluaranButton.LargeImage = global::btr.distrib.Properties.Resources.tax2;
+            this.FT3FpKeluaranButton.Name = "FT3FpKeluaranButton";
+            this.FT3FpKeluaranButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FT3FpKeluaranButton.SmallImage")));
+            this.FT3FpKeluaranButton.Text = "FT3-FP Keluaran";
+            this.FT3FpKeluaranButton.Click += new System.EventHandler(this.FT3FpKeluaranButton_Click);
             // 
             // MainForm
             // 
@@ -819,5 +830,6 @@
         private System.Windows.Forms.Timer StokHealthTimer;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStripMenuItem repairStokToolStripMenuItem;
+        private System.Windows.Forms.RibbonButton FT3FpKeluaranButton;
     }
 }

@@ -40,6 +40,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         IFakturBuilder ClearItem();
 
         IFakturBuilder FakturPajak(string noSeriFakturPajak);
+        IFakturBuilder FpKeluaran(string fpKeluaranId);
 
         IFakturBuilder Void(IUserKey userKey);
         IFakturBuilder ReActivate(IUserKey userKey);
@@ -209,6 +210,11 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         public IFakturBuilder FakturPajak(string noSeriFakturPajak)
         {
             _aggRoot.NoFakturPajak = noSeriFakturPajak;
+            return this;
+        }
+        public IFakturBuilder FpKeluaran(string fpKeluaranId)
+        {
+            _aggRoot.FpKeluaranId = fpKeluaranId;
             return this;
         }
         #endregion

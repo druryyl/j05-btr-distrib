@@ -26,12 +26,12 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             INSERT INTO BTR_Faktur(
                 FakturId, FakturDate, FakturCode, SalesPersonId, CustomerId, HargaTypeId,
                 WarehouseId, TglRencanaKirim, DriverId, TermOfPayment, DueDate, Total,
-                Discount, Dpp, Tax, GrandTotal, UangMuka, KurangBayar, NoFakturPajak,
+                Discount, Dpp, Tax, GrandTotal, UangMuka, KurangBayar, NoFakturPajak, FpKeluaranId,
                 CreateTime, LastUpdate, UserId, VoidDate, UserIdVoid, Note)
             VALUES(
                 @FakturId, @FakturDate, @FakturCode, @SalesPersonId, @CustomerId, @HargaTypeId,
                 @WarehouseId, @TglRencanaKirim, @DriverId, @TermOfPayment, @DueDate, @Total,
-                @Discount, @Dpp, @Tax, @GrandTotal, @UangMuka, @KurangBayar, @NoFakturPajak,
+                @Discount, @Dpp, @Tax, @GrandTotal, @UangMuka, @KurangBayar, @NoFakturPajak, @FpKeluaranId,
                 @CreateTime, @LastUpdate, @UserId, @VoidDate, @UserIdVoid, @Note) ";
 
             var dp = new DynamicParameters();
@@ -57,6 +57,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             dp.AddParam("@UangMuka", model.UangMuka, SqlDbType.Decimal);
             dp.AddParam("@KurangBayar", model.KurangBayar, SqlDbType.Decimal);
             dp.AddParam("@NoFakturPajak", model.NoFakturPajak, SqlDbType.VarChar);
+            dp.AddParam("@FpKeluaranId", model.FpKeluaranId, SqlDbType.VarChar);
 
             dp.AddParam("@CreateTime", model.CreateTime, SqlDbType.DateTime);
             dp.AddParam("@LastUpdate", model.LastUpdate, SqlDbType.DateTime);
@@ -96,6 +97,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 UangMuka = @UangMuka, 
                 KurangBayar = @KurangBayar, 
                 NoFakturPajak = @NoFakturPajak, 
+                FpKeluaranId = @FpKeluaranId,   
 
                 CreateTime = @CreateTime, 
                 LastUpdate = @LastUpdate, 
@@ -130,6 +132,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             dp.AddParam("@UangMuka", model.UangMuka, SqlDbType.Decimal);
             dp.AddParam("@KurangBayar", model.KurangBayar, SqlDbType.Decimal);
             dp.AddParam("@NoFakturPajak", model.NoFakturPajak, SqlDbType.VarChar);
+            dp.AddParam("@FpKeluaranId", model.FpKeluaranId, SqlDbType.VarChar);
 
             dp.AddParam("@CreateTime", model.CreateTime, SqlDbType.DateTime);
             dp.AddParam("@LastUpdate", model.LastUpdate, SqlDbType.DateTime);
@@ -167,7 +170,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             SELECT
                 aa.FakturId, aa.FakturDate, aa.FakturCode, aa.SalesPersonId, aa.CustomerId, aa.HargaTypeId,
                 aa.WarehouseId, aa.TglRencanaKirim, aa.DriverId, aa.TermOfPayment, aa.DueDate, aa.Total,
-                aa.Discount, aa.Dpp, aa.Tax, aa.GrandTotal, aa.UangMuka, aa.KurangBayar, aa.NoFakturPajak,
+                aa.Discount, aa.Dpp, aa.Tax, aa.GrandTotal, aa.UangMuka, aa.KurangBayar, aa.NoFakturPajak, aa.FpKeluaranId,
                 aa.CreateTime, aa.LastUpdate, aa.UserId, aa.VoidDate, aa.UserIdVoid, aa.Note,
                 ISNULL(bb.SalesPersonName, '') AS SalesPersonName,
                 ISNULL(cc.CustomerName, '') AS CustomerName,
@@ -203,7 +206,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             SELECT
                 aa.FakturId, aa.FakturDate, aa.FakturCode, aa.SalesPersonId, aa.CustomerId, aa.HargaTypeId,
                 aa.WarehouseId, aa.TglRencanaKirim, aa.DriverId, aa.TermOfPayment, aa.DueDate, aa.Total,
-                aa.Discount, aa.Dpp, aa.Tax, aa.GrandTotal, aa.UangMuka, aa.KurangBayar, aa.NoFakturPajak,
+                aa.Discount, aa.Dpp, aa.Tax, aa.GrandTotal, aa.UangMuka, aa.KurangBayar, aa.NoFakturPajak, aa.FpKeluaranId,
                 aa.CreateTime, aa.LastUpdate, aa.UserId, aa.VoidDate, aa.UserIdVoid, aa.Note,
                 ISNULL(bb.SalesPersonName, '') AS SalesPersonName,
                 ISNULL(cc.CustomerName, '') AS CustomerName,
@@ -285,7 +288,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             SELECT
                 aa.FakturId, aa.FakturDate, aa.FakturCode, aa.SalesPersonId, aa.CustomerId, aa.HargaTypeId,
                 aa.WarehouseId, aa.TglRencanaKirim, aa.DriverId, aa.TermOfPayment, aa.DueDate, aa.Total,
-                aa.Discount, aa.Dpp, aa.Tax, aa.GrandTotal, aa.UangMuka, aa.KurangBayar, aa.NoFakturPajak,
+                aa.Discount, aa.Dpp, aa.Tax, aa.GrandTotal, aa.UangMuka, aa.KurangBayar, aa.NoFakturPajak, aa.FpKeluaranId,
                 aa.CreateTime, aa.LastUpdate, aa.UserId, aa.VoidDate, aa.UserIdVoid, aa.Note,
                 ISNULL(bb.SalesPersonName, '') AS SalesPersonName,
                 ISNULL(cc.CustomerName, '') AS CustomerName,

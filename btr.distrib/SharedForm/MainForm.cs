@@ -48,6 +48,7 @@ using btr.distrib.SalesContext.DriverFakturRpt;
 using btr.distrib.InventoryContext.DriverAgg;
 using btr.application.InventoryContext.StokAgg;
 using DocumentFormat.OpenXml.Drawing.Charts;
+using btr.distrib.FinanceContext.FpKeluaranAgg;
 
 namespace btr.distrib.SharedForm
 {
@@ -575,6 +576,16 @@ namespace btr.distrib.SharedForm
             var stokHealthDal = _servicesProvider.GetRequiredService<IStokBalanceHealthDal>();
             stokHealthDal.RepairStokHealth();
             GetStokHealthNow();
+        }
+
+        private void FT3FpKeluaranButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<FpKeluaranForm>())
+                return;
+            var form = _servicesProvider.GetRequiredService<FpKeluaranForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
         }
     }
 }
