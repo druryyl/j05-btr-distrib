@@ -33,25 +33,31 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
 
             RegisterEventHandler();
             InitGrid();
+            InitCalender();
         }
 
         private void RegisterEventHandler()
         {
             SearchButton.Click += SearchButton_Click;
             FakturGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
-            FakturGrid.CellContentClick += FakturGrid_CellContentClick;
         }
 
+        private void InitCalender()
+        {
+            PeriodeCalender.MaxSelectionCount = 31;
+            PeriodeCalender.SelectionStart = DateTime.Now;
+            PeriodeCalender.SelectionEnd = DateTime.Now;
+        }
 
         #region GRID
         private void InitGrid()
         {
             #region TESTING UX
-            _listFaktur.Clear();
-            foreach(var item in ListFakturFaker())
-            {
-                _listFaktur.Add(item);
-            }
+            //_listFaktur.Clear();
+            //foreach(var item in ListFakturFaker())
+            //{
+            //    _listFaktur.Add(item);
+            //}
             #endregion
 
             FakturGrid.DataSource = _fakturBindingSource;
@@ -61,9 +67,9 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             grid["FakturId"].Width = 100;
             grid["FakturCode"].Width = 70;
             grid["FakturDate"].Width = 80;
-            grid["CustomerName"].Width = 150;
+            grid["CustomerName"].Width = 130;
             grid["Npwp"].Width = 125;
-            grid["Address"].Width = 250;
+            grid["Address"].Width = 220;
             grid["GrandTotal"].Width = 80;
             grid["IsPilih"].Width = 30;
 
@@ -79,19 +85,9 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             grid["FakturDate"].DefaultCellStyle.Format = "dd-MM-yyyy";
             grid["GrandTotal"].DefaultCellStyle.Format = "N0";
             grid["GrandTotal"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            grid["CustomerName"].DefaultCellStyle.Font = new Font("Segoe UI", 8);
+            grid["Address"].DefaultCellStyle.Font = new Font("Segoe UI", 8);
         }
-
-        private void FakturGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            var grid = (DataGridView)sender;
-            if (!(grid.CurrentCell is DataGridViewCheckBoxCell))
-                return;
-
-            if (grid.CurrentCell.ColumnIndex != grid.Columns["IsPilih"].Index)
-                return;
-            grid.EndEdit();
-        }
-
         private IEnumerable<FpKeluaranFakturDto> ListFakturFaker()
         {
             return new List<FpKeluaranFakturDto>
@@ -115,14 +111,47 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
         #region SEARCH
         private void SearchButton_Click(object sender, EventArgs e)
         {
+            PreserveTerpilih();
             SearchFaktur();
+            RestoreTerpilih();
+        }
+
+        private void PreserveTerpilih()
+        {
+            var listTerpilih = _listFaktur.Where(x => x.IsPilih).ToList();
+            _listFakturPilih.Clear();
+            foreach (var item in listTerpilih)
+                _listFakturPilih.Add(item);
+        }
+
+        private void RestoreTerpilih()
+        {
+            //  remove _listFaktur which is already in _listFakturPilih
+            foreach (var item in _listFakturPilih)
+            {
+                var faktur = _listFaktur.FirstOrDefault(x => x.FakturId == item.FakturId);
+                if (faktur != null)
+                    _listFaktur.Remove(faktur);
+            }
+            int i = 0;
+            foreach (var item in _listFakturPilih)
+            {
+                _listFaktur.Insert(i, item);
+                i++;
+            }
         }
 
         public void SearchFaktur()
         {
-            var periode = new Periode(Periode1Date.Value, Periode2Date.Value);
+            var tgl1 = PeriodeCalender.SelectionStart;
+            var tgl2 = PeriodeCalender.SelectionEnd;
+            var periode = new Periode(tgl1, tgl2);
             var listFaktur = _fakturDal.ListData(periode)?.ToList() ?? new List<FakturModel>();
             listFaktur.RemoveAll(x => x.FpKeluaranId != string.Empty);
+
+            var searchText = SearchText.Text.ToUpper();
+            if (searchText != string.Empty)
+                listFaktur = listFaktur.Where(x => x.FakturCode.ToUpper().Contains(searchText) || x.CustomerName.ToUpper().Contains(searchText)).ToList();
 
             _listFaktur.Clear();
             foreach(var item in listFaktur)
@@ -130,8 +159,6 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
                 var newItem = new FpKeluaranFakturDto(item.FakturId, item.FakturCode, item.FakturDate, item.CustomerName, item.Npwp, item.Address, item.GrandTotal, false);
                 _listFaktur.Add(newItem);
             }
-
-            //FakturGrid.DataSource = _listFaktur;
         }
         #endregion
     }
