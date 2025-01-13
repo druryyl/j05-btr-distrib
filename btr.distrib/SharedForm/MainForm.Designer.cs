@@ -69,6 +69,7 @@
             this.IF1StokBalanceButton = new System.Windows.Forms.RibbonButton();
             this.IF2KartuStokButton = new System.Windows.Forms.RibbonButton();
             this.IF4StokPerSupplierButton = new System.Windows.Forms.RibbonButton();
+            this.IF5StokPeriodikButton = new System.Windows.Forms.RibbonButton();
             this.InventoryMasterPanel = new System.Windows.Forms.RibbonPanel();
             this.BrgButton = new System.Windows.Forms.RibbonButton();
             this.WarehouseButton = new System.Windows.Forms.RibbonButton();
@@ -78,6 +79,7 @@
             this.ribbonPanel1 = new System.Windows.Forms.RibbonPanel();
             this.FT1LunasPiutangButton = new System.Windows.Forms.RibbonButton();
             this.FT2TagihanSalesButton = new System.Windows.Forms.RibbonButton();
+            this.FT3FpKeluaranButton = new System.Windows.Forms.RibbonButton();
             this.FinanceInfoTab = new System.Windows.Forms.RibbonPanel();
             this.FF1PiutangSalesWilayahButton = new System.Windows.Forms.RibbonButton();
             this.FF2PenerimaanSalesButton = new System.Windows.Forms.RibbonButton();
@@ -100,7 +102,6 @@
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.repairStokToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.StokHealthTimer = new System.Windows.Forms.Timer(this.components);
-            this.FT3FpKeluaranButton = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -441,6 +442,7 @@
             this.ReportingPanel.Items.Add(this.IF1StokBalanceButton);
             this.ReportingPanel.Items.Add(this.IF2KartuStokButton);
             this.ReportingPanel.Items.Add(this.IF4StokPerSupplierButton);
+            this.ReportingPanel.Items.Add(this.IF5StokPeriodikButton);
             this.ReportingPanel.Name = "ReportingPanel";
             this.ReportingPanel.Text = "Reporting";
             // 
@@ -470,6 +472,15 @@
             this.IF4StokPerSupplierButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IF4StokPerSupplierButton.SmallImage")));
             this.IF4StokPerSupplierButton.Text = "IF4-Stok Supplier";
             this.IF4StokPerSupplierButton.Click += new System.EventHandler(this.IF4StokPerSupplierButton_Click);
+            // 
+            // IF5StokPeriodikButton
+            // 
+            this.IF5StokPeriodikButton.Image = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
+            this.IF5StokPeriodikButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
+            this.IF5StokPeriodikButton.Name = "IF5StokPeriodikButton";
+            this.IF5StokPeriodikButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IF5StokPeriodikButton.SmallImage")));
+            this.IF5StokPeriodikButton.Text = "IF5-Stok Periodik";
+            this.IF5StokPeriodikButton.Click += new System.EventHandler(this.IF5StokPeriodikButton_Click);
             // 
             // InventoryMasterPanel
             // 
@@ -548,6 +559,15 @@
             this.FT2TagihanSalesButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FT2TagihanSalesButton.SmallImage")));
             this.FT2TagihanSalesButton.Text = "FT2-Tagihan Sales";
             this.FT2TagihanSalesButton.Click += new System.EventHandler(this.FT2TagihanSalesButton_Click_1);
+            // 
+            // FT3FpKeluaranButton
+            // 
+            this.FT3FpKeluaranButton.Image = global::btr.distrib.Properties.Resources.tax2;
+            this.FT3FpKeluaranButton.LargeImage = global::btr.distrib.Properties.Resources.tax2;
+            this.FT3FpKeluaranButton.Name = "FT3FpKeluaranButton";
+            this.FT3FpKeluaranButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FT3FpKeluaranButton.SmallImage")));
+            this.FT3FpKeluaranButton.Text = "FT3-FP Keluaran";
+            this.FT3FpKeluaranButton.Click += new System.EventHandler(this.FT3FpKeluaranButton_Click);
             // 
             // FinanceInfoTab
             // 
@@ -723,15 +743,6 @@
             this.StokHealthTimer.Interval = 900000;
             this.StokHealthTimer.Tick += new System.EventHandler(this.StokHealthTimer_Tick);
             // 
-            // FT3FpKeluaranButton
-            // 
-            this.FT3FpKeluaranButton.Image = global::btr.distrib.Properties.Resources.tax2;
-            this.FT3FpKeluaranButton.LargeImage = global::btr.distrib.Properties.Resources.tax2;
-            this.FT3FpKeluaranButton.Name = "FT3FpKeluaranButton";
-            this.FT3FpKeluaranButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FT3FpKeluaranButton.SmallImage")));
-            this.FT3FpKeluaranButton.Text = "FT3-FP Keluaran";
-            this.FT3FpKeluaranButton.Click += new System.EventHandler(this.FT3FpKeluaranButton_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -831,5 +842,6 @@
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStripMenuItem repairStokToolStripMenuItem;
         private System.Windows.Forms.RibbonButton FT3FpKeluaranButton;
+        private System.Windows.Forms.RibbonButton IF5StokPeriodikButton;
     }
 }

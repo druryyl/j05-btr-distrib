@@ -483,6 +483,7 @@
     </Compile>
     <Compile Include="InventoryContext\OpnameAgg\BrgOpnameFormDto.cs" />
     <Compile Include="InventoryContext\OpnameAgg\ReportOpnameFormDto.cs" />
+    <Compile Include="InventoryContext\StokBalanceRpt\StokBalanceInfoDto.cs" />
     <Compile Include="InventoryContext\StokBrgSupplierRpt\StokBrgSupplierForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -494,6 +495,13 @@
     </Compile>
     <Compile Include="InventoryContext\StokHarianAgg\StokHarianForm.Designer.cs">
       <DependentUpon>StokHarianForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryContext\StokPeriodikRpt\StokPeriodikViewDto.cs" />
+    <Compile Include="InventoryContext\StokPeriodikRpt\StokPeriodikForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryContext\StokPeriodikRpt\StokPeriodikForm.Designer.cs">
+      <DependentUpon>StokPeriodikForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InventoryContext\WarehouseAgg\WarehouseForm.cs">
       <SubType>Form</SubType>
@@ -811,6 +819,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\StokHarianAgg\StokHarianForm.resx">
       <DependentUpon>StokHarianForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InventoryContext\StokPeriodikRpt\StokPeriodikForm.resx">
+      <DependentUpon>StokPeriodikForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PurchaseContext\InvoiceAgg\InvoiceForm.resx">
       <DependentUpon>InvoiceForm.cs</DependentUpon>

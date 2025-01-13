@@ -49,6 +49,7 @@ using btr.distrib.InventoryContext.DriverAgg;
 using btr.application.InventoryContext.StokAgg;
 using DocumentFormat.OpenXml.Drawing.Charts;
 using btr.distrib.FinanceContext.FpKeluaranAgg;
+using btr.distrib.InventoryContext.StokPeriodikRpt;
 
 namespace btr.distrib.SharedForm
 {
@@ -583,6 +584,16 @@ namespace btr.distrib.SharedForm
             if (BringMdiChildToFrontIfLoaded<FpKeluaranForm>())
                 return;
             var form = _servicesProvider.GetRequiredService<FpKeluaranForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void IF5StokPeriodikButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<StokPeriodikForm>())
+                return;
+            var form = _servicesProvider.GetRequiredService<StokPeriodikForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

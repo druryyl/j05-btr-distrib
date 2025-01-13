@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.StokBalanceInfo;
+using btr.application.InventoryContext.StokPeriodikInfo;
 using btr.distrib.InventoryContext.StokBrgSupplierRpt;
+using btr.domain.BrgContext.BrgAgg;
 using btr.nuna.Domain;
 using ClosedXML.Excel;
 using Syncfusion.DataSource;
@@ -13,22 +17,37 @@ using Syncfusion.Grouping;
 using Syncfusion.Windows.Forms.Grid;
 using Syncfusion.Windows.Forms.Grid.Grouping;
 
-
-namespace btr.distrib.InventoryContext.StokBalanceRpt
+namespace btr.distrib.InventoryContext.StokPeriodikRpt
 {
-    public partial class StokBalanceInfo2Form : Form
+    public partial class StokPeriodikForm : Form
     {
-        private readonly IStokBalanceViewDal _stokBalanceViewDal;
-        private List<StokBalanceInfoDto> _dataSource;
+        private readonly IStokPeriodikDal _stokPeriodikDal;
+        private readonly BindingList<StokPeriodikViewDto> _dataSource;
+        private readonly BindingSource _bindingSource;
+        private readonly IBrgDal _brgDal;
+        private readonly IBrgBuilder _brgBuilder;
 
-        public StokBalanceInfo2Form(IStokBalanceViewDal stokBalanceViewDal)
+        public StokPeriodikForm(IStokPeriodikDal stokPeriodikDal, 
+            IBrgDal brgDal, 
+            IBrgBuilder brgBuilder)
         {
             InitializeComponent();
-            _stokBalanceViewDal = stokBalanceViewDal;
+            _stokPeriodikDal = stokPeriodikDal;
+            _brgDal = brgDal;
+            _brgBuilder = brgBuilder;
+
+            _dataSource = new BindingList<StokPeriodikViewDto>();
+            _bindingSource = new BindingSource(_dataSource, null);
+
+            RegisterEventHandler();
+            InitGrid();
+        }
+
+        private void RegisterEventHandler()
+        {
             InfoGrid.QueryCellStyleInfo += InfoGrid_QueryCellStyleInfo;
             ExcelButton.Click += ExcelButton_Click;
             ProsesButton.Click += ProsesButton_Click;
-            InitGrid();
         }
 
         private void InfoGrid_QueryCellStyleInfo(object sender, GridTableCellStyleInfoEventArgs e)
@@ -42,8 +61,7 @@ namespace btr.distrib.InventoryContext.StokBalanceRpt
 
         private void InitGrid()
         {
-            var datasource = new List<StokBalanceInfoDto>();
-            InfoGrid.DataSource = datasource;
+            InfoGrid.DataSource = _dataSource;
 
             InfoGrid.TableDescriptor.AllowEdit = false;
             InfoGrid.TableDescriptor.AllowNew = false;
@@ -78,30 +96,41 @@ namespace btr.distrib.InventoryContext.StokBalanceRpt
         {
             Proses();
         }
-        
+
         private void Proses()
         {
-            var listFaktur = _stokBalanceViewDal.ListData()?.ToList() ?? new List<StokBalanceView>();
-            listFaktur.ForEach(x => x.NilaiSediaan = x.Hpp * x.Qty);
-            var filtered = Filter(listFaktur, SearchText.Text);
-            _dataSource = (
-                from c in filtered
-                select new StokBalanceInfoDto
+            var tgl = PeriodikCalender.SelectionEnd;
+            var listStok = _stokPeriodikDal.ListData(tgl)?.ToList() ?? new List<StokPeriodikDto>();
+            var listBrg = _brgDal.ListData();
+            ProsesBar.Maximum = listStok.Count;
+            ProsesBar.Value = 0;
+            ProsesBar.Visible = true;
+
+            _dataSource.Clear();
+            foreach (var item in listStok)
+            {
+                ProsesBar.Value++;
+                var newView = new StokPeriodikViewDto
                 {
-                    Supplier = c.SupplierName,
-                    Kategori = c.KategoriName,
-                    BrgId = c.BrgId,
-                    BrgCode = c.BrgCode,
-                    BrgName = c.BrgName,
-                    Warehouse = c.WarehouseName,
-                    SatBesar = c.SatBesar,
-                    Conversion = c.Conversion,
-                    SatKecil = c.SatKecil,
-                    InPcs = c.Qty,
-                    Hpp = c.Hpp,
-                    NilaiSediaan = c.NilaiSediaan,
-                }).ToList();
-            InfoGrid.DataSource = _dataSource;
+                    Supplier = item.SupplierName,
+                    Kategori = item.KategoriName,
+                    BrgId = item.BrgId,
+                    BrgCode = item.BrgCode,
+                    BrgName = item.BrgName,
+                    Warehouse = item.WarehouseName,
+                    InPcs = item.Qty,
+                    Hpp = item.Hpp,
+                    NilaiSediaan = item.Qty * item.Hpp,
+                };
+                var brg = _brgBuilder.Load(item).Build();
+                var satBesar = brg.ListSatuan.FirstOrDefault(x => x.Conversion != 1)
+                    ?? new BrgSatuanModel("", "", 1, "");
+                newView.SatBesar = satBesar.Satuan;
+                newView.SatKecil = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty;
+                newView.Conversion = satBesar.Conversion;
+                _dataSource.Add(newView);
+            }
+            ProsesBar.Visible = false;
         }
 
         private void ExcelButton_Click(object sender, EventArgs e)
@@ -113,23 +142,24 @@ namespace btr.distrib.InventoryContext.StokBalanceRpt
                 saveFileDialog.Title = @"Save Excel File";
                 saveFileDialog.DefaultExt = "xlsx";
                 saveFileDialog.AddExtension = true;
-                saveFileDialog.FileName = $"stok-balance-info-{DateTime.Now:yyyy-MM-dd-HHmm}";
+                saveFileDialog.FileName = $"stok-periodik-{PeriodikCalender.SelectionEnd:yyyy-MM-dd}";
                 if (saveFileDialog.ShowDialog() != DialogResult.OK)
                     return;
                 filePath = saveFileDialog.FileName;
             }
 
             var filtered = this.InfoGrid.Table.FilteredRecords;
-            var listToExcel = new List<StokBalanceInfoDto>();
+            var listToExcel = new List<StokPeriodikViewDto>();
             foreach (var item in filtered)
             {
-                listToExcel.Add(item.GetData() as StokBalanceInfoDto);
+                listToExcel.Add(item.GetData() as StokPeriodikViewDto);
             }
 
 
             using (IXLWorkbook wb = new XLWorkbook())
             {
-                wb.AddWorksheet("stok-balance-info")
+                var periode = PeriodikCalender.SelectionEnd.ToString("yyyy-MM-dd");
+                wb.AddWorksheet($"stok-periodik-{periode}")
                 .Cell($"B1")
                     .InsertTable(listToExcel, false);
                 var ws = wb.Worksheets.First();
@@ -154,22 +184,6 @@ namespace btr.distrib.InventoryContext.StokBalanceRpt
                 wb.SaveAs(filePath);
             }
             System.Diagnostics.Process.Start(filePath);
-        }
-
-        private List<StokBalanceView> Filter(List<StokBalanceView> source, string keyword)
-        {
-            if (keyword.Trim().Length == 0)
-                return source;
-            var listFilteredBrgName = source.Where(x => x.BrgName.ToLower().ContainMultiWord(keyword)).ToList();
-            var listFilteredBrgCode = source.Where(x => x.BrgCode.ToLower().StartsWith(keyword.ToLower())).ToList();
-            var listFilteredKategori = source.Where(x => x.KategoriName.ToLower().ContainMultiWord(keyword)).ToList();
-            var listFilteredSupplier = source.Where(x => x.SupplierName.ToLower().ContainMultiWord(keyword)).ToList();
-
-            var result = listFilteredBrgName
-                .Union(listFilteredBrgCode)
-                .Union(listFilteredKategori)
-                .Union(listFilteredSupplier);
-            return result.ToList();
         }
     }
 }
