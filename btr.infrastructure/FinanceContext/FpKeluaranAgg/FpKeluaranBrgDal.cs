@@ -74,7 +74,7 @@ namespace btr.infrastructure.FinanceContext.FpKeluaranAgg
         {
             const string sql = @"
                 SELECT
-                    FpKeluaranBrgModelId, FpKeluaranFakturId, FpKeluaranId, FakturId, 
+                    FpKeluaranBrgId, FpKeluaranFakturId, FpKeluaranId, FakturId, 
                     Baris, BarangJasa, KodeBarangJasa, NamaBarangJasa, NamaSatuanUkur, HargaSatuan, 
                     JumlahBarangJasa, TotalDiskon, Dpp, DppLain, TarifPpn, Ppn, TarifPpnBm, PpnBm
                 FROM

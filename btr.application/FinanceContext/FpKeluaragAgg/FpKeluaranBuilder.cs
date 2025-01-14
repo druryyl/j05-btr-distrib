@@ -40,11 +40,11 @@ namespace btr.application.FinanceContext.FpKeluaragAgg
 
         public IFpKeluaranBuilder Load(IFpKeluaranKey fpKeluaranKey)
         {
-            var fp = _fpKeluaranDal.GetData(fpKeluaranKey)
+            _agg = _fpKeluaranDal.GetData(fpKeluaranKey)
                 ?? throw new KeyNotFoundException("Faktur Pajak Keluaran not found");
-            _agg.ListFaktur = _fpKeluaranFakturDal.ListData(fp)?.ToList()
+            _agg.ListFaktur = _fpKeluaranFakturDal.ListData(_agg)?.ToList()
                 ?? new List<FpKeluaranFakturModel>();
-            var listBrg = _fpKeluaranBrgDal.ListData(fp)?.ToList() ?? new List<FpKeluaranBrgModel>();
+            var listBrg = _fpKeluaranBrgDal.ListData(_agg)?.ToList() ?? new List<FpKeluaranBrgModel>();
             foreach(var faktur in _agg.ListFaktur)
             {
                 faktur.ListBrg = listBrg.Where(x => x.FpKeluaranFakturId == faktur.FpKeluaranFakturId).ToList();

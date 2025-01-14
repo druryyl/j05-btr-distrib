@@ -5,13 +5,9 @@ using btr.nuna.Domain;
 using btr.nuna.Infrastructure;
 using Dapper;
 using Microsoft.Extensions.Options;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace btr.infrastructure.FinanceContext.FpKeluaranAgg
 {
@@ -28,14 +24,16 @@ namespace btr.infrastructure.FinanceContext.FpKeluaranAgg
         {
             const string sql = @"
                 INSERT INTO BTR_FpKeluaran
-                    (FpKeluaranId, FpKeluaranDate, UserId)
+                    (FpKeluaranId, FpKeluaranDate, UserId, FakturCount, TotalPpn)
                 VALUES
-                    (@FpKeluaranId, @FpKeluaranDate, @UserId)";
+                    (@FpKeluaranId, @FpKeluaranDate, @UserId, @FakturCount, @TotalPpn)";
 
             var dp = new DynamicParameters();
             dp.AddParam("@FpKeluaranId", model.FpKeluaranId, SqlDbType.VarChar);
             dp.AddParam("@FpKeluaranDate", model.FpKeluaranDate, SqlDbType.DateTime);
             dp.AddParam("@UserId", model.UserId, SqlDbType.VarChar);
+            dp.AddParam("@FakturCount", model.FakturCount, SqlDbType.Int);
+            dp.AddParam("@TotalPpn", model.TotalPpn, SqlDbType.Decimal);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -50,7 +48,9 @@ namespace btr.infrastructure.FinanceContext.FpKeluaranAgg
                     BTR_FpKeluaran
                 SET
                     FpKeluaranDate = @FpKeluaranDate,
-                    UserId = @UserId
+                    UserId = @UserId,
+                    FakturCount = @FakturCount,
+                    TotalPpn = @TotalPpn    
                 WHERE
                     FpKeluaranId = @FpKeluaranId";
 
@@ -58,6 +58,8 @@ namespace btr.infrastructure.FinanceContext.FpKeluaranAgg
             dp.AddParam("@FpKeluaranId", model.FpKeluaranId, SqlDbType.VarChar);
             dp.AddParam("@FpKeluaranDate", model.FpKeluaranDate, SqlDbType.DateTime);
             dp.AddParam("@UserId", model.UserId, SqlDbType.VarChar);
+            dp.AddParam("@FakturCount", model.FakturCount, SqlDbType.Int);
+            dp.AddParam("@TotalPpn", model.TotalPpn, SqlDbType.Decimal);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -85,7 +87,8 @@ namespace btr.infrastructure.FinanceContext.FpKeluaranAgg
         {
             const string sql = @"
                 SELECT
-                    FpKeluaranId, FpKeluaranDate, UserId
+                    FpKeluaranId, FpKeluaranDate, UserId,
+                    FakturCount, TotalPpn
                 FROM
                     BTR_FpKeluaran
                 WHERE
@@ -104,7 +107,8 @@ namespace btr.infrastructure.FinanceContext.FpKeluaranAgg
         {
             const string sql = @"
                 SELECT
-                    FpKeluaranId, FpKeluaranDate, UserId
+                    FpKeluaranId, FpKeluaranDate, UserId,
+                    FakturCount, TotalPpn
                 FROM
                     BTR_FpKeluaran
                 WHERE

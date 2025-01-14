@@ -2,6 +2,7 @@
 using btr.application.SalesContext.CustomerAgg.Workers;
 using btr.application.SalesContext.FakturAgg.Contracts;
 using btr.application.SalesContext.FakturAgg.Workers;
+using btr.distrib.Browsers;
 using btr.distrib.Helpers;
 using btr.distrib.InventoryContext.StokBalanceRpt;
 using btr.distrib.SharedForm;
@@ -32,6 +33,8 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
         private readonly IFakturWriter _fakturWriter;
         private readonly ICustomerBuilder _customerBuilder;
 
+        private readonly IBrowser<FpKeluaranBrowserView> _fakturBrowser;
+
 
         private readonly BindingList<FpKeluaranFakturDto> _listFaktur;
         private readonly BindingList<FpKeluaranFakturDto> _listFakturPilih;
@@ -47,7 +50,8 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             IFpKeluaranWriter fpKeluaranWriter,
             IFakturBuilder fakturBuilder,
             ICustomerBuilder customerBuilder,
-            IFakturWriter fakturWriter)
+            IFakturWriter fakturWriter,
+            IBrowser<FpKeluaranBrowserView> fakturBrowser)
         {
             InitializeComponent();
 
@@ -55,22 +59,101 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             _listFaktur = new BindingList<FpKeluaranFakturDto>();
             _listFakturPilih = new BindingList<FpKeluaranFakturDto>();
             _fakturBindingSource = new BindingSource(_listFaktur, null);
-
-            RegisterEventHandler();
-            InitGrid();
-            InitCalender();
             _fpKeluaranBuilder = fpKeluaranBuilder;
             _fpKeluaranWriter = fpKeluaranWriter;
             _fakturBuilder = fakturBuilder;
             _customerBuilder = customerBuilder;
             _fakturWriter = fakturWriter;
+            _fakturBrowser = fakturBrowser;
+
+
+            RegisterEventHandler();
+            InitGrid();
+            InitCalender();
         }
 
         private void RegisterEventHandler()
         {
+            FpKeluaranIdButton.Click += FpKeluaranIdButton_Click;
+            FpKeluaranIdText.Validating += FpKeluaranIdText_Validating;
             SearchButton.Click += SearchButton_Click;
             SaveButton.Click += SaveButton_Click;
+
             FakturGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
+            FakturGrid.CellContentClick += FakturGrid_CellContentClick;
+        }
+
+        private void FakturGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var grid = (DataGridView)sender;
+            if (!(grid.CurrentCell is DataGridViewCheckBoxCell))
+                return;
+
+            if (grid.CurrentCell.ColumnIndex != grid.Columns["IsPilih"].Index)
+                return;
+            grid.EndEdit();
+            ReCalcTotal();
+        }
+
+        private void ReCalcTotal()
+        {
+            TotalFakturText.Value = _listFaktur.Where(x => x.IsPilih).Sum(x => x.GrandTotal);
+            TotalPpnText.Value = _listFaktur.Where(x => x.IsPilih).Sum(x => x.Ppn);
+        }
+
+        private void FpKeluaranIdText_Validating(object sender, CancelEventArgs e)
+        {
+            var textbox = (TextBox)sender;
+            var valid = true;
+            if (textbox.Text.Length == 0)
+                ClearScreen();
+            else
+                valid = ValidateFpKeluaran();
+
+            if (!valid)
+                e.Cancel = true;
+        }
+
+        private bool ValidateFpKeluaran()
+        {
+            var textbox = FpKeluaranIdText;
+            var policy = Policy<FpKeluaranModel>
+                .Handle<KeyNotFoundException>().Or<ArgumentException>()
+                .Fallback(null as FpKeluaranModel, (r, c) =>
+                {
+                    MessageBox.Show(r.Exception.Message);
+                });
+
+            var fpKeluaran = policy.Execute(() => _fpKeluaranBuilder
+                .Load(new FpKeluaranModel(textbox.Text))
+                .Build());
+            if (fpKeluaran is null)
+                return false;
+
+            fpKeluaran.RemoveNull();
+            FpKeluaranDateText.Value = fpKeluaran.FpKeluaranDate;
+            _listFaktur.Clear();
+            foreach (var item in fpKeluaran.ListFaktur)
+            {
+                var faktur = _fakturBuilder.Load(item).Build();
+                var customer = _customerBuilder.Load(faktur).Build();
+                var fakturDto = new FpKeluaranFakturDto(faktur.FakturId, faktur.FakturCode, 
+                    faktur.FakturDate, customer.CustomerName, customer.Npwp, faktur.Address, 
+                    faktur.GrandTotal, faktur.Tax, true);
+
+                _listFaktur.Add(fakturDto);
+                _listFakturPilih.Add(fakturDto);
+            }
+            ReCalcTotal();
+            return true;
+        }
+
+        private void FpKeluaranIdButton_Click(object sender, EventArgs e)
+        {
+            _fakturBrowser.Filter.Date = new Periode(DateTime.Now);
+
+            FpKeluaranIdText.Text = _fakturBrowser.Browse(FpKeluaranIdText.Text);
+            FpKeluaranIdText_Validating(FpKeluaranIdText, null);
         }
 
         #region SAVE
@@ -199,7 +282,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
 
         private void ClearScreen()
         {
-            FpKeluaranText.Clear();
+            FpKeluaranIdText.Clear();
             FpKeluaranDateText.Value = DateTime.Now;
             _listFaktur.Clear();
         }
@@ -207,7 +290,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
         private FpKeluaranModel Save()
         {
             FpKeluaranModel fpKeluaran;
-            if (FpKeluaranText.Text == string.Empty)
+            if (FpKeluaranIdText.Text == string.Empty)
             {
                 fpKeluaran = _fpKeluaranBuilder
                     .Create()
@@ -215,8 +298,10 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             }
             else
                 fpKeluaran = _fpKeluaranBuilder
-                    .Load(new FpKeluaranModel(FpKeluaranText.Text))
+                    .Load(new FpKeluaranModel(FpKeluaranIdText.Text))
                     .Build();
+
+            var listFakturToBeReset = fpKeluaran.ListFaktur.Select(x => x.FakturId).ToList();
 
             var mainform = (MainForm)this.Parent.Parent;
             var userId = mainform.UserId;
@@ -226,10 +311,11 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
                 .User(userId)
                 .Build();
 
-            var listFaktur = _listFaktur
+            var listFakturToBeSaved = _listFaktur
                 .Where(x => x.IsPilih).ToList();
 
-            foreach(var item in listFaktur)
+            fpKeluaran.ListFaktur.Clear();
+            foreach (var item in listFakturToBeSaved)
             {
                 var faktur = _fakturBuilder.Load(item).Build();
                 var customer = _customerBuilder.Load(faktur).Build();
@@ -249,6 +335,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             FpKeluaranModel result;
             using(var trans = TransHelper.NewScope())
             {
+                ResetFakturFpKeluaranFlag(listFakturToBeReset);
                 result = _fpKeluaranWriter.Save(fpKeluaran);
                 foreach (var item in result.ListFaktur)
                 {
@@ -262,6 +349,16 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             }
 
             return result;
+        }
+
+        private void ResetFakturFpKeluaranFlag(List<string> listFakturToBeReset)
+        {
+            foreach(var item in listFakturToBeReset)
+            {
+                var faktur = _fakturBuilder.Load(new FakturModel(item)).Build();
+                faktur.FpKeluaranId = string.Empty;
+                _fakturWriter.Save(faktur);
+            }
         }
         #endregion
 
@@ -283,10 +380,11 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
 
             grid["FakturCode"].Width = 70;
             grid["FakturDate"].Width = 80;
-            grid["CustomerName"].Width = 130;
+            grid["CustomerName"].Width = 110;
             grid["Npwp"].Width = 125;
-            grid["Address"].Width = 220;
+            grid["Address"].Width = 200;
             grid["GrandTotal"].Width = 80;
+            grid["Ppn"].Width = 65;
             grid["IsPilih"].Width = 30;
 
             grid["FakturId"].HeaderText = "ID";
@@ -301,6 +399,8 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             grid["FakturDate"].DefaultCellStyle.Format = "dd-MM-yyyy";
             grid["GrandTotal"].DefaultCellStyle.Format = "N0";
             grid["GrandTotal"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            grid["Ppn"].DefaultCellStyle.Format = "N0";
+            grid["Ppn"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             grid["CustomerName"].DefaultCellStyle.Font = new Font("Segoe UI", 8);
             grid["Address"].DefaultCellStyle.Font = new Font("Segoe UI", 8);
         }
@@ -355,7 +455,9 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             _listFaktur.Clear();
             foreach(var item in listFaktur)
             {
-                var newItem = new FpKeluaranFakturDto(item.FakturId, item.FakturCode, item.FakturDate, item.CustomerName, item.Npwp, item.Address, item.GrandTotal, false);
+                var newItem = new FpKeluaranFakturDto(item.FakturId, item.FakturCode, 
+                    item.FakturDate,  item.CustomerName, item.Npwp, 
+                    item.Address, item.GrandTotal, item.Tax, false);
                 _listFaktur.Add(newItem);
             }
         }

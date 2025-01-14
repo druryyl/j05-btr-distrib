@@ -127,6 +127,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private void RegisterEventHandler()
         {
             FakturIdText.Validating += FakturIdText_Validating;
+            FakturButton.Click += FakturButton_Click;
 
             SalesPersonButton.Click += SalesPersonButton_Click;
             SalesIdText.Validated += SalesIdText_Validated;
@@ -153,6 +154,11 @@ namespace btr.distrib.SalesContext.FakturAgg
 
             NewButton.Click += NewButton_Click;
             UangMukaText.KeyDown += UangMukaText_KeyDown;
+        }
+
+        private void FakturButton_Click1(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void DriverIdTextBox_KeyDown(object sender, KeyEventArgs e)

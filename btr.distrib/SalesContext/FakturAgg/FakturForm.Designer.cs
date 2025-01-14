@@ -35,6 +35,7 @@
             this.NoteLabel = new System.Windows.Forms.Label();
             this.FakturItemGrid = new System.Windows.Forms.DataGridView();
             this.PanelTengah = new System.Windows.Forms.Panel();
+            this.DppText = new System.Windows.Forms.NumericUpDown();
             this.TaxText = new System.Windows.Forms.NumericUpDown();
             this.BiayaLainLabel = new System.Windows.Forms.Label();
             this.SisaText = new System.Windows.Forms.NumericUpDown();
@@ -85,11 +86,11 @@
             this.label5 = new System.Windows.Forms.Label();
             this.TermOfPaymentCombo = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.DppText = new System.Windows.Forms.NumericUpDown();
             this.PanelAtas4.SuspendLayout();
             this.VoidPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturItemGrid)).BeginInit();
             this.PanelTengah.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DppText)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TaxText)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SisaText)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.UangMukaText)).BeginInit();
@@ -102,7 +103,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.PlafondTextBox)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DppText)).BeginInit();
             this.SuspendLayout();
             // 
             // PanelAtas4
@@ -197,6 +197,22 @@
             this.PanelTengah.Name = "PanelTengah";
             this.PanelTengah.Size = new System.Drawing.Size(138, 284);
             this.PanelTengah.TabIndex = 41;
+            // 
+            // DppText
+            // 
+            this.DppText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DppText.Location = new System.Drawing.Point(11, 102);
+            this.DppText.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.DppText.Name = "DppText";
+            this.DppText.ReadOnly = true;
+            this.DppText.Size = new System.Drawing.Size(117, 20);
+            this.DppText.TabIndex = 27;
+            this.DppText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.DppText.ThousandsSeparator = true;
             // 
             // TaxText
             // 
@@ -480,7 +496,6 @@
             this.FakturButton.TabIndex = 1;
             this.FakturButton.Text = "...";
             this.FakturButton.UseVisualStyleBackColor = false;
-            this.FakturButton.Click += new System.EventHandler(this.FakturButton_Click);
             // 
             // label1
             // 
@@ -760,22 +775,6 @@
             this.label4.TabIndex = 19;
             this.label4.Text = "Term Of Payment";
             // 
-            // DppText
-            // 
-            this.DppText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DppText.Location = new System.Drawing.Point(11, 102);
-            this.DppText.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
-            this.DppText.Name = "DppText";
-            this.DppText.ReadOnly = true;
-            this.DppText.Size = new System.Drawing.Size(117, 20);
-            this.DppText.TabIndex = 27;
-            this.DppText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.DppText.ThousandsSeparator = true;
-            // 
             // FakturForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -800,6 +799,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.FakturItemGrid)).EndInit();
             this.PanelTengah.ResumeLayout(false);
             this.PanelTengah.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DppText)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TaxText)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SisaText)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.UangMukaText)).EndInit();
@@ -816,7 +816,6 @@
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DppText)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -2,6 +2,7 @@
 using btr.domain.SalesContext.FakturAgg;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace btr.domain.FinanceContext.FpKeluaranAgg
 {
@@ -31,6 +32,11 @@ namespace btr.domain.FinanceContext.FpKeluaranAgg
         public string EmailPembeli { get; set; }
         public string IdTkuPembeli { get; set; }
 
+        public decimal Ppn { get; set; }
+        public void CalculatePpn()
+        {
+            Ppn = ListBrg.Sum(x => x.Ppn);
+        }
         public List<FpKeluaranBrgModel> ListBrg { get; set; }
 
         public void CreateFrom(FakturModel faktur, CustomerModel customer)

@@ -29,10 +29,11 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.LastIdLabel = new System.Windows.Forms.Label();
             this.FpKeluaranDateText = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
-            this.FPKeluaranBroweButton = new System.Windows.Forms.Button();
-            this.FpKeluaranText = new System.Windows.Forms.TextBox();
+            this.FpKeluaranIdButton = new System.Windows.Forms.Button();
+            this.FpKeluaranIdText = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
@@ -43,10 +44,15 @@
             this.FakturGrid = new System.Windows.Forms.DataGridView();
             this.SaveButton = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.LastIdLabel = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.TotalFakturText = new System.Windows.Forms.NumericUpDown();
+            this.TotalPpnText = new System.Windows.Forms.NumericUpDown();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturGrid)).BeginInit();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TotalFakturText)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TotalPpnText)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -56,13 +62,24 @@
             this.panel1.Controls.Add(this.LastIdLabel);
             this.panel1.Controls.Add(this.FpKeluaranDateText);
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.FPKeluaranBroweButton);
-            this.panel1.Controls.Add(this.FpKeluaranText);
+            this.panel1.Controls.Add(this.FpKeluaranIdButton);
+            this.panel1.Controls.Add(this.FpKeluaranIdText);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(6, 6);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(227, 157);
             this.panel1.TabIndex = 0;
+            // 
+            // LastIdLabel
+            // 
+            this.LastIdLabel.AutoSize = true;
+            this.LastIdLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LastIdLabel.ForeColor = System.Drawing.Color.DimGray;
+            this.LastIdLabel.Location = new System.Drawing.Point(17, 50);
+            this.LastIdLabel.Name = "LastIdLabel";
+            this.LastIdLabel.Size = new System.Drawing.Size(46, 13);
+            this.LastIdLabel.TabIndex = 5;
+            this.LastIdLabel.Text = "[Last ID]";
             // 
             // FpKeluaranDateText
             // 
@@ -82,24 +99,24 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Tanggal Pembuatan";
             // 
-            // FPKeluaranBroweButton
+            // FpKeluaranIdButton
             // 
-            this.FPKeluaranBroweButton.BackColor = System.Drawing.Color.Khaki;
-            this.FPKeluaranBroweButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.FPKeluaranBroweButton.Location = new System.Drawing.Point(167, 25);
-            this.FPKeluaranBroweButton.Name = "FPKeluaranBroweButton";
-            this.FPKeluaranBroweButton.Size = new System.Drawing.Size(26, 22);
-            this.FPKeluaranBroweButton.TabIndex = 2;
-            this.FPKeluaranBroweButton.Text = "...";
-            this.FPKeluaranBroweButton.UseVisualStyleBackColor = false;
+            this.FpKeluaranIdButton.BackColor = System.Drawing.Color.Khaki;
+            this.FpKeluaranIdButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.FpKeluaranIdButton.Location = new System.Drawing.Point(167, 25);
+            this.FpKeluaranIdButton.Name = "FpKeluaranIdButton";
+            this.FpKeluaranIdButton.Size = new System.Drawing.Size(26, 22);
+            this.FpKeluaranIdButton.TabIndex = 2;
+            this.FpKeluaranIdButton.Text = "...";
+            this.FpKeluaranIdButton.UseVisualStyleBackColor = false;
             // 
-            // FpKeluaranText
+            // FpKeluaranIdText
             // 
-            this.FpKeluaranText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.FpKeluaranText.Location = new System.Drawing.Point(20, 25);
-            this.FpKeluaranText.Name = "FpKeluaranText";
-            this.FpKeluaranText.Size = new System.Drawing.Size(144, 22);
-            this.FpKeluaranText.TabIndex = 1;
+            this.FpKeluaranIdText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.FpKeluaranIdText.Location = new System.Drawing.Point(20, 25);
+            this.FpKeluaranIdText.Name = "FpKeluaranIdText";
+            this.FpKeluaranIdText.Size = new System.Drawing.Size(144, 22);
+            this.FpKeluaranIdText.TabIndex = 1;
             // 
             // label1
             // 
@@ -178,7 +195,7 @@
             this.FakturGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.FakturGrid.Location = new System.Drawing.Point(237, 6);
             this.FakturGrid.Name = "FakturGrid";
-            this.FakturGrid.Size = new System.Drawing.Size(795, 457);
+            this.FakturGrid.Size = new System.Drawing.Size(806, 411);
             this.FakturGrid.TabIndex = 4;
             // 
             // SaveButton
@@ -186,7 +203,7 @@
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.SaveButton.BackColor = System.Drawing.Color.Cornsilk;
             this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SaveButton.Location = new System.Drawing.Point(950, 469);
+            this.SaveButton.Location = new System.Drawing.Point(961, 469);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(82, 27);
             this.SaveButton.TabIndex = 5;
@@ -205,23 +222,58 @@
             this.button3.Text = "New";
             this.button3.UseVisualStyleBackColor = false;
             // 
-            // LastIdLabel
+            // panel3
             // 
-            this.LastIdLabel.AutoSize = true;
-            this.LastIdLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LastIdLabel.ForeColor = System.Drawing.Color.DimGray;
-            this.LastIdLabel.Location = new System.Drawing.Point(17, 50);
-            this.LastIdLabel.Name = "LastIdLabel";
-            this.LastIdLabel.Size = new System.Drawing.Size(46, 13);
-            this.LastIdLabel.TabIndex = 5;
-            this.LastIdLabel.Text = "[Last ID]";
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.BackColor = System.Drawing.Color.Cornsilk;
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.TotalPpnText);
+            this.panel3.Controls.Add(this.TotalFakturText);
+            this.panel3.Location = new System.Drawing.Point(237, 422);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(805, 41);
+            this.panel3.TabIndex = 20;
+            // 
+            // TotalFakturText
+            // 
+            this.TotalFakturText.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalFakturText.Location = new System.Drawing.Point(552, 11);
+            this.TotalFakturText.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.TotalFakturText.Name = "TotalFakturText";
+            this.TotalFakturText.ReadOnly = true;
+            this.TotalFakturText.Size = new System.Drawing.Size(120, 18);
+            this.TotalFakturText.TabIndex = 20;
+            this.TotalFakturText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.TotalFakturText.ThousandsSeparator = true;
+            // 
+            // TotalPpnText
+            // 
+            this.TotalPpnText.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalPpnText.Location = new System.Drawing.Point(678, 11);
+            this.TotalPpnText.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.TotalPpnText.Name = "TotalPpnText";
+            this.TotalPpnText.ReadOnly = true;
+            this.TotalPpnText.Size = new System.Drawing.Size(120, 18);
+            this.TotalPpnText.TabIndex = 21;
+            this.TotalPpnText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.TotalPpnText.ThousandsSeparator = true;
             // 
             // FpKeluaranForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Khaki;
-            this.ClientSize = new System.Drawing.Size(1037, 502);
+            this.ClientSize = new System.Drawing.Size(1048, 502);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.PeriodeCalender);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.SaveButton);
@@ -236,6 +288,9 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturGrid)).EndInit();
+            this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.TotalFakturText)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TotalPpnText)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -245,8 +300,8 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DateTimePicker FpKeluaranDateText;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button FPKeluaranBroweButton;
-        private System.Windows.Forms.TextBox FpKeluaranText;
+        private System.Windows.Forms.Button FpKeluaranIdButton;
+        private System.Windows.Forms.TextBox FpKeluaranIdText;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button SearchButton;
@@ -258,5 +313,8 @@
         private System.Windows.Forms.MonthCalendar PeriodeCalender;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label LastIdLabel;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.NumericUpDown TotalPpnText;
+        private System.Windows.Forms.NumericUpDown TotalFakturText;
     }
 }

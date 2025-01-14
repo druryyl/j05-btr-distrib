@@ -312,6 +312,7 @@
     <Compile Include="Browsers\CustomerBrowser.cs" />
     <Compile Include="Browsers\DriverBrowser.cs" />
     <Compile Include="Browsers\FakturBrowser.cs" />
+    <Compile Include="Browsers\FpKeluaranBrowser.cs" />
     <Compile Include="Browsers\InvoiceBrowser.cs" />
     <Compile Include="Browsers\KategoriBrowser.cs" />
     <Compile Include="Browsers\MutasiBrowser.cs" />
