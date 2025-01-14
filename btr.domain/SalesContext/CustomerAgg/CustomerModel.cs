@@ -28,6 +28,8 @@ namespace btr.domain.SalesContext.CustomerAgg
         public string KodePos {get;set;}
         public string NoTelp {get;set;}
         public string NoFax {get;set;}
+        public string Email { get; set; }
+        public string Nitku { get; set; }
 
         public string Npwp {get;set;}
         public string Nppkp {get;set;}

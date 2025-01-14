@@ -30,6 +30,8 @@ namespace btr.application.SalesContext.CustomerAgg.Workers
         ICustomerBuilder KodePos(string kodePos);
         ICustomerBuilder NoTelp(string noTelp);
         ICustomerBuilder NoFax(string noFax);
+        ICustomerBuilder Email(string email);
+        ICustomerBuilder Nitku(string nitku);
         ICustomerBuilder IsKenaPajak(bool kenaPajak);
         ICustomerBuilder Npwp(string npwp);
         ICustomerBuilder Nppkp(string nppkp);
@@ -192,6 +194,18 @@ namespace btr.application.SalesContext.CustomerAgg.Workers
         public ICustomerBuilder NamaWp(string namaWp)
         {
             _aggRoot.NamaWp = namaWp;
+            return this;
+        }
+
+        public ICustomerBuilder Email(string email)
+        {
+            _aggRoot.Email = email;
+            return this;
+        }
+
+        public ICustomerBuilder Nitku(string nitku)
+        {
+            _aggRoot.Nitku = nitku;
             return this;
         }
     }

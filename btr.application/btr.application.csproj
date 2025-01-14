@@ -110,6 +110,11 @@
     <Compile Include="FinanceContext\FakturPotBalanceAgg\FakturPotBalanceWriter.cs" />
     <Compile Include="FinanceContext\FakturPotBalanceAgg\IFakturPotBalanceDal.cs" />
     <Compile Include="FinanceContext\FakturPotBalanceAgg\IFakturPotBalancePostDal.cs" />
+    <Compile Include="FinanceContext\FpKeluaragAgg\FpKeluaranBuilder.cs" />
+    <Compile Include="FinanceContext\FpKeluaragAgg\FpKeluaranWriter.cs" />
+    <Compile Include="FinanceContext\FpKeluaragAgg\IFpKeluaranBrgDal.cs" />
+    <Compile Include="FinanceContext\FpKeluaragAgg\IFpKeluaranDal.cs" />
+    <Compile Include="FinanceContext\FpKeluaragAgg\IFpKeluaranFakturDal.cs" />
     <Compile Include="FinanceContext\PiutangAgg\Contracts\IPenerimaanPelunasanSalesDal.cs" />
     <Compile Include="FinanceContext\PiutangAgg\Contracts\IPiutangDal.cs" />
     <Compile Include="FinanceContext\PiutangAgg\Contracts\IPIutangElementDal.cs" />

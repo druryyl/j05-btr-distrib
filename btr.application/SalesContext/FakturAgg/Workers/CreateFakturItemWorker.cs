@@ -139,7 +139,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             item.DppRp = (item.SubTotal - item.DiscRp) * req.DppProsen / 100;
             item.PpnProsen = req.PpnProsen;
             item.PpnRp = item.DppRp * req.PpnProsen / 100;
-            item.Total = item.SubTotal - item.DiscRp + item.PpnRp;
+            item.Total = item.SubTotal - item.DiscRp;
 
             var stokKecil = stok.ListWarehouse.FirstOrDefault(x => x.WarehouseId == req.WarehouseId)?.Qty ?? 0;
             item.StokHargaStr = $"{stokKecil:N0} {item.SatKecil}@{item.HrgSatKecil:N0}";

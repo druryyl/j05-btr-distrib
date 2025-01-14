@@ -29,20 +29,21 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.FpKeluaranDate = new System.Windows.Forms.DateTimePicker();
+            this.FpKeluaranDateText = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.FPKeluaranBroweButton = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.FpKeluaranText = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.PeriodeCalender = new System.Windows.Forms.MonthCalendar();
+            this.label3 = new System.Windows.Forms.Label();
             this.SearchText = new System.Windows.Forms.TextBox();
             this.SearchButton = new System.Windows.Forms.Button();
             this.AllOutstandingCheckBox = new System.Windows.Forms.CheckBox();
+            this.PeriodeCalender = new System.Windows.Forms.MonthCalendar();
             this.FakturGrid = new System.Windows.Forms.DataGridView();
-            this.button2 = new System.Windows.Forms.Button();
+            this.SaveButton = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
+            this.LastIdLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturGrid)).BeginInit();
@@ -52,29 +53,30 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.Cornsilk;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.FpKeluaranDate);
+            this.panel1.Controls.Add(this.LastIdLabel);
+            this.panel1.Controls.Add(this.FpKeluaranDateText);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.FPKeluaranBroweButton);
-            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Controls.Add(this.FpKeluaranText);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(6, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(225, 108);
+            this.panel1.Size = new System.Drawing.Size(227, 157);
             this.panel1.TabIndex = 0;
             // 
-            // FpKeluaranDate
+            // FpKeluaranDateText
             // 
-            this.FpKeluaranDate.CustomFormat = "ddd, dd MMM yyyy";
-            this.FpKeluaranDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.FpKeluaranDate.Location = new System.Drawing.Point(20, 66);
-            this.FpKeluaranDate.Name = "FpKeluaranDate";
-            this.FpKeluaranDate.Size = new System.Drawing.Size(173, 22);
-            this.FpKeluaranDate.TabIndex = 4;
+            this.FpKeluaranDateText.CustomFormat = "ddd, dd MMM yyyy";
+            this.FpKeluaranDateText.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.FpKeluaranDateText.Location = new System.Drawing.Point(20, 91);
+            this.FpKeluaranDateText.Name = "FpKeluaranDateText";
+            this.FpKeluaranDateText.Size = new System.Drawing.Size(173, 22);
+            this.FpKeluaranDateText.TabIndex = 4;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 50);
+            this.label2.Location = new System.Drawing.Point(17, 75);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(108, 13);
             this.label2.TabIndex = 3;
@@ -91,13 +93,13 @@
             this.FPKeluaranBroweButton.Text = "...";
             this.FPKeluaranBroweButton.UseVisualStyleBackColor = false;
             // 
-            // textBox1
+            // FpKeluaranText
             // 
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Location = new System.Drawing.Point(20, 25);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(144, 22);
-            this.textBox1.TabIndex = 1;
+            this.FpKeluaranText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.FpKeluaranText.Location = new System.Drawing.Point(20, 25);
+            this.FpKeluaranText.Name = "FpKeluaranText";
+            this.FpKeluaranText.Size = new System.Drawing.Size(144, 22);
+            this.FpKeluaranText.TabIndex = 1;
             // 
             // label1
             // 
@@ -118,30 +120,33 @@
             this.panel2.Controls.Add(this.SearchText);
             this.panel2.Controls.Add(this.SearchButton);
             this.panel2.Controls.Add(this.AllOutstandingCheckBox);
-            this.panel2.Location = new System.Drawing.Point(6, 285);
+            this.panel2.Location = new System.Drawing.Point(6, 330);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(227, 178);
+            this.panel2.Size = new System.Drawing.Size(227, 133);
             this.panel2.TabIndex = 3;
             // 
-            // PeriodeCalender
+            // label3
             // 
-            this.PeriodeCalender.Location = new System.Drawing.Point(6, 120);
-            this.PeriodeCalender.Name = "PeriodeCalender";
-            this.PeriodeCalender.TabIndex = 19;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 6);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(41, 13);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "Search";
             // 
             // SearchText
             // 
             this.SearchText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.SearchText.Location = new System.Drawing.Point(20, 25);
+            this.SearchText.Location = new System.Drawing.Point(9, 22);
             this.SearchText.Name = "SearchText";
-            this.SearchText.Size = new System.Drawing.Size(195, 22);
+            this.SearchText.Size = new System.Drawing.Size(210, 22);
             this.SearchText.TabIndex = 17;
             // 
             // SearchButton
             // 
             this.SearchButton.BackColor = System.Drawing.Color.Khaki;
             this.SearchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SearchButton.Location = new System.Drawing.Point(130, 77);
+            this.SearchButton.Location = new System.Drawing.Point(134, 50);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(85, 28);
             this.SearchButton.TabIndex = 16;
@@ -151,12 +156,18 @@
             // AllOutstandingCheckBox
             // 
             this.AllOutstandingCheckBox.AutoSize = true;
-            this.AllOutstandingCheckBox.Location = new System.Drawing.Point(20, 53);
+            this.AllOutstandingCheckBox.Location = new System.Drawing.Point(9, 50);
             this.AllOutstandingCheckBox.Name = "AllOutstandingCheckBox";
             this.AllOutstandingCheckBox.Size = new System.Drawing.Size(108, 17);
             this.AllOutstandingCheckBox.TabIndex = 14;
             this.AllOutstandingCheckBox.Text = "All Outstanding";
             this.AllOutstandingCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // PeriodeCalender
+            // 
+            this.PeriodeCalender.Location = new System.Drawing.Point(6, 166);
+            this.PeriodeCalender.Name = "PeriodeCalender";
+            this.PeriodeCalender.TabIndex = 19;
             // 
             // FakturGrid
             // 
@@ -167,20 +178,20 @@
             this.FakturGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.FakturGrid.Location = new System.Drawing.Point(237, 6);
             this.FakturGrid.Name = "FakturGrid";
-            this.FakturGrid.Size = new System.Drawing.Size(923, 457);
+            this.FakturGrid.Size = new System.Drawing.Size(795, 457);
             this.FakturGrid.TabIndex = 4;
             // 
-            // button2
+            // SaveButton
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.BackColor = System.Drawing.Color.Cornsilk;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(1078, 469);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(82, 27);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Save";
-            this.button2.UseVisualStyleBackColor = false;
+            this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.SaveButton.BackColor = System.Drawing.Color.Cornsilk;
+            this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveButton.Location = new System.Drawing.Point(950, 469);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.Size = new System.Drawing.Size(82, 27);
+            this.SaveButton.TabIndex = 5;
+            this.SaveButton.Text = "Save";
+            this.SaveButton.UseVisualStyleBackColor = false;
             // 
             // button3
             // 
@@ -194,24 +205,26 @@
             this.button3.Text = "New";
             this.button3.UseVisualStyleBackColor = false;
             // 
-            // label3
+            // LastIdLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(17, 9);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 13);
-            this.label3.TabIndex = 18;
-            this.label3.Text = "Search";
+            this.LastIdLabel.AutoSize = true;
+            this.LastIdLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LastIdLabel.ForeColor = System.Drawing.Color.DimGray;
+            this.LastIdLabel.Location = new System.Drawing.Point(17, 50);
+            this.LastIdLabel.Name = "LastIdLabel";
+            this.LastIdLabel.Size = new System.Drawing.Size(46, 13);
+            this.LastIdLabel.TabIndex = 5;
+            this.LastIdLabel.Text = "[Last ID]";
             // 
             // FpKeluaranForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Khaki;
-            this.ClientSize = new System.Drawing.Size(1165, 502);
+            this.ClientSize = new System.Drawing.Size(1037, 502);
             this.Controls.Add(this.PeriodeCalender);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.FakturGrid);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -230,19 +243,20 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.DateTimePicker FpKeluaranDate;
+        private System.Windows.Forms.DateTimePicker FpKeluaranDateText;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button FPKeluaranBroweButton;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox FpKeluaranText;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button SearchButton;
         private System.Windows.Forms.CheckBox AllOutstandingCheckBox;
         private System.Windows.Forms.TextBox SearchText;
         private System.Windows.Forms.DataGridView FakturGrid;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.MonthCalendar PeriodeCalender;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label LastIdLabel;
     }
 }

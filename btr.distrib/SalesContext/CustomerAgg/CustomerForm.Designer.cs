@@ -82,6 +82,10 @@
             this.CustNameText = new System.Windows.Forms.TextBox();
             this.CustButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.CustomerTab.SuspendLayout();
             this.ListPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CustGrid)).BeginInit();
@@ -234,7 +238,7 @@
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(10, 95);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(80, 13);
+            this.label16.Size = new System.Drawing.Size(81, 13);
             this.label16.TabIndex = 35;
             this.label16.Text = "Credit Balance";
             // 
@@ -285,7 +289,7 @@
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(10, 13);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(63, 13);
+            this.label15.Size = new System.Drawing.Size(62, 13);
             this.label15.TabIndex = 31;
             this.label15.Text = "Tipe Harga";
             // 
@@ -296,6 +300,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BackColor = System.Drawing.Color.Cornsilk;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.label18);
+            this.panel3.Controls.Add(this.textBox2);
+            this.panel3.Controls.Add(this.label17);
+            this.panel3.Controls.Add(this.textBox1);
             this.panel3.Controls.Add(this.label8);
             this.panel3.Controls.Add(this.NamaWpText);
             this.panel3.Controls.Add(this.IsKenaPajakCheck);
@@ -440,7 +448,7 @@
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(9, 245);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(60, 13);
+            this.label12.Size = new System.Drawing.Size(59, 13);
             this.label12.TabIndex = 26;
             this.label12.Text = "No.Telpon";
             // 
@@ -634,6 +642,38 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Customer ID";
             // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(14, 259);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(34, 13);
+            this.label17.TabIndex = 29;
+            this.label17.Text = "Email";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(14, 275);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(205, 22);
+            this.textBox1.TabIndex = 30;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(14, 300);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(131, 13);
+            this.label18.TabIndex = 31;
+            this.label18.Text = "No Identitas TKU (NITKU)";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(14, 316);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(205, 22);
+            this.textBox2.TabIndex = 32;
+            // 
             // CustomerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -719,5 +759,9 @@
         private System.Windows.Forms.Button NewButton;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox NamaWpText;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

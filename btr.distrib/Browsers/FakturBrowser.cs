@@ -17,7 +17,7 @@ namespace btr.distrib.Browsers
             _fakturDal = fakturDal;
             Filter = new BrowseFilter();
             Filter.IsDate = true;
-        Filter.HideAllRows = false;
+            Filter.HideAllRows = false;
         }
 
         public string Browse(string defaultValue)
@@ -50,7 +50,8 @@ namespace btr.distrib.Browsers
 
             if (Filter.UserKeyword.Length > 0)
                 result = result
-                    .Where(x => x.Customer.ContainMultiWord(Filter.UserKeyword)).ToList();
+                    .Where(x => x.Customer.ContainMultiWord(Filter.UserKeyword) || x.Code == Filter.UserKeyword.ToUpper())
+                    .ToList();
 
             return result;
         }

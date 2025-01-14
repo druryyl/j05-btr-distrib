@@ -1,4 +1,5 @@
-﻿using System;
+﻿using btr.domain.SalesContext.FakturAgg;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace btr.distrib.FinanceContext.FpKeluaranAgg
 {
-    public class FpKeluaranFakturDto
+    public class FpKeluaranFakturDto : IFakturKey
     {
         public FpKeluaranFakturDto(string id, string code, DateTime tgl, 
             string customer, string npwp, string address, decimal grandTotal, bool isPilih)

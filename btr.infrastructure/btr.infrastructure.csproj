@@ -77,6 +77,9 @@
     <Compile Include="BrgContext\JenisBrgAgg\JenisBrgDal.cs" />
     <Compile Include="FinanceContext\FakturPotBalanceAgg\FakturPotBalanceDal.cs" />
     <Compile Include="FinanceContext\FakturPotBalanceAgg\FakturPotBalancePostDal.cs" />
+    <Compile Include="FinanceContext\FpKeluaranAgg\FpKeluaranBrgDal.cs" />
+    <Compile Include="FinanceContext\FpKeluaranAgg\FpKeluaranDal.cs" />
+    <Compile Include="FinanceContext\FpKeluaranAgg\FpKeluaranFakturDal.cs" />
     <Compile Include="FinanceContext\PiutangAgg\PenerimaanPelunasanSalesDal.cs" />
     <Compile Include="FinanceContext\PiutangAgg\PiutangDal.cs" />
     <Compile Include="FinanceContext\PiutangAgg\PiutangElementDal.cs" />
