@@ -29,16 +29,17 @@ namespace btr.domain.FinanceContext.FpKeluaranAgg
         {
             const string BRG_JASA = "A";
             const string SATUAN_UKUR = "UM.0018";
+            const string KODE_BRG_JASA = "";
 
             FakturId = item.FakturId;
             BarangJasa = BRG_JASA;
-            KodeBarangJasa = item.BrgCode;
+            KodeBarangJasa = KODE_BRG_JASA;
             NamaBarangJasa = item.BrgName;
             NamaSatuanUkur = SATUAN_UKUR;
             HargaSatuan = item.HrgSat;
             JumlahBarangJasa = item.QtyJual;
             TotalDiskon = item.DiscRp;
-            Dpp = item.Total;
+            Dpp = (item.HrgSat * item.QtyJual) - item.DiscRp;
             DppLain = item.DppRp;
             TarifPpn = item.PpnProsen;
             Ppn = item.PpnRp;

@@ -78,9 +78,15 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             FpKeluaranIdText.Validating += FpKeluaranIdText_Validating;
             SearchButton.Click += SearchButton_Click;
             SaveButton.Click += SaveButton_Click;
+            NewButton.Click += NewButton_Click;
 
             FakturGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
             FakturGrid.CellContentClick += FakturGrid_CellContentClick;
+        }
+
+        private void NewButton_Click(object sender, EventArgs e)
+        {
+            ClearScreen();
         }
 
         private void FakturGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -285,6 +291,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             FpKeluaranIdText.Clear();
             FpKeluaranDateText.Value = DateTime.Now;
             _listFaktur.Clear();
+            _listFakturPilih.Clear();
         }
 
         private FpKeluaranModel Save()
@@ -331,7 +338,8 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
 
                 fpKeluaran.ListFaktur.Add(fpFaktur);
             }
-
+            fpKeluaran.CalculateFakturCount();
+            fpKeluaran.CalculateTotalPpn();
             FpKeluaranModel result;
             using(var trans = TransHelper.NewScope())
             {

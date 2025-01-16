@@ -33,7 +33,7 @@ namespace btr.distrib.SalesContext.FakturAgg
 
             SubTotal = $"{faktur.Total:N0}";
             Discount = $"{faktur.Discount:N0}";
-            Total = $"{faktur.Total:N0}";
+            Total = $"{faktur.Total - faktur.Discount:N0}";
             Dpp = $"{faktur.ListItem.Sum(x => x.DppRp):N0}";
             var dppProsen = faktur.ListItem.FirstOrDefault().DppProsen;
 

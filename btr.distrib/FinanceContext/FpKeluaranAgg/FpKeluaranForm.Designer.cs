@@ -43,7 +43,7 @@
             this.PeriodeCalender = new System.Windows.Forms.MonthCalendar();
             this.FakturGrid = new System.Windows.Forms.DataGridView();
             this.SaveButton = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.NewButton = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.TotalFakturText = new System.Windows.Forms.NumericUpDown();
             this.TotalPpnText = new System.Windows.Forms.NumericUpDown();
@@ -210,17 +210,17 @@
             this.SaveButton.Text = "Save";
             this.SaveButton.UseVisualStyleBackColor = false;
             // 
-            // button3
+            // NewButton
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button3.BackColor = System.Drawing.Color.Cornsilk;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(6, 469);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(82, 27);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "New";
-            this.button3.UseVisualStyleBackColor = false;
+            this.NewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.NewButton.BackColor = System.Drawing.Color.Cornsilk;
+            this.NewButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.NewButton.Location = new System.Drawing.Point(6, 469);
+            this.NewButton.Name = "NewButton";
+            this.NewButton.Size = new System.Drawing.Size(82, 27);
+            this.NewButton.TabIndex = 6;
+            this.NewButton.Text = "New";
+            this.NewButton.UseVisualStyleBackColor = false;
             // 
             // panel3
             // 
@@ -275,7 +275,7 @@
             this.ClientSize = new System.Drawing.Size(1048, 502);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.PeriodeCalender);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.NewButton);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.FakturGrid);
             this.Controls.Add(this.panel2);
@@ -309,7 +309,7 @@
         private System.Windows.Forms.TextBox SearchText;
         private System.Windows.Forms.DataGridView FakturGrid;
         private System.Windows.Forms.Button SaveButton;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button NewButton;
         private System.Windows.Forms.MonthCalendar PeriodeCalender;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label LastIdLabel;

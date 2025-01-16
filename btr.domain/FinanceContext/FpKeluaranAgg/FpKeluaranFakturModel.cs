@@ -42,27 +42,32 @@ namespace btr.domain.FinanceContext.FpKeluaranAgg
         public void CreateFrom(FakturModel faktur, CustomerModel customer)
         {
             const string JENIS_FAKTUR = "Normal";
-            const string JENIS_ID_PEMBELI = "TIN";
+            const string ID_PEMBELI_TIN = "TIN";
+            const string ID_PEMBELI_NIK = "National ID";
             const string NEGARA_PEMBELI = "IDN";
             const string KODE_TRSANSAKSI = "04";
-            const string ID_TKU_PENJUAL = "1288723065240000000000";
+            const string ID_TKU_PENJUAL = "0128872306524000000000";
+            const string DEFAULT_NIK_PEMBELI = "0000000000000000";
+
+            var isNpwp = customer.Npwp != DEFAULT_NIK_PEMBELI;
+
             FakturId = faktur.FakturId;
             TanggalFaktur = faktur.FakturDate.Date;
             JenisFaktur = JENIS_FAKTUR;
             KodeTransaksi = KODE_TRSANSAKSI;
             KeteranganTambahan = string.Empty;
             DokumenPendukung = string.Empty;
-            Referensi = string.Empty;
+            Referensi = faktur.FakturCode;
             CapFasilitas = string.Empty;
             IdTkuPenjual = ID_TKU_PENJUAL;
-            NpwpNikPembeli = customer.Npwp;
-            JenisIdPembeli = JENIS_ID_PEMBELI;
+            NpwpNikPembeli = isNpwp ? customer.Npwp : DEFAULT_NIK_PEMBELI;
+            JenisIdPembeli = isNpwp ? ID_PEMBELI_TIN : ID_PEMBELI_NIK;
             NegaraPembeli = NEGARA_PEMBELI;
             NomorDokumenPembeli = string.Empty;
             NamaPembeli = faktur.CustomerName;
             AlamatPembeli = faktur.Address;
             EmailPembeli = customer.Email;
-            IdTkuPembeli = $"{customer.Npwp}000000";
+            IdTkuPembeli = isNpwp ? $"{customer.Npwp}000000" : "000000";
         }
     }
 }
