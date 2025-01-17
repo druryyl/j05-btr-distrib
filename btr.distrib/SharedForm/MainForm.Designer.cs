@@ -52,6 +52,7 @@
             this.PurchaseTab = new System.Windows.Forms.RibbonTab();
             this.PurchaseOrderRibbonPanel = new System.Windows.Forms.RibbonPanel();
             this.InvoiceButton = new System.Windows.Forms.RibbonButton();
+            this.PT2PostingStok = new System.Windows.Forms.RibbonButton();
             this.InvoiceRibbonPanel = new System.Windows.Forms.RibbonPanel();
             this.P01InvoiceInfoButton = new System.Windows.Forms.RibbonButton();
             this.P2InvoiceBrgInfoButton = new System.Windows.Forms.RibbonButton();
@@ -311,9 +312,9 @@
             // PurchaseOrderRibbonPanel
             // 
             this.PurchaseOrderRibbonPanel.Items.Add(this.InvoiceButton);
+            this.PurchaseOrderRibbonPanel.Items.Add(this.PT2PostingStok);
             this.PurchaseOrderRibbonPanel.Name = "PurchaseOrderRibbonPanel";
             this.PurchaseOrderRibbonPanel.Text = "Transaction";
-            this.PurchaseOrderRibbonPanel.Click += new System.EventHandler(this.P1InvoiceInfoButton_Click);
             // 
             // InvoiceButton
             // 
@@ -323,6 +324,15 @@
             this.InvoiceButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("InvoiceButton.SmallImage")));
             this.InvoiceButton.Text = "PT1-Invoice";
             this.InvoiceButton.Click += new System.EventHandler(this.PT1InvoiceButton_Click);
+            // 
+            // PT2PostingStok
+            // 
+            this.PT2PostingStok.Image = global::btr.distrib.Properties.Resources.icons8_uninstalling_updates_321;
+            this.PT2PostingStok.LargeImage = global::btr.distrib.Properties.Resources.icons8_uninstalling_updates_321;
+            this.PT2PostingStok.Name = "PT2PostingStok";
+            this.PT2PostingStok.SmallImage = ((System.Drawing.Image)(resources.GetObject("PT2PostingStok.SmallImage")));
+            this.PT2PostingStok.Text = "PT2-Posting Stok";
+            this.PT2PostingStok.Click += new System.EventHandler(this.PT2PostingStok_Click);
             // 
             // InvoiceRibbonPanel
             // 
@@ -843,5 +853,6 @@
         private System.Windows.Forms.ToolStripMenuItem repairStokToolStripMenuItem;
         private System.Windows.Forms.RibbonButton FT3FpKeluaranButton;
         private System.Windows.Forms.RibbonButton IF5StokPeriodikButton;
+        private System.Windows.Forms.RibbonButton PT2PostingStok;
     }
 }

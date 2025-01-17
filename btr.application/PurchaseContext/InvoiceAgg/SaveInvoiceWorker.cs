@@ -84,11 +84,6 @@ namespace btr.application.PurchaseContext.InvoiceAgg
             using (var trans = TransHelper.NewScope())
             {
                 result = SaveInvoice(req);
-                if (IsStokChanged(existingInvoice, result))
-                {
-                    var genStokReq = new GenStokInvoiceRequest(result.InvoiceId);
-                    _genStokWorker.Execute(genStokReq);
-                }
                 UpdateHpp(result);
 
                 trans.Complete();
@@ -96,22 +91,8 @@ namespace btr.application.PurchaseContext.InvoiceAgg
             
             //  RESULT
             return result;
-            
+
             //  INNER FUNCTION
-            bool IsStokChanged(InvoiceModel invoiceDb, InvoiceModel invoiceInput)
-            {
-                if (invoiceDb is null) return true;
-                if (invoiceDb.ListItem.Count != invoiceInput.ListItem.Count) return true;
-                var invDbList = invoiceDb.ListItem.Select(x => new {x.BrgId, x.QtyPotStok, x.HppSat}).ToList();
-                var invInputList = invoiceInput.ListItem.Select(x => new {x.BrgId, x.QtyPotStok, x.HppSat}).ToList();
-
-                //  compare invDbList vs invInputList
-                //  if any item is different, then return true
-                return invDbList
-                    .Any(x => !invInputList
-                        .Any(y => y.BrgId == x.BrgId && y.QtyPotStok == x.QtyPotStok && y.HppSat == x.HppSat));
-            }
-
             void UpdateHpp(InvoiceModel invoiceUpdateHpp)
             {
                 var updateHppResult = new List<BrgModel>();
@@ -145,6 +126,7 @@ namespace btr.application.PurchaseContext.InvoiceAgg
                 .InvoiceCode(req.InvoiceCode)
                 .Supplier(req)
                 .Warehouse(req)
+                .IsPosted(false)
                 .User(req)
                 .TermOfPayment((TermOfPaymentEnum)req.TermOfPayment)
                 .DueDate(req.DueDate.ToDate(DateFormatEnum.YMD))

@@ -53,6 +53,7 @@
             this.NoteLabel = new System.Windows.Forms.Label();
             this.InvoiceItemGrid = new System.Windows.Forms.DataGridView();
             this.PanelTengah = new System.Windows.Forms.Panel();
+            this.DppText = new System.Windows.Forms.NumericUpDown();
             this.TaxText = new System.Windows.Forms.NumericUpDown();
             this.BiayaLainLabel = new System.Windows.Forms.Label();
             this.SisaText = new System.Windows.Forms.NumericUpDown();
@@ -77,7 +78,6 @@
             this.NewButton = new System.Windows.Forms.Button();
             this.PrintButton = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
-            this.DppText = new System.Windows.Forms.NumericUpDown();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -85,6 +85,7 @@
             this.VoidPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InvoiceItemGrid)).BeginInit();
             this.PanelTengah.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DppText)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TaxText)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SisaText)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.UangMukaText)).BeginInit();
@@ -92,7 +93,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.DiscountText)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TotalText)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DppText)).BeginInit();
             this.SuspendLayout();
             // 
             // TermOfPaymentCombo
@@ -375,6 +375,22 @@
             this.PanelTengah.Size = new System.Drawing.Size(138, 284);
             this.PanelTengah.TabIndex = 53;
             // 
+            // DppText
+            // 
+            this.DppText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DppText.Location = new System.Drawing.Point(11, 102);
+            this.DppText.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.DppText.Name = "DppText";
+            this.DppText.ReadOnly = true;
+            this.DppText.Size = new System.Drawing.Size(117, 20);
+            this.DppText.TabIndex = 25;
+            this.DppText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.DppText.ThousandsSeparator = true;
+            // 
             // TaxText
             // 
             this.TaxText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -647,22 +663,6 @@
             this.DeleteButton.Text = "Delete";
             this.DeleteButton.UseVisualStyleBackColor = true;
             // 
-            // DppText
-            // 
-            this.DppText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DppText.Location = new System.Drawing.Point(11, 102);
-            this.DppText.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
-            this.DppText.Name = "DppText";
-            this.DppText.ReadOnly = true;
-            this.DppText.Size = new System.Drawing.Size(117, 20);
-            this.DppText.TabIndex = 25;
-            this.DppText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.DppText.ThousandsSeparator = true;
-            // 
             // InvoiceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -695,6 +695,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.InvoiceItemGrid)).EndInit();
             this.PanelTengah.ResumeLayout(false);
             this.PanelTengah.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DppText)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TaxText)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SisaText)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.UangMukaText)).EndInit();
@@ -703,7 +704,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.TotalText)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DppText)).EndInit();
             this.ResumeLayout(false);
 
         }

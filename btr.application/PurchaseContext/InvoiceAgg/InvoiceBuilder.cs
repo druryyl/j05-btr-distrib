@@ -39,6 +39,7 @@ namespace btr.application.PurchaseContext.InvoiceAgg
         IInvoiceBuilder ReActivate(IUserKey userKey);
         IInvoiceBuilder User(IUserKey user);
         IInvoiceBuilder CalcTotal();
+        IInvoiceBuilder IsPosted(bool isPosted);
     }
 
     public class InvoiceBuilder : IInvoiceBuilder
@@ -227,6 +228,12 @@ namespace btr.application.PurchaseContext.InvoiceAgg
             _aggRoot.Disc = _aggRoot.ListItem.Sum(x => x.DiscRp);
             _aggRoot.Tax = _aggRoot.ListItem.Sum(x => x.PpnRp);
             _aggRoot.GrandTotal = _aggRoot.ListItem.Sum(x => x.Total);
+            return this;
+        }
+
+        public IInvoiceBuilder IsPosted(bool isPosted)
+        {
+            _aggRoot.IsStokPosted = isPosted;
             return this;
         }
     }

@@ -26,11 +26,11 @@ namespace btr.infrastructure.PurchaseContext.InvoiceAgg
                 INSERT INTO BTR_Invoice (
                     InvoiceId, InvoiceDate, InvoiceCode, SupplierId,  WarehouseId, 
                     NoFakturPajak, DueDate, Total, Disc, Dpp, Tax, GrandTotal,
-                    CreateTime, LastUpdate, UserId, VoidDate, UserIdVoid)
+                    CreateTime, LastUpdate, UserId, VoidDate, UserIdVoid, IsStokPosted)
                 VALUES(
                     @InvoiceId, @InvoiceDate, @InvoiceCode, @SupplierId,  @WarehouseId, 
                     @NoFakturPajak, @DueDate, @Total, @Disc, @Dpp, @Tax, @GrandTotal,
-                    @CreateTime, @LastUpdate, @UserId, @VoidDate, @UserIdVoid)";
+                    @CreateTime, @LastUpdate, @UserId, @VoidDate, @UserIdVoid, @IsStokPosted)";
 
             var dp = new DynamicParameters();
             dp.AddParam("@InvoiceId", model.InvoiceId, SqlDbType.VarChar); 
@@ -52,6 +52,7 @@ namespace btr.infrastructure.PurchaseContext.InvoiceAgg
             dp.AddParam("@UserId", model.UserId, SqlDbType.VarChar); 
             dp.AddParam("@VoidDate", model.VoidDate, SqlDbType.DateTime); 
             dp.AddParam("@UserIdVoid", model.UserIdVoid, SqlDbType.VarChar);
+            dp.AddParam("@IsStokPosted", model.IsStokPosted, SqlDbType.Bit);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -80,7 +81,8 @@ namespace btr.infrastructure.PurchaseContext.InvoiceAgg
                     LastUpdate = @LastUpdate,
                     UserId = @UserId,
                     VoidDate = @VoidDate,
-                    UserIdVoid = @UserIdVoid
+                    UserIdVoid = @UserIdVoid,
+                    IsStokPosted = @IsStokPosted
                 WHERE
                     InvoiceId = @InvoiceId";
 
@@ -105,6 +107,7 @@ namespace btr.infrastructure.PurchaseContext.InvoiceAgg
             dp.AddParam("@UserId", model.UserId, SqlDbType.VarChar);
             dp.AddParam("@VoidDate", model.VoidDate, SqlDbType.DateTime);
             dp.AddParam("@UserIdVoid", model.UserIdVoid, SqlDbType.VarChar);
+            dp.AddParam("@IsStokPosted", model.IsStokPosted, SqlDbType.Bit);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -135,7 +138,7 @@ namespace btr.infrastructure.PurchaseContext.InvoiceAgg
                 SELECT
                     aa.InvoiceId, aa.InvoiceDate, aa.InvoiceCode, aa.SupplierId,  aa.WarehouseId, 
                     aa.NoFakturPajak, aa.DueDate, aa.Total, aa.Disc, aa.Dpp, aa.Tax, aa.GrandTotal,
-                    aa.CreateTime, aa.LastUpdate, aa.UserId, aa.VoidDate, aa.UserIdVoid,
+                    aa.CreateTime, aa.LastUpdate, aa.UserId, aa.VoidDate, aa.UserIdVoid, aa.IsStokPosted,
                     ISNULL(bb.SupplierName, '') AS SupplierName,
                     ISNULL(cc.WarehouseName, '') AS WarehouseName
                 FROM
@@ -160,7 +163,7 @@ namespace btr.infrastructure.PurchaseContext.InvoiceAgg
                 SELECT
                     aa.InvoiceId, aa.InvoiceDate, aa.InvoiceCode, aa.SupplierId,  aa.WarehouseId, 
                     aa.NoFakturPajak, aa.DueDate, aa.Total, aa.Disc, aa.Dpp, aa.Tax, aa.GrandTotal,
-                    aa.CreateTime, aa.LastUpdate, aa.UserId, aa.VoidDate, aa.UserIdVoid,
+                    aa.CreateTime, aa.LastUpdate, aa.UserId, aa.VoidDate, aa.UserIdVoid, aa.IsStokPosted,
                     ISNULL(bb.SupplierName, '') AS SupplierName,
                     ISNULL(cc.WarehouseName, '') AS WarehouseName
                 FROM

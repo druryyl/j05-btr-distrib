@@ -43,7 +43,7 @@ namespace btr.domain.PurchaseContext.InvoiceAgg
         public DateTime VoidDate { get; set; }
         public string UserIdVoid { get; set; }
         public bool IsVoid { get => VoidDate != new DateTime(3000, 1, 1); }
-
+        public bool IsStokPosted { get; set; }
 
         public List<InvoiceItemModel> ListItem { get; set; }
     }
