@@ -289,6 +289,9 @@ namespace btr.distrib.SalesContext.CustomerAgg
             NamaWpText.Text = customer.NamaWp;
             Alamat1WpText.Text = customer.AddressWp;
             Alamat2WpText.Text = customer.AddressWp2;
+
+            EmailText.Text = customer.Email;
+            NitkuText.Text = customer.Nitku;
         }
 
         private void ClearForm()
@@ -312,6 +315,8 @@ namespace btr.distrib.SalesContext.CustomerAgg
             NamaWpText.Clear();
             Alamat1WpText.Clear();
             Alamat2WpText.Clear();
+            EmailText.Clear();
+            NitkuText.Clear();
         }
         #endregion
 
@@ -388,6 +393,8 @@ namespace btr.distrib.SalesContext.CustomerAgg
                 .Nppkp(NppkpText.Text)
                 .NamaWp(NamaWpText.Text)
                 .AddressWp(Alamat1WpText.Text, Alamat2WpText.Text)
+                .Email(EmailText.Text)
+                .Nitku(NitkuText.Text)
                 .Build();
 
             _customerWriter.Save(ref customer);

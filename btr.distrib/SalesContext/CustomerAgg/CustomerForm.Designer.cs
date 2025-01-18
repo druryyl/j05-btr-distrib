@@ -46,6 +46,10 @@
             this.TipeHargaCombo = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label18 = new System.Windows.Forms.Label();
+            this.NitkuText = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.EmailText = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.NamaWpText = new System.Windows.Forms.TextBox();
             this.IsKenaPajakCheck = new System.Windows.Forms.CheckBox();
@@ -82,10 +86,6 @@
             this.CustNameText = new System.Windows.Forms.TextBox();
             this.CustButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.CustomerTab.SuspendLayout();
             this.ListPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CustGrid)).BeginInit();
@@ -301,9 +301,9 @@
             this.panel3.BackColor = System.Drawing.Color.Cornsilk;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.label18);
-            this.panel3.Controls.Add(this.textBox2);
+            this.panel3.Controls.Add(this.NitkuText);
             this.panel3.Controls.Add(this.label17);
-            this.panel3.Controls.Add(this.textBox1);
+            this.panel3.Controls.Add(this.EmailText);
             this.panel3.Controls.Add(this.label8);
             this.panel3.Controls.Add(this.NamaWpText);
             this.panel3.Controls.Add(this.IsKenaPajakCheck);
@@ -318,6 +318,38 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(228, 396);
             this.panel3.TabIndex = 54;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(14, 300);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(131, 13);
+            this.label18.TabIndex = 31;
+            this.label18.Text = "No Identitas TKU (NITKU)";
+            // 
+            // NitkuText
+            // 
+            this.NitkuText.Location = new System.Drawing.Point(14, 316);
+            this.NitkuText.Name = "NitkuText";
+            this.NitkuText.Size = new System.Drawing.Size(205, 22);
+            this.NitkuText.TabIndex = 32;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(14, 259);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(34, 13);
+            this.label17.TabIndex = 29;
+            this.label17.Text = "Email";
+            // 
+            // EmailText
+            // 
+            this.EmailText.Location = new System.Drawing.Point(14, 275);
+            this.EmailText.Name = "EmailText";
+            this.EmailText.Size = new System.Drawing.Size(205, 22);
+            this.EmailText.TabIndex = 30;
             // 
             // label8
             // 
@@ -642,38 +674,6 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Customer ID";
             // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(14, 259);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(34, 13);
-            this.label17.TabIndex = 29;
-            this.label17.Text = "Email";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(14, 275);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(205, 22);
-            this.textBox1.TabIndex = 30;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(14, 300);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(131, 13);
-            this.label18.TabIndex = 31;
-            this.label18.Text = "No Identitas TKU (NITKU)";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(14, 316);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(205, 22);
-            this.textBox2.TabIndex = 32;
-            // 
             // CustomerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -760,8 +760,8 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox NamaWpText;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox NitkuText;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox EmailText;
     }
 }

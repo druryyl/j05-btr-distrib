@@ -67,7 +67,9 @@ namespace btr.domain.FinanceContext.FpKeluaranAgg
             NamaPembeli = faktur.CustomerName;
             AlamatPembeli = faktur.Address;
             EmailPembeli = customer.Email;
-            IdTkuPembeli = $"{NomorDokumenPembeli}000000";
+            IdTkuPembeli = customer.Nitku.Trim().Length == 0 
+                ? $"{NomorDokumenPembeli}000000"
+                : customer.Nitku;
         }
     }
 }
