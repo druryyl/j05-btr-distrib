@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>201</ApplicationRevision>
+    <ApplicationRevision>202</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -167,8 +167,8 @@
     <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Polly, Version=7.0.0.0, Culture=neutral, PublicKeyToken=c8a3ffc3f8f825cc, processorArchitecture=MSIL">
       <HintPath>..\packages\Polly.7.2.4\lib\net472\Polly.dll</HintPath>
@@ -700,12 +700,6 @@
     <Compile Include="SharedForm\ParamSistemForm.Designer.cs">
       <DependentUpon>ParamSistemForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SharedForm\PrinterParamForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SharedForm\PrinterParamForm.Designer.cs">
-      <DependentUpon>PrinterParamForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="SharedForm\StokBalancerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -879,9 +873,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SharedForm\ParamSistemForm.resx">
       <DependentUpon>ParamSistemForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SharedForm\PrinterParamForm.resx">
-      <DependentUpon>PrinterParamForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SharedForm\StokBalancerForm.resx">
       <DependentUpon>StokBalancerForm.cs</DependentUpon>

@@ -40,8 +40,8 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
         private readonly BindingList<FpKeluaranFakturDto> _listFakturPilih;
         private readonly BindingSource _fakturBindingSource;
 
-        private const string NPWP_PENJUAL = "1288723065240000";
-        private const string ID_TKU_PENJUAL = "1288723065240000000000";
+        private const string NPWP_PENJUAL = "0128872306524000";
+        private const string ID_TKU_PENJUAL = "0128872306524000000000";
 
 
 
@@ -83,7 +83,6 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             FakturGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
             FakturGrid.CellContentClick += FakturGrid_CellContentClick;
         }
-
         private void NewButton_Click(object sender, EventArgs e)
         {
             ClearScreen();

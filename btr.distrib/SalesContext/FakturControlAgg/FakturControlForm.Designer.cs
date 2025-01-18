@@ -29,15 +29,16 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.Panel1 = new System.Windows.Forms.Panel();
+            this.ClearButton = new System.Windows.Forms.Button();
             this.SearchButton = new System.Windows.Forms.Button();
             this.SearchText = new System.Windows.Forms.TextBox();
             this.Tgl2Text = new System.Windows.Forms.DateTimePicker();
             this.Tgl1Text = new System.Windows.Forms.DateTimePicker();
             this.FakturGrid = new System.Windows.Forms.DataGridView();
-            this.ClearButton = new System.Windows.Forms.Button();
+            this.PrintFakturButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,7 +47,7 @@
             this.tableLayoutPanel1.BackColor = System.Drawing.Color.MediumTurquoise;
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.Panel1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.FakturGrid, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -58,31 +59,47 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1008, 450);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // panel1
+            // Panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.panel1.Controls.Add(this.ClearButton);
-            this.panel1.Controls.Add(this.SearchButton);
-            this.panel1.Controls.Add(this.SearchText);
-            this.panel1.Controls.Add(this.Tgl2Text);
-            this.panel1.Controls.Add(this.Tgl1Text);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1002, 44);
-            this.panel1.TabIndex = 0;
+            this.Panel1.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Panel1.Controls.Add(this.PrintFakturButton);
+            this.Panel1.Controls.Add(this.ClearButton);
+            this.Panel1.Controls.Add(this.SearchButton);
+            this.Panel1.Controls.Add(this.SearchText);
+            this.Panel1.Controls.Add(this.Tgl2Text);
+            this.Panel1.Controls.Add(this.Tgl1Text);
+            this.Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Panel1.Location = new System.Drawing.Point(3, 3);
+            this.Panel1.Name = "Panel1";
+            this.Panel1.Size = new System.Drawing.Size(1002, 44);
+            this.Panel1.TabIndex = 0;
+            // 
+            // ClearButton
+            // 
+            this.ClearButton.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.ClearButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ClearButton.Location = new System.Drawing.Point(641, 7);
+            this.ClearButton.Name = "ClearButton";
+            this.ClearButton.Size = new System.Drawing.Size(75, 23);
+            this.ClearButton.TabIndex = 4;
+            this.ClearButton.Text = "Clear";
+            this.ClearButton.UseVisualStyleBackColor = false;
             // 
             // SearchButton
             // 
+            this.SearchButton.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.SearchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SearchButton.Location = new System.Drawing.Point(560, 7);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(75, 23);
             this.SearchButton.TabIndex = 3;
             this.SearchButton.Text = "Search";
-            this.SearchButton.UseVisualStyleBackColor = true;
+            this.SearchButton.UseVisualStyleBackColor = false;
             // 
             // SearchText
             // 
+            this.SearchText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.SearchText.Location = new System.Drawing.Point(281, 9);
             this.SearchText.Name = "SearchText";
             this.SearchText.Size = new System.Drawing.Size(273, 22);
@@ -118,15 +135,16 @@
             this.FakturGrid.Size = new System.Drawing.Size(1002, 394);
             this.FakturGrid.TabIndex = 1;
             // 
-            // ClearButton
+            // PrintFakturButton
             // 
-            this.ClearButton.Location = new System.Drawing.Point(641, 7);
-            this.ClearButton.Name = "ClearButton";
-            this.ClearButton.Size = new System.Drawing.Size(75, 23);
-            this.ClearButton.TabIndex = 4;
-            this.ClearButton.Text = "Clear";
-            this.ClearButton.UseVisualStyleBackColor = true;
-            this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
+            this.PrintFakturButton.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.PrintFakturButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PrintFakturButton.Location = new System.Drawing.Point(722, 7);
+            this.PrintFakturButton.Name = "PrintFakturButton";
+            this.PrintFakturButton.Size = new System.Drawing.Size(90, 23);
+            this.PrintFakturButton.TabIndex = 5;
+            this.PrintFakturButton.Text = "Print Faktur";
+            this.PrintFakturButton.UseVisualStyleBackColor = false;
             // 
             // FakturControlForm
             // 
@@ -138,10 +156,11 @@
             this.Name = "FakturControlForm";
             this.Text = "FakturControlForm";
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.Panel1.ResumeLayout(false);
+            this.Panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturGrid)).EndInit();
             this.ResumeLayout(false);
+
         }
 
         private System.Windows.Forms.Button ClearButton;
@@ -149,11 +168,12 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel Panel1;
         private System.Windows.Forms.DateTimePicker Tgl1Text;
         private System.Windows.Forms.DataGridView FakturGrid;
         private System.Windows.Forms.TextBox SearchText;
         private System.Windows.Forms.DateTimePicker Tgl2Text;
         private System.Windows.Forms.Button SearchButton;
+        private System.Windows.Forms.Button PrintFakturButton;
     }
 }

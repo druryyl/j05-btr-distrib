@@ -10,9 +10,13 @@ namespace btr.test.Helpers
         public static DatabaseOptions GetDatabaseOptions()
         {
             var json = LoadJson();
-            var appSettings = JObject.Parse(json);
-            var database = appSettings.GetValue("Database");
-            var result = database?.ToObject<DatabaseOptions>();
+            var jsonObject = JObject.Parse(json);
+            JToken databaseSection = jsonObject["Database"];
+            var result = databaseSection?.ToObject<DatabaseOptions>();
+
+            //var appSettings = JsonSerializer.Deserialize<DatabaseOptions>(json);
+            //var database = appSettings.GetValue("Database");
+            //var result = database?.ToObject<DatabaseOptions>();
             return result ?? new DatabaseOptions();
         }
 

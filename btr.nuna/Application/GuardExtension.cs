@@ -7,7 +7,7 @@ namespace btr.nuna.Application
     {
         public static ref readonly Guard.ArgumentInfo<string> ValidDate(in this Guard.ArgumentInfo<string> argument, string format)
         {
-            var isValid =  DateTime.TryParseExact(argument.Value, format,
+            var isValid = DateTime.TryParseExact(argument.Value, format,
                 System.Globalization.CultureInfo.InvariantCulture,
                 System.Globalization.DateTimeStyles.None, out _);
             if (!isValid)
@@ -21,7 +21,7 @@ namespace btr.nuna.Application
             if (!isValid)
                 throw Guard.Fail(
                     new ArgumentException($"{argument.Name} is not valid time format."));
-            return ref argument;        
+            return ref argument;
         }
     }
 }

@@ -828,12 +828,12 @@
         private System.Windows.Forms.RibbonButton SF2FakturBrgButton;
         private System.Windows.Forms.RibbonButton SF3FakturSupplierButton;
         private System.Windows.Forms.RibbonButton SF4FakturCustomerButton;
-        private System.Windows.Forms.RibbonPanel TaxTransactionPanel;
+        //private System.Windows.Forms.RibbonPanel TaxTransactionPanel;
         private System.Windows.Forms.RibbonPanel FinanceInfoTab;
         private System.Windows.Forms.RibbonButton FF1PiutangSalesWilayahButton;
         private System.Windows.Forms.RibbonButton FF2PenerimaanSalesButton;
         private System.Windows.Forms.RibbonButton KategoriAButton;
-        private System.Windows.Forms.RibbonPanel ribbonPanel2;
+        //private System.Windows.Forms.RibbonPanel ribbonPanel2;
         private System.Windows.Forms.RibbonButton ST3FakturPajakButton;
         private System.Windows.Forms.RibbonButton SF5FakturPajakButton;
         private System.Windows.Forms.RibbonButton ribbonButton1;

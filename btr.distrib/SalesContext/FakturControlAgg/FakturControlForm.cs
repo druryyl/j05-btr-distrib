@@ -19,6 +19,9 @@ using System.Windows.Forms;
 using JetBrains.Annotations;
 using btr.application.FinanceContext.PiutangAgg.Contracts;
 using btr.domain.FinanceContext.PiutangAgg;
+using btr.infrastructure.SalesContext.FakturAgg;
+using btr.application.SalesContext.FakturAgg.Workers;
+using btr.application.SalesContext.CustomerAgg.Contracts;
 
 namespace btr.distrib.SalesContext.FakturControlAgg
 {
@@ -29,13 +32,12 @@ namespace btr.distrib.SalesContext.FakturControlAgg
         private readonly IFakturControlStatusDal _fakturControlStatusDal;
         private readonly IFakturControlBuilder _builder;
         private readonly IFakturControlWriter _writer;
-        
+        private readonly IFakturBuilder _fakturBuilder;
+
         private readonly IVoidFakturWorker _voidFakturWorker;
-        private readonly IChangeToCashFakturWorker _changeToCashFakturWorker;
-        private readonly IChangeToCreditFakturWorker _changeToCreditFakturWorker;
         private readonly IReactivateFakturWorker _reactivateFakturWorker;
-        private readonly ICreatePiutangWorker _createPiutangWorker;
         private readonly IPiutangDal _piutangDal;
+        private readonly ICustomerDal _customerDal;
 
         private ContextMenu _gridContextMenu;
 
@@ -45,11 +47,10 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             IFakturControlWriter writer,
             IFakturControlStatusDal fakturControlStatusDal,
             IVoidFakturWorker voidFakturWorker,
-            IChangeToCashFakturWorker changeToCashFakturWorker,
-            IChangeToCreditFakturWorker changeToCreditFakturWorker,
             IReactivateFakturWorker reactivateFakturWorker,
-            ICreatePiutangWorker createPiutangWorker,
-            IPiutangDal piutangDal)
+            IPiutangDal piutangDal,
+            IFakturBuilder fakturBuilder,
+            ICustomerDal customerDal)
         {
             InitializeComponent();
 
@@ -59,11 +60,10 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             _writer = writer;
 
             _voidFakturWorker = voidFakturWorker;
-            _changeToCashFakturWorker = changeToCashFakturWorker;
-            _changeToCreditFakturWorker = changeToCreditFakturWorker;
             _reactivateFakturWorker = reactivateFakturWorker;
-            _createPiutangWorker = createPiutangWorker;
             _piutangDal = piutangDal;
+            _fakturBuilder = fakturBuilder;
+            _customerDal = customerDal;
 
             InitGrid();
             InitContextMenu();
@@ -75,8 +75,27 @@ namespace btr.distrib.SalesContext.FakturControlAgg
         {
             SearchText.KeyDown += SearchText_KeyDown;
             SearchButton.Click += SearchButton_Click;
+            ClearButton.Click += ClearButton_Click;
+            PrintFakturButton.Click += PrintFakturButton_Click;
+
             FakturGrid.CellContentClick += FakturGrid_CellContentClick;
             FakturGrid.MouseClick += FakturGrid_MouseClick;
+        }
+
+        private void PrintFakturButton_Click(object sender, EventArgs e)
+        {
+            var fakturId = FakturGrid.CurrentRow.Cells["FakturId"].Value.ToString();
+            PrintFaktur(fakturId);
+        }
+
+        private void PrintFaktur(string fakturId)
+        {
+            var fakturKey = new FakturModel(fakturId);
+            var faktur = _fakturBuilder.Load(fakturKey).Build();
+            var customer = _customerDal.GetData(faktur);
+            var fakturPrintout = new FakturPrintOutDto(faktur, customer);
+            var form = new FakturPrintOutForm(fakturPrintout);
+            form.ShowDialog();
         }
 
         private void SearchText_KeyDown(object sender, KeyEventArgs e)
@@ -356,8 +375,10 @@ namespace btr.distrib.SalesContext.FakturControlAgg
 
         private void InitGrid()
         {
-            var binding = new BindingSource();
-            binding.DataSource = _listItem;
+            var binding = new BindingSource
+            {
+                DataSource = _listItem
+            };
             FakturGrid.DataSource = binding;
             FakturGrid.Refresh();
             FakturGrid.Columns.SetDefaultCellStyle(System.Drawing.Color.Beige);
@@ -435,7 +456,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                 item.Kembali = listStatus
                     .Where(x => x.FakturId == item.FakturId)
                     .FirstOrDefault(x => x.StatusFaktur == StatusFakturEnum.KembaliFaktur) != null;
-                item.SetPajak(item.NoFakturPajak.Trim().Length == 0 ? false : true);
+                item.SetPajak(item.NoFakturPajak.Trim().Length != 0);
                 item.FormatFakturCode();
 
                 var piutang = listPiutang.FirstOrDefault(x => x.PiutangId == item.FakturId);
@@ -450,8 +471,10 @@ namespace btr.distrib.SalesContext.FakturControlAgg
 
             }
 
-            var binding = new BindingSource();
-            binding.DataSource = _listItem;
+            var binding = new BindingSource
+            {
+                DataSource = _listItem
+            };
             FakturGrid.DataSource = binding;
             FakturGrid.Refresh();
             foreach (DataGridViewRow row in FakturGrid.Rows)

@@ -33,15 +33,15 @@ namespace btr.test.PurchaseContext.PurchaseOrderAgg
                 WarehouseId = "D",
                 WarehouseName = string.Empty,
             };
-        
-        // [Fact]
-        // public void InsertTest()
-        // {
-        //     using (var trans = TransHelper.NewScope())
-        //     {
-        //         _sut.Insert(Faker());
-        //     }
-        // }
+
+        [Fact]
+        public void InsertTest()
+        {
+            using (var trans = TransHelper.NewScope())
+            {
+                _sut.Insert(Faker());
+            }
+        }
         //
         // [Fact]
         // public void UpdateTest()
