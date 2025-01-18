@@ -43,13 +43,13 @@ namespace btr.domain.FinanceContext.FpKeluaranAgg
         {
             const string JENIS_FAKTUR = "Normal";
             const string ID_PEMBELI_TIN = "TIN";
-            const string ID_PEMBELI_NIK = "National ID";
+            const string ID_PEMBELI_OTHER = "Other ID";
             const string NEGARA_PEMBELI = "IDN";
             const string KODE_TRSANSAKSI = "04";
             const string ID_TKU_PENJUAL = "0128872306524000000000";
-            const string DEFAULT_NIK_PEMBELI = "0000000000000000";
+            const string NOMOR_DOKUMEN_PEMBELI_OTHER = "0000000000000000";
 
-            var isNpwp = customer.Npwp != DEFAULT_NIK_PEMBELI;
+            var isNpwp = customer.Npwp != NOMOR_DOKUMEN_PEMBELI_OTHER;
 
             FakturId = faktur.FakturId;
             TanggalFaktur = faktur.FakturDate.Date;
@@ -60,14 +60,14 @@ namespace btr.domain.FinanceContext.FpKeluaranAgg
             Referensi = faktur.FakturCode;
             CapFasilitas = string.Empty;
             IdTkuPenjual = ID_TKU_PENJUAL;
-            NpwpNikPembeli = isNpwp ? customer.Npwp : DEFAULT_NIK_PEMBELI;
-            JenisIdPembeli = isNpwp ? ID_PEMBELI_TIN : ID_PEMBELI_NIK;
+            NpwpNikPembeli = isNpwp ? customer.Npwp : NOMOR_DOKUMEN_PEMBELI_OTHER;
+            JenisIdPembeli = isNpwp ? ID_PEMBELI_TIN : ID_PEMBELI_OTHER;
             NegaraPembeli = NEGARA_PEMBELI;
-            NomorDokumenPembeli = string.Empty;
+            NomorDokumenPembeli = isNpwp ? customer.Npwp : NOMOR_DOKUMEN_PEMBELI_OTHER; ;
             NamaPembeli = faktur.CustomerName;
             AlamatPembeli = faktur.Address;
             EmailPembeli = customer.Email;
-            IdTkuPembeli = isNpwp ? $"{customer.Npwp}000000" : "000000";
+            IdTkuPembeli = $"{NomorDokumenPembeli}000000";
         }
     }
 }

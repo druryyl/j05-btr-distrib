@@ -1,4 +1,5 @@
 ﻿using btr.domain.SalesContext.FakturAgg;
+using System;
 
 namespace btr.domain.FinanceContext.FpKeluaranAgg
 {
@@ -36,13 +37,13 @@ namespace btr.domain.FinanceContext.FpKeluaranAgg
             KodeBarangJasa = KODE_BRG_JASA;
             NamaBarangJasa = item.BrgName;
             NamaSatuanUkur = SATUAN_UKUR;
-            HargaSatuan = item.HrgSat;
+            HargaSatuan = Math.Round(item.HrgSat,0);
             JumlahBarangJasa = item.QtyJual;
-            TotalDiskon = item.DiscRp;
-            Dpp = (item.HrgSat * item.QtyJual) - item.DiscRp;
-            DppLain = item.DppRp;
+            TotalDiskon = Math.Round(item.DiscRp,0);
+            Dpp = (HargaSatuan * JumlahBarangJasa) - TotalDiskon;
+            DppLain = Math.Round(Dpp * 11/12,0);   
             TarifPpn = item.PpnProsen;
-            Ppn = item.PpnRp;
+            Ppn = Math.Round(DppLain * TarifPpn / 100,0);
             TarifPpnBm = 0;
             PpnBm = 0;
         }
