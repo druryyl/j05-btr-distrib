@@ -381,16 +381,16 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             };
             FakturGrid.DataSource = binding;
             FakturGrid.Refresh();
-            FakturGrid.Columns.SetDefaultCellStyle(System.Drawing.Color.Beige);
+            FakturGrid.Columns.SetDefaultCellStyle(System.Drawing.Color.White);
             FakturGrid.Columns.GetCol("FakturId").Visible = false;
             FakturGrid.Columns.GetCol("FakturDate").DefaultCellStyle.Format = "ddd dd MMM yyyy";
 
             FakturGrid.Columns.GetCol("FakturId").Width = 80;
-            FakturGrid.Columns.GetCol("FakturCode").Width = 80;
+            FakturGrid.Columns.GetCol("FakturCode").Width = 70;
             FakturGrid.Columns.GetCol("FakturDate").Width = 100;
-            FakturGrid.Columns.GetCol("CustomerName").Width = 150;
+            FakturGrid.Columns.GetCol("CustomerName").Width = 130;
             FakturGrid.Columns.GetCol("Npwp").Width = 100;
-            FakturGrid.Columns.GetCol("SalesPersonName").Width = 80;
+            FakturGrid.Columns.GetCol("SalesPersonName").Width = 70;
 
             FakturGrid.Columns.GetCol("GrandTotal").Width = 80;
             FakturGrid.Columns.GetCol("Bayar").Width = 80;
@@ -413,6 +413,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             FakturGrid.Columns.GetCol("PotBiayaLain").DefaultCellStyle.BackColor = System.Drawing.Color.Pink;
             FakturGrid.Columns.GetCol("Sisa").DefaultCellStyle.BackColor = System.Drawing.Color.PaleTurquoise;
 
+            FakturGrid.Columns.GetCol("FakturCode").HeaderText = @"Code";
             FakturGrid.Columns.GetCol("FakturDate").HeaderText = @"Tgl";
             FakturGrid.Columns.GetCol("CustomerName").HeaderText = @"Customer";
             FakturGrid.Columns.GetCol("Npwp").HeaderText = @"NPWP";
@@ -420,6 +421,22 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             FakturGrid.Columns.GetCol("NoFakturPajak").HeaderText = @"Faktur Pajak";
             FakturGrid.Columns.GetCol("UserId").HeaderText = @"Admin";
             FakturGrid.Columns.GetCol("PotBiayaLain").HeaderText = @"Pot/Biaya";
+
+            // conditional formatting row color; if lunas, then green
+            FakturGrid.CellFormatting += (s, e) =>
+            {
+                if (e.RowIndex < 0)
+                    return;
+                var row = FakturGrid.Rows[e.RowIndex];
+                var item = (FakturControlView)row.DataBoundItem;
+                if (item.Lunas)
+                {
+                    row.DefaultCellStyle.BackColor = System.Drawing.Color.LemonChiffon;
+                    //row.DefaultCellStyle.ForeColor = System.Drawing.Color.DimGray;
+                    //row.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 8, System.Drawing.FontStyle.Italic);
+                }
+            };
+
         }
 
         private void RefreshGrid()
@@ -467,7 +484,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                     continue;
 
                 item.SetNilai(piutang.Total, piutang.Terbayar, piutang.Potongan);
-                if (item.Sisa == 0)
+                if (item.Sisa >= -1 && item.Sisa <=1)
                     item.SetLunas(true);
                 //else
                 //    item.SetLunas(false);

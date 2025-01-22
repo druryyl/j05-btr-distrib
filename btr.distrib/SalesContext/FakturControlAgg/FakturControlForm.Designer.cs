@@ -30,13 +30,13 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Panel1 = new System.Windows.Forms.Panel();
+            this.PrintFakturButton = new System.Windows.Forms.Button();
             this.ClearButton = new System.Windows.Forms.Button();
             this.SearchButton = new System.Windows.Forms.Button();
             this.SearchText = new System.Windows.Forms.TextBox();
             this.Tgl2Text = new System.Windows.Forms.DateTimePicker();
             this.Tgl1Text = new System.Windows.Forms.DateTimePicker();
             this.FakturGrid = new System.Windows.Forms.DataGridView();
-            this.PrintFakturButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturGrid)).BeginInit();
@@ -74,6 +74,17 @@
             this.Panel1.Name = "Panel1";
             this.Panel1.Size = new System.Drawing.Size(1002, 44);
             this.Panel1.TabIndex = 0;
+            // 
+            // PrintFakturButton
+            // 
+            this.PrintFakturButton.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.PrintFakturButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PrintFakturButton.Location = new System.Drawing.Point(722, 7);
+            this.PrintFakturButton.Name = "PrintFakturButton";
+            this.PrintFakturButton.Size = new System.Drawing.Size(90, 23);
+            this.PrintFakturButton.TabIndex = 5;
+            this.PrintFakturButton.Text = "Print Faktur";
+            this.PrintFakturButton.UseVisualStyleBackColor = false;
             // 
             // ClearButton
             // 
@@ -134,17 +145,6 @@
             this.FakturGrid.Name = "FakturGrid";
             this.FakturGrid.Size = new System.Drawing.Size(1002, 394);
             this.FakturGrid.TabIndex = 1;
-            // 
-            // PrintFakturButton
-            // 
-            this.PrintFakturButton.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.PrintFakturButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PrintFakturButton.Location = new System.Drawing.Point(722, 7);
-            this.PrintFakturButton.Name = "PrintFakturButton";
-            this.PrintFakturButton.Size = new System.Drawing.Size(90, 23);
-            this.PrintFakturButton.TabIndex = 5;
-            this.PrintFakturButton.Text = "Print Faktur";
-            this.PrintFakturButton.UseVisualStyleBackColor = false;
             // 
             // FakturControlForm
             // 
