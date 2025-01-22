@@ -322,6 +322,7 @@ namespace btr.distrib.SalesContext.FakturAgg
                 ShowAsVoid(faktur);
             else
                 ShowAsActive();
+
             CalcTotal();
             return true;
         }
@@ -451,7 +452,7 @@ namespace btr.distrib.SalesContext.FakturAgg
 
             BrowseBrg(e.RowIndex);
         }
-        
+
         private void FakturItemGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             var grid = (DataGridView)sender;
@@ -466,7 +467,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             if (e.ColumnIndex == grid.Columns.GetCol("PpnProsen").Index)
                 CalcTotal();
         }
-        
+
         private void FakturItemGrid_CellValidated(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex <0 ) return;
@@ -518,6 +519,7 @@ namespace btr.distrib.SalesContext.FakturAgg
                 textBox.KeyDown += TextBox_KeyDown;
             }
         }
+
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F1)
@@ -596,8 +598,10 @@ namespace btr.distrib.SalesContext.FakturAgg
 
         private void InitGrid()
         {
-            var binding = new BindingSource();
-            binding.DataSource = _listItem;
+            var binding = new BindingSource
+            {
+                DataSource = _listItem
+            };
             FakturItemGrid.DataSource = binding;
             FakturItemGrid.Refresh();
             FakturItemGrid.Columns.SetDefaultCellStyle(Color.Beige);
@@ -773,7 +777,7 @@ namespace btr.distrib.SalesContext.FakturAgg
 
         private void SavePiutang(FakturModel faktur)
         {
-            PiutangModel piutang = null;
+            PiutangModel piutang;
             try
             {
                 piutang = _piutangBuilder

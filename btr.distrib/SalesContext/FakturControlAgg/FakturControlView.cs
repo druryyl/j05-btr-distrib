@@ -14,6 +14,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
         public string SalesPersonName { get; private set; }
         public decimal GrandTotal { get; private set; }
         public decimal Bayar { get; private set; }
+        public decimal PotBiayaLain { get; private set; }
         public decimal Sisa { get; private set; }
 
         public bool Posted { get; set; }
@@ -26,11 +27,12 @@ namespace btr.distrib.SalesContext.FakturControlAgg
 
         public void SetLunas(bool val) => Lunas = val;
         public void SetPajak(bool val) => Pajak = val;
-        public void SetNilai(decimal grandTotal, decimal bayar)
+        public void SetNilai(decimal grandTotal, decimal bayar, decimal potBiayaLain)
         {
             GrandTotal = grandTotal;
             Bayar = bayar;
-            Sisa = grandTotal - bayar;
+            PotBiayaLain = potBiayaLain;
+            Sisa = grandTotal + potBiayaLain - bayar;
         }
         
         public void FormatFakturCode()=> FakturCode = $"{FakturCode.Substring(0, 1)}-{FakturCode.Substring(1, 3)}-{FakturCode.Substring(4, 4)}";

@@ -394,6 +394,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
 
             FakturGrid.Columns.GetCol("GrandTotal").Width = 80;
             FakturGrid.Columns.GetCol("Bayar").Width = 80;
+            FakturGrid.Columns.GetCol("PotBiayaLain").Width = 80;
             FakturGrid.Columns.GetCol("Sisa").Width = 80;
 
             FakturGrid.Columns.GetCol("Posted").Width = 50;
@@ -409,6 +410,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
 
             FakturGrid.Columns.GetCol("GrandTotal").DefaultCellStyle.BackColor = System.Drawing.Color.PaleTurquoise;
             FakturGrid.Columns.GetCol("Bayar").DefaultCellStyle.BackColor = System.Drawing.Color.Pink;
+            FakturGrid.Columns.GetCol("PotBiayaLain").DefaultCellStyle.BackColor = System.Drawing.Color.Pink;
             FakturGrid.Columns.GetCol("Sisa").DefaultCellStyle.BackColor = System.Drawing.Color.PaleTurquoise;
 
             FakturGrid.Columns.GetCol("FakturDate").HeaderText = @"Tgl";
@@ -417,6 +419,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             FakturGrid.Columns.GetCol("SalesPersonName").HeaderText = @"Sales";
             FakturGrid.Columns.GetCol("NoFakturPajak").HeaderText = @"Faktur Pajak";
             FakturGrid.Columns.GetCol("UserId").HeaderText = @"Admin";
+            FakturGrid.Columns.GetCol("PotBiayaLain").HeaderText = @"Pot/Biaya";
         }
 
         private void RefreshGrid()
@@ -463,7 +466,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                 if (piutang is null)
                     continue;
 
-                item.SetNilai(piutang.Total - piutang.Potongan, piutang.Terbayar);
+                item.SetNilai(piutang.Total, piutang.Terbayar, piutang.Potongan);
                 if (item.Sisa == 0)
                     item.SetLunas(true);
                 //else
