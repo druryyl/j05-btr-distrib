@@ -23,6 +23,7 @@
     AddressWp VARCHAR(128) NOT NULL CONSTRAINT DF_BTR_Customer_AlamatWp DEFAULT(''),
     AddressWp2 VARCHAR(60) NOT NULL CONSTRAINT DF_BTR_Customer_AlamatWp2 DEFAULT(''),
     IsKenaPajak BIT NOT NULL CONSTRAINT DF_BTR_Customer_IsKenaPajak DEFAULT(0),
+    JenisIdentitasPajak VARCHAR(20) NOT NULL CONSTRAINT DF_BTR_Customer_JenisIdentitasPajak DEFAULT(''),
     
     IsSuspend BIT NOT NULL CONSTRAINT DF_BTR_Customer_IsSuspend DEFAULT(0),
     Plafond DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_Customer_Plafond DEFAULT(0),

@@ -37,6 +37,7 @@ namespace btr.application.SalesContext.CustomerAgg.Workers
         ICustomerBuilder Nppkp(string nppkp);
         ICustomerBuilder NamaWp(string namaWp);
         ICustomerBuilder AddressWp(string address1, string address2);
+        ICustomerBuilder JenisIdentitasPajak(string jenisIdentitasPajak);
     }
 
     public class CustomerBuilder : ICustomerBuilder
@@ -206,6 +207,12 @@ namespace btr.application.SalesContext.CustomerAgg.Workers
         public ICustomerBuilder Nitku(string nitku)
         {
             _aggRoot.Nitku = nitku;
+            return this;
+        }
+
+        public ICustomerBuilder JenisIdentitasPajak(string jenisIdentitasPajak)
+        {
+            _aggRoot.JenisIdentitasPajak = jenisIdentitasPajak;
             return this;
         }
     }

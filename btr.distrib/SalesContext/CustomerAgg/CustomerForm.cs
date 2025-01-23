@@ -292,6 +292,7 @@ namespace btr.distrib.SalesContext.CustomerAgg
 
             EmailText.Text = customer.Email;
             NitkuText.Text = customer.Nitku;
+            JenisIdentitasCombo.Text = customer.JenisIdentitasPajak;
         }
 
         private void ClearForm()
@@ -395,6 +396,7 @@ namespace btr.distrib.SalesContext.CustomerAgg
                 .AddressWp(Alamat1WpText.Text, Alamat2WpText.Text)
                 .Email(EmailText.Text)
                 .Nitku(NitkuText.Text)
+                .JenisIdentitasPajak(JenisIdentitasCombo.Text)
                 .Build();
 
             _customerWriter.Save(ref customer);

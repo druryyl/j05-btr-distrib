@@ -25,12 +25,12 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
             INSERT INTO BTR_Customer(
                 CustomerId, CustomerName, CustomerCode, WilayahId, KlasifikasiId, HargaTypeId, 
                 Address1, Address2, Kota, KodePos, NoTelp, NoFax, Email, Nitku,
-                Npwp, Nppkp, NamaWp, AddressWp, AddressWp2, IsKenaPajak, 
+                Npwp, Nppkp, NamaWp, AddressWp, AddressWp2, IsKenaPajak, JenisIdentitasPajak,
                 IsSuspend, Plafond, CreditBalance)
             VALUES (
                 @CustomerId, @CustomerName, @CustomerCode, @WilayahId, @KlasifikasiId, @HargaTypeId, 
                 @Address1, @Address2, @Kota, @KodePos, @NoTelp, @NoFax, @Email, @Nitku,
-                @Npwp, @Nppkp, @NamaWp, @AddressWp, @AddressWp2, @IsKenaPajak, 
+                @Npwp, @Nppkp, @NamaWp, @AddressWp, @AddressWp2, @IsKenaPajak, JenisIdentitasPajak, 
                 @IsSuspend, @Plafond, @CreditBalance)";
 
             var dp = new DynamicParameters();
@@ -58,6 +58,8 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
             dp.AddParam("@AddressWp", model.AddressWp, SqlDbType.VarChar);
             dp.AddParam("@AddressWp2", model.AddressWp2, SqlDbType.VarChar);
             dp.AddParam("@IsKenaPajak", model.IsKenaPajak, SqlDbType.Bit);
+            dp.AddParam("@JenisIdentitasPajak", model.JenisIdentitasPajak, SqlDbType.VarChar);
+
             dp.AddParam("@IsSuspend", model.IsSuspend, SqlDbType.Bit);
             dp.AddParam("@Plafond", model.Plafond, SqlDbType.Decimal);
             dp.AddParam("@CreditBalance", model.CreditBalance, SqlDbType.Decimal);
@@ -96,6 +98,7 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
                 AddressWp = @AddressWp,
                 AddressWp2 = @AddressWp2,
                 IsKenaPajak = @IsKenaPajak,
+                JenisIdentitasPajak = @JenisIdentitasPajak,
                 IsSuspend = @IsSuspend,
                 Plafond = @Plafond,
                 CreditBalance = @CreditBalance
@@ -127,6 +130,8 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
             dp.AddParam("@AddressWp", model.AddressWp, SqlDbType.VarChar);
             dp.AddParam("@AddressWp2", model.AddressWp2, SqlDbType.VarChar);
             dp.AddParam("@IsKenaPajak", model.IsKenaPajak, SqlDbType.Bit);
+            dp.AddParam("@JenisIdentitasPajak", model.JenisIdentitasPajak, SqlDbType.VarChar);
+
             dp.AddParam("@IsSuspend", model.IsSuspend, SqlDbType.Bit);
             dp.AddParam("@Plafond", model.Plafond, SqlDbType.Decimal);
             dp.AddParam("@CreditBalance", model.CreditBalance, SqlDbType.Decimal);
@@ -161,8 +166,8 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
                 aa.CustomerId, aa.CustomerName, aa.CustomerCode, 
                 aa.WilayahId, aa.KlasifikasiId, aa.HargaTypeId, 
                 aa.Address1, aa.Address2, aa.Kota, aa.KodePos, aa.NoTelp, aa.NoFax, aa.Email, aa.Nitku,
-                aa.Npwp, aa.Nppkp, aa.NamaWp, aa.AddressWp, aa.AddressWp2, aa.IsKenaPajak, aa.IsSuspend, 
-                aa.Plafond, aa.CreditBalance, 
+                aa.Npwp, aa.Nppkp, aa.NamaWp, aa.AddressWp, aa.AddressWp2, aa.IsKenaPajak, aa.JenisIdentitasPajak,
+                aa.IsSuspend,  aa.Plafond, aa.CreditBalance, 
                 ISNULL(bb.WilayahName, '') AS WilayahName,
                 ISNULL(cc.KlasifikasiName, '') AS KlasifikasiName,
                 ISNULL(dd.HargaTypeName, '') AS HargaTypeName
@@ -190,8 +195,8 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
                     aa.CustomerId, aa.CustomerName, aa.CustomerCode, 
                     aa.WilayahId, aa.KlasifikasiId, aa.HargaTypeId, 
                     aa.Address1, aa.Address2, aa.Kota, aa.KodePos, aa.NoTelp, aa.NoFax, aa.Email, aa.Nitku,
-                    aa.Npwp, aa.Nppkp, aa.NamaWp, aa.AddressWp, aa.AddressWp2, aa.IsKenaPajak, aa.IsSuspend, 
-                    aa.Plafond, aa.CreditBalance, 
+                    aa.Npwp, aa.Nppkp, aa.NamaWp, aa.AddressWp, aa.AddressWp2, aa.IsKenaPajak, aa.JenisIdentitasPajak,
+                    aa.IsSuspend,  aa.Plafond, aa.CreditBalance, 
                     ISNULL(bb.WilayahName, '') AS WilayahName,
                     ISNULL(cc.KlasifikasiName, '') AS KlasifikasiName,
                     ISNULL(dd.HargaTypeName, '') AS HargaTypeName

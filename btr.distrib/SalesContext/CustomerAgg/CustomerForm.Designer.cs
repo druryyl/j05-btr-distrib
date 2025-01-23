@@ -46,6 +46,8 @@
             this.TipeHargaCombo = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label19 = new System.Windows.Forms.Label();
+            this.JenisIdentitasCombo = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
             this.NitkuText = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
@@ -300,6 +302,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BackColor = System.Drawing.Color.Cornsilk;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.label19);
+            this.panel3.Controls.Add(this.JenisIdentitasCombo);
             this.panel3.Controls.Add(this.label18);
             this.panel3.Controls.Add(this.NitkuText);
             this.panel3.Controls.Add(this.label17);
@@ -319,10 +323,31 @@
             this.panel3.Size = new System.Drawing.Size(228, 396);
             this.panel3.TabIndex = 54;
             // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(11, 229);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(110, 13);
+            this.label19.TabIndex = 34;
+            this.label19.Text = "Jenis Identitas Pajak";
+            // 
+            // JenisIdentitasCombo
+            // 
+            this.JenisIdentitasCombo.FormattingEnabled = true;
+            this.JenisIdentitasCombo.Items.AddRange(new object[] {
+            "TIN",
+            "Other ID",
+            "National ID"});
+            this.JenisIdentitasCombo.Location = new System.Drawing.Point(11, 246);
+            this.JenisIdentitasCombo.Name = "JenisIdentitasCombo";
+            this.JenisIdentitasCombo.Size = new System.Drawing.Size(205, 21);
+            this.JenisIdentitasCombo.TabIndex = 29;
+            // 
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(14, 300);
+            this.label18.Location = new System.Drawing.Point(11, 311);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(131, 13);
             this.label18.TabIndex = 31;
@@ -330,15 +355,15 @@
             // 
             // NitkuText
             // 
-            this.NitkuText.Location = new System.Drawing.Point(14, 316);
+            this.NitkuText.Location = new System.Drawing.Point(11, 327);
             this.NitkuText.Name = "NitkuText";
             this.NitkuText.Size = new System.Drawing.Size(205, 22);
-            this.NitkuText.TabIndex = 32;
+            this.NitkuText.TabIndex = 31;
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(14, 259);
+            this.label17.Location = new System.Drawing.Point(11, 270);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(34, 13);
             this.label17.TabIndex = 29;
@@ -346,7 +371,7 @@
             // 
             // EmailText
             // 
-            this.EmailText.Location = new System.Drawing.Point(14, 275);
+            this.EmailText.Location = new System.Drawing.Point(11, 286);
             this.EmailText.Name = "EmailText";
             this.EmailText.Size = new System.Drawing.Size(205, 22);
             this.EmailText.TabIndex = 30;
@@ -354,7 +379,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(14, 131);
+            this.label8.Location = new System.Drawing.Point(11, 116);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(56, 13);
             this.label8.TabIndex = 28;
@@ -362,7 +387,7 @@
             // 
             // NamaWpText
             // 
-            this.NamaWpText.Location = new System.Drawing.Point(14, 147);
+            this.NamaWpText.Location = new System.Drawing.Point(11, 132);
             this.NamaWpText.Name = "NamaWpText";
             this.NamaWpText.Size = new System.Drawing.Size(205, 22);
             this.NamaWpText.TabIndex = 26;
@@ -370,7 +395,7 @@
             // IsKenaPajakCheck
             // 
             this.IsKenaPajakCheck.AutoSize = true;
-            this.IsKenaPajakCheck.Location = new System.Drawing.Point(14, 24);
+            this.IsKenaPajakCheck.Location = new System.Drawing.Point(14, 9);
             this.IsKenaPajakCheck.Name = "IsKenaPajakCheck";
             this.IsKenaPajakCheck.Size = new System.Drawing.Size(81, 17);
             this.IsKenaPajakCheck.TabIndex = 23;
@@ -379,7 +404,7 @@
             // 
             // Alamat2WpText
             // 
-            this.Alamat2WpText.Location = new System.Drawing.Point(14, 216);
+            this.Alamat2WpText.Location = new System.Drawing.Point(11, 201);
             this.Alamat2WpText.Name = "Alamat2WpText";
             this.Alamat2WpText.Size = new System.Drawing.Size(205, 22);
             this.Alamat2WpText.TabIndex = 28;
@@ -387,7 +412,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(14, 172);
+            this.label9.Location = new System.Drawing.Point(11, 157);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(62, 13);
             this.label9.TabIndex = 13;
@@ -395,7 +420,7 @@
             // 
             // Alamat1WpText
             // 
-            this.Alamat1WpText.Location = new System.Drawing.Point(14, 188);
+            this.Alamat1WpText.Location = new System.Drawing.Point(11, 173);
             this.Alamat1WpText.Name = "Alamat1WpText";
             this.Alamat1WpText.Size = new System.Drawing.Size(205, 22);
             this.Alamat1WpText.TabIndex = 27;
@@ -403,7 +428,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(14, 91);
+            this.label10.Location = new System.Drawing.Point(11, 76);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(43, 13);
             this.label10.TabIndex = 11;
@@ -411,7 +436,7 @@
             // 
             // NppkpText
             // 
-            this.NppkpText.Location = new System.Drawing.Point(14, 107);
+            this.NppkpText.Location = new System.Drawing.Point(11, 92);
             this.NppkpText.Name = "NppkpText";
             this.NppkpText.Size = new System.Drawing.Size(205, 22);
             this.NppkpText.TabIndex = 25;
@@ -419,7 +444,7 @@
             // NpwpText
             // 
             this.NpwpText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NpwpText.Location = new System.Drawing.Point(14, 66);
+            this.NpwpText.Location = new System.Drawing.Point(11, 51);
             this.NpwpText.Name = "NpwpText";
             this.NpwpText.Size = new System.Drawing.Size(205, 22);
             this.NpwpText.TabIndex = 24;
@@ -427,11 +452,11 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(14, 50);
+            this.label11.Location = new System.Drawing.Point(11, 35);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(38, 13);
+            this.label11.Size = new System.Drawing.Size(65, 13);
             this.label11.TabIndex = 0;
-            this.label11.Text = "NPWP";
+            this.label11.Text = "NPWP / NIK";
             // 
             // panel1
             // 
@@ -763,5 +788,7 @@
         private System.Windows.Forms.TextBox NitkuText;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox EmailText;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.ComboBox JenisIdentitasCombo;
     }
 }

@@ -38,6 +38,7 @@ namespace btr.domain.SalesContext.CustomerAgg
         public string AddressWp2 { get;set;}
         public bool IsKenaPajak {get;set;}
 
+        public string JenisIdentitasPajak { get; set; }
         public bool IsSuspend {get;set;}
         public decimal Plafond {get;set;}
         public decimal CreditBalance { get; set; }
