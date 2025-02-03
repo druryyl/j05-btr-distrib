@@ -286,7 +286,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             else
                 FakturRollback(faktur, statusFaktur, user);
 
-            RefreshGrid();
+            //RefreshGrid();
         }
 
         private void FakturProses(IFakturKey fakturKey, StatusFakturEnum statusFaktur, IUserKey userKey)
@@ -429,12 +429,13 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                     return;
                 var row = FakturGrid.Rows[e.RowIndex];
                 var item = (FakturControlView)row.DataBoundItem;
+                if (item.Kembali)
+                    row.DefaultCellStyle.ForeColor = System.Drawing.Color.DarkRed;
+                else
+                    row.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
+                
                 if (item.Lunas)
-                {
                     row.DefaultCellStyle.BackColor = System.Drawing.Color.LemonChiffon;
-                    //row.DefaultCellStyle.ForeColor = System.Drawing.Color.DimGray;
-                    //row.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 8, System.Drawing.FontStyle.Italic);
-                }
             };
 
         }

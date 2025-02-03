@@ -42,14 +42,10 @@ namespace btr.domain.FinanceContext.FpKeluaranAgg
         public void CreateFrom(FakturModel faktur, CustomerModel customer)
         {
             const string JENIS_FAKTUR = "Normal";
-            //const string ID_PEMBELI_TIN = "TIN";
-            //const string ID_PEMBELI_OTHER = "Other ID";
             const string NEGARA_PEMBELI = "IDN";
             const string KODE_TRSANSAKSI = "04";
             const string ID_TKU_PENJUAL = "0128872306524000000000";
-            //const string NOMOR_DOKUMEN_PEMBELI_OTHER = "0000000000000000";
-
-            //var isNpwp = customer.Npwp != NOMOR_DOKUMEN_PEMBELI_OTHER;
+            const string NPWP_NATIONAL_ID= "0000000000000000";
 
             FakturId = faktur.FakturId;
             TanggalFaktur = faktur.FakturDate.Date;
@@ -60,7 +56,10 @@ namespace btr.domain.FinanceContext.FpKeluaranAgg
             Referensi = faktur.FakturCode;
             CapFasilitas = string.Empty;
             IdTkuPenjual = ID_TKU_PENJUAL;
-            NpwpNikPembeli = customer.Npwp;
+            NpwpNikPembeli = 
+                customer.JenisIdentitasPajak != "National ID" ?
+                    customer.Npwp :
+                    NPWP_NATIONAL_ID;
             JenisIdPembeli = customer.JenisIdentitasPajak;
             NegaraPembeli = NEGARA_PEMBELI;
             NomorDokumenPembeli = customer.Npwp;

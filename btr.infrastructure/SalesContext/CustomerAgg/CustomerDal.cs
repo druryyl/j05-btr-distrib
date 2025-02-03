@@ -30,7 +30,7 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
             VALUES (
                 @CustomerId, @CustomerName, @CustomerCode, @WilayahId, @KlasifikasiId, @HargaTypeId, 
                 @Address1, @Address2, @Kota, @KodePos, @NoTelp, @NoFax, @Email, @Nitku,
-                @Npwp, @Nppkp, @NamaWp, @AddressWp, @AddressWp2, @IsKenaPajak, JenisIdentitasPajak, 
+                @Npwp, @Nppkp, @NamaWp, @AddressWp, @AddressWp2, @IsKenaPajak, @JenisIdentitasPajak, 
                 @IsSuspend, @Plafond, @CreditBalance)";
 
             var dp = new DynamicParameters();

@@ -128,7 +128,7 @@ namespace btr.infrastructure.FinanceContext.PiutangAgg
                 SELECT
                     aa.PiutangId, aa.PiutangDate, aa.DueDate, aa.CustomerId, 
                     aa.Total, aa.Potongan, aa.Terbayar, aa.Sisa,
-                    ISNULL(bb.CustomerName, '') AS CustomerName
+                    ISNULL(bb.CustomerName,  '') AS CustomerName
                 FROM
                     BTR_Piutang aa
                     LEFT JOIN BTR_Customer bb ON aa.CustomerId = bb.CustomerId
@@ -158,12 +158,30 @@ namespace btr.infrastructure.FinanceContext.PiutangAgg
                 WHERE
                     PiutangId IN @listPiutangId";
 
-            var dp = new DynamicParameters();
-            dp.Add("@listPiutangId", filter.Select(x => x.PiutangId));
+            var result = new List<PiutangModel>();
+            var batchSize = 2000;
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
-                return conn.Read<PiutangModel>(sql, dp);
+                foreach (var batch in filter.Select(x => x.PiutangId).Chunk(batchSize))
+                {
+                    var dp = new DynamicParameters();
+                    dp.Add("@listPiutangId", batch);
+                    result.AddRange(conn.Read<PiutangModel>(sql, dp));
+                }
+            }
+            return result;
+        }
+    }
+
+    public static class EnumerableExtensions
+    {
+        public static IEnumerable<IEnumerable<T>> Chunk<T>(this IEnumerable<T> source, int chunkSize)
+        {
+            while (source.Any())
+            {
+                yield return source.Take(chunkSize);
+                source = source.Skip(chunkSize);
             }
         }
     }

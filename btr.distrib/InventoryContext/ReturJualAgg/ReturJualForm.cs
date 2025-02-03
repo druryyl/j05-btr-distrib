@@ -284,7 +284,8 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             {
                 returJual = _writer.Save(returJual);
                 
-                _genStokReturJualWorker.Execute(new GenStokReturJualRequest(returJual.ReturJualId));
+                if (returJual.JenisRetur == "BAGUS")
+                    _genStokReturJualWorker.Execute(new GenStokReturJualRequest(returJual.ReturJualId));
                 
                 trans.Complete();
             }

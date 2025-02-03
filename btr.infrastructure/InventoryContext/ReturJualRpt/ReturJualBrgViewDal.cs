@@ -23,7 +23,8 @@ namespace btr.infrastructure.InventoryContext.FakturInfoAgg
         {
             const string sql = @"
                 SELECT 
-                    aa.ReturJualId, aa.ReturJualDate, aa.JenisRetur,
+                    aa.ReturJualId, aa.ReturJualDate, aa.JenisRetur, 
+                    ISNULL(ii.SalesPersonName, '')SalesName,
                     ISNULL(cc.CustomerCode, '') AS CustomerCode,
                     ISNULL(cc.CustomerName, '') AS CustomerName,
                     ISNULL(cc.Address1, '') AS Address,
@@ -46,6 +47,7 @@ namespace btr.infrastructure.InventoryContext.FakturInfoAgg
                     LEFT JOIN BTR_Brg ff ON bb.BrgId = ff.BrgId
                     LEFT JOIN BTR_Kategori gg ON ff.KategoriId = gg.KategoriId
                     LEFT JOIN BTR_Supplier hh ON ff.SupplierId = hh.SupplierId
+                    LEFT JOIN BTR_SalesPerson ii ON aa.SalesPersonId = ii.SalesPersonId
                 WHERE
                     aa.ReturJualDate BETWEEN @Tgl1 AND @Tgl2 ";
 

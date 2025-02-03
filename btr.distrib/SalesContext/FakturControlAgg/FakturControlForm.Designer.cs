@@ -77,8 +77,9 @@
             // 
             // PrintFakturButton
             // 
-            this.PrintFakturButton.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.PrintFakturButton.BackColor = System.Drawing.Color.MistyRose;
             this.PrintFakturButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PrintFakturButton.ForeColor = System.Drawing.Color.DarkRed;
             this.PrintFakturButton.Location = new System.Drawing.Point(722, 7);
             this.PrintFakturButton.Name = "PrintFakturButton";
             this.PrintFakturButton.Size = new System.Drawing.Size(90, 23);

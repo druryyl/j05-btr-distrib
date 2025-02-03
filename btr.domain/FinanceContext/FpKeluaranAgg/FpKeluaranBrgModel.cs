@@ -29,7 +29,7 @@ namespace btr.domain.FinanceContext.FpKeluaranAgg
         public void CreateFrom(FakturItemModel item)
         {
             const string BRG_JASA = "A";
-            const string SATUAN_UKUR = "UM.0018";
+            const string SATUAN_UKUR = "UM.0021";
             const string KODE_BRG_JASA = "";
 
             FakturId = item.FakturId;
