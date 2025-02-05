@@ -32,6 +32,7 @@ namespace btr.domain.SalesContext.CustomerAgg
         public string Nitku { get; set; }
 
         public string Npwp {get;set;}
+        public string Nik { get; set; }
         public string Nppkp {get;set;}
         public string NamaWp { get; set; }
         public string AddressWp { get;set;}

@@ -33,7 +33,10 @@ namespace btr.application.SalesContext.CustomerAgg.Workers
         ICustomerBuilder Email(string email);
         ICustomerBuilder Nitku(string nitku);
         ICustomerBuilder IsKenaPajak(bool kenaPajak);
+        
         ICustomerBuilder Npwp(string npwp);
+        ICustomerBuilder Nik(string nik);
+
         ICustomerBuilder Nppkp(string nppkp);
         ICustomerBuilder NamaWp(string namaWp);
         ICustomerBuilder AddressWp(string address1, string address2);
@@ -213,6 +216,12 @@ namespace btr.application.SalesContext.CustomerAgg.Workers
         public ICustomerBuilder JenisIdentitasPajak(string jenisIdentitasPajak)
         {
             _aggRoot.JenisIdentitasPajak = jenisIdentitasPajak;
+            return this;
+        }
+
+        public ICustomerBuilder Nik(string nik)
+        {
+            _aggRoot.Nik = nik;
             return this;
         }
     }

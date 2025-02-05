@@ -563,6 +563,8 @@ namespace btr.distrib.SharedForm
             var stokHealthDto = stokHealthDal.ListData().First();
             decimal healthCount = stokHealthDto.StokBalanceCount - stokHealthDto.StokBalanceFailed;
             decimal allCount = stokHealthDto.StokBalanceCount;
+            if (allCount == 0)
+                return;
             decimal healthLevel = healthCount / allCount * 100;
 
             this.StokHealthIndicatorStatus.Text = $"Stock Health Indicator = {healthLevel:N2}%";

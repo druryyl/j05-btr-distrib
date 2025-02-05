@@ -88,6 +88,8 @@
             this.CustNameText = new System.Windows.Forms.TextBox();
             this.CustButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
+            this.NikText = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
             this.CustomerTab.SuspendLayout();
             this.ListPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CustGrid)).BeginInit();
@@ -175,6 +177,7 @@
             this.DetilPage.Controls.Add(this.panel3);
             this.DetilPage.Controls.Add(this.panel1);
             this.DetilPage.Controls.Add(this.panel2);
+            this.DetilPage.Controls.Add(this.IsKenaPajakCheck);
             this.DetilPage.Location = new System.Drawing.Point(4, 22);
             this.DetilPage.Name = "DetilPage";
             this.DetilPage.Padding = new System.Windows.Forms.Padding(3);
@@ -198,7 +201,7 @@
             this.SaveButton.Location = new System.Drawing.Point(629, 408);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
-            this.SaveButton.TabIndex = 29;
+            this.SaveButton.TabIndex = 32;
             this.SaveButton.Text = "Save";
             this.SaveButton.UseVisualStyleBackColor = true;
             // 
@@ -302,6 +305,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BackColor = System.Drawing.Color.Cornsilk;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.label20);
+            this.panel3.Controls.Add(this.NikText);
             this.panel3.Controls.Add(this.label19);
             this.panel3.Controls.Add(this.JenisIdentitasCombo);
             this.panel3.Controls.Add(this.label18);
@@ -310,7 +315,6 @@
             this.panel3.Controls.Add(this.EmailText);
             this.panel3.Controls.Add(this.label8);
             this.panel3.Controls.Add(this.NamaWpText);
-            this.panel3.Controls.Add(this.IsKenaPajakCheck);
             this.panel3.Controls.Add(this.Alamat2WpText);
             this.panel3.Controls.Add(this.label9);
             this.panel3.Controls.Add(this.Alamat1WpText);
@@ -326,7 +330,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(11, 229);
+            this.label19.Location = new System.Drawing.Point(11, 135);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(110, 13);
             this.label19.TabIndex = 34;
@@ -339,31 +343,31 @@
             "TIN",
             "Other ID",
             "National ID"});
-            this.JenisIdentitasCombo.Location = new System.Drawing.Point(11, 246);
+            this.JenisIdentitasCombo.Location = new System.Drawing.Point(11, 152);
             this.JenisIdentitasCombo.Name = "JenisIdentitasCombo";
             this.JenisIdentitasCombo.Size = new System.Drawing.Size(205, 21);
-            this.JenisIdentitasCombo.TabIndex = 29;
+            this.JenisIdentitasCombo.TabIndex = 26;
             // 
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(11, 311);
+            this.label18.Location = new System.Drawing.Point(11, 94);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(131, 13);
+            this.label18.Size = new System.Drawing.Size(119, 13);
             this.label18.TabIndex = 31;
-            this.label18.Text = "No Identitas TKU (NITKU)";
+            this.label18.Text = "NITKU (No. Induk TKU)";
             // 
             // NitkuText
             // 
-            this.NitkuText.Location = new System.Drawing.Point(11, 327);
+            this.NitkuText.Location = new System.Drawing.Point(11, 110);
             this.NitkuText.Name = "NitkuText";
             this.NitkuText.Size = new System.Drawing.Size(205, 22);
-            this.NitkuText.TabIndex = 31;
+            this.NitkuText.TabIndex = 25;
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(11, 270);
+            this.label17.Location = new System.Drawing.Point(8, 338);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(34, 13);
             this.label17.TabIndex = 29;
@@ -371,15 +375,15 @@
             // 
             // EmailText
             // 
-            this.EmailText.Location = new System.Drawing.Point(11, 286);
+            this.EmailText.Location = new System.Drawing.Point(8, 354);
             this.EmailText.Name = "EmailText";
             this.EmailText.Size = new System.Drawing.Size(205, 22);
-            this.EmailText.TabIndex = 30;
+            this.EmailText.TabIndex = 31;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(11, 116);
+            this.label8.Location = new System.Drawing.Point(8, 226);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(56, 13);
             this.label8.TabIndex = 28;
@@ -387,15 +391,15 @@
             // 
             // NamaWpText
             // 
-            this.NamaWpText.Location = new System.Drawing.Point(11, 132);
+            this.NamaWpText.Location = new System.Drawing.Point(8, 242);
             this.NamaWpText.Name = "NamaWpText";
             this.NamaWpText.Size = new System.Drawing.Size(205, 22);
-            this.NamaWpText.TabIndex = 26;
+            this.NamaWpText.TabIndex = 28;
             // 
             // IsKenaPajakCheck
             // 
             this.IsKenaPajakCheck.AutoSize = true;
-            this.IsKenaPajakCheck.Location = new System.Drawing.Point(14, 9);
+            this.IsKenaPajakCheck.Location = new System.Drawing.Point(474, 408);
             this.IsKenaPajakCheck.Name = "IsKenaPajakCheck";
             this.IsKenaPajakCheck.Size = new System.Drawing.Size(81, 17);
             this.IsKenaPajakCheck.TabIndex = 23;
@@ -404,15 +408,15 @@
             // 
             // Alamat2WpText
             // 
-            this.Alamat2WpText.Location = new System.Drawing.Point(11, 201);
+            this.Alamat2WpText.Location = new System.Drawing.Point(8, 311);
             this.Alamat2WpText.Name = "Alamat2WpText";
             this.Alamat2WpText.Size = new System.Drawing.Size(205, 22);
-            this.Alamat2WpText.TabIndex = 28;
+            this.Alamat2WpText.TabIndex = 30;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(11, 157);
+            this.label9.Location = new System.Drawing.Point(8, 267);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(62, 13);
             this.label9.TabIndex = 13;
@@ -420,43 +424,43 @@
             // 
             // Alamat1WpText
             // 
-            this.Alamat1WpText.Location = new System.Drawing.Point(11, 173);
+            this.Alamat1WpText.Location = new System.Drawing.Point(8, 283);
             this.Alamat1WpText.Name = "Alamat1WpText";
             this.Alamat1WpText.Size = new System.Drawing.Size(205, 22);
-            this.Alamat1WpText.TabIndex = 27;
+            this.Alamat1WpText.TabIndex = 29;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(11, 76);
+            this.label10.Location = new System.Drawing.Point(8, 186);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(43, 13);
+            this.label10.Size = new System.Drawing.Size(153, 13);
             this.label10.TabIndex = 11;
-            this.label10.Text = "NPP-KP";
+            this.label10.Text = "NPPKP (No.Pengukuhan PKP)";
             // 
             // NppkpText
             // 
-            this.NppkpText.Location = new System.Drawing.Point(11, 92);
+            this.NppkpText.Location = new System.Drawing.Point(8, 202);
             this.NppkpText.Name = "NppkpText";
             this.NppkpText.Size = new System.Drawing.Size(205, 22);
-            this.NppkpText.TabIndex = 25;
+            this.NppkpText.TabIndex = 27;
             // 
             // NpwpText
             // 
             this.NpwpText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NpwpText.Location = new System.Drawing.Point(11, 51);
+            this.NpwpText.Location = new System.Drawing.Point(11, 25);
             this.NpwpText.Name = "NpwpText";
             this.NpwpText.Size = new System.Drawing.Size(205, 22);
-            this.NpwpText.TabIndex = 24;
+            this.NpwpText.TabIndex = 23;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(11, 35);
+            this.label11.Location = new System.Drawing.Point(11, 9);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(65, 13);
+            this.label11.Size = new System.Drawing.Size(38, 13);
             this.label11.TabIndex = 0;
-            this.label11.Text = "NPWP / NIK";
+            this.label11.Text = "NPWP";
             // 
             // panel1
             // 
@@ -699,6 +703,23 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Customer ID";
             // 
+            // NikText
+            // 
+            this.NikText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NikText.Location = new System.Drawing.Point(11, 66);
+            this.NikText.Name = "NikText";
+            this.NikText.Size = new System.Drawing.Size(205, 22);
+            this.NikText.TabIndex = 24;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(11, 50);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(71, 13);
+            this.label20.TabIndex = 37;
+            this.label20.Text = "NIK (No. KTP)";
+            // 
             // CustomerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -714,6 +735,7 @@
             this.ListPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CustGrid)).EndInit();
             this.DetilPage.ResumeLayout(false);
+            this.DetilPage.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CreditBalanceText)).EndInit();
@@ -790,5 +812,7 @@
         private System.Windows.Forms.TextBox EmailText;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.ComboBox JenisIdentitasCombo;
+        private System.Windows.Forms.TextBox NikText;
+        private System.Windows.Forms.Label label20;
     }
 }

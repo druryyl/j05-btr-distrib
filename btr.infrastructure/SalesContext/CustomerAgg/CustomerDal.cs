@@ -25,12 +25,12 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
             INSERT INTO BTR_Customer(
                 CustomerId, CustomerName, CustomerCode, WilayahId, KlasifikasiId, HargaTypeId, 
                 Address1, Address2, Kota, KodePos, NoTelp, NoFax, Email, Nitku,
-                Npwp, Nppkp, NamaWp, AddressWp, AddressWp2, IsKenaPajak, JenisIdentitasPajak,
+                Npwp, Nik, Nppkp, NamaWp, AddressWp, AddressWp2, IsKenaPajak, JenisIdentitasPajak,
                 IsSuspend, Plafond, CreditBalance)
             VALUES (
                 @CustomerId, @CustomerName, @CustomerCode, @WilayahId, @KlasifikasiId, @HargaTypeId, 
                 @Address1, @Address2, @Kota, @KodePos, @NoTelp, @NoFax, @Email, @Nitku,
-                @Npwp, @Nppkp, @NamaWp, @AddressWp, @AddressWp2, @IsKenaPajak, @JenisIdentitasPajak, 
+                @Npwp, @Nik, @Nppkp, @NamaWp, @AddressWp, @AddressWp2, @IsKenaPajak, @JenisIdentitasPajak, 
                 @IsSuspend, @Plafond, @CreditBalance)";
 
             var dp = new DynamicParameters();
@@ -53,6 +53,7 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
             dp.AddParam("@Nitku", model.Nitku, SqlDbType.VarChar);
 
             dp.AddParam("@Npwp", model.Npwp, SqlDbType.VarChar);
+            dp.AddParam("@Nik", model.Nik, SqlDbType.VarChar);
             dp.AddParam("@Nppkp", model.Nppkp, SqlDbType.VarChar);
             dp.AddParam("@NamaWp", model.NamaWp, SqlDbType.VarChar);
             dp.AddParam("@AddressWp", model.AddressWp, SqlDbType.VarChar);
@@ -93,6 +94,7 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
                 Email = @Email,
                 Nitku = @Nitku,
                 Npwp = @Npwp,
+                Nik = @Nik,
                 Nppkp = @Nppkp,
                 NamaWp = @NamaWp,
                 AddressWp = @AddressWp,
@@ -125,6 +127,7 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
             dp.AddParam("@Nitku", model.Nitku, SqlDbType.VarChar);
 
             dp.AddParam("@Npwp", model.Npwp, SqlDbType.VarChar);
+            dp.AddParam("@Nik", model.Nik, SqlDbType.VarChar);
             dp.AddParam("@Nppkp", model.Nppkp, SqlDbType.VarChar);
             dp.AddParam("@NamaWp", model.NamaWp, SqlDbType.VarChar);
             dp.AddParam("@AddressWp", model.AddressWp, SqlDbType.VarChar);
@@ -166,7 +169,8 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
                 aa.CustomerId, aa.CustomerName, aa.CustomerCode, 
                 aa.WilayahId, aa.KlasifikasiId, aa.HargaTypeId, 
                 aa.Address1, aa.Address2, aa.Kota, aa.KodePos, aa.NoTelp, aa.NoFax, aa.Email, aa.Nitku,
-                aa.Npwp, aa.Nppkp, aa.NamaWp, aa.AddressWp, aa.AddressWp2, aa.IsKenaPajak, aa.JenisIdentitasPajak,
+                aa.Npwp, aa.Nik, aa.Nppkp, aa.NamaWp, aa.AddressWp, 
+                aa.AddressWp2, aa.IsKenaPajak, aa.JenisIdentitasPajak,
                 aa.IsSuspend,  aa.Plafond, aa.CreditBalance, 
                 ISNULL(bb.WilayahName, '') AS WilayahName,
                 ISNULL(cc.KlasifikasiName, '') AS KlasifikasiName,
@@ -195,7 +199,8 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
                     aa.CustomerId, aa.CustomerName, aa.CustomerCode, 
                     aa.WilayahId, aa.KlasifikasiId, aa.HargaTypeId, 
                     aa.Address1, aa.Address2, aa.Kota, aa.KodePos, aa.NoTelp, aa.NoFax, aa.Email, aa.Nitku,
-                    aa.Npwp, aa.Nppkp, aa.NamaWp, aa.AddressWp, aa.AddressWp2, aa.IsKenaPajak, aa.JenisIdentitasPajak,
+                    aa.Npwp, aa.Nik, aa.Nppkp, aa.NamaWp, aa.AddressWp, 
+                    aa.AddressWp2, aa.IsKenaPajak, aa.JenisIdentitasPajak,
                     aa.IsSuspend,  aa.Plafond, aa.CreditBalance, 
                     ISNULL(bb.WilayahName, '') AS WilayahName,
                     ISNULL(cc.KlasifikasiName, '') AS KlasifikasiName,

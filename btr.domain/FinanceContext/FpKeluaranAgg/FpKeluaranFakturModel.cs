@@ -45,7 +45,26 @@ namespace btr.domain.FinanceContext.FpKeluaranAgg
             const string NEGARA_PEMBELI = "IDN";
             const string KODE_TRSANSAKSI = "04";
             const string ID_TKU_PENJUAL = "0128872306524000000000";
-            const string NPWP_NATIONAL_ID= "0000000000000000";
+            const string DEFAULT_ID = "0000000000000000";
+
+            string npwp;
+            string noDokPembeli;
+
+            switch (customer.JenisIdentitasPajak)
+            {
+                case "TIN":
+                    npwp = customer.Npwp;
+                    noDokPembeli = customer.Npwp;
+                    break;
+                case "National ID":
+                    npwp = DEFAULT_ID;
+                    noDokPembeli = customer.Nik;
+                    break;
+                default:
+                    npwp = DEFAULT_ID;
+                    noDokPembeli = DEFAULT_ID;
+                    break;
+            }
 
             FakturId = faktur.FakturId;
             TanggalFaktur = faktur.FakturDate.Date;
@@ -56,13 +75,10 @@ namespace btr.domain.FinanceContext.FpKeluaranAgg
             Referensi = faktur.FakturCode;
             CapFasilitas = string.Empty;
             IdTkuPenjual = ID_TKU_PENJUAL;
-            NpwpNikPembeli = 
-                customer.JenisIdentitasPajak != "National ID" ?
-                    customer.Npwp :
-                    NPWP_NATIONAL_ID;
+            NpwpNikPembeli = npwp;
             JenisIdPembeli = customer.JenisIdentitasPajak;
             NegaraPembeli = NEGARA_PEMBELI;
-            NomorDokumenPembeli = customer.Npwp;
+            NomorDokumenPembeli = noDokPembeli;
             NamaPembeli = faktur.CustomerName;
             AlamatPembeli = faktur.Address;
             EmailPembeli = customer.Email;
