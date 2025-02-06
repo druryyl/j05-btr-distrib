@@ -80,9 +80,8 @@ namespace btr.distrib.SharedForm
             UserId = new UserModel(user);
             if (dbOpt.Value.ServerName == "JUDE7")
                 this.BackgroundImage = null;
+        }
 
-            GetStokHealthNow();
-         }
         private bool BringMdiChildToFrontIfLoaded<T>() where T : Form
         {
             var loadedForm = this.MdiChildren.OfType<T>().FirstOrDefault();
@@ -188,9 +187,6 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-
-
-
         private void PoButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<PurchaseOrderForm>())
@@ -211,7 +207,6 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-
         private void PM1SupplierButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<SupplierForm>())
@@ -221,7 +216,6 @@ namespace btr.distrib.SharedForm
             form.MdiParent = this;
             form.Show();
         }
-
 
         private void IM3KategoriButton_Click(object sender, EventArgs e)
         {if (BringMdiChildToFrontIfLoaded<KategoriForm>())
@@ -555,31 +549,6 @@ namespace btr.distrib.SharedForm
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
-        }
-
-        public void GetStokHealthNow()
-        {
-            var stokHealthDal = _servicesProvider.GetRequiredService<IStokBalanceHealthDal>();
-            var stokHealthDto = stokHealthDal.ListData().First();
-            decimal healthCount = stokHealthDto.StokBalanceCount - stokHealthDto.StokBalanceFailed;
-            decimal allCount = stokHealthDto.StokBalanceCount;
-            if (allCount == 0)
-                return;
-            decimal healthLevel = healthCount / allCount * 100;
-
-            this.StokHealthIndicatorStatus.Text = $"Stock Health Indicator = {healthLevel:N2}%";
-        }
-
-        private void StokHealthTimer_Tick(object sender, EventArgs e)
-        {
-            GetStokHealthNow();
-        }
-
-        private void repairStokToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var stokHealthDal = _servicesProvider.GetRequiredService<IStokBalanceHealthDal>();
-            stokHealthDal.RepairStokHealth();
-            GetStokHealthNow();
         }
 
         private void FT3FpKeluaranButton_Click(object sender, EventArgs e)

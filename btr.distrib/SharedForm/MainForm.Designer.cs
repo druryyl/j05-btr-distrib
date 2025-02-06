@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.ribbon1 = new System.Windows.Forms.Ribbon();
             this.SalesTab = new System.Windows.Forms.RibbonTab();
@@ -99,10 +98,7 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.StokHealthIndicatorStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.repairStokToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.StokHealthTimer = new System.Windows.Forms.Timer(this.components);
+            this.ImportOpnameButton = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -686,6 +682,7 @@
             // ReceivingPanel
             // 
             this.ReceivingPanel.Items.Add(this.AboutButton);
+            this.ReceivingPanel.Items.Add(this.ImportOpnameButton);
             this.ReceivingPanel.Name = "ReceivingPanel";
             this.ReceivingPanel.Text = "";
             // 
@@ -702,9 +699,7 @@
             // 
             this.AppStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.LoginStatus,
-            this.ServerDbStatus,
-            this.StokHealthIndicatorStatus,
-            this.toolStripDropDownButton1});
+            this.ServerDbStatus});
             this.AppStatus.Location = new System.Drawing.Point(0, 428);
             this.AppStatus.Name = "AppStatus";
             this.AppStatus.Size = new System.Drawing.Size(1139, 22);
@@ -723,35 +718,14 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
-            // StokHealthIndicatorStatus
+            // ImportOpnameButton
             // 
-            this.StokHealthIndicatorStatus.Name = "StokHealthIndicatorStatus";
-            this.StokHealthIndicatorStatus.Size = new System.Drawing.Size(161, 17);
-            this.StokHealthIndicatorStatus.Text = "Stock Health Indicator : 100%";
-            // 
-            // toolStripDropDownButton1
-            // 
-            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.repairStokToolStripMenuItem});
-            this.toolStripDropDownButton1.Image = global::btr.distrib.Properties.Resources.icons8_documents_16;
-            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 20);
-            this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
-            // 
-            // repairStokToolStripMenuItem
-            // 
-            this.repairStokToolStripMenuItem.Name = "repairStokToolStripMenuItem";
-            this.repairStokToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-            this.repairStokToolStripMenuItem.Text = "Repair Stok";
-            this.repairStokToolStripMenuItem.Click += new System.EventHandler(this.repairStokToolStripMenuItem_Click);
-            // 
-            // StokHealthTimer
-            // 
-            this.StokHealthTimer.Enabled = true;
-            this.StokHealthTimer.Interval = 900000;
-            this.StokHealthTimer.Tick += new System.EventHandler(this.StokHealthTimer_Tick);
+            this.ImportOpnameButton.Image = ((System.Drawing.Image)(resources.GetObject("ImportOpnameButton.Image")));
+            this.ImportOpnameButton.LargeImage = ((System.Drawing.Image)(resources.GetObject("ImportOpnameButton.LargeImage")));
+            this.ImportOpnameButton.Name = "ImportOpnameButton";
+            this.ImportOpnameButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ImportOpnameButton.SmallImage")));
+            this.ImportOpnameButton.Text = "Import Opname";
+            this.ImportOpnameButton.Click += new System.EventHandler(this.ImportExcelOpnameButton_Click);
             // 
             // MainForm
             // 
@@ -847,12 +821,9 @@
         private System.Windows.Forms.RibbonButton RT2PostingRetur;
         private System.Windows.Forms.RibbonButton SF8DriverFaktur;
         private System.Windows.Forms.RibbonButton DriverButton;
-        private System.Windows.Forms.ToolStripStatusLabel StokHealthIndicatorStatus;
-        private System.Windows.Forms.Timer StokHealthTimer;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
-        private System.Windows.Forms.ToolStripMenuItem repairStokToolStripMenuItem;
         private System.Windows.Forms.RibbonButton FT3FpKeluaranButton;
         private System.Windows.Forms.RibbonButton IF5StokPeriodikButton;
         private System.Windows.Forms.RibbonButton PT2PostingStok;
+        private System.Windows.Forms.RibbonButton ImportOpnameButton;
     }
 }

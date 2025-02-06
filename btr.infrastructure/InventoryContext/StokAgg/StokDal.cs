@@ -138,8 +138,7 @@ namespace btr.infrastructure.InventoryContext.StokAgg
                 LEFT JOIN BTR_Warehouse cc on aa.WarehouseId = cc.WarehouseId
             WHERE
                 aa.BrgId = @BrgId
-                AND aa.WarehouseId = @WarehouseId
-                AND aa.Qty > 0";
+                AND aa.WarehouseId = @WarehouseId";
 
             var dp = new DynamicParameters();
             dp.AddParam("@BrgId", brg.BrgId, SqlDbType.VarChar);

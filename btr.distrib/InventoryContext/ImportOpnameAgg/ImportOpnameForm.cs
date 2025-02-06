@@ -1,12 +1,18 @@
 ﻿using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.ImportOpnameAgg.Contracts;
 using btr.application.InventoryContext.OpnameAgg;
+using btr.application.InventoryContext.StokAgg;
 using btr.application.InventoryContext.StokAgg.GenStokUseCase;
 using btr.application.InventoryContext.StokBalanceAgg;
+using btr.distrib.Helpers;
+using btr.distrib.SharedForm;
+using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.ImportOpnameAgg;
 using btr.domain.InventoryContext.OpnameAgg;
+using btr.domain.InventoryContext.StokAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SupportContext.UserAgg;
+using btr.infrastructure.InventoryContext.OpnameAgg;
 using btr.nuna.Application;
 using ClosedXML.Excel;
 using System;
@@ -24,13 +30,17 @@ namespace btr.distrib.InventoryContext.ImportOpnameAgg
 {
     public partial class ImportOpnameForm : Form
     {
-        private readonly IImportOpnameDal _importOpnameDal;
         private readonly IBrgDal _brgDal;
+        private readonly IBrgSatuanDal _brgSatuanDal;
+        private readonly IStokDal _stokDal;
         private readonly IOpnameBuilder _opnameBuilder;
         private readonly IStokBalanceBuilder _stokBalanceBuilder;
         private readonly IOpnameWriter _opnameWriter;
         private readonly IAddStokWorker _addStokWorker;
         private readonly IRemoveFifoStokWorker _removeFifoStokWorker;
+
+        private readonly BindingList<OpnameItemDto> _listOpnameItem;
+        private readonly BindingSource _bindingSource;
 
         public ImportOpnameForm(IImportOpnameDal importOpnameDal,
             IBrgDal brgDal,
@@ -38,19 +48,71 @@ namespace btr.distrib.InventoryContext.ImportOpnameAgg
             IStokBalanceBuilder stokBalanceBuilder,
             IOpnameWriter opnameWriter,
             IAddStokWorker addStokWorker,
-            IRemoveFifoStokWorker removeFifoStokWorker)
+            IRemoveFifoStokWorker removeFifoStokWorker,
+            IBrgSatuanDal brgSatuanDal,
+            IStokDal stokDal)
         {
             InitializeComponent();
-            _importOpnameDal = importOpnameDal;
+
             _brgDal = brgDal;
             _opnameBuilder = opnameBuilder;
             _stokBalanceBuilder = stokBalanceBuilder;
             _opnameWriter = opnameWriter;
             _addStokWorker = addStokWorker;
             _removeFifoStokWorker = removeFifoStokWorker;
+            _brgSatuanDal = brgSatuanDal;
+            _stokDal = stokDal;
+
+            _listOpnameItem = new BindingList<OpnameItemDto>();
+            _bindingSource = new BindingSource
+            {
+                DataSource = _listOpnameItem
+            };
+
+            RegisterControlHandler();
+            InitGrid();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void InitGrid()
+        {
+            OpnameItemGrid.DataSource = _bindingSource;
+            OpnameItemGrid.Columns["QtyBesar"].DefaultCellStyle.Format = "N0";
+            OpnameItemGrid.Columns["QtyBesar"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            OpnameItemGrid.Columns["QtyKecil"].DefaultCellStyle.Format = "N0";
+            OpnameItemGrid.Columns["QtyKecil"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            OpnameItemGrid.Columns["BrgCode"].Width = 80;
+            OpnameItemGrid.Columns["BrgName"].Width = 240;
+            OpnameItemGrid.Columns["QtyBesar"].Width = 50;
+            OpnameItemGrid.Columns["QtyKecil"].Width = 50;
+            OpnameItemGrid.Columns["WarehouseId"].Width = 50;
+        }
+
+        private void OpnameItemGrid_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            var grid = sender as DataGridView;
+            var isProses = (bool)grid.Rows[e.RowIndex].Cells["IsProses"].Value;
+
+            if (isProses)
+            {
+                grid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Gray;
+            }
+            else
+            {
+                grid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
+            }
+        }
+
+        private void RegisterControlHandler()
+        {
+            ExcelButton.Click += ExcelButton_Click;
+            ProsesButton.Click += ProsesButton_Click;
+            OpnameItemGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
+            OpnameItemGrid.RowPrePaint += OpnameItemGrid_RowPrePaint;
+        }
+
+        private void ExcelButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.InitialDirectory = "C:\\";
@@ -58,72 +120,97 @@ namespace btr.distrib.InventoryContext.ImportOpnameAgg
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 textBox1.Text = openFileDialog.FileName;
+                LoadGrid(textBox1.Text);
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void LoadGrid(string excelFileName)
         {
-            LoadExcel();
-            AdjustStok();
-            MessageBox.Show("Done");
-        }
-
-        private void LoadExcel()
-        {
-            var list = new List<ImportOpnameModel>();
-            using (XLWorkbook workbook = new XLWorkbook(textBox1.Text))
+            _listOpnameItem.Clear();
+            using (XLWorkbook workbook = new XLWorkbook(excelFileName))
             {
                 IXLWorksheet worksheet = workbook.Worksheet(1);
                 foreach (IXLRow row in worksheet.Rows())
                 {
                     if (row.RowNumber() == 1)
                         continue;
-                    var newItem = new ImportOpnameModel
-                    {
-                        WarehouseId = row.Cell(1).Value.ToString(),
-                        BrgCode = row.Cell(2).Value.ToString()
-                    };
-                    _ = int.TryParse(row.Cell(3).Value.ToString(), out int qty);
-                    newItem.Qty = qty;
 
-                    list.Add(newItem);
+                    var brgCode = row.Cell(1).Value.ToString();
+                    var brgName = row.Cell(2).Value.ToString();
+                    var qBesar = int.TryParse(row.Cell(3).Value.ToString(), out int qtyBesar) ? qtyBesar : 0;
+                    var qKecil = int.TryParse(row.Cell(4).Value.ToString(), out int qtyKecil) ? qtyKecil : 0;
+                    var warehouseId = row.Cell(5).Value.ToString();
+
+                    var newItem = new OpnameItemDto(brgCode, brgName, qBesar, qKecil, warehouseId);
+
+                    _listOpnameItem.Add(newItem);
                 }
             }
-            _importOpnameDal.Delete();
-            _importOpnameDal.Insert(list);
+        }
+
+        private void ProsesButton_Click(object sender, EventArgs e)
+        {
+            AdjustStok();
+            MessageBox.Show("Done");
         }
 
         private void AdjustStok()
         {
-            var listImport = _importOpnameDal.ListData()?.ToList() ?? new List<ImportOpnameModel> ();
+            var listSatuan = _brgSatuanDal?.ListData()?? new List<BrgSatuanModel>();
+            var listBrg = _brgDal.ListData();
+            var mainForm = (MainForm)this.Parent.Parent;
             using (var trans = TransHelper.NewScope())
             {
                 PrgBar.Value = 0;
-                PrgBar.Maximum = listImport.Count();
+                PrgBar.Maximum = _listOpnameItem.Count();
 
-                foreach (var item in listImport)
+                foreach (var item in _listOpnameItem)
                 {
                     PrgBar.Value++;
-                    if (item.Qty <= 0)
-                        continue;
+                    var brg = listBrg.FirstOrDefault(x => x.BrgCode == item.BrgCode)
+                        ?? throw new KeyNotFoundException($"BrgCode invalid: {item.BrgCode}");
 
-                    var brg = _brgDal.GetData(item.BrgCode);
-                    if (brg is null)
-                        continue;
+                    //  cari qty inPcs hasil opname
+                    int inPcsOpname = 0;
+                    if (item.QtyBesar > 0)
+                    {
+                        var conversion = listSatuan
+                            .Where(x => x.BrgId == brg.BrgId)
+                            .FirstOrDefault(x => x.Conversion > 1)
+                            ?.Conversion
+                            ?? throw new KeyNotFoundException($"BrgCode {item.BrgCode} tidak punya satuan besar");
+                        inPcsOpname = item.QtyBesar * conversion;
+                    }
+                    inPcsOpname += item.QtyKecil;
 
-                    var stokBalance = _stokBalanceBuilder.Load(brg).Build();
-                    var stokAwal = stokBalance.ListWarehouse.First(x => x.WarehouseId == item.WarehouseId).Qty;
+                    //  cari qtyStok saat ini
+                    var listStok = _stokDal.ListData(brg, new WarehouseModel(item.WarehouseId))
+                        ?.ToList() ?? new List<StokModel>();
+                    var inPcsStok = listStok.Sum(x => x.Qty);
+
+                    //  cari qty adjust
+                    var qtyAdjust = inPcsOpname - inPcsStok;
+
+                    //  tidak ada adjustment, skip next item
+                    if (qtyAdjust == 0)
+                    {
+                        item.Proses();
+                        continue;
+                    }
+
                     var opname = _opnameBuilder
                         .Create()
                         .Brg(brg)
                         .Warehouse(new WarehouseModel(item.WarehouseId))
-                        .User(new UserModel("jude7"))
-                        .QtyAwal(0, stokAwal)
-                        .QtyOpname(0, item.Qty)
+                        .User(mainForm.UserId)
+                        .QtyAwal(0, inPcsStok)
+                        .QtyOpname(0, inPcsOpname)
                         .Nilai(brg.Hpp)
                         .Build();
                     _opnameWriter.Save(ref opname);
                     GenStok(opname);
+
+                    item.Proses();
                 }
 
                 trans.Complete();
@@ -146,5 +233,24 @@ namespace btr.distrib.InventoryContext.ImportOpnameAgg
                 _removeFifoStokWorker.Execute(req);
             }
         }
+    }
+
+    public class OpnameItemDto
+    {
+        public OpnameItemDto(string code, string name, int qbesar, int qkecil, string wh)
+        {
+            BrgCode = code;
+            BrgName = name;
+            QtyBesar = qbesar;
+            QtyKecil = qkecil;
+            WarehouseId = wh;
+        }
+        public string BrgCode { get; private set; }
+        public string BrgName { get; private set; }
+        public int QtyBesar { get; private set; }
+        public int QtyKecil { get; private set; }
+        public string WarehouseId { get; private set; }
+        public bool IsProses { get;  private set; }
+        public void Proses() => IsProses = true;
     }
 }
