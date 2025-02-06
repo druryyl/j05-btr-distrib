@@ -150,6 +150,9 @@ namespace btr.distrib.InventoryContext.ImportOpnameAgg
 
         private void ProsesButton_Click(object sender, EventArgs e)
         {
+            if (MessageBox.Show("Proses Adjustment Stok Opname?", "Opname", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
+                return;
+
             AdjustStok();
             MessageBox.Show("Done");
         }
