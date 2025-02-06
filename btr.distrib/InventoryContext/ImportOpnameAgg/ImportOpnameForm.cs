@@ -108,8 +108,64 @@ namespace btr.distrib.InventoryContext.ImportOpnameAgg
         {
             ExcelButton.Click += ExcelButton_Click;
             ProsesButton.Click += ProsesButton_Click;
+
+            ExportGagalButton.Click += ExportGagalButton_Click;
+
             OpnameItemGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
             OpnameItemGrid.RowPrePaint += OpnameItemGrid_RowPrePaint;
+        }
+
+        private void ExportGagalButton_Click(object sender, EventArgs e)
+        {
+            ExportFailedRowsToExcel();
+        }
+
+        private void ExportFailedRowsToExcel()
+        {
+            var failedItems = _listOpnameItem.Where(item => !item.IsProses).ToList();
+            if (failedItems.Count == 0)
+            {
+                MessageBox.Show("No failed items to export.");
+                return;
+            }
+
+            string filePath;
+            using (var saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "Excel Files|*.xlsx";
+                saveFileDialog.Title = "Save Excel File";
+                saveFileDialog.DefaultExt = "xlsx";
+                saveFileDialog.AddExtension = true;
+                saveFileDialog.FileName = $"failed-{DateTime.Now:yyyy-MM-dd-HHmm}.xlsx";
+                if (saveFileDialog.ShowDialog() != DialogResult.OK)
+                    return;
+                filePath = saveFileDialog.FileName;
+            }
+
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Failed Items");
+                worksheet.Cell(1, 1).Value = "BrgCode";
+                worksheet.Cell(1, 2).Value = "BrgName";
+                worksheet.Cell(1, 3).Value = "QtyBesar";
+                worksheet.Cell(1, 4).Value = "QtyKecil";
+                worksheet.Cell(1, 5).Value = "WarehouseId";
+
+                for (int i = 0; i < failedItems.Count; i++)
+                {
+                    var item = failedItems[i];
+                    worksheet.Cell(i + 2, 1).Value = item.BrgCode;
+                    worksheet.Cell(i + 2, 2).Value = item.BrgName;
+                    worksheet.Cell(i + 2, 3).Value = item.QtyBesar;
+                    worksheet.Cell(i + 2, 4).Value = item.QtyKecil;
+                    worksheet.Cell(i + 2, 5).Value = item.WarehouseId;
+                }
+
+                worksheet.Columns().AdjustToContents();
+                workbook.SaveAs(filePath);
+            }
+
+            MessageBox.Show($"Failed items exported to {filePath}");
         }
 
         private void ExcelButton_Click(object sender, EventArgs e)
@@ -170,8 +226,15 @@ namespace btr.distrib.InventoryContext.ImportOpnameAgg
                 foreach (var item in _listOpnameItem)
                 {
                     PrgBar.Value++;
-                    var brg = listBrg.FirstOrDefault(x => x.BrgCode == item.BrgCode)
-                        ?? throw new KeyNotFoundException($"BrgCode invalid: {item.BrgCode}");
+                    //  cari by code. jika ga ketemu coba cari by name
+                    var brg = listBrg.FirstOrDefault(x => x.BrgCode == item.BrgCode);
+                    if (brg is null)
+                    {
+                        brg = listBrg.FirstOrDefault(x => x.BrgName == item.BrgName);
+                        if (brg is null)
+                            continue;
+                    }
+
 
                     //  cari qty inPcs hasil opname
                     int inPcsOpname = 0;

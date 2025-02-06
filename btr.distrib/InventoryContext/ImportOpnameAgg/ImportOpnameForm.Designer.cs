@@ -34,6 +34,8 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.PrgBar = new System.Windows.Forms.ProgressBar();
             this.OpnameItemGrid = new System.Windows.Forms.DataGridView();
+            this.ExportGagalButton = new System.Windows.Forms.Button();
+            this.ExportBerhasilButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OpnameItemGrid)).BeginInit();
             this.SuspendLayout();
@@ -44,6 +46,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.Silver;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.ExportBerhasilButton);
+            this.panel1.Controls.Add(this.ExportGagalButton);
             this.panel1.Controls.Add(this.ProsesButton);
             this.panel1.Controls.Add(this.ExcelButton);
             this.panel1.Controls.Add(this.textBox1);
@@ -57,7 +61,7 @@
             this.ProsesButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ProsesButton.BackColor = System.Drawing.Color.Gainsboro;
             this.ProsesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ProsesButton.Location = new System.Drawing.Point(483, 35);
+            this.ProsesButton.Location = new System.Drawing.Point(6, 34);
             this.ProsesButton.Name = "ProsesButton";
             this.ProsesButton.Size = new System.Drawing.Size(89, 23);
             this.ProsesButton.TabIndex = 2;
@@ -106,6 +110,30 @@
             this.OpnameItemGrid.Size = new System.Drawing.Size(579, 414);
             this.OpnameItemGrid.TabIndex = 4;
             // 
+            // ExportGagalButton
+            // 
+            this.ExportGagalButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ExportGagalButton.BackColor = System.Drawing.Color.Gainsboro;
+            this.ExportGagalButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ExportGagalButton.Location = new System.Drawing.Point(101, 34);
+            this.ExportGagalButton.Name = "ExportGagalButton";
+            this.ExportGagalButton.Size = new System.Drawing.Size(89, 23);
+            this.ExportGagalButton.TabIndex = 3;
+            this.ExportGagalButton.Text = "Export Gagal";
+            this.ExportGagalButton.UseVisualStyleBackColor = false;
+            // 
+            // ExportBerhasilButton
+            // 
+            this.ExportBerhasilButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ExportBerhasilButton.BackColor = System.Drawing.Color.Gainsboro;
+            this.ExportBerhasilButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ExportBerhasilButton.Location = new System.Drawing.Point(196, 34);
+            this.ExportBerhasilButton.Name = "ExportBerhasilButton";
+            this.ExportBerhasilButton.Size = new System.Drawing.Size(89, 23);
+            this.ExportBerhasilButton.TabIndex = 4;
+            this.ExportBerhasilButton.Text = "Excel Berhasil";
+            this.ExportBerhasilButton.UseVisualStyleBackColor = false;
+            // 
             // ImportOpnameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -133,5 +161,7 @@
         private System.Windows.Forms.ProgressBar PrgBar;
         private System.Windows.Forms.DataGridView OpnameItemGrid;
         private System.Windows.Forms.Button ProsesButton;
+        private System.Windows.Forms.Button ExportBerhasilButton;
+        private System.Windows.Forms.Button ExportGagalButton;
     }
 }
