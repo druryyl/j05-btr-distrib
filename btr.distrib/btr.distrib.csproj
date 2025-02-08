@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>220</ApplicationRevision>
+    <ApplicationRevision>224</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -608,6 +608,12 @@
       <DependentUpon>FakturPrintOutForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SalesContext\FakturAgg\FakturPrintOutItemDto.cs" />
+    <Compile Include="SalesContext\FakturAgg\RdlcViewerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SalesContext\FakturAgg\RdlcViewerForm.Designer.cs">
+      <DependentUpon>RdlcViewerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SalesContext\FakturCashRpt\FakturCashInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -852,6 +858,9 @@
     <EmbeddedResource Include="SalesContext\FakturAgg\FakturPrintOut.rdlc" />
     <EmbeddedResource Include="SalesContext\FakturAgg\FakturPrintOutForm.resx">
       <DependentUpon>FakturPrintOutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SalesContext\FakturAgg\RdlcViewerForm.resx">
+      <DependentUpon>RdlcViewerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SalesContext\FakturCashRpt\FakturCashInfoForm.resx">
       <DependentUpon>FakturCashInfoForm.cs</DependentUpon>

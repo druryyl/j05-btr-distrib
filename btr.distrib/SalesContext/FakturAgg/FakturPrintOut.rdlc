@@ -6,40 +6,40 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>0.28125in</Width>
+              <Width>0.27523in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.6875in</Width>
+              <Width>0.69121in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.63542in</Width>
+              <Width>1.64503in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.48958in</Width>
+              <Width>0.48356in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.73959in</Width>
+              <Width>0.73357in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.59375in</Width>
+              <Width>0.65995in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.58334in</Width>
+              <Width>0.57732in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.42708in</Width>
+              <Width>0.42106in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.4375in</Width>
+              <Width>0.43148in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.44792in</Width>
+              <Width>0.4419in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.39583in</Width>
+              <Width>0.37175in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.9625in</Width>
+              <Width>0.94919in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -57,7 +57,7 @@
                             <TextRun>
                               <Value>No</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -69,7 +69,9 @@
                       <rd:DefaultName>Textbox22</rd:DefaultName>
                       <Style>
                         <Border>
+                          <Color>DimGray</Color>
                           <Style>Solid</Style>
+                          <Width>0.5pt</Width>
                         </Border>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
@@ -91,19 +93,23 @@
                             <TextRun>
                               <Value>Kode</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox24</rd:DefaultName>
                       <Style>
                         <Border>
+                          <Color>DimGray</Color>
                           <Style>Solid</Style>
+                          <Width>0.5pt</Width>
                         </Border>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
@@ -125,19 +131,23 @@
                             <TextRun>
                               <Value>Nama Barang</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox26</rd:DefaultName>
                       <Style>
                         <Border>
+                          <Color>DimGray</Color>
                           <Style>Solid</Style>
+                          <Width>0.5pt</Width>
                         </Border>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
@@ -159,7 +169,7 @@
                             <TextRun>
                               <Value>Kwantitas</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -173,7 +183,9 @@
                       <rd:DefaultName>Textbox30</rd:DefaultName>
                       <Style>
                         <Border>
+                          <Color>DimGray</Color>
                           <Style>Solid</Style>
+                          <Width>0.5pt</Width>
                         </Border>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
@@ -197,7 +209,7 @@
                             <TextRun>
                               <Value>@Harga</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -211,7 +223,9 @@
                       <rd:DefaultName>Textbox34</rd:DefaultName>
                       <Style>
                         <Border>
+                          <Color>DimGray</Color>
                           <Style>Solid</Style>
+                          <Width>0.5pt</Width>
                         </Border>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
@@ -235,7 +249,7 @@
                             <TextRun>
                               <Value>Discount</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -249,7 +263,9 @@
                       <rd:DefaultName>Textbox38</rd:DefaultName>
                       <Style>
                         <Border>
+                          <Color>DimGray</Color>
                           <Style>Solid</Style>
+                          <Width>0.5pt</Width>
                         </Border>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
@@ -275,7 +291,7 @@
                             <TextRun>
                               <Value>Total</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -289,7 +305,9 @@
                       <rd:DefaultName>Textbox46</rd:DefaultName>
                       <Style>
                         <Border>
+                          <Color>DimGray</Color>
                           <Style>Solid</Style>
+                          <Width>0.5pt</Width>
                         </Border>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
@@ -316,7 +334,7 @@
                             <TextRun>
                               <Value>=Fields!NoUrut.Value</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
@@ -337,6 +355,14 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
+                        <LeftBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -357,7 +383,7 @@
                             <TextRun>
                               <Value>=Fields!BrgCode.Value</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
@@ -376,6 +402,14 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
+                        <LeftBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -396,7 +430,7 @@
                             <TextRun>
                               <Value>=Fields!BrgName.Value</Value>
                               <Style>
-                                <FontFamily>Arial Narrow</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
@@ -415,6 +449,14 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
+                        <LeftBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -456,6 +498,14 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
+                        <LeftBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -476,7 +526,7 @@
                             <TextRun>
                               <Value>=Fields!QtyKecil.Value</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
@@ -497,6 +547,14 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
+                        <LeftBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -517,7 +575,7 @@
                             <TextRun>
                               <Value>=Fields!HrgBesar.Value</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
@@ -538,6 +596,14 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
+                        <LeftBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -558,7 +624,7 @@
                             <TextRun>
                               <Value>=Fields!HrgKecil.Value</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
@@ -579,6 +645,14 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
+                        <LeftBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -599,7 +673,7 @@
                             <TextRun>
                               <Value>=Fields!Disc1.Value</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
@@ -620,6 +694,14 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
+                        <LeftBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -640,7 +722,7 @@
                             <TextRun>
                               <Value>=Fields!Disc2.Value</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
@@ -661,6 +743,14 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
+                        <LeftBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -681,7 +771,7 @@
                             <TextRun>
                               <Value>=Fields!Disc3.Value</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
@@ -702,6 +792,14 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
+                        <LeftBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -722,7 +820,7 @@
                             <TextRun>
                               <Value>=Fields!Disc4.Value</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
@@ -743,6 +841,14 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
+                        <LeftBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -784,6 +890,14 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
+                        <LeftBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -827,7 +941,7 @@
         <Top>0.89724in</Top>
         <Left>0.03125in</Left>
         <Height>0.38in</Height>
-        <Width>7.68126in</Width>
+        <Width>7.68125in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -853,29 +967,28 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>1.32224in</Top>
-        <Left>5.525in</Left>
+        <Top>1.28474in</Top>
+        <Left>5.52467in</Left>
         <Height>0.19445in</Height>
-        <Width>1.2375in</Width>
+        <Width>1.23864in</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
             <Style>Solid</Style>
           </Border>
           <TopBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Style>None</Style>
           </TopBorder>
           <BottomBorder>
             <Style>None</Style>
           </BottomBorder>
           <LeftBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </LeftBorder>
           <RightBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -903,10 +1016,10 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>1.51669in</Top>
-        <Left>5.525in</Left>
+        <Top>1.47919in</Top>
+        <Left>5.52467in</Left>
         <Height>0.19445in</Height>
-        <Width>1.2375in</Width>
+        <Width>1.23864in</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
@@ -919,12 +1032,12 @@
             <Style>None</Style>
           </BottomBorder>
           <LeftBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </LeftBorder>
           <RightBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -952,10 +1065,10 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>1.90559in</Top>
-        <Left>5.525in</Left>
+        <Top>1.86809in</Top>
+        <Left>5.52467in</Left>
         <Height>0.19445in</Height>
-        <Width>1.2375in</Width>
+        <Width>1.23864in</Width>
         <ZIndex>3</ZIndex>
         <Style>
           <Border>
@@ -968,12 +1081,12 @@
             <Style>None</Style>
           </BottomBorder>
           <LeftBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </LeftBorder>
           <RightBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -1001,15 +1114,30 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>2.29449in</Top>
-        <Left>5.525in</Left>
+        <Top>2.25699in</Top>
+        <Left>5.52467in</Left>
         <Height>0.19445in</Height>
-        <Width>1.2375in</Width>
+        <Width>1.23864in</Width>
         <ZIndex>4</ZIndex>
         <Style>
           <Border>
             <Style>Solid</Style>
           </Border>
+          <TopBorder>
+            <Style>None</Style>
+          </TopBorder>
+          <BottomBorder>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
+          </BottomBorder>
+          <LeftBorder>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
+          </LeftBorder>
+          <RightBorder>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
+          </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
@@ -1035,29 +1163,28 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>1.32224in</Top>
-        <Left>6.75625in</Left>
+        <Top>1.28474in</Top>
+        <Left>6.76331in</Left>
         <Height>0.19445in</Height>
-        <Width>0.95625in</Width>
+        <Width>0.94919in</Width>
         <ZIndex>5</ZIndex>
         <Style>
           <Border>
             <Style>Solid</Style>
           </Border>
           <TopBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Style>None</Style>
           </TopBorder>
           <BottomBorder>
             <Style>None</Style>
           </BottomBorder>
           <LeftBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </LeftBorder>
           <RightBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -1084,10 +1211,10 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>1.51669in</Top>
-        <Left>6.75625in</Left>
+        <Top>1.47919in</Top>
+        <Left>6.76331in</Left>
         <Height>0.19445in</Height>
-        <Width>0.95625in</Width>
+        <Width>0.94919in</Width>
         <ZIndex>6</ZIndex>
         <Style>
           <Border>
@@ -1100,12 +1227,12 @@
             <Style>None</Style>
           </BottomBorder>
           <LeftBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </LeftBorder>
           <RightBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -1132,10 +1259,10 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>1.90559in</Top>
-        <Left>6.75625in</Left>
+        <Top>1.86809in</Top>
+        <Left>6.76331in</Left>
         <Height>0.19445in</Height>
-        <Width>0.95625in</Width>
+        <Width>0.94919in</Width>
         <ZIndex>7</ZIndex>
         <Style>
           <Border>
@@ -1148,12 +1275,12 @@
             <Style>None</Style>
           </BottomBorder>
           <LeftBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </LeftBorder>
           <RightBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -1181,15 +1308,30 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>2.29449in</Top>
-        <Left>6.75625in</Left>
+        <Top>2.25699in</Top>
+        <Left>6.76331in</Left>
         <Height>0.19445in</Height>
-        <Width>0.95625in</Width>
+        <Width>0.94919in</Width>
         <ZIndex>8</ZIndex>
         <Style>
           <Border>
             <Style>Solid</Style>
           </Border>
+          <TopBorder>
+            <Style>None</Style>
+          </TopBorder>
+          <BottomBorder>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
+          </BottomBorder>
+          <LeftBorder>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
+          </LeftBorder>
+          <RightBorder>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
+          </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
@@ -1204,7 +1346,20 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>CV.BINTANG TIMUR RAHARDIAN</Value>
+                <Value>CV.BINTANG TIMUR RAHAYU</Value>
+                <Style>
+                  <FontFamily>Segoe UI</FontFamily>
+                  <FontSize>9pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Jl.Kaliurang KM 5.5 Gg Durmo No.18</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1216,7 +1371,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Jl.Magelang-Salaman Km.3</Value>
+                <Value>0274-546079 </Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1228,19 +1383,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Kp.Glagah RT.01/RW.03 Banjarnegoro, </Value>
-                <Style>
-                  <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>9pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Mertoyudan, Magelang - 56172</Value>
+                <Value>YOGYAKARTA</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1251,9 +1394,9 @@
           </Paragraph>
         </Paragraphs>
         <Top>0.02778in</Top>
-        <Left>0.03473in</Left>
-        <Height>0.63888in</Height>
-        <Width>2.60069in</Width>
+        <Left>0.03889in</Left>
+        <Height>0.68055in</Height>
+        <Width>2.60383in</Width>
         <ZIndex>9</ZIndex>
         <Style>
           <Border>
@@ -1274,27 +1417,28 @@
               <TextRun>
                 <Value>=First(Fields!FakturCode.Value, "FakturJualDataset")</Value>
                 <Style>
-                  <FontFamily>Lucida Console</FontFamily>
+                  <FontFamily>Segoe UI</FontFamily>
                   <FontSize>8pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>0.64166in</Top>
+        <Top>0.70833in</Top>
         <Left>0.03473in</Left>
-        <Height>0.23958in</Height>
+        <Height>0.18541in</Height>
         <Width>1.4375in</Width>
         <ZIndex>10</ZIndex>
         <Style>
           <Border>
+            <Color>DimGray</Color>
             <Style>Solid</Style>
+            <Width>0.5pt</Width>
           </Border>
-          <RightBorder>
-            <Color>Silver</Color>
-          </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
@@ -1318,15 +1462,15 @@
               </TextRun>
             </TextRuns>
             <Style>
-              <TextAlign>Center</TextAlign>
+              <TextAlign>Left</TextAlign>
             </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox13</rd:DefaultName>
         <Top>0.02778in</Top>
-        <Left>2.63542in</Left>
-        <Height>0.62499in</Height>
-        <Width>2.40626in</Width>
+        <Left>2.64272in</Left>
+        <Height>0.68055in</Height>
+        <Width>2.70451in</Width>
         <ZIndex>11</ZIndex>
         <Style>
           <Border>
@@ -1348,7 +1492,7 @@
               <TextRun>
                 <Value>=First(Fields!SalesName.Value, "FakturJualDataset")</Value>
                 <Style>
-                  <FontFamily>Lucida Console</FontFamily>
+                  <FontFamily>Segoe UI</FontFamily>
                   <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
@@ -1358,18 +1502,19 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>0.64166in</Top>
+        <Top>0.70833in</Top>
         <Left>1.47223in</Left>
-        <Height>0.23958in</Height>
-        <Width>1.16319in</Width>
+        <Height>0.18541in</Height>
+        <Width>1.17049in</Width>
         <ZIndex>12</ZIndex>
         <Style>
           <Border>
+            <Color>DimGray</Color>
             <Style>Solid</Style>
+            <Width>0.5pt</Width>
           </Border>
           <LeftBorder>
-            <Color>Silver</Color>
-            <Width>1pt</Width>
+            <Style>None</Style>
           </LeftBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -1387,7 +1532,7 @@
               <TextRun>
                 <Value>=First(Fields!JenisBayar.Value, "FakturJualDataset")</Value>
                 <Style>
-                  <FontFamily>Lucida Console</FontFamily>
+                  <FontFamily>Segoe UI</FontFamily>
                   <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
@@ -1397,14 +1542,16 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>0.64166in</Top>
-        <Left>2.63542in</Left>
-        <Height>0.23958in</Height>
-        <Width>1.22917in</Width>
+        <Top>0.70833in</Top>
+        <Left>2.64272in</Left>
+        <Height>0.18541in</Height>
+        <Width>1.21713in</Width>
         <ZIndex>13</ZIndex>
         <Style>
           <Border>
+            <Color>DimGray</Color>
             <Style>Solid</Style>
+            <Width>0.5pt</Width>
           </Border>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -1422,7 +1569,7 @@
               <TextRun>
                 <Value>=First(Fields!JatuhTempo.Value, "FakturJualDataset")</Value>
                 <Style>
-                  <FontFamily>Lucida Console</FontFamily>
+                  <FontFamily>Segoe UI</FontFamily>
                   <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
@@ -1432,14 +1579,16 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>0.64166in</Top>
-        <Left>3.86464in</Left>
-        <Height>0.23958in</Height>
-        <Width>1.17704in</Width>
+        <Top>0.70833in</Top>
+        <Left>3.85985in</Left>
+        <Height>0.18541in</Height>
+        <Width>1.23727in</Width>
         <ZIndex>14</ZIndex>
         <Style>
           <Border>
+            <Color>DimGray</Color>
             <Style>Solid</Style>
+            <Width>0.5pt</Width>
           </Border>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -1474,11 +1623,7 @@
           <Border>
             <Style>None</Style>
           </Border>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
+          <VerticalAlign>Top</VerticalAlign>
         </Style>
       </Textbox>
       <Textbox Name="KepadaCustomerIdText">
@@ -1492,7 +1637,6 @@
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1508,11 +1652,7 @@
           <Border>
             <Style>None</Style>
           </Border>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
+          <VerticalAlign>Top</VerticalAlign>
         </Style>
       </Textbox>
       <Textbox Name="CustomerNameText">
@@ -1534,19 +1674,15 @@
           </Paragraph>
         </Paragraphs>
         <Top>0.35276in</Top>
-        <Left>5.3375in</Left>
+        <Left>5.34723in</Left>
         <Height>0.16945in</Height>
-        <Width>2.375in</Width>
+        <Width>2.36527in</Width>
         <ZIndex>17</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
+          <VerticalAlign>Top</VerticalAlign>
         </Style>
       </Textbox>
       <Textbox Name="Address1Text">
@@ -1568,18 +1704,14 @@
         </Paragraphs>
         <Top>0.52221in</Top>
         <Left>5.3375in</Left>
-        <Height>0.16945in</Height>
+        <Height>0.18612in</Height>
         <Width>2.375in</Width>
         <ZIndex>18</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
+          <VerticalAlign>Top</VerticalAlign>
         </Style>
       </Textbox>
       <Textbox Name="Address2Text">
@@ -1599,20 +1731,16 @@
             <Style />
           </Paragraph>
         </Paragraphs>
-        <Top>0.69166in</Top>
+        <Top>0.70833in</Top>
         <Left>5.3375in</Left>
-        <Height>0.16945in</Height>
+        <Height>0.18541in</Height>
         <Width>2.375in</Width>
         <ZIndex>19</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
+          <VerticalAlign>Top</VerticalAlign>
         </Style>
       </Textbox>
       <Textbox Name="Textbox14">
@@ -1669,8 +1797,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
         <Top>1.60975in</Top>
+        <Left>0.03889in</Left>
         <Height>0.42779in</Height>
-        <Width>5.06667in</Width>
+        <Width>5.02778in</Width>
         <ZIndex>21</ZIndex>
         <Style>
           <Border>
@@ -1826,10 +1955,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>2.58097in</Top>
-        <Left>5.525in</Left>
+        <Top>2.54347in</Top>
+        <Left>5.52467in</Left>
         <Height>0.20556in</Height>
-        <Width>1.22501in</Width>
+        <Width>1.22534in</Width>
         <ZIndex>27</ZIndex>
         <Style>
           <Border>
@@ -1928,7 +2057,7 @@
         <Top>1.28474in</Top>
         <Left>0.03473in</Left>
         <Height>0in</Height>
-        <Width>7.6875in</Width>
+        <Width>7.67777in</Width>
         <ZIndex>31</ZIndex>
         <Style>
           <Border>
@@ -1988,10 +2117,10 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>2.10004in</Top>
-        <Left>6.75625in</Left>
+        <Top>2.06254in</Top>
+        <Left>6.76331in</Left>
         <Height>0.19445in</Height>
-        <Width>0.95625in</Width>
+        <Width>0.94919in</Width>
         <ZIndex>33</ZIndex>
         <Style>
           <Border>
@@ -2001,16 +2130,15 @@
             <Style>None</Style>
           </TopBorder>
           <BottomBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Style>None</Style>
           </BottomBorder>
           <LeftBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </LeftBorder>
           <RightBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -2038,10 +2166,10 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>2.10004in</Top>
-        <Left>5.525in</Left>
+        <Top>2.06254in</Top>
+        <Left>5.52467in</Left>
         <Height>0.19445in</Height>
-        <Width>1.2375in</Width>
+        <Width>1.23864in</Width>
         <ZIndex>34</ZIndex>
         <Style>
           <Border>
@@ -2051,16 +2179,15 @@
             <Style>None</Style>
           </TopBorder>
           <BottomBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Style>None</Style>
           </BottomBorder>
           <LeftBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </LeftBorder>
           <RightBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -2088,10 +2215,10 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>1.71114in</Top>
-        <Left>5.525in</Left>
+        <Top>1.67364in</Top>
+        <Left>5.52467in</Left>
         <Height>0.19445in</Height>
-        <Width>1.2375in</Width>
+        <Width>1.23864in</Width>
         <ZIndex>35</ZIndex>
         <Style>
           <Border>
@@ -2104,12 +2231,12 @@
             <Style>None</Style>
           </BottomBorder>
           <LeftBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </LeftBorder>
           <RightBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -2136,10 +2263,10 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>1.71114in</Top>
-        <Left>6.75625in</Left>
+        <Top>1.67364in</Top>
+        <Left>6.76331in</Left>
         <Height>0.19445in</Height>
-        <Width>0.95625in</Width>
+        <Width>0.94919in</Width>
         <ZIndex>36</ZIndex>
         <Style>
           <Border>
@@ -2152,12 +2279,12 @@
             <Style>None</Style>
           </BottomBorder>
           <LeftBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </LeftBorder>
           <RightBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -2174,7 +2301,7 @@
       </Border>
     </Style>
   </Body>
-  <Width>7.7639in</Width>
+  <Width>7.7125in</Width>
   <Page>
     <LeftMargin>1in</LeftMargin>
     <RightMargin>1in</RightMargin>

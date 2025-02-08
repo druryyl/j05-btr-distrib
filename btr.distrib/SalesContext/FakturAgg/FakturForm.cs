@@ -224,6 +224,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             WarehouseNameText.Text = string.Empty;
             TglRencanaKirimTextBox.Value= DateTime.Now.AddDays(1);
             TermOfPaymentCombo.SelectedIndex = 0;
+            DueDateText.Value= DateTime.Now.AddDays(15);
             NoteTextBox.Clear();
             DriverIdText.Clear();
             DriverNameText.Clear();
@@ -734,6 +735,7 @@ namespace btr.distrib.SalesContext.FakturAgg
                 .Build();
             LastIdLabel.Text = $@"{fakturDb.FakturId} - {fakturDb.FakturCode}";
             var customer = _customerDal.GetData(fakturDb);
+            
             var fakturPrintout = new FakturPrintOutDto(fakturDb, customer);
             PrintFakturRdlc(fakturPrintout);
         }

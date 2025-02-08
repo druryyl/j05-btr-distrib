@@ -14,7 +14,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         public FakturPrintOutDto(FakturModel faktur, CustomerModel customer)
         {
             FakturCode = $"No.Faktur: {faktur.FakturCode}";
-            FakturDate = $"Tgl: {faktur.FakturDate:dd MMM yyyy}";
+            FakturDate = $"Tgl: {faktur.FakturDate:dd MMMM yyyy}";
             CustomerId = $"Kepada Yth Customer-{faktur.CustomerId}";
             CustomerName = $"{faktur.CustomerName}";
             Address1 = $"{faktur.Address}";
@@ -39,10 +39,8 @@ namespace btr.distrib.SalesContext.FakturAgg
 
             if (dppProsen == 100M)
                 DppProsen = $"DPP :";
-            else //if (dppProsen == 91.660000M)
+            else 
                 DppProsen = "DPP 11/12 :";
-            //else
-            //    DppProsen = $"DPP {DecFormatter.ToStr(faktur.ListItem.FirstOrDefault().DppProsen)}% :";
 
             Ppn = $"{faktur.ListItem.Sum(x => x.PpnRp):N0}";
             PpnProsen = $"PPN {DecFormatter.ToStr(faktur.ListItem.FirstOrDefault().PpnProsen)}% :";
@@ -52,13 +50,13 @@ namespace btr.distrib.SalesContext.FakturAgg
 
             ListItem = new List<FakturPrintOutItemDto>();
             var noUrut = 1;
-            foreach(var item in faktur.ListItem)
+            foreach(var item in faktur.ListItem.OrderBy(x => x.NoUrut))
             {
                 if (item.QtyBesar != 0 || item.QtyKecil != 0)
                 {
-                    var qtyBesar = item.QtyBesar == 0 ? "-" :
+                    var qtyBesar = item.QtyBesar == 0 ? "-      " :
                         $"{item.QtyBesar:N0} {item.SatBesar}";
-                    var qtyKecil = item.QtyKecil == 0 ? "-" :
+                    var qtyKecil = item.QtyKecil == 0 ? "-      " :
                         $"{item.QtyKecil:N0} {item.SatKecil}";
                     var disc1 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 1)?.DiscProsen ?? 0;
                     var disc2 = item.ListDiscount.FirstOrDefault(x => x.NoUrut == 2)?.DiscProsen ?? 0;
@@ -71,13 +69,13 @@ namespace btr.distrib.SalesContext.FakturAgg
                         BrgName = item.BrgName,
                         QtyBesar = qtyBesar,
                         QtyKecil = qtyKecil,
-                        HrgBesar = item.HrgSatBesar == 0 ? "-" : $"{item.HrgSatBesar:N0}",
-                        HrgKecil = item.HrgSatKecil == 0 ? "-" : $"{item.HrgSatKecil:N0}",
+                        HrgBesar = item.HrgSatBesar == 0 ? "-      " : $"{item.HrgSatBesar:N0}",
+                        HrgKecil = item.HrgSatKecil == 0 ? "-      " : $"{item.HrgSatKecil:N0}",
                         Disc1 = disc1 == 0 ? "-" : $"{DecFormatter.ToStr(disc1)}%",
                         Disc2 = disc2 == 0 ? "-" : $"{DecFormatter.ToStr(disc2)}%",
                         Disc3 = disc3 == 0 ? "-" : $"{DecFormatter.ToStr(disc3)}%",
                         Disc4 = disc4 == 0 ? "-" : $"{DecFormatter.ToStr(disc4)}%",
-                        Total = $"{DecFormatter.ToStr(item.Total - item.PpnRp + item.DiscRp)}",
+                        Total = $"{(item.Total - item.PpnRp + item.DiscRp):N0}",
                     };
                     ListItem.Add(newItem);
                     noUrut++;
@@ -105,6 +103,7 @@ namespace btr.distrib.SalesContext.FakturAgg
                 }
             }
         }
+
 
         public string FakturCode { get; set; }
         public string FakturDate { get; set; }

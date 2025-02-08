@@ -40,6 +40,8 @@ namespace btr.nuna.Domain
                 if (hundredCounter == 2) result1 += " juta ";
                 if (hundredCounter == 3) result1 += " milyar ";
                 if (hundredCounter == 4) result1 += " trilyun ";
+
+                if (result1 == "se juta ") result1 = " satu juta ";
                 result = result1 + result;
             }
             return result;
