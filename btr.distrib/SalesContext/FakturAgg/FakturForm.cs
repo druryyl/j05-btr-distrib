@@ -109,8 +109,8 @@ namespace btr.distrib.SalesContext.FakturAgg
             InitializeComponent();
             InitGrid();
             InitParamSistem();
-            ClearForm();
             RegisterEventHandler();
+            ClearForm();
         }
 
         private void InitParamSistem()
@@ -211,8 +211,12 @@ namespace btr.distrib.SalesContext.FakturAgg
 
         private void ClearForm()
         {
+            var fakturDate = _dateTime.Now.AddDays(1);
+            if (fakturDate.DayOfWeek == DayOfWeek.Sunday)   
+                fakturDate = fakturDate.AddDays(1);
+
             FakturIdText.Text = string.Empty;
-            FakturDateText.Value = _dateTime.Now;
+            FakturDateText.Value = fakturDate;
             SalesIdText.Text = string.Empty;
             SalesPersonNameTextBox.Text = string.Empty;
             CustomerIdText.Text = string.Empty;
@@ -222,7 +226,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             CreditBalanceTextBox.Value = 0;
             WarehouseIdText.Text = string.Empty;
             WarehouseNameText.Text = string.Empty;
-            TglRencanaKirimTextBox.Value= DateTime.Now.AddDays(1);
+            TglRencanaKirimTextBox.Value= fakturDate.AddDays(1);
             TermOfPaymentCombo.SelectedIndex = 0;
             DueDateText.Value= DateTime.Now.AddDays(15);
             NoteTextBox.Clear();

@@ -52,6 +52,7 @@ namespace btr.distrib.SalesContext.FakturPerSupplierRpt
             foreach (GridColumnDescriptor column in InfoGrid.TableDescriptor.Columns)
             {
                 column.AllowFilter = true;
+                column.AllowSort = true;
             }
 
             var sumColSubTotal = new GridSummaryColumnDescriptor("SubTotal", SummaryType.DoubleAggregate, "SubTotal", "{Sum}");
