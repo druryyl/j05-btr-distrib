@@ -165,14 +165,19 @@ namespace btr.application.PurchaseContext.InvoiceAgg
             //  jika brg punya 2 satuan
             else
             {
-                //  jika terisi di 2 tempat, ambil acuan satuan besar di kiri
-                //  satuan kecil di-replace
-                hppSatBesar = hrgs[0] > 0 ? hrgs[0] : hrgs[1];
-                hppSatKecil = hppSatBesar / conversion;
-                hrgDetilStr = $"{hppSatBesar}/{satBesar}{Environment.NewLine}";
-                hrgDetilStr += $"{hppSatKecil}/{satKecil}";
+                //  jika hrg besar terisi, maka jadikan acuan (satuan kecil di-replace)
+                if (hrgs[0] > 0)
+                    hrgs[1] = hrgs[0] / conversion;
+                //  jika hrg besar kosong, maka sat kecil jadi acuan
+                else
+                    hrgs[0] = hrgs[1] * conversion;
+
+                hppSatBesar = hrgs[0];
+                hppSatKecil = hrgs[1];
+                hrgDetilStr = $"{hppSatBesar:N2}/{satBesar}{Environment.NewLine}";
+                hrgDetilStr += $"{hppSatKecil:N2}/{satKecil}";
             }
-            hrgInputStr = $"{hppSatBesar:N0};{hppSatKecil:N0}";
+            hrgInputStr = $"{hppSatBesar:N2};{hppSatKecil:N2}";
         }
 
         private string GenQtyDetilStr(InvoiceItemModel item)

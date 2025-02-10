@@ -464,7 +464,10 @@ namespace btr.distrib.SalesContext.FakturAgg
         {
             var grid = (DataGridView)sender;
             if (e.ColumnIndex == grid.Columns.GetCol("BrgId").Index)
-                CalcTotal();
+            {
+                ValidateRow(e.RowIndex);
+            }
+                //CalcTotal();
             if (e.ColumnIndex == grid.Columns.GetCol("QtyInputStr").Index)
                 CalcTotal();
             if (e.ColumnIndex == grid.Columns.GetCol("DppProsen").Index)
