@@ -18,11 +18,17 @@ namespace btr.application.SalesContext.FakturBrgInfo
         public string CustomerName { get; set; }
         public string Address{ get; set; }
         public string WilayahName { get; set; }
+        public string BrgId { get; set; }
         public string BrgCode { get; set; }
         public string BrgName { get; set; }
         public string SupplierName { get; set; }
         public string KategoriName { get; set; }
-        public decimal Qty{ get; set; }
+        public int QtyBesar { get; set; }
+        public string SatBesar { get; set; }
+        public int QtyKecil { get; set; }
+        public string SatKecil { get; set; }
+        public int InPcs { get; set; }
+        public string Satuan { get; set; }
         public decimal HrgSat { get; set; }
         public decimal SubTotal { get; set; }
         public decimal DiscRp { get; set; }

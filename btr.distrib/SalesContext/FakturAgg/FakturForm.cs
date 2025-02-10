@@ -565,7 +565,6 @@ namespace btr.distrib.SalesContext.FakturAgg
                 _listItem[rowIndex].HrgInputStr,
                 _listItem[rowIndex].DppProsen == 0 ? _dppProsen : _listItem[rowIndex].DppProsen,
                 _listItem[rowIndex].PpnProsen == 0 ? _ppnProsen : _listItem[rowIndex].PpnProsen,
-
                 _tipeHarga,
                 WarehouseIdText.Text);
             var item = _createItemWorker.Execute(req);

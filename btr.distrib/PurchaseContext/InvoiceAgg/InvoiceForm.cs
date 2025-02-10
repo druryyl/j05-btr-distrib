@@ -263,7 +263,10 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
 
             _listItem.Clear();
             foreach (var newItem in invoice.ListItem.Select(item => item.Adapt<InvoiceItemDto>()))
+            {
                 _listItem.Add(newItem);
+                ValidateRow(_listItem.Count-1);
+            }
 
             if (invoice.IsVoid)
                 ShowAsVoid(invoice);
