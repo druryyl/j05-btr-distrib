@@ -28,6 +28,8 @@ using btr.application.InventoryContext.DriverAgg;
 using btr.domain.InventoryContext.DriverAgg;
 using btr.application.SupportContext.ParamSistemAgg;
 using btr.domain.SupportContext.ParamSistemAgg;
+using Microsoft.Reporting.WinForms;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace btr.distrib.SalesContext.FakturAgg
 {
@@ -813,8 +815,31 @@ namespace btr.distrib.SalesContext.FakturAgg
 
         private void PrintFakturRdlc(FakturPrintOutDto faktur)
         {
-            var form = new FakturPrintOutForm(faktur);
-            form.ShowDialog();
+            var fakturJualDataset = new ReportDataSource("FakturJualDataset", new List<FakturPrintOutDto> { faktur });
+            var fakturJualItemDataset = new ReportDataSource("FakturJualItemDataset", faktur.ListItem);
+            var clientId = _paramSistemDal.GetData(new ParamSistemModel("CLIENT_ID"))?.ParamValue ?? string.Empty;
+            
+            var printOutTemplate = string.Empty;
+            switch (clientId)
+            {
+                case "BTR-YK":
+                    printOutTemplate = "FakturPrintOut-Yk";
+                    break;
+                case "BTR-MGL":
+                    printOutTemplate = "FakturPrintOut-Mgl";
+                    break;
+                default:
+                    break;
+            }
+
+            var listDataset = new List<ReportDataSource>
+            {
+                fakturJualDataset,
+                fakturJualItemDataset
+            };
+            var rdlcViewerForm = new RdlcViewerForm();
+            rdlcViewerForm.SetReportData(printOutTemplate, listDataset);
+            rdlcViewerForm.ShowDialog();
         }
         #endregion
     }

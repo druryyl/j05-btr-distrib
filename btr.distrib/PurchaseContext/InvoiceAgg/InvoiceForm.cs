@@ -24,6 +24,8 @@ using btr.application.PurchaseContext.InvoiceAgg;
 using btr.distrib.PrintDocs;
 using btr.application.SupportContext.ParamSistemAgg;
 using btr.domain.SupportContext.ParamSistemAgg;
+using btr.distrib.SalesContext.FakturAgg;
+using Microsoft.Reporting.WinForms;
 
 namespace btr.distrib.PurchaseContext.InvoiceAgg
 {
@@ -47,7 +49,6 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
         private readonly IBrgBuilder _brgBuilder;
         private readonly IInvoiceBuilder _invoiceBuilder;
         private readonly IInvoicePrintDoc _invoicePrinter;
-        private readonly IGenStokInvoiceWorker _genStokInvoiceWorker;
 
         private readonly BindingList<InvoiceItemDto> _listItem = new BindingList<InvoiceItemDto>();
         private decimal _ppnProsen;
@@ -66,7 +67,10 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             IInvoiceBuilder invoiceBuilder,
             ITglJamDal dateTime,
             IBrowser<InvoiceBrowserView> invoiceBrowser,
-            IInvoicePrintDoc invoicePrinter, IGenStokInvoiceWorker genStokInvoiceWorker, IParamSistemDal paramSistemDal, IVoidInvoiceWorker voidInvoiceWorker)
+            IInvoicePrintDoc invoicePrinter, 
+            IGenStokInvoiceWorker genStokInvoiceWorker, 
+            IParamSistemDal paramSistemDal, 
+            IVoidInvoiceWorker voidInvoiceWorker)
         {
             InitializeComponent();
 
@@ -85,7 +89,6 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             _dateTime = dateTime;
             _invoiceBrowser = invoiceBrowser;
             _invoicePrinter = invoicePrinter;
-            _genStokInvoiceWorker = genStokInvoiceWorker;
             _paramSistemDal = paramSistemDal;
 
             RegisterEventHandler();
@@ -142,8 +145,34 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             var invoice = _invoiceBuilder.Load(new InvoiceModel(invoiceId)).Build();
             var supplier = _supplierDal.GetData(invoice);
             var invoicePrintOut = new InvoicePrintOutDto(invoice, supplier);
-            var form = new InvoicePrintOutForm(invoicePrintOut);
-            form.ShowDialog();
+            //var form = new InvoicePrintOutForm(invoicePrintOut);
+            //form.ShowDialog();
+
+            var invoiceDataset = new ReportDataSource("InvoiceBeliDataset", new List<InvoicePrintOutDto> { invoicePrintOut });
+            var invoiceItemDataset = new ReportDataSource("InvoiceBeliItemDataset", invoicePrintOut.ListItem);
+            var clientId = _paramSistemDal.GetData(new ParamSistemModel("CLIENT_ID"))?.ParamValue ?? string.Empty;
+
+            var printOutTemplate = string.Empty;
+            switch (clientId)
+            {
+                case "BTR-YK":
+                    printOutTemplate = "InvoicePrintOut-Yk";
+                    break;
+                case "BTR-MGL":
+                    printOutTemplate = "InvoicePrintOut-Mgl";
+                    break;
+                default:
+                    break;
+            }
+
+            var listDataset = new List<ReportDataSource>
+            {
+                invoiceDataset,
+                invoiceItemDataset
+            };
+            var rdlcViewerForm = new RdlcViewerForm();
+            rdlcViewerForm.SetReportData(printOutTemplate, listDataset);
+            rdlcViewerForm.ShowDialog();
         }
         private void PrintInvoice(string invoiceId)
         {
@@ -151,6 +180,8 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             _invoicePrinter.DefaultPrinter = GetPrinterName();
             _invoicePrinter.CreateDoc(invoice);
             _invoicePrinter.PrintDoc();
+
+
         }
         private static string GetPrinterName()
         {
@@ -422,8 +453,10 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
 
         private void InitGrid()
         {
-            var binding = new BindingSource();
-            binding.DataSource = _listItem;
+            var binding = new BindingSource
+            {
+                DataSource = _listItem
+            };
             InvoiceItemGrid.DataSource = binding;
             InvoiceItemGrid.Refresh();
             InvoiceItemGrid.Columns.SetDefaultCellStyle(Color.Beige);
@@ -587,6 +620,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             WarehouseIdText.Text = string.Empty;
             WarehouseNameText.Text = string.Empty;
             TermOfPaymentCombo.SelectedIndex = 0;
+            DueDateText.Value = _dateTime.Now.AddDays(30);
 
             TotalText.Value = 0;
             DiscountText.Value = 0;

@@ -6,34 +6,34 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>0.28125in</Width>
+              <Width>0.26146in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.6875in</Width>
+              <Width>0.66771in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.91667in</Width>
+              <Width>1.89688in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1in</Width>
+              <Width>0.98021in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.15625in</Width>
+              <Width>1.13646in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.42708in</Width>
+              <Width>0.40729in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.4375in</Width>
+              <Width>0.41771in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.44792in</Width>
+              <Width>0.42813in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.39583in</Width>
+              <Width>0.37604in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1in</Width>
+              <Width>0.98021in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -733,7 +733,7 @@
         <Top>1.0927in</Top>
         <Left>0.03125in</Left>
         <Height>0.38in</Height>
-        <Width>7.75in</Width>
+        <Width>7.55208in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -762,7 +762,7 @@
         <Top>1.5177in</Top>
         <Left>5.5in</Left>
         <Height>0.19445in</Height>
-        <Width>1.28125in</Width>
+        <Width>1.10313in</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -811,7 +811,7 @@
         <Top>1.71215in</Top>
         <Left>5.5in</Left>
         <Height>0.19445in</Height>
-        <Width>1.28125in</Width>
+        <Width>1.10313in</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
@@ -860,7 +860,7 @@
         <Top>1.9066in</Top>
         <Left>5.5in</Left>
         <Height>0.19445in</Height>
-        <Width>1.28125in</Width>
+        <Width>1.10313in</Width>
         <ZIndex>3</ZIndex>
         <Style>
           <Border>
@@ -909,7 +909,7 @@
         <Top>2.10105in</Top>
         <Left>5.5in</Left>
         <Height>0.19445in</Height>
-        <Width>1.28125in</Width>
+        <Width>1.10313in</Width>
         <ZIndex>4</ZIndex>
         <Style>
           <Border>
@@ -941,9 +941,9 @@
           </Paragraph>
         </Paragraphs>
         <Top>1.5177in</Top>
-        <Left>6.78125in</Left>
+        <Left>6.60312in</Left>
         <Height>0.19445in</Height>
-        <Width>1in</Width>
+        <Width>0.98021in</Width>
         <ZIndex>5</ZIndex>
         <Style>
           <Border>
@@ -989,9 +989,9 @@
           </Paragraph>
         </Paragraphs>
         <Top>1.71215in</Top>
-        <Left>6.78125in</Left>
+        <Left>6.60312in</Left>
         <Height>0.19445in</Height>
-        <Width>1in</Width>
+        <Width>0.98021in</Width>
         <ZIndex>6</ZIndex>
         <Style>
           <Border>
@@ -1037,9 +1037,9 @@
           </Paragraph>
         </Paragraphs>
         <Top>1.9066in</Top>
-        <Left>6.78125in</Left>
+        <Left>6.60312in</Left>
         <Height>0.19445in</Height>
-        <Width>1in</Width>
+        <Width>0.98021in</Width>
         <ZIndex>7</ZIndex>
         <Style>
           <Border>
@@ -1085,9 +1085,9 @@
           </Paragraph>
         </Paragraphs>
         <Top>2.10105in</Top>
-        <Left>6.78125in</Left>
+        <Left>6.60312in</Left>
         <Height>0.19445in</Height>
-        <Width>1in</Width>
+        <Width>0.98021in</Width>
         <ZIndex>8</ZIndex>
         <Style>
           <Border>
@@ -1107,7 +1107,20 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>CV.BINTANG TIMUR RAHARDIAN</Value>
+                <Value>CV.BINTANG TIMUR RAHAYU</Value>
+                <Style>
+                  <FontFamily>Segoe UI</FontFamily>
+                  <FontSize>9pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Jl.Kaliurang KM 5.5 Gg.Durmo </Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1119,7 +1132,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Jl.Magelang-Salaman Km.3</Value>
+                <Value>0274-546079</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1131,19 +1144,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Kp.Glagah RT.01/RW.03 Banjarnegoro, </Value>
-                <Style>
-                  <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>9pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Mertoyudan, Magelang - 56172</Value>
+                <Value>Yogyakarta</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1329,7 +1330,7 @@
         <Top>0.00932in</Top>
         <Left>5.375in</Left>
         <Height>0.16945in</Height>
-        <Width>2.375in</Width>
+        <Width>2.20833in</Width>
         <ZIndex>14</ZIndex>
         <Style>
           <Border>
@@ -1363,7 +1364,7 @@
         <Top>0.17877in</Top>
         <Left>5.375in</Left>
         <Height>0.16945in</Height>
-        <Width>2.375in</Width>
+        <Width>2.20833in</Width>
         <ZIndex>15</ZIndex>
         <Style>
           <Border>
@@ -1397,7 +1398,7 @@
         <Top>0.34822in</Top>
         <Left>5.375in</Left>
         <Height>0.16945in</Height>
-        <Width>2.375in</Width>
+        <Width>2.20833in</Width>
         <ZIndex>16</ZIndex>
         <Style>
           <Border>
@@ -1430,7 +1431,7 @@
         <Top>0.51767in</Top>
         <Left>5.375in</Left>
         <Height>0.16945in</Height>
-        <Width>2.375in</Width>
+        <Width>2.20833in</Width>
         <ZIndex>17</ZIndex>
         <Style>
           <Border>
@@ -1463,7 +1464,7 @@
         <Top>0.68712in</Top>
         <Left>5.375in</Left>
         <Height>0.16945in</Height>
-        <Width>2.375in</Width>
+        <Width>2.20833in</Width>
         <ZIndex>18</ZIndex>
         <Style>
           <Border>
@@ -1721,7 +1722,7 @@
         <Top>1.5052in</Top>
         <Left>0.03473in</Left>
         <Height>0in</Height>
-        <Width>7.7375in</Width>
+        <Width>7.53958in</Width>
         <ZIndex>28</ZIndex>
         <Style>
           <Border>
@@ -1730,10 +1731,10 @@
         </Style>
       </Line>
     </ReportItems>
-    <Height>3.375in</Height>
+    <Height>3.3372in</Height>
     <Style />
   </Body>
-  <Width>7.84375in</Width>
+  <Width>7.58333in</Width>
   <Page>
     <LeftMargin>1in</LeftMargin>
     <RightMargin>1in</RightMargin>

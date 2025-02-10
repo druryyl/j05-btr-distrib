@@ -518,8 +518,10 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
         private void InitGrid()
         {
             _listPiutangLunasView = new BindingList<PiutangLunasView>();
-            _bindingSource = new BindingSource();
-            _bindingSource.DataSource = _listPiutangLunasView;
+            _bindingSource = new BindingSource
+            {
+                DataSource = _listPiutangLunasView
+            };
             ListPiutangGrid.DataSource = _bindingSource;
 
             //  readonly

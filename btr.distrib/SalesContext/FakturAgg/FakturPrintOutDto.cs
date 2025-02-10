@@ -20,16 +20,15 @@ namespace btr.distrib.SalesContext.FakturAgg
             Address1 = $"{faktur.Address}";
             Address2 = customer.Address2.Length != 0 ?
                 $"{customer.Address2}-{customer.Kota}" : $"{customer.Kota}";
-            JatuhTempo = $"Tempo:{faktur.DueDate:dd-MM-yyyy}";
+            JatuhTempo = $"Tempo: {faktur.DueDate:dd-MM-yyyy}";
             SalesName = $"Sales: {faktur.SalesPersonName}";
-            JenisBayar = $"Jenis:{faktur.TermOfPayment}";
+            JenisBayar = $"Jenis: {faktur.TermOfPayment}";
             DriverName = $"{faktur.DriverName}";
 
             TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
             Terbilang = $"Terbilang #{Math.Round(faktur.GrandTotal, 0).Eja()} rupiah#";
             Terbilang = textInfo.ToTitleCase(Terbilang);
-
-            Note = $"Note: {faktur.Note}";
+            Note = faktur.Note.Trim().Length == 0 ? "" : $"Note: {faktur.Note}";
 
             SubTotal = $"{faktur.Total:N0}";
             Discount = $"{faktur.Discount:N0}";

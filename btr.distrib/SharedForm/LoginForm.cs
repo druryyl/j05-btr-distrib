@@ -1,4 +1,6 @@
-﻿using btr.application.SupportContext.UserAgg;
+﻿using btr.application.SupportContext.ParamSistemAgg;
+using btr.application.SupportContext.UserAgg;
+using btr.domain.SupportContext.ParamSistemAgg;
 using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Domain;
 using System;
@@ -9,18 +11,23 @@ namespace btr.distrib.SharedForm
     public partial class LoginForm : Form
     {
         private readonly IUserDal _userDal;
+        private readonly IParamSistemDal _paramSistemDal;
         public string UserId { get; private set; }
         private int retryCounter = 0;
-        public LoginForm(IUserDal userDal)
+        public LoginForm(IUserDal userDal, IParamSistemDal paramSistemDal)
         {
             InitializeComponent();
             _userDal = userDal;
-            //PasswrodText.KeyDown += PasswrodText_KeyDown;
             UserIdText.KeyPress += MoveNextControl;
             PasswrodText.KeyPress += MoveNextControl;
+            _paramSistemDal = paramSistemDal;
         }
 
-
+        public void SetStatus(string server, string version)
+        {
+            var clientId = _paramSistemDal.GetData(new ParamSistemModel("CLIENT_ID"))?.ParamValue??string.Empty;
+            StatusLabel.Text = $"{server.ToLower()} | {version} | {clientId.ToLower()}";
+        }
         private void PasswrodText_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)

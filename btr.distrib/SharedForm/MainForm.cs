@@ -56,7 +56,7 @@ namespace btr.distrib.SharedForm
 {
     public partial class MainForm : Form
     {
-        private readonly ServiceProvider _servicesProvider;
+        public ServiceProvider ThisServicesProvider { get; private set; }
         public IUserKey UserId { get; private set; }
 
         public MainForm(IServiceCollection servicesCollection)
@@ -66,13 +66,13 @@ namespace btr.distrib.SharedForm
             if (mdi != null)
                 mdi.BackColor = Color.White;
             
-            _servicesProvider = servicesCollection.BuildServiceProvider();
+            ThisServicesProvider = servicesCollection.BuildServiceProvider();
             
         }
 
         public void SetUser(string user)
         {
-            var dbOpt =  _servicesProvider.GetRequiredService<IOptions<DatabaseOptions>>();
+            var dbOpt =  ThisServicesProvider.GetRequiredService<IOptions<DatabaseOptions>>();
             var server = ConnStringHelper.Server;
             var db = ConnStringHelper.Database;
             LoginStatus.Text = $@"User ID: {user}";
@@ -98,7 +98,7 @@ namespace btr.distrib.SharedForm
             if (BringMdiChildToFrontIfLoaded<FakturForm>())
                 return;
 
-            var form = _servicesProvider.GetRequiredService<FakturForm>();
+            var form = ThisServicesProvider.GetRequiredService<FakturForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -107,7 +107,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<FakturControlForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<FakturControlForm>();
+            var form = ThisServicesProvider.GetRequiredService<FakturControlForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -116,7 +116,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<AlokasiFpForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<AlokasiFpForm>();
+            var form = ThisServicesProvider.GetRequiredService<AlokasiFpForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -126,7 +126,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<FakturInfoForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<FakturInfoForm>();
+            var form = ThisServicesProvider.GetRequiredService<FakturInfoForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -135,7 +135,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<FakturBrgInfoForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<FakturBrgInfoForm>();
+            var form = ThisServicesProvider.GetRequiredService<FakturBrgInfoForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -144,7 +144,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<FakturPerSupplierForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<FakturPerSupplierForm>();
+            var form = ThisServicesProvider.GetRequiredService<FakturPerSupplierForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -153,7 +153,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<FakturPerCustomerForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<FakturPerCustomerForm>();
+            var form = ThisServicesProvider.GetRequiredService<FakturPerCustomerForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -163,7 +163,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<CustomerForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<CustomerForm>();
+            var form = ThisServicesProvider.GetRequiredService<CustomerForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -172,7 +172,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<SalesPersonForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<SalesPersonForm>();
+            var form = ThisServicesProvider.GetRequiredService<SalesPersonForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -181,7 +181,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<WilayahForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<WilayahForm>();
+            var form = ThisServicesProvider.GetRequiredService<WilayahForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -191,7 +191,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<PurchaseOrderForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<PurchaseOrderForm>();
+            var form = ThisServicesProvider.GetRequiredService<PurchaseOrderForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -201,7 +201,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<BrgForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<BrgForm>();
+            var form = ThisServicesProvider.GetRequiredService<BrgForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -211,7 +211,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<SupplierForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<SupplierForm>();
+            var form = ThisServicesProvider.GetRequiredService<SupplierForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -220,7 +220,7 @@ namespace btr.distrib.SharedForm
         private void IM3KategoriButton_Click(object sender, EventArgs e)
         {if (BringMdiChildToFrontIfLoaded<KategoriForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<KategoriForm>();
+            var form = ThisServicesProvider.GetRequiredService<KategoriForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -229,7 +229,7 @@ namespace btr.distrib.SharedForm
         private void IM2WarehouseButton_Click(object sender, EventArgs e)
         {if (BringMdiChildToFrontIfLoaded<WarehouseForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<WarehouseForm>();
+            var form = ThisServicesProvider.GetRequiredService<WarehouseForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -238,7 +238,7 @@ namespace btr.distrib.SharedForm
         private void IT2PrintButton_Click(object sender, EventArgs e)
         {if (BringMdiChildToFrontIfLoaded<PrintManagerForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<PrintManagerForm>();
+            var form = ThisServicesProvider.GetRequiredService<PrintManagerForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -246,7 +246,7 @@ namespace btr.distrib.SharedForm
 
         private void AboutButton_Click(object sender, EventArgs e)
         {
-            var form = _servicesProvider.GetRequiredService<AboutForm>();
+            var form = ThisServicesProvider.GetRequiredService<AboutForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.ShowDialog();
         }
@@ -255,7 +255,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<UserForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<UserForm>();
+            var form = ThisServicesProvider.GetRequiredService<UserForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -265,7 +265,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<StokOpForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<StokOpForm>();
+            var form = ThisServicesProvider.GetRequiredService<StokOpForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -276,7 +276,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<Packing2Form>())
                 return;
-            var form = _servicesProvider.GetRequiredService<Packing2Form>();
+            var form = ThisServicesProvider.GetRequiredService<Packing2Form>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -286,7 +286,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<StokBalanceInfo2Form>())
                 return;
-            var form = _servicesProvider.GetRequiredService<StokBalanceInfo2Form>();
+            var form = ThisServicesProvider.GetRequiredService<StokBalanceInfo2Form>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -296,7 +296,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<InvoiceForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<InvoiceForm>();
+            var form = ThisServicesProvider.GetRequiredService<InvoiceForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -306,7 +306,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<MutasiForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<MutasiForm>();
+            var form = ThisServicesProvider.GetRequiredService<MutasiForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -316,7 +316,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<CustomerChartRpt>())
                 return;
-            var form = _servicesProvider.GetRequiredService<CustomerChartRpt>();
+            var form = ThisServicesProvider.GetRequiredService<CustomerChartRpt>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -326,7 +326,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<ImportOpnameForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<ImportOpnameForm>();
+            var form = ThisServicesProvider.GetRequiredService<ImportOpnameForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -336,7 +336,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<LunasPiutang2Form>())
                 return;
-            var form = _servicesProvider.GetRequiredService<LunasPiutang2Form>();
+            var form = ThisServicesProvider.GetRequiredService<LunasPiutang2Form>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -347,7 +347,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<ReturJualForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<ReturJualForm>();
+            var form = ThisServicesProvider.GetRequiredService<ReturJualForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -357,7 +357,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<ReturJualForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<ReturJualForm>();
+            var form = ThisServicesProvider.GetRequiredService<ReturJualForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -367,7 +367,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<InvoiceInfoForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<InvoiceInfoForm>();
+            var form = ThisServicesProvider.GetRequiredService<InvoiceInfoForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -377,7 +377,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<InvoiceBrgInfoForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<InvoiceBrgInfoForm>();
+            var form = ThisServicesProvider.GetRequiredService<InvoiceBrgInfoForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -387,7 +387,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<OmzetSupplierInfoForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<OmzetSupplierInfoForm>();
+            var form = ThisServicesProvider.GetRequiredService<OmzetSupplierInfoForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -397,7 +397,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<ParamSistemForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<ParamSistemForm>();
+            var form = ThisServicesProvider.GetRequiredService<ParamSistemForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -407,7 +407,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<KartuStokInfoForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<KartuStokInfoForm>();
+            var form = ThisServicesProvider.GetRequiredService<KartuStokInfoForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -417,7 +417,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<PiutangSalesWilayahForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<PiutangSalesWilayahForm>();
+            var form = ThisServicesProvider.GetRequiredService<PiutangSalesWilayahForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -427,7 +427,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<PenerimaanPelunasanSalesForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<PenerimaanPelunasanSalesForm>();
+            var form = ThisServicesProvider.GetRequiredService<PenerimaanPelunasanSalesForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -437,7 +437,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<OmzetSupplierInfoForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<OmzetSupplierInfoForm>();
+            var form = ThisServicesProvider.GetRequiredService<OmzetSupplierInfoForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -448,7 +448,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<InvoiceHarianDetilForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<InvoiceHarianDetilForm>();
+            var form = ThisServicesProvider.GetRequiredService<InvoiceHarianDetilForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -459,7 +459,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<TagihanForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<TagihanForm>();
+            var form = ThisServicesProvider.GetRequiredService<TagihanForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -469,7 +469,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<AdjustmentForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<AdjustmentForm>();
+            var form = ThisServicesProvider.GetRequiredService<AdjustmentForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -484,7 +484,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<FakturPajakInfoForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<FakturPajakInfoForm>();
+            var form = ThisServicesProvider.GetRequiredService<FakturPajakInfoForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -494,7 +494,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<FakturCashInfoForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<FakturCashInfoForm>();
+            var form = ThisServicesProvider.GetRequiredService<FakturCashInfoForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -504,7 +504,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<StokBrgSupplierForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<StokBrgSupplierForm>();
+            var form = ThisServicesProvider.GetRequiredService<StokBrgSupplierForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -514,7 +514,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<ReturJjualReportForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<ReturJjualReportForm>();
+            var form = ThisServicesProvider.GetRequiredService<ReturJjualReportForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -524,7 +524,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<ReturBalanceForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<ReturBalanceForm>();
+            var form = ThisServicesProvider.GetRequiredService<ReturBalanceForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -535,7 +535,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<DriverFakturInfoForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<DriverFakturInfoForm>();
+            var form = ThisServicesProvider.GetRequiredService<DriverFakturInfoForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -545,7 +545,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<DriverForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<DriverForm>();
+            var form = ThisServicesProvider.GetRequiredService<DriverForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -555,7 +555,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<FpKeluaranForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<FpKeluaranForm>();
+            var form = ThisServicesProvider.GetRequiredService<FpKeluaranForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -565,7 +565,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<StokPeriodikForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<StokPeriodikForm>();
+            var form = ThisServicesProvider.GetRequiredService<StokPeriodikForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
@@ -575,7 +575,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<PostingStokForm>())
                 return;
-            var form = _servicesProvider.GetRequiredService<PostingStokForm>();
+            var form = ThisServicesProvider.GetRequiredService<PostingStokForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

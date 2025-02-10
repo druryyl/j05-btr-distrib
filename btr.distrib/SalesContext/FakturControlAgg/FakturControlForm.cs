@@ -1,5 +1,4 @@
-﻿using btr.application.FinanceContext.PiutangAgg.UseCases;
-using btr.application.SalesContext.FakturAgg.UseCases;
+﻿using btr.application.SalesContext.FakturAgg.UseCases;
 using btr.application.SalesContext.FakturControlAgg;
 using btr.distrib.Helpers;
 using btr.distrib.SalesContext.FakturAgg;
@@ -19,9 +18,11 @@ using System.Windows.Forms;
 using JetBrains.Annotations;
 using btr.application.FinanceContext.PiutangAgg.Contracts;
 using btr.domain.FinanceContext.PiutangAgg;
-using btr.infrastructure.SalesContext.FakturAgg;
 using btr.application.SalesContext.FakturAgg.Workers;
 using btr.application.SalesContext.CustomerAgg.Contracts;
+using btr.domain.SupportContext.ParamSistemAgg;
+using Microsoft.Reporting.WinForms;
+using btr.application.SupportContext.ParamSistemAgg;
 
 namespace btr.distrib.SalesContext.FakturControlAgg
 {
@@ -38,6 +39,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
         private readonly IReactivateFakturWorker _reactivateFakturWorker;
         private readonly IPiutangDal _piutangDal;
         private readonly ICustomerDal _customerDal;
+        private readonly IParamSistemDal _paramSistemDal;
 
         private ContextMenu _gridContextMenu;
 
@@ -50,7 +52,8 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             IReactivateFakturWorker reactivateFakturWorker,
             IPiutangDal piutangDal,
             IFakturBuilder fakturBuilder,
-            ICustomerDal customerDal)
+            ICustomerDal customerDal,
+            IParamSistemDal paramSistemDal)
         {
             InitializeComponent();
 
@@ -69,6 +72,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             InitContextMenu();
             RefreshGrid();
             RegisterEventHandler();
+            _paramSistemDal = paramSistemDal;
         }
 
         private void RegisterEventHandler()
@@ -94,8 +98,32 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             var faktur = _fakturBuilder.Load(fakturKey).Build();
             var customer = _customerDal.GetData(faktur);
             var fakturPrintout = new FakturPrintOutDto(faktur, customer);
-            var form = new FakturPrintOutForm(fakturPrintout);
-            form.ShowDialog();
+
+            var fakturJualDataset = new ReportDataSource("FakturJualDataset", new List<FakturPrintOutDto> { fakturPrintout });
+            var fakturJualItemDataset = new ReportDataSource("FakturJualItemDataset", fakturPrintout.ListItem);
+            var clientId = _paramSistemDal.GetData(new ParamSistemModel("CLIENT_ID"))?.ParamValue ?? string.Empty;
+
+            var printOutTemplate = string.Empty;
+            switch (clientId)
+            {
+                case "BTR-YK":
+                    printOutTemplate = "FakturPrintOut-Yk";
+                    break;
+                case "BTR-MGL":
+                    printOutTemplate = "FakturPrintOut-Mgl";
+                    break;
+                default:
+                    break;
+            }
+
+            var listDataset = new List<ReportDataSource>
+            {
+                fakturJualDataset,
+                fakturJualItemDataset
+            };
+            var rdlcViewerForm = new RdlcViewerForm();
+            rdlcViewerForm.SetReportData(printOutTemplate, listDataset);
+            rdlcViewerForm.ShowDialog();
         }
 
         private void SearchText_KeyDown(object sender, KeyEventArgs e)

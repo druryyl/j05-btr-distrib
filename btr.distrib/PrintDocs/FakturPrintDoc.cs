@@ -41,7 +41,6 @@ namespace btr.distrib.PrintDocs
             _mediator = mediator;
 
             InitPrintDocument();
-            
         }
 
         private void InitPrintDocument()

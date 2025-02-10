@@ -1,18 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
-using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.StokAgg.GenStokUseCase;
-using btr.application.InventoryContext.StokBalanceAgg;
-using btr.application.InventoryContext.WarehouseAgg;
 using btr.application.SalesContext.FakturAgg.Contracts;
-using btr.nuna.Application;
 using btr.nuna.Domain;
 using Polly;
-using Syncfusion.DataSource.Extensions;
 
 namespace btr.distrib.SharedForm
 {
@@ -29,7 +23,7 @@ namespace btr.distrib.SharedForm
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, System.EventArgs e)
+        private void Button1_Click(object sender, System.EventArgs e)
         {
             if (textBox1.Text != @"jude")
                 return;

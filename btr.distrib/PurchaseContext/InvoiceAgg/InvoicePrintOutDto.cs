@@ -14,8 +14,8 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
         public InvoicePrintOutDto(InvoiceModel invoice, SupplierModel supplier)
         {
             InvoiceCode = $"No.Invoice: {invoice.InvoiceCode}";
-            InvoiceDate = $"Tgl: {invoice.InvoiceDate:dd MMM yyyy}";
-            SupplierId = $"Kepada Yth Customer-{invoice.SupplierId}";
+            InvoiceDate = $"Tgl: {invoice.InvoiceDate:dd MMMM yyyy}";
+            SupplierId = $"Dari Prinsipal {invoice.SupplierId}";
             SupplierName = $"{invoice.SupplierName}";
             Address1 = $"{supplier.Address1}";
             Address2 = supplier.Address2.Length != 0 ?
@@ -70,7 +70,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
                         Disc2 = disc2 == 0 ? "-" : $"{DecFormatter.ToStr(disc2)}%",
                         Disc3 = disc3 == 0 ? "-" : $"{DecFormatter.ToStr(disc3)}%",
                         Disc4 = disc4 == 0 ? "-" : $"{DecFormatter.ToStr(disc4)}%",
-                        Total = $"{(item.Total):N0}",
+                        Total = $"{(item.SubTotal):N0}",
                     };
                     ListItem.Add(newItem);
                     noUrut++;

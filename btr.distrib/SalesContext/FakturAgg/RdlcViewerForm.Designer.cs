@@ -48,7 +48,7 @@
             this.Controls.Add(this.TheViewer);
             this.Name = "RdlcViewerForm";
             this.Text = "RdlcViewerForm";
-            this.Load += new System.EventHandler(this.RdlcViewerForm_Load);
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
 
         }

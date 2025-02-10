@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>226</ApplicationRevision>
+    <ApplicationRevision>229</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -727,6 +727,7 @@
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="WinformAssemblyAnchor.cs" />
     <Content Include="icons8_truck.ico" />
+    <None Include="Resources\icons8_sherlock_holmes_64.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -833,7 +834,12 @@
     <EmbeddedResource Include="PurchaseContext\InvoiceAgg\InvoiceForm.resx">
       <DependentUpon>InvoiceForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PurchaseContext\InvoiceAgg\InvoicePrintOut.rdlc" />
+    <Content Include="Reports\InvoicePrintOut-Mgl.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\InvoicePrintOut-Yk.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="PurchaseContext\InvoiceAgg\InvoicePrintOutForm.resx">
       <DependentUpon>InvoicePrintOutForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -852,10 +858,15 @@
     <EmbeddedResource Include="ReportingContext\CustomerChartRpt.resx">
       <DependentUpon>CustomerChartRpt.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="Reports\FakturPrintOut-Mgl.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="SalesContext\DriverFakturRpt\DriverFakturInfoForm.resx">
       <DependentUpon>DriverFakturInfoForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SalesContext\FakturAgg\FakturPrintOut.rdlc" />
+    <Content Include="Reports\FakturPrintOut-Yk.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="SalesContext\FakturAgg\FakturPrintOutForm.resx">
       <DependentUpon>FakturPrintOutForm.cs</DependentUpon>
     </EmbeddedResource>

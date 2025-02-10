@@ -17,11 +17,14 @@ using btr.distrib.Helpers;
 using btr.application.SupportContext.TglJamAgg;
 using btr.distrib.Browsers;
 using btr.infrastructure.SupportContext.TglJamAgg;
+using btr.distrib.SalesContext.FakturAgg;
+using Microsoft.Win32;
 
 namespace btr.distrib
 {
     internal static class Program
     {
+
         [STAThread]
         static void Main()
         {
@@ -58,13 +61,35 @@ namespace btr.distrib
             user = string.Empty;
             var servicesProvider = services.BuildServiceProvider();
             var login = servicesProvider.GetRequiredService<LoginForm>();
+            var server = GetServerDb();
+            Version version = Assembly.GetExecutingAssembly().GetName().Version;
+            login.SetStatus(server, version.ToString());
             login.StartPosition = FormStartPosition.CenterScreen;
             var diagResult = login.ShowDialog();
             if (diagResult != DialogResult.OK) return false;
             user = login.UserId;
             return true;
         }
-            
+        
+        public static string GetServerDb()
+        {
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"DrurySoftware\BTRApp");
+
+            if (key != null)
+            {
+                // Read the value; if it doesn't exist, return null
+                string server = key.GetValue("Server") as string;
+                string database = key.GetValue("Database") as string;
+
+                // Close the key to release the resource
+                key.Close();
+
+                return $"{database ?? string.Empty}@{server ?? string.Empty}";
+            }
+
+            return $"[db]@[server]";
+        }
+
         private static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
             services.AddMediatR(cfg => cfg
