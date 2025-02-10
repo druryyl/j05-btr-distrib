@@ -45,7 +45,7 @@ namespace btr.distrib.InventoryContext.ReturJualRpt
                 saveFileDialog.Title = @"Save Excel File";
                 saveFileDialog.DefaultExt = "xlsx";
                 saveFileDialog.AddExtension = true;
-                saveFileDialog.FileName = $"faktur-brg-info-{DateTime.Now:yyyy-MM-dd-HHmm}";
+                saveFileDialog.FileName = $"retur-jual-info-{DateTime.Now:yyyy-MM-dd-HHmm}";
                 if (saveFileDialog.ShowDialog() != DialogResult.OK)
                     return;
                 filePath = saveFileDialog.FileName;
@@ -53,7 +53,7 @@ namespace btr.distrib.InventoryContext.ReturJualRpt
 
             using (IXLWorkbook wb = new XLWorkbook())
             {
-                wb.AddWorksheet("Faktu-Brg-Info")
+                wb.AddWorksheet("Retur-Jual-Info")
                     .Cell($"B1")
                     .InsertTable(_dataSource, false);
                 var ws = wb.Worksheets.First();

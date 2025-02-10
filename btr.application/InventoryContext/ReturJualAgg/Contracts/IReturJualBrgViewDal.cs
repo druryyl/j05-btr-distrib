@@ -28,7 +28,6 @@ namespace btr.application.SalesContext.FakturBrgInfo
         public int QtyKecil { get; set; }
         public string SatKecil { get; set; }
         public int InPcs { get; set; }
-        public string Satuan { get; set; }
         public decimal HrgSat { get; set; }
         public decimal SubTotal { get; set; }
         public decimal DiscRp { get; set; }
