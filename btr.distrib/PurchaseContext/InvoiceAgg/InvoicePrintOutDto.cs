@@ -28,7 +28,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
 
             SubTotal = $"{invoice.Total:N0}";
             Discount = $"{invoice.Disc:N0}";
-            Total = $"{invoice.Total:N0}";
+            Total = $"{(invoice.Total - invoice.Disc):N0}";
 
             Dpp = $"{invoice.ListItem.Sum(x => x.DppRp):N0}";
             var dppProsen = invoice.ListItem.FirstOrDefault().DppProsen;

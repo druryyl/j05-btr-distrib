@@ -1820,7 +1820,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Sub Total :</Value>
+                <Value>Total :</Value>
                 <Style>
                   <FontFamily>Lucida Console</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1870,7 +1870,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!SubTotal.Value, "InvoiceBeliDataset") - First(Fields!Discount.Value, "InvoiceBeliDataset")</Value>
+                <Value>=First(Fields!Total.Value, "InvoiceBeliDataset")</Value>
                 <Style>
                   <FontFamily>Lucida Console</FontFamily>
                   <FontSize>9pt</FontSize>
