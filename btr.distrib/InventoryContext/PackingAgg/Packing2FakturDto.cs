@@ -2,6 +2,7 @@
 {
     internal class Packing2FakturDto
     {
+        public int No { get; private set; }
         public string FakturId { get; set; }
         public string FakturCode { get; set; }
         public string FakturDate { get; set; }

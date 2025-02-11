@@ -43,8 +43,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.WarehouseCombo = new System.Windows.Forms.ComboBox();
             this.DriverCombo = new System.Windows.Forms.ComboBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
@@ -152,7 +150,11 @@
             // 
             // InfoStatusStrip
             // 
-            this.InfoStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.LastIdStatusLabel, this.JumlahFakturStatusLabel, this.JumlahItemStatusLabel, this.JumlahSupplierStatusLabel });
+            this.InfoStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.LastIdStatusLabel,
+            this.JumlahFakturStatusLabel,
+            this.JumlahItemStatusLabel,
+            this.JumlahSupplierStatusLabel});
             this.InfoStatusStrip.Location = new System.Drawing.Point(0, 522);
             this.InfoStatusStrip.Name = "InfoStatusStrip";
             this.InfoStatusStrip.Size = new System.Drawing.Size(947, 24);
@@ -162,7 +164,9 @@
             // LastIdStatusLabel
             // 
             this.LastIdStatusLabel.BackColor = System.Drawing.SystemColors.Control;
-            this.LastIdStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.LastIdStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.LastIdStatusLabel.Name = "LastIdStatusLabel";
             this.LastIdStatusLabel.Size = new System.Drawing.Size(54, 19);
             this.LastIdStatusLabel.Text = "[Last ID]";
@@ -170,7 +174,9 @@
             // JumlahFakturStatusLabel
             // 
             this.JumlahFakturStatusLabel.BackColor = System.Drawing.SystemColors.Control;
-            this.JumlahFakturStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.JumlahFakturStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.JumlahFakturStatusLabel.Name = "JumlahFakturStatusLabel";
             this.JumlahFakturStatusLabel.Size = new System.Drawing.Size(93, 19);
             this.JumlahFakturStatusLabel.Text = "[Jumlah Faktur]";
@@ -178,7 +184,9 @@
             // JumlahItemStatusLabel
             // 
             this.JumlahItemStatusLabel.BackColor = System.Drawing.SystemColors.Control;
-            this.JumlahItemStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.JumlahItemStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.JumlahItemStatusLabel.Name = "JumlahItemStatusLabel";
             this.JumlahItemStatusLabel.Size = new System.Drawing.Size(84, 19);
             this.JumlahItemStatusLabel.Text = "[Jumlah Item]";
@@ -186,7 +194,9 @@
             // JumlahSupplierStatusLabel
             // 
             this.JumlahSupplierStatusLabel.BackColor = System.Drawing.SystemColors.Control;
-            this.JumlahSupplierStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.JumlahSupplierStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.JumlahSupplierStatusLabel.Name = "JumlahSupplierStatusLabel";
             this.JumlahSupplierStatusLabel.Size = new System.Drawing.Size(103, 19);
             this.JumlahSupplierStatusLabel.Text = "[Jumlah Supplier]";
@@ -212,7 +222,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 86);
+            this.label3.Location = new System.Drawing.Point(6, 61);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(37, 13);
             this.label3.TabIndex = 16;
@@ -223,9 +233,7 @@
             this.panel2.BackColor = System.Drawing.Color.PowderBlue;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.DeliveryDateText);
-            this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.label2);
-            this.panel2.Controls.Add(this.WarehouseCombo);
             this.panel2.Controls.Add(this.DriverCombo);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Location = new System.Drawing.Point(219, 6);
@@ -233,35 +241,18 @@
             this.panel2.Size = new System.Drawing.Size(240, 144);
             this.panel2.TabIndex = 2;
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 46);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(49, 13);
-            this.label5.TabIndex = 20;
-            this.label5.Text = "Gudang";
-            // 
-            // WarehouseCombo
-            // 
-            this.WarehouseCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.WarehouseCombo.FormattingEnabled = true;
-            this.WarehouseCombo.Location = new System.Drawing.Point(9, 62);
-            this.WarehouseCombo.Name = "WarehouseCombo";
-            this.WarehouseCombo.Size = new System.Drawing.Size(213, 21);
-            this.WarehouseCombo.TabIndex = 5;
-            // 
             // DriverCombo
             // 
             this.DriverCombo.FormattingEnabled = true;
-            this.DriverCombo.Location = new System.Drawing.Point(9, 102);
+            this.DriverCombo.Location = new System.Drawing.Point(9, 77);
             this.DriverCombo.Name = "DriverCombo";
             this.DriverCombo.Size = new System.Drawing.Size(213, 21);
             this.DriverCombo.TabIndex = 6;
             // 
             // panel3
             // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BackColor = System.Drawing.Color.PowderBlue;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.label4);
@@ -322,7 +313,9 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
@@ -348,7 +341,9 @@
             // 
             this.FakturGrid.AccessibleName = "Table";
             this.FakturGrid.AllowResizingColumns = true;
-            this.FakturGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.FakturGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.FakturGrid.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FakturGrid.Location = new System.Drawing.Point(6, 6);
             this.FakturGrid.Name = "FakturGrid";
@@ -550,6 +545,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.SupplierBrgGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         private System.Windows.Forms.Button PreviewPerSupplier;
@@ -568,8 +564,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ComboBox DriverCombo;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox WarehouseCombo;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button SearchButton;

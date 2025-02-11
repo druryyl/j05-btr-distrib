@@ -24,18 +24,17 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
         {
             const string sql = @"
             INSERT INTO BTR_Packing(
-                PackingId, PackingDate, WarehouseId, 
+                PackingId, PackingDate,
                 DriverId, DeliveryDate,
                 TglAwalFaktur, TglAKhirFaktur, KeywordSearch)
             VALUES (
-                @PackingId, @PackingDate, @WarehouseId, 
+                @PackingId, @PackingDate, 
                 @DriverId, @DeliveryDate,
                 @TglAwalFaktur, @TglAKhirFaktur, @KeywordSearch)";
 
             var @dp = new DynamicParameters();
             dp.AddParam("@PackingId", model.PackingId, SqlDbType.VarChar);
             dp.AddParam("@PackingDate", model.PackingDate, SqlDbType.DateTime);
-            dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
             dp.AddParam("@DriverId", model.DriverId, SqlDbType.VarChar);
             dp.AddParam("@DeliveryDate", model.DeliveryDate, SqlDbType.DateTime);
             dp.AddParam("@TglAwalFaktur", model.TglAwalFaktur, SqlDbType.DateTime);
@@ -57,7 +56,6 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
                 BTR_Packing
             SET
                 PackingDate = @PackingDate,
-                WarehouseId = @WarehouseId,
                 DriverId = @DriverId,
                 DeliveryDate = @DeliveryDate,
                 TglAKhirFaktur = @TglAkhirFaktur,
@@ -69,7 +67,6 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
             var @dp = new DynamicParameters();
             dp.AddParam("@PackingId", model.PackingId, SqlDbType.VarChar);
             dp.AddParam("@PackingDate", model.PackingDate, SqlDbType.DateTime);
-            dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
 
             dp.AddParam("@DriverId", model.DriverId, SqlDbType.VarChar);
             dp.AddParam("@DeliveryDate", model.DeliveryDate, SqlDbType.DateTime);
@@ -105,14 +102,12 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
         {
             const string sql = @"
             SELECT
-                aa.PackingId, aa.PackingDate, aa.WarehouseId,
+                aa.PackingId, aa.PackingDate,
                 aa.DriverId, aa.DeliveryDate, 
                 aa.TglAwalFaktur, aa.TglAKhirFaktur, aa.KeywordSearch,
-                ISNULL(bb.WarehouseName, '') AS WarehouseName,
                 ISNULL(cc.DriverName, '') AS DriverName
             FROM
                 BTR_Packing aa
-                LEFT JOIN BTR_Warehouse bb ON aa.WarehouseId = bb.WarehouseId
                 LEFT JOIN BTR_Driver Cc ON aa.DriverId = cc.DriverId
             WHERE
                 PackingId = @PackingId ";
@@ -130,14 +125,12 @@ namespace btr.infrastructure.InventoryContext.PackingAgg
         {
             const string sql = @"
             SELECT
-                aa.PackingId, aa.PackingDate, aa.WarehouseId,
+                aa.PackingId, aa.PackingDate,
                 aa.DriverId, aa.DeliveryDate, 
                 aa.TglAwalFaktur, aa.TglAKhirFaktur, aa.KeywordSearch,
-                ISNULL(bb.WarehouseName, '') AS WarehouseName,
                 ISNULL(cc.DriverName, '') AS DriverName
             FROM
                 BTR_Packing aa
-                LEFT JOIN BTR_Warehouse bb ON aa.WarehouseId = bb.WarehouseId
                 LEFT JOIN BTR_Driver Cc ON aa.DriverId = cc.DriverId
             WHERE
                 aa.DeliveryDate BETWEEN @Tgl1 AND @Tgl2";

@@ -27,7 +27,6 @@ namespace btr.application.InventoryContext.PackingAgg
         IPackingBuilder Load(IPackingKey packingKey);
         IPackingBuilder Attach(PackingModel model);
         IPackingBuilder User(IUserKey user);
-        IPackingBuilder Warehouse(IWarehouseKey wareouseKey);
         IPackingBuilder DeliveryDate(DateTime deliveryDate);
 
         IPackingBuilder Driver(IDriverKey driverKey);
@@ -52,9 +51,6 @@ namespace btr.application.InventoryContext.PackingAgg
         private readonly IPackingBrgDal _packingFakturSupplierDal;
         private readonly IFakturDal _fakturDal;
         private readonly IDriverDal _driverDal;
-        private readonly IWarehouseDal _warehouseDal;
-        private readonly ITglJamDal _dateTime;
-        private readonly IFakturBuilder _fakturBuilder;
         private readonly IBrgBuilder _brgBuilder;
         private readonly IUserDal _userDal;
 
@@ -62,20 +58,14 @@ namespace btr.application.InventoryContext.PackingAgg
             IPackingFakturDal packingFakturDal,
             IPackingBrgDal packingFakturSupplierDal,
             IDriverDal driverDal,
-            IWarehouseDal warehouseDal,
-            ITglJamDal dateTime,
             IFakturDal fakturDal,
-            IFakturBuilder fakturBuilder,
             IBrgBuilder brgBuilder, IUserDal userDal)
         {
             _packingDal = packingDal;
             _packingFakturDal = packingFakturDal;
             _packingFakturSupplierDal = packingFakturSupplierDal;
             _driverDal = driverDal;
-            _warehouseDal = warehouseDal;
-            _dateTime = dateTime;
             _fakturDal = fakturDal;
-            _fakturBuilder = fakturBuilder;
             _brgBuilder = brgBuilder;
             _userDal = userDal;
         }
@@ -127,15 +117,6 @@ namespace btr.application.InventoryContext.PackingAgg
                        ?? throw new KeyNotFoundException("User not found");
             _aggregate.UserId = user.UserId;
             _aggregate.UserName = user.UserName;
-            return this;
-        }
-
-        public IPackingBuilder Warehouse(IWarehouseKey wareouseKey)
-        {
-            var warehouse = _warehouseDal.GetData(wareouseKey)
-                ?? throw new KeyNotFoundException("WarehouseId invalid");
-            _aggregate.WarehouseId = warehouse.WarehouseId;
-            _aggregate.WarehouseName = warehouse.WarehouseName;
             return this;
         }
 

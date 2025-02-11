@@ -30,7 +30,6 @@ namespace btr.distrib.InventoryContext.PackingAgg
 {
     public partial class Packing2Form : Form
     {
-        private readonly IWarehouseDal _warehouseDal;
         private readonly IDriverDal _driverDal;
         private readonly IFakturDal _fakturDal;
         private readonly IFakturBuilder _fakturBuilder;
@@ -50,8 +49,7 @@ namespace btr.distrib.InventoryContext.PackingAgg
 
         private readonly List<Packing2BrgDto> _listBrg;
 
-        public Packing2Form(IWarehouseDal warehouseDal,
-            IDriverDal driverDal,
+        public Packing2Form(IDriverDal driverDal,
             IFakturDal fakturDal,
             IFakturBuilder fakturBuilder,
             IBrgDal brgDal,
@@ -62,7 +60,6 @@ namespace btr.distrib.InventoryContext.PackingAgg
         {
             InitializeComponent();
 
-            _warehouseDal = warehouseDal;
             _driverDal = driverDal;
             _fakturDal = fakturDal;
             _fakturBuilder = fakturBuilder;
@@ -78,7 +75,7 @@ namespace btr.distrib.InventoryContext.PackingAgg
             _listSupplier = new ObservableCollection<Packing2SupplierDto>();
             _listSupplierBrg = new ObservableCollection<Packing2SupplierBrgDto>();
             _listBrg = new List<Packing2BrgDto>();
-
+            RegisterEventHandler();
             InitComboBox();
             InitGrid();
             InitButton();
@@ -87,20 +84,35 @@ namespace btr.distrib.InventoryContext.PackingAgg
 
         private void InitComboBox()
         {
-            WarehouseCombo.DataSource = _warehouseDal.ListData();
-            WarehouseCombo.DisplayMember = "WarehouseName";
-            WarehouseCombo.ValueMember = "WarehouseId";
-
             DriverCombo.DataSource = _driverDal.ListData();
             DriverCombo.DisplayMember = "DriverName";
             DriverCombo.ValueMember = "DriverId";
+        }
+
+        private void RegisterEventHandler()
+        {
+            FakturGrid.QueryCellStyle += FakturGrid_QueryCellStyle;
+            FakturGrid.CellCheckBoxClick += FakturGrid_CellCheckBoxClick;
+
+        }
+
+        private void FakturGrid_QueryCellStyle(object sender, QueryCellStyleEventArgs e)
+        {
+            if (e.RowIndex > 0 && e.ColumnIndex == 0)
+            {
+                e.DisplayText = e.RowIndex.ToString();
+                e.Style.BackColor = Color.Teal;
+                e.Style.TextColor = Color.LightGray;
+            }
         }
 
         private void InitGrid()
         {
             //  Grid Faktur
             FakturGrid.DataSource = _listFaktur;
+
             FakturGrid.Style.CellStyle.Font.Facename = "Consolas";
+            FakturGrid.Columns["No"].Width = 35;
             FakturGrid.Columns["FakturId"].Visible = false;
             FakturGrid.Columns["FakturCode"].Width = 90;
             FakturGrid.Columns["FakturDate"].Width = 90;
@@ -110,7 +122,6 @@ namespace btr.distrib.InventoryContext.PackingAgg
             FakturGrid.Columns["GrandTotal"].Width = 100;
             FakturGrid.Columns["Pilih"].Width = 50;
             FakturGrid.Style.HeaderStyle.BackColor = Color.PowderBlue;
-            FakturGrid.CellCheckBoxClick += FakturGrid_CellCheckBoxClick;
             
             //  Grid PerBrg-Faktur
             FakturSelectedGrid.DataSource = _listFakturSelected;
@@ -187,7 +198,6 @@ namespace btr.distrib.InventoryContext.PackingAgg
             PackingDateText.Value = packing.PackingDate;
             UserText.Text = packing.UserId;
             DeliveryDateText.Value = packing.DeliveryDate;
-            WarehouseCombo.SelectedValue = packing.WarehouseId;
             DriverCombo.SelectedValue = packing.DriverId;
             Faktur1Date.Value = packing.TglAwalFaktur;
             Faktur2Date.Value = packing.TglAkhirFaktur;
@@ -247,7 +257,6 @@ namespace btr.distrib.InventoryContext.PackingAgg
             packing = _builder
                 .Attach(packing)
                 .User(new UserModel(mainform.UserId.UserId))
-                .Warehouse(new WarehouseModel(WarehouseCombo.SelectedValue.ToString()))
                 .Driver(new DriverModel(DriverCombo.SelectedValue.ToString()))
                 .DeliveryDate(DeliveryDateText.Value)
                 .FilterFakturDate(new Periode(Faktur1Date.Value, Faktur2Date.Value))

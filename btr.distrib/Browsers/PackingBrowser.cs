@@ -44,7 +44,6 @@ namespace btr.distrib.Browsers
                     Id = x.PackingId,
                     Tgl = x.PackingDate.ToString("dd-MMM HH:mm"),
                     Driver = x.DriverName,
-                    Gudang = x.WarehouseName
                 }).ToList();
 
             if (Filter.UserKeyword.Length > 0)
@@ -60,6 +59,5 @@ namespace btr.distrib.Browsers
         public string Id { get; set; }
         public string Tgl { get; set; }
         public string Driver { get; set; }
-        public string Gudang { get; set; }
     }
 }
