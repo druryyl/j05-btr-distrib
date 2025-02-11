@@ -138,7 +138,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
 
         private void PrintButton_Click(object sender, EventArgs e)
         {
-            PrintInvoice(InvoiceIdText.Text);
+            PrintInvoiceRdlc(InvoiceIdText.Text);
         }
         private void PrintInvoiceRdlc(string invoiceId)
         {
