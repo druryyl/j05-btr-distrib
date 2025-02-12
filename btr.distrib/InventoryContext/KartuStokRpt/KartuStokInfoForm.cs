@@ -4,40 +4,42 @@ using btr.application.InventoryContext.KartuStokRpt;
 using btr.application.InventoryContext.WarehouseAgg;
 using btr.distrib.Helpers;
 using btr.domain.BrgContext.BrgAgg;
-using btr.domain.BrgContext.KategoriAgg;
 using btr.domain.InventoryContext.KartuStokRpt;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.nuna.Domain;
-using DocumentFormat.OpenXml.Spreadsheet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Mapster;
 using Color = System.Drawing.Color;
+using System.ComponentModel;
 
 namespace btr.distrib.InventoryContext.KartuStokRpt
 {
     public partial class KartuStokInfoForm : Form
     {
-        private readonly IKategoriDal _kategoriDal;
         private readonly IBrgDal _brgDal;
         private readonly IKartuStokDal _kartuStokDal;
         private readonly IWarehouseDal _warehouseDal;
+        private readonly BindingList<BrgKartuDto> _listBrgKartu;
+        private readonly BindingSource _listKartuBindingSource;
 
-        public KartuStokInfoForm(IKategoriDal kategoriDal,
-            IBrgDal brgDal,
+        public KartuStokInfoForm(IBrgDal brgDal,
             IWarehouseDal warehouseDal,
             IKartuStokDal kartuStokDal)
         {
             InitializeComponent();
-            _kategoriDal = kategoriDal;
-
             _brgDal = brgDal;
             _warehouseDal = warehouseDal;
             _kartuStokDal = kartuStokDal;
-            Periode1Date.Value = DateTime.Now.AddDays(-7);
-            Periode2Date.Value = DateTime.Now;
+            _listBrgKartu = new BindingList<BrgKartuDto>();
+            _listKartuBindingSource = new BindingSource();
+            _listKartuBindingSource.DataSource = _listBrgKartu;
+
+            PeriodeCalender.SelectionStart = DateTime.Now.AddDays(-6);
+            PeriodeCalender.SelectionEnd = DateTime.Now.AddDays(1);
+            
             RegisterEventHandler();
             InitGridBrg();
             InitGridKartuStok();
@@ -48,6 +50,13 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             ListBarangButton.Click += ListBarangButton_Click;
             BrgGrid.CellDoubleClick += BrgGrid_CellDoubleClick;
             KartuStokGrid.RowPrePaint += KartuStokGrid_RowPrePaint;
+            PencatatanRadioButton.CheckedChanged += SortingRadioButton_CheckedChanged;
+            PengakuanRadioButton.CheckedChanged -= SortingRadioButton_CheckedChanged;
+        }
+
+        private void SortingRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            GenKartuStok();
         }
 
         private void KartuStokGrid_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
@@ -71,9 +80,7 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
         private void BrgGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex == -1) return;
-            var brgId = BrgGrid.Rows[e.RowIndex].Cells["BrgId"].Value.ToString();
-            var periode = new Periode(Periode1Date.Value, Periode2Date.Value);
-            GenKartuStok(periode, new BrgModel(brgId));
+            GenKartuStok();
         }
 
         private void ListBarangButton_Click(object sender, EventArgs e)
@@ -86,44 +93,23 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             var listId = listBrg.Where(x => x.BrgId.ToLower().StartsWith(keyWord));
             var result = listNamaBrg.Union(listCode).Union(listId)
                 .OrderBy(x => x.BrgCode)
-                .Select(x => new
-                {
-                    x.BrgId,
-                    x.BrgCode,
-                    x.BrgName,
-                }).ToList();
-            BrgGrid.DataSource = result;
-            BrgGrid.Refresh();
+                .Select(x => new BrgKartuDto(x.BrgId,x.BrgCode,x.BrgName))
+                .ToList();
+            _listBrgKartu.Clear();
+            result.ForEach(x => _listBrgKartu.Add(x));
+            BrgGrid.AutoResizeRows(DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders);
         }
 
         private void InitGridBrg()
         {
-            BrgGrid.AutoGenerateColumns = false;
-            BrgGrid.Columns.Clear();
-            BrgGrid.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "BrgId",
-                HeaderText = @"BrgId",
-                Name = "BrgId",
-                Visible = false,
-                ReadOnly = true
-            });
-            BrgGrid.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "BrgCode",
-                HeaderText = @"Code",
-                Name = "BrgCode",
-                Width = 80,
-                ReadOnly = true
-            });
-            BrgGrid.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "BrgName",
-                HeaderText = @"Nama Barang",
-                Name = "BrgName",
-                Width = 300,
-                ReadOnly = true
-            });
+            BrgGrid.DataSource = _listKartuBindingSource;
+
+            BrgGrid.Columns["BrgId"].Visible = false;
+            BrgGrid.Columns["BrgCode"].Visible = false;
+            BrgGrid.Columns["BrgName"].Visible = false;
+            BrgGrid.RowHeadersVisible = false;
+            BrgGrid.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            BrgGrid.Columns["BrgCodeName"].Width = 200;
         }
 
         private void InitGridKartuStok()
@@ -154,7 +140,7 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             col.GetCol("QtyAkhir").Width = 40;
             col.GetCol("Hpp").Width = 70;
             col.GetCol("HargaJual").Width = 70;
-            col.GetCol("Keterangan").Width = 400;
+            col.GetCol("Keterangan").Width = 350;
 
             foreach(DataGridViewColumn item in KartuStokGrid.Columns)
                 item.ReadOnly = true;
@@ -184,8 +170,6 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             col.GetCol("Keterangan").DefaultCellStyle.Font = new System.Drawing.Font("Consolas", 8.25F);
 
             col.GetCol("QtyAwal").DefaultCellStyle.ForeColor = System.Drawing.Color.Gray;
-            //col.GetCol("QtyMasuk").DefaultCellStyle.BackColor = System.Drawing.Color.LightYellow;
-            //col.GetCol("QtyKeluar").DefaultCellStyle.BackColor = System.Drawing.Color.LightYellow;
             col.GetCol("QtyAkhir").DefaultCellStyle.ForeColor = System.Drawing.Color.Gray;
 
             col.GetCol("Hpp").DefaultCellStyle.BackColor = Color.LightGreen;
@@ -196,24 +180,49 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             col.GetCol("HargaJual").Visible = false;
         }
 
-        private void GenKartuStok(Periode periode, IBrgKey brgKey)
+        private void GenKartuStok()
         {
-            var listKartuStok = _kartuStokDal.ListData(periode, brgKey)?.ToList()
+            var brgId = BrgGrid.CurrentRow.Cells["BrgId"].Value.ToString();
+            var tgl1 = PeriodeCalender.SelectionStart;
+            var tgl2 = PeriodeCalender.SelectionEnd;
+            var periode = new Periode(tgl1, tgl2);
+            var brgKey = new BrgModel(brgId);
+            //GenKartuStok(periode, new BrgModel(brgId));
+
+            var listKartuStokRaw = _kartuStokDal.ListData(periode, brgKey)?.ToList()
                 ?? new List<KartuStokView>();
             //  sum QtyIn, QtyOut grouped by ReffId
-            var listKartuStokGrouped = listKartuStok
-                .Select(x => new KartuStokView
-                {
-                    ReffId = x.ReffId,
-                    JenisMutasi = x.JenisMutasi,
-                    WarehouseId = x.WarehouseId,
-                    QtyIn = x.QtyIn,
-                    QtyOut = x.QtyOut,
-                    Hpp = x.Hpp,
-                    HargaJual = x.HargaJual,
-                    Keterangan = x.Keterangan,
-                    MutasiDate = x.MutasiDate
-                }).ToList();
+            List<KartuStokView> listKartuStok;
+            if (PencatatanRadioButton.Checked)
+                listKartuStok = listKartuStokRaw
+                    .Select(x => new KartuStokView
+                    {
+                        ReffId = x.ReffId,
+                        JenisMutasi = x.JenisMutasi,
+                        WarehouseId = x.WarehouseId,
+                        QtyIn = x.QtyIn,
+                        QtyOut = x.QtyOut,
+                        Hpp = x.Hpp,
+                        HargaJual = x.HargaJual,
+                        Keterangan = x.Keterangan,
+                        MutasiDate = x.MutasiDate
+                    }).ToList();
+            else
+                listKartuStok = listKartuStokRaw
+                    .OrderBy(x => x.MutasiDate)
+                    .Select(x => new KartuStokView
+                    {
+                        ReffId = x.ReffId,
+                        JenisMutasi = x.JenisMutasi,
+                        WarehouseId = x.WarehouseId,
+                        QtyIn = x.QtyIn,
+                        QtyOut = x.QtyOut,
+                        Hpp = x.Hpp,
+                        HargaJual = x.HargaJual,
+                        Keterangan = x.Keterangan,
+                        MutasiDate = x.MutasiDate
+                    }).ToList();
+
             var listSaldoAwal = GetSaldoAwal(periode, brgKey);
             var listWarehouse = _warehouseDal.ListData()?.ToList() ?? new List<WarehouseModel>();
             var result = new List<KartuStokItemInfoDto>();
@@ -235,7 +244,7 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
                 var saldo = saldoAwal?.QtyAkhir ?? 0;
                 var kartuStok = new KartuStokItemInfoDto();
                 var noUrut = 1;
-                foreach (var item in listKartuStokGrouped.Where(x => x.WarehouseId == warehouse.WarehouseId))
+                foreach (var item in listKartuStok.Where(x => x.WarehouseId == warehouse.WarehouseId))
                 {
                     var qtyIn = item.QtyIn == 0 ? string.Empty : $"{item.QtyIn:N0}";
                     var qtyOut = item.QtyOut == 0 ? string.Empty : $"{item.QtyOut:N0}";
@@ -263,8 +272,8 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
                 saldoAkhir.No = noUrut;
                 saldoAkhir.JenisMutasi = "Saldo Akhir";
                 saldoAkhir.Keterangan = "Saldo Akhir";
-                var saldoQtyMasuk = listKartuStokGrouped.Where(x => x.WarehouseId == warehouse.WarehouseId).Sum(x => x.QtyIn);
-                var saldoQtyKeluar = listKartuStokGrouped.Where(x => x.WarehouseId == warehouse.WarehouseId).Sum(x => x.QtyOut);
+                var saldoQtyMasuk = listKartuStok.Where(x => x.WarehouseId == warehouse.WarehouseId).Sum(x => x.QtyIn);
+                var saldoQtyKeluar = listKartuStok.Where(x => x.WarehouseId == warehouse.WarehouseId).Sum(x => x.QtyOut);
                 saldoAkhir.QtyMasuk = $"{saldoQtyMasuk:N0}";
                 saldoAkhir.QtyKeluar = $"{saldoQtyKeluar:N0}";
                 saldoAkhir.Hpp = 0;
@@ -272,7 +281,6 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
                 result.Add(saldoAkhir);
             }
             KartuStokGrid.DataSource = result;
-            DetilGrid.DataSource = result;
         }
 
         private IEnumerable<KartuStokStokAwalView> GetSaldoAwal(Periode periode, IBrgKey brgKey)
@@ -306,5 +314,20 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
         public decimal Hpp{ get; set; }
         public decimal HargaJual { get; set; }
         public string Keterangan { get; set; }
+    }
+
+    public class BrgKartuDto
+    {
+        public BrgKartuDto(string id, string code, string name)
+        {
+            BrgId = id;
+            BrgCode = code;
+            BrgName = name;
+            BrgCodeName = $"{name}\n    {code}";
+        }
+        public string BrgId { get; private set; }
+        public string BrgCode { get; private set; }
+        public string BrgName { get; private set; }
+        public string BrgCodeName { get; private set; }
     }
 }
