@@ -62,8 +62,8 @@ namespace btr.distrib.InventoryContext.ReturJualRpt
                 ws.Range(ws.Cell("A1"), ws.Cell($"Y{_dataSource.Count + 1}")).Style
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair);
-                ws.Cell($"K{_dataSource.Count + 2}").Value = "Total";
-                ws.Range(ws.Cell($"K{_dataSource.Count + 2}"), ws.Cell($"Y{_dataSource.Count + 2}")).Style
+                ws.Cell($"U{_dataSource.Count + 2}").Value = "Total";
+                ws.Range(ws.Cell($"U{_dataSource.Count + 2}"), ws.Cell($"Y{_dataSource.Count + 2}")).Style
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Font.SetFontName("Consolas")
                     .Font.SetFontSize(11)
@@ -74,7 +74,7 @@ namespace btr.distrib.InventoryContext.ReturJualRpt
                     .Font.SetFontSize(9);
 
                 //  add row total V,W,X,Y
-                ws.Cell($"V{_dataSource.Count + 2}").FormulaA1 = $"=SUM(V2:V{_dataSource.Count + 1})";
+                ws.Cell($"V{_dataSource.Count + 2}").FormulaA1 = $"=SUM(W2:V{_dataSource.Count + 1})";
                 ws.Cell($"W{_dataSource.Count + 2}").FormulaA1 = $"=SUM(W2:W{_dataSource.Count + 1})";
                 ws.Cell($"X{_dataSource.Count + 2}").FormulaA1 = $"=SUM(X2:X{_dataSource.Count + 1})";
                 ws.Cell($"Y{_dataSource.Count + 2}").FormulaA1 = $"=SUM(Y2:Y{_dataSource.Count + 1})";
@@ -216,7 +216,6 @@ namespace btr.distrib.InventoryContext.ReturJualRpt
                 return source;
             var listFilteredCustomer = source.Where(x => x.CustomerName.ToLower().ContainMultiWord(keyword)).ToList();
             var listFilteredAddress = source.Where(x => x.BrgName.ToLower().ContainMultiWord(keyword)).ToList();
-
 
             var result = listFilteredCustomer
                 .Union(listFilteredAddress);

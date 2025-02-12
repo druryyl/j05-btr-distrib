@@ -11,6 +11,7 @@ namespace btr.application.SalesContext.FakturBrgInfo
     public class ReturJualBrgView
     {
         public string ReturJualId { get; set; }
+        public string ReturJualCode { get; set; }
         public DateTime ReturJualDate { get; set; }
         public string JenisRetur { get; set; }
         public string SalesName { get; set; }
