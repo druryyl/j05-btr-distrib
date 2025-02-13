@@ -79,6 +79,8 @@
     <Compile Include="InventoryContext\KartuStokRpt\KartuStokSaldoView.cs" />
     <Compile Include="InventoryContext\KartuStokRpt\KartuStokView.cs" />
     <Compile Include="InventoryContext\MutasiAgg\IMutasiKey.cs" />
+    <Compile Include="InventoryContext\MutasiAgg\MutasiDiscModel.cs" />
+    <Compile Include="InventoryContext\MutasiAgg\MutasiItemModel.cs" />
     <Compile Include="InventoryContext\MutasiAgg\MutasiModel.cs" />
     <Compile Include="InventoryContext\OpnameAgg\IOpnameKey.cs" />
     <Compile Include="InventoryContext\OpnameAgg\IStokOpKey.cs" />

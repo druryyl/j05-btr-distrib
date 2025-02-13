@@ -40,8 +40,6 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             this.MutasiItemGrid = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.WarehouseNameText = new System.Windows.Forms.TextBox();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.WarehouseButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.WarehouseIdText = new System.Windows.Forms.TextBox();
@@ -52,6 +50,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             this.SaveButton = new System.Windows.Forms.Button();
             this.NewButton = new System.Windows.Forms.Button();
             this.TotalText = new System.Windows.Forms.NumericUpDown();
+            this.JenisMutasiCombo = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MutasiItemGrid)).BeginInit();
             this.panel2.SuspendLayout();
@@ -98,7 +97,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             this.LastIdLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LastIdLabel.Location = new System.Drawing.Point(6, 47);
             this.LastIdLabel.Name = "LastIdLabel";
-            this.LastIdLabel.Size = new System.Drawing.Size(153, 20);
+            this.LastIdLabel.Size = new System.Drawing.Size(182, 15);
             this.LastIdLabel.TabIndex = 5;
             this.LastIdLabel.Text = "[Last ID]";
             this.LastIdLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -107,7 +106,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             // 
             this.MutasiButton.BackColor = System.Drawing.Color.CadetBlue;
             this.MutasiButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.MutasiButton.Location = new System.Drawing.Point(165, 22);
+            this.MutasiButton.Location = new System.Drawing.Point(162, 22);
             this.MutasiButton.Name = "MutasiButton";
             this.MutasiButton.Size = new System.Drawing.Size(26, 22);
             this.MutasiButton.TabIndex = 2;
@@ -134,6 +133,9 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             // 
             // MutasiItemGrid
             // 
+            this.MutasiItemGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.MutasiItemGrid.BackgroundColor = System.Drawing.Color.DarkSlateGray;
             this.MutasiItemGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.MutasiItemGrid.Location = new System.Drawing.Point(6, 129);
@@ -145,9 +147,8 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             // 
             this.panel2.BackColor = System.Drawing.Color.PowderBlue;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.JenisMutasiCombo);
             this.panel2.Controls.Add(this.WarehouseNameText);
-            this.panel2.Controls.Add(this.radioButton3);
-            this.panel2.Controls.Add(this.radioButton4);
             this.panel2.Controls.Add(this.WarehouseButton);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.WarehouseIdText);
@@ -159,39 +160,17 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             // WarehouseNameText
             // 
             this.WarehouseNameText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.WarehouseNameText.Location = new System.Drawing.Point(9, 50);
+            this.WarehouseNameText.Location = new System.Drawing.Point(9, 47);
             this.WarehouseNameText.Name = "WarehouseNameText";
             this.WarehouseNameText.ReadOnly = true;
-            this.WarehouseNameText.Size = new System.Drawing.Size(182, 22);
+            this.WarehouseNameText.Size = new System.Drawing.Size(179, 22);
             this.WarehouseNameText.TabIndex = 5;
-            // 
-            // radioButton3
-            // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(100, 82);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(59, 17);
-            this.radioButton3.TabIndex = 4;
-            this.radioButton3.Text = "Masuk";
-            this.radioButton3.UseVisualStyleBackColor = true;
-            // 
-            // radioButton4
-            // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Checked = true;
-            this.radioButton4.Location = new System.Drawing.Point(9, 82);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(57, 17);
-            this.radioButton4.TabIndex = 3;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "Keluar";
-            this.radioButton4.UseVisualStyleBackColor = true;
             // 
             // WarehouseButton
             // 
             this.WarehouseButton.BackColor = System.Drawing.Color.CadetBlue;
             this.WarehouseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.WarehouseButton.Location = new System.Drawing.Point(165, 22);
+            this.WarehouseButton.Location = new System.Drawing.Point(162, 22);
             this.WarehouseButton.Name = "WarehouseButton";
             this.WarehouseButton.Size = new System.Drawing.Size(26, 22);
             this.WarehouseButton.TabIndex = 2;
@@ -254,7 +233,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             this.label5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(636, 383);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(32, 13);
+            this.label5.Size = new System.Drawing.Size(31, 13);
             this.label5.TabIndex = 5;
             this.label5.Text = "Total";
             // 
@@ -291,6 +270,14 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             this.TotalText.TabIndex = 8;
             this.TotalText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.TotalText.ThousandsSeparator = true;
+            // 
+            // JenisMutasiCombo
+            // 
+            this.JenisMutasiCombo.FormattingEnabled = true;
+            this.JenisMutasiCombo.Location = new System.Drawing.Point(9, 75);
+            this.JenisMutasiCombo.Name = "JenisMutasiCombo";
+            this.JenisMutasiCombo.Size = new System.Drawing.Size(179, 21);
+            this.JenisMutasiCombo.TabIndex = 6;
             // 
             // MutasiForm
             // 
@@ -338,13 +325,12 @@ namespace btr.distrib.InventoryContext.MutasiAgg
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox KeteranganText;
         private System.Windows.Forms.TextBox WarehouseNameText;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button NewButton;
         private DateTimePicker MutasiDateText;
         private Label MutasiDateLabel;
         private NumericUpDown TotalText;
+        private ComboBox JenisMutasiCombo;
     }
 }

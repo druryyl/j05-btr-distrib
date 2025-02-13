@@ -6,22 +6,26 @@ using btr.application.InventoryContext.StokBalanceAgg;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.MutasiAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
+using btr.domain.SalesContext.FakturAgg;
 using btr.nuna.Application;
 
 namespace btr.application.InventoryContext.MutasiAgg
 {
     public class CreateMutasiItemRequest : IBrgKey, IWarehouseKey
     {
-        public CreateMutasiItemRequest(string brgId, string warehouseId, string qtyInputStr)
+        public CreateMutasiItemRequest(string brgId, string warehouseId, string qtyInputStr, string discInputStr)
         {
             BrgId = brgId;
             WarehouseId = warehouseId;
             QtyInputStr = qtyInputStr;
+            DiscInputStr = discInputStr;
         }
 
         public string BrgId { get; set; }
         public string WarehouseId { get; set; }
         public string QtyInputStr { get; set; }
+        public string DiscInputStr { get; set; }
+
     }
 
     public interface ICreateMutasiItemWorker : INunaService<MutasiItemModel, CreateMutasiItemRequest>
@@ -51,6 +55,7 @@ namespace btr.application.InventoryContext.MutasiAgg
                 BrgName = brg.BrgName,
                 BrgCode = brg.BrgCode,
                 QtyInputStr = req.QtyInputStr,
+                DiscInputStr = req.DiscInputStr,
             };
 
             item.QtyKecil = (int)qtys[1];
@@ -106,11 +111,63 @@ namespace btr.application.InventoryContext.MutasiAgg
                 item.HppDetilStr = $"{item.HppBesar:N0}{Environment.NewLine}{item.Hpp:N0}";
             }
 
+            //  discount
+            var discInputStr = UbahKomaJadiTitik(req.DiscInputStr);
+            item.DiscInputStr = discInputStr;
+            var listDisc = GenListDiscount(req.BrgId, item.Qty * item.Hpp, item.DiscInputStr).ToList();
+            item.DiscDetilStr = GenDiscDetilStr(listDisc);
+            item.DiscRp = listDisc.Sum(x => x.DiscRp);
+            item.ListDisc = listDisc;
+
             item.Sat = item.SatKecil;
             item.NilaiSediaan = item.Qty * item.Hpp;
             return item;
         }
-        
+
+        private string UbahKomaJadiTitik(string discInputStr)
+        {
+            if (discInputStr is null)
+                return string.Empty;
+
+            var result = discInputStr.Replace(',', '.');
+            return result;
+        }
+
+        private static IEnumerable<MutasiDiscModel> GenListDiscount(string brgId, decimal subTotal,
+            string disccountString)
+        {
+            var discs = ParseStringMultiNumber(disccountString, 4);
+
+            var discRp = new decimal[4];
+            discRp[0] = subTotal * discs[0] / 100;
+            var newSubTotal = subTotal - discRp[0];
+            discRp[1] = newSubTotal * discs[1] / 100;
+            newSubTotal -= discRp[1];
+            discRp[2] = newSubTotal * discs[2] / 100;
+            newSubTotal -= discRp[2];
+            discRp[3] = newSubTotal * discs[3] / 100;
+
+            var result = new List<MutasiDiscModel>
+            {
+                new MutasiDiscModel(1, brgId, discs[0], discRp[0]),
+                new MutasiDiscModel(2, brgId, discs[1], discRp[1]),
+                new MutasiDiscModel(3, brgId, discs[2], discRp[2]),
+                new MutasiDiscModel(4, brgId, discs[3], discRp[3])
+            };
+            result.RemoveAll(x => x.DiscProsen == 0);
+            return result;
+        }
+        private static string GenDiscDetilStr(IReadOnlyCollection<MutasiDiscModel> listDisc)
+        {
+            var listString = new List<string>();
+            foreach (var item in listDisc)
+            {
+                listString.Add($"{item.DiscRp:N0}");
+            }
+            var result = string.Join(Environment.NewLine, listString);
+            return result;
+        }
+
         private static string GenQtyDetilStr(MutasiItemModel item)
         {
             var result = string.Empty;

@@ -105,6 +105,7 @@
     <Compile Include="InventoryContext\ImportOpnameAgg\ImportOpnameDal.cs" />
     <Compile Include="InventoryContext\KartuStokRpt\KartuStokDal.cs" />
     <Compile Include="InventoryContext\MutasiAgg\MutasiDal.cs" />
+    <Compile Include="InventoryContext\MutasiAgg\MutasiDiscDal.cs" />
     <Compile Include="InventoryContext\MutasiAgg\MutasiItemDal.cs" />
     <Compile Include="InventoryContext\OmzetSupplierAgg\OmzetSupplierViewDal.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameDal.cs" />

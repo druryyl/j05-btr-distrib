@@ -44,6 +44,8 @@ namespace btr.distrib.Browsers
                     Tgl = x.MutasiDate.ToString("dd-MMM HH:mm"),
                     User = x.UserId,
                     Warehouse = x.WarehouseName,
+                    Jenis = x.JenisMutasi == JenisMutasiEnum.MutasiKeluar ? "MUTASI KELUAR" :
+                        x.JenisMutasi == JenisMutasiEnum.MutasiMasuk ? "MUTASI MASUK" : "KLAIM SUPPLIER",
                     NilaiSediaan = x.NilaiSediaan
                 }).ToList();
 
@@ -61,6 +63,7 @@ namespace btr.distrib.Browsers
         public string Tgl { get; set; }
         public string User { get; set; }
         public string Warehouse{ get; set; }
+        public string Jenis { get; set; }
         public decimal NilaiSediaan { get; set; }
     }
 }

@@ -62,7 +62,7 @@ namespace btr.infrastructure.InventoryContext.MutasiAgg
                     JenisMutasi = @JenisMutasi, 
                     WarehouseId = @WarehouseId, 
                     Keterangan = @Keterangan,
-                    NilaiSdiaan = @NilaiSdiaan, 
+                    NilaiSediaan = @NilaiSediaan, 
 
                     UserId = @UserId,
                     CreateTime = @CreateTime,

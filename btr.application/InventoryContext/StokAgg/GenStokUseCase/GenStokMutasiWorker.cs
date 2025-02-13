@@ -41,8 +41,10 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
             var mutasi = _mutasiBuilder.Load(req).Build();
             if (mutasi.JenisMutasi == JenisMutasiEnum.MutasiKeluar)
                 GenMutasiKeluar(req);
-            else
+            else if (mutasi.JenisMutasi == JenisMutasiEnum.MutasiMasuk)
                 GenMutasiMasuk(req);
+            else
+                GenMutasiKlaimSupplier(req);
         }
 
         private void GenMutasiKeluar(GenStokMutasiRequest req)
@@ -80,6 +82,28 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                     "MUTASI-MASUK", mutasi.Keterangan, mutasi.MutasiDate));
             }
         }
+
+        private void GenMutasiKlaimSupplier(GenStokMutasiRequest req)
+        {
+            var rollbackReq = new RollBackStokRequest(req.MutasiId);
+            _rollBackStok.Execute(rollbackReq);
+
+            var mutasi = _mutasiBuilder.Load(req).Build();
+            foreach (var item in mutasi.ListItem)
+            {
+                _removeFifoStok.Execute(new RemoveFifoStokRequest(
+                    item.BrgId,
+                    mutasi.WarehouseId,
+                    item.Qty,
+                    item.Sat,
+                    item.Hpp,
+                    req.MutasiId,
+                    "MUTASI-KLAIM",
+                    mutasi.Keterangan,
+                    mutasi.MutasiDate));
+            }
+        }
+
         private void GenMutasiMasuk(GenStokMutasiRequest req)
         {
             //  nnt buatkan balikannya dulu

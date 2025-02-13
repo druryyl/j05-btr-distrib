@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>238</ApplicationRevision>
+    <ApplicationRevision>239</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -425,6 +425,7 @@
     <Compile Include="InventoryContext\MutasiAgg\MutasiForm.Designer.cs">
       <DependentUpon>MutasiForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InventoryContext\MutasiAgg\MutasiItemDto.cs" />
     <Compile Include="InventoryContext\OmzetSupplierRpt\OmzetSupplierBulananDto.cs" />
     <Compile Include="InventoryContext\OmzetSupplierRpt\OmzetSupplierHarianDto.cs" />
     <Compile Include="InventoryContext\OmzetSupplierRpt\OmzetSupplierInfoForm.cs">

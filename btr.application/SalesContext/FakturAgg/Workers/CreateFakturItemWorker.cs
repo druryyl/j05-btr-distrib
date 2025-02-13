@@ -198,13 +198,6 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             {
                 listString.Add($"{item.DiscRp:N0}");
             }
-            
-            //{
-            //    $"{listDisc.FirstOrDefault(x => x.NoUrut == 1)?.DiscRp:N0 ?? 0}",
-            //    $"{listDisc.FirstOrDefault(x => x.NoUrut == 2)?.DiscRp:N0 ?? 0}",
-            //    $"{listDisc.FirstOrDefault(x => x.NoUrut == 3)?.DiscRp:N0 ?? 0}",
-            //    $"{listDisc.FirstOrDefault(x => x.NoUrut == 4)?.DiscRp:N0 ?? 0}"
-            //};
             var result = string.Join(Environment.NewLine, listString);
             return result;
         }

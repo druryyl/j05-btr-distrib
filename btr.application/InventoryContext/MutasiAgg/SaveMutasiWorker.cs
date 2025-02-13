@@ -17,6 +17,7 @@ namespace btr.application.InventoryContext.MutasiAgg
         public string MutasiDate { get; set; }
         public string WarehouseId { get; set; }
         public string UserId { get; set; }
+        public JenisMutasiEnum JenisMutasi { get; set; }
         public IEnumerable<SaveMutasiRequestItem> ListBrg { get; set; }
     }
 
@@ -24,6 +25,7 @@ namespace btr.application.InventoryContext.MutasiAgg
     {
         public string BrgId { get; set; }
         public string QtyString { get; set; }
+        public string DiscString { get; set; }
     }
 
     public interface ISaveMutasiWorker : INunaService<MutasiModel, SaveMutasiRequest> { }
@@ -86,6 +88,7 @@ namespace btr.application.InventoryContext.MutasiAgg
             result = _mutasiBuilder
                 .Attach(result)
                 .Warehouse(req)
+                .JenisMutasi(req.JenisMutasi)
                 .User(req)
                 .Build();
 
@@ -93,7 +96,7 @@ namespace btr.application.InventoryContext.MutasiAgg
             {
                 result = _mutasiBuilder
                     .Attach(result)
-                    .AddItem(item, item.QtyString)
+                    .AddItem(item, item.QtyString, item.DiscString)
                     .Build();
             }
             result = _mutasiBuilder

@@ -38,6 +38,9 @@ namespace btr.distrib.InventoryContext.MutasiAgg
 
 
         private readonly BindingList<MutasiItemDto> _listItem = new BindingList<MutasiItemDto>();
+        private const string JNS_MUTASI_KELUAR = "Mutasi Keluar";
+        private const string JNS_MUTASI_MASUK = "Mutasi Masuk";
+        private const string JNS_MUTASI_KLAIM_SUPPLIER = "Klaim Supplier";
 
 
         public MutasiForm(
@@ -68,6 +71,15 @@ namespace btr.distrib.InventoryContext.MutasiAgg
 
             RegisterEventHandler();
             InitGrid();
+            InitCombo();
+        }
+
+        private void InitCombo()
+        {
+            JenisMutasiCombo.Items.Clear();
+            JenisMutasiCombo.Items.Add(JNS_MUTASI_KELUAR);
+            JenisMutasiCombo.Items.Add(JNS_MUTASI_MASUK);
+            JenisMutasiCombo.Items.Add(JNS_MUTASI_KLAIM_SUPPLIER);
         }
 
         private void RegisterEventHandler()
@@ -121,6 +133,18 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             WarehouseNameText.Text = mutasi.WarehouseName;
             TotalText.Value = mutasi.NilaiSediaan;
             LastIdLabel.Text = $@"{mutasi.MutasiId}";
+            switch (mutasi.JenisMutasi)
+            {
+                case JenisMutasiEnum.MutasiKeluar:
+                    JenisMutasiCombo.Text = JNS_MUTASI_KELUAR;
+                    break;
+                case JenisMutasiEnum.MutasiMasuk:
+                    JenisMutasiCombo.Text = JNS_MUTASI_MASUK;
+                    break;
+                case JenisMutasiEnum.KlaimSupplier:
+                    JenisMutasiCombo.Text = JNS_MUTASI_KLAIM_SUPPLIER;
+                    break;
+            }
 
             _listItem.Clear();
             foreach (var item in mutasi.ListItem)
@@ -185,6 +209,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             {
                 case "BrgId":
                 case "QtyInputStr":
+                case "DiscInputStr":
                     if (grid.CurrentCell.Value is null)
                         return;
                     ValidateRow(e.RowIndex);
@@ -251,7 +276,8 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             var req = new CreateMutasiItemRequest(
                 _listItem[rowIndex].BrgId,
                 WarehouseIdText.Text,
-                _listItem[rowIndex].QtyInputStr);
+                _listItem[rowIndex].QtyInputStr,
+                _listItem[rowIndex].DiscInputStr);
             var item = _createItemWorker.Execute(req);
             _listItem[rowIndex] = item.Adapt<MutasiItemDto>();
             MutasiItemGrid.Refresh();
@@ -372,6 +398,23 @@ namespace btr.distrib.InventoryContext.MutasiAgg
         #region SAVE
         private void SaveButton_Click(object sender, EventArgs e)
         {
+            JenisMutasiEnum jnsMutasi;
+
+            switch (JenisMutasiCombo.Text)
+            {
+                case JNS_MUTASI_KELUAR:
+                    jnsMutasi = JenisMutasiEnum.MutasiKeluar;
+                    break;
+                case JNS_MUTASI_MASUK:
+                    jnsMutasi = JenisMutasiEnum.MutasiMasuk;
+                    break;
+                case JNS_MUTASI_KLAIM_SUPPLIER:
+                    jnsMutasi = JenisMutasiEnum.KlaimSupplier;
+                    break;
+                default:
+                    throw new ArgumentException("Jenis Mutasi invalid");
+            }
+
             var mainform = (MainForm)this.Parent.Parent;
             var cmd = new SaveMutasiRequest
             {
@@ -379,6 +422,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
                 MutasiDate = MutasiDateText.Value.ToString("yyyy-MM-dd"),
                 WarehouseId = WarehouseIdText.Text,
                 UserId = mainform.UserId.UserId,
+                JenisMutasi = jnsMutasi
             };
 
             var listItem = (
@@ -419,42 +463,13 @@ namespace btr.distrib.InventoryContext.MutasiAgg
 
         private void ShowAsActive()
         {
-            this.BackColor = Color.DarkSeaGreen;
+            this.BackColor = Color.CadetBlue;
             foreach (var item in this.Controls)
                 if (item is Panel panel)
-                    panel.BackColor = Color.Honeydew;
+                    panel.BackColor = Color.PowderBlue;
 
             SaveButton.Visible = true;
         }
         #endregion
-
-    }
-
-    public class MutasiItemDto
-    {
-        public string BrgId { get; set; }
-        public string BrgCode { get; private set; }
-        public string BrgName { get; private set; }
-        public string QtyInputStr { get; set; }
-        public string QtyDetilStr { get; private set; }
-
-        public int QtyBesar { get; private set; }
-        public string SatBesar { get; private set; }
-        public decimal HppBesar { get; private set; }
-        public int Conversion { get; private set; }
-
-        public int QtyKecil { get; private set; }
-        public string SatKecil { get; private set; }
-        public decimal HppKecil { get; private set; }
-
-        public int Qty { get; private set; }
-        public string Sat { get; private set; }
-        public decimal Hpp { get; private set; }
-
-        public string StokDetilStr { get; private  set; }
-        public string HppDetilStr { get; private set; }
-        
-        public decimal NilaiSediaan { get; set; } 
-
     }
 }

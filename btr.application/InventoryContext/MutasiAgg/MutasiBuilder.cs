@@ -19,9 +19,9 @@ namespace btr.application.InventoryContext.MutasiAgg
         IMutasiBuilder Load(IMutasiKey mutasiKey);
         IMutasiBuilder Attach(MutasiModel mutasi);
         IMutasiBuilder Warehouse(IWarehouseKey warehouse);
+        IMutasiBuilder JenisMutasi(JenisMutasiEnum jenisMutasiEnum);
 
-
-        IMutasiBuilder AddItem(IBrgKey brgKey, string qtyString);
+        IMutasiBuilder AddItem(IBrgKey brgKey, string qtyString, string discInputStr);
         IMutasiBuilder ClearItem();
 
 
@@ -108,10 +108,10 @@ namespace btr.application.InventoryContext.MutasiAgg
         #endregion
 
         #region GRID
-        public IMutasiBuilder AddItem(IBrgKey brgKey, string qtyInputStr)
+        public IMutasiBuilder AddItem(IBrgKey brgKey, string qtyInputStr, string discInputStr)
         {
             var item = _createMutasiItemWorker.Execute(
-                new CreateMutasiItemRequest(brgKey.BrgId, _aggRoot.WarehouseId, qtyInputStr));
+                new CreateMutasiItemRequest(brgKey.BrgId, _aggRoot.WarehouseId, qtyInputStr, discInputStr));
 
             var noUrutMax = _aggRoot.ListItem
                 .DefaultIfEmpty(new MutasiItemModel() { NoUrut = 0 })
@@ -155,6 +155,12 @@ namespace btr.application.InventoryContext.MutasiAgg
         public IMutasiBuilder CalcTotal()
         {
             _aggRoot.NilaiSediaan = _aggRoot.ListItem.Sum(x => x.NilaiSediaan);
+            return this;
+        }
+
+        public IMutasiBuilder JenisMutasi(JenisMutasiEnum jenisMutasi)
+        {
+            _aggRoot.JenisMutasi = jenisMutasi;
             return this;
         }
     }
