@@ -27,6 +27,7 @@ using btr.distrib.SharedForm;
 using btr.distrib.SalesContext.FakturAgg;
 using btr.application.SupportContext.ParamSistemAgg;
 using btr.domain.SupportContext.ParamSistemAgg;
+using Microsoft.Reporting.WinForms;
 
 namespace btr.distrib.InventoryContext.ReturJualAgg
 {
@@ -335,8 +336,34 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
         }
         private void PrintRdlc(ReturJualPrintOutDto retJual)
         {
-            var form = new ReturJualPrintOutForm(retJual);
-            form.ShowDialog();
+            //var form = new ReturJualPrintOutForm(retJual);
+            //form.ShowDialog();
+
+            var returJualDataset = new ReportDataSource("ReturJualDataset", new List<ReturJualPrintOutDto> { retJual });
+            var returJualItemDataset = new ReportDataSource("ReturJualItemDataset", retJual.ListItem);
+            var clientId = _paramSistemDal.GetData(new ParamSistemModel("CLIENT_ID"))?.ParamValue ?? string.Empty;
+
+            var printOutTemplate = string.Empty;
+            switch (clientId)
+            {
+                case "BTR-YK":
+                    printOutTemplate = "ReturJualPrintOut-Yk";
+                    break;
+                case "BTR-MGL":
+                    printOutTemplate = "ReturJualPrintOut-Mgl";
+                    break;
+                default:
+                    break;
+            }
+
+            var listDataset = new List<ReportDataSource>
+            {
+                returJualDataset,
+                returJualItemDataset
+            };
+            var rdlcViewerForm = new RdlcViewerForm();
+            rdlcViewerForm.SetReportData(printOutTemplate, listDataset);
+            rdlcViewerForm.ShowDialog();
         }
 
 

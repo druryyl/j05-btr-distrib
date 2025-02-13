@@ -9,16 +9,16 @@
               <Width>0.26146in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.66771in</Width>
+              <Width>0.73438in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.89688in</Width>
+              <Width>2.03367in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.98021in</Width>
+              <Width>0.92258in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.13646in</Width>
+              <Width>0.99063in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>0.40729in</Width>
@@ -51,7 +51,7 @@
                             <TextRun>
                               <Value>No</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -85,7 +85,7 @@
                             <TextRun>
                               <Value>Kode</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -119,7 +119,7 @@
                             <TextRun>
                               <Value>Nama Barang</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -153,7 +153,7 @@
                             <TextRun>
                               <Value>Kwantitas</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -189,7 +189,7 @@
                             <TextRun>
                               <Value>@Harga</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -225,7 +225,7 @@
                             <TextRun>
                               <Value>Discount</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -265,7 +265,7 @@
                             <TextRun>
                               <Value>Total</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -306,7 +306,7 @@
                             <TextRun>
                               <Value>=Fields!NoUrut.Value</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
@@ -327,6 +327,14 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
+                        <LeftBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -347,7 +355,7 @@
                             <TextRun>
                               <Value>=Fields!BrgCode.Value</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
@@ -366,6 +374,14 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
+                        <LeftBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -386,7 +402,7 @@
                             <TextRun>
                               <Value>=Fields!BrgName.Value</Value>
                               <Style>
-                                <FontFamily>Arial Narrow</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
@@ -405,6 +421,14 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
+                        <LeftBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -446,6 +470,14 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
+                        <LeftBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -487,6 +519,14 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
+                        <LeftBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -507,7 +547,7 @@
                             <TextRun>
                               <Value>=Fields!Disc1.Value</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
@@ -520,7 +560,9 @@
                       <rd:DefaultName>Disc1</rd:DefaultName>
                       <Style>
                         <Border>
+                          <Color>DimGray</Color>
                           <Style>Solid</Style>
+                          <Width>0.5pt</Width>
                         </Border>
                         <TopBorder>
                           <Style>None</Style>
@@ -548,7 +590,7 @@
                             <TextRun>
                               <Value>=Fields!Disc2.Value</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
@@ -561,7 +603,9 @@
                       <rd:DefaultName>Disc2</rd:DefaultName>
                       <Style>
                         <Border>
+                          <Color>DimGray</Color>
                           <Style>Solid</Style>
+                          <Width>0.5pt</Width>
                         </Border>
                         <TopBorder>
                           <Style>None</Style>
@@ -589,7 +633,7 @@
                             <TextRun>
                               <Value>=Fields!Disc3.Value</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
@@ -602,7 +646,9 @@
                       <rd:DefaultName>Disc3</rd:DefaultName>
                       <Style>
                         <Border>
+                          <Color>DimGray</Color>
                           <Style>Solid</Style>
+                          <Width>0.5pt</Width>
                         </Border>
                         <TopBorder>
                           <Style>None</Style>
@@ -630,7 +676,7 @@
                             <TextRun>
                               <Value>=Fields!Disc4.Value</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
@@ -643,7 +689,9 @@
                       <rd:DefaultName>Disc4</rd:DefaultName>
                       <Style>
                         <Border>
+                          <Color>DimGray</Color>
                           <Style>Solid</Style>
+                          <Width>0.5pt</Width>
                         </Border>
                         <TopBorder>
                           <Style>None</Style>
@@ -671,7 +719,7 @@
                             <TextRun>
                               <Value>=Fields!Total.Value</Value>
                               <Style>
-                                <FontFamily>Lucida Console</FontFamily>
+                                <FontFamily>Courier New</FontFamily>
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
@@ -692,6 +740,14 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
+                        <LeftBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Color>DimGray</Color>
+                          <Width>0.5pt</Width>
+                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -730,10 +786,10 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>ReturJualItemDataset</DataSetName>
-        <Top>1.0927in</Top>
+        <Top>1.2177in</Top>
         <Left>0.03125in</Left>
         <Height>0.38in</Height>
-        <Width>7.55208in</Width>
+        <Width>7.5521in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -749,8 +805,8 @@
               <TextRun>
                 <Value>Sub Total :</Value>
                 <Style>
-                  <FontFamily>Lucida Console</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontFamily>Courier New</FontFamily>
+                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -759,10 +815,10 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>1.5177in</Top>
-        <Left>5.5in</Left>
+        <Top>1.6177in</Top>
+        <Left>5.38126in</Left>
         <Height>0.19445in</Height>
-        <Width>1.10313in</Width>
+        <Width>1.22187in</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -775,12 +831,12 @@
             <Style>None</Style>
           </BottomBorder>
           <LeftBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </LeftBorder>
           <RightBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -798,8 +854,8 @@
               <TextRun>
                 <Value>Discount :</Value>
                 <Style>
-                  <FontFamily>Lucida Console</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontFamily>Courier New</FontFamily>
+                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -808,10 +864,10 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>1.71215in</Top>
-        <Left>5.5in</Left>
+        <Top>1.81215in</Top>
+        <Left>5.38126in</Left>
         <Height>0.19445in</Height>
-        <Width>1.10313in</Width>
+        <Width>1.22187in</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
@@ -824,12 +880,12 @@
             <Style>None</Style>
           </BottomBorder>
           <LeftBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </LeftBorder>
           <RightBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -847,8 +903,8 @@
               <TextRun>
                 <Value>=First(Fields!PpnProsen.Value, "ReturJualDataset")</Value>
                 <Style>
-                  <FontFamily>Lucida Console</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontFamily>Courier New</FontFamily>
+                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -857,10 +913,10 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>1.9066in</Top>
-        <Left>5.5in</Left>
+        <Top>2.0066in</Top>
+        <Left>5.38126in</Left>
         <Height>0.19445in</Height>
-        <Width>1.10313in</Width>
+        <Width>1.22187in</Width>
         <ZIndex>3</ZIndex>
         <Style>
           <Border>
@@ -873,12 +929,12 @@
             <Style>None</Style>
           </BottomBorder>
           <LeftBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </LeftBorder>
           <RightBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -896,7 +952,7 @@
               <TextRun>
                 <Value>Grand Total :</Value>
                 <Style>
-                  <FontFamily>Lucida Console</FontFamily>
+                  <FontFamily>Courier New</FontFamily>
                   <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
@@ -906,15 +962,30 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>2.10105in</Top>
-        <Left>5.5in</Left>
+        <Top>2.20105in</Top>
+        <Left>5.38126in</Left>
         <Height>0.19445in</Height>
-        <Width>1.10313in</Width>
+        <Width>1.22187in</Width>
         <ZIndex>4</ZIndex>
         <Style>
           <Border>
             <Style>Solid</Style>
           </Border>
+          <TopBorder>
+            <Style>None</Style>
+          </TopBorder>
+          <BottomBorder>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
+          </BottomBorder>
+          <LeftBorder>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
+          </LeftBorder>
+          <RightBorder>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
+          </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
@@ -930,8 +1001,8 @@
               <TextRun>
                 <Value>=First(Fields!SubTotal.Value, "ReturJualDataset")</Value>
                 <Style>
-                  <FontFamily>Lucida Console</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontFamily>Courier New</FontFamily>
+                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -940,7 +1011,7 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>1.5177in</Top>
+        <Top>1.6177in</Top>
         <Left>6.60312in</Left>
         <Height>0.19445in</Height>
         <Width>0.98021in</Width>
@@ -956,12 +1027,12 @@
             <Style>None</Style>
           </BottomBorder>
           <LeftBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </LeftBorder>
           <RightBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -979,7 +1050,7 @@
                 <Value>=First(Fields!Discount.Value, "ReturJualDataset")</Value>
                 <Style>
                   <FontFamily>Lucida Console</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -988,7 +1059,7 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>1.71215in</Top>
+        <Top>1.81215in</Top>
         <Left>6.60312in</Left>
         <Height>0.19445in</Height>
         <Width>0.98021in</Width>
@@ -1004,12 +1075,12 @@
             <Style>None</Style>
           </BottomBorder>
           <LeftBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </LeftBorder>
           <RightBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -1026,8 +1097,8 @@
               <TextRun>
                 <Value>=First(Fields!Ppn.Value, "ReturJualDataset")</Value>
                 <Style>
-                  <FontFamily>Lucida Console</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontFamily>Courier New</FontFamily>
+                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1036,7 +1107,7 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>1.9066in</Top>
+        <Top>2.0066in</Top>
         <Left>6.60312in</Left>
         <Height>0.19445in</Height>
         <Width>0.98021in</Width>
@@ -1052,12 +1123,12 @@
             <Style>None</Style>
           </BottomBorder>
           <LeftBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </LeftBorder>
           <RightBorder>
-            <Color>Black</Color>
-            <Width>1pt</Width>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
           </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -1074,7 +1145,8 @@
               <TextRun>
                 <Value>=First(Fields!GrandTotal.Value, "ReturJualDataset")</Value>
                 <Style>
-                  <FontFamily>Lucida Console</FontFamily>
+                  <FontFamily>Courier New</FontFamily>
+                  <FontSize>9pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
@@ -1084,7 +1156,7 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>2.10105in</Top>
+        <Top>2.20105in</Top>
         <Left>6.60312in</Left>
         <Height>0.19445in</Height>
         <Width>0.98021in</Width>
@@ -1093,6 +1165,21 @@
           <Border>
             <Style>Solid</Style>
           </Border>
+          <TopBorder>
+            <Style>None</Style>
+          </TopBorder>
+          <BottomBorder>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
+          </BottomBorder>
+          <LeftBorder>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
+          </LeftBorder>
+          <RightBorder>
+            <Color>DimGray</Color>
+            <Width>0.5pt</Width>
+          </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
@@ -1156,7 +1243,7 @@
         </Paragraphs>
         <Top>0.02324in</Top>
         <Left>0.03473in</Left>
-        <Height>0.63888in</Height>
+        <Height>0.83333in</Height>
         <Width>2.53125in</Width>
         <ZIndex>9</ZIndex>
         <Style>
@@ -1178,16 +1265,15 @@
               <TextRun>
                 <Value>=First(Fields!ReturJualCode.Value, "ReturJualDataset")</Value>
                 <Style>
-                  <FontFamily>Lucida Console</FontFamily>
+                  <FontFamily>Segoe UI</FontFamily>
                   <FontSize>8pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
             <Style />
           </Paragraph>
         </Paragraphs>
-        <Top>0.69962in</Top>
+        <Top>0.97462in</Top>
         <Left>0.03473in</Left>
         <Height>0.23958in</Height>
         <Width>1.4375in</Width>
@@ -1212,7 +1298,7 @@
               <TextRun>
                 <Value>RETUR JUAL</Value>
                 <Style>
-                  <FontFamily>Lucida Console</FontFamily>
+                  <FontFamily>Segoe UI Black</FontFamily>
                   <FontSize>14pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                 </Style>
@@ -1226,8 +1312,8 @@
         <rd:DefaultName>Textbox13</rd:DefaultName>
         <Top>0.02324in</Top>
         <Left>2.63542in</Left>
-        <Height>0.62499in</Height>
-        <Width>2.43125in</Width>
+        <Height>0.83333in</Height>
+        <Width>2.33855in</Width>
         <ZIndex>11</ZIndex>
         <Style>
           <Border>
@@ -1249,7 +1335,7 @@
               <TextRun>
                 <Value>=First(Fields!SalesName.Value, "ReturJualDataset")</Value>
                 <Style>
-                  <FontFamily>Lucida Console</FontFamily>
+                  <FontFamily>Segoe UI</FontFamily>
                   <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
@@ -1259,10 +1345,10 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>0.69962in</Top>
+        <Top>0.97462in</Top>
         <Left>1.47223in</Left>
         <Height>0.23958in</Height>
-        <Width>1.44444in</Width>
+        <Width>1.38507in</Width>
         <ZIndex>12</ZIndex>
         <Style>
           <Border>
@@ -1284,7 +1370,7 @@
               <TextRun>
                 <Value>=First(Fields!JenisRetur.Value, "ReturJualDataset")</Value>
                 <Style>
-                  <FontFamily>Lucida Console</FontFamily>
+                  <FontFamily>Segoe UI</FontFamily>
                   <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
@@ -1294,10 +1380,10 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>0.69962in</Top>
-        <Left>2.91806in</Left>
+        <Top>0.97462in</Top>
+        <Left>2.8573in</Left>
         <Height>0.23958in</Height>
-        <Width>2.14861in</Width>
+        <Width>2.11667in</Width>
         <ZIndex>13</ZIndex>
         <Style>
           <Border>
@@ -1337,10 +1423,6 @@
             <Style>None</Style>
           </Border>
           <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
       <Textbox Name="KepadaCustomerIdText">
@@ -1354,7 +1436,6 @@
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1371,10 +1452,6 @@
             <Style>None</Style>
           </Border>
           <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
       <Textbox Name="CustomerNameText">
@@ -1405,10 +1482,6 @@
             <Style>None</Style>
           </Border>
           <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
       <Textbox Name="Address1Text">
@@ -1438,10 +1511,6 @@
             <Style>None</Style>
           </Border>
           <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
       <Textbox Name="Address2Text">
@@ -1471,10 +1540,6 @@
             <Style>None</Style>
           </Border>
           <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
       <Textbox Name="Textbox14">
@@ -1496,7 +1561,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>1.60659in</Top>
+        <Top>1.73159in</Top>
         <Left>0.03473in</Left>
         <Height>0.20556in</Height>
         <Width>5.03194in</Width>
@@ -1530,7 +1595,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>2.37643in</Top>
+        <Top>2.50143in</Top>
         <Left>0.03125in</Left>
         <Height>0.20556in</Height>
         <Width>1.31598in</Width>
@@ -1564,7 +1629,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>3.13164in</Top>
+        <Top>3.25664in</Top>
         <Left>0.03125in</Left>
         <Height>0.20556in</Height>
         <Width>1.31598in</Width>
@@ -1581,7 +1646,7 @@
         </Style>
       </Textbox>
       <Line Name="Line1">
-        <Top>3.11775in</Top>
+        <Top>3.24275in</Top>
         <Left>0.03473in</Left>
         <Height>0in</Height>
         <Width>1.3125in</Width>
@@ -1610,7 +1675,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>2.37643in</Top>
+        <Top>2.50143in</Top>
         <Left>2.60069in</Left>
         <Height>0.20556in</Height>
         <Width>1.31598in</Width>
@@ -1627,7 +1692,7 @@
         </Style>
       </Textbox>
       <Line Name="Line2">
-        <Top>3.11775in</Top>
+        <Top>3.24275in</Top>
         <Left>2.60417in</Left>
         <Height>0in</Height>
         <Width>1.3125in</Width>
@@ -1656,8 +1721,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>2.37643in</Top>
-        <Left>5.49652in</Left>
+        <Top>2.48994in</Top>
+        <Left>5.38126in</Left>
         <Height>0.20556in</Height>
         <Width>1.31598in</Width>
         <ZIndex>25</ZIndex>
@@ -1690,8 +1755,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>3.13164in</Top>
-        <Left>5.49652in</Left>
+        <Top>3.24275in</Top>
+        <Left>5.38126in</Left>
         <Height>0.20556in</Height>
         <Width>1.31598in</Width>
         <ZIndex>26</ZIndex>
@@ -1707,8 +1772,8 @@
         </Style>
       </Textbox>
       <Line Name="Line3">
-        <Top>3.11775in</Top>
-        <Left>5.5in</Left>
+        <Top>3.24275in</Top>
+        <Left>5.375in</Left>
         <Height>0in</Height>
         <Width>1.3125in</Width>
         <ZIndex>27</ZIndex>
@@ -1719,7 +1784,7 @@
         </Style>
       </Line>
       <Line Name="Line4">
-        <Top>1.5052in</Top>
+        <Top>1.6177in</Top>
         <Left>0.03473in</Left>
         <Height>0in</Height>
         <Width>7.53958in</Width>
@@ -1731,10 +1796,10 @@
         </Style>
       </Line>
     </ReportItems>
-    <Height>3.3372in</Height>
+    <Height>3.4622in</Height>
     <Style />
   </Body>
-  <Width>7.58333in</Width>
+  <Width>7.58335in</Width>
   <Page>
     <LeftMargin>1in</LeftMargin>
     <RightMargin>1in</RightMargin>
