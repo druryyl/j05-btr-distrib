@@ -120,7 +120,6 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
 
             InvoiceItemGrid.CellContentClick += InvoiceItemGrid_CellContentClick;
             InvoiceItemGrid.CellValueChanged += InvoiceItemGrid_CellValueChanged;
-            InvoiceItemGrid.CellValidated += InvoiceItemGrid_CellValidated;
             InvoiceItemGrid.CellValidating += InvoiceItemGrid_CellValidating; 
             InvoiceItemGrid.KeyDown += InvoiceItemGrid_KeyDown;
             InvoiceItemGrid.EditingControlShowing += InvoiceItemGrid_EditingControlShowing;
@@ -262,7 +261,9 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             SisaText.Value = invoice.KurangBayar;
 
             _listItem.Clear();
-            foreach (var newItem in invoice.ListItem.Select(item => item.Adapt<InvoiceItemDto>()))
+            foreach (var newItem in invoice.ListItem
+                .OrderBy(x => x.NoUrut)
+                .Select(item => item.Adapt<InvoiceItemDto>()))
             {
                 _listItem.Add(newItem);
                 ValidateRow(_listItem.Count-1,true);
@@ -327,17 +328,6 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
         {
             if (e.RowIndex < 0) return;
             var grid = (DataGridView)sender;
-            //if (e.ColumnIndex == grid.Columns.GetCol("BrgId").Index)
-            //    CalcTotal();
-            //if (e.ColumnIndex == grid.Columns.GetCol("QtyInputStr").Index)
-            //    CalcTotal();
-            //if (e.ColumnIndex == grid.Columns.GetCol("DiscInputStr").Index)
-            //    CalcTotal();
-            //if (e.ColumnIndex == grid.Columns.GetCol("HrgInputStr").Index)
-            //    CalcTotal();
-            //if (e.ColumnIndex == grid.Columns.GetCol("PpnProsen").Index)
-            //    CalcTotal();
-
             switch (grid.Columns[e.ColumnIndex].Name)
             {
                 case "BrgId":
@@ -355,28 +345,6 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             }
 
             CalcTotal();
-        }
-
-        private void InvoiceItemGrid_CellValidated(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0) return;
-            var grid = (DataGridView)sender;
-            //switch (grid.Columns[e.ColumnIndex].Name)
-            //{
-            //    case "BrgId":
-            //    case "QtyInputStr":
-            //    case "DiscInputStr":
-            //        if (grid.CurrentCell.Value is null)
-            //            return;
-            //        ValidateRow(e.RowIndex, false);
-            //        break;
-            //    case "HrgInputStr":
-            //        if (grid.CurrentCell.Value is null)
-            //            return;
-            //        ValidateRow(e.RowIndex, true);
-            //        break;
-
-            //}
         }
 
         private void InvoiceItemGrid_KeyDown(object sender, KeyEventArgs e)
