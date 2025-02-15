@@ -51,6 +51,7 @@ using DocumentFormat.OpenXml.Drawing.Charts;
 using btr.distrib.FinanceContext.FpKeluaranAgg;
 using btr.distrib.InventoryContext.StokPeriodikRpt;
 using btr.distrib.PurchaseContext.PostingStokAgg;
+using btr.distrib.InventoryContext.MutasiRpt;
 
 namespace btr.distrib.SharedForm
 {
@@ -576,6 +577,16 @@ namespace btr.distrib.SharedForm
             if (BringMdiChildToFrontIfLoaded<PostingStokForm>())
                 return;
             var form = ThisServicesProvider.GetRequiredService<PostingStokForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void IF6StokMutasiButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<MutasiInfoForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<MutasiInfoForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

@@ -426,6 +426,12 @@
       <DependentUpon>MutasiForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InventoryContext\MutasiAgg\MutasiItemDto.cs" />
+    <Compile Include="InventoryContext\MutasiRpt\MutasiInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryContext\MutasiRpt\MutasiInfoForm.Designer.cs">
+      <DependentUpon>MutasiInfoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="InventoryContext\OmzetSupplierRpt\OmzetSupplierBulananDto.cs" />
     <Compile Include="InventoryContext\OmzetSupplierRpt\OmzetSupplierHarianDto.cs" />
     <Compile Include="InventoryContext\OmzetSupplierRpt\OmzetSupplierInfoForm.cs">
@@ -800,6 +806,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\MutasiAgg\MutasiForm.resx">
       <DependentUpon>MutasiForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InventoryContext\MutasiRpt\MutasiInfoForm.resx">
+      <DependentUpon>MutasiInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\OmzetSupplierRpt\OmzetSupplierInfoForm.resx">
       <DependentUpon>OmzetSupplierInfoForm.cs</DependentUpon>

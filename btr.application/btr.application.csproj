@@ -143,6 +143,7 @@
     <Compile Include="InventoryContext\KartuStokRpt\IKartuStokDal.cs" />
     <Compile Include="InventoryContext\KartuStokRpt\IKartuStokSaldoDal.cs" />
     <Compile Include="InventoryContext\MutasiAgg\CreateMutasiItemWorker.cs" />
+    <Compile Include="InventoryContext\MutasiAgg\IMutasiBrgViewDal.cs" />
     <Compile Include="InventoryContext\MutasiAgg\IMutasiDal.cs" />
     <Compile Include="InventoryContext\MutasiAgg\IMutasiDiscDal.cs" />
     <Compile Include="InventoryContext\MutasiAgg\MutasiBuilder.cs" />

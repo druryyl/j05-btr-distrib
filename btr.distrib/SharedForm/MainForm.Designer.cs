@@ -95,10 +95,11 @@
             this.TestingButton = new System.Windows.Forms.RibbonButton();
             this.ReceivingPanel = new System.Windows.Forms.RibbonPanel();
             this.AboutButton = new System.Windows.Forms.RibbonButton();
+            this.ImportOpnameButton = new System.Windows.Forms.RibbonButton();
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ImportOpnameButton = new System.Windows.Forms.RibbonButton();
+            this.IF6StokMutasiButton = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -414,6 +415,7 @@
             this.IT2PrintFakturButton.Name = "IT2PrintFakturButton";
             this.IT2PrintFakturButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IT2PrintFakturButton.SmallImage")));
             this.IT2PrintFakturButton.Text = "IT2-Print Faktur";
+            this.IT2PrintFakturButton.Visible = false;
             this.IT2PrintFakturButton.Click += new System.EventHandler(this.IT2PrintButton_Click);
             // 
             // IT3PackingButton
@@ -449,6 +451,7 @@
             this.ReportingPanel.Items.Add(this.IF2KartuStokButton);
             this.ReportingPanel.Items.Add(this.IF4StokPerSupplierButton);
             this.ReportingPanel.Items.Add(this.IF5StokPeriodikButton);
+            this.ReportingPanel.Items.Add(this.IF6StokMutasiButton);
             this.ReportingPanel.Name = "ReportingPanel";
             this.ReportingPanel.Text = "Reporting";
             // 
@@ -512,7 +515,7 @@
             this.WarehouseButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_warehouse;
             this.WarehouseButton.Name = "WarehouseButton";
             this.WarehouseButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("WarehouseButton.SmallImage")));
-            this.WarehouseButton.Text = "IM2-Warehouse";
+            this.WarehouseButton.Text = "IM2-Gudang";
             this.WarehouseButton.Click += new System.EventHandler(this.IM2WarehouseButton_Click);
             // 
             // KategoriAButton
@@ -695,6 +698,15 @@
             this.AboutButton.Text = "About";
             this.AboutButton.Click += new System.EventHandler(this.AboutButton_Click);
             // 
+            // ImportOpnameButton
+            // 
+            this.ImportOpnameButton.Image = ((System.Drawing.Image)(resources.GetObject("ImportOpnameButton.Image")));
+            this.ImportOpnameButton.LargeImage = ((System.Drawing.Image)(resources.GetObject("ImportOpnameButton.LargeImage")));
+            this.ImportOpnameButton.Name = "ImportOpnameButton";
+            this.ImportOpnameButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ImportOpnameButton.SmallImage")));
+            this.ImportOpnameButton.Text = "Import Opname";
+            this.ImportOpnameButton.Click += new System.EventHandler(this.ImportExcelOpnameButton_Click);
+            // 
             // AppStatus
             // 
             this.AppStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -718,14 +730,14 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
-            // ImportOpnameButton
+            // IF6StokMutasiButton
             // 
-            this.ImportOpnameButton.Image = ((System.Drawing.Image)(resources.GetObject("ImportOpnameButton.Image")));
-            this.ImportOpnameButton.LargeImage = ((System.Drawing.Image)(resources.GetObject("ImportOpnameButton.LargeImage")));
-            this.ImportOpnameButton.Name = "ImportOpnameButton";
-            this.ImportOpnameButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ImportOpnameButton.SmallImage")));
-            this.ImportOpnameButton.Text = "Import Opname";
-            this.ImportOpnameButton.Click += new System.EventHandler(this.ImportExcelOpnameButton_Click);
+            this.IF6StokMutasiButton.Image = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
+            this.IF6StokMutasiButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
+            this.IF6StokMutasiButton.Name = "IF6StokMutasiButton";
+            this.IF6StokMutasiButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IF6StokMutasiButton.SmallImage")));
+            this.IF6StokMutasiButton.Text = "IF6-Mutasi Info";
+            this.IF6StokMutasiButton.Click += new System.EventHandler(this.IF6StokMutasiButton_Click);
             // 
             // MainForm
             // 
@@ -825,5 +837,6 @@
         private System.Windows.Forms.RibbonButton IF5StokPeriodikButton;
         private System.Windows.Forms.RibbonButton PT2PostingStok;
         private System.Windows.Forms.RibbonButton ImportOpnameButton;
+        private System.Windows.Forms.RibbonButton IF6StokMutasiButton;
     }
 }

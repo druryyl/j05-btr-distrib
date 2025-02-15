@@ -39,6 +39,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             this.MutasiIdText = new System.Windows.Forms.TextBox();
             this.MutasiItemGrid = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.JenisMutasiCombo = new System.Windows.Forms.ComboBox();
             this.WarehouseNameText = new System.Windows.Forms.TextBox();
             this.WarehouseButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -50,7 +51,6 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             this.SaveButton = new System.Windows.Forms.Button();
             this.NewButton = new System.Windows.Forms.Button();
             this.TotalText = new System.Windows.Forms.NumericUpDown();
-            this.JenisMutasiCombo = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MutasiItemGrid)).BeginInit();
             this.panel2.SuspendLayout();
@@ -157,6 +157,14 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             this.panel2.Size = new System.Drawing.Size(200, 117);
             this.panel2.TabIndex = 2;
             // 
+            // JenisMutasiCombo
+            // 
+            this.JenisMutasiCombo.FormattingEnabled = true;
+            this.JenisMutasiCombo.Location = new System.Drawing.Point(9, 75);
+            this.JenisMutasiCombo.Name = "JenisMutasiCombo";
+            this.JenisMutasiCombo.Size = new System.Drawing.Size(179, 21);
+            this.JenisMutasiCombo.TabIndex = 6;
+            // 
             // WarehouseNameText
             // 
             this.WarehouseNameText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -239,6 +247,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             // 
             // SaveButton
             // 
+            this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.SaveButton.Location = new System.Drawing.Point(719, 410);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
@@ -257,6 +266,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             // 
             // TotalText
             // 
+            this.TotalText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.TotalText.InterceptArrowKeys = false;
             this.TotalText.Location = new System.Drawing.Point(674, 381);
             this.TotalText.Maximum = new decimal(new int[] {
@@ -270,14 +280,6 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             this.TotalText.TabIndex = 8;
             this.TotalText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.TotalText.ThousandsSeparator = true;
-            // 
-            // JenisMutasiCombo
-            // 
-            this.JenisMutasiCombo.FormattingEnabled = true;
-            this.JenisMutasiCombo.Location = new System.Drawing.Point(9, 75);
-            this.JenisMutasiCombo.Name = "JenisMutasiCombo";
-            this.JenisMutasiCombo.Size = new System.Drawing.Size(179, 21);
-            this.JenisMutasiCombo.TabIndex = 6;
             // 
             // MutasiForm
             // 

@@ -49,6 +49,10 @@ namespace btr.infrastructure.InventoryContext.MutasiAgg
                 bcp.AddMap("Sat", "Sat");
                 bcp.AddMap("Hpp","Hpp");
 
+                bcp.AddMap("DiscInputStr", "DiscInputStr");
+                bcp.AddMap("DiscDetilStr", "DiscDetilStr");
+                bcp.AddMap("DiscRp", "DiscRp");
+
                 bcp.AddMap("QtyDetilStr","QtyDetilStr");
                 bcp.AddMap("StokDetilStr","StokDetilStr");
                 bcp.AddMap("HppDetilStr","HppDetilStr");
@@ -89,6 +93,7 @@ namespace btr.infrastructure.InventoryContext.MutasiAgg
                     aa.StokBesar, aa.StokKecil, 
                     aa.Qty, aa.Sat, aa.Hpp,
                     aa.QtyDetilStr, aa.StokDetilStr, aa.HppDetilStr,
+                    aa.DiscInputStr, aa.DiscDetilStr, aa.DiscRp,
                     aa.NilaiSediaan,
                     ISNULL(bb.BrgName, '') AS BrgName,
                     ISNULL(bb.BrgCode, '') AS BrgCode

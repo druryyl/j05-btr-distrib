@@ -1,24 +1,23 @@
 ﻿using btr.nuna.Domain;
 using btr.nuna.Infrastructure;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace btr.application.SalesContext.FakturBrgInfo
+namespace btr.application.InventoryContext.MutasiAgg
 {
-    public interface IReturJualBrgViewDal 
-        : IListData<ReturJualBrgView, Periode>
+    public interface IMutasiBrgViewDal
+        : IListData<MutasiBrgView, Periode>
     {
     }
-    public class ReturJualBrgView
+
+    public class MutasiBrgView
     {
-        public string ReturJualId { get; set; }
-        public string ReturJualCode { get; set; }
-        public DateTime ReturJualDate { get; set; }
-        public string JenisRetur { get; set; }
-        public string SalesName { get; set; }
-        public string CustomerCode { get; set; }
-        public string CustomerName { get; set; }
-        public string Address{ get; set; }
-        public string WilayahName { get; set; }
+        public string MutasiId { get; set; }
+        public DateTime MutasiDate { get; set; }
+        public string JenisMutasi { get; set; }
         public string BrgId { get; set; }
         public string BrgCode { get; set; }
         public string BrgName { get; set; }
@@ -32,8 +31,6 @@ namespace btr.application.SalesContext.FakturBrgInfo
         public decimal HrgSat { get; set; }
         public decimal SubTotal { get; set; }
         public decimal DiscRp { get; set; }
-        public decimal PpnRp { get; set; }
         public decimal Total { get; set; }
     }
-
 }

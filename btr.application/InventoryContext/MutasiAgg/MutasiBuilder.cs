@@ -36,26 +36,26 @@ namespace btr.application.InventoryContext.MutasiAgg
         private MutasiModel _aggRoot = new MutasiModel();
         private readonly IMutasiDal _mutasiDal;
         private readonly IMutasiItemDal _mutasiItemDal;
+        private readonly IMutasiDiscDal _mutasiDiscDal;
 
         private readonly IWarehouseDal _warehouseDal;
-        private readonly IBrgBuilder _brgBuilder;
         private readonly ITglJamDal _dateTime;
         private readonly ICreateMutasiItemWorker _createMutasiItemWorker;
 
         public MutasiBuilder(IMutasiDal mutasiDal,
             IMutasiItemDal mutasiItemDal,
             IWarehouseDal warehouseDal,
-            IBrgBuilder brgBuilder,
             ITglJamDal dateTime,
-            ICreateMutasiItemWorker createMutasiItemWorker)
+            ICreateMutasiItemWorker createMutasiItemWorker,
+            IMutasiDiscDal mutasiDiscDal)
         {
             _mutasiDal = mutasiDal;
             _mutasiItemDal = mutasiItemDal;
 
             _warehouseDal = warehouseDal;
-            _brgBuilder = brgBuilder;
             _dateTime = dateTime;
             _createMutasiItemWorker = createMutasiItemWorker;
+            _mutasiDiscDal = mutasiDiscDal;
         }
 
         public MutasiModel Build()
@@ -86,6 +86,11 @@ namespace btr.application.InventoryContext.MutasiAgg
                 ?? throw new KeyNotFoundException($"Mutasi not found ({mutasiKey.MutasiId})");
             _aggRoot.ListItem = _mutasiItemDal.ListData(mutasiKey)?.ToList()
                 ?? new List<MutasiItemModel>();
+            var listDisc = _mutasiDiscDal.ListData(mutasiKey)?.ToList() ?? new List<MutasiDiscModel>();
+            foreach (var item in _aggRoot.ListItem)
+            {
+                item.ListDisc = listDisc.Where(x => x.MutasiItemId == item.MutasiItemId).ToList();
+            }
             return this;
         }
 

@@ -120,7 +120,7 @@ namespace btr.application.InventoryContext.MutasiAgg
             item.ListDisc = listDisc;
 
             item.Sat = item.SatKecil;
-            item.NilaiSediaan = item.Qty * item.Hpp;
+            item.NilaiSediaan = (item.Qty * item.Hpp) - item.DiscRp;
             return item;
         }
 

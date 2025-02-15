@@ -154,7 +154,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             }
 
             if (mutasi.IsVoid)
-                ShowAsVoid(mutasi);
+                ShowAsVoid();
             else
                 ShowAsActive();
             CalcTotal();
@@ -355,6 +355,16 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             cols.GetCol("QtyDetilStr").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             cols.GetCol("QtyDetilStr").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
 
+            cols.GetCol("DiscInputStr").Width = 80;
+            cols.GetCol("DiscInputStr").HeaderText = @"Disc %";
+            cols.GetCol("DiscInputStr").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            cols.GetCol("DiscInputStr").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
+
+            cols.GetCol("DiscDetilStr").Width = 80;
+            cols.GetCol("DiscDetilStr").HeaderText = @"Disc Rp";
+            cols.GetCol("DiscDetilStr").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            cols.GetCol("DiscDetilStr").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
+
             cols.GetCol("QtyBesar").Visible = false;
             cols.GetCol("SatBesar").Visible = false;
             cols.GetCol("Conversion").Visible = false;
@@ -432,6 +442,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
                 {
                     BrgId = c.BrgId,
                     QtyString = c.QtyInputStr,
+                    DiscString = c.DiscInputStr
                 }).ToList();
             cmd.ListBrg = listItem;
             var result = _saveMutasiWorker.Execute(cmd);
@@ -451,7 +462,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             _listItem.Add(new MutasiItemDto());
             ShowAsActive();
         }
-        private void ShowAsVoid(MutasiModel mutasi)
+        private void ShowAsVoid()
         {
             this.BackColor = Color.RosyBrown;
             foreach (var item in this.Controls)
