@@ -181,7 +181,7 @@ namespace btr.application.PurchaseContext.InvoiceAgg
             var item = _createInvoiceItemWorker.Execute(
                 new CreateInvoiceItemRequest(
                     brgKey.BrgId, hrgInputStr, qtyInputStr, 
-                    discInputStr, dppProsen, ppnProsen));
+                    discInputStr, dppProsen, ppnProsen, true));
 
             var noUrutMax = _aggRoot.ListItem
                 .DefaultIfEmpty(new InvoiceItemModel() { NoUrut = 0 })

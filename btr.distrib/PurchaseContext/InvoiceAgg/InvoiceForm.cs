@@ -265,7 +265,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             foreach (var newItem in invoice.ListItem.Select(item => item.Adapt<InvoiceItemDto>()))
             {
                 _listItem.Add(newItem);
-                ValidateRow(_listItem.Count-1);
+                ValidateRow(_listItem.Count-1,true);
             }
 
             if (invoice.IsVoid)
@@ -325,32 +325,58 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
 
         private void InvoiceItemGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0) return;
             var grid = (DataGridView)sender;
-            if (e.ColumnIndex == grid.Columns.GetCol("BrgId").Index)
-                CalcTotal();
-            if (e.ColumnIndex == grid.Columns.GetCol("QtyInputStr").Index)
-                CalcTotal();
-            if (e.ColumnIndex == grid.Columns.GetCol("DiscInputStr").Index)
-                CalcTotal();
-            if (e.ColumnIndex == grid.Columns.GetCol("PpnProsen").Index)
-                CalcTotal();
+            //if (e.ColumnIndex == grid.Columns.GetCol("BrgId").Index)
+            //    CalcTotal();
+            //if (e.ColumnIndex == grid.Columns.GetCol("QtyInputStr").Index)
+            //    CalcTotal();
+            //if (e.ColumnIndex == grid.Columns.GetCol("DiscInputStr").Index)
+            //    CalcTotal();
+            //if (e.ColumnIndex == grid.Columns.GetCol("HrgInputStr").Index)
+            //    CalcTotal();
+            //if (e.ColumnIndex == grid.Columns.GetCol("PpnProsen").Index)
+            //    CalcTotal();
+
+            switch (grid.Columns[e.ColumnIndex].Name)
+            {
+                case "BrgId":
+                case "QtyInputStr":
+                case "DiscInputStr":
+                    if (grid.CurrentCell.Value is null)
+                        return;
+                    ValidateRow(e.RowIndex, false);
+                    break;
+                case "HrgInputStr":
+                    if (grid.CurrentCell.Value is null)
+                        return;
+                    ValidateRow(e.RowIndex, true);
+                    break;
+            }
+
+            CalcTotal();
         }
 
         private void InvoiceItemGrid_CellValidated(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
             var grid = (DataGridView)sender;
-            switch (grid.Columns[e.ColumnIndex].Name)
-            {
-                case "BrgId":
-                case "QtyInputStr":
-                case "HrgInputStr":
-                case "DiscInputStr":
-                    if (grid.CurrentCell.Value is null)
-                        return;
-                    ValidateRow(e.RowIndex);
-                    break;
-            }
+            //switch (grid.Columns[e.ColumnIndex].Name)
+            //{
+            //    case "BrgId":
+            //    case "QtyInputStr":
+            //    case "DiscInputStr":
+            //        if (grid.CurrentCell.Value is null)
+            //            return;
+            //        ValidateRow(e.RowIndex, false);
+            //        break;
+            //    case "HrgInputStr":
+            //        if (grid.CurrentCell.Value is null)
+            //            return;
+            //        ValidateRow(e.RowIndex, true);
+            //        break;
+
+            //}
         }
 
         private void InvoiceItemGrid_KeyDown(object sender, KeyEventArgs e)
@@ -397,12 +423,14 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             var brgId = _listItem[rowIndex].BrgId;
             _brgStokBrowser.Filter.StaticFilter1 = WarehouseIdText.Text;
             _brgStokBrowser.Filter.UserKeyword = _listItem[rowIndex].BrgId;
-            brgId = _brgStokBrowser.Browse(brgId);
-            _listItem[rowIndex].BrgId = brgId;
-            ValidateRow(rowIndex);
+            var brgIdPilih = _brgStokBrowser.Browse(brgId);
+            _listItem[rowIndex].BrgId = brgIdPilih;
+
+            if (brgId != brgIdPilih) 
+                ValidateRow(rowIndex, false);
         }
 
-        private void ValidateRow(int rowIndex)
+        private void ValidateRow(int rowIndex, bool isUbahHarga)
         {
             var brg = BuildBrg(rowIndex);
             if (brg == null)
@@ -416,7 +444,8 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
                 _listItem[rowIndex].QtyInputStr,
                 _listItem[rowIndex].DiscInputStr,
                 _listItem[rowIndex].DppProsen == 0 ? _dppProsen : _listItem[rowIndex].DppProsen,
-                _listItem[rowIndex].PpnProsen == 0 ? _ppnProsen : _listItem[rowIndex].PpnProsen);
+                _listItem[rowIndex].PpnProsen == 0 ? _ppnProsen : _listItem[rowIndex].PpnProsen,
+                isUbahHarga);
             var item = _createItemWorker.Execute(req);
             _listItem[rowIndex] = item.Adapt<InvoiceItemDto>();
             InvoiceItemGrid.Refresh();

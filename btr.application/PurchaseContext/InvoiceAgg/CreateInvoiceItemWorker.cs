@@ -17,7 +17,8 @@ namespace btr.application.PurchaseContext.InvoiceAgg
             string qtyInputStr, 
             string discInputStr, 
             decimal dppProsen,
-            decimal ppnProsen) 
+            decimal ppnProsen,
+            bool isUbahHarga)
         {
             BrgId = brgId;
             HrgInputStr = hrgInputStr;
@@ -25,6 +26,7 @@ namespace btr.application.PurchaseContext.InvoiceAgg
             DiscInputStr = discInputStr;
             DppProsen = dppProsen;
             PpnProsen = ppnProsen;
+            IsUbahHarga = isUbahHarga;
         }
         public string BrgId { get; set; }
         public string HrgInputStr { get; set; }
@@ -32,6 +34,7 @@ namespace btr.application.PurchaseContext.InvoiceAgg
         public string DiscInputStr { get; set; }
         public decimal DppProsen { get; set; }
         public decimal PpnProsen { get; set; }
+        public bool IsUbahHarga { get; set; }
     }
 
     public interface ICreateInvoiceItemWorker : INunaService<InvoiceItemModel, CreateInvoiceItemRequest>
@@ -68,9 +71,10 @@ namespace btr.application.PurchaseContext.InvoiceAgg
             };
 
             //  harga beli
-            if (item.HrgInputStr.IsNullOrEmpty())
-                item.HrgInputStr = "0;0";
-            if (item.HrgInputStr == "0;0")
+            //if (item.HrgInputStr.IsNullOrEmpty())
+            //    item.HrgInputStr = "0;0";
+            //if (item.HrgInputStr == "0;0")
+            if (!req.IsUbahHarga)
                 item.HrgInputStr = GetCurrentHpp(brg);
 
             var hrgInputStr = item.HrgInputStr;
