@@ -30,6 +30,7 @@ using btr.application.SupportContext.ParamSistemAgg;
 using btr.domain.SupportContext.ParamSistemAgg;
 using Microsoft.Reporting.WinForms;
 using Microsoft.Extensions.DependencyInjection;
+using btr.application.SalesContext.FakturAgg.Contracts;
 
 namespace btr.distrib.SalesContext.FakturAgg
 {
@@ -43,6 +44,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly IBrowser<BrgStokBrowserView> _brgStokBrowser;
         private readonly IBrowser<Faktur2BrowserView> _fakturBrowser;
         private readonly IBrowser<DriverBrowserView> _driverBrowser;
+        private readonly IBrowser<FakturCodeOpenBrowserView> _fakturCodeOpenBrowser;
 
         private readonly ISalesPersonDal _salesPersonDal;
         private readonly ICustomerDal _customerDal;
@@ -83,7 +85,8 @@ namespace btr.distrib.SalesContext.FakturAgg
             IPiutangWriter piutangWriter,
             IBrowser<DriverBrowserView> driverBrowser,
             IDriverDal driverDal,
-            IParamSistemDal paramSIstemDal)
+            IParamSistemDal paramSIstemDal,
+            IBrowser<FakturCodeOpenBrowserView> fakturCodeOpenBrowser)
         {
             _warehouseBrowser = warehouseBrowser;
             _salesBrowser = salesBrowser;
@@ -107,6 +110,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             _driverBrowser = driverBrowser;
             _driverDal = driverDal;
             _paramSistemDal = paramSIstemDal;
+            _fakturCodeOpenBrowser = fakturCodeOpenBrowser;
 
             InitializeComponent();
             InitGrid();
@@ -130,6 +134,8 @@ namespace btr.distrib.SalesContext.FakturAgg
         {
             FakturIdText.Validating += FakturIdText_Validating;
             FakturButton.Click += FakturButton_Click;
+
+            FakturCodeButton.Click += FakturCodeButton_Click;
 
             SalesPersonButton.Click += SalesPersonButton_Click;
             SalesIdText.Validated += SalesIdText_Validated;
@@ -158,9 +164,9 @@ namespace btr.distrib.SalesContext.FakturAgg
             UangMukaText.KeyDown += UangMukaText_KeyDown;
         }
 
-        private void FakturButton_Click1(object sender, EventArgs e)
+        private void FakturCodeButton_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            FakturCodeText.Text = _fakturCodeOpenBrowser.Browse(FakturCodeText.Text);
         }
 
         private void DriverIdTextBox_KeyDown(object sender, KeyEventArgs e)
@@ -218,6 +224,7 @@ namespace btr.distrib.SalesContext.FakturAgg
                 fakturDate = fakturDate.AddDays(1);
 
             FakturIdText.Text = string.Empty;
+            FakturCodeText.Clear();
             FakturDateText.Value = fakturDate;
             SalesIdText.Text = string.Empty;
             SalesPersonNameTextBox.Text = string.Empty;
@@ -292,6 +299,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             faktur.RemoveNull();
 
             FakturDateText.Value = faktur.FakturDate;
+            FakturCodeText.Text = faktur.FakturCode;
             SalesIdText.Text = faktur.SalesPersonId;
             SalesPersonNameTextBox.Text = faktur.SalesPersonName;
             CustomerIdText.Text = faktur.CustomerId;
@@ -316,7 +324,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             GrandTotalText.Value = faktur.GrandTotal;
             UangMukaText.Value = faktur.UangMuka;
             SisaText.Value = faktur.KurangBayar;
-            LastIdLabel.Text = $@"{faktur.FakturCode}";
+            LastIdLabel.Text = $@"{faktur.FakturCode}".Trim();
             NoteTextBox.Text = faktur.Note;
             _listItem.Clear();
             foreach (var item in faktur.ListItem)
@@ -741,7 +749,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             var fakturDb = _fakturBuilder
                 .Load(faktur)
                 .Build();
-            LastIdLabel.Text = $@"{fakturDb.FakturId} - {fakturDb.FakturCode}";
+            LastIdLabel.Text = $@"{fakturDb.FakturId} - {fakturDb.FakturCode}".Trim();
             var customer = _customerDal.GetData(fakturDb);
             
             var fakturPrintout = new FakturPrintOutDto(fakturDb, customer);
@@ -754,6 +762,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             var cmd = new SaveFakturRequest
             {
                 FakturId = FakturIdText.Text,
+                FakturCode = FakturCodeText.Text,
                 FakturDate = FakturDateText.Value.ToString("yyyy-MM-dd"),
                 CustomerId = CustomerIdText.Text,
                 SalesPersonId = SalesIdText.Text,

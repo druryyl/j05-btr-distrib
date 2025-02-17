@@ -23,6 +23,7 @@ namespace btr.domain.SalesContext.FakturAgg
         public string FakturId { get; set; }
         public DateTime FakturDate { get; set; }
         public string FakturCode { get; set; }
+        public string FakturCodeOri { get; set; }
 
         public string SalesPersonId { get; set; }
         public string SalesPersonName { get; set; }

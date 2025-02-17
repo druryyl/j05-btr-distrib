@@ -86,6 +86,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.TermOfPaymentCombo = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.FakturCodeText = new System.Windows.Forms.TextBox();
+            this.FakturCodeButton = new System.Windows.Forms.Button();
             this.PanelAtas4.SuspendLayout();
             this.VoidPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturItemGrid)).BeginInit();
@@ -116,18 +118,16 @@
             this.PanelAtas4.Controls.Add(this.NoteLabel);
             this.PanelAtas4.Location = new System.Drawing.Point(830, 9);
             this.PanelAtas4.Name = "PanelAtas4";
-            this.PanelAtas4.Size = new System.Drawing.Size(320, 186);
+            this.PanelAtas4.Size = new System.Drawing.Size(320, 192);
             this.PanelAtas4.TabIndex = 39;
             // 
             // VoidPanel
             // 
-            this.VoidPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.VoidPanel.Controls.Add(this.CancelLabel);
-            this.VoidPanel.Location = new System.Drawing.Point(-1, -1);
+            this.VoidPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.VoidPanel.Location = new System.Drawing.Point(0, 0);
             this.VoidPanel.Name = "VoidPanel";
-            this.VoidPanel.Size = new System.Drawing.Size(320, 186);
+            this.VoidPanel.Size = new System.Drawing.Size(318, 190);
             this.VoidPanel.TabIndex = 46;
             this.VoidPanel.Visible = false;
             // 
@@ -138,7 +138,7 @@
             this.CancelLabel.ForeColor = System.Drawing.Color.Red;
             this.CancelLabel.Location = new System.Drawing.Point(0, 0);
             this.CancelLabel.Name = "CancelLabel";
-            this.CancelLabel.Size = new System.Drawing.Size(320, 186);
+            this.CancelLabel.Size = new System.Drawing.Size(318, 190);
             this.CancelLabel.TabIndex = 23;
             this.CancelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -152,7 +152,7 @@
             this.NoteTextBox.Multiline = true;
             this.NoteTextBox.Name = "NoteTextBox";
             this.NoteTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.NoteTextBox.Size = new System.Drawing.Size(297, 144);
+            this.NoteTextBox.Size = new System.Drawing.Size(297, 150);
             this.NoteTextBox.TabIndex = 17;
             // 
             // NoteLabel
@@ -169,9 +169,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.FakturItemGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.FakturItemGrid.Location = new System.Drawing.Point(6, 201);
+            this.FakturItemGrid.Location = new System.Drawing.Point(6, 207);
             this.FakturItemGrid.Name = "FakturItemGrid";
-            this.FakturItemGrid.Size = new System.Drawing.Size(1000, 284);
+            this.FakturItemGrid.Size = new System.Drawing.Size(1000, 280);
             this.FakturItemGrid.TabIndex = 19;
             // 
             // PanelTengah
@@ -193,9 +193,9 @@
             this.PanelTengah.Controls.Add(this.DisconutLainLabel);
             this.PanelTengah.Controls.Add(this.TotalText);
             this.PanelTengah.Controls.Add(this.TotalLabel);
-            this.PanelTengah.Location = new System.Drawing.Point(1012, 201);
+            this.PanelTengah.Location = new System.Drawing.Point(1012, 207);
             this.PanelTengah.Name = "PanelTengah";
-            this.PanelTengah.Size = new System.Drawing.Size(138, 284);
+            this.PanelTengah.Size = new System.Drawing.Size(138, 280);
             this.PanelTengah.TabIndex = 41;
             // 
             // DppText
@@ -396,7 +396,8 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.Cornsilk;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.LastIdLabel);
+            this.panel1.Controls.Add(this.FakturCodeButton);
+            this.panel1.Controls.Add(this.FakturCodeText);
             this.panel1.Controls.Add(this.FakturIdText);
             this.panel1.Controls.Add(this.SalesIdText);
             this.panel1.Controls.Add(this.SalesPersonNameTextBox);
@@ -408,17 +409,18 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(6, 9);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 186);
+            this.panel1.Size = new System.Drawing.Size(200, 194);
             this.panel1.TabIndex = 36;
             // 
             // LastIdLabel
             // 
-            this.LastIdLabel.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LastIdLabel.Location = new System.Drawing.Point(11, 47);
+            this.LastIdLabel.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LastIdLabel.ForeColor = System.Drawing.Color.Gray;
+            this.LastIdLabel.Location = new System.Drawing.Point(3, 162);
             this.LastIdLabel.Name = "LastIdLabel";
             this.LastIdLabel.Size = new System.Drawing.Size(181, 24);
             this.LastIdLabel.TabIndex = 6;
-            this.LastIdLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.LastIdLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // FakturIdText
             // 
@@ -426,6 +428,7 @@
             this.FakturIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FakturIdText.Location = new System.Drawing.Point(11, 23);
             this.FakturIdText.Name = "FakturIdText";
+            this.FakturIdText.ReadOnly = true;
             this.FakturIdText.Size = new System.Drawing.Size(147, 22);
             this.FakturIdText.TabIndex = 0;
             // 
@@ -433,7 +436,7 @@
             // 
             this.SalesIdText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.SalesIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SalesIdText.Location = new System.Drawing.Point(11, 126);
+            this.SalesIdText.Location = new System.Drawing.Point(11, 136);
             this.SalesIdText.Name = "SalesIdText";
             this.SalesIdText.Size = new System.Drawing.Size(147, 22);
             this.SalesIdText.TabIndex = 3;
@@ -441,7 +444,7 @@
             // SalesPersonNameTextBox
             // 
             this.SalesPersonNameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.SalesPersonNameTextBox.Location = new System.Drawing.Point(11, 154);
+            this.SalesPersonNameTextBox.Location = new System.Drawing.Point(11, 162);
             this.SalesPersonNameTextBox.Name = "SalesPersonNameTextBox";
             this.SalesPersonNameTextBox.ReadOnly = true;
             this.SalesPersonNameTextBox.Size = new System.Drawing.Size(176, 22);
@@ -451,7 +454,7 @@
             // 
             this.SalesPersonButton.BackColor = System.Drawing.Color.Moccasin;
             this.SalesPersonButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SalesPersonButton.Location = new System.Drawing.Point(160, 126);
+            this.SalesPersonButton.Location = new System.Drawing.Point(160, 136);
             this.SalesPersonButton.Name = "SalesPersonButton";
             this.SalesPersonButton.Size = new System.Drawing.Size(26, 22);
             this.SalesPersonButton.TabIndex = 4;
@@ -461,7 +464,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 112);
+            this.label3.Location = new System.Drawing.Point(8, 122);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(33, 13);
             this.label3.TabIndex = 5;
@@ -471,7 +474,7 @@
             // 
             this.FakturDateText.CustomFormat = "ddd dd-MM-yyyy HH:mm";
             this.FakturDateText.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.FakturDateText.Location = new System.Drawing.Point(11, 87);
+            this.FakturDateText.Location = new System.Drawing.Point(11, 97);
             this.FakturDateText.Name = "FakturDateText";
             this.FakturDateText.ShowUpDown = true;
             this.FakturDateText.Size = new System.Drawing.Size(176, 22);
@@ -480,7 +483,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 71);
+            this.label2.Location = new System.Drawing.Point(8, 81);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(67, 13);
             this.label2.TabIndex = 3;
@@ -521,13 +524,13 @@
             this.panel2.Controls.Add(this.label6);
             this.panel2.Location = new System.Drawing.Point(212, 9);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(200, 186);
+            this.panel2.Size = new System.Drawing.Size(200, 192);
             this.panel2.TabIndex = 37;
             // 
             // CustomerAddressText
             // 
             this.CustomerAddressText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.CustomerAddressText.Location = new System.Drawing.Point(11, 80);
+            this.CustomerAddressText.Location = new System.Drawing.Point(11, 77);
             this.CustomerAddressText.Name = "CustomerAddressText";
             this.CustomerAddressText.ReadOnly = true;
             this.CustomerAddressText.Size = new System.Drawing.Size(176, 22);
@@ -545,7 +548,7 @@
             // CreditBalanceTextBox
             // 
             this.CreditBalanceTextBox.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CreditBalanceTextBox.Location = new System.Drawing.Point(11, 154);
+            this.CreditBalanceTextBox.Location = new System.Drawing.Point(11, 162);
             this.CreditBalanceTextBox.Maximum = new decimal(new int[] {
             1410065407,
             2,
@@ -561,7 +564,7 @@
             // PlafondTextBox
             // 
             this.PlafondTextBox.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PlafondTextBox.Location = new System.Drawing.Point(11, 126);
+            this.PlafondTextBox.Location = new System.Drawing.Point(11, 137);
             this.PlafondTextBox.Maximum = new decimal(new int[] {
             1410065407,
             2,
@@ -577,7 +580,7 @@
             // CreditBalanceLabel
             // 
             this.CreditBalanceLabel.AutoSize = true;
-            this.CreditBalanceLabel.Location = new System.Drawing.Point(55, 110);
+            this.CreditBalanceLabel.Location = new System.Drawing.Point(55, 121);
             this.CreditBalanceLabel.Name = "CreditBalanceLabel";
             this.CreditBalanceLabel.Size = new System.Drawing.Size(91, 13);
             this.CreditBalanceLabel.TabIndex = 18;
@@ -586,7 +589,7 @@
             // PlafondLabel
             // 
             this.PlafondLabel.AutoSize = true;
-            this.PlafondLabel.Location = new System.Drawing.Point(8, 110);
+            this.PlafondLabel.Location = new System.Drawing.Point(8, 121);
             this.PlafondLabel.Name = "PlafondLabel";
             this.PlafondLabel.Size = new System.Drawing.Size(47, 13);
             this.PlafondLabel.TabIndex = 17;
@@ -595,7 +598,7 @@
             // CustomerNameTextBox
             // 
             this.CustomerNameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.CustomerNameTextBox.Location = new System.Drawing.Point(11, 52);
+            this.CustomerNameTextBox.Location = new System.Drawing.Point(11, 51);
             this.CustomerNameTextBox.Name = "CustomerNameTextBox";
             this.CustomerNameTextBox.ReadOnly = true;
             this.CustomerNameTextBox.Size = new System.Drawing.Size(176, 22);
@@ -636,14 +639,14 @@
             this.panel3.Controls.Add(this.label7);
             this.panel3.Location = new System.Drawing.Point(418, 9);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(200, 186);
+            this.panel3.Size = new System.Drawing.Size(200, 192);
             this.panel3.TabIndex = 38;
             // 
             // DriverIdText
             // 
             this.DriverIdText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.DriverIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DriverIdText.Location = new System.Drawing.Point(11, 124);
+            this.DriverIdText.Location = new System.Drawing.Point(11, 134);
             this.DriverIdText.Name = "DriverIdText";
             this.DriverIdText.Size = new System.Drawing.Size(147, 22);
             this.DriverIdText.TabIndex = 15;
@@ -651,7 +654,7 @@
             // DriverNameText
             // 
             this.DriverNameText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.DriverNameText.Location = new System.Drawing.Point(11, 151);
+            this.DriverNameText.Location = new System.Drawing.Point(11, 160);
             this.DriverNameText.Name = "DriverNameText";
             this.DriverNameText.ReadOnly = true;
             this.DriverNameText.Size = new System.Drawing.Size(176, 22);
@@ -661,7 +664,7 @@
             // 
             this.DriverButton.BackColor = System.Drawing.Color.Moccasin;
             this.DriverButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DriverButton.Location = new System.Drawing.Point(160, 124);
+            this.DriverButton.Location = new System.Drawing.Point(160, 134);
             this.DriverButton.Name = "DriverButton";
             this.DriverButton.Size = new System.Drawing.Size(26, 22);
             this.DriverButton.TabIndex = 16;
@@ -681,7 +684,7 @@
             // 
             this.TglRencanaKirimTextBox.CustomFormat = "ddd dd-MM-yyyy";
             this.TglRencanaKirimTextBox.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.TglRencanaKirimTextBox.Location = new System.Drawing.Point(11, 96);
+            this.TglRencanaKirimTextBox.Location = new System.Drawing.Point(11, 108);
             this.TglRencanaKirimTextBox.Name = "TglRencanaKirimTextBox";
             this.TglRencanaKirimTextBox.Size = new System.Drawing.Size(176, 22);
             this.TglRencanaKirimTextBox.TabIndex = 14;
@@ -689,7 +692,7 @@
             // TglRencanaKirimLabel
             // 
             this.TglRencanaKirimLabel.AutoSize = true;
-            this.TglRencanaKirimLabel.Location = new System.Drawing.Point(8, 80);
+            this.TglRencanaKirimLabel.Location = new System.Drawing.Point(8, 92);
             this.TglRencanaKirimLabel.Name = "TglRencanaKirimLabel";
             this.TglRencanaKirimLabel.Size = new System.Drawing.Size(119, 13);
             this.TglRencanaKirimLabel.TabIndex = 17;
@@ -698,7 +701,7 @@
             // WarehouseNameText
             // 
             this.WarehouseNameText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.WarehouseNameText.Location = new System.Drawing.Point(11, 52);
+            this.WarehouseNameText.Location = new System.Drawing.Point(11, 51);
             this.WarehouseNameText.Name = "WarehouseNameText";
             this.WarehouseNameText.ReadOnly = true;
             this.WarehouseNameText.Size = new System.Drawing.Size(176, 22);
@@ -728,13 +731,14 @@
             // 
             this.panel4.BackColor = System.Drawing.Color.Cornsilk;
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.LastIdLabel);
             this.panel4.Controls.Add(this.DueDateText);
             this.panel4.Controls.Add(this.label5);
             this.panel4.Controls.Add(this.TermOfPaymentCombo);
             this.panel4.Controls.Add(this.label4);
             this.panel4.Location = new System.Drawing.Point(624, 9);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(200, 186);
+            this.panel4.Size = new System.Drawing.Size(200, 192);
             this.panel4.TabIndex = 45;
             // 
             // DueDateText
@@ -774,6 +778,27 @@
             this.label4.Size = new System.Drawing.Size(92, 13);
             this.label4.TabIndex = 19;
             this.label4.Text = "Term Of Payment";
+            // 
+            // FakturCodeText
+            // 
+            this.FakturCodeText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.FakturCodeText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FakturCodeText.Location = new System.Drawing.Point(11, 49);
+            this.FakturCodeText.Name = "FakturCodeText";
+            this.FakturCodeText.ReadOnly = true;
+            this.FakturCodeText.Size = new System.Drawing.Size(147, 22);
+            this.FakturCodeText.TabIndex = 6;
+            // 
+            // FakturCodeButton
+            // 
+            this.FakturCodeButton.BackColor = System.Drawing.Color.Moccasin;
+            this.FakturCodeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.FakturCodeButton.Location = new System.Drawing.Point(160, 49);
+            this.FakturCodeButton.Name = "FakturCodeButton";
+            this.FakturCodeButton.Size = new System.Drawing.Size(26, 22);
+            this.FakturCodeButton.TabIndex = 7;
+            this.FakturCodeButton.Text = "...";
+            this.FakturCodeButton.UseVisualStyleBackColor = false;
             // 
             // FakturForm
             // 
@@ -879,5 +904,7 @@
         private System.Windows.Forms.TextBox DriverNameText;
         private System.Windows.Forms.Button DriverButton;
         private System.Windows.Forms.NumericUpDown DppText;
+        private System.Windows.Forms.TextBox FakturCodeText;
+        private System.Windows.Forms.Button FakturCodeButton;
     }
 }

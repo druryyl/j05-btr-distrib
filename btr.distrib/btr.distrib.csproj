@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>241</ApplicationRevision>
+    <ApplicationRevision>242</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -312,6 +312,7 @@
     <Compile Include="Browsers\CustomerBrowser.cs" />
     <Compile Include="Browsers\DriverBrowser.cs" />
     <Compile Include="Browsers\FakturBrowser.cs" />
+    <Compile Include="Browsers\FakturCodeOpenBrowser.cs" />
     <Compile Include="Browsers\FpKeluaranBrowser.cs" />
     <Compile Include="Browsers\InvoiceBrowser.cs" />
     <Compile Include="Browsers\KategoriBrowser.cs" />

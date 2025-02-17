@@ -16,6 +16,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
     {
         private readonly IFakturDal _fakturDal;
         private readonly IFakturItemDal _fakturItemDal;
+        private readonly IFakturCodeOpenDal _fakturCodeOpenDal;
         private readonly IFakturDiscountDal _fakturDiscountDal;
         private readonly INunaCounterBL _counter;
         private readonly IValidator<FakturModel> _validator;
@@ -26,7 +27,8 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             IFakturDiscountDal fakturDiscountDal,
             INunaCounterBL counter,
             IValidator<FakturModel> validator,
-            IUserBuilder userBuilder)
+            IUserBuilder userBuilder,
+            IFakturCodeOpenDal fakturCodeOpenDal)
         {
             _fakturDal = fakturDal;
             _fakturItemDal = fakturItemDal;
@@ -34,6 +36,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             _counter = counter;
             _validator = validator;
             _userBuilder = userBuilder;
+            _fakturCodeOpenDal = fakturCodeOpenDal;
         }
 
         public FakturModel Save(FakturModel model)
@@ -45,8 +48,9 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             if (model.FakturId.IsNullOrEmpty())
                 model.FakturId = _counter.Generate("FKTR", IDFormatEnum.PREFYYMnnnnnC);
 
-            if (model.FakturCode.IsNullOrEmpty())
-                model.FakturCode = GenerateFakturCode(model);
+            if (!model.IsVoid)
+                if (model.FakturCode.IsNullOrEmpty())
+                    model.FakturCode = GenerateFakturCode(model);
             
             foreach (var item in model.ListItem)
             {
@@ -76,6 +80,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
                 _fakturItemDal.Insert(model.ListItem);
                 _fakturDiscountDal.Insert(allDiscount);
 
+                _fakturCodeOpenDal.Delete(model.FakturCode);
                 trans.Complete();
             }
             return model;

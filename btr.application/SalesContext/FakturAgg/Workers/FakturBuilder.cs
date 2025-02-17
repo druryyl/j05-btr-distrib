@@ -28,6 +28,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         IFakturBuilder Attach(FakturModel faktur);
 
         IFakturBuilder FakturDate(DateTime fakturDate);
+        IFakturBuilder FakturCode(string fakturCode);
         IFakturBuilder Customer(ICustomerKey customerKey);
         IFakturBuilder SalesPerson(ISalesPersonKey salesPersonKey);
         IFakturBuilder Warehouse(IWarehouseKey warehouseKey);
@@ -56,6 +57,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         private readonly IFakturDal _fakturDal;
         private readonly IFakturItemDal _fakturItemDal;
         private readonly IFakturDiscountDal _fakturDiscountDal;
+        private readonly IFakturCodeOpenDal _fakturCodeOpenDal;
 
         private readonly ICustomerDal _customerDal;
         private readonly ISalesPersonDal _salesPersonDal;
@@ -74,7 +76,8 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             IBrgBuilder brgBuilder,
             ITglJamDal dateTime,
             ICreateFakturItemWorker createFakturItemWorker,
-            IDriverDal driverDal)
+            IDriverDal driverDal,
+            IFakturCodeOpenDal fakturCodeOpenDal)
         {
             _fakturDal = fakturDal;
             _fakturItemDal = fakturItemDal;
@@ -87,6 +90,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             _dateTime = dateTime;
             _createFakturItemWorker = createFakturItemWorker;
             _driverDal = driverDal;
+            _fakturCodeOpenDal = fakturCodeOpenDal;
         }
 
         public FakturModel Build()
@@ -244,6 +248,10 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         {
             _aggRoot.VoidDate = _dateTime.Now;
             _aggRoot.UserIdVoid = userKey.UserId;
+            _aggRoot.FakturCodeOri = _aggRoot.FakturCode;
+            _aggRoot.FakturCode = string.Empty;
+            _fakturCodeOpenDal.Insert(_aggRoot.FakturCodeOri);
+
             return this;
         }
 
@@ -287,6 +295,12 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         public IFakturBuilder Note(string note)
         {
             _aggRoot.Note = note;
+            return this;
+        }
+
+        public IFakturBuilder FakturCode(string fakturCode)
+        {
+            _aggRoot.FakturCode = fakturCode;
             return this;
         }
     }

@@ -142,6 +142,7 @@
     <Compile Include="SalesContext\CustomerAgg\CustomerDal.cs" />
     <Compile Include="SalesContext\DriverFakturRpt\DriverFakturInfoDal.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturAlokasiFpItemDal.cs" />
+    <Compile Include="SalesContext\FakturAgg\FakturCodeOpenDal.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturDal.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturDiscountDal.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturItemDal.cs" />

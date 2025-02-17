@@ -21,6 +21,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
     public class SaveFakturRequest : IFakturKey, ICustomerKey, ISalesPersonKey, IWarehouseKey, IUserKey, IDriverKey
     {
         public string FakturId { get; set; }
+        public string FakturCode { get; set; }
         public string FakturDate { get; set; }
         public string CustomerId { get; set; }
         public string SalesPersonId { get; set; }
@@ -146,6 +147,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
 
             result = _fakturBuilder
                 .Attach(result)
+                .FakturCode(req.FakturCode)
                 .FakturDate(req.FakturDate.ToDate(DateFormatEnum.YMD))
                 .Customer(req)
                 .SalesPerson(req)
