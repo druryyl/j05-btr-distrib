@@ -116,8 +116,9 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         {
             _aggRoot = _fakturDal.GetData(fakturKey)
                        ?? throw new KeyNotFoundException($"Faktur not found ({fakturKey.FakturId})");
-            _aggRoot.ListItem = _fakturItemDal.ListData(fakturKey)?.ToList()
+            var listItem = _fakturItemDal.ListData(fakturKey)?.ToList()
                                 ?? new List<FakturItemModel>();
+            _aggRoot.ListItem = listItem.OrderBy(x => x.NoUrut).ToList();
             var allDiscount = _fakturDiscountDal.ListData(fakturKey)?.ToList()
                               ?? new List<FakturDiscountModel>();
 
