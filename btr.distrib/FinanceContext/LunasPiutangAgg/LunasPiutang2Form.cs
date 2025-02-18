@@ -121,8 +121,8 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
                 .Attach(piutang)
                 .AddMinusElement(PiutangElementEnum.Retur, ReturText.Value)
                 .AddMinusElement(PiutangElementEnum.Potongan, PotonganText.Value)
-                .AddPlusElement(PiutangElementEnum.Materai, MateraiText.Value)
-                .AddPlusElement(PiutangElementEnum.Admin, AdminText.Value)
+                .AddMinusElement(PiutangElementEnum.Materai, MateraiText.Value)
+                .AddMinusElement(PiutangElementEnum.Admin, AdminText.Value)
                 .Build();
             _piutangWriter.Save(ref piutang);
             RefreshGridBayar(piutang);
@@ -307,9 +307,9 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
 
             var retur = piutang.ListElement?.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Retur)?.NilaiMinus ?? 0;
             var pot = piutang.ListElement?.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Potongan)?.NilaiMinus ?? 0;
-            var materai = piutang.ListElement?.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Materai)?.NilaiPlus ?? 0;
-            var admin = piutang.ListElement?.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Admin)?.NilaiPlus ?? 0;
-            var potBiayaLain = materai + admin - retur - pot;
+            var materai = piutang.ListElement?.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Materai)?.NilaiMinus ?? 0;
+            var admin = piutang.ListElement?.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Admin)?.NilaiMinus ?? 0;
+            var potBiayaLain = materai + admin + retur + pot;
 
             if(potBiayaLain != 0)
             {
@@ -445,8 +445,8 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
 
             ReturText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Retur)?.NilaiMinus ?? 0;
             PotonganText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Potongan )?.NilaiMinus ?? 0;
-            MateraiText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Materai)?.NilaiPlus ?? 0;
-            AdminText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Admin)?.NilaiPlus ?? 0;
+            MateraiText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Materai)?.NilaiMinus ?? 0;
+            AdminText.Value = piutang.ListElement.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Admin)?.NilaiMinus ?? 0;
 
             FakturCodeText.Text = fc;
             TglFakturText2.Text= piutang.PiutangDate.ToString("dd-MM-yyyy");

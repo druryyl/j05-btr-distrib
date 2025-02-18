@@ -152,8 +152,8 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
         {
             var potonganBiayaLain = _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Retur).Sum(x => x.NilaiMinus * -1);
             potonganBiayaLain += _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Potongan).Sum(x => x.NilaiMinus * -1);
-            potonganBiayaLain += _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Materai).Sum(x => x.NilaiPlus);
-            potonganBiayaLain += _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Admin).Sum(x => x.NilaiPlus);
+            potonganBiayaLain += _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Materai).Sum(x => x.NilaiMinus * -1);
+            potonganBiayaLain += _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Admin).Sum(x => x.NilaiMinus * -1);
 
             _aggregate.Potongan = potonganBiayaLain;
 
