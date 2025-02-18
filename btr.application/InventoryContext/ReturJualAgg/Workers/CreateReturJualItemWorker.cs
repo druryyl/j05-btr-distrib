@@ -112,7 +112,7 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
             result.HrgSat = result.ListQtyHrg.First(x => x.Conversion == 1).HrgSat;
             result.SubTotal = result.ListQtyHrg.Sum(x => x.SubTotal);
             result.DiscRp = result.ListDisc.Sum(x => x.DiscRp);
-            result.PpnRp = result.SubTotal * result.PpnProsen / 100;
+            result.PpnRp = (result.SubTotal - result.DiscRp) * result.PpnProsen / 100;
             result.Total = result.SubTotal - result.DiscRp + result.PpnRp;
 
             return result;
