@@ -7,15 +7,19 @@ using System.Windows.Forms;
 using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.MutasiAgg;
 using btr.application.InventoryContext.WarehouseAgg;
+using btr.application.SupportContext.ParamSistemAgg;
 using btr.application.SupportContext.TglJamAgg;
 using btr.distrib.Browsers;
 using btr.distrib.Helpers;
+using btr.distrib.SalesContext.FakturAgg;
 using btr.distrib.SharedForm;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.MutasiAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
+using btr.domain.SupportContext.ParamSistemAgg;
 using btr.nuna.Domain;
 using Mapster;
+using Microsoft.Reporting.WinForms;
 using Polly;
 
 namespace btr.distrib.InventoryContext.MutasiAgg
@@ -28,6 +32,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
 
         private readonly IWarehouseDal _warehouseDal;
         private readonly IBrgDal _brgDal;
+        private readonly IParamSistemDal _paramSistemDal;
         private readonly ITglJamDal _dateTime;
 
         private readonly ICreateMutasiItemWorker _createItemWorker;
@@ -53,7 +58,8 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             ISaveMutasiWorker saveMutasiWorker,
             IMutasiBuilder mutasiBuilder,
             ITglJamDal dateTime,
-            IBrowser<MutasiBrowserView> mutasiBrowser)
+            IBrowser<MutasiBrowserView> mutasiBrowser,
+            IParamSistemDal paramSistemDal)
         {
             InitializeComponent();
 
@@ -72,6 +78,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             RegisterEventHandler();
             InitGrid();
             InitCombo();
+            _paramSistemDal = paramSistemDal;
         }
 
         private void InitCombo()
@@ -447,7 +454,39 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             cmd.ListBrg = listItem;
             var result = _saveMutasiWorker.Execute(cmd);
             LastIdLabel.Text = result.MutasiId;
+
+            var mutasi = new MutasiPrintOutDto(result);
+            PrintMutasiRdlc(mutasi);
             ClearForm();
+        }
+
+        private void PrintMutasiRdlc(MutasiPrintOutDto mutasi)
+        {
+            var mutasiJualDataset = new ReportDataSource("MutasiDataset", new List<MutasiPrintOutDto> { mutasi });
+            var mutasiJualItemDataset = new ReportDataSource("MutasiItemDataset", mutasi.ListItem);
+            var clientId = _paramSistemDal.GetData(new ParamSistemModel("CLIENT_ID"))?.ParamValue ?? string.Empty;
+
+            var printOutTemplate = string.Empty;
+            switch (clientId)
+            {
+                case "BTR-YK":        
+                    printOutTemplate = "MutasiKlaim-Yk";
+                    break;
+                case "BTR-MGL":
+                    printOutTemplate = "MutasiKlaim-Mgl";
+                    break;
+                default:
+                    break;
+            }
+
+            var listDataset = new List<ReportDataSource>
+            {
+                mutasiJualDataset,
+                mutasiJualItemDataset
+            };
+            var rdlcViewerForm = new RdlcViewerForm();
+            rdlcViewerForm.SetReportData(printOutTemplate, listDataset);
+            rdlcViewerForm.ShowDialog();
         }
         private void ClearForm()
         {
