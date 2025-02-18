@@ -3,6 +3,7 @@
     FakturId VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_Faktur_FakturId DEFAULT(''),
     FakturDate DATETIME NOT NULL CONSTRAINT DF_BTR_Faktur_FakturDate DEFAULT('3000-01-01'),
     FakturCode VARCHAR(11) NOT NULL CONSTRAINT DF_BTR_Faktur_FakturCode DEFAULT(''),
+    FakturCodeOri VARCHAR(8) NOT NULL CONSTRAINT DF_BTR_Faktur_FakturCodeOri DEFAULT(''),
     SalesPersonId VARCHAR(5) NOT NULL CONSTRAINT DF_BTR_Faktur_SalesPersonId DEFAULT(''),
     CustomerId VARCHAR(6) NOT NULL CONSTRAINT DF_BTR_Faktur_CustomerId DEFAULT(''),
     HargaTypeId VARCHAR(2) NOT NULL CONSTRAINT DF_BTR_Faktur_HargaTypeId DEFAULT(''),
@@ -36,4 +37,9 @@ GO
 
 CREATE INDEX IX_BTR_Faktur_FakturDate
     ON BTR_Faktur(FakturDate, FakturId)
+GO
+
+CREATE UNIQUE INDEX IX_BTR_Faktur_FakturCode
+    ON BTR_Faktur (FakturCode)
+    WHERE FakturCode <> ''
 GO
