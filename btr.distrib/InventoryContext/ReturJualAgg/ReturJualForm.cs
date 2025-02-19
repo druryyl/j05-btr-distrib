@@ -141,7 +141,17 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             FakturItemGrid.CellValidated += FakturItemGrid_CellValidated;
             
             SaveButton.Click += SaveButton_Click;
+            PrintButton.Click += PrintButton_Click;
         }
+
+        private void PrintButton_Click(object sender, EventArgs e)
+        {
+            var returJual = BuildReturJual();
+            var customer = _customerDal.GetData(returJual) ?? new CustomerModel();
+            var printOut = new ReturJualPrintOutDto(returJual, customer);
+            PrintRdlc(printOut);
+        }
+
         private void SetFocusToNextControl(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -297,42 +307,41 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             PrintRdlc(printOut);
 
             return;
+        }
 
-            //  LOCAL-FUNCTION
-            ReturJualModel BuildReturJual()
-            {
-                ReturJualModel resultBuildReturJual;
-                resultBuildReturJual = ReturJualIdText.Text.Length != 0 
-                    ? _builder.Load(new ReturJualModel(ReturJualIdText.Text)).Build() 
-                    : _builder.Create().Build();
-                var mainform = (MainForm)this.Parent.Parent;
-                resultBuildReturJual = _builder
-                    .Attach(resultBuildReturJual)
-                    .Customer(new CustomerModel(CustomerIdText.Text))
-                    .Warehouse(new WarehouseModel(WarehouseIdText.Text))
-                    .SalesPerson(new SalesPersonModel(SalesIdText.Text))
-                    .Driver(new DriverModel(DriverIdText.Text))
-                    .ReturJualDate(ReturJualDateText.Value)
-                    .JenisRetur(JenisReturCombo.SelectedItem.ToString())
-                    .User(mainform.UserId.UserId)
-                    .Build();
-                
-                //  clearkan list item lebih dulu karna akan diisi ulang
-                resultBuildReturJual.ListItem.Clear();
-                
-                resultBuildReturJual = _listItem
-                    .Aggregate(resultBuildReturJual, (current, item) 
-                        => _builder
-                            .Attach(current)
-                            .AddItem(_createReturJualItemWorker.Execute(
-                                new CreateReturJualItemRequest(item.BrgId, current.CustomerId, 
-                                    item.HrgInputStr, item.QtyInputStr, item.DiscInputStr, 
-                                    item.PpnProsen, current.JenisRetur)))
-                            //.AddItem(item.Adapt<ReturJualItemModel>())
-                            .Build());
+        private ReturJualModel BuildReturJual()
+        {
+            ReturJualModel resultBuildReturJual;
+            resultBuildReturJual = ReturJualIdText.Text.Length != 0
+                ? _builder.Load(new ReturJualModel(ReturJualIdText.Text)).Build()
+                : _builder.Create().Build();
+            var mainform = (MainForm)this.Parent.Parent;
+            resultBuildReturJual = _builder
+                .Attach(resultBuildReturJual)
+                .Customer(new CustomerModel(CustomerIdText.Text))
+                .Warehouse(new WarehouseModel(WarehouseIdText.Text))
+                .SalesPerson(new SalesPersonModel(SalesIdText.Text))
+                .Driver(new DriverModel(DriverIdText.Text))
+                .ReturJualDate(ReturJualDateText.Value)
+                .JenisRetur(JenisReturCombo.SelectedItem.ToString())
+                .User(mainform.UserId.UserId)
+                .Build();
 
-                return resultBuildReturJual;
-            }
+            //  clearkan list item lebih dulu karna akan diisi ulang
+            resultBuildReturJual.ListItem.Clear();
+
+            resultBuildReturJual = _listItem
+                .Aggregate(resultBuildReturJual, (current, item)
+                    => _builder
+                        .Attach(current)
+                        .AddItem(_createReturJualItemWorker.Execute(
+                            new CreateReturJualItemRequest(item.BrgId, current.CustomerId,
+                                item.HrgInputStr, item.QtyInputStr, item.DiscInputStr,
+                                item.PpnProsen, current.JenisRetur)))
+                        //.AddItem(item.Adapt<ReturJualItemModel>())
+                        .Build());
+
+            return resultBuildReturJual;
         }
         private void PrintRdlc(ReturJualPrintOutDto retJual)
         {

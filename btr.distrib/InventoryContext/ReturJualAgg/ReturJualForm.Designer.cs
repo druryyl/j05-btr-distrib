@@ -64,6 +64,9 @@
             this.TotalText = new System.Windows.Forms.NumericUpDown();
             this.TotalLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.CodeLabel = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.JenisReturCombo = new System.Windows.Forms.ComboBox();
             this.LastIdText = new System.Windows.Forms.TextBox();
             this.ReturJualDateText = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
@@ -71,9 +74,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.SaveButton = new System.Windows.Forms.Button();
             this.NewButton = new System.Windows.Forms.Button();
-            this.JenisReturCombo = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.CodeLabel = new System.Windows.Forms.Label();
+            this.PrintButton = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.PanelAtas4.SuspendLayout();
@@ -391,7 +392,7 @@
             this.BiayaLainLabel.AutoSize = true;
             this.BiayaLainLabel.Location = new System.Drawing.Point(8, 86);
             this.BiayaLainLabel.Name = "BiayaLainLabel";
-            this.BiayaLainLabel.Size = new System.Drawing.Size(23, 13);
+            this.BiayaLainLabel.Size = new System.Drawing.Size(22, 13);
             this.BiayaLainLabel.TabIndex = 14;
             this.BiayaLainLabel.Text = "Tax";
             // 
@@ -416,7 +417,7 @@
             this.GrandTotalLabel.AutoSize = true;
             this.GrandTotalLabel.Location = new System.Drawing.Point(8, 125);
             this.GrandTotalLabel.Name = "GrandTotalLabel";
-            this.GrandTotalLabel.Size = new System.Drawing.Size(67, 13);
+            this.GrandTotalLabel.Size = new System.Drawing.Size(66, 13);
             this.GrandTotalLabel.TabIndex = 8;
             this.GrandTotalLabel.Text = "Grand Total";
             // 
@@ -466,7 +467,7 @@
             this.TotalLabel.AutoSize = true;
             this.TotalLabel.Location = new System.Drawing.Point(8, 8);
             this.TotalLabel.Name = "TotalLabel";
-            this.TotalLabel.Size = new System.Drawing.Size(32, 13);
+            this.TotalLabel.Size = new System.Drawing.Size(31, 13);
             this.TotalLabel.TabIndex = 4;
             this.TotalLabel.Text = "Total";
             // 
@@ -487,6 +488,36 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(200, 202);
             this.panel1.TabIndex = 49;
+            // 
+            // CodeLabel
+            // 
+            this.CodeLabel.AutoSize = true;
+            this.CodeLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CodeLabel.Location = new System.Drawing.Point(8, 48);
+            this.CodeLabel.Name = "CodeLabel";
+            this.CodeLabel.Size = new System.Drawing.Size(81, 13);
+            this.CodeLabel.TabIndex = 18;
+            this.CodeLabel.Text = "Retur Jual Code";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(8, 141);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(63, 13);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "Jenis Retur";
+            // 
+            // JenisReturCombo
+            // 
+            this.JenisReturCombo.FormattingEnabled = true;
+            this.JenisReturCombo.Items.AddRange(new object[] {
+            "BAGUS",
+            "RUSAK"});
+            this.JenisReturCombo.Location = new System.Drawing.Point(11, 157);
+            this.JenisReturCombo.Name = "JenisReturCombo";
+            this.JenisReturCombo.Size = new System.Drawing.Size(176, 21);
+            this.JenisReturCombo.TabIndex = 4;
             // 
             // LastIdText
             // 
@@ -554,35 +585,15 @@
             this.NewButton.Text = "New";
             this.NewButton.UseVisualStyleBackColor = true;
             // 
-            // JenisReturCombo
+            // PrintButton
             // 
-            this.JenisReturCombo.FormattingEnabled = true;
-            this.JenisReturCombo.Items.AddRange(new object[] {
-            "BAGUS",
-            "RUSAK"});
-            this.JenisReturCombo.Location = new System.Drawing.Point(11, 157);
-            this.JenisReturCombo.Name = "JenisReturCombo";
-            this.JenisReturCombo.Size = new System.Drawing.Size(176, 21);
-            this.JenisReturCombo.TabIndex = 4;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 141);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(63, 13);
-            this.label4.TabIndex = 17;
-            this.label4.Text = "Jenis Retur";
-            // 
-            // CodeLabel
-            // 
-            this.CodeLabel.AutoSize = true;
-            this.CodeLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CodeLabel.Location = new System.Drawing.Point(8, 48);
-            this.CodeLabel.Name = "CodeLabel";
-            this.CodeLabel.Size = new System.Drawing.Size(81, 13);
-            this.CodeLabel.TabIndex = 18;
-            this.CodeLabel.Text = "Retur Jual Code";
+            this.PrintButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.PrintButton.Location = new System.Drawing.Point(89, 515);
+            this.PrintButton.Name = "PrintButton";
+            this.PrintButton.Size = new System.Drawing.Size(75, 23);
+            this.PrintButton.TabIndex = 54;
+            this.PrintButton.Text = "Print";
+            this.PrintButton.UseVisualStyleBackColor = true;
             // 
             // ReturJualForm
             // 
@@ -590,6 +601,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Khaki;
             this.ClientSize = new System.Drawing.Size(1171, 542);
+            this.Controls.Add(this.PrintButton);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.PanelAtas4);
@@ -668,5 +680,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox JenisReturCombo;
         private System.Windows.Forms.Label CodeLabel;
+        private System.Windows.Forms.Button PrintButton;
     }
 }
