@@ -137,8 +137,9 @@ namespace btr.distrib.SalesContext.FakturPerCustomerRpt
             var periode = new Periode(Tgl1Date.Value, Tgl2Date.Value);
             var listStok = _fakturPerCustomerDal.ListData(periode)?.ToList() ?? new List<FakturPerCustomerView>();
 
-            var filtered = Filter(listStok, SearchText.Text);
-            _dataSource = filtered.ToList();
+            var filtered = Filter(listStok, SearchText.Text).ToList();
+            filtered.ForEach(x => x.FakturDate = x.FakturDate.Date);
+            _dataSource = filtered;
             InfoGrid.DataSource = _dataSource;
         }
 

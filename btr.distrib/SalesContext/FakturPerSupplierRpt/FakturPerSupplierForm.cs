@@ -134,8 +134,9 @@ namespace btr.distrib.SalesContext.FakturPerSupplierRpt
             var periode = new Periode(Tgl1Date.Value, Tgl2Date.Value);
             var listStok = _fakturPerSupplierDal.ListData(periode)?.ToList() ?? new List<FakturPerSupplierView>();
 
-            var filtered = Filter(listStok, SearchText.Text);
-            _dataSource = filtered.ToList();
+            var filtered = Filter(listStok, SearchText.Text).ToList();
+            filtered.ForEach(x => x.FakturDate = x.FakturDate.Date);
+            _dataSource = filtered;
             InfoGrid.DataSource = _dataSource;
         }
 
@@ -197,7 +198,7 @@ namespace btr.distrib.SalesContext.FakturPerSupplierRpt
 
                 //  format date column FakturDate
                 ws.Range(ws.Cell("F2"), ws.Cell($"F{listToExcel.Count + 1}"))
-                    .Style.NumberFormat.Format = "dd MMM yyyy";
+                    .Style.NumberFormat.Format = "dd-MMM-yyyy";
                 
                 //  format numeric column DiscTotal with 2 decimal places but hide zero
                 ws.Range(ws.Cell("T2"), ws.Cell($"W{listToExcel.Count + 1}"))

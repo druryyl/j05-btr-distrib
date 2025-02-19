@@ -78,7 +78,9 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
                     .Style.NumberFormat.Format = "#,##";
                 ws.Range(ws.Cell("A2"), ws.Cell($"A{_dataSource.Count + 2}"))
                     .Style.NumberFormat.Format = "#,##";
-                
+                ws.Range(ws.Cell("D2"), ws.Cell($"D{_dataSource.Count + 2}"))
+                    .Style.NumberFormat.Format = "dd-MMM-yyyy";
+
                 //  add rownumbering
                 ws.Cell($"A1").Value = "No";
                 for (var i = 0; i < _dataSource.Count; i++)
