@@ -13,7 +13,7 @@ namespace btr.application.PurchaseContext.InvoiceBrgInfo
         public string Kategori { get; set; }
 
         public decimal Hpp { get; set; }
-        public string QtyBesar { get; set; }
+        public int QtyBesar { get; set; }
         public string SatuanBesar { get; set; }
         public int Qty { get; set; }
         public string Satuan { get; set; }

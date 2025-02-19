@@ -52,18 +52,21 @@ namespace btr.distrib.PurchaseContext.InvoiceInfo
                     .InsertTable(_dataSource, false);
                 var ws = wb.Worksheets.First();
                 //  set border and font
-                ws.Range(ws.Cell($"A{1}"), ws.Cell($"O{_dataSource.Count + 1}")).Style
+                ws.Range(ws.Cell($"A{1}"), ws.Cell($"Q{_dataSource.Count + 1}")).Style
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair);
-                ws.Range(ws.Cell($"A{1}"), ws.Cell($"O{_dataSource.Count + 1}")).Style
+                ws.Range(ws.Cell($"A{1}"), ws.Cell($"Q{_dataSource.Count + 1}")).Style
                     .Font.SetFontName("Consolas")
                     .Font.SetFontSize(9);
 
                 //  set format number for columnto N0
-                ws.Range(ws.Cell($"J{2}"), ws.Cell($"O{_dataSource.Count + 1}"))
+                ws.Range(ws.Cell($"I{2}"), ws.Cell($"Q{_dataSource.Count + 1}"))
                     .Style.NumberFormat.Format = "#,##";
                 ws.Range(ws.Cell($"A{2}"), ws.Cell($"A{_dataSource.Count + 1}"))
                     .Style.NumberFormat.Format = "#,##";
+                ws.Range(ws.Cell($"D{2}"), ws.Cell($"D{_dataSource.Count + 1}"))
+                    .Style.NumberFormat.Format = "dd-MMM-yyyy";
+
                 //  add rownumbering
                 ws.Cell($"A1").Value = "No";
                 for (var i = 0; i < _dataSource.Count; i++)

@@ -64,6 +64,10 @@ namespace btr.distrib.PurchaseContext.InvoiceInfo
                     .Style.NumberFormat.Format = "#,##";
                 ws.Range(ws.Cell($"A{2}"), ws.Cell($"A{_dataSource.Count + 1}"))
                     .Style.NumberFormat.Format = "#,##";
+                ws.Range(ws.Cell($"D{2}"), ws.Cell($"D{_dataSource.Count + 1}"))
+                    .Style.NumberFormat.Format = "dd-MMM-yyyy";
+
+
                 //  add rownumbering
                 ws.Cell($"A1").Value = "No";
                 for (var i = 0; i < _dataSource.Count; i++)

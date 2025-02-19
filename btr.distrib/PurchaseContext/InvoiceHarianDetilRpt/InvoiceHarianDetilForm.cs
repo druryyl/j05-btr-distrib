@@ -138,8 +138,9 @@ namespace btr.distrib.PurchaseContext.InvoiceHarianDetilRpt
             var periode = new Periode(Tgl1Date.Value, Tgl2Date.Value);
             var listStok = _invoiceHarianDetilDal.ListData(periode)?.ToList() ?? new List<InvoiceHarianDetilView>();
 
-            var filtered = Filter(listStok, SearchText.Text);
-            _dataSource = filtered.ToList();
+            var filtered = Filter(listStok, SearchText.Text).ToList();
+            filtered.ForEach(x => x.InvoiceDate = x.InvoiceDate.Date);
+            _dataSource = filtered;
             InfoGrid.DataSource = _dataSource;
         }
 
