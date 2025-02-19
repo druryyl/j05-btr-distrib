@@ -46,7 +46,7 @@ namespace btr.distrib.InventoryContext.MutasiRpt
                 saveFileDialog.Title = @"Save Excel File";
                 saveFileDialog.DefaultExt = "xlsx";
                 saveFileDialog.AddExtension = true;
-                saveFileDialog.FileName = $"retur-jual-info-{DateTime.Now:yyyy-MM-dd-HHmm}";
+                saveFileDialog.FileName = $"mutasi-info-{DateTime.Now:yyyy-MM-dd-HHmm}";
                 if (saveFileDialog.ShowDialog() != DialogResult.OK)
                     return;
                 filePath = saveFileDialog.FileName;
@@ -60,31 +60,32 @@ namespace btr.distrib.InventoryContext.MutasiRpt
                 var ws = wb.Worksheets.First();
 
                 //  set border and font
-                ws.Range(ws.Cell("A1"), ws.Cell($"Y{_dataSource.Count + 1}")).Style
+                ws.Range(ws.Cell("A1"), ws.Cell($"R{_dataSource.Count + 1}")).Style
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair);
-                ws.Cell($"U{_dataSource.Count + 2}").Value = "Total";
-                ws.Range(ws.Cell($"U{_dataSource.Count + 2}"), ws.Cell($"Y{_dataSource.Count + 2}")).Style
+                ws.Cell($"O{_dataSource.Count + 2}").Value = "Total";
+                ws.Range(ws.Cell($"O{_dataSource.Count + 2}"), ws.Cell($"R{_dataSource.Count + 2}")).Style
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Font.SetFontName("Consolas")
                     .Font.SetFontSize(11)
                     .Font.SetBold();
 
-                ws.Range(ws.Cell("A1"), ws.Cell($"Y{_dataSource.Count + 2}")).Style
+                ws.Range(ws.Cell("A1"), ws.Cell($"R{_dataSource.Count + 2}")).Style
                     .Font.SetFontName("Consolas")
                     .Font.SetFontSize(9);
 
-                //  add row total V,W,X,Y
-                ws.Cell($"V{_dataSource.Count + 2}").FormulaA1 = $"=SUM(W2:V{_dataSource.Count + 1})";
-                ws.Cell($"W{_dataSource.Count + 2}").FormulaA1 = $"=SUM(W2:W{_dataSource.Count + 1})";
-                ws.Cell($"X{_dataSource.Count + 2}").FormulaA1 = $"=SUM(X2:X{_dataSource.Count + 1})";
-                ws.Cell($"Y{_dataSource.Count + 2}").FormulaA1 = $"=SUM(Y2:Y{_dataSource.Count + 1})";
+                //  add row total P-Q-R
+                ws.Cell($"P{_dataSource.Count + 2}").FormulaA1 = $"=SUM(P2:P{_dataSource.Count + 1})";
+                ws.Cell($"Q{_dataSource.Count + 2}").FormulaA1 = $"=SUM(Q2:Q{_dataSource.Count + 1})";
+                ws.Cell($"R{_dataSource.Count + 2}").FormulaA1 = $"=SUM(R2:R{_dataSource.Count + 1})";
 
                 //  set format number for column A, J, K, L, M, N, O to N0
-                ws.Range(ws.Cell("J2"), ws.Cell($"Y{_dataSource.Count + 2}"))
+                ws.Range(ws.Cell("J2"), ws.Cell($"R{_dataSource.Count + 2}"))
                     .Style.NumberFormat.Format = "#,##";
                 ws.Range(ws.Cell("A2"), ws.Cell($"A{_dataSource.Count + 2}"))
                     .Style.NumberFormat.Format = "#,##";
+                ws.Range(ws.Cell("C2"), ws.Cell($"C{_dataSource.Count + 2}"))
+                    .Style.NumberFormat.Format = "dd-MMM-yyyy";
 
                 //  add rownumbering
                 ws.Cell($"A1").Value = "No";
@@ -146,7 +147,7 @@ namespace btr.distrib.InventoryContext.MutasiRpt
             InfoGrid.TableDescriptor.SummaryRows.Add(sumRowDescriptor);
 
             InfoGrid.TableDescriptor.Columns["QtyBesar"].Appearance.AnyRecordFieldCell.Format = "###.##";
-            InfoGrid.TableDescriptor.Columns["InPcs"].Appearance.AnyRecordFieldCell.Format = "N0";//
+            InfoGrid.TableDescriptor.Columns["InPcs"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["HrgSat"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["SubTotal"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["DiscRp"].Appearance.AnyRecordFieldCell.Format = "N0";
@@ -196,7 +197,7 @@ namespace btr.distrib.InventoryContext.MutasiRpt
                 item.QtyKecil = item.InPcs % satBesar.Conversion;
                 item.SatBesar = satBesar.Satuan;
                 item.SatKecil = satKecil.Satuan;
-
+                item.MutasiDate = item.MutasiDate.Date;
                 if (satBesar.Satuan == satKecil.Satuan)
                 {
                     item.QtyKecil = item.QtyBesar;

@@ -84,6 +84,9 @@ namespace btr.distrib.InventoryContext.ReturJualRpt
                     .Style.NumberFormat.Format = "#,##";
                 ws.Range(ws.Cell("A2"), ws.Cell($"A{_dataSource.Count + 2}"))
                     .Style.NumberFormat.Format = "#,##";
+                ws.Range(ws.Cell("D2"), ws.Cell($"D{_dataSource.Count + 2}"))
+                    .Style.NumberFormat.Format = "dd-MMM-yyyy";
+
 
                 //  add rownumbering
                 ws.Cell($"A1").Value = "No";
@@ -196,6 +199,7 @@ namespace btr.distrib.InventoryContext.ReturJualRpt
                 item.QtyKecil = item.InPcs % satBesar.Conversion;
                 item.SatBesar = satBesar.Satuan;
                 item.SatKecil = satKecil.Satuan;
+                item.ReturJualDate = item.ReturJualDate.Date;
 
                 if (satBesar.Satuan == satKecil.Satuan)
                 {

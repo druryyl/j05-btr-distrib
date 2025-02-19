@@ -299,8 +299,6 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
         }
     }
 
-
-
     public class KartuStokItemInfoDto 
     {
         public string WarehouseName { get; set; }
