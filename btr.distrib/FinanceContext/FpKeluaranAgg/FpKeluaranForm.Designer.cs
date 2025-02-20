@@ -45,14 +45,16 @@
             this.SaveButton = new System.Windows.Forms.Button();
             this.NewButton = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.TotalFakturText = new System.Windows.Forms.NumericUpDown();
             this.TotalPpnText = new System.Windows.Forms.NumericUpDown();
+            this.TotalFakturText = new System.Windows.Forms.NumericUpDown();
+            this.SelectAllButton = new System.Windows.Forms.Button();
+            this.FakturTerlipihLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturGrid)).BeginInit();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.TotalFakturText)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TotalPpnText)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TotalFakturText)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -195,7 +197,7 @@
             this.FakturGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.FakturGrid.Location = new System.Drawing.Point(237, 6);
             this.FakturGrid.Name = "FakturGrid";
-            this.FakturGrid.Size = new System.Drawing.Size(806, 411);
+            this.FakturGrid.Size = new System.Drawing.Size(824, 411);
             this.FakturGrid.TabIndex = 4;
             // 
             // SaveButton
@@ -203,7 +205,7 @@
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.SaveButton.BackColor = System.Drawing.Color.Cornsilk;
             this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SaveButton.Location = new System.Drawing.Point(961, 469);
+            this.SaveButton.Location = new System.Drawing.Point(979, 469);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(82, 27);
             this.SaveButton.TabIndex = 5;
@@ -228,28 +230,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BackColor = System.Drawing.Color.Cornsilk;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.FakturTerlipihLabel);
+            this.panel3.Controls.Add(this.SelectAllButton);
             this.panel3.Controls.Add(this.TotalPpnText);
             this.panel3.Controls.Add(this.TotalFakturText);
             this.panel3.Location = new System.Drawing.Point(237, 422);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(805, 41);
+            this.panel3.Size = new System.Drawing.Size(823, 41);
             this.panel3.TabIndex = 20;
-            // 
-            // TotalFakturText
-            // 
-            this.TotalFakturText.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TotalFakturText.Location = new System.Drawing.Point(552, 11);
-            this.TotalFakturText.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
-            this.TotalFakturText.Name = "TotalFakturText";
-            this.TotalFakturText.ReadOnly = true;
-            this.TotalFakturText.Size = new System.Drawing.Size(120, 18);
-            this.TotalFakturText.TabIndex = 20;
-            this.TotalFakturText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.TotalFakturText.ThousandsSeparator = true;
             // 
             // TotalPpnText
             // 
@@ -267,12 +255,52 @@
             this.TotalPpnText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.TotalPpnText.ThousandsSeparator = true;
             // 
+            // TotalFakturText
+            // 
+            this.TotalFakturText.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalFakturText.Location = new System.Drawing.Point(552, 11);
+            this.TotalFakturText.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.TotalFakturText.Name = "TotalFakturText";
+            this.TotalFakturText.ReadOnly = true;
+            this.TotalFakturText.Size = new System.Drawing.Size(120, 18);
+            this.TotalFakturText.TabIndex = 20;
+            this.TotalFakturText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.TotalFakturText.ThousandsSeparator = true;
+            // 
+            // SelectAllButton
+            // 
+            this.SelectAllButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.SelectAllButton.BackColor = System.Drawing.Color.Khaki;
+            this.SelectAllButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SelectAllButton.Location = new System.Drawing.Point(4, 6);
+            this.SelectAllButton.Name = "SelectAllButton";
+            this.SelectAllButton.Size = new System.Drawing.Size(82, 27);
+            this.SelectAllButton.TabIndex = 22;
+            this.SelectAllButton.Text = "Select All";
+            this.SelectAllButton.UseVisualStyleBackColor = false;
+            // 
+            // FakturTerlipihLabel
+            // 
+            this.FakturTerlipihLabel.BackColor = System.Drawing.Color.Wheat;
+            this.FakturTerlipihLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.FakturTerlipihLabel.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FakturTerlipihLabel.Location = new System.Drawing.Point(92, 6);
+            this.FakturTerlipihLabel.Name = "FakturTerlipihLabel";
+            this.FakturTerlipihLabel.Size = new System.Drawing.Size(234, 27);
+            this.FakturTerlipihLabel.TabIndex = 23;
+            this.FakturTerlipihLabel.Text = " Total Faktur = 0 | Terpilih = 0";
+            this.FakturTerlipihLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // FpKeluaranForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Khaki;
-            this.ClientSize = new System.Drawing.Size(1048, 502);
+            this.ClientSize = new System.Drawing.Size(1066, 502);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.PeriodeCalender);
             this.Controls.Add(this.NewButton);
@@ -289,8 +317,8 @@
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturGrid)).EndInit();
             this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.TotalFakturText)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TotalPpnText)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TotalFakturText)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -316,5 +344,7 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.NumericUpDown TotalPpnText;
         private System.Windows.Forms.NumericUpDown TotalFakturText;
+        private System.Windows.Forms.Button SelectAllButton;
+        private System.Windows.Forms.Label FakturTerlipihLabel;
     }
 }

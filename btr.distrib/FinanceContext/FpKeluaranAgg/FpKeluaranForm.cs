@@ -12,6 +12,7 @@ using btr.nuna.Application;
 using btr.nuna.Domain;
 using ClosedXML.Excel;
 using Polly;
+using Syncfusion.Data.Extensions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -79,10 +80,20 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             SearchButton.Click += SearchButton_Click;
             SaveButton.Click += SaveButton_Click;
             NewButton.Click += NewButton_Click;
+            SelectAllButton.Click += SelectAllButton_Click;
 
             FakturGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
             FakturGrid.CellContentClick += FakturGrid_CellContentClick;
         }
+
+        private void SelectAllButton_Click(object sender, EventArgs e)
+        {
+            _listFaktur.ForEach(x => x.IsPilih = true);
+            FakturGrid.Refresh();
+            ReCalcTotal();
+            DisplayFakturTerpilih();
+        }
+
         private void NewButton_Click(object sender, EventArgs e)
         {
             ClearScreen();
@@ -98,6 +109,22 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
                 return;
             grid.EndEdit();
             ReCalcTotal();
+            DisplayFakturTerpilih();
+        }
+
+        private void DisplayFakturTerpilih()
+        {
+            var totalFaktur = _listFaktur.Count;
+            var terpilih = _listFaktur.Where(x => x.IsPilih).Count();
+
+            FakturTerlipihLabel.Text = $" Total Faktur = {totalFaktur:N0} | Terpilih = {terpilih:N0}";
+
+            if (totalFaktur + terpilih == 0)
+                FakturTerlipihLabel.BackColor = Color.Wheat;
+            else if (totalFaktur == terpilih)
+                FakturTerlipihLabel.BackColor = Color.PaleGreen;
+            else
+                FakturTerlipihLabel.BackColor = Color.PowderBlue;
         }
 
         private void ReCalcTotal()
@@ -150,6 +177,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
                 _listFakturPilih.Add(fakturDto);
             }
             ReCalcTotal();
+            DisplayFakturTerpilih();
             return true;
         }
 
@@ -291,6 +319,8 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             FpKeluaranDateText.Value = DateTime.Now;
             _listFaktur.Clear();
             _listFakturPilih.Clear();
+            ReCalcTotal();
+            DisplayFakturTerpilih();
         }
 
         private FpKeluaranModel Save()
@@ -420,6 +450,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             PreserveTerpilih();
             SearchFaktur();
             RestoreTerpilih();
+            DisplayFakturTerpilih();
         }
 
         private void PreserveTerpilih()
