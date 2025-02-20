@@ -78,7 +78,6 @@ namespace btr.distrib.InventoryContext.PackingAgg
             RegisterEventHandler();
             InitComboBox();
             InitGrid();
-            InitButton();
             InitTextBox();
         }
 
@@ -94,6 +93,11 @@ namespace btr.distrib.InventoryContext.PackingAgg
             FakturGrid.QueryCellStyle += FakturGrid_QueryCellStyle;
             FakturGrid.CellCheckBoxClick += FakturGrid_CellCheckBoxClick;
 
+            SearchButton.Click += SearchButton_Click;
+            SaveButton.Click += SaveButton_Click;
+            PackingIdButton.Click += PackingIdButton_Click;
+            PreviewPerFakturButton.Click += PreviewFakturButton_Click;
+            PreviewPerSupplier.Click += PreviewPerSupplierButton_Click;
         }
 
         private void FakturGrid_QueryCellStyle(object sender, QueryCellStyleEventArgs e)
@@ -169,15 +173,6 @@ namespace btr.distrib.InventoryContext.PackingAgg
             SupplierBrgGrid.Columns["SatKecil"].Width = 60;
             SupplierBrgGrid.Columns["Faktur"].Width = 65;
             SupplierBrgGrid.Style.HeaderStyle.BackColor = Color.PowderBlue;
-        }
-
-        private void InitButton()
-        {
-            SearchButton.Click += SearchButton_Click;
-            SaveButton.Click += SaveButton_Click;
-            PackingIdButton.Click += PackingIdButton_Click;
-            PreviewPerFakturButton.Click += PreviewFakturButton_Click;
-            PreviewPerSupplier.Click += PreviewPerSupplierButton_Click;
         }
 
         private void InitTextBox()
@@ -390,7 +385,7 @@ namespace btr.distrib.InventoryContext.PackingAgg
                     .Font.SetFontSize(12)
                     .Font.SetBold(false)
                     .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
-                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"E{baris}")).Merge();
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"G{baris}")).Merge();
                 baris++;
 
                 ws.Cell($"A{baris}").Value = "Jl.Kaliurang Km 5.5 Gg. Durmo No.18"; 
@@ -398,7 +393,7 @@ namespace btr.distrib.InventoryContext.PackingAgg
                     .Font.SetFontSize(10)
                     .Font.SetBold(false)
                     .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
-                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"E{baris}")).Merge();
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"G{baris}")).Merge();
                 baris++;
 
                 ws.Cell($"A{baris}").Value = "LAPORAN PACKING LIST";
@@ -406,7 +401,7 @@ namespace btr.distrib.InventoryContext.PackingAgg
                     .Font.SetFontSize(16)
                     .Font.SetBold(true)
                     .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
-                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"E{baris}")).Merge();
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"G{baris}")).Merge();
                 baris++;
 
                 ws.Cell($"A{baris}").Value = $"{DeliveryDateText.Value:dd MMMM yyyy}";
@@ -414,13 +409,13 @@ namespace btr.distrib.InventoryContext.PackingAgg
                     .Font.SetFontSize(10)
                     .Font.SetBold(false)
                     .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
-                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"E{baris}")).Merge();
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"G{baris}")).Merge();
                 baris++;
                 baris++;
 
                 ws.Cell($"A{baris}").Value = $"Driver";
                 ws.Cell($"B{baris}").Value = $"{DriverCombo.Text}";
-                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"E{baris}")).Style
+                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"G{baris}")).Style
                     .Font.SetFontSize(11)
                     .Font.SetBold(true);
 
@@ -437,35 +432,57 @@ namespace btr.distrib.InventoryContext.PackingAgg
                     var barisStart = baris;
                     ws.Cell($"A{baris}").Value = "Kode";
                     ws.Cell($"B{baris}").Value = "Nama Barang";
-                    ws.Cell($"C{baris}").Value = "Satuan 1";
-                    ws.Cell($"D{baris}").Value = "Satuan 2";
-                    ws.Cell($"E{baris}").Value = "Harga Jual";
+                    ws.Cell($"C{baris}").Value = "Qty";
+                    ws.Cell($"D{baris}").Value = "Sat Besar";
+                    ws.Cell($"E{baris}").Value = "Qty";
+                    ws.Cell($"F{baris}").Value = "Sat Kecil";
+                    ws.Cell($"G{baris}").Value = "Harga Jual";
                     baris++;
                     var startTableRow = baris;
+                    //var listBrgThisSupplier = _listBrg
+                    //    .Where(x => x.SupplierId == item.SupplierId)
+                    //    .OrderBy(x => x.BrgCode)
+                    //    .ToList();
+
                     var listBrgThisSupplier = _listBrg
                         .Where(x => x.SupplierId == item.SupplierId)
-                        .OrderBy(x => x.BrgCode)
-                        .ToList(); 
+                        .GroupBy(p => new { p.BrgCode, p.BrgName, p.SatBesar, p.SatKecil, p.HargaJual })
+                        .Select(g => new
+                        {
+                            BrgCode = g.Key.BrgCode,
+                            BrgName = g.Key.BrgName,
+                            SatBesar = g.Key.SatBesar,
+                            SatKecil = g.Key.SatKecil,
+                            HargaJual = g.Key.HargaJual,
+                            QtyBesar = g.Sum(x => x.QtyBesar),
+                            QtyKecil = g.Sum(x => x.QtyKecil)
+                        })
+                        .ToList();
+
                     foreach (var brg in listBrgThisSupplier)
                     {
                         ws.Cell($"A{baris}").Value = $"{brg.BrgCode}";
                         ws.Cell($"B{baris}").Value = $"{brg.BrgName}";
-                        ws.Cell($"C{baris}").Value = $"{brg.QtyBesar:N0} {brg.SatBesar}";
-                        ws.Cell($"D{baris}").Value = $"{brg.QtyKecil:N0} {brg.SatKecil}";
-                        ws.Cell($"E{baris}").Value = brg.HargaJual;
+                        ws.Cell($"C{baris}").Value = brg.QtyBesar;
+                        ws.Cell($"D{baris}").Value = $"{brg.SatBesar}";
+                        ws.Cell($"E{baris}").Value = brg.QtyKecil;
+                        ws.Cell($"F{baris}").Value = $"{brg.SatKecil}";
+                        ws.Cell($"G{baris}").Value = brg.HargaJual;
                         baris++;
                     }
                     ws.Cell($"B{baris}").Value = $"Sub Total";
                     ws.Cell($"C{baris}").Value = listBrgThisSupplier.Sum(x => x.QtyBesar);
                     ws.Cell($"D{baris}").Value = $"";
-                    ws.Cell($"E{baris}").Value = listBrgThisSupplier.Sum(x => x.HargaJual);
-                    ws.Range(ws.Cell($"E{startTableRow}"), ws.Cell($"E{baris}"))
+                    ws.Cell($"E{baris}").Value = listBrgThisSupplier.Sum(x => x.QtyKecil);
+                    ws.Cell($"F{baris}").Value = $"";
+                    ws.Cell($"G{baris}").Value = listBrgThisSupplier.Sum(x => x.HargaJual);
+                    ws.Range(ws.Cell($"C{startTableRow}"), ws.Cell($"G{baris}"))
                         .Style.NumberFormat.Format = "#,##";
                     
-                    ws.Range(ws.Cell($"A{barisStart}"), ws.Cell($"E{baris}")).Style
+                    ws.Range(ws.Cell($"A{barisStart}"), ws.Cell($"G{baris}")).Style
                         .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                         .Border.SetInsideBorder(XLBorderStyleValues.Hair);
-                    ws.Range(ws.Cell($"A{barisStart}"), ws.Cell($"E{barisStart}")).Style
+                    ws.Range(ws.Cell($"A{barisStart}"), ws.Cell($"G{barisStart}")).Style
                         .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                         .Font.SetBold(true);
 
@@ -474,7 +491,10 @@ namespace btr.distrib.InventoryContext.PackingAgg
                 }
                 ws.Column("A").Width = 12;
                 ws.Column("B").Width = 45;
-                ws.Column("E").Width = 15;
+                ws.Column("C").Width = 6;
+                ws.Column("D").Width = 8;
+                ws.Column("E").Width = 6;
+                ws.Column("F").Width = 8;
                 workbook.SaveAs(fileName);
             }
             System.Diagnostics.Process.Start(fileName);
