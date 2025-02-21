@@ -331,16 +331,16 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             switch (grid.Columns[e.ColumnIndex].Name)
             {
                 case "BrgId":
-                case "QtyInputStr":
-                case "DiscInputStr":
-                    if (grid.CurrentCell.Value is null)
-                        return;
-                    ValidateRow(e.RowIndex, false);
-                    break;
-                case "HrgInputStr":
                     if (grid.CurrentCell.Value is null)
                         return;
                     ValidateRow(e.RowIndex, true);
+                    break;
+                case "QtyInputStr":
+                case "DiscInputStr":
+                case "HrgInputStr":
+                    if (grid.CurrentCell.Value is null)
+                        return;
+                    ValidateRow(e.RowIndex, false);
                     break;
             }
 
@@ -395,10 +395,10 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             _listItem[rowIndex].BrgId = brgIdPilih;
 
             if (brgId != brgIdPilih) 
-                ValidateRow(rowIndex, false);
+                ValidateRow(rowIndex, true);
         }
 
-        private void ValidateRow(int rowIndex, bool isUbahHarga)
+        private void ValidateRow(int rowIndex, bool isGetHarga)
         {
             var brg = BuildBrg(rowIndex);
             if (brg == null)
@@ -413,7 +413,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
                 _listItem[rowIndex].DiscInputStr,
                 _listItem[rowIndex].DppProsen == 0 ? _dppProsen : _listItem[rowIndex].DppProsen,
                 _listItem[rowIndex].PpnProsen == 0 ? _ppnProsen : _listItem[rowIndex].PpnProsen,
-                isUbahHarga);
+                isGetHarga);
             var item = _createItemWorker.Execute(req);
             _listItem[rowIndex] = item.Adapt<InvoiceItemDto>();
             InvoiceItemGrid.Refresh();
@@ -484,7 +484,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             cols.GetCol("BrgName").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
 
             cols.GetCol("HrgInputStr").Visible = true;
-            cols.GetCol("HrgInputStr").Width = 110;
+            cols.GetCol("HrgInputStr").Width = 130;
             cols.GetCol("HrgInputStr").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             cols.GetCol("HrgInputStr").HeaderText = @"Hrg Beli";
             cols.GetCol("HrgInputStr").DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;

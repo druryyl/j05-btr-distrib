@@ -29,8 +29,6 @@ using btr.domain.InventoryContext.DriverAgg;
 using btr.application.SupportContext.ParamSistemAgg;
 using btr.domain.SupportContext.ParamSistemAgg;
 using Microsoft.Reporting.WinForms;
-using Microsoft.Extensions.DependencyInjection;
-using btr.application.SalesContext.FakturAgg.Contracts;
 
 namespace btr.distrib.SalesContext.FakturAgg
 {

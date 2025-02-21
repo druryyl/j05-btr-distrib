@@ -38,6 +38,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.InvoiceIdText = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.WarehouseIdText = new System.Windows.Forms.TextBox();
             this.WarehouseNameText = new System.Windows.Forms.TextBox();
             this.WarehouseButton = new System.Windows.Forms.Button();
@@ -78,7 +79,6 @@
             this.NewButton = new System.Windows.Forms.Button();
             this.PrintButton = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -206,6 +206,16 @@
             this.panel3.Size = new System.Drawing.Size(200, 186);
             this.panel3.TabIndex = 51;
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(11, 78);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(120, 17);
+            this.checkBox1.TabIndex = 14;
+            this.checkBox1.Text = "Barang Konsinyasi";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // WarehouseIdText
             // 
             this.WarehouseIdText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -295,7 +305,7 @@
             this.PanelAtas4.Controls.Add(this.NoteLabel);
             this.PanelAtas4.Location = new System.Drawing.Point(830, 9);
             this.PanelAtas4.Name = "PanelAtas4";
-            this.PanelAtas4.Size = new System.Drawing.Size(270, 186);
+            this.PanelAtas4.Size = new System.Drawing.Size(288, 186);
             this.PanelAtas4.TabIndex = 52;
             // 
             // VoidPanel
@@ -330,7 +340,7 @@
             this.NoteTextBox.Multiline = true;
             this.NoteTextBox.Name = "NoteTextBox";
             this.NoteTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.NoteTextBox.Size = new System.Drawing.Size(247, 144);
+            this.NoteTextBox.Size = new System.Drawing.Size(265, 144);
             this.NoteTextBox.TabIndex = 17;
             // 
             // NoteLabel
@@ -350,7 +360,7 @@
             this.InvoiceItemGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.InvoiceItemGrid.Location = new System.Drawing.Point(6, 201);
             this.InvoiceItemGrid.Name = "InvoiceItemGrid";
-            this.InvoiceItemGrid.Size = new System.Drawing.Size(950, 284);
+            this.InvoiceItemGrid.Size = new System.Drawing.Size(968, 284);
             this.InvoiceItemGrid.TabIndex = 46;
             // 
             // PanelTengah
@@ -372,7 +382,7 @@
             this.PanelTengah.Controls.Add(this.DisconutLainLabel);
             this.PanelTengah.Controls.Add(this.TotalText);
             this.PanelTengah.Controls.Add(this.TotalLabel);
-            this.PanelTengah.Location = new System.Drawing.Point(962, 201);
+            this.PanelTengah.Location = new System.Drawing.Point(980, 201);
             this.PanelTengah.Name = "PanelTengah";
             this.PanelTengah.Size = new System.Drawing.Size(138, 284);
             this.PanelTengah.TabIndex = 53;
@@ -628,7 +638,7 @@
             // SaveButton
             // 
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveButton.Location = new System.Drawing.Point(1025, 491);
+            this.SaveButton.Location = new System.Drawing.Point(1043, 491);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
             this.SaveButton.TabIndex = 47;
@@ -658,29 +668,19 @@
             // DeleteButton
             // 
             this.DeleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.DeleteButton.Location = new System.Drawing.Point(944, 491);
+            this.DeleteButton.Location = new System.Drawing.Point(962, 491);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(75, 23);
             this.DeleteButton.TabIndex = 56;
             this.DeleteButton.Text = "Delete";
             this.DeleteButton.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(11, 78);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(120, 17);
-            this.checkBox1.TabIndex = 14;
-            this.checkBox1.Text = "Barang Konsinyasi";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
             // InvoiceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.ClientSize = new System.Drawing.Size(1106, 523);
+            this.ClientSize = new System.Drawing.Size(1124, 523);
             this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.PrintButton);
             this.Controls.Add(this.panel2);
