@@ -47,14 +47,20 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.TotalPpnText = new System.Windows.Forms.NumericUpDown();
             this.TotalFakturText = new System.Windows.Forms.NumericUpDown();
-            this.SelectAllButton = new System.Windows.Forms.Button();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.ResponseKodeFakturLabel = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.FakturCodeText = new System.Windows.Forms.TextBox();
+            this.UncheckAllButton = new System.Windows.Forms.Button();
             this.FakturTerlipihLabel = new System.Windows.Forms.Label();
+            this.CheckAllButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturGrid)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TotalPpnText)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TotalFakturText)).BeginInit();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -69,7 +75,7 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(6, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(227, 157);
+            this.panel1.Size = new System.Drawing.Size(227, 131);
             this.panel1.TabIndex = 0;
             // 
             // LastIdLabel
@@ -139,9 +145,9 @@
             this.panel2.Controls.Add(this.SearchText);
             this.panel2.Controls.Add(this.SearchButton);
             this.panel2.Controls.Add(this.AllOutstandingCheckBox);
-            this.panel2.Location = new System.Drawing.Point(6, 330);
+            this.panel2.Location = new System.Drawing.Point(6, 315);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(227, 133);
+            this.panel2.Size = new System.Drawing.Size(227, 148);
             this.panel2.TabIndex = 3;
             // 
             // label3
@@ -184,7 +190,7 @@
             // 
             // PeriodeCalender
             // 
-            this.PeriodeCalender.Location = new System.Drawing.Point(6, 166);
+            this.PeriodeCalender.Location = new System.Drawing.Point(6, 141);
             this.PeriodeCalender.Name = "PeriodeCalender";
             this.PeriodeCalender.TabIndex = 19;
             // 
@@ -195,9 +201,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.FakturGrid.BackgroundColor = System.Drawing.Color.Cornsilk;
             this.FakturGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.FakturGrid.Location = new System.Drawing.Point(237, 6);
+            this.FakturGrid.Location = new System.Drawing.Point(237, 53);
             this.FakturGrid.Name = "FakturGrid";
-            this.FakturGrid.Size = new System.Drawing.Size(824, 411);
+            this.FakturGrid.Size = new System.Drawing.Size(824, 364);
             this.FakturGrid.TabIndex = 4;
             // 
             // SaveButton
@@ -230,8 +236,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BackColor = System.Drawing.Color.Cornsilk;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.FakturTerlipihLabel);
-            this.panel3.Controls.Add(this.SelectAllButton);
             this.panel3.Controls.Add(this.TotalPpnText);
             this.panel3.Controls.Add(this.TotalFakturText);
             this.panel3.Location = new System.Drawing.Point(237, 422);
@@ -271,29 +275,85 @@
             this.TotalFakturText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.TotalFakturText.ThousandsSeparator = true;
             // 
-            // SelectAllButton
+            // panel4
             // 
-            this.SelectAllButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.SelectAllButton.BackColor = System.Drawing.Color.Khaki;
-            this.SelectAllButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SelectAllButton.Location = new System.Drawing.Point(4, 6);
-            this.SelectAllButton.Name = "SelectAllButton";
-            this.SelectAllButton.Size = new System.Drawing.Size(82, 27);
-            this.SelectAllButton.TabIndex = 22;
-            this.SelectAllButton.Text = "Select All";
-            this.SelectAllButton.UseVisualStyleBackColor = false;
+            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel4.BackColor = System.Drawing.Color.Cornsilk;
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.ResponseKodeFakturLabel);
+            this.panel4.Controls.Add(this.label4);
+            this.panel4.Controls.Add(this.FakturCodeText);
+            this.panel4.Controls.Add(this.UncheckAllButton);
+            this.panel4.Controls.Add(this.FakturTerlipihLabel);
+            this.panel4.Controls.Add(this.CheckAllButton);
+            this.panel4.Location = new System.Drawing.Point(237, 6);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(823, 41);
+            this.panel4.TabIndex = 21;
+            // 
+            // ResponseKodeFakturLabel
+            // 
+            this.ResponseKodeFakturLabel.AutoSize = true;
+            this.ResponseKodeFakturLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ResponseKodeFakturLabel.Location = new System.Drawing.Point(215, 12);
+            this.ResponseKodeFakturLabel.Name = "ResponseKodeFakturLabel";
+            this.ResponseKodeFakturLabel.Size = new System.Drawing.Size(11, 13);
+            this.ResponseKodeFakturLabel.TabIndex = 27;
+            this.ResponseKodeFakturLabel.Text = "-";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(9, 12);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(94, 13);
+            this.label4.TabIndex = 26;
+            this.label4.Text = "Pilih Kode Faktur";
+            // 
+            // FakturCodeText
+            // 
+            this.FakturCodeText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.FakturCodeText.Location = new System.Drawing.Point(109, 7);
+            this.FakturCodeText.Name = "FakturCodeText";
+            this.FakturCodeText.Size = new System.Drawing.Size(100, 22);
+            this.FakturCodeText.TabIndex = 25;
+            // 
+            // UncheckAllButton
+            // 
+            this.UncheckAllButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.UncheckAllButton.BackColor = System.Drawing.Color.Khaki;
+            this.UncheckAllButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.UncheckAllButton.Location = new System.Drawing.Point(494, 5);
+            this.UncheckAllButton.Name = "UncheckAllButton";
+            this.UncheckAllButton.Size = new System.Drawing.Size(82, 27);
+            this.UncheckAllButton.TabIndex = 24;
+            this.UncheckAllButton.Text = "Uncheck-All";
+            this.UncheckAllButton.UseVisualStyleBackColor = false;
             // 
             // FakturTerlipihLabel
             // 
             this.FakturTerlipihLabel.BackColor = System.Drawing.Color.Wheat;
             this.FakturTerlipihLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.FakturTerlipihLabel.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FakturTerlipihLabel.Location = new System.Drawing.Point(92, 6);
+            this.FakturTerlipihLabel.Location = new System.Drawing.Point(582, 6);
             this.FakturTerlipihLabel.Name = "FakturTerlipihLabel";
             this.FakturTerlipihLabel.Size = new System.Drawing.Size(234, 27);
             this.FakturTerlipihLabel.TabIndex = 23;
             this.FakturTerlipihLabel.Text = " Total Faktur = 0 | Terpilih = 0";
             this.FakturTerlipihLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // CheckAllButton
+            // 
+            this.CheckAllButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.CheckAllButton.BackColor = System.Drawing.Color.Khaki;
+            this.CheckAllButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CheckAllButton.Location = new System.Drawing.Point(406, 5);
+            this.CheckAllButton.Name = "CheckAllButton";
+            this.CheckAllButton.Size = new System.Drawing.Size(82, 27);
+            this.CheckAllButton.TabIndex = 22;
+            this.CheckAllButton.Text = "Check-All";
+            this.CheckAllButton.UseVisualStyleBackColor = false;
             // 
             // FpKeluaranForm
             // 
@@ -301,6 +361,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Khaki;
             this.ClientSize = new System.Drawing.Size(1066, 502);
+            this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.PeriodeCalender);
             this.Controls.Add(this.NewButton);
@@ -319,6 +380,8 @@
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.TotalPpnText)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TotalFakturText)).EndInit();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -344,7 +407,12 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.NumericUpDown TotalPpnText;
         private System.Windows.Forms.NumericUpDown TotalFakturText;
-        private System.Windows.Forms.Button SelectAllButton;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox FakturCodeText;
+        private System.Windows.Forms.Button UncheckAllButton;
         private System.Windows.Forms.Label FakturTerlipihLabel;
+        private System.Windows.Forms.Button CheckAllButton;
+        private System.Windows.Forms.Label ResponseKodeFakturLabel;
     }
 }

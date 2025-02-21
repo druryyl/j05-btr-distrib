@@ -2,9 +2,10 @@
 using btr.application.SalesContext.CustomerAgg.Workers;
 using btr.application.SalesContext.FakturAgg.Contracts;
 using btr.application.SalesContext.FakturAgg.Workers;
+using btr.application.SupportContext.ParamSistemAgg;
 using btr.distrib.Browsers;
 using btr.distrib.Helpers;
-using btr.distrib.InventoryContext.StokBalanceRpt;
+using btr.distrib.SalesContext.FakturControlAgg;
 using btr.distrib.SharedForm;
 using btr.domain.FinanceContext.FpKeluaranAgg;
 using btr.domain.SalesContext.FakturAgg;
@@ -19,8 +20,6 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace btr.distrib.FinanceContext.FpKeluaranAgg
@@ -28,6 +27,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
     public partial class FpKeluaranForm : Form
     {
         private readonly IFakturDal _fakturDal;
+        private readonly IParamSistemDal _paramSistemDal;
         private readonly IFpKeluaranBuilder _fpKeluaranBuilder;
         private readonly IFpKeluaranWriter _fpKeluaranWriter;
         private readonly IFakturBuilder _fakturBuilder;
@@ -41,8 +41,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
         private readonly BindingList<FpKeluaranFakturDto> _listFakturPilih;
         private readonly BindingSource _fakturBindingSource;
 
-        private const string NPWP_PENJUAL = "0128872306524000";
-        private const string ID_TKU_PENJUAL = "0128872306524000000000";
+        private readonly string _npwpPenjual = string.Empty;
 
 
 
@@ -52,7 +51,8 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             IFakturBuilder fakturBuilder,
             ICustomerBuilder customerBuilder,
             IFakturWriter fakturWriter,
-            IBrowser<FpKeluaranBrowserView> fakturBrowser)
+            IBrowser<FpKeluaranBrowserView> fakturBrowser,
+            IParamSistemDal paramSistemDal)
         {
             InitializeComponent();
 
@@ -66,7 +66,9 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             _customerBuilder = customerBuilder;
             _fakturWriter = fakturWriter;
             _fakturBrowser = fakturBrowser;
+            _paramSistemDal = paramSistemDal;
 
+            _npwpPenjual = _paramSistemDal.ListData().First(x => x.ParamCode == "CLIENT_NPWP").ParamValue;
 
             RegisterEventHandler();
             InitGrid();
@@ -80,13 +82,84 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             SearchButton.Click += SearchButton_Click;
             SaveButton.Click += SaveButton_Click;
             NewButton.Click += NewButton_Click;
-            SelectAllButton.Click += SelectAllButton_Click;
+            CheckAllButton.Click += CheckAllButton_Click;
+            UncheckAllButton.Click += UncheckAllButton_Click; ;
 
+            FakturCodeText.KeyDown += FakturCodeText_KeyDown;
+            
             FakturGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
             FakturGrid.CellContentClick += FakturGrid_CellContentClick;
         }
 
-        private void SelectAllButton_Click(object sender, EventArgs e)
+        private void FakturCodeText_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Enter)
+                return;
+            ResponseKodeFakturLabel.Text = string.Empty;
+            var fakturCode = FakturCodeText.Text.ToUpper();
+            var prefix = fakturCode.Substring(0, 1);
+            //  get remaining string of faktur code
+            var rest = fakturCode.Substring(1);
+            rest = rest.PadLeft(7, '0');
+            fakturCode = prefix + rest;
+            
+
+            var faktur = _listFaktur.FirstOrDefault(x => x.FakturCode == fakturCode);
+            if (faktur == null)
+            {
+                ResponseKodeFakturLabel.Text = "Not Found";
+                ResponseKodeFakturLabel.ForeColor = System.Drawing.Color.Red;
+            }
+            else
+            {
+                faktur.IsPilih = true;
+                ReCalcTotal();
+                DisplayFakturTerpilih();
+                FakturGrid.Refresh();
+                ResponseKodeFakturLabel.Text = "Checked";
+                ResponseKodeFakturLabel.ForeColor = System.Drawing.Color.Black;
+                DisplayRow(faktur);
+            }
+
+        }
+
+        private void DisplayRow(FpKeluaranFakturDto fp)
+        {
+            foreach (DataGridViewRow row in FakturGrid.Rows)
+            {
+                if (row.Cells["FakturCode"].Value?.ToString() == fp.FakturCode)
+                {
+                    row.Selected = true;
+                    FakturGrid.CurrentCell = row.Cells["FakturCode"]; // Move focus
+
+                    int rowIndex = FakturGrid.CurrentCell.RowIndex; // Get the selected row index
+                    int visibleRowCount = FakturGrid.DisplayedRowCount(false); // Get number of visible rows
+                    int targetIndex = rowIndex - (visibleRowCount - 1); // Scroll so the row is at the bottom
+
+                    if (targetIndex >= 0)
+                    {
+                        FakturGrid.FirstDisplayedScrollingRowIndex = targetIndex;
+                    }
+                    else
+                    {
+                        FakturGrid.FirstDisplayedScrollingRowIndex = 0; // If at the top, just reset to the first row
+                    }
+
+                    //FakturGrid.FirstDisplayedScrollingRowIndex = row.Index;
+                    break; // Stop after the first match
+                }
+            }
+        }
+
+        private void UncheckAllButton_Click(object sender, EventArgs e)
+        {
+            _listFaktur.ForEach(x => x.IsPilih = false);
+            FakturGrid.Refresh();
+            ReCalcTotal();
+            DisplayFakturTerpilih();
+        }
+
+        private void CheckAllButton_Click(object sender, EventArgs e)
         {
             _listFaktur.ForEach(x => x.IsPilih = true);
             FakturGrid.Refresh();
@@ -262,7 +335,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
                 var ws1 = wb.Worksheets.First();
                 ws1.Name = "Faktur";
                 ws1.Cell($"A1").Value = "NPWP Penjual";
-                ws1.Cell($"C1").Value = NPWP_PENJUAL;
+                ws1.Cell($"C1").Value = _npwpPenjual;
                 ws1.Cell($"A3").InsertTable(listToExcel, false);
                 
                 ws1.Cell($"B3").Value = "Tanggal Faktur";
@@ -351,12 +424,13 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
                 .Where(x => x.IsPilih).ToList();
 
             fpKeluaran.ListFaktur.Clear();
+            var listParam = _paramSistemDal.ListData().ToList();
             foreach (var item in listFakturToBeSaved)
             {
                 var faktur = _fakturBuilder.Load(item).Build();
                 var customer = _customerBuilder.Load(faktur).Build();
                 var fpFaktur = new FpKeluaranFakturModel();
-                fpFaktur.CreateFrom(faktur, customer);
+                fpFaktur.CreateFrom(faktur, customer, listParam);
                 fpFaktur.ListBrg = new List<FpKeluaranBrgModel>();
                 foreach (var brg in faktur.ListItem)
                 {
@@ -440,6 +514,18 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             grid["Ppn"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             grid["CustomerName"].DefaultCellStyle.Font = new Font("Segoe UI", 8);
             grid["Address"].DefaultCellStyle.Font = new Font("Segoe UI", 8);
+
+            FakturGrid.CellFormatting += (s, e) =>
+            {
+                if (e.RowIndex < 0)
+                    return;
+                var row = FakturGrid.Rows[e.RowIndex];
+                var item = (FpKeluaranFakturDto)row.DataBoundItem;
+                if (item.IsPilih)
+                    row.DefaultCellStyle.BackColor = Color.MistyRose;
+                else
+                    row.DefaultCellStyle.BackColor = Color.White;
+            };
         }
         #endregion
 

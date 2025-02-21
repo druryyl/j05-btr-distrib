@@ -1,5 +1,6 @@
 ﻿using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.FakturAgg;
+using btr.domain.SupportContext.ParamSistemAgg;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,14 +40,15 @@ namespace btr.domain.FinanceContext.FpKeluaranAgg
         }
         public List<FpKeluaranBrgModel> ListBrg { get; set; }
 
-        public void CreateFrom(FakturModel faktur, CustomerModel customer)
+        public void CreateFrom(FakturModel faktur, CustomerModel customer, List<ParamSistemModel> listParam)
         {
             const string JENIS_FAKTUR = "Normal";
             const string NEGARA_PEMBELI = "IDN";
             const string KODE_TRSANSAKSI = "04";
-            const string ID_TKU_PENJUAL = "0128872306524000000000";
             const string DEFAULT_ID = "0000000000000000";
 
+            var client_npwp = listParam.FirstOrDefault(x => x.ParamCode == "CLIENT_NPWP").ParamValue;
+            var id_tku_penjual = $"{client_npwp}000000";
             string npwp;
             string noDokPembeli;
 
@@ -74,7 +76,7 @@ namespace btr.domain.FinanceContext.FpKeluaranAgg
             DokumenPendukung = string.Empty;
             Referensi = faktur.FakturCode;
             CapFasilitas = string.Empty;
-            IdTkuPenjual = ID_TKU_PENJUAL;
+            IdTkuPenjual = id_tku_penjual;
             NpwpNikPembeli = npwp;
             JenisIdPembeli = customer.JenisIdentitasPajak;
             NegaraPembeli = NEGARA_PEMBELI;
