@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace btr.distrib.Helpers
+namespace btr.application.Helpers
 {
-    public static class DecFormatter
+    internal static class DecFormatterHelper
     {
         public static string ToStr(decimal number)
         {
@@ -27,8 +27,8 @@ namespace btr.distrib.Helpers
         {
             if (!HasDecimalPlaces(number))
                 return 0;
-
-            string[] parts = number.ToString().Split('.');
+            var eliminateTrailingZeroes = number.ToString("G");
+            string[] parts = eliminateTrailingZeroes.Split('.');
             if (parts.Length > 1)
                 return parts[1].Length; // Length of decimal part
 

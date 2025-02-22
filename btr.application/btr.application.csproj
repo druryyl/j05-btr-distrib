@@ -134,6 +134,7 @@
     <Compile Include="FinanceContext\TagihanAgg\ITagihanDal.cs" />
     <Compile Include="FinanceContext\TagihanAgg\TagihanBuilder.cs" />
     <Compile Include="FinanceContext\TagihanAgg\TagihanWriter.cs" />
+    <Compile Include="Helpers\DecFormatterHelper.cs" />
     <Compile Include="InventoryContext\AdjustmentAgg\AdjustmentWriter.cs" />
     <Compile Include="InventoryContext\AdjustmentAgg\AdjustmnetBuilder.cs" />
     <Compile Include="InventoryContext\AdjustmentAgg\IAdjustmentDal.cs" />

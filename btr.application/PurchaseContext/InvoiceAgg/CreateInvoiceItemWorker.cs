@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using btr.application.BrgContext.BrgAgg;
+using btr.application.Helpers;
 using btr.application.InventoryContext.StokBalanceAgg;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.PurchaseContext.InvoiceAgg;
@@ -133,12 +134,15 @@ namespace btr.application.PurchaseContext.InvoiceAgg
 
         private string GetCurrentHpp(BrgModel brg)
         {
-            var hpp = Math.Floor(brg.Hpp);
+            var hpp = brg.Hpp;
             var konversiSatuan = brg.ListSatuan
                 .DefaultIfEmpty(new BrgSatuanModel { Conversion = 0 })
                 .Max(x => x.Conversion);
-            var hppBesar = Math.Floor(hpp * konversiSatuan);
-            string result = $"{hppBesar:N0};{hpp:N0}"; 
+            var hppBesar = hpp * konversiSatuan;
+            var hppStr = DecFormatterHelper.ToStr(hpp);
+            var hppBesarStr = DecFormatterHelper.ToStr(hppBesar);
+
+            string result = $"{hppBesarStr};{hppStr}"; 
             //if (hppBesar > 0)
             //    result = $"{hppBesar:N0};{0}";
             //else
@@ -178,10 +182,10 @@ namespace btr.application.PurchaseContext.InvoiceAgg
 
                 hppSatBesar = hrgs[0];
                 hppSatKecil = hrgs[1];
-                hrgDetilStr = $"{hppSatBesar:N2}/{satBesar}{Environment.NewLine}";
-                hrgDetilStr += $"{hppSatKecil:N2}/{satKecil}";
+                hrgDetilStr = $"{DecFormatterHelper.ToStr(hppSatBesar)}/{satBesar}{Environment.NewLine}";
+                hrgDetilStr += $"{DecFormatterHelper.ToStr(hppSatKecil)}/{satKecil}";
             }
-            hrgInputStr = $"{hppSatBesar:N2};{hppSatKecil:N2}";
+            hrgInputStr = $"{DecFormatterHelper.ToStr(hppSatBesar)};{DecFormatterHelper.ToStr(hppSatKecil)}";
         }
 
         private string GenQtyDetilStr(InvoiceItemModel item)
