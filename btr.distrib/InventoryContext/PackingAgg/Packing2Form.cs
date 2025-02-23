@@ -1,5 +1,4 @@
 ﻿using btr.application.InventoryContext.DriverAgg;
-using btr.application.InventoryContext.WarehouseAgg;
 using btr.application.SalesContext.FakturAgg.Contracts;
 using btr.nuna.Domain;
 using Syncfusion.WinForms.DataGrid.Events;
@@ -21,10 +20,10 @@ using btr.distrib.Browsers;
 using btr.distrib.SharedForm;
 using btr.domain.InventoryContext.DriverAgg;
 using btr.domain.InventoryContext.PackingAgg;
-using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.PurchaseContext.SupplierAgg;
 using btr.domain.SupportContext.UserAgg;
 using ClosedXML.Excel;
+using Syncfusion.WinForms.DataGrid;
 
 namespace btr.distrib.InventoryContext.PackingAgg
 {
@@ -521,8 +520,10 @@ namespace btr.distrib.InventoryContext.PackingAgg
 
         private void FakturGrid_CellCheckBoxClick(object sender, CellCheckBoxClickEventArgs e)
         {
+            var grid = (SfDataGrid)sender;
             var row = e.RowIndex;
-            var faktur = _listFaktur[row -1];
+            var fakturRow = grid.View.Records.GetItemAt(e.RowIndex-1) as Packing2FakturDto;
+            var faktur = _listFaktur.First(x => x.FakturId == fakturRow.FakturId);
             if (e.NewValue == CheckState.Checked)
             {
                 var newFaktur = faktur.Adapt<Packing2FakturDto>();
@@ -649,6 +650,7 @@ namespace btr.distrib.InventoryContext.PackingAgg
         {
             var periode = new Periode(Faktur1Date.Value, Faktur2Date.Value);
             var listFakturA = _fakturDal.ListData(periode)?.ToList() ?? new List<FakturModel>();
+
             _listFaktur.Clear();
             listFakturA.ForEach(x => _listFaktur.Add(new Packing2FakturDto
             {
@@ -661,6 +663,12 @@ namespace btr.distrib.InventoryContext.PackingAgg
                 GrandTotal = x.GrandTotal,
                 Pilih = _listFakturSelected.Any(y => y.FakturId == x.FakturId),
             }));
+
+            //  re-assign selected faktur
+            _listFakturSelected.Clear();
+            foreach (var item in _listFaktur)
+                if (item.Pilih)
+                    _listFakturSelected.Add(item);
         }
     }
 }
