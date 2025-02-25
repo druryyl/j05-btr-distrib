@@ -1021,6 +1021,7 @@
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
