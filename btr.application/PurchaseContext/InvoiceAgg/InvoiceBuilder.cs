@@ -100,8 +100,9 @@ namespace btr.application.PurchaseContext.InvoiceAgg
         {
             _aggRoot = _invoiceDal.GetData(invoiceKey)
                        ?? throw new KeyNotFoundException($"Invoice not found ({invoiceKey.InvoiceId})");
-            _aggRoot.ListItem = _invoiceItemDal.ListData(invoiceKey)?.ToList()
+            var listItem = _invoiceItemDal.ListData(invoiceKey)?.ToList()
                                 ?? new List<InvoiceItemModel>();
+            _aggRoot.ListItem = listItem.OrderBy(x => x.NoUrut).ToList();
             var allDiscount = _invoiceDiscDal.ListData(invoiceKey)?.ToList()
                               ?? new List<InvoiceDiscModel>();
 

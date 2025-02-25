@@ -398,4 +398,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-/btr.distrib/publish-246.7z
+/btr.distrib/*.7z
