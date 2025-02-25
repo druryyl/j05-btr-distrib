@@ -27,7 +27,8 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             PageSettings pageSettings = new PageSettings();
             pageSettings.Margins = new Margins(25, 25, 25, 25); // Left, Right, Top, Bottom
             PaperSize f4Size = new PaperSize("F4", 827, 1300);  // 8.27in x 13in (measured in hundredths of an inch)
-            pageSettings.PaperSize = f4Size; pageSettings.Landscape = true;
+            pageSettings.PaperSize = f4Size; 
+            pageSettings.Landscape = true;
             reportViewer1.SetPageSettings(pageSettings);
 
             _tagihan = tagihan;

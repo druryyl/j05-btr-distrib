@@ -9,10 +9,12 @@ namespace btr.distrib.FinanceContext.TagihanAgg
 {
     public class TagihanPrintOutDto
     {
+        public static readonly string[] hari = { "Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu" };
+
         public TagihanPrintOutDto(TagihanModel tagihan)
         {
             Sales = $"SALES: {tagihan.SalesPersonName}";
-            Tgl = $"Tanggal: {tagihan.TagihanDate:dd-MMM-yyyy}";
+            Tgl = $"Tanggal: {hari[(int)tagihan.TagihanDate.DayOfWeek]}, {tagihan.TagihanDate:dd-MMM-yyyy}";
 
             ListItem = new List<TagihanPrintOutItemDto>();
             decimal totalTagihan = 0;

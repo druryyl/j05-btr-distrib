@@ -14,12 +14,6 @@ namespace btr.distrib.SalesContext.FakturAgg
         {
             InitializeComponent();
             TheViewer.Print += TheViewer_Print;
-            PageSettings pageSettings = new PageSettings
-            {
-                // Left, Right, Top, Bottom
-                Margins = new Margins(25, 25, 25, 25)
-            };
-            TheViewer.SetPageSettings(pageSettings);
         }
 
         private void TheViewer_Print(object sender, ReportPrintEventArgs e)
@@ -27,7 +21,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             //this.Close();
         }
 
-        public void SetReportData(string reportName, List<ReportDataSource> listDatasource)
+        public void SetReportData(string reportName, List<ReportDataSource> listDatasource, bool isLandscape = false)
         {
             var reportFileName = $"{reportName}.rdlc";
             var reportFileFullPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports", reportFileName);
@@ -40,6 +34,15 @@ namespace btr.distrib.SalesContext.FakturAgg
             TheViewer.ZoomMode = ZoomMode.PageWidth;
             TheViewer.ZoomMode = ZoomMode.Percent;
             TheViewer.ZoomPercent = 100;
+
+            PageSettings pageSettings = new PageSettings
+            {
+                // Left, Right, Top, Bottom
+                Margins = new Margins(25, 25, 25, 25),
+            };
+            pageSettings.Landscape = isLandscape;
+            TheViewer.SetPageSettings(pageSettings);
+
 
             TheViewer.RefreshReport();
         }

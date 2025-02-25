@@ -1393,9 +1393,8 @@
             <Style />
           </Paragraph>
         </Paragraphs>
-        <Top>0.02778in</Top>
         <Left>0.03889in</Left>
-        <Height>0.85in</Height>
+        <Height>0.86806in</Height>
         <Width>2.60383in</Width>
         <ZIndex>9</ZIndex>
         <Style>
@@ -1418,7 +1417,6 @@
                 <Value>=First(Fields!FakturCode.Value, "FakturJualDataset")</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1427,9 +1425,9 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>0.93333in</Top>
+        <Top>0.86806in</Top>
         <Left>0.03473in</Left>
-        <Height>0.18541in</Height>
+        <Height>0.25346in</Height>
         <Width>1.4375in</Width>
         <ZIndex>10</ZIndex>
         <Style>
@@ -1466,9 +1464,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox13</rd:DefaultName>
-        <Top>0.02778in</Top>
         <Left>2.64272in</Left>
-        <Height>0.85in</Height>
+        <Height>0.86806in</Height>
         <Width>2.70451in</Width>
         <ZIndex>11</ZIndex>
         <Style>
@@ -1492,7 +1489,6 @@
                 <Value>=First(Fields!SalesName.Value, "FakturJualDataset")</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1501,9 +1497,9 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>0.93333in</Top>
+        <Top>0.86806in</Top>
         <Left>1.47223in</Left>
-        <Height>0.18541in</Height>
+        <Height>0.25346in</Height>
         <Width>1.17049in</Width>
         <ZIndex>12</ZIndex>
         <Style>
@@ -1532,7 +1528,6 @@
                 <Value>=First(Fields!JenisBayar.Value, "FakturJualDataset")</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1541,9 +1536,9 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>0.93333in</Top>
+        <Top>0.86806in</Top>
         <Left>2.64272in</Left>
-        <Height>0.18541in</Height>
+        <Height>0.25346in</Height>
         <Width>1.21713in</Width>
         <ZIndex>13</ZIndex>
         <Style>
@@ -1568,8 +1563,7 @@
               <TextRun>
                 <Value>=First(Fields!JatuhTempo.Value, "FakturJualDataset")</Value>
                 <Style>
-                  <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>8pt</FontSize>
+                  <FontFamily>Arial Narrow</FontFamily>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1578,9 +1572,9 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>0.93333in</Top>
+        <Top>0.86806in</Top>
         <Left>3.85985in</Left>
-        <Height>0.18541in</Height>
+        <Height>0.25346in</Height>
         <Width>1.23727in</Width>
         <ZIndex>14</ZIndex>
         <Style>
@@ -1732,7 +1726,7 @@
         </Paragraphs>
         <Top>0.70833in</Top>
         <Left>5.3375in</Left>
-        <Height>0.16945in</Height>
+        <Height>0.15973in</Height>
         <Width>2.375in</Width>
         <ZIndex>19</ZIndex>
         <Style>
@@ -1753,7 +1747,6 @@
                 <Style>
                   <FontStyle>Italic</FontStyle>
                   <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1763,7 +1756,7 @@
         <rd:DefaultName>Textbox14</rd:DefaultName>
         <Top>1.56113in</Top>
         <Left>0.03473in</Left>
-        <Height>0.20556in</Height>
+        <Height>0.53196in</Height>
         <Width>5.03194in</Width>
         <ZIndex>20</ZIndex>
         <Style>
@@ -1795,9 +1788,9 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>1.83475in</Top>
+        <Top>2.09309in</Top>
         <Left>0.03889in</Left>
-        <Height>0.42779in</Height>
+        <Height>0.3889in</Height>
         <Width>5.02778in</Width>
         <ZIndex>21</ZIndex>
         <Style>

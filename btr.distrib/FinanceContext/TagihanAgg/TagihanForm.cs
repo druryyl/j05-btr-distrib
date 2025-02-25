@@ -10,6 +10,7 @@ using btr.application.FinanceContext.TagihanAgg;
 using btr.application.SalesContext.FakturAgg.Contracts;
 using btr.application.SalesContext.FakturAgg.Workers;
 using btr.application.SalesContext.SalesPersonAgg.Contracts;
+using btr.application.SupportContext.ParamSistemAgg;
 using btr.distrib.Browsers;
 using btr.distrib.Helpers;
 using btr.distrib.SalesContext.FakturAgg;
@@ -17,11 +18,13 @@ using btr.domain.FinanceContext.PiutangAgg;
 using btr.domain.FinanceContext.TagihanAgg;
 using btr.domain.SalesContext.FakturAgg;
 using btr.domain.SalesContext.SalesPersonAgg;
+using btr.domain.SupportContext.ParamSistemAgg;
 using btr.infrastructure.SalesContext.FakturAgg;
 using btr.nuna.Domain;
 using ClosedXML.Excel;
 using JetBrains.Annotations;
 using Mapster;
+using Microsoft.Reporting.WinForms;
 using Polly;
 
 namespace btr.distrib.FinanceContext.TagihanAgg
@@ -32,6 +35,7 @@ namespace btr.distrib.FinanceContext.TagihanAgg
         private BindingList<TagihanFakturDto> _listTagihan = new BindingList<TagihanFakturDto>();
         private readonly IFakturBuilder _fakturBuilder;
         private readonly IFakturDal _fakturDal;
+        private readonly IParamSistemDal _paramSistemDal;
         private readonly IPiutangBuilder _piutangBuilder;
         private readonly ITagihanBuilder _tagihanBuilder;
         private readonly ITagihanWriter _tagihanWriter;
@@ -44,7 +48,8 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             IFakturDal fakturDal,
             ITagihanBuilder tagihanBuilder,
             ITagihanWriter tagihanWriter,
-            IBrowser<TagihanBrowserView> tagihanBrowser)
+            IBrowser<TagihanBrowserView> tagihanBrowser,
+            IParamSistemDal paramSistemDal)
         {
             _salesDal = salesDal;
             _fakturBuilder = fakturBuilder;
@@ -60,6 +65,7 @@ namespace btr.distrib.FinanceContext.TagihanAgg
 
             RegisterEventHandler();
             _tagihanBrowser = tagihanBrowser;
+            _paramSistemDal = paramSistemDal;
         }
 
         private void RegisterEventHandler()
@@ -164,8 +170,31 @@ namespace btr.distrib.FinanceContext.TagihanAgg
 
         private void PrintRdlc(TagihanPrintOutDto tagihan)
         {
-            var form = new TagihanPrintOutForm(tagihan);
-            form.ShowDialog();
+            var tagihanJualDataset = new ReportDataSource("TagihanDataset", new List<TagihanPrintOutDto> { tagihan });
+            var tagihanJualItemDataset = new ReportDataSource("TagihanItemDataset", tagihan.ListItem);
+            var clientId = _paramSistemDal.GetData(new ParamSistemModel("CLIENT_ID"))?.ParamValue ?? string.Empty;
+
+            var printOutTemplate = string.Empty;
+            switch (clientId)
+            {
+                case "BTR-YK":
+                    printOutTemplate = "TagihanPrintOut-Yk";
+                    break;
+                case "BTR-MGL":
+                    printOutTemplate = "TagihanPrintOut-Mgl";
+                    break;
+                default:
+                    break;
+            }
+
+            var listDataset = new List<ReportDataSource>
+            {
+                tagihanJualDataset,
+                tagihanJualItemDataset
+            };
+            var rdlcViewerForm = new RdlcViewerForm();
+            rdlcViewerForm.SetReportData(printOutTemplate, listDataset, true);
+            rdlcViewerForm.ShowDialog();
         }
 
         private void ClearForm()
