@@ -1220,8 +1220,7 @@
               <TextRun>
                 <Value>=First(Fields!MutasiId.Value, "MutasiDataset")</Value>
                 <Style>
-                  <FontFamily>Consolas</FontFamily>
-                  <FontSize>8pt</FontSize>
+                  <FontFamily>Segoe UI</FontFamily>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1230,9 +1229,9 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>0.93333in</Top>
+        <Top>0.87778in</Top>
         <Left>0.03473in</Left>
-        <Height>0.18541in</Height>
+        <Height>0.24096in</Height>
         <Width>2.60799in</Width>
         <ZIndex>6</ZIndex>
         <Style>
@@ -1255,7 +1254,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>KLAIM</Value>
+                <Value>MUTASI</Value>
                 <Style>
                   <FontFamily>Lucida Console</FontFamily>
                   <FontSize>14pt</FontSize>
@@ -1325,7 +1324,6 @@
                 <Style>
                   <FontStyle>Italic</FontStyle>
                   <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1335,7 +1333,7 @@
         <rd:DefaultName>Textbox14</rd:DefaultName>
         <Top>1.56113in</Top>
         <Left>0.03473in</Left>
-        <Height>0.20556in</Height>
+        <Height>0.53196in</Height>
         <Width>5.03194in</Width>
         <ZIndex>9</ZIndex>
         <Style>
@@ -1620,6 +1618,64 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
+      <Textbox Name="TglFakturText2">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!Keterangan.Value, "MutasiDataset")</Value>
+                <Style>
+                  <FontFamily>Segoe UI</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <Top>0.43331in</Top>
+        <Left>5.3375in</Left>
+        <Height>0.44447in</Height>
+        <Width>2.375in</Width>
+        <ZIndex>19</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <VerticalAlign>Top</VerticalAlign>
+        </Style>
+      </Textbox>
+      <Textbox Name="TglFakturText3">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Keterangan:</Value>
+                <Style>
+                  <FontFamily>Segoe UI</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <Top>0.25831in</Top>
+        <Left>5.3375in</Left>
+        <Height>0.16945in</Height>
+        <Width>2.375in</Width>
+        <ZIndex>20</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <VerticalAlign>Top</VerticalAlign>
+        </Style>
+      </Textbox>
     </ReportItems>
     <Height>3.79174in</Height>
     <Style>
@@ -1666,53 +1722,15 @@
       </ConnectionProperties>
       <rd:DataSourceID>47931197-a378-4ff2-b7d7-0b14476fefdd</rd:DataSourceID>
     </DataSource>
+    <DataSource Name="btrdistribInventoryContextMutasiAgg2">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>01e11919-36c4-4bc3-91d9-b47dc9b6dc8b</rd:DataSourceID>
+    </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="MutasiDataset">
-      <Query>
-        <DataSourceName>btrdistribInventoryContextMutasiAgg</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="Discount">
-          <DataField>Discount</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="MutasiDate">
-          <DataField>MutasiDate</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="MutasiId">
-          <DataField>MutasiId</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Note">
-          <DataField>Note</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="SubTotal">
-          <DataField>SubTotal</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Terbilang">
-          <DataField>Terbilang</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Total">
-          <DataField>Total</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="UserName">
-          <DataField>UserName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>btr.distrib.InventoryContext.MutasiAgg</rd:DataSetName>
-        <rd:TableName>MutasiPrintOutDto</rd:TableName>
-        <rd:ObjectDataSourceType>btr.distrib.InventoryContext.MutasiAgg.MutasiPrintOutDto, btr.distrib, Version=2.1.0.243, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
-      </rd:DataSetInfo>
-    </DataSet>
     <DataSet Name="MutasiItemDataset">
       <Query>
         <DataSourceName>btrdistribInventoryContextMutasiAgg1</DataSourceName>
@@ -1773,6 +1791,55 @@
         <rd:TableName>MutasiPrintOutDto</rd:TableName>
         <rd:ObjectDataSourceSelectMethod>ListItem</rd:ObjectDataSourceSelectMethod>
         <rd:ObjectDataSourceType>btr.distrib.InventoryContext.MutasiAgg.MutasiPrintOutDto, btr.distrib, Version=2.1.0.243, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="MutasiDataset">
+      <Query>
+        <DataSourceName>btrdistribInventoryContextMutasiAgg2</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Discount">
+          <DataField>Discount</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Keterangan">
+          <DataField>Keterangan</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="MutasiDate">
+          <DataField>MutasiDate</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="MutasiId">
+          <DataField>MutasiId</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Note">
+          <DataField>Note</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SubTotal">
+          <DataField>SubTotal</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Terbilang">
+          <DataField>Terbilang</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Total">
+          <DataField>Total</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="UserName">
+          <DataField>UserName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>btr.distrib.InventoryContext.MutasiAgg</rd:DataSetName>
+        <rd:TableName>MutasiPrintOutDto</rd:TableName>
+        <rd:ObjectDataSourceType>btr.distrib.InventoryContext.MutasiAgg.MutasiPrintOutDto, btr.distrib, Version=2.1.0.248, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>

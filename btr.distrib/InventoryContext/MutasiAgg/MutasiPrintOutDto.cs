@@ -16,6 +16,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
         {
             MutasiId = $"No.Mutasi: {mutasi.MutasiId}";
             MutasiDate = $"Tgl: {mutasi.MutasiDate:dd MMMM yyyy}";
+            Keterangan = mutasi.Keterangan.Length == 0 ? "--" : mutasi.Keterangan;
 
             TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
             Terbilang = $"Terbilang #{Math.Round(mutasi.NilaiSediaan, 0).Eja()} rupiah#";
@@ -64,6 +65,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
 
         public string MutasiId { get; set; }
         public string MutasiDate { get; set; }
+        public string Keterangan { get; set; }
 
         public string SubTotal { get; set; }
         public string Discount { get; set; }

@@ -75,7 +75,7 @@ namespace btr.infrastructure.InventoryContext.MutasiAgg
             var dp = new DynamicParameters();
 
             dp.AddParam("@MutasiId", model.MutasiId, SqlDbType.VarChar); 
-            dp.AddParam("@MutasiDate", model.MutasiDate, SqlDbType.DateTime); 
+            dp.AddParam("@MutasiDate", model.MutasiDate, SqlDbType.DateTime);
             dp.AddParam("@JenisMutasi", model.JenisMutasi, SqlDbType.VarChar);
             dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
             dp.AddParam("@Keterangan", model.Keterangan, SqlDbType.VarChar);

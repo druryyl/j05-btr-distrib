@@ -437,6 +437,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             {
                 MutasiId = MutasiIdText.Text,
                 MutasiDate = MutasiDateText.Value.ToString("yyyy-MM-dd"),
+                Keterangan = KeteranganText.Text,
                 WarehouseId = WarehouseIdText.Text,
                 UserId = mainform.UserId.UserId,
                 JenisMutasi = jnsMutasi

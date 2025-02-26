@@ -20,6 +20,7 @@ namespace btr.application.InventoryContext.MutasiAgg
         IMutasiBuilder Attach(MutasiModel mutasi);
         IMutasiBuilder Warehouse(IWarehouseKey warehouse);
         IMutasiBuilder JenisMutasi(JenisMutasiEnum jenisMutasiEnum);
+        IMutasiBuilder Keterangan(string keterangan);
 
         IMutasiBuilder AddItem(IBrgKey brgKey, string qtyString, string discInputStr);
         IMutasiBuilder ClearItem();
@@ -166,6 +167,12 @@ namespace btr.application.InventoryContext.MutasiAgg
         public IMutasiBuilder JenisMutasi(JenisMutasiEnum jenisMutasi)
         {
             _aggRoot.JenisMutasi = jenisMutasi;
+            return this;
+        }
+
+        public IMutasiBuilder Keterangan(string keterangan)
+        {
+            _aggRoot.Keterangan = keterangan;
             return this;
         }
     }

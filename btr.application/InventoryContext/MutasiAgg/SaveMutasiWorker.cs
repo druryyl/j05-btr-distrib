@@ -15,6 +15,7 @@ namespace btr.application.InventoryContext.MutasiAgg
     {
         public string MutasiId { get; set; }
         public string MutasiDate { get; set; }
+        public string Keterangan { get; set; }
         public string WarehouseId { get; set; }
         public string UserId { get; set; }
         public JenisMutasiEnum JenisMutasi { get; set; }
@@ -88,6 +89,7 @@ namespace btr.application.InventoryContext.MutasiAgg
             result = _mutasiBuilder
                 .Attach(result)
                 .Warehouse(req)
+                .Keterangan(req.Keterangan)
                 .JenisMutasi(req.JenisMutasi)
                 .User(req)
                 .Build();
