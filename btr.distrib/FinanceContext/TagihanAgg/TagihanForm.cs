@@ -230,8 +230,18 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             if (e.ColumnIndex != FakturGrid.Columns.GetCol("FakturCode").Index) return;
             _listTagihan[e.RowIndex].RemoveNull();
             if (string.IsNullOrEmpty(_listTagihan[e.RowIndex].FakturCode)) return;
-            
+
             var fakturCode = _listTagihan[e.RowIndex].FakturCode;
+            var countFakturCode = _listTagihan.Count(x => x.FakturCode == fakturCode);
+            if (countFakturCode > 1)
+            {
+                MessageBox.Show("Faktur sudah diinputkan");
+                _listTagihan.RemoveAt(e.RowIndex);
+                RefreshGrid();
+                return;
+            }
+
+
             var faktur = GetFaktur(fakturCode);
             var piutang = GetPiutang(fakturCode);
 

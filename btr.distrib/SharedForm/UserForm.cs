@@ -155,9 +155,16 @@ namespace btr.distrib.SharedForm
             user = _userBuilder
                 .LoadOrCreate(user)
                 .UserName(UserNameText.Text)
-                .Password(PasswordText.Text)
                 .Prefix(PrefixText.Text)
                 .Build();
+
+            if (PasswordText.Text.Length > 0)
+            {
+                user = _userBuilder
+                    .Attach(user)
+                    .Password(PasswordText.Text)
+                    .Build();
+            }
 
             _userWriter.Save(ref user);
             ClearForm();
