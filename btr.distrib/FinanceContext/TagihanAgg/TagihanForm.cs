@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using btr.application.FinanceContext.PiutangAgg.Contracts;
 using btr.application.FinanceContext.PiutangAgg.Workers;
 using btr.application.FinanceContext.TagihanAgg;
 using btr.application.SalesContext.FakturAgg.Contracts;
@@ -37,6 +38,7 @@ namespace btr.distrib.FinanceContext.TagihanAgg
         private readonly IFakturDal _fakturDal;
         private readonly IParamSistemDal _paramSistemDal;
         private readonly IPiutangBuilder _piutangBuilder;
+        private readonly IPiutangDal _piutangDal;
         private readonly ITagihanBuilder _tagihanBuilder;
         private readonly ITagihanWriter _tagihanWriter;
         private readonly IBrowser<TagihanBrowserView> _tagihanBrowser;
@@ -49,7 +51,8 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             ITagihanBuilder tagihanBuilder,
             ITagihanWriter tagihanWriter,
             IBrowser<TagihanBrowserView> tagihanBrowser,
-            IParamSistemDal paramSistemDal)
+            IParamSistemDal paramSistemDal,
+            IPiutangDal piutangDal)
         {
             _salesDal = salesDal;
             _fakturBuilder = fakturBuilder;
@@ -66,14 +69,29 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             RegisterEventHandler();
             _tagihanBrowser = tagihanBrowser;
             _paramSistemDal = paramSistemDal;
+            _piutangDal = piutangDal;
         }
 
         private void RegisterEventHandler()
         {
-            FakturGrid.CellValidated += FakturGridOnCellValidated;
+            FakturGrid.CellValueChanged += FakturGridOnCellValidated;
+            FakturGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
+            FakturGrid.KeyDown += FakturGrid_KeyDown;
             SaveButton.Click += SaveButtonOnClick;
             TagihanButton.Click += TagihanButton_Click;
             TagihanIdText.Validating += TagihanIdText_Validating;
+        }
+
+        private void FakturGrid_KeyDown(object sender, KeyEventArgs e)
+        {
+            var grid = (DataGridView)sender;
+            switch (e.KeyCode)
+            {
+                case Keys.Delete:
+                    _listTagihan.RemoveAt(grid.CurrentCell.RowIndex);
+                    grid.Refresh();
+                    break;
+            }
         }
 
         private void TagihanIdText_Validating(object sender, CancelEventArgs e)
@@ -243,7 +261,7 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             }
             
             _listTagihan[e.RowIndex].FakturId  = faktur.FakturId;
-            _listTagihan[e.RowIndex].FakturDate = $"{faktur.FakturDate:dd-MM-yyyy}";
+            _listTagihan[e.RowIndex].FakturDate = $"{faktur.FakturDate:dd-MMM-yyyy}";
             _listTagihan[e.RowIndex].CustomerId  = faktur.CustomerId;
             _listTagihan[e.RowIndex].CustomerName  = faktur.CustomerName;
             _listTagihan[e.RowIndex].Alamat  = faktur.Address;
@@ -260,160 +278,13 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             FakturGrid.Refresh();
         }
 
-        private void PrintToExcel(TagihanModel tagihan)
-        {
-            using (IXLWorkbook wb = new XLWorkbook())
-            {
-                var ws = wb.Worksheets.Add("tagihan-piutang");
-                var baris = 1;
-                ws.Cell($"A{baris}").Value = "CV BINTANG TIMUR RAHAYU";
-                ws.Cell($"A{baris}").Style
-                    .Font.SetFontSize(12)
-                    .Font.SetBold(false)
-                    .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
-                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"M{baris}")).Merge();
-                baris++;
-
-                ws.Cell($"A{baris}").Value = "Jl.Kaliurang Km 5.5 Gg. Durmo No.18"; 
-                ws.Cell($"A{baris}").Style
-                    .Font.SetFontSize(10)
-                    .Font.SetBold(false)
-                    .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
-                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"M{baris}")).Merge();
-                baris++;
-
-                ws.Cell($"A{baris}").Value = "TAGIHAN PIUTANG PER-SALES";
-                ws.Cell($"A{baris}").Style
-                    .Font.SetFontSize(16)
-                    .Font.SetBold(true)
-                    .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
-                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"M{baris}")).Merge();
-                baris++;
-
-                ws.Cell($"A{baris}").Value = $"{tagihan.TagihanDate:dd MMMM yyyy}";
-                ws.Cell($"A{baris}").Style
-                    .Font.SetFontSize(10)
-                    .Font.SetBold(false)
-                    .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Right);
-                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"M{baris}")).Merge();
-                baris++;
-
-                ws.Cell($"A{baris}").Value = $"Sales: {tagihan.SalesPersonName}";
-                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"M{baris}")).Merge();
-                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"M{baris}")).Style
-                    .Font.SetFontSize(11)
-                    .Font.SetBold(true);
-
-                baris++;
-                baris++;
-
-                ws.Cell($"A{baris}").Value = $"No";
-                ws.Cell($"B{baris}").Value = $"Faktur";
-                ws.Cell($"C{baris}").Value = $"Customer";
-                ws.Cell($"D{baris}").Value = $"Tgl Faktur";
-                ws.Cell($"E{baris}").Value = $"Total";
-                ws.Cell($"F{baris}").Value = $"Bayar";
-                //  add columns: Sisa, Tunai, Cek/Giro, Transfer, Meterai, Retur, Sewa
-                ws.Cell($"G{baris}").Value = $"Sisa";
-                ws.Cell($"H{baris}").Value = $"Tunai";
-                ws.Cell($"I{baris}").Value = $"Cek/Giro";
-                ws.Cell($"J{baris}").Value = $"Transfer";
-                ws.Cell($"K{baris}").Value = $"Meterai";
-                ws.Cell($"L{baris}").Value = $"Retur";
-                ws.Cell($"M{baris}").Value = $"Sewa";
-                
-                ws.Range(ws.Cell($"A{baris}"), ws.Cell($"M{baris}")).Style
-                    .Font.SetFontSize(11)
-                    .Font.SetBold(true)
-                    .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
-
-                baris++;
-                foreach (var item in tagihan.ListFaktur)
-                {
-                    var faktur = GetFaktur(item.FakturCode);
-                    var piutang = GetPiutang(item.FakturCode);  
-                    
-                    // fill columns: No, Faktur, Customer, Tgl Faktur, Total
-                    ws.Cell($"A{baris}").Value = $"{item.NoUrut}";
-                    ws.Cell($"B{baris}").Value = $"{item.FakturCode}";
-                    ws.Cell($"C{baris}").Value = $"{item.CustomerName}";
-                    ws.Cell($"D{baris}").Value = $"{faktur.FakturDate:dd MMM yyyy}";
-                    ws.Cell($"E{baris}").Value = faktur.GrandTotal;
-                    ws.Cell($"F{baris}").Value = piutang.Terbayar;
-                    ws.Cell($"G{baris}").Value = piutang.Sisa;
-                    // set row height to 15
-                    ws.Row(baris).Height = 18;
-                    baris++;
-                }
-                // format column E to M to number with thousand separator and 0 decimal place
-                ws.Range(ws.Cell($"E{baris - tagihan.ListFaktur.Count}"), ws.Cell($"M{baris - 1}")).Style
-                    .NumberFormat.SetFormat("#,##0");
-                //  set font for all data to 10
-                ws.Range(ws.Cell($"A{baris - tagihan.ListFaktur.Count}"), ws.Cell($"M{baris - 1}")).Style
-                    .Font.SetFontSize(10);
-                //  outline border for all data
-                ws.Range(ws.Cell($"A{baris - tagihan.ListFaktur.Count}"), ws.Cell($"M{baris - 1}")).Style
-                    .Border.SetOutsideBorder(XLBorderStyleValues.Thin)
-                    .Border.SetInsideBorder(XLBorderStyleValues.Thin);
-                
-                //  add footer SUM for column E to G
-                ws.Cell($"D{baris}").Value = $"TOTAL TAGIHAN";
-                ws.Cell($"E{baris}").FormulaA1 = $"SUM(E{baris - tagihan.ListFaktur.Count}:E{baris - 1})";
-                ws.Cell($"F{baris}").FormulaA1 = $"SUM(F{baris - tagihan.ListFaktur.Count}:F{baris - 1})";
-                ws.Cell($"G{baris}").FormulaA1 = $"SUM(G{baris - tagihan.ListFaktur.Count}:G{baris - 1})";
-
-                //  format footer SUM to number with thousand separator and 0 decimal place
-                ws.Range(ws.Cell($"E{baris}"), ws.Cell($"G{baris}")).Style
-                    .NumberFormat.SetFormat("#,##0");
-                
-                //  set font for footer SUM to 10 and bold
-                ws.Range(ws.Cell($"D{baris}"), ws.Cell($"G{baris}")).Style
-                    .Font.SetFontSize(10)
-                    .Font.SetBold(true);
-                //  set border for footer SUM
-                ws.Range(ws.Cell($"D{baris}"), ws.Cell($"M{baris}")).Style
-                    .Border.SetOutsideBorder(XLBorderStyleValues.Thin)
-                    .Border.SetInsideBorder(XLBorderStyleValues.Thin);
-                baris++;
-                ws.Cell($"D{baris}").Value = $"TOTAL SETORAN";
-                ws.Range(ws.Cell($"D{baris}"), ws.Cell($"M{baris}")).Style
-                    .Border.SetOutsideBorder(XLBorderStyleValues.Thin)
-                    .Border.SetInsideBorder(XLBorderStyleValues.Thin);
-                //  add another foot
-                
-                ws.Columns().AdjustToContents();
-                //  set column H to M width to 15
-                ws.Column(8).Width = 12;
-                ws.Column(9).Width = 12;
-                ws.Column(10).Width = 12;
-                ws.Column(11).Width = 12;
-                ws.Column(12).Width = 12;
-                ws.Column(13).Width = 12;
-                ws.Column(14).Width = 12;
-                
-                //  set page orientation to landscape
-                ws.PageSetup.PageOrientation = XLPageOrientation.Landscape;
-                //  set page size to A4
-                ws.PageSetup.PaperSize = XLPaperSize.A4Paper;
-                //  set page margins
-                ws.PageSetup.Margins.Left = 0.25;
-                
-                //  generate random name file in temp folder
-                var filePath = $"{Environment.GetEnvironmentVariable("TEMP")}\\{Guid.NewGuid()}.xlsx";
-                wb.SaveAs(filePath);
-                
-                //  print preview
-                System.Diagnostics.Process.Start(filePath);
-            }
-        }
-        
         private FakturModel GetFaktur(string fakturCode)
         {
             var fakturCodeKey = new FakturModel{FakturCode = fakturCode};
             var fakturHdr = _fakturDal.GetData((IFakturCode)fakturCodeKey)
                 ?? throw new Exception($"Faktur {fakturCode} tidak ditemukan");
-            var faktur = _fakturBuilder.Load(fakturHdr).Build();
-            return faktur;
+            //var faktur = _fakturBuilder.Load(fakturHdr).Build();
+            return fakturHdr;
         }
         private PiutangModel GetPiutang(string fakturCode)
         {
@@ -422,7 +293,8 @@ namespace btr.distrib.FinanceContext.TagihanAgg
                 ?? throw new Exception($"Faktur {fakturCode} tidak ditemukan");
             
             var piutangKey = new PiutangModel{PiutangId = faktur.FakturId};
-            var piutang = _piutangBuilder.Load(piutangKey).Build();
+            var piutang = _piutangDal.GetData(piutangKey) ?? throw new KeyNotFoundException("Piutang not found");
+            //var piutang = _piutangBuilder.Load(piutangKey).Build();
 
             return piutang;
         }
