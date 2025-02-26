@@ -125,6 +125,7 @@ namespace btr.distrib.SharedForm
         {
             UserIdText.Text = user.UserId;
             UserNameText.Text = user.UserName;
+            PrefixText.Text = user.Prefix;
         }
 
         private void ClearForm()
