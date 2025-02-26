@@ -26,6 +26,8 @@ using btr.application.SupportContext.ParamSistemAgg;
 using btr.domain.SupportContext.ParamSistemAgg;
 using btr.distrib.SalesContext.FakturAgg;
 using Microsoft.Reporting.WinForms;
+using btr.application.SupportContext.UserAgg;
+using btr.domain.SupportContext.UserAgg;
 
 namespace btr.distrib.PurchaseContext.InvoiceAgg
 {
@@ -41,6 +43,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
         private readonly IBrgDal _brgDal;
         private readonly ITglJamDal _dateTime;
         private readonly IParamSistemDal _paramSistemDal;
+        private readonly IUserDal _userDal;
 
         private readonly ICreateInvoiceItemWorker _createItemWorker;
         private readonly ISaveInvoiceWorker _saveInvoiceWorker;
@@ -67,10 +70,11 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             IInvoiceBuilder invoiceBuilder,
             ITglJamDal dateTime,
             IBrowser<InvoiceBrowserView> invoiceBrowser,
-            IInvoicePrintDoc invoicePrinter, 
-            IGenStokInvoiceWorker genStokInvoiceWorker, 
-            IParamSistemDal paramSistemDal, 
-            IVoidInvoiceWorker voidInvoiceWorker)
+            IInvoicePrintDoc invoicePrinter,
+            IGenStokInvoiceWorker genStokInvoiceWorker,
+            IParamSistemDal paramSistemDal,
+            IVoidInvoiceWorker voidInvoiceWorker,
+            IUserDal userDal)
         {
             InitializeComponent();
 
@@ -96,6 +100,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             InitParamSistem();
             ClearForm();
             _voidInvoiceWorker = voidInvoiceWorker;
+            _userDal = userDal;
         }
 
         private void InitParamSistem()
@@ -143,7 +148,12 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
         {
             var invoice = _invoiceBuilder.Load(new InvoiceModel(invoiceId)).Build();
             var supplier = _supplierDal.GetData(invoice);
-            var invoicePrintOut = new InvoicePrintOutDto(invoice, supplier);
+            var user = _userDal.GetData(invoice) ?? new UserModel
+            {
+                UserId = invoice.UserId,
+                UserName = invoice.UserId
+            };
+            var invoicePrintOut = new InvoicePrintOutDto(invoice, supplier, user);
             //var form = new InvoicePrintOutForm(invoicePrintOut);
             //form.ShowDialog();
 

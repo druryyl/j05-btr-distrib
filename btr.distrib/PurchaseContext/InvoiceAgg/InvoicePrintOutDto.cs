@@ -1,6 +1,7 @@
 ﻿using btr.distrib.Helpers;
 using btr.domain.PurchaseContext.InvoiceAgg;
 using btr.domain.PurchaseContext.SupplierAgg;
+using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Domain;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
 {
     public class InvoicePrintOutDto
     {
-        public InvoicePrintOutDto(InvoiceModel invoice, SupplierModel supplier)
+        public InvoicePrintOutDto(InvoiceModel invoice, SupplierModel supplier, UserModel user)
         {
             InvoiceCode = $"No.Invoice: {invoice.InvoiceCode}";
             InvoiceDate = $"Tgl: {invoice.InvoiceDate:dd MMMM yyyy}";
@@ -41,7 +42,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             Ppn = $"{invoice.ListItem.Sum(x => x.PpnRp):N0}";
             PpnProsen = $"PPN {DecFormatter.ToStr(invoice.ListItem.FirstOrDefault().PpnProsen)}% :";
             GrandTotal = $"{invoice.GrandTotal:N0}";
-            UserName = invoice.UserId;
+            UserName = user.UserName;
 
             ListItem = new List<InvoicePrintOutItemDto>();
             var noUrut = 1;
