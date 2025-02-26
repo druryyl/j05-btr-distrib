@@ -1308,8 +1308,7 @@
               <TextRun>
                 <Value>=First(Fields!InvoiceCode.Value, "InvoiceBeliDataset")</Value>
                 <Style>
-                  <FontFamily>Lucida Console</FontFamily>
-                  <FontSize>8pt</FontSize>
+                  <FontFamily>Segoe UI</FontFamily>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1382,8 +1381,7 @@
               <TextRun>
                 <Value>=First(Fields!JatuhTempo.Value, "InvoiceBeliDataset")</Value>
                 <Style>
-                  <FontFamily>Lucida Console</FontFamily>
-                  <FontSize>8pt</FontSize>
+                  <FontFamily>Segoe UI</FontFamily>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1569,7 +1567,6 @@
                 <Style>
                   <FontStyle>Italic</FontStyle>
                   <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1581,7 +1578,7 @@
         <rd:DefaultName>Textbox14</rd:DefaultName>
         <Top>1.54087in</Top>
         <Left>0.0125in</Left>
-        <Height>0.38612in</Height>
+        <Height>0.97503in</Height>
         <Width>5.03194in</Width>
         <ZIndex>18</ZIndex>
         <Style>
@@ -1595,132 +1592,6 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
-      <Textbox Name="Textbox15">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Tanda Terima,</Value>
-                <Style>
-                  <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>9pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>2.68433in</Top>
-        <Left>0.00902in</Left>
-        <Height>0.20556in</Height>
-        <Width>1.31598in</Width>
-        <ZIndex>19</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox16">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>(Nama Terang / Cap)</Value>
-                <Style>
-                  <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>9pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>3.43953in</Top>
-        <Left>0.00902in</Left>
-        <Height>0.20556in</Height>
-        <Width>1.31598in</Width>
-        <ZIndex>20</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Line Name="Line1">
-        <Top>3.42565in</Top>
-        <Left>0.0125in</Left>
-        <Height>0in</Height>
-        <Width>1.3125in</Width>
-        <ZIndex>21</ZIndex>
-        <Style>
-          <Border>
-            <Style>Solid</Style>
-          </Border>
-        </Style>
-      </Line>
-      <Textbox Name="Textbox17">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Pengirim,</Value>
-                <Style>
-                  <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>9pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>2.68433in</Top>
-        <Left>2.57846in</Left>
-        <Height>0.20556in</Height>
-        <Width>1.31598in</Width>
-        <ZIndex>22</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Line Name="Line2">
-        <Top>3.42565in</Top>
-        <Left>2.58194in</Left>
-        <Height>0in</Height>
-        <Width>1.3125in</Width>
-        <ZIndex>23</ZIndex>
-        <Style>
-          <Border>
-            <Style>Solid</Style>
-          </Border>
-        </Style>
-      </Line>
       <Textbox Name="Textbox19">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
@@ -1743,7 +1614,7 @@
         <Left>5.47429in</Left>
         <Height>0.20556in</Height>
         <Width>1.31598in</Width>
-        <ZIndex>24</ZIndex>
+        <ZIndex>19</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1777,7 +1648,7 @@
         <Left>5.47429in</Left>
         <Height>0.20556in</Height>
         <Width>1.31598in</Width>
-        <ZIndex>25</ZIndex>
+        <ZIndex>20</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1794,7 +1665,7 @@
         <Left>5.47777in</Left>
         <Height>0in</Height>
         <Width>1.3125in</Width>
-        <ZIndex>26</ZIndex>
+        <ZIndex>21</ZIndex>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -1805,7 +1676,7 @@
         <Top>1.53809in</Top>
         <Height>0in</Height>
         <Width>7.5625in</Width>
-        <ZIndex>27</ZIndex>
+        <ZIndex>22</ZIndex>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -1835,7 +1706,7 @@
         <Left>5.27291in</Left>
         <Height>0.19445in</Height>
         <Width>1.28125in</Width>
-        <ZIndex>28</ZIndex>
+        <ZIndex>23</ZIndex>
         <Style>
           <Border>
             <Color>DimGray</Color>
@@ -1885,7 +1756,7 @@
         <Left>6.55416in</Left>
         <Height>0.19445in</Height>
         <Width>1in</Width>
-        <ZIndex>29</ZIndex>
+        <ZIndex>24</ZIndex>
         <Style>
           <Border>
             <Color>DimGray</Color>
