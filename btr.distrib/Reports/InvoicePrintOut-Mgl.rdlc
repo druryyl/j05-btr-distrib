@@ -824,8 +824,8 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>InvoiceBeliItemDataset</DataSetName>
-        <Top>1.13617in</Top>
-        <Left>0.00998in</Left>
+        <Top>1.15059in</Top>
+        <Left>0.00902in</Left>
         <Height>0.38in</Height>
         <Width>7.54514in</Width>
         <Style>
@@ -854,8 +854,8 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>1.52367in</Top>
-        <Left>5.27387in</Left>
+        <Top>1.53809in</Top>
+        <Left>5.27291in</Left>
         <Height>0.19445in</Height>
         <Width>1.28125in</Width>
         <ZIndex>1</ZIndex>
@@ -905,8 +905,8 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>1.71813in</Top>
-        <Left>5.27387in</Left>
+        <Top>1.73255in</Top>
+        <Left>5.27291in</Left>
         <Height>0.19445in</Height>
         <Width>1.28125in</Width>
         <ZIndex>2</ZIndex>
@@ -956,8 +956,8 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>2.11258in</Top>
-        <Left>5.27387in</Left>
+        <Top>2.127in</Top>
+        <Left>5.27291in</Left>
         <Height>0.19445in</Height>
         <Width>1.28125in</Width>
         <ZIndex>3</ZIndex>
@@ -1007,8 +1007,8 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>2.30703in</Top>
-        <Left>5.27387in</Left>
+        <Top>2.32145in</Top>
+        <Left>5.27291in</Left>
         <Height>0.19445in</Height>
         <Width>1.28125in</Width>
         <ZIndex>4</ZIndex>
@@ -1052,8 +1052,8 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>1.52367in</Top>
-        <Left>6.55512in</Left>
+        <Top>1.53809in</Top>
+        <Left>6.55416in</Left>
         <Height>0.19445in</Height>
         <Width>1in</Width>
         <ZIndex>5</ZIndex>
@@ -1102,8 +1102,8 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>1.71813in</Top>
-        <Left>6.55512in</Left>
+        <Top>1.73255in</Top>
+        <Left>6.55416in</Left>
         <Height>0.19445in</Height>
         <Width>1in</Width>
         <ZIndex>6</ZIndex>
@@ -1152,8 +1152,8 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>2.11258in</Top>
-        <Left>6.55512in</Left>
+        <Top>2.127in</Top>
+        <Left>6.55416in</Left>
         <Height>0.19445in</Height>
         <Width>1in</Width>
         <ZIndex>7</ZIndex>
@@ -1203,8 +1203,8 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>2.30703in</Top>
-        <Left>6.55512in</Left>
+        <Top>2.32145in</Top>
+        <Left>6.55416in</Left>
         <Height>0.19445in</Height>
         <Width>1in</Width>
         <ZIndex>8</ZIndex>
@@ -1239,9 +1239,12 @@
               <TextRun>
                 <Value>CV.BINTANG TIMUR RAHARDIAN</Value>
                 <Style>
+                  <FontStyle>Normal</FontStyle>
                   <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
                   <FontWeight>Bold</FontWeight>
+                  <TextDecoration>None</TextDecoration>
+                  <Color>#000000</Color>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1252,39 +1255,58 @@
               <TextRun>
                 <Value>Jl.Magelang-Salaman Km.3</Value>
                 <Style>
+                  <FontStyle>Normal</FontStyle>
                   <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
+                  <FontWeight>Normal</FontWeight>
+                  <TextDecoration>None</TextDecoration>
+                  <Color>#000000</Color>
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
           </Paragraph>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Kp.Glagah RT.01/RW.03 Banjarnegoro, </Value>
+                <Value>Kp.Glagah RT.01/RW.03 Banjarnegoro,</Value>
                 <Style>
+                  <FontStyle>Normal</FontStyle>
                   <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
+                  <FontWeight>Normal</FontWeight>
+                  <TextDecoration>None</TextDecoration>
+                  <Color>#000000</Color>
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
           </Paragraph>
           <Paragraph>
             <TextRuns>
               <TextRun>
                 <Value>Mertoyudan, Magelang - (0293) 364091</Value>
                 <Style>
+                  <FontStyle>Normal</FontStyle>
                   <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
+                  <FontWeight>Normal</FontWeight>
+                  <TextDecoration>None</TextDecoration>
+                  <Color>#000000</Color>
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
-        <Left>0.01346in</Left>
+        <Top>0.01442in</Top>
+        <Left>0.0125in</Left>
         <Height>0.84725in</Height>
         <Width>2.46598in</Width>
         <ZIndex>9</ZIndex>
@@ -1307,16 +1329,15 @@
               <TextRun>
                 <Value>=First(Fields!InvoiceCode.Value, "InvoiceBeliDataset")</Value>
                 <Style>
-                  <FontFamily>Lucida Console</FontFamily>
-                  <FontSize>8pt</FontSize>
+                  <FontFamily>Segoe UI</FontFamily>
                 </Style>
               </TextRun>
             </TextRuns>
             <Style />
           </Paragraph>
         </Paragraphs>
-        <Top>0.9056in</Top>
-        <Left>0.01346in</Left>
+        <Top>0.92002in</Top>
+        <Left>0.0125in</Left>
         <Height>0.23958in</Height>
         <Width>2.46598in</Width>
         <ZIndex>10</ZIndex>
@@ -1356,7 +1377,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox13</rd:DefaultName>
-        <Left>2.52111in</Left>
+        <Top>0.01442in</Top>
+        <Left>2.52015in</Left>
         <Height>0.84725in</Height>
         <Width>2.32568in</Width>
         <ZIndex>11</ZIndex>
@@ -1380,8 +1402,7 @@
               <TextRun>
                 <Value>=First(Fields!JatuhTempo.Value, "InvoiceBeliDataset")</Value>
                 <Style>
-                  <FontFamily>Lucida Console</FontFamily>
-                  <FontSize>8pt</FontSize>
+                  <FontFamily>Segoe UI</FontFamily>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1390,8 +1411,8 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>0.9056in</Top>
-        <Left>2.47944in</Left>
+        <Top>0.92002in</Top>
+        <Left>2.47848in</Left>
         <Height>0.23958in</Height>
         <Width>1.61735in</Width>
         <ZIndex>12</ZIndex>
@@ -1427,7 +1448,8 @@
             <Style />
           </Paragraph>
         </Paragraphs>
-        <Left>5.14123in</Left>
+        <Top>0.01442in</Top>
+        <Left>5.14027in</Left>
         <Height>0.16945in</Height>
         <Width>2.375in</Width>
         <ZIndex>13</ZIndex>
@@ -1455,8 +1477,8 @@
             <Style />
           </Paragraph>
         </Paragraphs>
-        <Top>0.16945in</Top>
-        <Left>5.14123in</Left>
+        <Top>0.18387in</Top>
+        <Left>5.14027in</Left>
         <Height>0.16945in</Height>
         <Width>2.375in</Width>
         <ZIndex>14</ZIndex>
@@ -1485,8 +1507,8 @@
             <Style />
           </Paragraph>
         </Paragraphs>
-        <Top>0.3389in</Top>
-        <Left>5.14123in</Left>
+        <Top>0.35332in</Top>
+        <Left>5.14027in</Left>
         <Height>0.16945in</Height>
         <Width>2.375in</Width>
         <ZIndex>15</ZIndex>
@@ -1514,8 +1536,8 @@
             <Style />
           </Paragraph>
         </Paragraphs>
-        <Top>0.50835in</Top>
-        <Left>5.14123in</Left>
+        <Top>0.52277in</Top>
+        <Left>5.14027in</Left>
         <Height>0.16945in</Height>
         <Width>2.375in</Width>
         <ZIndex>16</ZIndex>
@@ -1543,8 +1565,8 @@
             <Style />
           </Paragraph>
         </Paragraphs>
-        <Top>0.6778in</Top>
-        <Left>5.14123in</Left>
+        <Top>0.69222in</Top>
+        <Left>5.14027in</Left>
         <Height>0.16945in</Height>
         <Width>2.375in</Width>
         <ZIndex>17</ZIndex>
@@ -1566,7 +1588,6 @@
                 <Style>
                   <FontStyle>Italic</FontStyle>
                   <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1576,9 +1597,9 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>1.52645in</Top>
-        <Left>0.01346in</Left>
-        <Height>0.38612in</Height>
+        <Top>1.54087in</Top>
+        <Left>0.0125in</Left>
+        <Height>0.97503in</Height>
         <Width>5.03194in</Width>
         <ZIndex>18</ZIndex>
         <Style>
@@ -1592,132 +1613,6 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
-      <Textbox Name="Textbox15">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Tanda Terima,</Value>
-                <Style>
-                  <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>9pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>2.66991in</Top>
-        <Left>0.00998in</Left>
-        <Height>0.20556in</Height>
-        <Width>1.31598in</Width>
-        <ZIndex>19</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox16">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>(Nama Terang / Cap)</Value>
-                <Style>
-                  <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>9pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>3.42511in</Top>
-        <Left>0.00998in</Left>
-        <Height>0.20556in</Height>
-        <Width>1.31598in</Width>
-        <ZIndex>20</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Line Name="Line1">
-        <Top>3.41123in</Top>
-        <Left>0.01346in</Left>
-        <Height>0in</Height>
-        <Width>1.3125in</Width>
-        <ZIndex>21</ZIndex>
-        <Style>
-          <Border>
-            <Style>Solid</Style>
-          </Border>
-        </Style>
-      </Line>
-      <Textbox Name="Textbox17">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Pengirim,</Value>
-                <Style>
-                  <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>9pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>2.66991in</Top>
-        <Left>2.57942in</Left>
-        <Height>0.20556in</Height>
-        <Width>1.31598in</Width>
-        <ZIndex>22</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Line Name="Line2">
-        <Top>3.41123in</Top>
-        <Left>2.5829in</Left>
-        <Height>0in</Height>
-        <Width>1.3125in</Width>
-        <ZIndex>23</ZIndex>
-        <Style>
-          <Border>
-            <Style>Solid</Style>
-          </Border>
-        </Style>
-      </Line>
       <Textbox Name="Textbox19">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
@@ -1736,11 +1631,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>2.66991in</Top>
-        <Left>5.47524in</Left>
+        <Top>2.68433in</Top>
+        <Left>5.47429in</Left>
         <Height>0.20556in</Height>
         <Width>1.31598in</Width>
-        <ZIndex>24</ZIndex>
+        <ZIndex>19</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1770,11 +1665,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>3.42511in</Top>
-        <Left>5.47524in</Left>
+        <Top>3.43953in</Top>
+        <Left>5.47429in</Left>
         <Height>0.20556in</Height>
         <Width>1.31598in</Width>
-        <ZIndex>25</ZIndex>
+        <ZIndex>20</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1787,11 +1682,11 @@
         </Style>
       </Textbox>
       <Line Name="Line3">
-        <Top>3.41123in</Top>
-        <Left>5.47872in</Left>
+        <Top>3.42565in</Top>
+        <Left>5.47777in</Left>
         <Height>0in</Height>
         <Width>1.3125in</Width>
-        <ZIndex>26</ZIndex>
+        <ZIndex>21</ZIndex>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -1799,11 +1694,10 @@
         </Style>
       </Line>
       <Line Name="Line4">
-        <Top>1.52367in</Top>
-        <Left>0.00096in</Left>
+        <Top>1.53809in</Top>
         <Height>0in</Height>
         <Width>7.5625in</Width>
-        <ZIndex>27</ZIndex>
+        <ZIndex>22</ZIndex>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -1829,11 +1723,11 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>1.91397in</Top>
-        <Left>5.27387in</Left>
+        <Top>1.92839in</Top>
+        <Left>5.27291in</Left>
         <Height>0.19445in</Height>
         <Width>1.28125in</Width>
-        <ZIndex>28</ZIndex>
+        <ZIndex>23</ZIndex>
         <Style>
           <Border>
             <Color>DimGray</Color>
@@ -1879,11 +1773,11 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>1.91397in</Top>
-        <Left>6.55512in</Left>
+        <Top>1.92839in</Top>
+        <Left>6.55416in</Left>
         <Height>0.19445in</Height>
         <Width>1in</Width>
-        <ZIndex>29</ZIndex>
+        <ZIndex>24</ZIndex>
         <Style>
           <Border>
             <Color>DimGray</Color>
@@ -1912,10 +1806,10 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>3.63067in</Height>
+    <Height>3.64509in</Height>
     <Style />
   </Body>
-  <Width>7.56441in</Width>
+  <Width>7.5625in</Width>
   <Page>
     <LeftMargin>1in</LeftMargin>
     <RightMargin>1in</RightMargin>

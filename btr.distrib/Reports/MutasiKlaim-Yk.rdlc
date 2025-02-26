@@ -1199,7 +1199,7 @@
         <Top>0.02778in</Top>
         <Left>0.03889in</Left>
         <Height>0.85in</Height>
-        <Width>2.60383in</Width>
+        <Width>2.083in</Width>
         <ZIndex>5</ZIndex>
         <Style>
           <Border>
@@ -1257,21 +1257,21 @@
                 <Value>MUTASI</Value>
                 <Style>
                   <FontFamily>Lucida Console</FontFamily>
-                  <FontSize>14pt</FontSize>
+                  <FontSize>18pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
             <Style>
-              <TextAlign>Left</TextAlign>
+              <TextAlign>Center</TextAlign>
             </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox13</rd:DefaultName>
         <Top>0.02778in</Top>
-        <Left>2.64272in</Left>
+        <Left>2.12189in</Left>
         <Height>0.85in</Height>
-        <Width>2.70451in</Width>
+        <Width>3.22534in</Width>
         <ZIndex>7</ZIndex>
         <Style>
           <Border>

@@ -29,6 +29,8 @@ using btr.domain.InventoryContext.DriverAgg;
 using btr.application.SupportContext.ParamSistemAgg;
 using btr.domain.SupportContext.ParamSistemAgg;
 using Microsoft.Reporting.WinForms;
+using btr.application.SupportContext.UserAgg;
+using btr.domain.SupportContext.UserAgg;
 
 namespace btr.distrib.SalesContext.FakturAgg
 {
@@ -51,6 +53,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly ITglJamDal _dateTime;
         private readonly IBrgDal _brgDal;
         private readonly IDriverDal _driverDal;
+        private readonly IUserDal _userDal;
         private readonly IFakturBuilder _fakturBuilder;
         private readonly ISaveFakturWorker _saveFakturWorker;
         private readonly ICreateFakturItemWorker _createItemWorker;
@@ -84,7 +87,8 @@ namespace btr.distrib.SalesContext.FakturAgg
             IBrowser<DriverBrowserView> driverBrowser,
             IDriverDal driverDal,
             IParamSistemDal paramSIstemDal,
-            IBrowser<FakturCodeOpenBrowserView> fakturCodeOpenBrowser)
+            IBrowser<FakturCodeOpenBrowserView> fakturCodeOpenBrowser,
+            IUserDal userDal)
         {
             _warehouseBrowser = warehouseBrowser;
             _salesBrowser = salesBrowser;
@@ -115,6 +119,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             InitParamSistem();
             RegisterEventHandler();
             ClearForm();
+            _userDal = userDal;
         }
 
         private void InitParamSistem()
@@ -749,8 +754,12 @@ namespace btr.distrib.SalesContext.FakturAgg
                 .Build();
             LastIdLabel.Text = $@"{fakturDb.FakturId} - {fakturDb.FakturCode}".Trim();
             var customer = _customerDal.GetData(fakturDb);
-            
-            var fakturPrintout = new FakturPrintOutDto(fakturDb, customer);
+            var user = _userDal.GetData(fakturDb) ?? new UserModel
+            {
+                UserId = fakturDb.UserId,
+                UserName = fakturDb.UserId
+            };
+            var fakturPrintout = new FakturPrintOutDto(fakturDb, customer, user);
             PrintFakturRdlc(fakturPrintout);
         }
 

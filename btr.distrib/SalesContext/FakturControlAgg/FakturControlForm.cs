@@ -23,6 +23,8 @@ using btr.application.SalesContext.CustomerAgg.Contracts;
 using btr.domain.SupportContext.ParamSistemAgg;
 using Microsoft.Reporting.WinForms;
 using btr.application.SupportContext.ParamSistemAgg;
+using btr.infrastructure.SalesContext.FakturAgg;
+using btr.application.SupportContext.UserAgg;
 
 namespace btr.distrib.SalesContext.FakturControlAgg
 {
@@ -40,6 +42,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
         private readonly IPiutangDal _piutangDal;
         private readonly ICustomerDal _customerDal;
         private readonly IParamSistemDal _paramSistemDal;
+        private readonly IUserDal _userDal;
 
         private ContextMenu _gridContextMenu;
 
@@ -53,7 +56,8 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             IPiutangDal piutangDal,
             IFakturBuilder fakturBuilder,
             ICustomerDal customerDal,
-            IParamSistemDal paramSistemDal)
+            IParamSistemDal paramSistemDal,
+            IUserDal userDal)
         {
             InitializeComponent();
 
@@ -73,6 +77,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             RefreshGrid();
             RegisterEventHandler();
             _paramSistemDal = paramSistemDal;
+            _userDal = userDal;
         }
 
         private void RegisterEventHandler()
@@ -97,7 +102,12 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             var fakturKey = new FakturModel(fakturId);
             var faktur = _fakturBuilder.Load(fakturKey).Build();
             var customer = _customerDal.GetData(faktur);
-            var fakturPrintout = new FakturPrintOutDto(faktur, customer);
+            var user = _userDal.GetData(faktur) ?? new UserModel
+            {
+                UserId = faktur.UserId,
+                UserName = faktur.UserId
+            };
+            var fakturPrintout = new FakturPrintOutDto(faktur, customer, user);
 
             var fakturJualDataset = new ReportDataSource("FakturJualDataset", new List<FakturPrintOutDto> { fakturPrintout });
             var fakturJualItemDataset = new ReportDataSource("FakturJualItemDataset", fakturPrintout.ListItem);

@@ -6,12 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Globalization;
 using btr.distrib.Helpers;
+using btr.domain.SupportContext.UserAgg;
 
 namespace btr.distrib.SalesContext.FakturAgg
 {
     public class FakturPrintOutDto
     {
-        public FakturPrintOutDto(FakturModel faktur, CustomerModel customer)
+        public FakturPrintOutDto(FakturModel faktur, CustomerModel customer, UserModel user)
         {
             FakturCode = $"No.Faktur: {faktur.FakturCode}";
             FakturDate = $"Tgl: {faktur.FakturDate:dd MMMM yyyy}";
@@ -45,7 +46,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             PpnProsen = $"PPN {DecFormatter.ToStr(faktur.ListItem.FirstOrDefault().PpnProsen)}% :";
 
             GrandTotal = $"{faktur.GrandTotal:N0}";
-            UserName = faktur.UserId;
+            UserName = user.UserName;
 
             ListItem = new List<FakturPrintOutItemDto>();
             var noUrut = 1;
