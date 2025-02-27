@@ -17,5 +17,7 @@ namespace btr.application.SalesContext.FakturInfo
         public decimal Discount { get; set; }
         public decimal Tax { get; set; }
         public decimal GrandTotal { get; set; }
+        public int StatusFaktur { get; set; }
+        public bool Kembali => StatusFaktur == 2 ? true : false;
     }
 }
