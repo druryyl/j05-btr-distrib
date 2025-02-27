@@ -51,7 +51,8 @@
             this.SaveButton = new System.Windows.Forms.Button();
             this.NewButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.LastIdLabel = new System.Windows.Forms.Label();
+            this.FakturCodeButton = new System.Windows.Forms.Button();
+            this.FakturCodeText = new System.Windows.Forms.TextBox();
             this.FakturIdText = new System.Windows.Forms.TextBox();
             this.SalesIdText = new System.Windows.Forms.TextBox();
             this.SalesPersonNameTextBox = new System.Windows.Forms.TextBox();
@@ -61,6 +62,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.FakturButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.LastIdLabel = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.CustomerAddressText = new System.Windows.Forms.TextBox();
             this.CustomerIdText = new System.Windows.Forms.TextBox();
@@ -86,8 +88,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.TermOfPaymentCombo = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.FakturCodeText = new System.Windows.Forms.TextBox();
-            this.FakturCodeButton = new System.Windows.Forms.Button();
             this.PanelAtas4.SuspendLayout();
             this.VoidPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturItemGrid)).BeginInit();
@@ -412,15 +412,26 @@
             this.panel1.Size = new System.Drawing.Size(200, 194);
             this.panel1.TabIndex = 36;
             // 
-            // LastIdLabel
+            // FakturCodeButton
             // 
-            this.LastIdLabel.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LastIdLabel.ForeColor = System.Drawing.Color.Gray;
-            this.LastIdLabel.Location = new System.Drawing.Point(3, 162);
-            this.LastIdLabel.Name = "LastIdLabel";
-            this.LastIdLabel.Size = new System.Drawing.Size(181, 24);
-            this.LastIdLabel.TabIndex = 6;
-            this.LastIdLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.FakturCodeButton.BackColor = System.Drawing.Color.Moccasin;
+            this.FakturCodeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.FakturCodeButton.Location = new System.Drawing.Point(160, 49);
+            this.FakturCodeButton.Name = "FakturCodeButton";
+            this.FakturCodeButton.Size = new System.Drawing.Size(26, 22);
+            this.FakturCodeButton.TabIndex = 7;
+            this.FakturCodeButton.Text = "...";
+            this.FakturCodeButton.UseVisualStyleBackColor = false;
+            // 
+            // FakturCodeText
+            // 
+            this.FakturCodeText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.FakturCodeText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FakturCodeText.Location = new System.Drawing.Point(11, 49);
+            this.FakturCodeText.Name = "FakturCodeText";
+            this.FakturCodeText.ReadOnly = true;
+            this.FakturCodeText.Size = new System.Drawing.Size(147, 22);
+            this.FakturCodeText.TabIndex = 6;
             // 
             // FakturIdText
             // 
@@ -508,6 +519,16 @@
             this.label1.Size = new System.Drawing.Size(54, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Faktur ID";
+            // 
+            // LastIdLabel
+            // 
+            this.LastIdLabel.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LastIdLabel.ForeColor = System.Drawing.Color.Gray;
+            this.LastIdLabel.Location = new System.Drawing.Point(3, 162);
+            this.LastIdLabel.Name = "LastIdLabel";
+            this.LastIdLabel.Size = new System.Drawing.Size(181, 24);
+            this.LastIdLabel.TabIndex = 6;
+            this.LastIdLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // panel2
             // 
@@ -778,27 +799,6 @@
             this.label4.Size = new System.Drawing.Size(92, 13);
             this.label4.TabIndex = 19;
             this.label4.Text = "Term Of Payment";
-            // 
-            // FakturCodeText
-            // 
-            this.FakturCodeText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.FakturCodeText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FakturCodeText.Location = new System.Drawing.Point(11, 49);
-            this.FakturCodeText.Name = "FakturCodeText";
-            this.FakturCodeText.ReadOnly = true;
-            this.FakturCodeText.Size = new System.Drawing.Size(147, 22);
-            this.FakturCodeText.TabIndex = 6;
-            // 
-            // FakturCodeButton
-            // 
-            this.FakturCodeButton.BackColor = System.Drawing.Color.Moccasin;
-            this.FakturCodeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.FakturCodeButton.Location = new System.Drawing.Point(160, 49);
-            this.FakturCodeButton.Name = "FakturCodeButton";
-            this.FakturCodeButton.Size = new System.Drawing.Size(26, 22);
-            this.FakturCodeButton.TabIndex = 7;
-            this.FakturCodeButton.Text = "...";
-            this.FakturCodeButton.UseVisualStyleBackColor = false;
             // 
             // FakturForm
             // 

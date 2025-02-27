@@ -739,6 +739,7 @@
     <Content Include="icons8_truck.ico" />
     <None Include="Properties\DataSources\btr.distrib.InventoryContext.MutasiAgg.MutasiPrintOutDto.datasource" />
     <None Include="Resources\icons8_sherlock_holmes_64.png" />
+    <None Include="Resources\icons8_event_declined_32.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

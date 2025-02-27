@@ -113,13 +113,15 @@ namespace btr.distrib.SharedForm
             form.MdiParent = this;
             form.Show();
         }
-        private void ST3FakturPajakButton_Click(object sender, EventArgs e)
+        private void ST4FakturProgramButton_Click(object sender, EventArgs e)
         {
-            if (BringMdiChildToFrontIfLoaded<AlokasiFpForm>())
+            if (BringMdiChildToFrontIfLoaded<FakturForm>())
                 return;
-            var form = ThisServicesProvider.GetRequiredService<AlokasiFpForm>();
+
+            var form = ThisServicesProvider.GetRequiredService<FakturForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
+            form.SetAsProgramKlaim();
             form.Show();
         }
 
