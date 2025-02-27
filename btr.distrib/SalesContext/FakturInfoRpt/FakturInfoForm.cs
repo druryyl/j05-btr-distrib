@@ -10,6 +10,9 @@ using System.Linq;
 using System.Windows.Forms;
 using btr.application.SalesContext.FakturInfo;
 using ClosedXML.Excel;
+using System.Windows.Forms.DataVisualization.Charting;
+using System.Data;
+using Mapster;
 
 namespace btr.distrib.SalesContext.FakturInfoRpt
 {
@@ -46,30 +49,59 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
 
             using (IXLWorkbook wb = new XLWorkbook())
             {
+                var excelDs = new List<FakturView>();
+                GridTable table = InfoGrid.Table;
+                foreach (var record in table.FilteredRecords)
+                {
+                    var item = record.GetData();
+                    var strData = record.ToString().Substring(28);
+                    var listProp = strData.Split(',');
+                    var fakturId = listProp[0].Substring(11,13);
+                    var faktur = _dataSource.FirstOrDefault(x => x.FakturId == fakturId);
+                    excelDs.Add(faktur);
+                }
                 wb.AddWorksheet("Faktu-Info")
                     .Cell($"B1")
-                    .InsertTable(_dataSource, false);
+                    .InsertTable(excelDs, false);
+
                 var ws = wb.Worksheets.First();
                 //  set border and font
-                ws.Range(ws.Cell($"A{1}"), ws.Cell($"N{_dataSource.Count + 1}")).Style
+                ws.Range(ws.Cell($"A{1}"), ws.Cell($"P{excelDs.Count + 1}")).Style
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair);
-                ws.Range(ws.Cell($"A{1}"), ws.Cell($"N{_dataSource.Count + 1}")).Style
+                ws.Range(ws.Cell($"A{1}"), ws.Cell($"P{excelDs.Count + 1}")).Style
                     .Font.SetFontName("Consolas")
                     .Font.SetFontSize(9);
 
+                //  hide columns O
+                ws.Columns("O").Hide();
+                //  replace column P with empty space if its value is FALSE
+
                 //  set format number for column K, L, M, N to N0
-                ws.Range(ws.Cell($"K{2}"), ws.Cell($"N{_dataSource.Count + 1}"))
+                ws.Range(ws.Cell($"K{2}"), ws.Cell($"P{excelDs.Count + 1}"))
                     .Style.NumberFormat.Format = "#,##";
-                ws.Range(ws.Cell($"A{2}"), ws.Cell($"A{_dataSource.Count + 1}"))
+                ws.Range(ws.Cell($"A{2}"), ws.Cell($"A{excelDs.Count + 1}"))
                     .Style.NumberFormat.Format = "#,##";
-                ws.Range(ws.Cell($"D{2}"), ws.Cell($"D{_dataSource.Count + 1}"))
+                ws.Range(ws.Cell($"D{2}"), ws.Cell($"D{excelDs.Count + 1}"))
                     .Style.NumberFormat.Format = "dd-MMM-yyyy";
 
                 //  add rownumbering
                 ws.Cell($"A1").Value = "No";
-                for (var i = 0; i < _dataSource.Count; i++)
+                for (var i = 0; i < excelDs.Count; i++)
                     ws.Cell($"A{i + 2}").Value = i + 1;
+
+                //  replace status FALSE dengan string kosong
+                for (var i = 0; i < excelDs.Count; i++)
+                    if (ws.Cell($"P{i + 2}").Value.ToString() == "FALSE")
+                        ws.Cell($"P{i + 2}").Value = "";
+
+                //  replace status TRUE dengan string "YA""
+                for (var i = 0; i < excelDs.Count; i++)
+                    if (ws.Cell($"P{i + 2}").Value.ToString() == "TRUE")
+                        ws.Cell($"P{i + 2}").Value = "YA";
+
+
+
                 ws.Columns().AdjustToContents();
                 wb.SaveAs(filePath);
             }
@@ -99,6 +131,7 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
             {
                 column.AllowFilter = true;
             }
+            InfoGrid.TableDescriptor.VisibleColumns.Remove("StatusFaktur");
 
             var sumColTotal = new GridSummaryColumnDescriptor("Total", SummaryType.DoubleAggregate, "Total", "{Sum}");
             sumColTotal.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);

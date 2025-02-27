@@ -304,15 +304,33 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             if (!(grid.CurrentCell is DataGridViewCheckBoxCell))
                 return;
 
+            if (grid.Columns[e.ColumnIndex].Name == "Posted" 
+                || grid.Columns[e.ColumnIndex].Name == "Kembali")
+            {
+                var isReturn = IsReturnAfterCekRulePostedKembali(e.RowIndex, e.ColumnIndex);
+                if (isReturn)
+                    return;
+            }
+
             FakturGrid.EndEdit();
             var statusFaktur = StatusFakturEnum.Unknown;
             switch (grid.Columns[e.ColumnIndex].Name)
             {
-                case "Posted": statusFaktur = StatusFakturEnum.Posted; break;
-                case "Kirim": statusFaktur = StatusFakturEnum.Kirim; break;
-                case "Kembali": statusFaktur = StatusFakturEnum.KembaliFaktur; break;
-                case "Lunas": statusFaktur = StatusFakturEnum.Lunas; break;
-                case "Pajak": statusFaktur = StatusFakturEnum.Pajak; break;
+                case "Posted": 
+                    statusFaktur = StatusFakturEnum.Posted; 
+                    break;
+                case "Kirim": 
+                    statusFaktur = StatusFakturEnum.Kirim; 
+                    break;
+                case "Kembali": 
+                    statusFaktur = StatusFakturEnum.KembaliFaktur; 
+                    break;
+                case "Lunas": 
+                    statusFaktur = StatusFakturEnum.Lunas; 
+                    break;
+                case "Pajak": 
+                    statusFaktur = StatusFakturEnum.Pajak; 
+                    break;
             }
 
             var isChecked = (bool)grid.CurrentCell.Value;
@@ -323,8 +341,45 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                 FakturProses(faktur, statusFaktur, user);
             else
                 FakturRollback(faktur, statusFaktur, user);
+        }
 
-            //RefreshGrid();
+        private bool IsReturnAfterCekRulePostedKembali(int rowIndex, int columnIndex)
+        {
+            var colPost = FakturGrid.Columns["Posted"].Index;
+            var colKembali = FakturGrid.Columns["Kembali"].Index;
+            var isPosted = _listItem[rowIndex].Posted;
+            var isKembali = _listItem[rowIndex].Kembali;
+
+            //  Un-Post: Tidak boleh jika sudah Kembali
+            if (columnIndex == colPost)
+                if (isKembali && isPosted)
+                {
+                    MessageBox.Show("Faktur sudah kembali, tidak boleh batalt");
+                    FakturGrid.CancelEdit();
+                    return true; 
+                }
+            if (columnIndex == colPost)
+                if (isPosted)
+                {
+                    if (MessageBox.Show("Batal Faktur?", "Control", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
+                    {
+                        FakturGrid.CancelEdit();
+                        return true;
+                    }
+                }
+
+            //  Un-Kembali
+            if (columnIndex == colKembali)
+                if (isKembali)
+                {
+                    if (MessageBox.Show("Batal Kembali?", "Control", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
+                    {
+                        FakturGrid.CancelEdit();
+                        return true;
+                    }
+                }
+
+            return false;
         }
 
         private void FakturProses(IFakturKey fakturKey, StatusFakturEnum statusFaktur, IUserKey userKey)
@@ -351,11 +406,8 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                         .KembaliFaktur(userKey)
                         .Build();
                     _writer.Save(fakturControl);
-                    //_createPiutangWorker.Execute(fakturControl);
                     break;
                 case StatusFakturEnum.Lunas:
-                    //var changeToCashReq = new ChangeToCashFakturRequest(fakturKey.FakturId, userKey.UserId);
-                    //_changeToCashFakturWorker.Execute(changeToCashReq);
                     break;
                 case StatusFakturEnum.Pajak:
                     break;

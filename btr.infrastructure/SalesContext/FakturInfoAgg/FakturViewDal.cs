@@ -31,7 +31,8 @@ namespace btr.infrastructure.SalesContext.FakturInfoAgg
                     ISNULL(cc.Address1, '') AS Address,
                     ISNULL(dd.WilayahName , '') AS WilayahName,
                     ISNULL(ee.SalesPersonName, '') SalesPersonName,
-                    ISNULL(ff.WarehouseName, '') AS WarehouseName
+                    ISNULL(ff.WarehouseName, '') AS WarehouseName,
+                    ISNULL(gg.StatusFaktur,0) AS StatusFaktur
                 FROM
                     BTR_Faktur aa
                     LEFT JOIN BTR_User bb ON aa.UserId = bb.UserId
@@ -39,6 +40,7 @@ namespace btr.infrastructure.SalesContext.FakturInfoAgg
                     LEFT JOIN BTR_Wilayah dd ON cc.WilayahId = dd.WilayahId 
                     LEFT JOIN BTR_SalesPerson ee ON aa.SalesPersonId = ee.SalesPersonId 
                     LEFT JOIN BTR_Warehouse ff ON aa.WarehouseId = ff.WarehouseId
+                    LEFT JOIN BTR_FakturControlStatus gg ON aa.FakturId = gg.FakturId AND StatusFaktur = 2
                 WHERE
                     aa.FakturDate BETWEEN @Tgl1 AND @Tgl2  
                     AND aa.VoidDate = '3000-01-01'";
