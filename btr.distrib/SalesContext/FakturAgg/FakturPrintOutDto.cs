@@ -12,7 +12,7 @@ namespace btr.distrib.SalesContext.FakturAgg
 {
     public class FakturPrintOutDto
     {
-        public FakturPrintOutDto(FakturModel faktur, CustomerModel customer, UserModel user)
+        public FakturPrintOutDto(FakturModel faktur, CustomerModel customer, UserModel user, bool isKlaim)
         {
             FakturCode = $"No.Faktur: {faktur.FakturCode}";
             FakturDate = $"Tgl: {faktur.FakturDate:dd MMMM yyyy}";
@@ -31,26 +31,47 @@ namespace btr.distrib.SalesContext.FakturAgg
             Terbilang = textInfo.ToTitleCase(Terbilang);
             Note = faktur.Note.Trim().Length == 0 ? "" : $"Note: {faktur.Note}";
 
-            SubTotal = $"{faktur.Total:N0}";
-            Discount = $"{faktur.Discount:N0}";
-            Total = $"{faktur.Total - faktur.Discount:N0}";
-            Dpp = $"{faktur.ListItem.Sum(x => x.DppRp):N0}";
-            var dppProsen = faktur.ListItem.FirstOrDefault().DppProsen;
+            decimal dppProsen;
+            if (!isKlaim)
+            {
+                SubTotal = $"{faktur.Total:N0}";
+                Discount = $"{faktur.Discount:N0}";
+                Total = $"{faktur.Total - faktur.Discount:N0}";
+                Dpp = $"{faktur.ListItem.Sum(x => x.DppRp):N0}";
+                dppProsen = faktur.ListItem.FirstOrDefault().DppProsen;
+                Ppn = $"{faktur.ListItem.Sum(x => x.PpnRp):N0}";
+                PpnProsen = $"PPN {DecFormatter.ToStr(faktur.ListItem.FirstOrDefault().PpnProsen)}% :";
+                GrandTotal = $"{faktur.GrandTotal:N0}";
+            }
+            else
+            {
+                SubTotal = $"{faktur.ListItemKlaim.Sum(x => x.SubTotal):N0}";
+                Discount = $"{faktur.ListItemKlaim.Sum(x => x.DiscRp):N0}";
+                Total = $"{faktur.ListItemKlaim.Sum(x => x.Total):N0}";
+                Dpp = $"{faktur.ListItemKlaim.Sum(x => x.DppRp):N0}";
+                dppProsen = faktur.ListItemKlaim.FirstOrDefault().DppProsen;
+                Ppn = $"{faktur.ListItemKlaim.Sum(x => x.PpnRp):N0}";
+                PpnProsen = $"PPN {DecFormatter.ToStr(faktur.ListItemKlaim.FirstOrDefault().PpnProsen)}% :";
+                GrandTotal = $"{faktur.GrandTotalKlaim:N0}";
+            }
+
 
             if (dppProsen == 100M)
                 DppProsen = $"DPP :";
             else 
                 DppProsen = "DPP 11/12 :";
 
-            Ppn = $"{faktur.ListItem.Sum(x => x.PpnRp):N0}";
-            PpnProsen = $"PPN {DecFormatter.ToStr(faktur.ListItem.FirstOrDefault().PpnProsen)}% :";
-
-            GrandTotal = $"{faktur.GrandTotal:N0}";
             UserName = user.UserName;
 
             ListItem = new List<FakturPrintOutItemDto>();
             var noUrut = 1;
-            foreach(var item in faktur.ListItem.OrderBy(x => x.NoUrut))
+            List<FakturItemModel>  listItem;
+            if (isKlaim)
+                listItem = faktur.ListItemKlaim;
+            else
+                listItem = faktur.ListItem;
+
+            foreach(var item in listItem.OrderBy(x => x.NoUrut))
             {
                 if (item.QtyBesar != 0 || item.QtyKecil != 0)
                 {

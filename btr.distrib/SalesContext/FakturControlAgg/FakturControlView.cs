@@ -24,6 +24,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
         public bool Pajak { get; private set; }
         public string NoFakturPajak { get; private set; }
         public string UserId { get; private set; }
+        public bool IsHasKlaim { get; private set; }
 
         public void SetLunas(bool val) => Lunas = val;
         public void SetPajak(bool val) => Pajak = val;

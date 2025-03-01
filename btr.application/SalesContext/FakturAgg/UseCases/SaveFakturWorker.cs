@@ -34,6 +34,8 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
         public decimal Cash { get; set; }
         public string Note { get; set; }
         public IEnumerable<SaveFakturRequestItem> ListBrg { get; set; }
+        public IEnumerable<SaveFakturRequestItem> ListBrgKlaim { get; set; }
+
     }
 
     public class SaveFakturRequestItem : IBrgKey
@@ -143,6 +145,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
             {
                 result = _fakturBuilder.Load(req).Build();
                 result.ListItem.Clear();
+                result.ListItemKlaim.Clear();
             }
 
             result = _fakturBuilder
@@ -168,6 +171,16 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
                     .AddItem(item, item.StokHarga, item.QtyString, item.HrgString, item.DiscountString, item.DppProsen, item.PpnProsen)
                     .Build();
             }
+
+            foreach (var item in req.ListBrgKlaim)
+            {
+                result = _fakturBuilder
+                    .Attach(result)
+                    .AddItemKlaim(item, item.StokHarga, item.QtyString, item.HrgString, item.DiscountString, item.DppProsen, item.PpnProsen)
+                    .Build();
+            }
+
+
             result = _fakturBuilder
                 .Attach(result)
                 .CalcTotal()

@@ -18,6 +18,9 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         private readonly IFakturItemDal _fakturItemDal;
         private readonly IFakturCodeOpenDal _fakturCodeOpenDal;
         private readonly IFakturDiscountDal _fakturDiscountDal;
+        private readonly IFakturItemKlaimDal _fakturItemKlaimDal;
+        private readonly IFakturDiscountKlaimDal _fakturDiscountKlaimDal;
+
         private readonly INunaCounterBL _counter;
         private readonly IValidator<FakturModel> _validator;
         private readonly IUserBuilder _userBuilder;
@@ -28,7 +31,9 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             INunaCounterBL counter,
             IValidator<FakturModel> validator,
             IUserBuilder userBuilder,
-            IFakturCodeOpenDal fakturCodeOpenDal)
+            IFakturCodeOpenDal fakturCodeOpenDal,
+            IFakturItemKlaimDal fakturItemKlaimDal,
+            IFakturDiscountKlaimDal fakturDiscountKlaimDal)
         {
             _fakturDal = fakturDal;
             _fakturItemDal = fakturItemDal;
@@ -37,6 +42,8 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             _validator = validator;
             _userBuilder = userBuilder;
             _fakturCodeOpenDal = fakturCodeOpenDal;
+            _fakturItemKlaimDal = fakturItemKlaimDal;
+            _fakturDiscountKlaimDal = fakturDiscountKlaimDal;
         }
 
         public FakturModel Save(FakturModel model)
@@ -65,6 +72,19 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             }
             var allDiscount = model.ListItem.SelectMany(x => x.ListDiscount, (hdr, dtl) => dtl);
 
+            foreach (var item in model.ListItemKlaim)
+            {
+                item.FakturId = model.FakturId;
+                item.FakturItemId = $"{model.FakturId}-{item.NoUrut:D2}";
+                foreach (var item2 in item.ListDiscount)
+                {
+                    item2.FakturId = model.FakturId;
+                    item2.FakturItemId = item.FakturItemId;
+                    item2.FakturDiscountId = $"{item.FakturItemId}-{item2.NoUrut:D1}";
+                }
+            }
+            var allDiscountKlaim = model.ListItemKlaim.SelectMany(x => x.ListDiscount, (hdr, dtl) => dtl);
+
             //  WRITE
             using (var trans = TransHelper.NewScope())
             {
@@ -76,9 +96,13 @@ namespace btr.application.SalesContext.FakturAgg.Workers
 
                 _fakturItemDal.Delete(model);
                 _fakturDiscountDal.Delete(model);
+                _fakturItemKlaimDal.Delete(model);
+                _fakturDiscountKlaimDal.Delete(model);
 
                 _fakturItemDal.Insert(model.ListItem);
                 _fakturDiscountDal.Insert(allDiscount);
+                _fakturItemKlaimDal.Insert(model.ListItemKlaim);
+                _fakturDiscountKlaimDal.Insert(allDiscountKlaim);
 
                 _fakturCodeOpenDal.Delete(model.FakturCode);
                 trans.Complete();

@@ -127,5 +127,7 @@
     <Build Include="Tables\Finance\BTR_FpKeluaranFaktur.sql" />
     <Build Include="Tables\Finance\BTR_FpKeluaranBrg.sql" />
     <Build Include="Tables\InventoryContext\BTR_MutasiDisc.sql" />
+    <Build Include="Tables\SalesContext\BTR_FakturItemKlaim.sql" />
+    <Build Include="Tables\SalesContext\BTR_FakturDiscountKlaim.sql" />
   </ItemGroup>
 </Project>

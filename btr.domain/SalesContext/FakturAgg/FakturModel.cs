@@ -54,7 +54,13 @@ namespace btr.domain.SalesContext.FakturAgg
         public decimal Dpp { get; set; }
         public decimal Tax { get; set; }
         public decimal GrandTotal { get; set; }
-    
+
+        public decimal TotalKlaim { get; set; }
+        public decimal DiscountKlaim { get; set; }
+        public decimal DppKlaim { get; set; }
+        public decimal TaxKlaim { get; set; }
+        public decimal GrandTotalKlaim { get; set; }
+
         public decimal UangMuka { get; set; }
         public decimal KurangBayar { get; set; }
         public string NoFakturPajak { get; set; }
@@ -67,7 +73,9 @@ namespace btr.domain.SalesContext.FakturAgg
         public string UserIdVoid { get; set; }
         public bool IsVoid { get => VoidDate != new DateTime(3000,1,1); }
         public string Note { get; set; }
+        public bool IsHasKlaim { get; set; }
     
         public List<FakturItemModel> ListItem { get; set; }
+        public List<FakturItemModel> ListItemKlaim { get; set; }
     }
 }

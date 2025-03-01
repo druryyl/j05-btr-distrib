@@ -17,6 +17,7 @@ namespace btr.domain.SalesContext.FakturControlAgg
         public decimal GrandTotal { get; set; }
         public decimal Bayar { get; set; }
         public decimal Sisa { get; set; }
+        public bool IsHasKlaim { get; set; }
         public string NoFakturPajak { get; set; }
         public string UserId { get; set; }
         
