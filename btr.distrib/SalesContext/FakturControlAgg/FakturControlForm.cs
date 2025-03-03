@@ -26,6 +26,7 @@ using btr.application.SupportContext.ParamSistemAgg;
 using btr.infrastructure.SalesContext.FakturAgg;
 using btr.application.SupportContext.UserAgg;
 using System.Drawing;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace btr.distrib.SalesContext.FakturControlAgg
 {
@@ -163,12 +164,26 @@ namespace btr.distrib.SalesContext.FakturControlAgg
         {
             _gridContextMenu = new ContextMenu();
             _gridContextMenu.MenuItems.Add(new MenuItem("Edit Faktur", EditFaktur_OnClick));
+            _gridContextMenu.MenuItems.Add(new MenuItem("Create Klaim", CreateKlaim_OnClick));
             _gridContextMenu.MenuItems.Add(new MenuItem("-", Separator_OnClick));
             _gridContextMenu.MenuItems.Add(new MenuItem("Print All", PrintAll_OnClick));
             _gridContextMenu.MenuItems.Add(new MenuItem("Print Kembali", PrintKembali_OnClick));
             _gridContextMenu.MenuItems.Add(new MenuItem("Print Belum Kembali", PrintBelumKembali_OnClick));
 
             FakturGrid.ContextMenu = _gridContextMenu;
+        }
+
+        private void CreateKlaim_OnClick(object sender, EventArgs e)
+        {
+            var grid = FakturGrid;
+            if (grid.CurrentRow is null)
+                return;
+            var fakturKey = new FakturModel(grid.CurrentRow.Cells["FakturId"].Value.ToString());
+            var mainMenu = (MainForm)this.Parent.Parent;
+            mainMenu.ST1FakturButton_Click(null, null);
+            var fakturForm = Application.OpenForms.OfType<FakturForm>().FirstOrDefault();
+            fakturForm?.ShowFaktur(fakturKey.FakturId);
+            fakturForm?.ShowKlaim();
         }
 
         private void PrintBelumKembali_OnClick(object sender, EventArgs e)
@@ -299,6 +314,18 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                 return;
 
             var fakturKey = new FakturModel(grid.CurrentRow.Cells["FakturId"].Value.ToString());
+            var fakturControl = _fakturControlStatusDal.ListData(fakturKey).ToList();
+            if (fakturControl.FirstOrDefault(x => x.StatusFaktur == StatusFakturEnum.KembaliFaktur) != null)
+            {
+                MessageBox.Show(@"Faktur sudah kembali, tidak bisa di edit");
+                return;
+            }
+            if (fakturControl.FirstOrDefault(x => x.StatusFaktur == StatusFakturEnum.Lunas) != null)
+            {
+                MessageBox.Show(@"Faktur sudah lunas, tidak bisa di edit");
+                return;
+            }
+
             var mainMenu = (MainForm)this.Parent.Parent;
             mainMenu.ST1FakturButton_Click(null, null);
             var fakturForm = Application.OpenForms.OfType<FakturForm>().FirstOrDefault();

@@ -932,6 +932,13 @@ namespace btr.distrib.SalesContext.FakturAgg
             rdlcViewerForm.SetReportData(printOutTemplate, listDataset);
             rdlcViewerForm.ShowDialog();
         }
+
+        internal void ShowKlaim()
+        {
+            FakturJualRadio.Checked = false;
+            FakturKlaimRadio.Checked = false;
+            RefreshItemView();
+        }
         #endregion
     }
 }
