@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using btr.application.SalesContext.FakturPerSupplierRpt;
@@ -62,12 +63,13 @@ namespace btr.infrastructure.SalesContext.FakturPerSupplierRpt
                     LEFT JOIN BTR_Supplier gg ON cc.SupplierId = gg.SupplierId
                 WHERE
                     bb.FakturDate BETWEEN @Tgl1 AND @Tgl2  
-                    AND bb.VoidDate = '3000-01-01'";
+                    AND bb.VoidDate = @TglVoid ";
 
             var dp = new DynamicParameters();
             dp.AddParam("@Tgl1", periode.Tgl1, SqlDbType.DateTime);
             dp.AddParam("@Tgl2", periode.Tgl2, SqlDbType.DateTime);
-            
+            dp.AddParam("@TglVoid", new DateTime(3000,1,1), SqlDbType.DateTime);
+
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
                 return conn.Read<FakturPerSupplierView>(sql, dp);
