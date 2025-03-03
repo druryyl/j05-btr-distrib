@@ -88,6 +88,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.TermOfPaymentCombo = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.FakturJualRadio = new System.Windows.Forms.RadioButton();
+            this.FakturKlaimRadio = new System.Windows.Forms.RadioButton();
+            this.CopyItemJualButton = new System.Windows.Forms.Button();
             this.PanelAtas4.SuspendLayout();
             this.VoidPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturItemGrid)).BeginInit();
@@ -118,7 +121,7 @@
             this.PanelAtas4.Controls.Add(this.NoteLabel);
             this.PanelAtas4.Location = new System.Drawing.Point(830, 9);
             this.PanelAtas4.Name = "PanelAtas4";
-            this.PanelAtas4.Size = new System.Drawing.Size(320, 192);
+            this.PanelAtas4.Size = new System.Drawing.Size(320, 164);
             this.PanelAtas4.TabIndex = 39;
             // 
             // VoidPanel
@@ -127,7 +130,7 @@
             this.VoidPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.VoidPanel.Location = new System.Drawing.Point(0, 0);
             this.VoidPanel.Name = "VoidPanel";
-            this.VoidPanel.Size = new System.Drawing.Size(318, 190);
+            this.VoidPanel.Size = new System.Drawing.Size(318, 162);
             this.VoidPanel.TabIndex = 46;
             this.VoidPanel.Visible = false;
             // 
@@ -138,7 +141,7 @@
             this.CancelLabel.ForeColor = System.Drawing.Color.Red;
             this.CancelLabel.Location = new System.Drawing.Point(0, 0);
             this.CancelLabel.Name = "CancelLabel";
-            this.CancelLabel.Size = new System.Drawing.Size(318, 190);
+            this.CancelLabel.Size = new System.Drawing.Size(318, 162);
             this.CancelLabel.TabIndex = 23;
             this.CancelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -152,7 +155,7 @@
             this.NoteTextBox.Multiline = true;
             this.NoteTextBox.Name = "NoteTextBox";
             this.NoteTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.NoteTextBox.Size = new System.Drawing.Size(297, 150);
+            this.NoteTextBox.Size = new System.Drawing.Size(297, 122);
             this.NoteTextBox.TabIndex = 17;
             // 
             // NoteLabel
@@ -800,12 +803,49 @@
             this.label4.TabIndex = 19;
             this.label4.Text = "Term Of Payment";
             // 
+            // FakturJualRadio
+            // 
+            this.FakturJualRadio.AutoSize = true;
+            this.FakturJualRadio.Checked = true;
+            this.FakturJualRadio.Location = new System.Drawing.Point(831, 182);
+            this.FakturJualRadio.Name = "FakturJualRadio";
+            this.FakturJualRadio.Size = new System.Drawing.Size(81, 17);
+            this.FakturJualRadio.TabIndex = 46;
+            this.FakturJualRadio.TabStop = true;
+            this.FakturJualRadio.Text = "Faktur Jual";
+            this.FakturJualRadio.UseVisualStyleBackColor = true;
+            // 
+            // FakturKlaimRadio
+            // 
+            this.FakturKlaimRadio.AutoSize = true;
+            this.FakturKlaimRadio.Location = new System.Drawing.Point(918, 182);
+            this.FakturKlaimRadio.Name = "FakturKlaimRadio";
+            this.FakturKlaimRadio.Size = new System.Drawing.Size(88, 17);
+            this.FakturKlaimRadio.TabIndex = 47;
+            this.FakturKlaimRadio.Text = "Faktur Klaim";
+            this.FakturKlaimRadio.UseVisualStyleBackColor = true;
+            // 
+            // CopyItemJualButton
+            // 
+            this.CopyItemJualButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.CopyItemJualButton.BackColor = System.Drawing.Color.Gainsboro;
+            this.CopyItemJualButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CopyItemJualButton.Location = new System.Drawing.Point(1042, 179);
+            this.CopyItemJualButton.Name = "CopyItemJualButton";
+            this.CopyItemJualButton.Size = new System.Drawing.Size(107, 23);
+            this.CopyItemJualButton.TabIndex = 48;
+            this.CopyItemJualButton.Text = "Copy Item Jual";
+            this.CopyItemJualButton.UseVisualStyleBackColor = false;
+            // 
             // FakturForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Khaki;
             this.ClientSize = new System.Drawing.Size(1156, 523);
+            this.Controls.Add(this.CopyItemJualButton);
+            this.Controls.Add(this.FakturKlaimRadio);
+            this.Controls.Add(this.FakturJualRadio);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.PanelAtas4);
             this.Controls.Add(this.FakturItemGrid);
@@ -842,6 +882,7 @@
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -906,5 +947,8 @@
         private System.Windows.Forms.NumericUpDown DppText;
         private System.Windows.Forms.TextBox FakturCodeText;
         private System.Windows.Forms.Button FakturCodeButton;
+        private System.Windows.Forms.RadioButton FakturJualRadio;
+        private System.Windows.Forms.RadioButton FakturKlaimRadio;
+        private System.Windows.Forms.Button CopyItemJualButton;
     }
 }

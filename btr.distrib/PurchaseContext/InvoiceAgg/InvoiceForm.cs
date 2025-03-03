@@ -128,6 +128,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             InvoiceItemGrid.CellValidating += InvoiceItemGrid_CellValidating; 
             InvoiceItemGrid.KeyDown += InvoiceItemGrid_KeyDown;
             InvoiceItemGrid.EditingControlShowing += InvoiceItemGrid_EditingControlShowing;
+            InvoiceItemGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
 
             SaveButton.Click += SaveButton_Click;
             DeleteButton.Click += DeleteButton_Click;

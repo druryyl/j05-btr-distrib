@@ -25,6 +25,8 @@ using Microsoft.Reporting.WinForms;
 using btr.application.SupportContext.ParamSistemAgg;
 using btr.infrastructure.SalesContext.FakturAgg;
 using btr.application.SupportContext.UserAgg;
+using System.Drawing;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace btr.distrib.SalesContext.FakturControlAgg
 {
@@ -85,19 +87,26 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             SearchText.KeyDown += SearchText_KeyDown;
             SearchButton.Click += SearchButton_Click;
             ClearButton.Click += ClearButton_Click;
-            PrintFakturButton.Click += PrintFakturButton_Click;
+            PrintFakturJualButton.Click += PrintFakturButton_Click;
+            PrintFakturKlaimButton.Click += PrintFakturKlaimButton_Click;
 
             FakturGrid.CellContentClick += FakturGrid_CellContentClick;
             FakturGrid.MouseClick += FakturGrid_MouseClick;
         }
 
+        private void PrintFakturKlaimButton_Click(object sender, EventArgs e)
+        {
+            var fakturId = FakturGrid.CurrentRow.Cells["FakturId"].Value.ToString();
+            PrintFaktur(fakturId, true);
+        }
+
         private void PrintFakturButton_Click(object sender, EventArgs e)
         {
             var fakturId = FakturGrid.CurrentRow.Cells["FakturId"].Value.ToString();
-            PrintFaktur(fakturId);
+            PrintFaktur(fakturId, false);
         }
 
-        private void PrintFaktur(string fakturId)
+        private void PrintFaktur(string fakturId, bool isKlaim)
         {
             var fakturKey = new FakturModel(fakturId);
             var faktur = _fakturBuilder.Load(fakturKey).Build();
@@ -107,7 +116,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                 UserId = faktur.UserId,
                 UserName = faktur.UserId
             };
-            var fakturPrintout = new FakturPrintOutDto(faktur, customer, user);
+            var fakturPrintout = new FakturPrintOutDto(faktur, customer, user, isKlaim);
 
             var fakturJualDataset = new ReportDataSource("FakturJualDataset", new List<FakturPrintOutDto> { fakturPrintout });
             var fakturJualItemDataset = new ReportDataSource("FakturJualItemDataset", fakturPrintout.ListItem);
@@ -155,12 +164,26 @@ namespace btr.distrib.SalesContext.FakturControlAgg
         {
             _gridContextMenu = new ContextMenu();
             _gridContextMenu.MenuItems.Add(new MenuItem("Edit Faktur", EditFaktur_OnClick));
+            _gridContextMenu.MenuItems.Add(new MenuItem("Create Klaim", CreateKlaim_OnClick));
             _gridContextMenu.MenuItems.Add(new MenuItem("-", Separator_OnClick));
             _gridContextMenu.MenuItems.Add(new MenuItem("Print All", PrintAll_OnClick));
             _gridContextMenu.MenuItems.Add(new MenuItem("Print Kembali", PrintKembali_OnClick));
             _gridContextMenu.MenuItems.Add(new MenuItem("Print Belum Kembali", PrintBelumKembali_OnClick));
 
             FakturGrid.ContextMenu = _gridContextMenu;
+        }
+
+        private void CreateKlaim_OnClick(object sender, EventArgs e)
+        {
+            var grid = FakturGrid;
+            if (grid.CurrentRow is null)
+                return;
+            var fakturKey = new FakturModel(grid.CurrentRow.Cells["FakturId"].Value.ToString());
+            var mainMenu = (MainForm)this.Parent.Parent;
+            mainMenu.ST1FakturButton_Click(null, null);
+            var fakturForm = Application.OpenForms.OfType<FakturForm>().FirstOrDefault();
+            fakturForm?.ShowFaktur(fakturKey.FakturId);
+            fakturForm?.ShowKlaim();
         }
 
         private void PrintBelumKembali_OnClick(object sender, EventArgs e)
@@ -291,6 +314,18 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                 return;
 
             var fakturKey = new FakturModel(grid.CurrentRow.Cells["FakturId"].Value.ToString());
+            var fakturControl = _fakturControlStatusDal.ListData(fakturKey).ToList();
+            if (fakturControl.FirstOrDefault(x => x.StatusFaktur == StatusFakturEnum.KembaliFaktur) != null)
+            {
+                MessageBox.Show(@"Faktur sudah kembali, tidak bisa di edit");
+                return;
+            }
+            if (fakturControl.FirstOrDefault(x => x.StatusFaktur == StatusFakturEnum.Lunas) != null)
+            {
+                MessageBox.Show(@"Faktur sudah lunas, tidak bisa di edit");
+                return;
+            }
+
             var mainMenu = (MainForm)this.Parent.Parent;
             mainMenu.ST1FakturButton_Click(null, null);
             var fakturForm = Application.OpenForms.OfType<FakturForm>().FirstOrDefault();
@@ -471,8 +506,10 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             };
             FakturGrid.DataSource = binding;
             FakturGrid.Refresh();
-            FakturGrid.Columns.SetDefaultCellStyle(System.Drawing.Color.White);
+            FakturGrid.Columns.SetDefaultCellStyle(Color.White);
             FakturGrid.Columns.GetCol("FakturId").Visible = false;
+            FakturGrid.Columns.GetCol("IsHasKlaim").Visible = true;
+            FakturGrid.Columns.GetCol("NoFakturPajak").Visible = false;
             FakturGrid.Columns.GetCol("FakturDate").DefaultCellStyle.Format = "ddd dd MMM yyyy";
 
             FakturGrid.Columns.GetCol("FakturId").Width = 80;
@@ -494,23 +531,24 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             FakturGrid.Columns.GetCol("Kembali").Width = 50;
             FakturGrid.Columns.GetCol("Lunas").Width = 50;
             FakturGrid.Columns.GetCol("Pajak").Width = 50;
-            FakturGrid.Columns.GetCol("NoFakturPajak").Width = 80;
             FakturGrid.Columns.GetCol("UserId").Width = 80;
+            FakturGrid.Columns.GetCol("IsHasKlaim").Width = 50;
+
             FakturGrid.RowHeadersWidth = 55;
 
-            FakturGrid.Columns.GetCol("GrandTotal").DefaultCellStyle.BackColor = System.Drawing.Color.PaleTurquoise;
-            FakturGrid.Columns.GetCol("Bayar").DefaultCellStyle.BackColor = System.Drawing.Color.Pink;
-            FakturGrid.Columns.GetCol("PotBiayaLain").DefaultCellStyle.BackColor = System.Drawing.Color.Pink;
-            FakturGrid.Columns.GetCol("Sisa").DefaultCellStyle.BackColor = System.Drawing.Color.PaleTurquoise;
+            FakturGrid.Columns.GetCol("GrandTotal").DefaultCellStyle.BackColor = Color.PaleTurquoise;
+            FakturGrid.Columns.GetCol("Bayar").DefaultCellStyle.BackColor = Color.Pink;
+            FakturGrid.Columns.GetCol("PotBiayaLain").DefaultCellStyle.BackColor = Color.Pink;
+            FakturGrid.Columns.GetCol("Sisa").DefaultCellStyle.BackColor = Color.PaleTurquoise;
 
             FakturGrid.Columns.GetCol("FakturCode").HeaderText = @"Code";
             FakturGrid.Columns.GetCol("FakturDate").HeaderText = @"Tgl";
             FakturGrid.Columns.GetCol("CustomerName").HeaderText = @"Customer";
             FakturGrid.Columns.GetCol("Npwp").HeaderText = @"NPWP";
             FakturGrid.Columns.GetCol("SalesPersonName").HeaderText = @"Sales";
-            FakturGrid.Columns.GetCol("NoFakturPajak").HeaderText = @"Faktur Pajak";
             FakturGrid.Columns.GetCol("UserId").HeaderText = @"Admin";
             FakturGrid.Columns.GetCol("PotBiayaLain").HeaderText = @"Pot/Biaya";
+            FakturGrid.Columns.GetCol("IsHasKlaim").HeaderText = "Klaim";
 
             // conditional formatting row color; if lunas, then green
             FakturGrid.CellFormatting += (s, e) =>
@@ -520,12 +558,15 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                 var row = FakturGrid.Rows[e.RowIndex];
                 var item = (FakturControlView)row.DataBoundItem;
                 if (item.Kembali)
-                    row.DefaultCellStyle.ForeColor = System.Drawing.Color.DarkRed;
+                    row.DefaultCellStyle.ForeColor = Color.DarkRed;
                 else
-                    row.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
+                    row.DefaultCellStyle.ForeColor = Color.Black;
                 
                 if (item.Lunas)
-                    row.DefaultCellStyle.BackColor = System.Drawing.Color.LemonChiffon;
+                    row.DefaultCellStyle.BackColor = Color.LemonChiffon;
+
+                if (item.IsHasKlaim)
+                    row.DefaultCellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold);
             };
 
         }

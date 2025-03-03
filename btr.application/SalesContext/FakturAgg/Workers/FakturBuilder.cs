@@ -38,6 +38,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         IFakturBuilder DueDate(DateTime dueDate);
 
         IFakturBuilder AddItem(IBrgKey brgKey, string stokHrgStr, string qtyString, string hrgInputStr, string discountString, decimal dppProsen, decimal ppnProsen);
+        IFakturBuilder AddItemKlaim(IBrgKey brgKey, string stokHrgStr, string qtyString, string hrgInputStr, string discountString, decimal dppProsen, decimal ppnProsen);
         IFakturBuilder ClearItem();
 
         IFakturBuilder FakturPajak(string noSeriFakturPajak);
@@ -58,6 +59,8 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         private readonly IFakturItemDal _fakturItemDal;
         private readonly IFakturDiscountDal _fakturDiscountDal;
         private readonly IFakturCodeOpenDal _fakturCodeOpenDal;
+        private readonly IFakturItemKlaimDal _fakturItemKlaimDal;
+        private readonly IFakturDiscountKlaimDal _fakturDiscountKlaimDal;
 
         private readonly ICustomerDal _customerDal;
         private readonly ISalesPersonDal _salesPersonDal;
@@ -77,7 +80,9 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             ITglJamDal dateTime,
             ICreateFakturItemWorker createFakturItemWorker,
             IDriverDal driverDal,
-            IFakturCodeOpenDal fakturCodeOpenDal)
+            IFakturCodeOpenDal fakturCodeOpenDal,
+            IFakturItemKlaimDal fakturItemKlaimDal,
+            IFakturDiscountKlaimDal fakturDiscountKlaimDal)
         {
             _fakturDal = fakturDal;
             _fakturItemDal = fakturItemDal;
@@ -91,11 +96,14 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             _createFakturItemWorker = createFakturItemWorker;
             _driverDal = driverDal;
             _fakturCodeOpenDal = fakturCodeOpenDal;
+            _fakturItemKlaimDal = fakturItemKlaimDal;
+            _fakturDiscountKlaimDal = fakturDiscountKlaimDal;
         }
 
         public FakturModel Build()
         {
             _aggRoot.RemoveNull();
+            _aggRoot.IsHasKlaim = _aggRoot.ListItemKlaim.Count > 0;
             return _aggRoot;
         }
 
@@ -110,8 +118,8 @@ namespace btr.application.SalesContext.FakturAgg.Workers
                 VoidDate = new DateTime(3000, 1, 1),
                 UserIdVoid = userKey.UserId,
                 ListItem = new List<FakturItemModel>(),
-
-
+                ListItemKlaim = new List<FakturItemModel>(),
+                IsHasKlaim = false
             };
             return this;
         }
@@ -120,18 +128,32 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         {
             _aggRoot = _fakturDal.GetData(fakturKey)
                        ?? throw new KeyNotFoundException($"Faktur not found ({fakturKey.FakturId})");
+            
+            //  item jual
             var listItem = _fakturItemDal.ListData(fakturKey)?.ToList()
                                 ?? new List<FakturItemModel>();
             _aggRoot.ListItem = listItem.OrderBy(x => x.NoUrut).ToList();
             var allDiscount = _fakturDiscountDal.ListData(fakturKey)?.ToList()
                               ?? new List<FakturDiscountModel>();
-
             foreach (var item in _aggRoot.ListItem)
             {
                 var brg = _brgBuilder.Load(item).Build();
                 item.ListDiscount = allDiscount.Where(x => x.FakturItemId == item.FakturItemId).ToList();
             }
 
+            //  item klaim
+            var listItemKlaim = _fakturItemKlaimDal.ListData(fakturKey)?.ToList()
+                ?? new List<FakturItemModel>();
+            var listDiscountKlaim = _fakturDiscountKlaimDal.ListData(fakturKey)?.ToList()
+                ?? new List<FakturDiscountModel>();
+
+            _aggRoot.ListItemKlaim = listItemKlaim.OrderBy(x => x.NoUrut).ToList();
+            foreach (var item in _aggRoot.ListItemKlaim)
+            {
+                var brg = _brgBuilder.Load(item).Build();
+                item.ListDiscount = listDiscountKlaim.Where(x => x.FakturItemId == item.FakturItemId).ToList();
+            }
+            
             return this;
         }
 
@@ -241,6 +263,23 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             return this;
         }
 
+        public IFakturBuilder AddItemKlaim(IBrgKey brgKey, string stokHrgStr, string qtyInputStr, string hrgInputStr,
+            string discInputStr, decimal dppProsen, decimal ppnProsen)
+        {
+            var item = _createFakturItemWorker.Execute(
+                new CreateFakturItemRequest(brgKey.BrgId, qtyInputStr, discInputStr, hrgInputStr,
+                dppProsen, ppnProsen, _aggRoot.HargaTypeId, _aggRoot.WarehouseId));
+
+            var noUrutMax = _aggRoot.ListItemKlaim
+                .DefaultIfEmpty(new FakturItemModel() { NoUrut = 0 })
+                .Max(x => x.NoUrut);
+            item.NoUrut = noUrutMax + 1;
+
+            _aggRoot.ListItemKlaim.Add(item);
+            return this;
+        }
+
+
         #endregion
 
         #region STATE
@@ -282,6 +321,12 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             _aggRoot.Tax = _aggRoot.ListItem.Sum(x => x.PpnRp);
             _aggRoot.GrandTotal = _aggRoot.ListItem.Sum(x => x.Total);
             _aggRoot.KurangBayar = _aggRoot.GrandTotal - _aggRoot.UangMuka;
+
+            _aggRoot.TotalKlaim = _aggRoot.ListItemKlaim.Sum(x => x.SubTotal);
+            _aggRoot.DiscountKlaim = _aggRoot.ListItemKlaim.Sum(x => x.DiscRp);
+            _aggRoot.TaxKlaim = _aggRoot.ListItemKlaim.Sum(x => x.PpnRp);
+            _aggRoot.GrandTotalKlaim = _aggRoot.ListItemKlaim.Sum(x => x.Total);
+
             return this;
         }
 

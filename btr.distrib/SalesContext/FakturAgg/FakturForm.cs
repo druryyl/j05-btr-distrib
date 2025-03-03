@@ -36,8 +36,10 @@ namespace btr.distrib.SalesContext.FakturAgg
 {
     public partial class FakturForm : Form
     {
-        private bool _isProgramKlaim;
-        private readonly BindingList<FakturItemDto> _listItem = new BindingList<FakturItemDto>();
+        private BindingList<FakturItemDto> _listItem = new BindingList<FakturItemDto>();
+        private readonly BindingList<FakturItemDto> _listItemJual = new BindingList<FakturItemDto>();
+        private readonly BindingList<FakturItemDto> _listItemKlaim = new BindingList<FakturItemDto>();
+        private readonly BindingSource _bindingSource = new BindingSource();
 
         private readonly IBrowser<SalesPersonBrowserView> _salesBrowser;
         private readonly IBrowser<CustomerBrowserView> _customerBrowser;
@@ -46,7 +48,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly IBrowser<Faktur2BrowserView> _fakturBrowser;
         private readonly IBrowser<DriverBrowserView> _driverBrowser;
         private readonly IBrowser<FakturCodeOpenBrowserView> _fakturCodeOpenBrowser;
-        
+
         private readonly ISalesPersonDal _salesPersonDal;
         private readonly ICustomerDal _customerDal;
         private readonly IWarehouseDal _warehouseDal;
@@ -62,9 +64,11 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly IPiutangWriter _piutangWriter;
         private readonly IParamSistemDal _paramSistemDal;
 
+
         private string _tipeHarga = string.Empty;
         private decimal _ppnProsen = 0;
         private decimal _dppProsen = 0;
+
 
         public FakturForm(
             IBrowser<WarehouseBrowserView> warehouseBrowser,
@@ -89,6 +93,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             IBrowser<FakturCodeOpenBrowserView> fakturCodeOpenBrowser,
             IUserDal userDal)
         {
+            InitializeComponent();
             _warehouseBrowser = warehouseBrowser;
             _salesBrowser = salesBrowser;
             _customerBrowser = customerBrowser;
@@ -98,7 +103,6 @@ namespace btr.distrib.SalesContext.FakturAgg
             _salesPersonDal = salesPersonDal;
             _customerDal = customerDal;
             _warehouseDal = warehouseDal;
-            _userDal = userDal;
 
             _brgBuilder = brgBuilder;
 
@@ -113,19 +117,13 @@ namespace btr.distrib.SalesContext.FakturAgg
             _driverDal = driverDal;
             _paramSistemDal = paramSIstemDal;
             _fakturCodeOpenBrowser = fakturCodeOpenBrowser;
+            _userDal = userDal;
+            _bindingSource = new BindingSource();
 
-            _isProgramKlaim = false;
-            InitializeComponent();
-            InitGrid();
             InitParamSistem();
             RegisterEventHandler();
+            InitGrid();
             ClearForm();
-        }
-
-        public void SetAsProgramKlaim()
-        {
-            _isProgramKlaim = true;
-            this.BackColor = Color.Gray;
         }
 
         private void InitParamSistem()
@@ -167,10 +165,54 @@ namespace btr.distrib.SalesContext.FakturAgg
             FakturItemGrid.CellValidated += FakturItemGrid_CellValidated;
             FakturItemGrid.KeyDown += FakturItemGrid_KeyDown;
             FakturItemGrid.EditingControlShowing += FakturItemGrid_EditingControlShowing;
-
+            FakturItemGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
 
             NewButton.Click += NewButton_Click;
             UangMukaText.KeyDown += UangMukaText_KeyDown;
+            CopyItemJualButton.Click += CopyItemJualButton_Click;
+
+            FakturJualRadio.CheckedChanged += JenisFakturRadio_CheckedChanged;
+            FakturKlaimRadio.CheckedChanged += JenisFakturRadio_CheckedChanged;
+        }
+
+        private void CopyItemJualButton_Click(object sender, EventArgs e)
+        {
+            _listItemKlaim.Clear();
+            foreach (var item in _listItemJual)
+            {
+                var newItem = item.Adapt<FakturItemDto>();
+                _listItemKlaim.Add(newItem);
+            }
+            FakturItemGrid.Refresh();
+        }
+
+        private void JenisFakturRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            RefreshItemView();
+        }
+
+        private void RefreshItemView()
+        {
+            if (FakturJualRadio.Checked)
+            {
+                _listItem = _listItemJual;
+                foreach (var item in this.Controls)
+                    if (item is Panel panel)
+                        panel.BackColor = Color.Cornsilk;
+
+            }
+            else
+            {
+                _listItem = _listItemKlaim;
+                foreach (var item in this.Controls)
+                    if (item is Panel panel)
+                        panel.BackColor = Color.Thistle;
+            }
+
+            _bindingSource.DataSource = _listItem;
+            FakturItemGrid.DataSource = _bindingSource;
+            FakturItemGrid.Refresh();
+            CalcTotal();
         }
 
         private void FakturCodeButton_Click(object sender, EventArgs e)
@@ -259,10 +301,16 @@ namespace btr.distrib.SalesContext.FakturAgg
             SisaText.Value = 0;
             _tipeHarga = string.Empty;
 
-            _listItem.Clear();
             var newItem = new FakturItemDto();
             newItem.SetPPnProsen(_ppnProsen);
-            _listItem.Add(newItem);
+
+            _listItemJual.Clear();
+            _listItemJual.Add(newItem);
+            _listItemKlaim.Clear();
+            _listItemKlaim.Add(newItem);
+
+            RefreshItemView();
+
             ShowAsActive();
         }
         #endregion
@@ -335,12 +383,22 @@ namespace btr.distrib.SalesContext.FakturAgg
             SisaText.Value = faktur.KurangBayar;
             LastIdLabel.Text = $@"{faktur.FakturCode}".Trim();
             NoteTextBox.Text = faktur.Note;
-            _listItem.Clear();
+
+            _listItemJual.Clear();
             foreach (var item in faktur.ListItem)
             {
                 var newItem = item.Adapt<FakturItemDto>();
-                _listItem.Add(newItem);
+                _listItemJual.Add(newItem);
             }
+
+            _listItemKlaim.Clear();
+            foreach (var item in faktur.ListItemKlaim)
+            {
+                var newItem = item.Adapt<FakturItemDto>();
+                _listItemKlaim.Add(newItem);
+            }
+
+            RefreshItemView();
 
             if (faktur.IsVoid)
                 ShowAsVoid(faktur);
@@ -354,9 +412,6 @@ namespace btr.distrib.SalesContext.FakturAgg
         private void ShowAsVoid(FakturModel faktur)
         {
             this.BackColor = Color.RosyBrown;
-            foreach (var item in this.Controls)
-                if (item is Panel panel)
-                    panel.BackColor = Color.MistyRose;
 
             CancelLabel.Text = $@"Faktur sudah DIBATALKAN \noleh {faktur.UserIdVoid} \npada {faktur.VoidDate:ddd, dd MMM yyyy}";
             VoidPanel.Visible = true;
@@ -366,9 +421,6 @@ namespace btr.distrib.SalesContext.FakturAgg
         private void ShowAsActive()
         {
             this.BackColor = Color.Khaki;
-            foreach (var item in this.Controls)
-                if (item is Panel panel)
-                    panel.BackColor = Color.Cornsilk;
 
             VoidPanel.Visible = false;
             SaveButton.Visible = true;
@@ -624,11 +676,8 @@ namespace btr.distrib.SalesContext.FakturAgg
 
         private void InitGrid()
         {
-            var binding = new BindingSource
-            {
-                DataSource = _listItem
-            };
-            FakturItemGrid.DataSource = binding;
+            _bindingSource.DataSource = _listItem;
+            FakturItemGrid.DataSource = _bindingSource;
             FakturItemGrid.Refresh();
             FakturItemGrid.Columns.SetDefaultCellStyle(Color.Beige);
 
@@ -765,7 +814,8 @@ namespace btr.distrib.SalesContext.FakturAgg
                 UserId = fakturDb.UserId,
                 UserName = fakturDb.UserId
             };
-            var fakturPrintout = new FakturPrintOutDto(fakturDb, customer, user);
+            var isKlaim = FakturKlaimRadio.Checked;
+            var fakturPrintout = new FakturPrintOutDto(fakturDb, customer, user, isKlaim);
             PrintFakturRdlc(fakturPrintout);
         }
 
@@ -790,7 +840,7 @@ namespace btr.distrib.SalesContext.FakturAgg
 
             };
             var listItem = (
-                from c in _listItem
+                from c in _listItemJual
                 where c.BrgName?.Length > 0
                 select new SaveFakturRequestItem
                 {
@@ -803,6 +853,23 @@ namespace btr.distrib.SalesContext.FakturAgg
                     PpnProsen = c.PpnProsen,
                 }).ToList();
             cmd.ListBrg = listItem;
+
+            var listItemKlaim = (
+                from c in _listItemKlaim
+                where c.BrgName?.Length > 0
+                select new SaveFakturRequestItem
+                {
+                    BrgId = c.BrgId,
+                    StokHarga = c.StokHargaStr,
+                    QtyString = c.QtyInputStr,
+                    HrgString = c.HrgInputStr,
+                    DiscountString = c.DiscInputStr,
+                    DppProsen = c.DppProsen,
+                    PpnProsen = c.PpnProsen,
+                }).ToList();
+            cmd.ListBrgKlaim = listItemKlaim;
+
+
             var result = _saveFakturWorker.Execute(cmd);
             return result;
         }
@@ -864,6 +931,13 @@ namespace btr.distrib.SalesContext.FakturAgg
             var rdlcViewerForm = new RdlcViewerForm();
             rdlcViewerForm.SetReportData(printOutTemplate, listDataset);
             rdlcViewerForm.ShowDialog();
+        }
+
+        internal void ShowKlaim()
+        {
+            FakturJualRadio.Checked = false;
+            FakturKlaimRadio.Checked = false;
+            RefreshItemView();
         }
         #endregion
     }

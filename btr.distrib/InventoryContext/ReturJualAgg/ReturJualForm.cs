@@ -139,9 +139,23 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             // register event handler for grid
             FakturItemGrid.CellContentClick += FakturItemGrid_CellContentClick;
             FakturItemGrid.CellValidated += FakturItemGrid_CellValidated;
+            FakturItemGrid.KeyDown += FakturItemGrid_KeyDown;
+            FakturItemGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
             
             SaveButton.Click += SaveButton_Click;
             PrintButton.Click += PrintButton_Click;
+        }
+
+        private void FakturItemGrid_KeyDown(object sender, KeyEventArgs e)
+        {
+            var grid = (DataGridView)sender;
+            switch (e.KeyCode)
+            {
+                case Keys.Delete:
+                    _listItem.RemoveAt(grid.CurrentCell.RowIndex);
+                    grid.Refresh();
+                    break;
+            }
         }
 
         private void PrintButton_Click(object sender, EventArgs e)

@@ -30,13 +30,14 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Panel1 = new System.Windows.Forms.Panel();
-            this.PrintFakturButton = new System.Windows.Forms.Button();
+            this.PrintFakturJualButton = new System.Windows.Forms.Button();
             this.ClearButton = new System.Windows.Forms.Button();
             this.SearchButton = new System.Windows.Forms.Button();
             this.SearchText = new System.Windows.Forms.TextBox();
             this.Tgl2Text = new System.Windows.Forms.DateTimePicker();
             this.Tgl1Text = new System.Windows.Forms.DateTimePicker();
             this.FakturGrid = new System.Windows.Forms.DataGridView();
+            this.PrintFakturKlaimButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturGrid)).BeginInit();
@@ -56,14 +57,15 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1008, 450);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1081, 450);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // Panel1
             // 
             this.Panel1.BackColor = System.Drawing.Color.PaleTurquoise;
             this.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Panel1.Controls.Add(this.PrintFakturButton);
+            this.Panel1.Controls.Add(this.PrintFakturKlaimButton);
+            this.Panel1.Controls.Add(this.PrintFakturJualButton);
             this.Panel1.Controls.Add(this.ClearButton);
             this.Panel1.Controls.Add(this.SearchButton);
             this.Panel1.Controls.Add(this.SearchText);
@@ -72,20 +74,20 @@
             this.Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Panel1.Location = new System.Drawing.Point(3, 3);
             this.Panel1.Name = "Panel1";
-            this.Panel1.Size = new System.Drawing.Size(1002, 44);
+            this.Panel1.Size = new System.Drawing.Size(1075, 44);
             this.Panel1.TabIndex = 0;
             // 
-            // PrintFakturButton
+            // PrintFakturJualButton
             // 
-            this.PrintFakturButton.BackColor = System.Drawing.Color.MistyRose;
-            this.PrintFakturButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PrintFakturButton.ForeColor = System.Drawing.Color.DarkRed;
-            this.PrintFakturButton.Location = new System.Drawing.Point(722, 7);
-            this.PrintFakturButton.Name = "PrintFakturButton";
-            this.PrintFakturButton.Size = new System.Drawing.Size(90, 23);
-            this.PrintFakturButton.TabIndex = 5;
-            this.PrintFakturButton.Text = "Print Faktur";
-            this.PrintFakturButton.UseVisualStyleBackColor = false;
+            this.PrintFakturJualButton.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.PrintFakturJualButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PrintFakturJualButton.ForeColor = System.Drawing.Color.Black;
+            this.PrintFakturJualButton.Location = new System.Drawing.Point(845, 7);
+            this.PrintFakturJualButton.Name = "PrintFakturJualButton";
+            this.PrintFakturJualButton.Size = new System.Drawing.Size(108, 23);
+            this.PrintFakturJualButton.TabIndex = 5;
+            this.PrintFakturJualButton.Text = "Print Faktur Jual";
+            this.PrintFakturJualButton.UseVisualStyleBackColor = false;
             // 
             // ClearButton
             // 
@@ -144,14 +146,26 @@
             this.FakturGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FakturGrid.Location = new System.Drawing.Point(3, 53);
             this.FakturGrid.Name = "FakturGrid";
-            this.FakturGrid.Size = new System.Drawing.Size(1002, 394);
+            this.FakturGrid.Size = new System.Drawing.Size(1075, 394);
             this.FakturGrid.TabIndex = 1;
+            // 
+            // PrintFakturKlaimButton
+            // 
+            this.PrintFakturKlaimButton.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.PrintFakturKlaimButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PrintFakturKlaimButton.ForeColor = System.Drawing.Color.Black;
+            this.PrintFakturKlaimButton.Location = new System.Drawing.Point(959, 7);
+            this.PrintFakturKlaimButton.Name = "PrintFakturKlaimButton";
+            this.PrintFakturKlaimButton.Size = new System.Drawing.Size(108, 23);
+            this.PrintFakturKlaimButton.TabIndex = 6;
+            this.PrintFakturKlaimButton.Text = "Print Faktur Klaim";
+            this.PrintFakturKlaimButton.UseVisualStyleBackColor = false;
             // 
             // FakturControlForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1008, 450);
+            this.ClientSize = new System.Drawing.Size(1081, 450);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "FakturControlForm";
@@ -175,6 +189,7 @@
         private System.Windows.Forms.TextBox SearchText;
         private System.Windows.Forms.DateTimePicker Tgl2Text;
         private System.Windows.Forms.Button SearchButton;
-        private System.Windows.Forms.Button PrintFakturButton;
+        private System.Windows.Forms.Button PrintFakturJualButton;
+        private System.Windows.Forms.Button PrintFakturKlaimButton;
     }
 }

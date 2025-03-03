@@ -34,7 +34,7 @@
             this.FakturPanel = new System.Windows.Forms.RibbonPanel();
             this.ST1FakturButton = new System.Windows.Forms.RibbonButton();
             this.ST2ControlFakturButton = new System.Windows.Forms.RibbonButton();
-            this.ST4FakturProgramButton = new System.Windows.Forms.RibbonButton();
+            this.ST3FakturPajakButton = new System.Windows.Forms.RibbonButton();
             this.SalesInfoPanel = new System.Windows.Forms.RibbonPanel();
             this.SF1FakturButton = new System.Windows.Forms.RibbonButton();
             this.SF2FakturBrgButton = new System.Windows.Forms.RibbonButton();
@@ -70,7 +70,6 @@
             this.IF2KartuStokButton = new System.Windows.Forms.RibbonButton();
             this.IF4StokPerSupplierButton = new System.Windows.Forms.RibbonButton();
             this.IF5StokPeriodikButton = new System.Windows.Forms.RibbonButton();
-            this.IF6StokMutasiButton = new System.Windows.Forms.RibbonButton();
             this.InventoryMasterPanel = new System.Windows.Forms.RibbonPanel();
             this.BrgButton = new System.Windows.Forms.RibbonButton();
             this.WarehouseButton = new System.Windows.Forms.RibbonButton();
@@ -100,6 +99,7 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.IF6StokMutasiButton = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -144,7 +144,7 @@
             this.FakturPanel.ButtonMoreVisible = false;
             this.FakturPanel.Items.Add(this.ST1FakturButton);
             this.FakturPanel.Items.Add(this.ST2ControlFakturButton);
-            this.FakturPanel.Items.Add(this.ST4FakturProgramButton);
+            this.FakturPanel.Items.Add(this.ST3FakturPajakButton);
             this.FakturPanel.Name = "FakturPanel";
             this.FakturPanel.Text = "Transaction";
             // 
@@ -154,7 +154,7 @@
             this.ST1FakturButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_event_accepted_32;
             this.ST1FakturButton.Name = "ST1FakturButton";
             this.ST1FakturButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ST1FakturButton.SmallImage")));
-            this.ST1FakturButton.Text = "ST1-Faktur Jual";
+            this.ST1FakturButton.Text = "ST1-Faktur";
             this.ST1FakturButton.Click += new System.EventHandler(this.ST1FakturButton_Click);
             // 
             // ST2ControlFakturButton
@@ -166,14 +166,14 @@
             this.ST2ControlFakturButton.Text = "ST2-Control Faktur";
             this.ST2ControlFakturButton.Click += new System.EventHandler(this.ST2ControlFakturButton_Click);
             // 
-            // ST4FakturProgramButton
+            // ST3FakturPajakButton
             // 
-            this.ST4FakturProgramButton.Image = global::btr.distrib.Properties.Resources.icons8_event_declined_32;
-            this.ST4FakturProgramButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_event_declined_32;
-            this.ST4FakturProgramButton.Name = "ST4FakturProgramButton";
-            this.ST4FakturProgramButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ST4FakturProgramButton.SmallImage")));
-            this.ST4FakturProgramButton.Text = "ST4-Faktur Program";
-            this.ST4FakturProgramButton.Click += new System.EventHandler(this.ST4FakturProgramButton_Click);
+            this.ST3FakturPajakButton.Image = global::btr.distrib.Properties.Resources.icons8_uninstalling_updates_32;
+            this.ST3FakturPajakButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_uninstalling_updates_32;
+            this.ST3FakturPajakButton.Name = "ST3FakturPajakButton";
+            this.ST3FakturPajakButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ST3FakturPajakButton.SmallImage")));
+            this.ST3FakturPajakButton.Text = "ST3-Faktur Pajak";
+            this.ST3FakturPajakButton.Click += new System.EventHandler(this.ST3FakturPajakButton_Click);
             // 
             // SalesInfoPanel
             // 
@@ -491,15 +491,6 @@
             this.IF5StokPeriodikButton.Text = "IF5-Stok Periodik";
             this.IF5StokPeriodikButton.Click += new System.EventHandler(this.IF5StokPeriodikButton_Click);
             // 
-            // IF6StokMutasiButton
-            // 
-            this.IF6StokMutasiButton.Image = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
-            this.IF6StokMutasiButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
-            this.IF6StokMutasiButton.Name = "IF6StokMutasiButton";
-            this.IF6StokMutasiButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IF6StokMutasiButton.SmallImage")));
-            this.IF6StokMutasiButton.Text = "IF6-Mutasi Info";
-            this.IF6StokMutasiButton.Click += new System.EventHandler(this.IF6StokMutasiButton_Click);
-            // 
             // InventoryMasterPanel
             // 
             this.InventoryMasterPanel.Items.Add(this.BrgButton);
@@ -739,6 +730,15 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
+            // IF6StokMutasiButton
+            // 
+            this.IF6StokMutasiButton.Image = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
+            this.IF6StokMutasiButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
+            this.IF6StokMutasiButton.Name = "IF6StokMutasiButton";
+            this.IF6StokMutasiButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IF6StokMutasiButton.SmallImage")));
+            this.IF6StokMutasiButton.Text = "IF6-Mutasi Info";
+            this.IF6StokMutasiButton.Click += new System.EventHandler(this.IF6StokMutasiButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -820,7 +820,7 @@
         private System.Windows.Forms.RibbonButton FF2PenerimaanSalesButton;
         private System.Windows.Forms.RibbonButton KategoriAButton;
         //private System.Windows.Forms.RibbonPanel ribbonPanel2;
-        private System.Windows.Forms.RibbonButton ST4FakturProgramButton;
+        private System.Windows.Forms.RibbonButton ST3FakturPajakButton;
         private System.Windows.Forms.RibbonButton SF5FakturPajakButton;
         private System.Windows.Forms.RibbonButton ribbonButton1;
         private System.Windows.Forms.RibbonButton SF6FakturCashButton;
