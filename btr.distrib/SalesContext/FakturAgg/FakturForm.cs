@@ -36,6 +36,7 @@ namespace btr.distrib.SalesContext.FakturAgg
 {
     public partial class FakturForm : Form
     {
+        private bool _isProgramKlaim;
         private readonly BindingList<FakturItemDto> _listItem = new BindingList<FakturItemDto>();
 
         private readonly IBrowser<SalesPersonBrowserView> _salesBrowser;
@@ -45,7 +46,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly IBrowser<Faktur2BrowserView> _fakturBrowser;
         private readonly IBrowser<DriverBrowserView> _driverBrowser;
         private readonly IBrowser<FakturCodeOpenBrowserView> _fakturCodeOpenBrowser;
-
+        
         private readonly ISalesPersonDal _salesPersonDal;
         private readonly ICustomerDal _customerDal;
         private readonly IWarehouseDal _warehouseDal;
@@ -61,11 +62,9 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly IPiutangWriter _piutangWriter;
         private readonly IParamSistemDal _paramSistemDal;
 
-
         private string _tipeHarga = string.Empty;
         private decimal _ppnProsen = 0;
         private decimal _dppProsen = 0;
-
 
         public FakturForm(
             IBrowser<WarehouseBrowserView> warehouseBrowser,
@@ -99,6 +98,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             _salesPersonDal = salesPersonDal;
             _customerDal = customerDal;
             _warehouseDal = warehouseDal;
+            _userDal = userDal;
 
             _brgBuilder = brgBuilder;
 
@@ -114,12 +114,18 @@ namespace btr.distrib.SalesContext.FakturAgg
             _paramSistemDal = paramSIstemDal;
             _fakturCodeOpenBrowser = fakturCodeOpenBrowser;
 
+            _isProgramKlaim = false;
             InitializeComponent();
             InitGrid();
             InitParamSistem();
             RegisterEventHandler();
             ClearForm();
-            _userDal = userDal;
+        }
+
+        public void SetAsProgramKlaim()
+        {
+            _isProgramKlaim = true;
+            this.BackColor = Color.Gray;
         }
 
         private void InitParamSistem()
