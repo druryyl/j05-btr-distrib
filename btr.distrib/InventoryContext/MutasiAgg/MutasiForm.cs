@@ -101,6 +101,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             MutasiItemGrid.CellValidated += MutasiItemGrid_CellValidated;
             MutasiItemGrid.KeyDown += MutasiItemGrid_KeyDown;
             MutasiItemGrid.EditingControlShowing += MutasiItemGrid_EditingControlShowing;
+            MutasiItemGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
 
             SaveButton.Click += SaveButton_Click;
             NewButton.Click += NewButton_Click;
