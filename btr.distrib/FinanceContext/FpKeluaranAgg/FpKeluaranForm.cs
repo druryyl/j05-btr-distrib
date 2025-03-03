@@ -296,6 +296,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
                     x.KodeTransaksi,
                     x.KeteranganTambahan,
                     x.DokumenPendukung,
+                    x.PeriodeDokPendukung,
                     x.Referensi,
                     x.CapFasilitas,
                     x.IdTkuPenjual,
@@ -343,17 +344,18 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
                 ws1.Cell($"D3").Value = "Kode Transaksi";
                 ws1.Cell($"E3").Value = "Keterangan Tambahan";
                 ws1.Cell($"F3").Value = "Dokumen Pendukung";
-                ws1.Cell($"G3").Value = "Referensi";
-                ws1.Cell($"H3").Value = "Cap Fasilitas";
-                ws1.Cell($"I3").Value = "ID TKU Penjual";
-                ws1.Cell($"J3").Value = "NPWP/NIK Pembeli";
-                ws1.Cell($"K3").Value = "Jenis ID Pembeli";
-                ws1.Cell($"L3").Value = "Negara Pembeli";
-                ws1.Cell($"M3").Value = "Nomor Dokumen Pembeli";
-                ws1.Cell($"N3").Value = "Nama Pembeli";
-                ws1.Cell($"O3").Value = "Alamat Pembeli";
-                ws1.Cell($"P3").Value = "Email Pembeli";
-                ws1.Cell($"Q3").Value = "ID TKU Pembeli";
+                ws1.Cell($"G3").Value = "Periode Dok Penudukung";
+                ws1.Cell($"H3").Value = "Referensi";
+                ws1.Cell($"I3").Value = "Cap Fasilitas";
+                ws1.Cell($"J3").Value = "ID TKU Penjual";
+                ws1.Cell($"K3").Value = "NPWP/NIK Pembeli";
+                ws1.Cell($"L3").Value = "Jenis ID Pembeli";
+                ws1.Cell($"M3").Value = "Negara Pembeli";
+                ws1.Cell($"N3").Value = "Nomor Dokumen Pembeli";
+                ws1.Cell($"O3").Value = "Nama Pembeli";
+                ws1.Cell($"P3").Value = "Alamat Pembeli";
+                ws1.Cell($"Q3").Value = "Email Pembeli";
+                ws1.Cell($"R3").Value = "ID TKU Pembeli";
                 ws1.Columns().AdjustToContents();
                 var barisAkhir = listToExcel.Count() + 4;
                 ws1.Cell($"A{barisAkhir}").Value = "END";

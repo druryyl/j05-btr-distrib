@@ -20,6 +20,7 @@ namespace btr.domain.FinanceContext.FpKeluaranAgg
         public string KodeTransaksi { get; set; }
         public string KeteranganTambahan { get; set; }
         public string DokumenPendukung { get; set; }
+        public string PeriodeDokPendukung { get; set; }
         public string Referensi { get; set; }
         public string CapFasilitas { get; set; }
         public string IdTkuPenjual { get; set; }
