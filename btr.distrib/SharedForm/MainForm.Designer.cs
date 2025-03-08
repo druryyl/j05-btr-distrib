@@ -70,6 +70,7 @@
             this.IF2KartuStokButton = new System.Windows.Forms.RibbonButton();
             this.IF4StokPerSupplierButton = new System.Windows.Forms.RibbonButton();
             this.IF5StokPeriodikButton = new System.Windows.Forms.RibbonButton();
+            this.IF6StokMutasiButton = new System.Windows.Forms.RibbonButton();
             this.InventoryMasterPanel = new System.Windows.Forms.RibbonPanel();
             this.BrgButton = new System.Windows.Forms.RibbonButton();
             this.WarehouseButton = new System.Windows.Forms.RibbonButton();
@@ -99,7 +100,7 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.IF6StokMutasiButton = new System.Windows.Forms.RibbonButton();
+            this.IF7StokOpnameButton = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -452,8 +453,10 @@
             this.ReportingPanel.Items.Add(this.IF4StokPerSupplierButton);
             this.ReportingPanel.Items.Add(this.IF5StokPeriodikButton);
             this.ReportingPanel.Items.Add(this.IF6StokMutasiButton);
+            this.ReportingPanel.Items.Add(this.IF7StokOpnameButton);
             this.ReportingPanel.Name = "ReportingPanel";
             this.ReportingPanel.Text = "Reporting";
+            this.ReportingPanel.Click += new System.EventHandler(this.ReportingPanel_Click);
             // 
             // IF1StokBalanceButton
             // 
@@ -490,6 +493,15 @@
             this.IF5StokPeriodikButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IF5StokPeriodikButton.SmallImage")));
             this.IF5StokPeriodikButton.Text = "IF5-Stok Periodik";
             this.IF5StokPeriodikButton.Click += new System.EventHandler(this.IF5StokPeriodikButton_Click);
+            // 
+            // IF6StokMutasiButton
+            // 
+            this.IF6StokMutasiButton.Image = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
+            this.IF6StokMutasiButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
+            this.IF6StokMutasiButton.Name = "IF6StokMutasiButton";
+            this.IF6StokMutasiButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IF6StokMutasiButton.SmallImage")));
+            this.IF6StokMutasiButton.Text = "IF6-Mutasi Info";
+            this.IF6StokMutasiButton.Click += new System.EventHandler(this.IF6StokMutasiButton_Click);
             // 
             // InventoryMasterPanel
             // 
@@ -730,14 +742,13 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
-            // IF6StokMutasiButton
+            // IF7StokOpnameButton
             // 
-            this.IF6StokMutasiButton.Image = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
-            this.IF6StokMutasiButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
-            this.IF6StokMutasiButton.Name = "IF6StokMutasiButton";
-            this.IF6StokMutasiButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IF6StokMutasiButton.SmallImage")));
-            this.IF6StokMutasiButton.Text = "IF6-Mutasi Info";
-            this.IF6StokMutasiButton.Click += new System.EventHandler(this.IF6StokMutasiButton_Click);
+            this.IF7StokOpnameButton.Image = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
+            this.IF7StokOpnameButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
+            this.IF7StokOpnameButton.Name = "IF7StokOpnameButton";
+            this.IF7StokOpnameButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IF7StokOpnameButton.SmallImage")));
+            this.IF7StokOpnameButton.Text = "IF6-Stok Opname";
             // 
             // MainForm
             // 
@@ -838,5 +849,6 @@
         private System.Windows.Forms.RibbonButton PT2PostingStok;
         private System.Windows.Forms.RibbonButton ImportOpnameButton;
         private System.Windows.Forms.RibbonButton IF6StokMutasiButton;
+        private System.Windows.Forms.RibbonButton IF7StokOpnameButton;
     }
 }

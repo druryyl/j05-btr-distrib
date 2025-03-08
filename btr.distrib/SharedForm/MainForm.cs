@@ -591,5 +591,15 @@ namespace btr.distrib.SharedForm
             form.MdiParent = this;
             form.Show();
         }
+
+        private void ReportingPanel_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<StokOpInfoForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<StokOpInfoForm>();
+            form.StartPosition = FormStartPosition.CenterScreen; 
+            form.MdiParent = this;
+            form.Show();
+        }
     }
 }

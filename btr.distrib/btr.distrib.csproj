@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>258</ApplicationRevision>
+    <ApplicationRevision>259</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -449,6 +449,12 @@
     <Compile Include="InventoryContext\OpnameAgg\StokOpForm.Designer.cs">
       <DependentUpon>StokOpForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InventoryContext\OpnameAgg\StokOpInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryContext\OpnameAgg\StokOpInfoForm.Designer.cs">
+      <DependentUpon>StokOpInfoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="InventoryContext\PackingAgg\Packing2BrgDto.cs" />
     <Compile Include="InventoryContext\PackingAgg\Packing2FakturBrgDto.cs" />
     <Compile Include="InventoryContext\PackingAgg\Packing2FakturDto.cs" />
@@ -819,6 +825,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\OpnameAgg\StokOpForm.resx">
       <DependentUpon>StokOpForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InventoryContext\OpnameAgg\StokOpInfoForm.resx">
+      <DependentUpon>StokOpInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\PackingAgg\Packing2Form.resx">
       <DependentUpon>Packing2Form.cs</DependentUpon>

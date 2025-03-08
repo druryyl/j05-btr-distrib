@@ -188,12 +188,12 @@ namespace btr.application.InventoryContext.MutasiAgg
             return result.TrimEnd('\n', '\r');
         }
         
-        private static List<int> ParseStringMultiNumber(string str, int size)
+        private static List<decimal> ParseStringMultiNumber(string str, int size)
         {
             if (str is null)
                 str = string.Empty;
 
-            var result = new List<int>();
+            var result = new List<decimal>();
             for (var i = 0; i < size; i++)
                 result.Add(0);
 
@@ -202,7 +202,7 @@ namespace btr.application.InventoryContext.MutasiAgg
             var x = 0;
             foreach (var item in resultStr.TakeWhile(item => x < result.Count))
             {
-                if (int.TryParse(item, out var temp))
+                if (decimal.TryParse(item, out var temp))
                     result[x] = temp;
                 x++;
             }

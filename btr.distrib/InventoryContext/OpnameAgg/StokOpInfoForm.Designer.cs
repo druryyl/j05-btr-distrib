@@ -1,6 +1,6 @@
-﻿namespace btr.distrib.SalesContext.FakturInfoRpt
+﻿namespace btr.distrib.InventoryContext.OpnameAgg
 {
-    partial class FakturInfoForm
+    partial class StokOpInfoForm
     {
         /// <summary>
         /// Required designer variable.
@@ -35,7 +35,6 @@
             this.Tgl2Date = new System.Windows.Forms.DateTimePicker();
             this.Tgl1Date = new System.Windows.Forms.DateTimePicker();
             this.InfoGrid = new Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl();
-            this.FakturTerhapusCheck = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InfoGrid)).BeginInit();
             this.SuspendLayout();
@@ -45,16 +44,16 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.PowderBlue;
-            this.panel1.Controls.Add(this.FakturTerhapusCheck);
             this.panel1.Controls.Add(this.ExcelButton);
             this.panel1.Controls.Add(this.ProsesButton);
             this.panel1.Controls.Add(this.CustomerText);
             this.panel1.Controls.Add(this.Tgl2Date);
             this.panel1.Controls.Add(this.Tgl1Date);
-            this.panel1.Location = new System.Drawing.Point(6, 6);
+            this.panel1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel1.Location = new System.Drawing.Point(7, 7);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(901, 34);
-            this.panel1.TabIndex = 0;
+            this.panel1.Size = new System.Drawing.Size(787, 34);
+            this.panel1.TabIndex = 6;
             // 
             // ExcelButton
             // 
@@ -73,7 +72,6 @@
             this.ProsesButton.TabIndex = 2;
             this.ProsesButton.Text = "Proses";
             this.ProsesButton.UseVisualStyleBackColor = true;
-            this.ProsesButton.Click += new System.EventHandler(this.ProsesButton_Click);
             // 
             // CustomerText
             // 
@@ -107,37 +105,26 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.InfoGrid.BackColor = System.Drawing.SystemColors.Window;
-            this.InfoGrid.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InfoGrid.Location = new System.Drawing.Point(6, 46);
+            this.InfoGrid.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InfoGrid.Location = new System.Drawing.Point(7, 47);
             this.InfoGrid.Name = "InfoGrid";
             this.InfoGrid.ShowCurrentCellBorderBehavior = Syncfusion.Windows.Forms.Grid.GridShowCurrentCellBorder.GrayWhenLostFocus;
-            this.InfoGrid.Size = new System.Drawing.Size(901, 397);
-            this.InfoGrid.TabIndex = 1;
+            this.InfoGrid.Size = new System.Drawing.Size(787, 397);
+            this.InfoGrid.TabIndex = 7;
             this.InfoGrid.Text = "gridGroupingControl1";
             this.InfoGrid.UseRightToLeftCompatibleTextBox = true;
             this.InfoGrid.VersionInfo = "22.1460.34";
             // 
-            // FakturTerhapusCheck
-            // 
-            this.FakturTerhapusCheck.AutoSize = true;
-            this.FakturTerhapusCheck.Location = new System.Drawing.Point(788, 10);
-            this.FakturTerhapusCheck.Name = "FakturTerhapusCheck";
-            this.FakturTerhapusCheck.Size = new System.Drawing.Size(108, 17);
-            this.FakturTerhapusCheck.TabIndex = 5;
-            this.FakturTerhapusCheck.Text = "Faktur Terhapus";
-            this.FakturTerhapusCheck.UseVisualStyleBackColor = true;
-            // 
-            // FakturInfoForm
+            // StokOpInfoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
-            this.ClientSize = new System.Drawing.Size(914, 450);
-            this.Controls.Add(this.InfoGrid);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.panel1);
-            this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Name = "FakturInfoForm";
-            this.Text = "Faktur Info";
+            this.Controls.Add(this.InfoGrid);
+            this.Name = "StokOpInfoForm";
+            this.Text = "StokOpInfoForm";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InfoGrid)).EndInit();
@@ -145,16 +132,14 @@
 
         }
 
-        private System.Windows.Forms.Button ExcelButton;
-
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl InfoGrid;
+        private System.Windows.Forms.Button ExcelButton;
+        private System.Windows.Forms.Button ProsesButton;
+        private System.Windows.Forms.TextBox CustomerText;
         private System.Windows.Forms.DateTimePicker Tgl2Date;
         private System.Windows.Forms.DateTimePicker Tgl1Date;
-        private System.Windows.Forms.TextBox CustomerText;
-        private System.Windows.Forms.Button ProsesButton;
-        private System.Windows.Forms.CheckBox FakturTerhapusCheck;
+        private Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl InfoGrid;
     }
 }

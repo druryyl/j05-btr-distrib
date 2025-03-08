@@ -11,6 +11,7 @@ using btr.application.InventoryContext.OpnameAgg;
 using btr.application.InventoryContext.StokBalanceAgg;
 using btr.application.InventoryContext.WarehouseAgg;
 using btr.distrib.Helpers;
+using btr.distrib.SharedForm;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.BrgContext.KategoriAgg;
 using btr.domain.InventoryContext.OpnameAgg;
@@ -257,6 +258,9 @@ namespace btr.distrib.InventoryContext.OpnameAgg
             if (e.RowIndex == -1) return;
             var grid = (DataGridView)sender;
 
+            var mainform = (MainForm)this.Parent.Parent;
+            var user = mainform.UserId;
+
             if (e.ColumnIndex == grid.Columns.GetCol("QtyOpnameInputStr").Index)
             {
                 NormalizeInput(_listItem[e.RowIndex].QtyOpnameInputStr);
@@ -266,6 +270,7 @@ namespace btr.distrib.InventoryContext.OpnameAgg
                     StokOpId = _listItem[e.RowIndex].StokOpId,
                     WarehouseId = WarehouseCombo.SelectedValue.ToString(),
                     PeriodeOp = PeriodeOpText.Value.Date,
+                    UserId = user.UserId,
                     QtyBesar = _listItem[e.RowIndex].QtyBesarOpname,
                     QtyKecil = _listItem[e.RowIndex].QtyKecilOpname,
                 };

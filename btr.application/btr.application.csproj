@@ -153,6 +153,7 @@
     <Compile Include="InventoryContext\MutasiAgg\SaveMutasiWorker.cs" />
     <Compile Include="InventoryContext\OpnameAgg\IOpnameDal.cs" />
     <Compile Include="InventoryContext\OpnameAgg\IStokOpDal.cs" />
+    <Compile Include="InventoryContext\OpnameAgg\IStokOpInfoDal.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameBuilder.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameValidator.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameWriter.cs" />

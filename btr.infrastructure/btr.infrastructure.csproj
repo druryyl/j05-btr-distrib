@@ -111,6 +111,7 @@
     <Compile Include="InventoryContext\OmzetSupplierAgg\OmzetSupplierViewDal.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameDal.cs" />
     <Compile Include="InventoryContext\OpnameAgg\StokOpDal.cs" />
+    <Compile Include="InventoryContext\OpnameAgg\StokOpInfoDal.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingDal.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingFakturDal.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingBrgDal.cs" />
