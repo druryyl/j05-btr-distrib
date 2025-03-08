@@ -344,7 +344,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
                 ws1.Cell($"D3").Value = "Kode Transaksi";
                 ws1.Cell($"E3").Value = "Keterangan Tambahan";
                 ws1.Cell($"F3").Value = "Dokumen Pendukung";
-                ws1.Cell($"G3").Value = "Periode Dok Penudukung";
+                ws1.Cell($"G3").Value = "Periode Dok Pendukung";
                 ws1.Cell($"H3").Value = "Referensi";
                 ws1.Cell($"I3").Value = "Cap Fasilitas";
                 ws1.Cell($"J3").Value = "ID TKU Penjual";
@@ -582,7 +582,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             foreach(var item in listFaktur)
             {
                 var newItem = new FpKeluaranFakturDto(item.FakturId, item.FakturCode, 
-                    item.FakturDate,  item.CustomerName, item.Npwp, 
+                    item.FakturDate, item.CustomerName, item.Npwp, 
                     item.Address, item.GrandTotal, item.Tax, false);
                 _listFaktur.Add(newItem);
             }

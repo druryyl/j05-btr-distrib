@@ -82,7 +82,7 @@ namespace btr.domain.FinanceContext.FpKeluaranAgg
             JenisIdPembeli = customer.JenisIdentitasPajak;
             NegaraPembeli = NEGARA_PEMBELI;
             NomorDokumenPembeli = noDokPembeli;
-            NamaPembeli = faktur.CustomerName;
+            NamaPembeli = customer.NamaWp;
             AlamatPembeli = faktur.Address;
             EmailPembeli = customer.Email;
             IdTkuPembeli = customer.Nitku;
