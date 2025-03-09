@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -240,7 +241,8 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             _listFaktur.Clear();
             foreach (var item in fpKeluaran.ListFaktur)
             {
-                var faktur = _fakturBuilder.Load(item).Build();
+                //var faktur = _fakturBuilder.Load(item).Build();
+                var faktur = _fakturDal.GetData(item);
                 var customer = _customerBuilder.Load(faktur).Build();
                 var fakturDto = new FpKeluaranFakturDto(faktur.FakturId, faktur.FakturCode, 
                     faktur.FakturDate, customer.CustomerName, customer.Npwp, faktur.Address, 
@@ -285,7 +287,6 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
                     return;
                 filePath = saveFileDialog.FileName;
             }
-
             var listToExcel = fpKeluaran
                 .ListFaktur
                 .Select(x => new
@@ -363,6 +364,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
                 wb.AddWorksheet();
                 var ws2 = wb.Worksheets.Last();
                 ws2.Name = "DetailFaktur";
+
                 ws2.Cell($"A1").InsertTable(listToExcel2, false);
 
                 ws2.Cell($"A1").Value = "Baris";
@@ -381,7 +383,6 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
                 ws2.Cell($"N1").Value = "PPnBM";
                 barisAkhir = listToExcel2.Count() + 2;
                 ws2.Cell($"A{barisAkhir}").Value = "END";
-
 
                 wb.SaveAs(filePath);
             }
@@ -427,8 +428,12 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
 
             fpKeluaran.ListFaktur.Clear();
             var listParam = _paramSistemDal.ListData().ToList();
+            PrgBar.Visible = true;
+            PrgBar.Value = 0;
+            PrgBar.Maximum = listFakturToBeSaved.Count * 3;
             foreach (var item in listFakturToBeSaved)
             {
+                PrgBar.Value++;
                 var faktur = _fakturBuilder.Load(item).Build();
                 var customer = _customerBuilder.Load(faktur).Build();
                 var fpFaktur = new FpKeluaranFakturModel();
@@ -452,6 +457,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
                 result = _fpKeluaranWriter.Save(fpKeluaran);
                 foreach (var item in result.ListFaktur)
                 {
+                    PrgBar.Value++;
                     var faktur = _fakturBuilder
                         .Load(item)
                         .FpKeluaran(result.FpKeluaranId)
@@ -460,6 +466,8 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
                 }
                 trans.Complete();
             }
+            PrgBar.Visible = false;
+            PrgBar.Value = 0;
 
             return result;
         }
@@ -468,6 +476,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
         {
             foreach(var item in listFakturToBeReset)
             {
+                PrgBar.Value++;
                 var faktur = _fakturBuilder.Load(new FakturModel(item)).Build();
                 faktur.FpKeluaranId = string.Empty;
                 _fakturWriter.Save(faktur);

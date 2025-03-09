@@ -71,6 +71,7 @@
             this.IF4StokPerSupplierButton = new System.Windows.Forms.RibbonButton();
             this.IF5StokPeriodikButton = new System.Windows.Forms.RibbonButton();
             this.IF6StokMutasiButton = new System.Windows.Forms.RibbonButton();
+            this.IF7StokOpnameButton = new System.Windows.Forms.RibbonButton();
             this.InventoryMasterPanel = new System.Windows.Forms.RibbonPanel();
             this.BrgButton = new System.Windows.Forms.RibbonButton();
             this.WarehouseButton = new System.Windows.Forms.RibbonButton();
@@ -100,7 +101,7 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.IF7StokOpnameButton = new System.Windows.Forms.RibbonButton();
+            this.FF3FpKeluaranButton = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -503,6 +504,14 @@
             this.IF6StokMutasiButton.Text = "IF6-Mutasi Info";
             this.IF6StokMutasiButton.Click += new System.EventHandler(this.IF6StokMutasiButton_Click);
             // 
+            // IF7StokOpnameButton
+            // 
+            this.IF7StokOpnameButton.Image = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
+            this.IF7StokOpnameButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
+            this.IF7StokOpnameButton.Name = "IF7StokOpnameButton";
+            this.IF7StokOpnameButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IF7StokOpnameButton.SmallImage")));
+            this.IF7StokOpnameButton.Text = "IF6-Stok Opname";
+            // 
             // InventoryMasterPanel
             // 
             this.InventoryMasterPanel.Items.Add(this.BrgButton);
@@ -594,6 +603,7 @@
             // 
             this.FinanceInfoTab.Items.Add(this.FF1PiutangSalesWilayahButton);
             this.FinanceInfoTab.Items.Add(this.FF2PenerimaanSalesButton);
+            this.FinanceInfoTab.Items.Add(this.FF3FpKeluaranButton);
             this.FinanceInfoTab.Name = "FinanceInfoTab";
             this.FinanceInfoTab.Text = "";
             // 
@@ -742,13 +752,14 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
-            // IF7StokOpnameButton
+            // FF3FpKeluaranButton
             // 
-            this.IF7StokOpnameButton.Image = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
-            this.IF7StokOpnameButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
-            this.IF7StokOpnameButton.Name = "IF7StokOpnameButton";
-            this.IF7StokOpnameButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IF7StokOpnameButton.SmallImage")));
-            this.IF7StokOpnameButton.Text = "IF6-Stok Opname";
+            this.FF3FpKeluaranButton.Image = global::btr.distrib.Properties.Resources.icons8_align_text_right_32;
+            this.FF3FpKeluaranButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_align_text_right_32;
+            this.FF3FpKeluaranButton.Name = "FF3FpKeluaranButton";
+            this.FF3FpKeluaranButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FF3FpKeluaranButton.SmallImage")));
+            this.FF3FpKeluaranButton.Text = "FF3-FP.Keluaran Info";
+            this.FF3FpKeluaranButton.Click += new System.EventHandler(this.FF3FpKeluaranButton_Click);
             // 
             // MainForm
             // 
@@ -850,5 +861,6 @@
         private System.Windows.Forms.RibbonButton ImportOpnameButton;
         private System.Windows.Forms.RibbonButton IF6StokMutasiButton;
         private System.Windows.Forms.RibbonButton IF7StokOpnameButton;
+        private System.Windows.Forms.RibbonButton FF3FpKeluaranButton;
     }
 }

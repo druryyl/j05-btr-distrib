@@ -11,27 +11,24 @@ using System.Linq;
 using System.Windows.Forms;
 using Syncfusion.Drawing;
 using Syncfusion.Grouping;
-using btr.application.BrgContext.BrgAgg;
-using btr.application.InventoryContext.OpnameAgg;
+using btr.domain.BrgContext.BrgAgg;
+using btr.application.FinanceContext.FpKeluaragAgg;
 
-namespace btr.distrib.InventoryContext.OpnameAgg
+namespace btr.distrib.FinanceContext.FpKeluaranAgg
 {
-    public partial class StokOpInfoForm : Form
+    public partial class FpKeluaranInfoForm : Form
     {
-        private readonly IStokOpInfoDal _stokOpViewDal;
-        private readonly IBrgSatuanDal _brgSatuanDal;
-        private List<StokOpInfoView> _dataSource;
+        private readonly IFpKeluaranViewDal _fpKeluaranViewDal;
+        private List<FpKeluaranViewDto> _dataSource;
 
-        public StokOpInfoForm(IStokOpInfoDal stokOpViewDal,
-            IBrgSatuanDal brgSatuanDal)
+        public FpKeluaranInfoForm(IFpKeluaranViewDal fpKeluaranViewDal)
         {
             InitializeComponent();
-            _stokOpViewDal = stokOpViewDal;
-            _brgSatuanDal = brgSatuanDal;
+            _fpKeluaranViewDal = fpKeluaranViewDal;
             InfoGrid.QueryCellStyleInfo += InfoGrid_QueryCellStyleInfo;
             ProsesButton.Click += ProsesButton_Click;
             ExcelButton.Click += ExcelButton_Click;
-            _dataSource = new List<StokOpInfoView>();
+            _dataSource = new List<FpKeluaranViewDto>();
 
             InitGrid();
         }
@@ -109,7 +106,7 @@ namespace btr.distrib.InventoryContext.OpnameAgg
 
         private void InitGrid()
         {
-            InfoGrid.DataSource = new List<StokOpInfoView>();
+            InfoGrid.DataSource = new List<FpKeluaranViewDto>();
 
             InfoGrid.TableDescriptor.AllowEdit = false;
             InfoGrid.TableDescriptor.AllowNew = false;
@@ -122,39 +119,24 @@ namespace btr.distrib.InventoryContext.OpnameAgg
                 column.AllowFilter = true;
             }
 
-            //var sumColSubTotal = new GridSummaryColumnDescriptor("SubTotal", SummaryType.DoubleAggregate, "SubTotal", "{Sum}");
-            //sumColSubTotal.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
-            //sumColSubTotal.Appearance.AnySummaryCell.Format = "N0";
-            //sumColSubTotal.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
+            var sumColSubTotal = new GridSummaryColumnDescriptor("GrandTotal", SummaryType.DoubleAggregate, "GrandTotal", "{Sum}");
+            sumColSubTotal.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
+            sumColSubTotal.Appearance.AnySummaryCell.Format = "N0";
+            sumColSubTotal.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
 
-            //var sumColDiskon = new GridSummaryColumnDescriptor("DiscRp", SummaryType.DoubleAggregate, "DiscRp", "{Sum}");
-            //sumColDiskon.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
-            //sumColDiskon.Appearance.AnySummaryCell.Format = "N0";
-            //sumColDiskon.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
+            var sumColDiskon = new GridSummaryColumnDescriptor("Ppn", SummaryType.DoubleAggregate, "Ppn", "{Sum}");
+            sumColDiskon.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
+            sumColDiskon.Appearance.AnySummaryCell.Format = "N0";
+            sumColDiskon.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
 
+            var sumRowDescriptor = new GridSummaryRowDescriptor();
+            sumRowDescriptor.SummaryColumns.AddRange(new[] { sumColSubTotal, sumColDiskon});
+            InfoGrid.TableDescriptor.SummaryRows.Add(sumRowDescriptor);
 
-            //var sumColTax = new GridSummaryColumnDescriptor("PpnRp", SummaryType.DoubleAggregate, "PpnRp", "{Sum}");
-            //sumColTax.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
-            //sumColTax.Appearance.AnySummaryCell.Format = "N0";
-            //sumColTax.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
-
-            //var sumColTotal = new GridSummaryColumnDescriptor("Total", SummaryType.DoubleAggregate, "Total", "{Sum}");
-            //sumColTotal.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
-            //sumColTotal.Appearance.AnySummaryCell.Format = "N0";
-            //sumColTotal.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
-
-            //var sumRowDescriptor = new GridSummaryRowDescriptor();
-            //sumRowDescriptor.SummaryColumns.AddRange(new[] { sumColSubTotal, sumColDiskon, sumColTax, sumColTotal });
-            //InfoGrid.TableDescriptor.SummaryRows.Add(sumRowDescriptor);
-
-            //InfoGrid.TableDescriptor.Columns["QtyBesar"].Appearance.AnyRecordFieldCell.Format = "###.##";
-            //InfoGrid.TableDescriptor.Columns["InPcs"].Appearance.AnyRecordFieldCell.Format = "N0";//
-            //InfoGrid.TableDescriptor.Columns["HrgSat"].Appearance.AnyRecordFieldCell.Format = "N0";
-            //InfoGrid.TableDescriptor.Columns["SubTotal"].Appearance.AnyRecordFieldCell.Format = "N0";
-            //InfoGrid.TableDescriptor.Columns["DiscRp"].Appearance.AnyRecordFieldCell.Format = "N0";
-            //InfoGrid.TableDescriptor.Columns["PpnRp"].Appearance.AnyRecordFieldCell.Format = "N0";
-            //InfoGrid.TableDescriptor.Columns["Total"].Appearance.AnyRecordFieldCell.Format = "N0";
-            //InfoGrid.TableDescriptor.Columns["ReturJualDate"].Appearance.AnyRecordFieldCell.Format = "dd-MMM-yyyy";
+            InfoGrid.TableDescriptor.Columns["GrandTotal"].Appearance.AnyRecordFieldCell.Format = "N0";
+            InfoGrid.TableDescriptor.Columns["Ppn"].Appearance.AnyRecordFieldCell.Format = "N0";
+            InfoGrid.TableDescriptor.Columns["FakturDate"].Appearance.AnyRecordFieldCell.Format = "dd-MMM-yyyy";
+            InfoGrid.TableDescriptor.Columns["FpKeluaran Date"].Appearance.AnyRecordFieldCell.Format = "dd-MMM-yyyy";
 
             InfoGrid.Refresh();
             Proses();
@@ -177,26 +159,29 @@ namespace btr.distrib.InventoryContext.OpnameAgg
                 MessageBox.Show(@"Periode informasi maximal 3 bulan");
                 return;
             }
-            List<StokOpInfoView> listStokOp = _stokOpViewDal.ListData(periode)?.ToList() ?? new List<StokOpInfoView>();
-            listStokOp = listStokOp
-                .OrderBy(x => x.PeriodeOp)
+            var listFpKeluaran = _fpKeluaranViewDal.ListData(periode)?.ToList() ?? new List<FpKeluaranViewDto>();
+            listFpKeluaran = listFpKeluaran
+                .OrderBy(x => x.FakturDate.Date)
                 .ToList();
 
-            _dataSource = Filter2(listStokOp, CustomerText.Text);
-            _dataSource.ForEach(x => x.PeriodeOp = x.PeriodeOp.Date);
+            _dataSource = Filter(listFpKeluaran, CustomerText.Text);
+            _dataSource.ForEach(x => x.FakturDate = x.FakturDate.Date);
+            _dataSource.ForEach(x => x.FpKeluaranDate = x.FpKeluaranDate.Date);
             InfoGrid.DataSource = _dataSource;
         }
 
-        private List<StokOpInfoView> Filter2(List<StokOpInfoView> source, string keyword)
+        private static List<FpKeluaranViewDto> Filter(List<FpKeluaranViewDto> source, string keyword)
         {
             if (keyword.Trim().Length == 0)
                 return source;
-            var listFilteredBrgCode = source.Where(x => x.BrgCode.ToLower().ContainMultiWord(keyword)).ToList();
-            var listFilteredBrgName = source.Where(x => x.BrgName.ToLower().ContainMultiWord(keyword)).ToList();
+            var listFilteredCustomerName = source.Where(x => x.CustomerName.ToLower().ContainMultiWord(keyword)).ToList();
+            var listFilteredWpName = source.Where(x => x.NamaPembeli.ToLower().ContainMultiWord(keyword)).ToList();
 
-            var result = listFilteredBrgCode
-                .Union(listFilteredBrgName);
+
+            var result = listFilteredCustomerName
+                .Union(listFilteredWpName);
             return result.ToList();
         }
     }
+
 }

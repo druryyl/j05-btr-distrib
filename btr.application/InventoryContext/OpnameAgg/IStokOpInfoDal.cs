@@ -16,7 +16,7 @@ namespace btr.application.InventoryContext.OpnameAgg
     public class StokOpInfoView
     {
         public string WarehouseName { get; set; }
-        public DateTime StokOpDate { get; set; }
+        public DateTime PeriodeOp { get; set; }
         public string BrgId { get; set; }
         public string BrgCode { get; set; }
         public string BrgName { get; set; }

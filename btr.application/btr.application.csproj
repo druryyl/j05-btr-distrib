@@ -115,6 +115,7 @@
     <Compile Include="FinanceContext\FpKeluaragAgg\IFpKeluaranBrgDal.cs" />
     <Compile Include="FinanceContext\FpKeluaragAgg\IFpKeluaranDal.cs" />
     <Compile Include="FinanceContext\FpKeluaragAgg\IFpKeluaranFakturDal.cs" />
+    <Compile Include="FinanceContext\FpKeluaragAgg\IFpKeluaranViewDal.cs" />
     <Compile Include="FinanceContext\PiutangAgg\Contracts\IPenerimaanPelunasanSalesDal.cs" />
     <Compile Include="FinanceContext\PiutangAgg\Contracts\IPiutangDal.cs" />
     <Compile Include="FinanceContext\PiutangAgg\Contracts\IPIutangElementDal.cs" />

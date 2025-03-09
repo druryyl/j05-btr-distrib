@@ -54,6 +54,7 @@
             this.UncheckAllButton = new System.Windows.Forms.Button();
             this.FakturTerlipihLabel = new System.Windows.Forms.Label();
             this.CheckAllButton = new System.Windows.Forms.Button();
+            this.PrgBar = new System.Windows.Forms.ProgressBar();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturGrid)).BeginInit();
@@ -236,6 +237,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BackColor = System.Drawing.Color.Cornsilk;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.PrgBar);
             this.panel3.Controls.Add(this.TotalPpnText);
             this.panel3.Controls.Add(this.TotalFakturText);
             this.panel3.Location = new System.Drawing.Point(237, 422);
@@ -355,6 +357,14 @@
             this.CheckAllButton.Text = "Check-All";
             this.CheckAllButton.UseVisualStyleBackColor = false;
             // 
+            // PrgBar
+            // 
+            this.PrgBar.Location = new System.Drawing.Point(12, 16);
+            this.PrgBar.Name = "PrgBar";
+            this.PrgBar.Size = new System.Drawing.Size(530, 9);
+            this.PrgBar.TabIndex = 22;
+            this.PrgBar.Visible = false;
+            // 
             // FpKeluaranForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -414,5 +424,6 @@
         private System.Windows.Forms.Label FakturTerlipihLabel;
         private System.Windows.Forms.Button CheckAllButton;
         private System.Windows.Forms.Label ResponseKodeFakturLabel;
+        private System.Windows.Forms.ProgressBar PrgBar;
     }
 }
