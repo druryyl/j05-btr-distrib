@@ -450,6 +450,8 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             }
             fpKeluaran.CalculateFakturCount();
             fpKeluaran.CalculateTotalPpn();
+            fpKeluaran.GenKeterangan();
+
             FpKeluaranModel result;
             using(var trans = TransHelper.NewScope())
             {

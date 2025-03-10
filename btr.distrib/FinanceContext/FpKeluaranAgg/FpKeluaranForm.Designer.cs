@@ -45,6 +45,7 @@
             this.SaveButton = new System.Windows.Forms.Button();
             this.NewButton = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.PrgBar = new System.Windows.Forms.ProgressBar();
             this.TotalPpnText = new System.Windows.Forms.NumericUpDown();
             this.TotalFakturText = new System.Windows.Forms.NumericUpDown();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -54,7 +55,6 @@
             this.UncheckAllButton = new System.Windows.Forms.Button();
             this.FakturTerlipihLabel = new System.Windows.Forms.Label();
             this.CheckAllButton = new System.Windows.Forms.Button();
-            this.PrgBar = new System.Windows.Forms.ProgressBar();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturGrid)).BeginInit();
@@ -93,6 +93,7 @@
             // FpKeluaranDateText
             // 
             this.FpKeluaranDateText.CustomFormat = "ddd, dd MMM yyyy";
+            this.FpKeluaranDateText.Enabled = false;
             this.FpKeluaranDateText.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.FpKeluaranDateText.Location = new System.Drawing.Point(20, 91);
             this.FpKeluaranDateText.Name = "FpKeluaranDateText";
@@ -245,6 +246,14 @@
             this.panel3.Size = new System.Drawing.Size(823, 41);
             this.panel3.TabIndex = 20;
             // 
+            // PrgBar
+            // 
+            this.PrgBar.Location = new System.Drawing.Point(12, 16);
+            this.PrgBar.Name = "PrgBar";
+            this.PrgBar.Size = new System.Drawing.Size(530, 9);
+            this.PrgBar.TabIndex = 22;
+            this.PrgBar.Visible = false;
+            // 
             // TotalPpnText
             // 
             this.TotalPpnText.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -356,14 +365,6 @@
             this.CheckAllButton.TabIndex = 22;
             this.CheckAllButton.Text = "Check-All";
             this.CheckAllButton.UseVisualStyleBackColor = false;
-            // 
-            // PrgBar
-            // 
-            this.PrgBar.Location = new System.Drawing.Point(12, 16);
-            this.PrgBar.Name = "PrgBar";
-            this.PrgBar.Size = new System.Drawing.Size(530, 9);
-            this.PrgBar.TabIndex = 22;
-            this.PrgBar.Visible = false;
             // 
             // FpKeluaranForm
             // 

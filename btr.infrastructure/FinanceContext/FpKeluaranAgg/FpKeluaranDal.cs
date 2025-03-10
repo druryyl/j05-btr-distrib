@@ -24,13 +24,14 @@ namespace btr.infrastructure.FinanceContext.FpKeluaranAgg
         {
             const string sql = @"
                 INSERT INTO BTR_FpKeluaran
-                    (FpKeluaranId, FpKeluaranDate, UserId, FakturCount, TotalPpn)
+                    (FpKeluaranId, FpKeluaranDate, Keterangan, UserId, FakturCount, TotalPpn)
                 VALUES
-                    (@FpKeluaranId, @FpKeluaranDate, @UserId, @FakturCount, @TotalPpn)";
+                    (@FpKeluaranId, @FpKeluaranDate, @Keterangan, @UserId, @FakturCount, @TotalPpn)";
 
             var dp = new DynamicParameters();
             dp.AddParam("@FpKeluaranId", model.FpKeluaranId, SqlDbType.VarChar);
             dp.AddParam("@FpKeluaranDate", model.FpKeluaranDate, SqlDbType.DateTime);
+            dp.AddParam("@Keterangan", model.Keterangan, SqlDbType.VarChar);
             dp.AddParam("@UserId", model.UserId, SqlDbType.VarChar);
             dp.AddParam("@FakturCount", model.FakturCount, SqlDbType.Int);
             dp.AddParam("@TotalPpn", model.TotalPpn, SqlDbType.Decimal);
@@ -48,6 +49,7 @@ namespace btr.infrastructure.FinanceContext.FpKeluaranAgg
                     BTR_FpKeluaran
                 SET
                     FpKeluaranDate = @FpKeluaranDate,
+                    Keterangan = @Keterangan,
                     UserId = @UserId,
                     FakturCount = @FakturCount,
                     TotalPpn = @TotalPpn    
@@ -57,6 +59,7 @@ namespace btr.infrastructure.FinanceContext.FpKeluaranAgg
             var dp = new DynamicParameters();
             dp.AddParam("@FpKeluaranId", model.FpKeluaranId, SqlDbType.VarChar);
             dp.AddParam("@FpKeluaranDate", model.FpKeluaranDate, SqlDbType.DateTime);
+            dp.AddParam("@Keterangan", model.Keterangan, SqlDbType.VarChar);
             dp.AddParam("@UserId", model.UserId, SqlDbType.VarChar);
             dp.AddParam("@FakturCount", model.FakturCount, SqlDbType.Int);
             dp.AddParam("@TotalPpn", model.TotalPpn, SqlDbType.Decimal);
@@ -70,7 +73,8 @@ namespace btr.infrastructure.FinanceContext.FpKeluaranAgg
         public void Delete(FpKeluaranModel key)
         {
             const string sql = @"
-                DELETE FROM FpKeluaran
+                DELETE FROM 
+                    FpKeluaran
                 WHERE
                     FpKeluaranId = @FpKeluaranId";
 
@@ -87,7 +91,7 @@ namespace btr.infrastructure.FinanceContext.FpKeluaranAgg
         {
             const string sql = @"
                 SELECT
-                    FpKeluaranId, FpKeluaranDate, UserId,
+                    FpKeluaranId, FpKeluaranDate, Keterangan, UserId,
                     FakturCount, TotalPpn
                 FROM
                     BTR_FpKeluaran
@@ -107,7 +111,7 @@ namespace btr.infrastructure.FinanceContext.FpKeluaranAgg
         {
             const string sql = @"
                 SELECT
-                    FpKeluaranId, FpKeluaranDate, UserId,
+                    FpKeluaranId, FpKeluaranDate, Keterangan, UserId,
                     FakturCount, TotalPpn
                 FROM
                     BTR_FpKeluaran

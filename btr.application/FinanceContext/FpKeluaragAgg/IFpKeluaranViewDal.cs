@@ -18,13 +18,13 @@ namespace btr.application.FinanceContext.FpKeluaragAgg
         public string FakturCode { get; set; }
         public DateTime FakturDate { get; set; }
         public string CustomerName { get; set; }
-        public decimal GrandTotal { get; set; }
         public DateTime FpKeluaranDate { get; set; }
         public string FpKeluaranId { get; set; }
         public string NpwpNikPembeli { get; set; }
         public string JenisIdPembeli { get; set; }
         public string NamaPembeli { get; set; }
         public string AlamatPembeli { get; set; }
+        public decimal GrandTotal { get; set; }
         public decimal Ppn { get; set; }
     }
 

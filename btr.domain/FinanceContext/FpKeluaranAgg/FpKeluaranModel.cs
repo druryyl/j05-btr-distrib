@@ -18,6 +18,7 @@ namespace btr.domain.FinanceContext.FpKeluaranAgg
         }
         public string FpKeluaranId { get; set; }
         public DateTime FpKeluaranDate { get; set; }
+        public string Keterangan { get; set; }
         public string UserId { get; set; }
         public decimal TotalPpn { get; set; }
         public int FakturCount { get; set; }
@@ -31,7 +32,18 @@ namespace btr.domain.FinanceContext.FpKeluaranAgg
         {
             FakturCount = ListFaktur.Count;
         }
+        public void GenKeterangan()
+        {
+            if (ListFaktur.Count == 0) return;
+            //  generate string keterangan yang berisi tanggal terbesar dan terkecil faktur
+            var minDate = ListFaktur.Min(x => x.TanggalFaktur);
+            var maxDate = ListFaktur.Max(x => x.TanggalFaktur);
+            if (minDate == maxDate)
+                Keterangan = $"Faktur Jual Tgl {minDate:dd-MM-yyyy}";
+            else
+                Keterangan = $"Faktur Jual Tgl {minDate:dd-MM-yyyy} s/d {maxDate:dd-MM-yyyy}";
 
+        }
 
         public List<FpKeluaranFakturModel> ListFaktur { get; set; }
     }

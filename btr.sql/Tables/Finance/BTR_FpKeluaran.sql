@@ -2,6 +2,7 @@
 (
 	FpKeluaranId VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_FpKeluaran_FpKeluaranId DEFAULT (''),
 	FpKeluaranDate DATETIME NOT NULL CONSTRAINT DF_BTR_FpKeluaran_FpKeluaranDate DEFAULT ('3000-01-01'),
+	Keterangan VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_FpKeluaran_Keterangan DEFAULT (''),
 	UserId VARCHAR(30) NOT NULL CONSTRAINT DF_BTR_FpKeluaran_UserId DEFAULT (''),
 	FakturCount INT NOT NULL CONSTRAINT DF_BTR_FpKeluaran_FakturCount DEFAULT ((0)),
 	TotalPpn DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_FpKeluaran_TotalPpn DEFAULT ((0)),

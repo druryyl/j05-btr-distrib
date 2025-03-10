@@ -47,6 +47,7 @@ namespace btr.distrib.Browsers
                 {
                     Id = x.FpKeluaranId,
                     Tgl = x.FpKeluaranDate.ToString("dd-MMM HH:mm"),
+                    Keterangan = x.Keterangan,
                     FakturCount = x.FakturCount,
                     TotalPpn = x.TotalPpn
                 }).ToList();
@@ -64,6 +65,7 @@ namespace btr.distrib.Browsers
     {
         public string Id { get; set; }
         public string Tgl { get; set; }
+        public string Keterangan { get; set; }
         public int FakturCount { get; set; }
         public decimal TotalPpn { get; set; }
     }

@@ -1,4 +1,5 @@
-﻿using btr.domain.FinanceContext.FpKeluaranAgg;
+﻿using btr.application.SupportContext.TglJamAgg;
+using btr.domain.FinanceContext.FpKeluaranAgg;
 using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
@@ -15,7 +16,6 @@ namespace btr.application.FinanceContext.FpKeluaragAgg
         IFpKeluaranBuilder Load(IFpKeluaranKey fpKeluaranKey);
         IFpKeluaranBuilder Create();
         IFpKeluaranBuilder Attach(FpKeluaranModel fpKeluaran);
-
         IFpKeluaranBuilder Tanggal(DateTime tanggal);
         IFpKeluaranBuilder User(IUserKey userKey);
 
@@ -26,15 +26,18 @@ namespace btr.application.FinanceContext.FpKeluaragAgg
         private readonly IFpKeluaranDal _fpKeluaranDal;
         private readonly IFpKeluaranFakturDal _fpKeluaranFakturDal;
         private readonly IFpKeluaranBrgDal _fpKeluaranBrgDal;
+        private readonly ITglJamDal _dateTime;
 
-        public FpKeluaranBuilder(IFpKeluaranDal fpKeluaranDal, 
-            IFpKeluaranFakturDal fpKeluranFakturDal, 
-            IFpKeluaranBrgDal fpKeluaranBrgDal)
+        public FpKeluaranBuilder(IFpKeluaranDal fpKeluaranDal,
+            IFpKeluaranFakturDal fpKeluranFakturDal,
+            IFpKeluaranBrgDal fpKeluaranBrgDal,
+            ITglJamDal dateTime)
         {
             _fpKeluaranDal = fpKeluaranDal;
             _fpKeluaranFakturDal = fpKeluranFakturDal;
             _fpKeluaranBrgDal = fpKeluaranBrgDal;
             _agg = new FpKeluaranModel();
+            _dateTime = dateTime;
         }
 
 
@@ -55,7 +58,7 @@ namespace btr.application.FinanceContext.FpKeluaragAgg
         {
             _agg = new FpKeluaranModel
             {
-                ListFaktur = new List<FpKeluaranFakturModel>()
+                ListFaktur = new List<FpKeluaranFakturModel>(),
             };
             return this;
         }
@@ -83,5 +86,6 @@ namespace btr.application.FinanceContext.FpKeluaragAgg
             _agg.UserId = userKey.UserId;
             return this;
         }
+
     }
 }
