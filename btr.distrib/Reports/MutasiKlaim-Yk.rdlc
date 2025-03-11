@@ -332,7 +332,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=First(Fields!NoUrut.Value, "MutasiItemDataset")</Value>
+                              <Value>=Fields!NoUrut.Value</Value>
                               <Style>
                                 <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>8pt</FontSize>

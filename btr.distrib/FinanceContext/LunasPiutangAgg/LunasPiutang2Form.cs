@@ -58,9 +58,19 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             _fakturPotBalanceWriter = fakturPotBalanceWriter;
 
             InitGrid();
+            InitNumericUpDown();
             IniGridBayar();
             InitJenisBayarCombo();
             RegisterEventHandler();
+        }
+
+        private void InitNumericUpDown()
+        {
+            ReturText.ResetText();
+            PotonganText.ResetText();
+            MateraiText.ResetText();
+            AdminText.ResetText();
+            NilaiPelunasanText.ResetText();
         }
 
         private void InitJenisBayarCombo()
@@ -423,6 +433,14 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             MateraiText.Value = 0;
             AdminText.Value = 0;
             NilaiPelunasanText.Value = 0;
+
+            ReturText.ResetText();
+            PotonganText.ResetText();
+            MateraiText.ResetText();
+            AdminText.ResetText();
+            NilaiPelunasanText.ResetText();
+
+
             JenisBayarCombo.SelectedIndex = 0;
             JatuhTempBgText.Value = DateTime.Now;
             NoRekBgText.Text = string.Empty;
