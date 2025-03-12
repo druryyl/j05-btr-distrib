@@ -26,6 +26,7 @@ namespace btr.application.FinanceContext.FpKeluaragAgg
         public string AlamatPembeli { get; set; }
         public decimal GrandTotal { get; set; }
         public decimal Ppn { get; set; }
+        public string Status { get; set; }
     }
 
 }

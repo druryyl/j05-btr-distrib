@@ -13,6 +13,7 @@ using Syncfusion.Drawing;
 using Syncfusion.Grouping;
 using btr.domain.BrgContext.BrgAgg;
 using btr.application.FinanceContext.FpKeluaragAgg;
+using btr.application.SupportContext.TglJamAgg;
 
 namespace btr.distrib.FinanceContext.FpKeluaranAgg
 {
@@ -20,8 +21,9 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
     {
         private readonly IFpKeluaranViewDal _fpKeluaranViewDal;
         private List<FpKeluaranViewDto> _dataSource;
+        private readonly ITglJamDal _dateTime;
 
-        public FpKeluaranInfoForm(IFpKeluaranViewDal fpKeluaranViewDal)
+        public FpKeluaranInfoForm(IFpKeluaranViewDal fpKeluaranViewDal, ITglJamDal dateTime)
         {
             InitializeComponent();
             _fpKeluaranViewDal = fpKeluaranViewDal;
@@ -29,8 +31,16 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             ProsesButton.Click += ProsesButton_Click;
             ExcelButton.Click += ExcelButton_Click;
             _dataSource = new List<FpKeluaranViewDto>();
+            _dateTime = dateTime;
 
             InitGrid();
+            InitPeriode();
+        }
+
+        private void InitPeriode()
+        {
+            Tgl1Date.Value = _dateTime.Now.AddDays(-3);
+            Tgl2Date.Value = _dateTime.Now.AddDays(-1);
         }
 
         private void ExcelButton_Click(object sender, EventArgs e)
@@ -140,8 +150,9 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             InfoGrid.TableDescriptor.Columns["FakturDate"].Appearance.AnyRecordFieldCell.Format = "dd-MMM-yyyy";
             InfoGrid.TableDescriptor.Columns["FpKeluaranDate"].Appearance.AnyRecordFieldCell.Format = "dd-MMM-yyyy";
 
+            InfoGrid.TableDescriptor.GroupedColumns.Add("FakturDate");
+            InfoGrid.TableDescriptor.GroupedColumns.Add("Status");
             InfoGrid.Refresh();
-            Proses();
         }
 
         private void ProsesButton_Click(object sender, EventArgs e)

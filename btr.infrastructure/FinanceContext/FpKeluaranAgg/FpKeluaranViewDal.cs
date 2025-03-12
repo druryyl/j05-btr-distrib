@@ -28,13 +28,12 @@ namespace btr.infrastructure.FinanceContext.FpKeluaranAgg
             const string sql = @"
                 SELECT 
                     aa.FakturId, aa.FakturCode, aa.FakturDate, ee.CustomerName, aa.GrandTotal,
-                    cc.FpKeluaranDate,
-                    cc.FpKeluaranId,
-                    bb.NpwpNikPembeli,
-                    bb.JenisIdPembeli,
-                    bb.NamaPembeli,
-                    bb.AlamatPembeli,
-                    SUM(dd.ppn) Ppn
+                    cc.FpKeluaranDate, cc.FpKeluaranId, bb.NpwpNikPembeli, bb.JenisIdPembeli,
+                    bb.NamaPembeli, bb.AlamatPembeli, SUM(dd.ppn) Ppn,
+                    CASE 
+                        WHEN cc.FpKeluaranId IS NULL THEN 'BELUM' 
+                        ELSE 'SUDAH' 
+                    END Status
 
                 FROM
                     BTR_Faktur aa
