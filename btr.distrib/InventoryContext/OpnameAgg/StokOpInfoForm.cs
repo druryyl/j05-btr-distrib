@@ -116,45 +116,14 @@ namespace btr.distrib.InventoryContext.OpnameAgg
             InfoGrid.TableDescriptor.AllowRemove = false;
             InfoGrid.ShowGroupDropArea = true;
 
+            //  format PeriodeOp to dd-MM-yyyy
+            InfoGrid.TableDescriptor.Columns[nameof(StokOpInfoView.PeriodeOp)].Appearance.AnyRecordFieldCell.Format = "dd-MMM-yyyy";
+
             InfoGrid.TopLevelGroupOptions.ShowFilterBar = true;
             foreach (GridColumnDescriptor column in InfoGrid.TableDescriptor.Columns)
             {
                 column.AllowFilter = true;
             }
-
-            //var sumColSubTotal = new GridSummaryColumnDescriptor("SubTotal", SummaryType.DoubleAggregate, "SubTotal", "{Sum}");
-            //sumColSubTotal.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
-            //sumColSubTotal.Appearance.AnySummaryCell.Format = "N0";
-            //sumColSubTotal.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
-
-            //var sumColDiskon = new GridSummaryColumnDescriptor("DiscRp", SummaryType.DoubleAggregate, "DiscRp", "{Sum}");
-            //sumColDiskon.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
-            //sumColDiskon.Appearance.AnySummaryCell.Format = "N0";
-            //sumColDiskon.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
-
-
-            //var sumColTax = new GridSummaryColumnDescriptor("PpnRp", SummaryType.DoubleAggregate, "PpnRp", "{Sum}");
-            //sumColTax.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
-            //sumColTax.Appearance.AnySummaryCell.Format = "N0";
-            //sumColTax.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
-
-            //var sumColTotal = new GridSummaryColumnDescriptor("Total", SummaryType.DoubleAggregate, "Total", "{Sum}");
-            //sumColTotal.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
-            //sumColTotal.Appearance.AnySummaryCell.Format = "N0";
-            //sumColTotal.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
-
-            //var sumRowDescriptor = new GridSummaryRowDescriptor();
-            //sumRowDescriptor.SummaryColumns.AddRange(new[] { sumColSubTotal, sumColDiskon, sumColTax, sumColTotal });
-            //InfoGrid.TableDescriptor.SummaryRows.Add(sumRowDescriptor);
-
-            //InfoGrid.TableDescriptor.Columns["QtyBesar"].Appearance.AnyRecordFieldCell.Format = "###.##";
-            //InfoGrid.TableDescriptor.Columns["InPcs"].Appearance.AnyRecordFieldCell.Format = "N0";//
-            //InfoGrid.TableDescriptor.Columns["HrgSat"].Appearance.AnyRecordFieldCell.Format = "N0";
-            //InfoGrid.TableDescriptor.Columns["SubTotal"].Appearance.AnyRecordFieldCell.Format = "N0";
-            //InfoGrid.TableDescriptor.Columns["DiscRp"].Appearance.AnyRecordFieldCell.Format = "N0";
-            //InfoGrid.TableDescriptor.Columns["PpnRp"].Appearance.AnyRecordFieldCell.Format = "N0";
-            //InfoGrid.TableDescriptor.Columns["Total"].Appearance.AnyRecordFieldCell.Format = "N0";
-            //InfoGrid.TableDescriptor.Columns["ReturJualDate"].Appearance.AnyRecordFieldCell.Format = "dd-MMM-yyyy";
 
             InfoGrid.Refresh();
             Proses();
