@@ -13,25 +13,23 @@ using Syncfusion.Drawing;
 using Syncfusion.Grouping;
 using btr.application.BrgContext.BrgAgg;
 using btr.domain.BrgContext.BrgAgg;
+using btr.application.InventoryContext.ReturJualAgg.Contracts;
 
 namespace btr.distrib.InventoryContext.ReturJualRpt
 {
-    public partial class ReturJjualReportForm : Form
+    public partial class ReturJualReportForm : Form
     {
-        private readonly IReturJualBrgViewDal _returBrgViewDal;
-        private readonly IBrgSatuanDal _brgSatuanDal;
-        private List<ReturJualBrgView> _dataSource;
+        private readonly IReturJualViewDal _returViewDal;
+        private List<ReturJualView> _dataSource;
 
-        public ReturJjualReportForm(IReturJualBrgViewDal returBrgViewDal, 
-            IBrgSatuanDal brgSatuanDal)
+        public ReturJualReportForm(IReturJualViewDal returViewDal)
         {
             InitializeComponent();
-            _returBrgViewDal = returBrgViewDal;
-            _brgSatuanDal = brgSatuanDal;
+            _returViewDal = returViewDal;
             InfoGrid.QueryCellStyleInfo += InfoGrid_QueryCellStyleInfo;
             ProsesButton.Click += ProsesButton_Click;
             ExcelButton.Click += ExcelButton_Click;
-            _dataSource = new List<ReturJualBrgView>();
+            _dataSource = new List<ReturJualView>();
 
             InitGrid();
         }
@@ -59,11 +57,11 @@ namespace btr.distrib.InventoryContext.ReturJualRpt
                 var ws = wb.Worksheets.First();
 
                 //  set border and font
-                ws.Range(ws.Cell("A1"), ws.Cell($"Y{_dataSource.Count + 1}")).Style
+                ws.Range(ws.Cell("A1"), ws.Cell($"O{_dataSource.Count + 1}")).Style
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair);
-                ws.Cell($"U{_dataSource.Count + 2}").Value = "Total";
-                ws.Range(ws.Cell($"U{_dataSource.Count + 2}"), ws.Cell($"Y{_dataSource.Count + 2}")).Style
+                ws.Cell($"K{_dataSource.Count + 2}").Value = "Total";
+                ws.Range(ws.Cell($"K{_dataSource.Count + 2}"), ws.Cell($"O{_dataSource.Count + 2}")).Style
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Font.SetFontName("Consolas")
                     .Font.SetFontSize(11)
@@ -74,18 +72,15 @@ namespace btr.distrib.InventoryContext.ReturJualRpt
                     .Font.SetFontSize(9);
 
                 //  add row total V,W,X,Y
-                ws.Cell($"V{_dataSource.Count + 2}").FormulaA1 = $"=SUM(W2:V{_dataSource.Count + 1})";
-                ws.Cell($"W{_dataSource.Count + 2}").FormulaA1 = $"=SUM(W2:W{_dataSource.Count + 1})";
-                ws.Cell($"X{_dataSource.Count + 2}").FormulaA1 = $"=SUM(X2:X{_dataSource.Count + 1})";
-                ws.Cell($"Y{_dataSource.Count + 2}").FormulaA1 = $"=SUM(Y2:Y{_dataSource.Count + 1})";
+                ws.Cell($"L{_dataSource.Count + 2}").FormulaA1 = $"=SUM(L2:L{_dataSource.Count + 1})";
+                ws.Cell($"M{_dataSource.Count + 2}").FormulaA1 = $"=SUM(M2:M{_dataSource.Count + 1})";
+                ws.Cell($"N{_dataSource.Count + 2}").FormulaA1 = $"=SUM(N2:N{_dataSource.Count + 1})";
+                ws.Cell($"O{_dataSource.Count + 2}").FormulaA1 = $"=SUM(O2:O{_dataSource.Count + 1})";
 
                 //  set format number for column A, J, K, L, M, N, O to N0
-                ws.Range(ws.Cell("J2"), ws.Cell($"Y{_dataSource.Count + 2}"))
-                    .Style.NumberFormat.Format = "#,##";
-                ws.Range(ws.Cell("A2"), ws.Cell($"A{_dataSource.Count + 2}"))
-                    .Style.NumberFormat.Format = "#,##";
-                ws.Range(ws.Cell("D2"), ws.Cell($"D{_dataSource.Count + 2}"))
-                    .Style.NumberFormat.Format = "dd-MMM-yyyy";
+                ws.Range(ws.Cell("L2"), ws.Cell($"O{_dataSource.Count + 2}")).Style.NumberFormat.Format = "#,##";
+                ws.Range(ws.Cell("A2"), ws.Cell($"A{_dataSource.Count + 2}")).Style.NumberFormat.Format = "#,##";
+                ws.Range(ws.Cell("D2"), ws.Cell($"D{_dataSource.Count + 2}")).Style.NumberFormat.Format = "dd-MMM-yyyy";
 
 
                 //  add rownumbering
@@ -109,7 +104,7 @@ namespace btr.distrib.InventoryContext.ReturJualRpt
 
         private void InitGrid()
         {
-            InfoGrid.DataSource = new List<ReturJualBrgView>();
+            InfoGrid.DataSource = new List<ReturJualView>();
 
             InfoGrid.TableDescriptor.AllowEdit = false;
             InfoGrid.TableDescriptor.AllowNew = false;
@@ -122,7 +117,7 @@ namespace btr.distrib.InventoryContext.ReturJualRpt
                 column.AllowFilter = true;
             }
 
-            var sumColSubTotal = new GridSummaryColumnDescriptor("SubTotal", SummaryType.DoubleAggregate, "SubTotal", "{Sum}");
+            var sumColSubTotal = new GridSummaryColumnDescriptor("Total", SummaryType.DoubleAggregate, "Total", "{Sum}");
             sumColSubTotal.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
             sumColSubTotal.Appearance.AnySummaryCell.Format = "N0";
             sumColSubTotal.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
@@ -138,7 +133,7 @@ namespace btr.distrib.InventoryContext.ReturJualRpt
             sumColTax.Appearance.AnySummaryCell.Format = "N0";
             sumColTax.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
 
-            var sumColTotal = new GridSummaryColumnDescriptor("Total", SummaryType.DoubleAggregate, "Total", "{Sum}");
+            var sumColTotal = new GridSummaryColumnDescriptor("GrandTotal", SummaryType.DoubleAggregate, "GrandTotal", "{Sum}");
             sumColTotal.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
             sumColTotal.Appearance.AnySummaryCell.Format = "N0";
             sumColTotal.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
@@ -147,22 +142,13 @@ namespace btr.distrib.InventoryContext.ReturJualRpt
             sumRowDescriptor.SummaryColumns.AddRange(new[] { sumColSubTotal, sumColDiskon, sumColTax, sumColTotal });
             InfoGrid.TableDescriptor.SummaryRows.Add(sumRowDescriptor);
 
-            InfoGrid.TableDescriptor.Columns["QtyBesar"].Appearance.AnyRecordFieldCell.Format = "###.##";
-            InfoGrid.TableDescriptor.Columns["InPcs"].Appearance.AnyRecordFieldCell.Format = "N0";//
-            InfoGrid.TableDescriptor.Columns["HrgSat"].Appearance.AnyRecordFieldCell.Format = "N0";
-            InfoGrid.TableDescriptor.Columns["SubTotal"].Appearance.AnyRecordFieldCell.Format = "N0";
-            
-            InfoGrid.TableDescriptor.Columns["Disc1"].Appearance.AnyRecordFieldCell.Format = "###.##";
-            InfoGrid.TableDescriptor.Columns["Disc2"].Appearance.AnyRecordFieldCell.Format = "###.##";
-            InfoGrid.TableDescriptor.Columns["Disc3"].Appearance.AnyRecordFieldCell.Format = "###.##";
-            InfoGrid.TableDescriptor.Columns["Disc4"].Appearance.AnyRecordFieldCell.Format = "###.##";
+            InfoGrid.TableDescriptor.Columns["Total"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["DiscRp"].Appearance.AnyRecordFieldCell.Format = "###.##";
             InfoGrid.TableDescriptor.Columns["PpnRp"].Appearance.AnyRecordFieldCell.Format = "N0";
-            InfoGrid.TableDescriptor.Columns["Total"].Appearance.AnyRecordFieldCell.Format = "N0";
+            InfoGrid.TableDescriptor.Columns["GrandTotal"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["ReturJualDate"].Appearance.AnyRecordFieldCell.Format = "dd-MMM-yyyy";
 
             InfoGrid.Refresh();
-            Proses();
         }
 
         private void ProsesButton_Click(object sender, EventArgs e)
@@ -182,52 +168,27 @@ namespace btr.distrib.InventoryContext.ReturJualRpt
                 MessageBox.Show(@"Periode informasi maximal 3 bulan");
                 return;
             }
-            var listAllSatuan = _brgSatuanDal.ListData()?.ToList() ?? new List<BrgSatuanModel>();
-            var listFaktur = _returBrgViewDal.ListData(periode)?.ToList() ?? new List<ReturJualBrgView>();
-            listFaktur = listFaktur
+            var listRetur = _returViewDal.ListData(periode)?.ToList() ?? new List<ReturJualView>();
+            listRetur = listRetur
                 .OrderBy(x => x.ReturJualDate.Date)
                 .ToList();
 
-            foreach(var item in listFaktur)
-            {
-                var listThisSatuan = listAllSatuan.Where(x => x.BrgId == item.BrgId);
-                if (!listThisSatuan.Any())
-                    continue;
-
-                var satBesar = listThisSatuan
-                    .OrderBy(x => x.Conversion)
-                    .Last();
-                var satKecil = listThisSatuan
-                    .OrderBy(x => x.Conversion)
-                    .First();
-                item.QtyBesar = item.InPcs / satBesar.Conversion;
-                item.QtyKecil = item.InPcs % satBesar.Conversion;
-                item.SatBesar = satBesar.Satuan;
-                item.SatKecil = satKecil.Satuan;
-                item.ReturJualDate = item.ReturJualDate.Date;
-
-                if (satBesar.Satuan == satKecil.Satuan)
-                {
-                    item.QtyKecil = item.QtyBesar;
-                    item.QtyBesar = 0;
-                    item.SatBesar = string.Empty;
-                }
-            }
-
-            _dataSource = Filter(listFaktur, CustomerText.Text);
+            _dataSource = Filter(listRetur, CustomerText.Text);
             _dataSource.ForEach(x => x.ReturJualDate = x.ReturJualDate.Date);
             InfoGrid.DataSource = _dataSource;
         }
 
-        private static List<ReturJualBrgView> Filter(List<ReturJualBrgView> source, string keyword)
+        private static List<ReturJualView> Filter(List<ReturJualView> source, string keyword)
         {
             if (keyword.Trim().Length == 0)
                 return source;
             var listFilteredCustomer = source.Where(x => x.CustomerName.ToLower().ContainMultiWord(keyword)).ToList();
-            var listFilteredAddress = source.Where(x => x.BrgName.ToLower().ContainMultiWord(keyword)).ToList();
+            var listFilteredAddress = source.Where(x => x.CustomerCode.ToLower().ContainMultiWord(keyword)).ToList();
+            var listFilteredSales = source.Where(x => x.SalesName.ToLower().ContainMultiWord(keyword)).ToList();
 
             var result = listFilteredCustomer
-                .Union(listFilteredAddress);
+                .Union(listFilteredAddress)
+                .Union(listFilteredSales);
             return result.ToList();
         }
     }

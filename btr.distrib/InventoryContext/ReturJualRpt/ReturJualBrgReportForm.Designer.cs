@@ -1,6 +1,6 @@
 ﻿namespace btr.distrib.InventoryContext.ReturJualRpt
 {
-    partial class ReturJjualReportForm
+    partial class ReturJualBrgReportForm
     {
         /// <summary>
         /// Required designer variable.

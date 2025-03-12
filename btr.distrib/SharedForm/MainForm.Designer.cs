@@ -85,6 +85,7 @@
             this.FinanceInfoTab = new System.Windows.Forms.RibbonPanel();
             this.FF1PiutangSalesWilayahButton = new System.Windows.Forms.RibbonButton();
             this.FF2PenerimaanSalesButton = new System.Windows.Forms.RibbonButton();
+            this.FF3FpKeluaranButton = new System.Windows.Forms.RibbonButton();
             this.ReturTab = new System.Windows.Forms.RibbonTab();
             this.ribbonPanel3 = new System.Windows.Forms.RibbonPanel();
             this.RT1ReturJualButton = new System.Windows.Forms.RibbonButton();
@@ -101,7 +102,7 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.FF3FpKeluaranButton = new System.Windows.Forms.RibbonButton();
+            this.RF2ReturBrgInfoButton = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -625,6 +626,15 @@
             this.FF2PenerimaanSalesButton.Text = "FF2-Penerimaan Sales";
             this.FF2PenerimaanSalesButton.Click += new System.EventHandler(this.FF2PenerimaanSalesButton_Click);
             // 
+            // FF3FpKeluaranButton
+            // 
+            this.FF3FpKeluaranButton.Image = global::btr.distrib.Properties.Resources.icons8_align_text_right_32;
+            this.FF3FpKeluaranButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_align_text_right_32;
+            this.FF3FpKeluaranButton.Name = "FF3FpKeluaranButton";
+            this.FF3FpKeluaranButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FF3FpKeluaranButton.SmallImage")));
+            this.FF3FpKeluaranButton.Text = "FF3-FP.Keluaran Info";
+            this.FF3FpKeluaranButton.Click += new System.EventHandler(this.FF3FpKeluaranButton_Click);
+            // 
             // ReturTab
             // 
             this.ReturTab.Name = "ReturTab";
@@ -660,6 +670,7 @@
             // ribbonPanel4
             // 
             this.ribbonPanel4.Items.Add(this.RF1ReturJualInfo);
+            this.ribbonPanel4.Items.Add(this.RF2ReturBrgInfoButton);
             this.ribbonPanel4.Name = "ribbonPanel4";
             this.ribbonPanel4.Text = "";
             // 
@@ -752,14 +763,14 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
-            // FF3FpKeluaranButton
+            // RF2ReturBrgInfoButton
             // 
-            this.FF3FpKeluaranButton.Image = global::btr.distrib.Properties.Resources.icons8_align_text_right_32;
-            this.FF3FpKeluaranButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_align_text_right_32;
-            this.FF3FpKeluaranButton.Name = "FF3FpKeluaranButton";
-            this.FF3FpKeluaranButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FF3FpKeluaranButton.SmallImage")));
-            this.FF3FpKeluaranButton.Text = "FF3-FP.Keluaran Info";
-            this.FF3FpKeluaranButton.Click += new System.EventHandler(this.FF3FpKeluaranButton_Click);
+            this.RF2ReturBrgInfoButton.Image = global::btr.distrib.Properties.Resources.icons8_hashtag_activity_feed_32;
+            this.RF2ReturBrgInfoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_hashtag_activity_feed_32;
+            this.RF2ReturBrgInfoButton.Name = "RF2ReturBrgInfoButton";
+            this.RF2ReturBrgInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("RF2ReturBrgInfoButton.SmallImage")));
+            this.RF2ReturBrgInfoButton.Text = "RF2-Info Retur Brg";
+            this.RF2ReturBrgInfoButton.Click += new System.EventHandler(this.RF2ReturBrgInfoButton_Click);
             // 
             // MainForm
             // 
@@ -862,5 +873,6 @@
         private System.Windows.Forms.RibbonButton IF6StokMutasiButton;
         private System.Windows.Forms.RibbonButton IF7StokOpnameButton;
         private System.Windows.Forms.RibbonButton FF3FpKeluaranButton;
+        private System.Windows.Forms.RibbonButton RF2ReturBrgInfoButton;
     }
 }

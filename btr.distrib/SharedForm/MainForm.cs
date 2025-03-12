@@ -513,13 +513,24 @@ namespace btr.distrib.SharedForm
 
         private void RF1ReturJualInfo_Click(object sender, EventArgs e)
         {
-            if (BringMdiChildToFrontIfLoaded<ReturJjualReportForm>())
+            if (BringMdiChildToFrontIfLoaded<ReturJualReportForm>())
                 return;
-            var form = ThisServicesProvider.GetRequiredService<ReturJjualReportForm>();
+            var form = ThisServicesProvider.GetRequiredService<ReturJualReportForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
         }
+
+        private void RF2ReturBrgInfoButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<ReturJualBrgReportForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<FpKeluaranInfoForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
 
         private void RT2PostingRetur_Click(object sender, EventArgs e)
         {
@@ -611,5 +622,6 @@ namespace btr.distrib.SharedForm
             form.MdiParent = this;
             form.Show();
         }
+
     }
 }
