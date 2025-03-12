@@ -17,6 +17,8 @@ namespace btr.application.InventoryContext.OpnameAgg
     {
         public string WarehouseName { get; set; }
         public DateTime PeriodeOp { get; set; }
+        public string SupplierName { get; set; }
+        public string KategoriName { get; set; }
         public string BrgId { get; set; }
         public string BrgCode { get; set; }
         public string BrgName { get; set; }

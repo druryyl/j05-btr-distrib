@@ -34,13 +34,20 @@ namespace btr.infrastructure.InventoryContext.OpnameAgg
                     aa.UserId, aa.StokOpId, aa.PeriodeOp,
                     ISNULL(bb.BrgCode, '') BrgCode,
                     ISNULL(bb.BrgName, '') BrgName,
-                    ISNULL(cc.WarehouseName, '') WarehouseName
+                    ISNULL(cc.WarehouseName, '') WarehouseName,
+                    ISNULL(dd.KategoriName, '') KategoriName,       
+                    ISNULL(ee.SupplierName, '') SupplierName
                 FROM
                     BTR_StokOp aa
                     LEFT JOIN BTR_Brg bb ON aa.BrgId = bb.BrgId
                     LEFT JOIN BTR_Warehouse cc ON aa.WarehouseId = cc.WarehouseId  
+                    LEFT JOIN BTR_Kategori dd ON bb.KategoriId = dd.KategoriId
+                    LEFT JOIN BTR_Supplier ee ON bb.SupplierId = ee.SupplierId
                 WHERE   
-                    aa.PeriodeOp BETWEEN @Tgl1 AND @Tgl2  ";
+                    aa.PeriodeOp BETWEEN @Tgl1 AND @Tgl2  
+                    AND aa.QtyBesarOpname + aa.QtyKecilOpname <> 0
+                ORDER BY 
+                    aa.PeriodeOp, ee.SupplierName, dd.KategoriName, bb.BrgCode";
 
             var dp = new DynamicParameters();
             dp.AddParam("@Tgl1", filter.Tgl1, SqlDbType.DateTime);
