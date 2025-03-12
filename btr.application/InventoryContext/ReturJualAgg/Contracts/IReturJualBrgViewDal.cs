@@ -31,6 +31,10 @@ namespace btr.application.SalesContext.FakturBrgInfo
         public int InPcs { get; set; }
         public decimal HrgSat { get; set; }
         public decimal SubTotal { get; set; }
+        public decimal Disc1 { get; set; }
+        public decimal Disc2 { get; set; }
+        public decimal Disc3 { get; set; }
+        public decimal Disc4 { get; set; }
         public decimal DiscRp { get; set; }
         public decimal PpnRp { get; set; }
         public decimal Total { get; set; }

@@ -151,7 +151,12 @@ namespace btr.distrib.InventoryContext.ReturJualRpt
             InfoGrid.TableDescriptor.Columns["InPcs"].Appearance.AnyRecordFieldCell.Format = "N0";//
             InfoGrid.TableDescriptor.Columns["HrgSat"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["SubTotal"].Appearance.AnyRecordFieldCell.Format = "N0";
-            InfoGrid.TableDescriptor.Columns["DiscRp"].Appearance.AnyRecordFieldCell.Format = "N0";
+            
+            InfoGrid.TableDescriptor.Columns["Disc1"].Appearance.AnyRecordFieldCell.Format = "###.##";
+            InfoGrid.TableDescriptor.Columns["Disc2"].Appearance.AnyRecordFieldCell.Format = "###.##";
+            InfoGrid.TableDescriptor.Columns["Disc3"].Appearance.AnyRecordFieldCell.Format = "###.##";
+            InfoGrid.TableDescriptor.Columns["Disc4"].Appearance.AnyRecordFieldCell.Format = "###.##";
+            InfoGrid.TableDescriptor.Columns["DiscRp"].Appearance.AnyRecordFieldCell.Format = "###.##";
             InfoGrid.TableDescriptor.Columns["PpnRp"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["Total"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["ReturJualDate"].Appearance.AnyRecordFieldCell.Format = "dd-MMM-yyyy";
