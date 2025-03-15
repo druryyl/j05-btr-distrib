@@ -46,7 +46,7 @@ namespace btr.distrib.Browsers
                 .Select(x => new FpKeluaranBrowserView
                 {
                     Id = x.FpKeluaranId,
-                    Tgl = x.FpKeluaranDate.ToString("dd-MMM HH:mm"),
+                    Tgl = x.UserDate.ToString("dd-MMM HH:mm"),
                     Keterangan = x.Keterangan,
                     FakturCount = x.FakturCount,
                     TotalPpn = x.TotalPpn

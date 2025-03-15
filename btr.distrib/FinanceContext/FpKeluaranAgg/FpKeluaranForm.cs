@@ -3,6 +3,7 @@ using btr.application.SalesContext.CustomerAgg.Workers;
 using btr.application.SalesContext.FakturAgg.Contracts;
 using btr.application.SalesContext.FakturAgg.Workers;
 using btr.application.SupportContext.ParamSistemAgg;
+using btr.application.SupportContext.TglJamAgg;
 using btr.distrib.Browsers;
 using btr.distrib.Helpers;
 using btr.distrib.SalesContext.FakturControlAgg;
@@ -36,15 +37,13 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
         private readonly ICustomerBuilder _customerBuilder;
 
         private readonly IBrowser<FpKeluaranBrowserView> _fakturBrowser;
-
+        private readonly ITglJamDal _dateTime;
 
         private readonly BindingList<FpKeluaranFakturDto> _listFaktur;
         private readonly BindingList<FpKeluaranFakturDto> _listFakturPilih;
         private readonly BindingSource _fakturBindingSource;
 
         private readonly string _npwpPenjual = string.Empty;
-
-
 
         public FpKeluaranForm(IFakturDal fakturDal,
             IFpKeluaranBuilder fpKeluaranBuilder,
@@ -53,7 +52,8 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             ICustomerBuilder customerBuilder,
             IFakturWriter fakturWriter,
             IBrowser<FpKeluaranBrowserView> fakturBrowser,
-            IParamSistemDal paramSistemDal)
+            IParamSistemDal paramSistemDal,
+            ITglJamDal dateTime)
         {
             InitializeComponent();
 
@@ -68,12 +68,13 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             _fakturWriter = fakturWriter;
             _fakturBrowser = fakturBrowser;
             _paramSistemDal = paramSistemDal;
-
+            _dateTime = dateTime;
             _npwpPenjual = _paramSistemDal.ListData().First(x => x.ParamCode == "CLIENT_NPWP").ParamValue;
 
             RegisterEventHandler();
             InitGrid();
             InitCalender();
+            _dateTime = dateTime;
         }
 
         private void RegisterEventHandler()
@@ -237,7 +238,8 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
                 return false;
 
             fpKeluaran.RemoveNull();
-            FpKeluaranDateText.Value = fpKeluaran.FpKeluaranDate;
+            UserDateText.Value = fpKeluaran.UserDate;
+            KeteranganLabel.Text = $"{fpKeluaran.Keterangan}\nFaktur Pajak Tgl: {fpKeluaran.FpKeluaranDate:dd-MMM-yyyy}";
             _listFaktur.Clear();
             foreach (var item in fpKeluaran.ListFaktur)
             {
@@ -392,7 +394,8 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
         private void ClearScreen()
         {
             FpKeluaranIdText.Clear();
-            FpKeluaranDateText.Value = DateTime.Now;
+            UserDateText.Value = DateTime.Now;
+            KeteranganLabel.Text = "Faktur Jual  Tgl:\nFaktur Pajak Tgl:";
             _listFaktur.Clear();
             _listFakturPilih.Clear();
             ReCalcTotal();
@@ -419,7 +422,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             var userId = mainform.UserId;
             fpKeluaran = _fpKeluaranBuilder
                 .Attach(fpKeluaran)
-                .Tanggal(FpKeluaranDateText.Value)
+                .UserDate(UserDateText.Value)
                 .User(userId)
                 .Build();
 
@@ -491,6 +494,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             PeriodeCalender.MaxSelectionCount = 31;
             PeriodeCalender.SelectionStart = DateTime.Now;
             PeriodeCalender.SelectionEnd = DateTime.Now;
+            UserDateText.Value = _dateTime.Now;
         }
 
         #region GRID

@@ -30,8 +30,7 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.LastIdLabel = new System.Windows.Forms.Label();
-            this.FpKeluaranDateText = new System.Windows.Forms.DateTimePicker();
-            this.label2 = new System.Windows.Forms.Label();
+            this.UserDateText = new System.Windows.Forms.DateTimePicker();
             this.FpKeluaranIdButton = new System.Windows.Forms.Button();
             this.FpKeluaranIdText = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -55,6 +54,8 @@
             this.UncheckAllButton = new System.Windows.Forms.Button();
             this.FakturTerlipihLabel = new System.Windows.Forms.Label();
             this.CheckAllButton = new System.Windows.Forms.Button();
+            this.KeteranganLabel = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturGrid)).BeginInit();
@@ -68,15 +69,15 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.Cornsilk;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.LastIdLabel);
-            this.panel1.Controls.Add(this.FpKeluaranDateText);
             this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.KeteranganLabel);
+            this.panel1.Controls.Add(this.UserDateText);
             this.panel1.Controls.Add(this.FpKeluaranIdButton);
             this.panel1.Controls.Add(this.FpKeluaranIdText);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(6, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(227, 131);
+            this.panel1.Size = new System.Drawing.Size(227, 154);
             this.panel1.TabIndex = 0;
             // 
             // LastIdLabel
@@ -84,36 +85,26 @@
             this.LastIdLabel.AutoSize = true;
             this.LastIdLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LastIdLabel.ForeColor = System.Drawing.Color.DimGray;
-            this.LastIdLabel.Location = new System.Drawing.Point(17, 50);
+            this.LastIdLabel.Location = new System.Drawing.Point(94, 476);
             this.LastIdLabel.Name = "LastIdLabel";
             this.LastIdLabel.Size = new System.Drawing.Size(46, 13);
             this.LastIdLabel.TabIndex = 5;
             this.LastIdLabel.Text = "[Last ID]";
             // 
-            // FpKeluaranDateText
+            // UserDateText
             // 
-            this.FpKeluaranDateText.CustomFormat = "ddd, dd MMM yyyy";
-            this.FpKeluaranDateText.Enabled = false;
-            this.FpKeluaranDateText.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.FpKeluaranDateText.Location = new System.Drawing.Point(20, 91);
-            this.FpKeluaranDateText.Name = "FpKeluaranDateText";
-            this.FpKeluaranDateText.Size = new System.Drawing.Size(173, 22);
-            this.FpKeluaranDateText.TabIndex = 4;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 75);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(108, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Tanggal Pembuatan";
+            this.UserDateText.CustomFormat = "ddd, dd MMM yyyy";
+            this.UserDateText.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.UserDateText.Location = new System.Drawing.Point(13, 68);
+            this.UserDateText.Name = "UserDateText";
+            this.UserDateText.Size = new System.Drawing.Size(175, 22);
+            this.UserDateText.TabIndex = 4;
             // 
             // FpKeluaranIdButton
             // 
             this.FpKeluaranIdButton.BackColor = System.Drawing.Color.Khaki;
             this.FpKeluaranIdButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.FpKeluaranIdButton.Location = new System.Drawing.Point(167, 25);
+            this.FpKeluaranIdButton.Location = new System.Drawing.Point(162, 25);
             this.FpKeluaranIdButton.Name = "FpKeluaranIdButton";
             this.FpKeluaranIdButton.Size = new System.Drawing.Size(26, 22);
             this.FpKeluaranIdButton.TabIndex = 2;
@@ -123,9 +114,10 @@
             // FpKeluaranIdText
             // 
             this.FpKeluaranIdText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.FpKeluaranIdText.Location = new System.Drawing.Point(20, 25);
+            this.FpKeluaranIdText.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FpKeluaranIdText.Location = new System.Drawing.Point(13, 25);
             this.FpKeluaranIdText.Name = "FpKeluaranIdText";
-            this.FpKeluaranIdText.Size = new System.Drawing.Size(144, 22);
+            this.FpKeluaranIdText.Size = new System.Drawing.Size(142, 20);
             this.FpKeluaranIdText.TabIndex = 1;
             // 
             // label1
@@ -147,9 +139,9 @@
             this.panel2.Controls.Add(this.SearchText);
             this.panel2.Controls.Add(this.SearchButton);
             this.panel2.Controls.Add(this.AllOutstandingCheckBox);
-            this.panel2.Location = new System.Drawing.Point(6, 315);
+            this.panel2.Location = new System.Drawing.Point(6, 358);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(227, 148);
+            this.panel2.Size = new System.Drawing.Size(227, 105);
             this.panel2.TabIndex = 3;
             // 
             // label3
@@ -192,7 +184,7 @@
             // 
             // PeriodeCalender
             // 
-            this.PeriodeCalender.Location = new System.Drawing.Point(6, 141);
+            this.PeriodeCalender.Location = new System.Drawing.Point(6, 190);
             this.PeriodeCalender.Name = "PeriodeCalender";
             this.PeriodeCalender.TabIndex = 19;
             // 
@@ -366,6 +358,24 @@
             this.CheckAllButton.Text = "Check-All";
             this.CheckAllButton.UseVisualStyleBackColor = false;
             // 
+            // KeteranganLabel
+            // 
+            this.KeteranganLabel.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.KeteranganLabel.Location = new System.Drawing.Point(13, 100);
+            this.KeteranganLabel.Name = "KeteranganLabel";
+            this.KeteranganLabel.Size = new System.Drawing.Size(201, 44);
+            this.KeteranganLabel.TabIndex = 6;
+            this.KeteranganLabel.Text = "[Keterangan]";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(17, 52);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(57, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "User Date";
+            // 
             // FpKeluaranForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -373,6 +383,7 @@
             this.BackColor = System.Drawing.Color.Khaki;
             this.ClientSize = new System.Drawing.Size(1066, 502);
             this.Controls.Add(this.panel4);
+            this.Controls.Add(this.LastIdLabel);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.PeriodeCalender);
             this.Controls.Add(this.NewButton);
@@ -394,14 +405,14 @@
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.DateTimePicker FpKeluaranDateText;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DateTimePicker UserDateText;
         private System.Windows.Forms.Button FpKeluaranIdButton;
         private System.Windows.Forms.TextBox FpKeluaranIdText;
         private System.Windows.Forms.Label label1;
@@ -426,5 +437,7 @@
         private System.Windows.Forms.Button CheckAllButton;
         private System.Windows.Forms.Label ResponseKodeFakturLabel;
         private System.Windows.Forms.ProgressBar PrgBar;
+        private System.Windows.Forms.Label KeteranganLabel;
+        private System.Windows.Forms.Label label2;
     }
 }

@@ -18,6 +18,7 @@ namespace btr.domain.FinanceContext.FpKeluaranAgg
         }
         public string FpKeluaranId { get; set; }
         public DateTime FpKeluaranDate { get; set; }
+        public DateTime UserDate { get; set; }
         public string Keterangan { get; set; }
         public string UserId { get; set; }
         public decimal TotalPpn { get; set; }
@@ -39,9 +40,9 @@ namespace btr.domain.FinanceContext.FpKeluaranAgg
             var minDate = ListFaktur.Min(x => x.TanggalFaktur);
             var maxDate = ListFaktur.Max(x => x.TanggalFaktur);
             if (minDate == maxDate)
-                Keterangan = $"Faktur Jual Tgl {minDate:dd-MM-yyyy}";
+                Keterangan = $"Faktur Jual  Tgl: {minDate:dd-MMM-yyyy}";
             else
-                Keterangan = $"Faktur Jual Tgl {minDate:dd-MM-yyyy} s/d {maxDate:dd-MM-yyyy}";
+                Keterangan = $"Faktur Jual  Tgl: {minDate:dd-MMM-yyyy} s/d {maxDate:dd-MMM-yyyy}";
 
         }
 

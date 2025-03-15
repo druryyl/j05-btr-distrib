@@ -24,13 +24,16 @@ namespace btr.infrastructure.FinanceContext.FpKeluaranAgg
         {
             const string sql = @"
                 INSERT INTO BTR_FpKeluaran
-                    (FpKeluaranId, FpKeluaranDate, Keterangan, UserId, FakturCount, TotalPpn)
+                    (FpKeluaranId, FpKeluaranDate, UserDate,
+                    Keterangan, UserId, FakturCount, TotalPpn)
                 VALUES
-                    (@FpKeluaranId, @FpKeluaranDate, @Keterangan, @UserId, @FakturCount, @TotalPpn)";
+                    (@FpKeluaranId, @FpKeluaranDate, @UserDate,
+                    @Keterangan, @UserId, @FakturCount, @TotalPpn)";
 
             var dp = new DynamicParameters();
             dp.AddParam("@FpKeluaranId", model.FpKeluaranId, SqlDbType.VarChar);
             dp.AddParam("@FpKeluaranDate", model.FpKeluaranDate, SqlDbType.DateTime);
+            dp.AddParam("@UserDate", model.UserDate, SqlDbType.DateTime);
             dp.AddParam("@Keterangan", model.Keterangan, SqlDbType.VarChar);
             dp.AddParam("@UserId", model.UserId, SqlDbType.VarChar);
             dp.AddParam("@FakturCount", model.FakturCount, SqlDbType.Int);
@@ -49,6 +52,7 @@ namespace btr.infrastructure.FinanceContext.FpKeluaranAgg
                     BTR_FpKeluaran
                 SET
                     FpKeluaranDate = @FpKeluaranDate,
+                    UserDate = @UserDate,
                     Keterangan = @Keterangan,
                     UserId = @UserId,
                     FakturCount = @FakturCount,
@@ -59,6 +63,7 @@ namespace btr.infrastructure.FinanceContext.FpKeluaranAgg
             var dp = new DynamicParameters();
             dp.AddParam("@FpKeluaranId", model.FpKeluaranId, SqlDbType.VarChar);
             dp.AddParam("@FpKeluaranDate", model.FpKeluaranDate, SqlDbType.DateTime);
+            dp.AddParam("@UserDate", model.UserDate, SqlDbType.DateTime);
             dp.AddParam("@Keterangan", model.Keterangan, SqlDbType.VarChar);
             dp.AddParam("@UserId", model.UserId, SqlDbType.VarChar);
             dp.AddParam("@FakturCount", model.FakturCount, SqlDbType.Int);
@@ -91,8 +96,8 @@ namespace btr.infrastructure.FinanceContext.FpKeluaranAgg
         {
             const string sql = @"
                 SELECT
-                    FpKeluaranId, FpKeluaranDate, Keterangan, UserId,
-                    FakturCount, TotalPpn
+                    FpKeluaranId, FpKeluaranDate, UserDate,
+                    Keterangan, UserId, FakturCount, TotalPpn
                 FROM
                     BTR_FpKeluaran
                 WHERE
@@ -111,8 +116,8 @@ namespace btr.infrastructure.FinanceContext.FpKeluaranAgg
         {
             const string sql = @"
                 SELECT
-                    FpKeluaranId, FpKeluaranDate, Keterangan, UserId,
-                    FakturCount, TotalPpn
+                    FpKeluaranId, FpKeluaranDate, UserDate, 
+                    Keterangan, UserId, FakturCount, TotalPpn
                 FROM
                     BTR_FpKeluaran
                 WHERE

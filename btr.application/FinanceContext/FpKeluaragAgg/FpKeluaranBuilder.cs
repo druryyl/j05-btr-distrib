@@ -16,7 +16,7 @@ namespace btr.application.FinanceContext.FpKeluaragAgg
         IFpKeluaranBuilder Load(IFpKeluaranKey fpKeluaranKey);
         IFpKeluaranBuilder Create();
         IFpKeluaranBuilder Attach(FpKeluaranModel fpKeluaran);
-        IFpKeluaranBuilder Tanggal(DateTime tanggal);
+        IFpKeluaranBuilder UserDate(DateTime tanggal);
         IFpKeluaranBuilder User(IUserKey userKey);
 
     }
@@ -59,6 +59,7 @@ namespace btr.application.FinanceContext.FpKeluaragAgg
             _agg = new FpKeluaranModel
             {
                 ListFaktur = new List<FpKeluaranFakturModel>(),
+                FpKeluaranDate = _dateTime.Now
             };
             return this;
         }
@@ -75,9 +76,9 @@ namespace btr.application.FinanceContext.FpKeluaragAgg
             return this;
         }
 
-        public IFpKeluaranBuilder Tanggal(DateTime tanggal)
+        public IFpKeluaranBuilder UserDate(DateTime tanggal)
         {
-            _agg.FpKeluaranDate = tanggal;
+            _agg.UserDate = tanggal;
             return this;
         }
 
