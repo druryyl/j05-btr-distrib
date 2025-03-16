@@ -22,10 +22,11 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             Terbilang = $"Terbilang #{Math.Round(mutasi.NilaiSediaan, 0).Eja()} rupiah#";
             Terbilang = textInfo.ToTitleCase(Terbilang);
 
-            SubTotal = $"{mutasi.NilaiSediaan:N0}";
+
             var disc = mutasi.ListItem.Sum(x => x.DiscRp);
+            SubTotal = $"{mutasi.NilaiSediaan+disc:N0}";
             Discount = $"{disc:N0}";
-            Total = $"{mutasi.NilaiSediaan - disc:N0}";
+            Total = $"{mutasi.NilaiSediaan:N0}";
             UserName = mutasi.UserId;
 
             ListItem = new List<MutasiPrintOutItemDto>();
@@ -55,7 +56,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
                         Disc2 = disc2 == 0 ? "-" : $"{DecFormatter.ToStr(disc2)}%",
                         Disc3 = disc3 == 0 ? "-" : $"{DecFormatter.ToStr(disc3)}%",
                         Disc4 = disc4 == 0 ? "-" : $"{DecFormatter.ToStr(disc4)}%",
-                        Total = $"{item.NilaiSediaan:N0}",
+                        Total = $"{item.NilaiSediaan+disc1+disc2+disc3+disc4:N0}",
                     };
                     ListItem.Add(newItem);
                     noUrut++;

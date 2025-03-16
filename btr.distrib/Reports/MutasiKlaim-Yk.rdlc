@@ -867,7 +867,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!Total.Value</Value>
+                              <Value>=First(Fields!SubTotal.Value, "MutasiDataset")</Value>
                               <Style>
                                 <FontFamily>Courier New</FontFamily>
                                 <FontSize>9pt</FontSize>
