@@ -525,7 +525,7 @@ namespace btr.distrib.SharedForm
         {
             if (BringMdiChildToFrontIfLoaded<ReturJualBrgReportForm>())
                 return;
-            var form = ThisServicesProvider.GetRequiredService<FpKeluaranInfoForm>();
+            var form = ThisServicesProvider.GetRequiredService<ReturJualBrgReportForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
