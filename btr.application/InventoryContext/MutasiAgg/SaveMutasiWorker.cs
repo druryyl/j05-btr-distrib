@@ -5,6 +5,7 @@ using btr.domain.InventoryContext.MutasiAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Application;
+using btr.nuna.Domain;
 using Dawn;
 using MediatR;
 
@@ -92,6 +93,7 @@ namespace btr.application.InventoryContext.MutasiAgg
                 .Keterangan(req.Keterangan)
                 .JenisMutasi(req.JenisMutasi)
                 .User(req)
+                .MutasiDate(req.MutasiDate.ToDate(DateFormatEnum.YMD))
                 .Build();
 
             foreach (var item in req.ListBrg)

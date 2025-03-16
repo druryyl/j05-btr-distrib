@@ -24,6 +24,7 @@ namespace btr.application.InventoryContext.MutasiAgg
 
         IMutasiBuilder AddItem(IBrgKey brgKey, string qtyString, string discInputStr);
         IMutasiBuilder ClearItem();
+        IMutasiBuilder MutasiDate(DateTime mutasiDate);
 
 
         IMutasiBuilder Void(IUserKey userKey);
@@ -173,6 +174,12 @@ namespace btr.application.InventoryContext.MutasiAgg
         public IMutasiBuilder Keterangan(string keterangan)
         {
             _aggRoot.Keterangan = keterangan;
+            return this;
+        }
+
+        public IMutasiBuilder MutasiDate(DateTime mutasiDate)
+        {
+            _aggRoot.MutasiDate = mutasiDate;
             return this;
         }
     }

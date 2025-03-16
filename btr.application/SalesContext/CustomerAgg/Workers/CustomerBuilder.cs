@@ -10,6 +10,7 @@ using btr.domain.SalesContext.KlasifikasiAgg;
 using btr.domain.SalesContext.WilayahAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
+using FluentValidation.Validators;
 
 namespace btr.application.SalesContext.CustomerAgg.Workers
 {
@@ -37,9 +38,8 @@ namespace btr.application.SalesContext.CustomerAgg.Workers
         ICustomerBuilder Npwp(string npwp);
         ICustomerBuilder Nik(string nik);
 
-        ICustomerBuilder Nppkp(string nppkp);
         ICustomerBuilder NamaWp(string namaWp);
-        ICustomerBuilder AddressWp(string address1, string address2);
+        ICustomerBuilder AddressWp(string address1);
         ICustomerBuilder JenisIdentitasPajak(string jenisIdentitasPajak);
     }
 
@@ -182,16 +182,12 @@ namespace btr.application.SalesContext.CustomerAgg.Workers
             return this;
         }
 
-        public ICustomerBuilder Nppkp(string nppkp)
+        public ICustomerBuilder AddressWp(string address1)
         {
-            _aggRoot.Nppkp = nppkp; ;
-            return this;
-        }
-
-        public ICustomerBuilder AddressWp(string address1, string address2)
-        {
+            if (address1.Length > 136)
+                throw new ArgumentException("AddressWp terlalu panjang");
+            
             _aggRoot.AddressWp = address1;
-            _aggRoot.AddressWp2 = address2;
             return this;
         }
 

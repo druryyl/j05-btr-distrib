@@ -287,10 +287,8 @@ namespace btr.distrib.SalesContext.CustomerAgg
             IsKenaPajakCheck.Checked = customer.IsKenaPajak;
             NpwpText.Text = customer.Npwp;
             NikText.Text = customer.Nik;
-            NppkpText.Text = customer.Nppkp;
             NamaWpText.Text = customer.NamaWp;
             Alamat1WpText.Text = customer.AddressWp;
-            Alamat2WpText.Text = customer.AddressWp2;
 
             EmailText.Text = customer.Email;
             NitkuText.Text = customer.Nitku;
@@ -315,10 +313,8 @@ namespace btr.distrib.SalesContext.CustomerAgg
             IsKenaPajakCheck.Checked = true;
             NpwpText.Clear();
             NikText.Clear();
-            NppkpText.Clear();
             NamaWpText.Clear();
             Alamat1WpText.Clear();
-            Alamat2WpText.Clear();
             EmailText.Clear();
             NitkuText.Clear();
         }
@@ -395,9 +391,8 @@ namespace btr.distrib.SalesContext.CustomerAgg
                 .IsKenaPajak(IsKenaPajakCheck.Checked)
                 .Npwp(NpwpText.Text)
                 .Nik(NikText.Text)
-                .Nppkp(NppkpText.Text)
                 .NamaWp(NamaWpText.Text)
-                .AddressWp(Alamat1WpText.Text, Alamat2WpText.Text)
+                .AddressWp(Alamat1WpText.Text)
                 .Email(EmailText.Text)
                 .Nitku(NitkuText.Text)
                 .JenisIdentitasPajak(JenisIdentitasCombo.Text)

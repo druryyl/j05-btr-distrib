@@ -19,6 +19,8 @@ using btr.distrib.Browsers;
 using btr.infrastructure.SupportContext.TglJamAgg;
 using btr.distrib.SalesContext.FakturAgg;
 using Microsoft.Win32;
+using System.Threading;
+using System.Collections.Generic;
 
 namespace btr.distrib
 {
@@ -32,6 +34,10 @@ namespace btr.distrib
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(GlobalUnhandledExceptionHandler);
+            //Application.ThreadException += new ThreadExceptionEventHandler(GlobalThreadExceptionHandler);
+
 
             var services = new ServiceCollection();
             var configuration = new ConfigurationBuilder()
@@ -47,6 +53,32 @@ namespace btr.distrib
                 Application.Run(form);
             }
         }
+
+        #region GLOBAL-CATCH-ARGUMENT-EXCEPTION and KEYNOTFOUND-EXCEPTION
+        private static void GlobalThreadExceptionHandler(object sender, ThreadExceptionEventArgs e)
+        {
+            if (e.Exception is Exception ex)
+            {
+                // Filter specific exceptions
+                if (ex is ArgumentException || ex is KeyNotFoundException)
+                {
+                    MessageBox.Show(ex.Message, "Validation Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
+
+        private static void GlobalUnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e)
+        {
+            if (e.ExceptionObject is Exception ex)
+            {
+                // Filter specific exceptions
+                if (ex is ArgumentException || ex is KeyNotFoundException)
+                {
+                    MessageBox.Show(ex.Message, "Validation Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
+        #endregion
 
         private static Form GetMainForm(ServiceCollection services, string user)
         {
