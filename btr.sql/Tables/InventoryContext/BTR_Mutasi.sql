@@ -1,6 +1,7 @@
 ﻿CREATE TABLE BTR_Mutasi(
     MutasiId VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_Mutasi_MutasiId DEFAULT(''), 
     MutasiDate DATETIME NOT NULL CONSTRAINT DF_BTR_Mutasi_MutasiDate DEFAULT('3000-01-01'), 
+    KlaimDate DATETIME NOT NULL CONSTRAINT DF_BTR_Mutasi_KlaimDate DEFAULT('3000-01-01'),
     JenisMutasi INT NOT NULL CONSTRAINT DF_BTR_Mutasi_JenisMutasi DEFAULT(0), 
     WarehouseId VARCHAR(3) NOT NULL CONSTRAINT DF_BTR_Mutasi_WarehouseId DEFAULT(''),
     Keterangan VARCHAR(128) NOT NULL CONSTRAINT DF_BTR_Mutasi_Keterangan DEFAULT(''), 

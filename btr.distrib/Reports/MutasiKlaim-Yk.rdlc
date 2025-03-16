@@ -1291,7 +1291,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!MutasiDate.Value, "MutasiDataset")</Value>
+                <Value>=First(Fields!KlaimDate.Value, "MutasiDataset")</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1729,6 +1729,13 @@
       </ConnectionProperties>
       <rd:DataSourceID>01e11919-36c4-4bc3-91d9-b47dc9b6dc8b</rd:DataSourceID>
     </DataSource>
+    <DataSource Name="btrdistribInventoryContextMutasiAgg3">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>00d4f37f-c0f3-41d6-aa17-0f5865305ed5</rd:DataSourceID>
+    </DataSource>
   </DataSources>
   <DataSets>
     <DataSet Name="MutasiItemDataset">
@@ -1795,7 +1802,7 @@
     </DataSet>
     <DataSet Name="MutasiDataset">
       <Query>
-        <DataSourceName>btrdistribInventoryContextMutasiAgg2</DataSourceName>
+        <DataSourceName>btrdistribInventoryContextMutasiAgg3</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
@@ -1805,6 +1812,10 @@
         </Field>
         <Field Name="Keterangan">
           <DataField>Keterangan</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="KlaimDate">
+          <DataField>KlaimDate</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="MutasiDate">
@@ -1839,7 +1850,7 @@
       <rd:DataSetInfo>
         <rd:DataSetName>btr.distrib.InventoryContext.MutasiAgg</rd:DataSetName>
         <rd:TableName>MutasiPrintOutDto</rd:TableName>
-        <rd:ObjectDataSourceType>btr.distrib.InventoryContext.MutasiAgg.MutasiPrintOutDto, btr.distrib, Version=2.1.0.248, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+        <rd:ObjectDataSourceType>btr.distrib.InventoryContext.MutasiAgg.MutasiPrintOutDto, btr.distrib, Version=2.1.0.262, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>

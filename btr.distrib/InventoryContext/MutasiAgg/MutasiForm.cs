@@ -41,7 +41,6 @@ namespace btr.distrib.InventoryContext.MutasiAgg
         private readonly IBrgBuilder _brgBuilder;
         private readonly IMutasiBuilder _mutasiBuilder;
 
-
         private readonly BindingList<MutasiItemDto> _listItem = new BindingList<MutasiItemDto>();
         private const string JNS_MUTASI_KELUAR = "Mutasi Keluar";
         private const string JNS_MUTASI_MASUK = "Mutasi Masuk";
@@ -137,6 +136,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
 
             mutasi.RemoveNull();
             MutasiDateText.Value = mutasi.MutasiDate;
+            KlaimDateText.Value = mutasi.KlaimDate;
             WarehouseIdText.Text = mutasi.WarehouseId;
             WarehouseNameText.Text = mutasi.WarehouseName;
             TotalText.Value = mutasi.NilaiSediaan;
@@ -438,6 +438,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             {
                 MutasiId = MutasiIdText.Text,
                 MutasiDate = MutasiDateText.Value.ToString("yyyy-MM-dd"),
+                KlaimDate = KlaimDateText.Value.ToString("yyyy-MM-dd"),
                 Keterangan = KeteranganText.Text,
                 WarehouseId = WarehouseIdText.Text,
                 UserId = mainform.UserId.UserId,
@@ -494,6 +495,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
         {
             MutasiIdText.Text = string.Empty;
             MutasiDateText.Value = _dateTime.Now;
+            KlaimDateText.Value = _dateTime.Now;
             WarehouseIdText.Text = string.Empty;
             WarehouseNameText.Text = string.Empty;
 

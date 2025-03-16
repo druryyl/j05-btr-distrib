@@ -24,17 +24,18 @@ namespace btr.infrastructure.InventoryContext.MutasiAgg
         {
             const string sql = @"
                 INSERT INTO BTR_Mutasi (
-                    MutasiId, MutasiDate, JenisMutasi, WarehouseId, 
+                    MutasiId, MutasiDate, KlaimDate, JenisMutasi, WarehouseId, 
                     Keterangan, NilaiSediaan,
                     UserId, CreateTime, LastUpdate, VoidDate, UserIdVoid)
                 VALUES(
-                    @MutasiId, @MutasiDate, @JenisMutasi, @WarehouseId, 
+                    @MutasiId, @MutasiDate, @KlaimDate, @JenisMutasi, @WarehouseId, 
                     @Keterangan, @NilaiSediaan,
                     @UserId, @CreateTime, @LastUpdate, @VoidDate, @UserIdVoid)";
 
             var dp = new DynamicParameters();
             dp.AddParam("@MutasiId", model.MutasiId, SqlDbType.VarChar); 
-            dp.AddParam("@MutasiDate", model.MutasiDate, SqlDbType.DateTime); 
+            dp.AddParam("@MutasiDate", model.MutasiDate, SqlDbType.DateTime);
+            dp.AddParam("@KlaimDate", model.KlaimDate, SqlDbType.DateTime);
             dp.AddParam("@JenisMutasi", model.JenisMutasi, SqlDbType.Int);
             dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
             dp.AddParam("@Keterangan", model.Keterangan, SqlDbType.VarChar);
@@ -59,6 +60,7 @@ namespace btr.infrastructure.InventoryContext.MutasiAgg
                     BTR_Mutasi
                 SET
                     MutasiDate = @MutasiDate, 
+                    KlaimDate = @KlaimDate,
                     JenisMutasi = @JenisMutasi, 
                     WarehouseId = @WarehouseId, 
                     Keterangan = @Keterangan,
@@ -76,6 +78,7 @@ namespace btr.infrastructure.InventoryContext.MutasiAgg
 
             dp.AddParam("@MutasiId", model.MutasiId, SqlDbType.VarChar); 
             dp.AddParam("@MutasiDate", model.MutasiDate, SqlDbType.DateTime);
+            dp.AddParam("@KlaimDate", model.KlaimDate, SqlDbType.DateTime);
             dp.AddParam("@JenisMutasi", model.JenisMutasi, SqlDbType.VarChar);
             dp.AddParam("@WarehouseId", model.WarehouseId, SqlDbType.VarChar);
             dp.AddParam("@Keterangan", model.Keterangan, SqlDbType.VarChar);
@@ -114,7 +117,7 @@ namespace btr.infrastructure.InventoryContext.MutasiAgg
         {
             const string sql = @"
                 SELECT
-                    aa.MutasiId, aa.MutasiDate, aa.JenisMutasi, 
+                    aa.MutasiId, aa.MutasiDate, aa.KlaimDate, aa.JenisMutasi, 
                     aa.Keterangan, aa.WarehouseId, aa.NilaiSediaan, 
                     aa.CreateTime, aa.LastUpdate, aa.UserId, 
                     aa.VoidDate, aa.UserIdVoid,
@@ -138,7 +141,7 @@ namespace btr.infrastructure.InventoryContext.MutasiAgg
         {
             const string sql = @"
                 SELECT
-                    aa.MutasiId, aa.MutasiDate, aa.JenisMutasi, 
+                    aa.MutasiId, aa.MutasiDate, aa.KlaimDate, aa.JenisMutasi, 
                     aa.Keterangan, aa.WarehouseId, aa.NilaiSediaan, 
                     aa.CreateTime, aa.LastUpdate, aa.UserId, 
                     aa.VoidDate, aa.UserIdVoid,

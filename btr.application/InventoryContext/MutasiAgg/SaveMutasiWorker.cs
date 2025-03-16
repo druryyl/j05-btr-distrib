@@ -16,6 +16,7 @@ namespace btr.application.InventoryContext.MutasiAgg
     {
         public string MutasiId { get; set; }
         public string MutasiDate { get; set; }
+        public string KlaimDate { get; set; }
         public string Keterangan { get; set; }
         public string WarehouseId { get; set; }
         public string UserId { get; set; }
@@ -94,6 +95,7 @@ namespace btr.application.InventoryContext.MutasiAgg
                 .JenisMutasi(req.JenisMutasi)
                 .User(req)
                 .MutasiDate(req.MutasiDate.ToDate(DateFormatEnum.YMD))
+                .KlaimDate(req.KlaimDate.ToDate(DateFormatEnum.YMD))
                 .Build();
 
             foreach (var item in req.ListBrg)

@@ -916,6 +916,7 @@
     <Content Include="Reports\InvoicePrintOut-Mgl.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Reports\Report1.rdlc" />
     <EmbeddedResource Include="SalesContext\DriverFakturRpt\DriverFakturInfoForm.resx">
       <DependentUpon>DriverFakturInfoForm.cs</DependentUpon>
     </EmbeddedResource>

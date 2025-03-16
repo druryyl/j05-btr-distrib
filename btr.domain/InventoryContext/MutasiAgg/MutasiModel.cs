@@ -17,6 +17,7 @@ namespace btr.domain.InventoryContext.MutasiAgg
         
         public string Keterangan { get; set; }
         public DateTime MutasiDate { get; set; }
+        public DateTime KlaimDate { get; set; }
         public string WarehouseId { get; set; }
         public string WarehouseName { get; set; }
         
