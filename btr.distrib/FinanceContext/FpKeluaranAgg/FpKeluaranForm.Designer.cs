@@ -29,11 +29,13 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.LastIdLabel = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.KeteranganLabel = new System.Windows.Forms.Label();
             this.UserDateText = new System.Windows.Forms.DateTimePicker();
             this.FpKeluaranIdButton = new System.Windows.Forms.Button();
             this.FpKeluaranIdText = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.LastIdLabel = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.SearchText = new System.Windows.Forms.TextBox();
@@ -54,8 +56,6 @@
             this.UncheckAllButton = new System.Windows.Forms.Button();
             this.FakturTerlipihLabel = new System.Windows.Forms.Label();
             this.CheckAllButton = new System.Windows.Forms.Button();
-            this.KeteranganLabel = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FakturGrid)).BeginInit();
@@ -80,16 +80,23 @@
             this.panel1.Size = new System.Drawing.Size(227, 154);
             this.panel1.TabIndex = 0;
             // 
-            // LastIdLabel
+            // label2
             // 
-            this.LastIdLabel.AutoSize = true;
-            this.LastIdLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LastIdLabel.ForeColor = System.Drawing.Color.DimGray;
-            this.LastIdLabel.Location = new System.Drawing.Point(94, 476);
-            this.LastIdLabel.Name = "LastIdLabel";
-            this.LastIdLabel.Size = new System.Drawing.Size(46, 13);
-            this.LastIdLabel.TabIndex = 5;
-            this.LastIdLabel.Text = "[Last ID]";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(17, 52);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(57, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "User Date";
+            // 
+            // KeteranganLabel
+            // 
+            this.KeteranganLabel.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.KeteranganLabel.Location = new System.Drawing.Point(13, 100);
+            this.KeteranganLabel.Name = "KeteranganLabel";
+            this.KeteranganLabel.Size = new System.Drawing.Size(201, 44);
+            this.KeteranganLabel.TabIndex = 6;
+            this.KeteranganLabel.Text = "[Keterangan]";
             // 
             // UserDateText
             // 
@@ -128,6 +135,17 @@
             this.label1.Size = new System.Drawing.Size(81, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "FP Keluaran ID";
+            // 
+            // LastIdLabel
+            // 
+            this.LastIdLabel.AutoSize = true;
+            this.LastIdLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LastIdLabel.ForeColor = System.Drawing.Color.DimGray;
+            this.LastIdLabel.Location = new System.Drawing.Point(94, 476);
+            this.LastIdLabel.Name = "LastIdLabel";
+            this.LastIdLabel.Size = new System.Drawing.Size(46, 13);
+            this.LastIdLabel.TabIndex = 5;
+            this.LastIdLabel.Text = "[Last ID]";
             // 
             // panel2
             // 
@@ -251,8 +269,8 @@
             this.TotalPpnText.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalPpnText.Location = new System.Drawing.Point(678, 11);
             this.TotalPpnText.Maximum = new decimal(new int[] {
-            999999999,
-            0,
+            1410065407,
+            2,
             0,
             0});
             this.TotalPpnText.Name = "TotalPpnText";
@@ -267,8 +285,8 @@
             this.TotalFakturText.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalFakturText.Location = new System.Drawing.Point(552, 11);
             this.TotalFakturText.Maximum = new decimal(new int[] {
-            999999999,
-            0,
+            1410065407,
+            2,
             0,
             0});
             this.TotalFakturText.Name = "TotalFakturText";
@@ -357,24 +375,6 @@
             this.CheckAllButton.TabIndex = 22;
             this.CheckAllButton.Text = "Check-All";
             this.CheckAllButton.UseVisualStyleBackColor = false;
-            // 
-            // KeteranganLabel
-            // 
-            this.KeteranganLabel.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.KeteranganLabel.Location = new System.Drawing.Point(13, 100);
-            this.KeteranganLabel.Name = "KeteranganLabel";
-            this.KeteranganLabel.Size = new System.Drawing.Size(201, 44);
-            this.KeteranganLabel.TabIndex = 6;
-            this.KeteranganLabel.Text = "[Keterangan]";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 52);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(57, 13);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "User Date";
             // 
             // FpKeluaranForm
             // 

@@ -436,7 +436,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             PrgBar.Maximum = listFakturToBeSaved.Count * 3;
             foreach (var item in listFakturToBeSaved)
             {
-                PrgBar.Value++;
+                PrgBar.Value = PrgBar.Value < PrgBar.Maximum ? PrgBar.Value + 1 : PrgBar.Value;
                 var faktur = _fakturBuilder.Load(item).Build();
                 var customer = _customerBuilder.Load(faktur).Build();
                 var fpFaktur = new FpKeluaranFakturModel();
@@ -462,7 +462,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
                 result = _fpKeluaranWriter.Save(fpKeluaran);
                 foreach (var item in result.ListFaktur)
                 {
-                    PrgBar.Value++;
+                    PrgBar.Value = PrgBar.Value < PrgBar.Maximum ? PrgBar.Value + 1 : PrgBar.Value;
                     var faktur = _fakturBuilder
                         .Load(item)
                         .FpKeluaran(result.FpKeluaranId)
@@ -481,7 +481,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
         {
             foreach(var item in listFakturToBeReset)
             {
-                PrgBar.Value++;
+                PrgBar.Value = PrgBar.Value < PrgBar.Maximum ? PrgBar.Value + 1 : PrgBar.Value;
                 var faktur = _fakturBuilder.Load(new FakturModel(item)).Build();
                 faktur.FpKeluaranId = string.Empty;
                 _fakturWriter.Save(faktur);
