@@ -73,7 +73,7 @@ namespace btr.distrib.SalesContext.DriverFakturRpt
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair);
                 ws.Range(ws.Cell($"A{1}"), ws.Cell($"P{_dataSource.Count + 1}")).Style
-                    .Font.SetFontName("Consolas")
+                    .Font.SetFontName("Lucida Console")
                     .Font.SetFontSize(9);
 
                 //  set format number for column K, L, M, N to N0

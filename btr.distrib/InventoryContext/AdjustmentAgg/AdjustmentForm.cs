@@ -273,9 +273,9 @@ namespace btr.distrib.InventoryContext.AdjustmentAgg
             grid.GetCol("StokKecil").DefaultCellStyle.BackColor = Color.LightGreen;
             grid.GetCol("StokInPcs").DefaultCellStyle.BackColor = Color.LightGreen;
             
-            grid.GetCol("StokBesar").DefaultCellStyle.Font = new Font("Consolas", 8.25f, FontStyle.Regular);
-            grid.GetCol("StokKecil").DefaultCellStyle.Font = new Font("Consolas", 8.25f, FontStyle.Regular);
-            grid.GetCol("StokInPcs").DefaultCellStyle.Font = new Font("Consolas", 8.25f, FontStyle.Regular);
+            grid.GetCol("StokBesar").DefaultCellStyle.Font = new Font("Lucida Console", 8.25f, FontStyle.Regular);
+            grid.GetCol("StokKecil").DefaultCellStyle.Font = new Font("Lucida Console", 8.25f, FontStyle.Regular);
+            grid.GetCol("StokInPcs").DefaultCellStyle.Font = new Font("Lucida Console", 8.25f, FontStyle.Regular);
             
 
             

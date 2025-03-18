@@ -70,7 +70,7 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair);
                 ws.Range(ws.Cell($"A{1}"), ws.Cell($"P{excelDs.Count + 1}")).Style
-                    .Font.SetFontName("Consolas")
+                    .Font.SetFontName("Lucida Console")
                     .Font.SetFontSize(9);
 
                 //  hide columns O

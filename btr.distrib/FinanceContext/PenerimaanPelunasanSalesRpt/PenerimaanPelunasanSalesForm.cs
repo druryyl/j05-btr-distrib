@@ -145,7 +145,7 @@ namespace btr.distrib.FinanceContext.PenerimaanPelunasanSalesRpt
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair);
                 ws.Range(ws.Cell($"A{1}"), ws.Cell($"I{_dataSource.Count + 1}")).Style
-                    .Font.SetFontName("Consolas")
+                    .Font.SetFontName("Lucida Console")
                     .Font.SetFontSize(9);
 
                 //  set format for  column  number 

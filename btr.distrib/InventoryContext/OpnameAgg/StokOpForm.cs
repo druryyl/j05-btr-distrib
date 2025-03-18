@@ -195,9 +195,8 @@ namespace btr.distrib.InventoryContext.OpnameAgg
                 //  format number column with thousand separator
                 ws.Range(ws.Cell($"C{barisStart}"), ws.Cell($"O{baris}"))
                     .Style.NumberFormat.Format = "#,##0";
-                //  set font number column to consolas 10 point
                 ws.Range(ws.Cell($"C{barisStart}"), ws.Cell($"O{baris}"))
-                    .Style.Font.SetFontName("Consolas")
+                    .Style.Font.SetFontName("Lucida Console")
                     .Font.SetFontSize(10);
 
                 //  set background color columns Qty Awal to LemonChiffon

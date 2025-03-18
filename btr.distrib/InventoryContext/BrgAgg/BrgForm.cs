@@ -180,8 +180,7 @@ namespace btr.distrib.InventoryContext.BrgAgg
                 ws.Range($"F2:M{listBrgExcel.Count + 1}").Style.NumberFormat.Format = "#,##";
                 ws.Range($"A2:A{listBrgExcel.Count + 1}").Style.NumberFormat.Format = "#,##";
                 
-                //  set font to consolas 8.25f
-                ws.Range($"A1:P{listBrgExcel.Count + 1}").Style.Font.SetFontName("Consolas");
+                ws.Range($"A1:P{listBrgExcel.Count + 1}").Style.Font.SetFontName("Lucida Console");
                 ws.Range($"A1:P{listBrgExcel.Count + 1}").Style.Font.SetFontSize(9f);
                 
                 //  set backcolor column E to H as light yellow

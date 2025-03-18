@@ -81,7 +81,7 @@ namespace btr.distrib.InventoryContext.OmzetSupplierRpt
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair);
                 ws.Range(ws.Cell($"A{1}"), ws.Cell($"O{_dataSourceBulanan.Count + 2}")).Style
-                    .Font.SetFontName("Consolas")
+                    .Font.SetFontName("Lucida Console")
                     .Font.SetFontSize(9);
 
                 //  set format number for column K, L, M, N to N0
@@ -135,7 +135,7 @@ namespace btr.distrib.InventoryContext.OmzetSupplierRpt
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair);
                 ws.Range(ws.Cell($"A1"), ws.Cell($"AH{_dataSourceHarian.Count + 1}")).Style
-                    .Font.SetFontName("Consolas")
+                    .Font.SetFontName("Lucida Console")
                     .Font.SetFontSize(9);
 
                 //  set format number for column K, L, M, N to N0

@@ -20,7 +20,7 @@ namespace btr.distrib.Helpers
         {
             foreach (DataGridViewColumn col in cols)
             {
-                col.DefaultCellStyle.Font = new Font("Consolas", 8.25f);
+                col.DefaultCellStyle.Font = new Font("Lucida Console", 8.25f);
                 if (col.ReadOnly)
                     col.DefaultCellStyle.BackColor = readOnlyColor;
 
@@ -63,7 +63,7 @@ namespace btr.distrib.Helpers
             };
 
             var headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
-            e.Graphics.DrawString(rowIdx, new Font("Consolas", 8.25f), SystemBrushes.ControlText, headerBounds, centerFormat);
+            e.Graphics.DrawString(rowIdx, new Font("Lucida Console", 8.25f), SystemBrushes.ControlText, headerBounds, centerFormat);
         }
 
     }

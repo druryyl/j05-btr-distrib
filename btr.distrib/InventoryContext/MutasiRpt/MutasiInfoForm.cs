@@ -66,12 +66,12 @@ namespace btr.distrib.InventoryContext.MutasiRpt
                 ws.Cell($"O{_dataSource.Count + 2}").Value = "Total";
                 ws.Range(ws.Cell($"O{_dataSource.Count + 2}"), ws.Cell($"R{_dataSource.Count + 2}")).Style
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
-                    .Font.SetFontName("Consolas")
+                    .Font.SetFontName("Lucida Console")
                     .Font.SetFontSize(11)
                     .Font.SetBold();
 
                 ws.Range(ws.Cell("A1"), ws.Cell($"R{_dataSource.Count + 2}")).Style
-                    .Font.SetFontName("Consolas")
+                    .Font.SetFontName("Lucida Console")
                     .Font.SetFontSize(9);
 
                 //  add row total P-Q-R

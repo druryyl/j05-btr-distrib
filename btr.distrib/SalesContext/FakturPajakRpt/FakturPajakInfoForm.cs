@@ -66,16 +66,15 @@ namespace btr.distrib.SalesContext.FakturPajakRpt
 
                 //  set format row header: font bold, background lightblue, border medium
                 ws.Range(ws.Cell("A1"), ws.Cell($"L1")).Style
-                    .Font.SetFontName("Consolas")
+                    .Font.SetFontName("Lucida Console")
                     .Font.SetFontSize(9)
                     .Font.SetBold()
                     .Fill.SetBackgroundColor(XLColor.LightBlue)
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair);
 
-                //  set format row data: font consolas 9, border medium, border inside hair
                 ws.Range(ws.Cell("A2"), ws.Cell($"L{listToExcel.Count + 1}")).Style
-                    .Font.SetFontName("Consolas")
+                    .Font.SetFontName("Lucida Console")
                     .Font.SetFontSize(9)
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair);

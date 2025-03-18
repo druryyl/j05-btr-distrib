@@ -160,14 +160,14 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             col.GetCol("HargaJual").DefaultCellStyle.Format = "N0";
             col.GetCol("MutasiDate").DefaultCellStyle.Format = "dd-MMM HH:mm";
 
-            col.GetCol("QtyAwal").DefaultCellStyle.Font = new System.Drawing.Font("Consolas", 8.25F);
-            col.GetCol("QtyMasuk").DefaultCellStyle.Font = new System.Drawing.Font("Consolas", 8.25F);
-            col.GetCol("QtyKeluar").DefaultCellStyle.Font = new System.Drawing.Font("Consolas", 8.25F); 
-            col.GetCol("QtyAkhir").DefaultCellStyle.Font = new System.Drawing.Font("Consolas", 8.25F);
-            col.GetCol("Hpp").DefaultCellStyle.Font = new System.Drawing.Font("Consolas", 8.25F);
-            col.GetCol("HargaJual").DefaultCellStyle.Font = new System.Drawing.Font("Consolas", 8.25F);
-            col.GetCol("MutasiDate").DefaultCellStyle.Font = new System.Drawing.Font("Consolas", 8.25F);
-            col.GetCol("Keterangan").DefaultCellStyle.Font = new System.Drawing.Font("Consolas", 8.25F);
+            col.GetCol("QtyAwal").DefaultCellStyle.Font = new System.Drawing.Font("Lucida Console", 8.25F);
+            col.GetCol("QtyMasuk").DefaultCellStyle.Font = new System.Drawing.Font("Lucida Console", 8.25F);
+            col.GetCol("QtyKeluar").DefaultCellStyle.Font = new System.Drawing.Font("Lucida Console", 8.25F); 
+            col.GetCol("QtyAkhir").DefaultCellStyle.Font = new System.Drawing.Font("Lucida Console", 8.25F);
+            col.GetCol("Hpp").DefaultCellStyle.Font = new System.Drawing.Font("Lucida Console", 8.25F);
+            col.GetCol("HargaJual").DefaultCellStyle.Font = new System.Drawing.Font("Lucida Console", 8.25F);
+            col.GetCol("MutasiDate").DefaultCellStyle.Font = new System.Drawing.Font("Lucida Console", 8.25F);
+            col.GetCol("Keterangan").DefaultCellStyle.Font = new System.Drawing.Font("Lucida Console", 8.25F);
 
             col.GetCol("QtyAwal").DefaultCellStyle.ForeColor = System.Drawing.Color.Gray;
             col.GetCol("QtyAkhir").DefaultCellStyle.ForeColor = System.Drawing.Color.Gray;

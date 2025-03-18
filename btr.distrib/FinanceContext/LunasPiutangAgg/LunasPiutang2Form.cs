@@ -258,7 +258,7 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             BayarGrid.DefaultCellStyle = new DataGridViewCellStyle
             {
                 BackColor = System.Drawing.Color.LavenderBlush,
-                Font = new System.Drawing.Font("Consolas", 8.25F),
+                Font = new System.Drawing.Font("Lucida Console", 8.25F),
             };
 
             var cols = BayarGrid.Columns;
