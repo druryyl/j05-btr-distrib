@@ -40,7 +40,7 @@ namespace btr.domain.FinanceContext.FpKeluaranAgg
             HargaSatuan = Math.Round(item.HrgSat,0);
             JumlahBarangJasa = item.QtyJual;
             TotalDiskon = Math.Round(item.DiscRp,0);
-            Dpp = (HargaSatuan * JumlahBarangJasa);
+            Dpp = (HargaSatuan * JumlahBarangJasa) - TotalDiskon;
             DppLain = Math.Round(Dpp * 11/12,0);   
             TarifPpn = item.PpnProsen;
             Ppn = Math.Round(DppLain * TarifPpn / 100,0);

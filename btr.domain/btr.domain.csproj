@@ -134,6 +134,7 @@
     <Compile Include="SalesContext\FakturPajakVoidAgg\FakturPajakVoidModel.cs" />
     <Compile Include="SalesContext\KlasifikasiAgg\IKlasifikasiKey.cs" />
     <Compile Include="SalesContext\KlasifikasiAgg\KlasifikasiModel.cs" />
+    <Compile Include="SalesContext\RuteAgg\RuteModel.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\ISalesPersonKey.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\SalesPersonModel.cs" />
     <Compile Include="SalesContext\WilayahAgg\IWilayahKey.cs" />
