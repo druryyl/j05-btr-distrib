@@ -287,6 +287,8 @@
     <Compile Include="SalesContext\AlokasiFpAgg\AlokasiFpWriter.cs" />
     <Compile Include="SalesContext\OmzetSupplierInfo\IOmzetSupplierViewDal.cs" />
     <Compile Include="SalesContext\OmzetSupplierInfo\OmzetSupplierView.cs" />
+    <Compile Include="SalesContext\RuteAgg\IRuteCustomerDal.cs" />
+    <Compile Include="SalesContext\RuteAgg\IRuteDal.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\Contracts\ISalesPersonDal.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\UseCases\CreateSalesPersonCommand.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\UseCases\GetDataSalesPersonQuery.cs" />
