@@ -43,5 +43,8 @@ namespace btr.domain.SalesContext.CustomerAgg
         public bool IsSuspend {get;set;}
         public decimal Plafond {get;set;}
         public decimal CreditBalance { get; set; }
+
+        public string RuteId { get; set; }
+        public string RuteName { get; set; }
     }
 }

@@ -34,7 +34,6 @@
             this.FakturPanel = new System.Windows.Forms.RibbonPanel();
             this.ST1FakturButton = new System.Windows.Forms.RibbonButton();
             this.ST2ControlFakturButton = new System.Windows.Forms.RibbonButton();
-            this.ST3FakturPajakButton = new System.Windows.Forms.RibbonButton();
             this.SalesInfoPanel = new System.Windows.Forms.RibbonPanel();
             this.SF1FakturButton = new System.Windows.Forms.RibbonButton();
             this.SF2FakturBrgButton = new System.Windows.Forms.RibbonButton();
@@ -48,6 +47,7 @@
             this.OutletButton = new System.Windows.Forms.RibbonButton();
             this.SalesPersonButton = new System.Windows.Forms.RibbonButton();
             this.WilayahButton = new System.Windows.Forms.RibbonButton();
+            this.RuteButton = new System.Windows.Forms.RibbonButton();
             this.PurchaseTab = new System.Windows.Forms.RibbonTab();
             this.PurchaseOrderRibbonPanel = new System.Windows.Forms.RibbonPanel();
             this.InvoiceButton = new System.Windows.Forms.RibbonButton();
@@ -92,6 +92,7 @@
             this.RT2PostingRetur = new System.Windows.Forms.RibbonButton();
             this.ribbonPanel4 = new System.Windows.Forms.RibbonPanel();
             this.RF1ReturJualInfo = new System.Windows.Forms.RibbonButton();
+            this.RF2ReturBrgInfoButton = new System.Windows.Forms.RibbonButton();
             this.SettingTab = new System.Windows.Forms.RibbonTab();
             this.DeliveryPanel = new System.Windows.Forms.RibbonPanel();
             this.UserButton = new System.Windows.Forms.RibbonButton();
@@ -102,7 +103,6 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.RF2ReturBrgInfoButton = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -147,7 +147,6 @@
             this.FakturPanel.ButtonMoreVisible = false;
             this.FakturPanel.Items.Add(this.ST1FakturButton);
             this.FakturPanel.Items.Add(this.ST2ControlFakturButton);
-            this.FakturPanel.Items.Add(this.ST3FakturPajakButton);
             this.FakturPanel.Name = "FakturPanel";
             this.FakturPanel.Text = "Transaction";
             // 
@@ -168,15 +167,6 @@
             this.ST2ControlFakturButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ST2ControlFakturButton.SmallImage")));
             this.ST2ControlFakturButton.Text = "ST2-Control Faktur";
             this.ST2ControlFakturButton.Click += new System.EventHandler(this.ST2ControlFakturButton_Click);
-            // 
-            // ST3FakturPajakButton
-            // 
-            this.ST3FakturPajakButton.Image = global::btr.distrib.Properties.Resources.icons8_uninstalling_updates_32;
-            this.ST3FakturPajakButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_uninstalling_updates_32;
-            this.ST3FakturPajakButton.Name = "ST3FakturPajakButton";
-            this.ST3FakturPajakButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ST3FakturPajakButton.SmallImage")));
-            this.ST3FakturPajakButton.Text = "ST3-Faktur Pajak";
-            this.ST3FakturPajakButton.Click += new System.EventHandler(this.ST3FakturPajakButton_Click);
             // 
             // SalesInfoPanel
             // 
@@ -271,6 +261,7 @@
             this.MasterSalesPanel.Items.Add(this.OutletButton);
             this.MasterSalesPanel.Items.Add(this.SalesPersonButton);
             this.MasterSalesPanel.Items.Add(this.WilayahButton);
+            this.MasterSalesPanel.Items.Add(this.RuteButton);
             this.MasterSalesPanel.Name = "MasterSalesPanel";
             this.MasterSalesPanel.Text = "Master";
             // 
@@ -300,6 +291,15 @@
             this.WilayahButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("WilayahButton.SmallImage")));
             this.WilayahButton.Text = "SM3-Wilayah";
             this.WilayahButton.Click += new System.EventHandler(this.SM3WilayahButton_Click);
+            // 
+            // RuteButton
+            // 
+            this.RuteButton.Image = global::btr.distrib.Properties.Resources.icons8_route_32;
+            this.RuteButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_route_32;
+            this.RuteButton.Name = "RuteButton";
+            this.RuteButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("RuteButton.SmallImage")));
+            this.RuteButton.Text = "SM4-Rute";
+            this.RuteButton.Click += new System.EventHandler(this.RuteButton_Click);
             // 
             // PurchaseTab
             // 
@@ -683,6 +683,15 @@
             this.RF1ReturJualInfo.Text = "RF1-Info Retur";
             this.RF1ReturJualInfo.Click += new System.EventHandler(this.RF1ReturJualInfo_Click);
             // 
+            // RF2ReturBrgInfoButton
+            // 
+            this.RF2ReturBrgInfoButton.Image = global::btr.distrib.Properties.Resources.icons8_hashtag_activity_feed_32;
+            this.RF2ReturBrgInfoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_hashtag_activity_feed_32;
+            this.RF2ReturBrgInfoButton.Name = "RF2ReturBrgInfoButton";
+            this.RF2ReturBrgInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("RF2ReturBrgInfoButton.SmallImage")));
+            this.RF2ReturBrgInfoButton.Text = "RF2-Info Retur Brg";
+            this.RF2ReturBrgInfoButton.Click += new System.EventHandler(this.RF2ReturBrgInfoButton_Click);
+            // 
             // SettingTab
             // 
             this.SettingTab.Name = "SettingTab";
@@ -762,15 +771,6 @@
             this.ServerDbStatus.Name = "ServerDbStatus";
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
-            // 
-            // RF2ReturBrgInfoButton
-            // 
-            this.RF2ReturBrgInfoButton.Image = global::btr.distrib.Properties.Resources.icons8_hashtag_activity_feed_32;
-            this.RF2ReturBrgInfoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_hashtag_activity_feed_32;
-            this.RF2ReturBrgInfoButton.Name = "RF2ReturBrgInfoButton";
-            this.RF2ReturBrgInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("RF2ReturBrgInfoButton.SmallImage")));
-            this.RF2ReturBrgInfoButton.Text = "RF2-Info Retur Brg";
-            this.RF2ReturBrgInfoButton.Click += new System.EventHandler(this.RF2ReturBrgInfoButton_Click);
             // 
             // MainForm
             // 
@@ -852,8 +852,6 @@
         private System.Windows.Forms.RibbonButton FF1PiutangSalesWilayahButton;
         private System.Windows.Forms.RibbonButton FF2PenerimaanSalesButton;
         private System.Windows.Forms.RibbonButton KategoriAButton;
-        //private System.Windows.Forms.RibbonPanel ribbonPanel2;
-        private System.Windows.Forms.RibbonButton ST3FakturPajakButton;
         private System.Windows.Forms.RibbonButton SF5FakturPajakButton;
         private System.Windows.Forms.RibbonButton ribbonButton1;
         private System.Windows.Forms.RibbonButton SF6FakturCashButton;
@@ -874,5 +872,6 @@
         private System.Windows.Forms.RibbonButton IF7StokOpnameButton;
         private System.Windows.Forms.RibbonButton FF3FpKeluaranButton;
         private System.Windows.Forms.RibbonButton RF2ReturBrgInfoButton;
+        private System.Windows.Forms.RibbonButton RuteButton;
     }
 }

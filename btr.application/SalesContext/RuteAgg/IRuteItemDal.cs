@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace btr.application.SalesContext.RuteAgg
 {
-    public interface IRuteCustomerDal :
-        IInsertBulk<RuteCustomerModel>,
+    public interface IRuteItemDal :
+        IInsertBulk<RuteItemModel>,
         IDelete<IRuteKey>,
-        IListData<RuteCustomerModel, IRuteKey>
+        IListData<RuteItemModel, IRuteKey>
     {
     }
 }

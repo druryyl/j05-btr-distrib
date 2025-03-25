@@ -52,6 +52,7 @@ using btr.distrib.FinanceContext.FpKeluaranAgg;
 using btr.distrib.InventoryContext.StokPeriodikRpt;
 using btr.distrib.PurchaseContext.PostingStokAgg;
 using btr.distrib.InventoryContext.MutasiRpt;
+using btr.distrib.SalesContext.RuteAgg;
 
 namespace btr.distrib.SharedForm
 {
@@ -623,5 +624,14 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
+        private void RuteButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<RuteForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<RuteForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
     }
 }

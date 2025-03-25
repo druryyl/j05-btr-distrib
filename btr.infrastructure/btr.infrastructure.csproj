@@ -161,7 +161,7 @@
     <Compile Include="SalesContext\FakturPerCustomerRpt\FakturPerCustomerDal.cs" />
     <Compile Include="SalesContext\FakturPerSupplierRpt\FakturPerSupplierDal.cs" />
     <Compile Include="SalesContext\KlasifikasiAgg\KlasifikasiDal.cs" />
-    <Compile Include="SalesContext\RuteAgg\RuteCustomerDal.cs" />
+    <Compile Include="SalesContext\RuteAgg\RuteItemDal.cs" />
     <Compile Include="SalesContext\RuteAgg\RuteDal.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\SalesPersonDal.cs" />
     <Compile Include="SalesContext\WilayahAgg\WilayahDal.cs" />

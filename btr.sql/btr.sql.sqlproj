@@ -129,5 +129,7 @@
     <Build Include="Tables\InventoryContext\BTR_MutasiDisc.sql" />
     <Build Include="Tables\SalesContext\BTR_FakturItemKlaim.sql" />
     <Build Include="Tables\SalesContext\BTR_FakturDiscountKlaim.sql" />
+    <Build Include="Tables\SalesContext\BTR_Rute.sql" />
+    <Build Include="Tables\SalesContext\BTR_RuteItem.sql" />
   </ItemGroup>
 </Project>

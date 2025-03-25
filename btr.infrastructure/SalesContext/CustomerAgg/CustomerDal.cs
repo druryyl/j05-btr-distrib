@@ -26,12 +26,12 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
                 CustomerId, CustomerName, CustomerCode, WilayahId, KlasifikasiId, HargaTypeId, 
                 Address1, Address2, Kota, KodePos, NoTelp, NoFax, Email, Nitku,
                 Npwp, Nik, Nppkp, NamaWp, AddressWp, AddressWp2, IsKenaPajak, JenisIdentitasPajak,
-                IsSuspend, Plafond, CreditBalance)
+                IsSuspend, Plafond, CreditBalance, RuteId)
             VALUES (
                 @CustomerId, @CustomerName, @CustomerCode, @WilayahId, @KlasifikasiId, @HargaTypeId, 
                 @Address1, @Address2, @Kota, @KodePos, @NoTelp, @NoFax, @Email, @Nitku,
                 @Npwp, @Nik, @Nppkp, @NamaWp, @AddressWp, @AddressWp2, @IsKenaPajak, @JenisIdentitasPajak, 
-                @IsSuspend, @Plafond, @CreditBalance)";
+                @IsSuspend, @Plafond, @CreditBalance, @RuteId)";
 
             var dp = new DynamicParameters();
             dp.AddParam("@CustomerId", model.CustomerId, SqlDbType.VarChar);
@@ -64,6 +64,7 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
             dp.AddParam("@IsSuspend", model.IsSuspend, SqlDbType.Bit);
             dp.AddParam("@Plafond", model.Plafond, SqlDbType.Decimal);
             dp.AddParam("@CreditBalance", model.CreditBalance, SqlDbType.Decimal);
+            dp.AddParam("@RuteId", model.RuteId, SqlDbType.Decimal);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -103,11 +104,11 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
                 JenisIdentitasPajak = @JenisIdentitasPajak,
                 IsSuspend = @IsSuspend,
                 Plafond = @Plafond,
-                CreditBalance = @CreditBalance
+                CreditBalance = @CreditBalance,
+                RuteId = @RuteId
             WHERE
                 CustomerId = @CustomerId ";
 
-            //  TODO; CODING CUSTOMER
             var dp = new DynamicParameters();
             dp.AddParam("@CustomerId", model.CustomerId, SqlDbType.VarChar);
             dp.AddParam("@CustomerName", model.CustomerName, SqlDbType.VarChar);
@@ -138,6 +139,7 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
             dp.AddParam("@IsSuspend", model.IsSuspend, SqlDbType.Bit);
             dp.AddParam("@Plafond", model.Plafond, SqlDbType.Decimal);
             dp.AddParam("@CreditBalance", model.CreditBalance, SqlDbType.Decimal);
+            dp.AddParam("@RuteId", model.RuteId, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -148,10 +150,10 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
         public void Delete(ICustomerKey key)
         {
             const string sql = @"
-            DELETE FROM 
-                BTR_Customer
-            WHERE
-                CustomerId = @CustomerId ";
+                DELETE FROM 
+                    BTR_Customer
+                WHERE
+                    CustomerId = @CustomerId ";
 
             var dp = new DynamicParameters();
             dp.AddParam("@CustomerId", key.CustomerId, SqlDbType.VarChar);
@@ -171,15 +173,17 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
                 aa.Address1, aa.Address2, aa.Kota, aa.KodePos, aa.NoTelp, aa.NoFax, aa.Email, aa.Nitku,
                 aa.Npwp, aa.Nik, aa.Nppkp, aa.NamaWp, aa.AddressWp, 
                 aa.AddressWp2, aa.IsKenaPajak, aa.JenisIdentitasPajak,
-                aa.IsSuspend,  aa.Plafond, aa.CreditBalance, 
+                aa.IsSuspend,  aa.Plafond, aa.CreditBalance, aa.RuteId,
                 ISNULL(bb.WilayahName, '') AS WilayahName,
                 ISNULL(cc.KlasifikasiName, '') AS KlasifikasiName,
-                ISNULL(dd.HargaTypeName, '') AS HargaTypeName
+                ISNULL(dd.HargaTypeName, '') AS HargaTypeName,
+                ISNULL(ee.RuteName, '') AS RuteName
             FROM
                 BTR_Customer aa
                 LEFT JOIN BTR_Wilayah bb ON aa.WilayahId = bb.WilayahId
                 LEFT JOIN BTR_Klasifikasi cc ON aa.KlasifikasiId = cc.KlasifikasiId
                 LEFT JOIN BTR_HargaType dd ON aa.HargaTypeId = dd.HargaTypeId
+                LEFT JOIN BTR_Rute ee ON aa.RuteId = ee.RuteId
             WHERE
                 aa.CustomerId = @CustomerId ";
 
@@ -201,15 +205,17 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
                     aa.Address1, aa.Address2, aa.Kota, aa.KodePos, aa.NoTelp, aa.NoFax, aa.Email, aa.Nitku,
                     aa.Npwp, aa.Nik, aa.Nppkp, aa.NamaWp, aa.AddressWp, 
                     aa.AddressWp2, aa.IsKenaPajak, aa.JenisIdentitasPajak,
-                    aa.IsSuspend,  aa.Plafond, aa.CreditBalance, 
+                    aa.IsSuspend,  aa.Plafond, aa.CreditBalance, aa.RuteId,
                     ISNULL(bb.WilayahName, '') AS WilayahName,
                     ISNULL(cc.KlasifikasiName, '') AS KlasifikasiName,
-                    ISNULL(dd.HargaTypeName, '') AS HargaTypeName
+                    ISNULL(dd.HargaTypeName, '') AS HargaTypeName,
+                    ISNULL(ee.RuteName, '') AS RuteName
                 FROM
                     BTR_Customer aa
                     LEFT JOIN BTR_Wilayah bb ON aa.WilayahId = bb.WilayahId
                     LEFT JOIN BTR_Klasifikasi cc ON aa.KlasifikasiId = cc.KlasifikasiId
-                    LEFT JOIN BTR_HargaType dd ON aa.HargaTypeId = dd.HargaTypeId ";
+                    LEFT JOIN BTR_HargaType dd ON aa.HargaTypeId = dd.HargaTypeId
+                    LEFT JOIN BTR_Rute ee ON aa.RuteId = ee.RuteId ";
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
