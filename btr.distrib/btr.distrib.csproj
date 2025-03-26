@@ -698,11 +698,18 @@
     <Compile Include="SalesContext\RuteAgg\RuteForm.Designer.cs">
       <DependentUpon>RuteForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SalesContext\SalesPersonAgg\CustomerViewDto.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\SalesPersonForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SalesContext\SalesPersonAgg\SalesPersonForm.Designer.cs">
       <DependentUpon>SalesPersonForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SalesContext\SalesPersonAgg\SalesRuteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SalesContext\SalesPersonAgg\SalesRuteForm.Designer.cs">
+      <DependentUpon>SalesRuteForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SalesContext\WilayahAgg\WilayahForm.cs">
       <SubType>Form</SubType>
@@ -958,6 +965,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SalesContext\RuteAgg\RuteForm.resx">
       <DependentUpon>RuteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SalesContext\SalesPersonAgg\SalesRuteForm.resx">
+      <DependentUpon>SalesRuteForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SharedForm\ParamSistemForm.resx">
       <DependentUpon>ParamSistemForm.cs</DependentUpon>

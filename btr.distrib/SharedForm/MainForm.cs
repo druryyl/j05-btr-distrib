@@ -626,9 +626,9 @@ namespace btr.distrib.SharedForm
 
         private void RuteButton_Click(object sender, EventArgs e)
         {
-            if (BringMdiChildToFrontIfLoaded<RuteForm>())
+            if (BringMdiChildToFrontIfLoaded<SalesRuteForm>())
                 return;
-            var form = ThisServicesProvider.GetRequiredService<RuteForm>();
+            var form = ThisServicesProvider.GetRequiredService<SalesRuteForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
