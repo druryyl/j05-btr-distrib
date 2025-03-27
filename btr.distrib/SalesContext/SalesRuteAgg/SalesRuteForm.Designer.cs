@@ -30,7 +30,7 @@
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.SearchText = new System.Windows.Forms.TextBox();
             this.CustomerGrid = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.HariLabel = new System.Windows.Forms.Label();
@@ -83,7 +83,7 @@
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(230)))), ((int)(((byte)(242)))));
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.textBox1);
+            this.panel2.Controls.Add(this.SearchText);
             this.panel2.Controls.Add(this.CustomerGrid);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
@@ -91,15 +91,15 @@
             this.panel2.Size = new System.Drawing.Size(577, 590);
             this.panel2.TabIndex = 2;
             // 
-            // textBox1
+            // SearchText
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.SearchText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Location = new System.Drawing.Point(8, 8);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(559, 22);
-            this.textBox1.TabIndex = 4;
+            this.SearchText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.SearchText.Location = new System.Drawing.Point(8, 8);
+            this.SearchText.Name = "SearchText";
+            this.SearchText.Size = new System.Drawing.Size(559, 22);
+            this.SearchText.TabIndex = 4;
             // 
             // CustomerGrid
             // 
@@ -347,7 +347,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ComboBox SalesComboBox;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox SearchText;
         private System.Windows.Forms.DataGridView CustomerGrid;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.RadioButton H11Radio;

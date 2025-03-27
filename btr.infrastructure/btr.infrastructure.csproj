@@ -165,6 +165,7 @@
     <Compile Include="SalesContext\SalesPersonAgg\SalesPersonDal.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\SalesRuteDal.cs" />
     <Compile Include="SalesContext\SalesRuteAgg\SalesRuteDal.cs" />
+    <Compile Include="SalesContext\SalesRuteAgg\SalesRuteItemViewDal.cs" />
     <Compile Include="SalesContext\SalesRuteAgg\SalesRuteItemDal.cs" />
     <Compile Include="SalesContext\WilayahAgg\WilayahDal.cs" />
     <Compile Include="SupportContext\DocAgg\DocActionDal.cs" />

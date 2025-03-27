@@ -83,5 +83,30 @@ namespace btr.infrastructure.SalesContext.SalesRuteAgg
             }
 
         }
+
+        public IEnumerable<SalesRuteItemModel> ListData(ISalesPersonKey filter)
+        {
+            const string sql = @"
+                SELECT
+                    aa.SalesRuteId, aa.NoUrut, aa.CustomerId,
+                    ISNULL(bb.CustomerName, '') CustomerName,
+                    ISNULL(bb.CustomerCode, '') CustomerCode,
+                    ISNULL(bb.Address1, '') Address,
+                    ISNULL(cc.WilayahName, '') Wilayah
+                FROM
+                    BTR_SalesRuteItem aa
+                    LEFT JOIN BTR_Customer bb ON aa.CustomerId = bb.CustomerId
+                    LEFT JOIN BTR_Wilayah cc ON bb.WilayahId = cc.WilayahId
+                WHERE
+                    aa.SalesPersonId = @SalesPersonId";
+
+            var dp = new DynamicParameters();
+            dp.AddParam("@SalesPersonId", filter.SalesPersonId, SqlDbType.VarChar);
+
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                return conn.Read<SalesRuteItemModel>(sql, dp);
+            }
+        }
     }
 }

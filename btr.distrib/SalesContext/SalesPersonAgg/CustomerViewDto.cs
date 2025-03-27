@@ -1,6 +1,9 @@
-﻿namespace btr.distrib.SalesContext.SalesPersonAgg
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
+namespace btr.distrib.SalesContext.SalesPersonAgg
 {
-    public class  CustomerViewDto
+    public class CustomerViewDto : INotifyPropertyChanged
     {
         public CustomerViewDto()
         {
@@ -29,6 +32,12 @@
         {
             var newItem = new CustomerViewDto(CustomerId, CustomerCode, CustomerName, Address, Wilayah);
             return newItem;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 

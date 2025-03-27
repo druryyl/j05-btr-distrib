@@ -103,7 +103,7 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
                 JenisIdentitasPajak = @JenisIdentitasPajak,
                 IsSuspend = @IsSuspend,
                 Plafond = @Plafond,
-                CreditBalance = @CreditBalance,
+                CreditBalance = @CreditBalance
             WHERE
                 CustomerId = @CustomerId ";
 

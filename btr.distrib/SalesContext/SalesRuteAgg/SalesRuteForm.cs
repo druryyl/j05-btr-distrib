@@ -1,21 +1,20 @@
 ﻿using btr.application.SalesContext.CustomerAgg.Contracts;
 using btr.application.SalesContext.RuteAgg;
+using btr.application.SalesContext.SalesPersonAgg;
 using btr.application.SalesContext.SalesPersonAgg.Contracts;
 using btr.application.SalesContext.SalesRuteAgg;
 using btr.distrib.Helpers;
 using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.HariRuteAgg;
 using btr.domain.SalesContext.SalesPersonAgg;
-using Mapster;
+using btr.nuna.Domain;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Media;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace btr.distrib.SalesContext.SalesPersonAgg
@@ -35,6 +34,7 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
         private readonly ISalesPersonDal _salesPersonDal;
         private readonly ICustomerDal _customerDal;
         private readonly IHariRuteDal _hariRuteDal;
+        private readonly ISalesRuteItemViewDal _salesRuteItemViewDal;
 
         private readonly ISalesRuteBuilder _salesRuteBuilder;
         private readonly ISalesRuteWriter _salesRuteWriter;
@@ -42,6 +42,7 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
         public SalesRuteForm(ISalesPersonDal salesPersonDal,
             ICustomerDal customerDal,
             IHariRuteDal hariRuteDal,
+            ISalesRuteItemViewDal salesRuteItemViewDal,
             ISalesRuteBuilder salesRuteBuilder,
             ISalesRuteWriter salesRuteWriter)
         {
@@ -49,6 +50,7 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
             _salesPersonDal = salesPersonDal;
             _customerDal = customerDal;
             _hariRuteDal = hariRuteDal;
+            _salesRuteItemViewDal = salesRuteItemViewDal;
 
             _listCustomerView = new BindingList<CustomerViewDto>();
             _customerViewBindingSource = new BindingSource(_listCustomerView, null);
@@ -67,6 +69,7 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
 
         private void RegisterEventHandler()
         {
+            SearchText.KeyDown += SearchText_KeyDown;
             CustomerGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
             CustomerGrid.CellDoubleClick += CustomerGrid_CellDoubleClick;
 
@@ -97,29 +100,10 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
 
         }
 
-        private void ListRuteItemView_ListChanged(object sender, ListChangedEventArgs e)
+        private void SearchText_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.ListChangedType == ListChangedType.ItemDeleted)
-            {
-                Save();
-            }
-        }
-
-        private void RuteItemGrid_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            RuteItemGrid.Columns["CustomerId"].Visible = false;
-            RuteItemGrid.Columns["Hari"].Visible = false;
-            RuteItemGrid.Columns["Wilayah"].Visible = false;
-
-            RuteItemGrid.Columns["CustomerCode"].HeaderText = "Kode";
-            RuteItemGrid.Columns["CustomerName"].HeaderText = "Nama";
-            RuteItemGrid.Columns["Address"].HeaderText = "Alamat";
-
-            RuteItemGrid.Columns["Wilayah"].Width = 70;
-            RuteItemGrid.Columns["CustomerCode"].Width = 70;
-            RuteItemGrid.Columns["CustomerName"].Width = 120;
-            RuteItemGrid.Columns["Address"].Width = 168;
-            RuteItemGrid.Columns["Hari"].Width = 70;
+            if (e.KeyCode == Keys.Enter)
+                PopulateCustomer();
         }
 
         private void InitComboBox()
@@ -175,14 +159,12 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
         }
         private void InitGridRuteItem()
         {
-            LoadRuteItem(SalesComboBox.SelectedValue.ToString(), "H11");
+            LoadRuteItemPerHari(SalesComboBox.SelectedValue.ToString(), "H11");
             RuteItemGrid.DataSource = _ruteItemViewBindingSource;
 
             RuteItemGrid.AllowDrop = true;
             RuteItemGrid.MultiSelect = false;
             RuteItemGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-
-
         }
 
         #region ALL-CUSTOMER-GRID
@@ -191,26 +173,6 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
             if (e.RowIndex < 0)
                 return;
             PilihCustomerAsRuteItem(e.RowIndex);
-        }
-        private void PilihCustomerAsRuteItem(int rowIndex)
-        {
-            var selectedCustomer = _listCustomerView[rowIndex];
-            if (selectedCustomer == null) 
-                return;
-            if (_listRuteItemView.Any(x => x.CustomerId == selectedCustomer.CustomerId))
-            {
-                SystemSounds.Exclamation.Play();
-                return;
-            }
-            var newRuteItem = new CustomerViewDto(
-                selectedCustomer.CustomerId,
-                selectedCustomer.CustomerCode,
-                selectedCustomer.CustomerName,
-                selectedCustomer.Address,
-                selectedCustomer.Wilayah);
-            _listRuteItemView.Add(newRuteItem);
-            RuteItemGrid.Refresh();
-            Save();
         }
         #endregion
 
@@ -268,6 +230,27 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
             e.CellStyle.BackColor = colorGroup == 0 ? _alternateColor : Color.White;
             e.CellStyle.ForeColor = Color.Black;
         }
+        private void RuteItemGrid_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            RuteItemGrid.Columns["CustomerId"].Visible = false;
+            RuteItemGrid.Columns["Hari"].Visible = false;
+            RuteItemGrid.Columns["Wilayah"].Visible = false;
+
+            RuteItemGrid.Columns["CustomerCode"].HeaderText = "Kode";
+            RuteItemGrid.Columns["CustomerName"].HeaderText = "Nama";
+            RuteItemGrid.Columns["Address"].HeaderText = "Alamat";
+
+            RuteItemGrid.Columns["Wilayah"].Width = 70;
+            RuteItemGrid.Columns["CustomerCode"].Width = 70;
+            RuteItemGrid.Columns["CustomerName"].Width = 120;
+            RuteItemGrid.Columns["Address"].Width = 168;
+            RuteItemGrid.Columns["Hari"].Width = 70;
+        }
+        private void ListRuteItemView_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            if (e.ListChangedType == ListChangedType.ItemDeleted)
+                Save();
+        }
         private void MoveRow(int fromIndex, int toIndex)
         {
             if (fromIndex == toIndex) return;
@@ -297,26 +280,10 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
         #region SALES-COMBOBOX
         private void SalesComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LoadRuteItem(SalesComboBox.SelectedValue.ToString(), _hariRuteId);
+            RuteInListCutomerUpdateBySales();
+            LoadRuteItemPerHari(SalesComboBox.SelectedValue.ToString(), _hariRuteId);
         }
 
-        private void LoadRuteItem(string salesId, string hariRuteId)
-        {
-            var salesRute = _salesRuteBuilder 
-                .LoadOrCreate(new SalesPersonModel(salesId), new HariRuteModel(hariRuteId))
-                .Build();
-            _listRuteItemView.Clear();
-            foreach(var item in salesRute.ListCustomer.OrderBy(x => x.NoUrut))
-            {
-                _listRuteItemView.Add(new CustomerViewDto(
-                    item.CustomerId,
-                    item.CustomerCode,
-                    item.CustomerName,
-                    item.Address,
-                    item.Wilayah));
-            }
-            //RuteItemGrid.Refresh();
-        }
         #endregion
 
 
@@ -356,7 +323,45 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
                     _alternateColor = palette[5];
                     break;
             }
-            LoadRuteItem(SalesComboBox.SelectedValue.ToString(), _hariRuteId);
+            LoadRuteItemPerHari(SalesComboBox.SelectedValue.ToString(), _hariRuteId);
+        }
+
+        private void PilihCustomerAsRuteItem(int rowIndex)
+        {
+            var selectedCustomer = _listCustomerView[rowIndex];
+            if (selectedCustomer == null)
+                return;
+            if (_listRuteItemView.Any(x => x.CustomerId == selectedCustomer.CustomerId))
+            {
+                SystemSounds.Exclamation.Play();
+                return;
+            }
+            var newRuteItem = new CustomerViewDto(
+                selectedCustomer.CustomerId,
+                selectedCustomer.CustomerCode,
+                selectedCustomer.CustomerName,
+                selectedCustomer.Address,
+                selectedCustomer.Wilayah);
+            _listRuteItemView.Add(newRuteItem);
+            RuteItemGrid.Refresh();
+            Save();
+        }
+        private void LoadRuteItemPerHari(string salesId, string hariRuteId)
+        {
+            var salesRute = _salesRuteBuilder
+                .LoadOrCreate(new SalesPersonModel(salesId), new HariRuteModel(hariRuteId))
+                .Build();
+            _listRuteItemView.Clear();
+            foreach (var item in salesRute.ListCustomer.OrderBy(x => x.NoUrut))
+            {
+                _listRuteItemView.Add(new CustomerViewDto(
+                    item.CustomerId,
+                    item.CustomerCode,
+                    item.CustomerName,
+                    item.Address,
+                    item.Wilayah));
+            }
+            RuteInListCutomerUpdateAllByHari();
         }
 
         private void PopulateCustomer()
@@ -368,12 +373,59 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
                 .OrderBy(x => x.WilayahName)
                 .ThenBy(x => x.CustomerCode)
                 .ToList();
+            if (SearchText.Text.Length > 0)
+            {
+                var keyword = SearchText.Text;
+                listCustomer = listCustomer
+                    .Where(x => x.CustomerName.ContainMultiWord(keyword)
+                        || x.Address1.ContainMultiWord(keyword)
+                        || x.CustomerCode.ContainMultiWord(keyword))
+                    .ToList();
+            }
 
             listCustomer
                 .ForEach(x => _listCustomerView.Add(new CustomerViewDto(
                 x.CustomerId, x.CustomerCode, x.CustomerName,
                 x.Address1, x.WilayahName)));
             CustomerGrid.Refresh();
+        }
+        private void RuteInListCutomerUpdateBySales()
+        {
+            RuteInListCutomerClear();
+            var salesId = SalesComboBox.SelectedValue.ToString();
+            if (salesId.Length > 0)
+                return;
+            var salesKey = new SalesPersonModel(salesId);
+            var listAllRute = _salesRuteItemViewDal.ListData(salesKey)?.ToList() ?? new List<SalesRuteItemViewDto>();
+            foreach(var item in listAllRute)
+            {
+                var customer = _listCustomerView.FirstOrDefault(x => x.CustomerId == item.CustomerId);
+                if (customer == null) continue;
+                customer.SetHari(item.ShortName);
+            }
+            RuteItemGrid.Refresh();
+            return;
+
+            void RuteInListCutomerClear()
+            {
+                foreach (var item in _listCustomerView)
+                    item.SetHari(string.Empty);
+            }
+        }
+
+        private void RuteInListCutomerUpdateAllByHari()
+        {
+            if (_hariRuteId == null)
+                return;
+
+            var hariShortName = _hariRuteDal.GetData(new HariRuteModel(_hariRuteId))?.ShortName ?? string.Empty;
+            foreach (var item in _listRuteItemView)
+            {
+                var customer = _listCustomerView.FirstOrDefault(x => x.CustomerId == item.CustomerId);
+                if (customer is null)
+                    continue;
+                customer.SetHari(hariShortName);
+            }
         }
 
         private void Save()
