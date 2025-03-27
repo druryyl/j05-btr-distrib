@@ -6,10 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using btr.application.FinanceContext.PiutangAgg.Contracts;
-using btr.application.FinanceContext.PiutangAgg.Workers;
 using btr.application.FinanceContext.TagihanAgg;
 using btr.application.SalesContext.FakturAgg.Contracts;
-using btr.application.SalesContext.FakturAgg.Workers;
+using btr.application.SalesContext.SalesPersonAgg;
 using btr.application.SalesContext.SalesPersonAgg.Contracts;
 using btr.application.SupportContext.ParamSistemAgg;
 using btr.distrib.Browsers;
@@ -20,11 +19,8 @@ using btr.domain.FinanceContext.TagihanAgg;
 using btr.domain.SalesContext.FakturAgg;
 using btr.domain.SalesContext.SalesPersonAgg;
 using btr.domain.SupportContext.ParamSistemAgg;
-using btr.infrastructure.SalesContext.FakturAgg;
 using btr.nuna.Domain;
-using ClosedXML.Excel;
 using JetBrains.Annotations;
-using Mapster;
 using Microsoft.Reporting.WinForms;
 using Polly;
 
@@ -34,42 +30,39 @@ namespace btr.distrib.FinanceContext.TagihanAgg
     {
         private BindingSource _bindingSource = new BindingSource();
         private BindingList<TagihanFakturDto> _listTagihan = new BindingList<TagihanFakturDto>();
-        private readonly IFakturBuilder _fakturBuilder;
         private readonly IFakturDal _fakturDal;
         private readonly IParamSistemDal _paramSistemDal;
-        private readonly IPiutangBuilder _piutangBuilder;
         private readonly IPiutangDal _piutangDal;
+        private readonly ISalesRuteDal _salesRuteDal;
         private readonly ITagihanBuilder _tagihanBuilder;
         private readonly ITagihanWriter _tagihanWriter;
         private readonly IBrowser<TagihanBrowserView> _tagihanBrowser;
         
         private readonly ISalesPersonDal _salesDal;
         public TagihanForm(ISalesPersonDal salesDal,
-            IFakturBuilder fakturBuilder,
-            IPiutangBuilder piutangBuilder,
             IFakturDal fakturDal,
             ITagihanBuilder tagihanBuilder,
             ITagihanWriter tagihanWriter,
             IBrowser<TagihanBrowserView> tagihanBrowser,
             IParamSistemDal paramSistemDal,
-            IPiutangDal piutangDal)
+            IPiutangDal piutangDal,
+            ISalesRuteDal salesRuteDal)
         {
+            InitializeComponent();
+
             _salesDal = salesDal;
-            _fakturBuilder = fakturBuilder;
-            _piutangBuilder = piutangBuilder;
             _fakturDal = fakturDal;
             _tagihanBuilder = tagihanBuilder;
             _tagihanWriter = tagihanWriter;
-
-            InitializeComponent();
-            InitGrid();
-            InitCombo();
-            TglTagihText.Value = DateTime.Now;
-
-            RegisterEventHandler();
             _tagihanBrowser = tagihanBrowser;
             _paramSistemDal = paramSistemDal;
             _piutangDal = piutangDal;
+            TglTagihText.Value = DateTime.Now;
+            _salesRuteDal = salesRuteDal;
+
+            InitGrid();
+            InitCombo();
+            RegisterEventHandler();
         }
 
         private void RegisterEventHandler()
@@ -80,6 +73,22 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             SaveButton.Click += SaveButtonOnClick;
             TagihanButton.Click += TagihanButton_Click;
             TagihanIdText.Validating += TagihanIdText_Validating;
+            SalesCombo.SelectedValueChanged += SalesCombo_SelectedValueChanged;
+        }
+
+        private void SalesCombo_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (SalesCombo.SelectedValue == null)
+                return;
+            var salesId = SalesCombo.SelectedValue.ToString();
+            if (salesId == string.Empty)
+                return;
+            var listRute = _salesRuteDal.ListData(new SalesPersonModel(salesId));
+            SalesRuteCombo.DataSource = listRute;
+            SalesRuteCombo.DisplayMember = "HariRuteName";
+            SalesRuteCombo.ValueMember= "HariRuteId";
+
+
         }
 
         private void FakturGrid_KeyDown(object sender, KeyEventArgs e)
@@ -315,6 +324,7 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             SalesCombo.DataSource = listSales.OrderBy(x => x.SalesPersonName).ToList();
             SalesCombo.DisplayMember = "SalesPersonName";
             SalesCombo.ValueMember = "SalesPersonId";
+
         }
         
         private void InitGrid()

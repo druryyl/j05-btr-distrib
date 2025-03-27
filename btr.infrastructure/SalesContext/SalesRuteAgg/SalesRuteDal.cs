@@ -24,14 +24,14 @@ namespace btr.infrastructure.SalesContext.SalesRuteAgg
         {
             const string sql = @"
                 INSERT INTO BTR_SalesRute(
-                    SalesRuteId, SalesPersonId, HariId)
+                    SalesRuteId, SalesPersonId, HariRuteId)
                 VALUES (
-                    @SalesRuteId, @SalesPersonId, @HariId)";
+                    @SalesRuteId, @SalesPersonId, @HariRuteId)";
 
             var dp = new DynamicParameters();
-            dp.AddParam("@SaleRuteId", model.SalesRuteId, SqlDbType.VarChar);
+            dp.AddParam("@SalesRuteId", model.SalesRuteId, SqlDbType.VarChar);
             dp.AddParam("@SalesPersonId", model.SalesPersonId, SqlDbType.VarChar);
-            dp.AddParam("@HariId", model.SalesRuteId, SqlDbType.VarChar);
+            dp.AddParam("@HariRuteId", model.HariRuteId, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -46,14 +46,14 @@ namespace btr.infrastructure.SalesContext.SalesRuteAgg
                     BTR_SalesRute
                 SET
                     SalesPersonId = @SalesPersonId, 
-                    HariId = @HariId
+                    HariRuteId = @HariRuteId
                 WHERE
                     SalesRuteId = @SalesRuteId";
 
             var dp = new DynamicParameters();
-            dp.AddParam("@SaleRuteId", model.SalesRuteId, SqlDbType.VarChar);
+            dp.AddParam("@SalesRuteId", model.SalesRuteId, SqlDbType.VarChar);
             dp.AddParam("@SalesPersonId", model.SalesPersonId, SqlDbType.VarChar);
-            dp.AddParam("@HariId", model.SalesRuteId, SqlDbType.VarChar);
+            dp.AddParam("@HariRuteId", model.HariRuteId, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -70,7 +70,7 @@ namespace btr.infrastructure.SalesContext.SalesRuteAgg
                     SalesRuteId = @SalesRuteId";
 
             var dp = new DynamicParameters();
-            dp.AddParam("@SaleRuteId", key.SalesRuteId, SqlDbType.VarChar);
+            dp.AddParam("@SalesRuteId", key.SalesRuteId, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -82,18 +82,18 @@ namespace btr.infrastructure.SalesContext.SalesRuteAgg
         {
             const string sql = @"
                 SELECT
-                    aa.SalesRuteId, aa.SalesPersonId, aa.HariId,
+                    aa.SalesRuteId, aa.SalesPersonId, aa.HariRuteId,
                     ISNULL(bb.SalesPersonName, '') SalesPersonName, 
-                    ISNULL(cc.HariRuteName, '') HariRuteName,
+                    ISNULL(cc.HariRuteName, '') HariRuteName
                 FROM
                     BTR_SalesRute aa
                     LEFT JOIN BTR_SalesPerson bb ON aa.SalesPersonId = bb.SalesPersonId
                     LEFT JOIN BTR_HariRute cc ON aa.HariRuteId = cc.HariRuteId
                 WHERE
-                    SalesRuteId = @SalesRuteId";
+                    aa.SalesRuteId = @SalesRuteId";
 
             var dp = new DynamicParameters();
-            dp.AddParam("@SaleRuteId", key.SalesRuteId, SqlDbType.VarChar);
+            dp.AddParam("@SalesRuteId", key.SalesRuteId, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -105,15 +105,15 @@ namespace btr.infrastructure.SalesContext.SalesRuteAgg
         {
             const string sql = @"
                 SELECT
-                    aa.SalesRuteId, aa.SalesPersonId, aa.HariId,
+                    aa.SalesRuteId, aa.SalesPersonId, aa.HariRuteId,
                     ISNULL(bb.SalesPersonName, '') SalesPersonName, 
-                    ISNULL(cc.HariRuteName, '') HariRuteName,
+                    ISNULL(cc.HariRuteName, '') HariRuteName
                 FROM
                     BTR_SalesRute aa
                     LEFT JOIN BTR_SalesPerson bb ON aa.SalesPersonId = bb.SalesPersonId
                     LEFT JOIN BTR_HariRute cc ON aa.HariRuteId = cc.HariRuteId
                 WHERE
-                    SalesPersonId = @SalesPersonId";
+                    aa.SalesPersonId = @SalesPersonId";
 
             var dp = new DynamicParameters();
             dp.AddParam("@SalesPersonId", filter.SalesPersonId, SqlDbType.VarChar);

@@ -34,7 +34,7 @@ namespace btr.infrastructure.SalesContext.SalesPersonAgg
             var dp = new DynamicParameters();
             dp.AddParam("@SalesRuteId", model.SalesRuteId, SqlDbType.VarChar);
             dp.AddParam("@SalesPersonId", model.SalesPersonId, SqlDbType.VarChar);
-            dp.AddParam("@HariId", model.HariId, SqlDbType.VarChar);
+            dp.AddParam("@HariId", model.HariRuteId, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -56,7 +56,7 @@ namespace btr.infrastructure.SalesContext.SalesPersonAgg
             var dp = new DynamicParameters();
             dp.AddParam("@SalesRuteId", model.SalesRuteId, SqlDbType.VarChar);
             dp.AddParam("@SalesPersonId", model.SalesPersonId, SqlDbType.VarChar);
-            dp.AddParam("@HariId", model.HariId, SqlDbType.VarChar);
+            dp.AddParam("@HariId", model.HariRuteId, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -85,14 +85,15 @@ namespace btr.infrastructure.SalesContext.SalesPersonAgg
         {
             const string sql = @"
                 SELECT
-                    aa.SalesRuteId, aa.SalesPersonId, aa.HariId,
+                    aa.SalesRuteId, aa.SalesPersonId, aa.HariRuteId,
                     ISNULL(bb.SalesPersonName, '') SalesPersonName,
-                    ISNULL(cc.HariName, '') HariName
+                    ISNULL(cc.HariRuteName, '') HariRuteName
                 FROM
                     BTR_SalesRute aa
                     LEFT JOIN BTR_SalesPerson bb ON aa.SalesPersonId = bb.SalesPersonName
+                    LEFT JOIN BTR_HariRute cc ON aa.HariRuteId = cc.HariRuteId
                 WHERE
-                    SalesRuteId = @SalesRuteId";
+                    aa.SalesRuteId = @SalesRuteId";
 
             var dp = new DynamicParameters();
             dp.AddParam("@SalesRuteId", key.SalesRuteId, SqlDbType.VarChar);
@@ -105,7 +106,25 @@ namespace btr.infrastructure.SalesContext.SalesPersonAgg
 
         public IEnumerable<SalesRuteModel> ListData(ISalesPersonKey filter)
         {
-            throw new NotImplementedException();
+            const string sql = @"
+                SELECT
+                    aa.SalesRuteId, aa.SalesPersonId, aa.HariRuteId,
+                    ISNULL(bb.SalesPersonName, '') SalesPersonName,
+                    ISNULL(cc.HariRuteName, '') HariRuteName
+                FROM
+                    BTR_SalesRute aa
+                    LEFT JOIN BTR_SalesPerson bb ON aa.SalesPersonId = bb.SalesPersonName
+                    LEFT JOIN BTR_HariRute cc ON aa.HariRuteId = cc.HariRuteId
+                WHERE
+                    aa.SalesPersonId = @SalesPersonId";
+
+            var dp = new DynamicParameters();
+            dp.AddParam("@SalesPersonId", filter.SalesPersonId, SqlDbType.VarChar);
+
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                return conn.Read<SalesRuteModel>(sql, dp);
+            }
         }
     }
 }

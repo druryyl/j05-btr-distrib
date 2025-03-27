@@ -37,16 +37,19 @@ namespace btr.application.SalesContext.SalesRuteAgg
         public ISalesRuteBuilder LoadOrCreate(ISalesPersonKey salesKey, IHariRuteKey hariRute)
         {
             var listSalesRute = _salesRuteDal.ListData(salesKey)?.ToList() ?? new List<SalesRuteModel> ();
-            _agg = listSalesRute.FirstOrDefault(x => x.HariId == hariRute.HariRuteId);
+            _agg = listSalesRute.FirstOrDefault(x => x.HariRuteId == hariRute.HariRuteId);
             if (_agg is null)
                 _agg = new SalesRuteModel
                 {
+                    SalesRuteId = string.Empty,
                     SalesPersonId = salesKey.SalesPersonId,
                     SalesPersonName = _salesPersonDal.GetData(salesKey)?.SalesPersonName ?? string.Empty,
-                    HariId = hariRute.HariRuteId,
+                    HariRuteId = hariRute.HariRuteId,
+                    ListCustomer = new List<SalesRuteItemModel>()
                 };
-
-            _agg.ListCustomer = _salesRuteItemDal.ListData(_agg)?.ToList() ?? new List<SalesRuteItemModel> ();
+            if (_agg.SalesRuteId != string.Empty)
+                _agg.ListCustomer = _salesRuteItemDal.ListData(_agg)?.ToList() 
+                    ?? new List<SalesRuteItemModel> ();
             return this;
         }
 

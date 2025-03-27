@@ -38,11 +38,12 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
 
         private readonly ISalesRuteBuilder _salesRuteBuilder;
         private readonly ISalesRuteWriter _salesRuteWriter;
-
+        private Color _alternateColor = Color.PowderBlue;
         public SalesRuteForm(ISalesPersonDal salesPersonDal,
             ICustomerDal customerDal,
             IHariRuteDal hariRuteDal,
-            ISalesRuteBuilder salesRuteBuilder)
+            ISalesRuteBuilder salesRuteBuilder,
+            ISalesRuteWriter salesRuteWriter)
         {
             InitializeComponent();
             _salesPersonDal = salesPersonDal;
@@ -55,11 +56,13 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
             _ruteItemViewBindingSource = new BindingSource(_listRuteItemView, null);
             _hariDictionary = new Dictionary<string, string>();
 
+            _salesRuteBuilder = salesRuteBuilder;
+            _salesRuteWriter = salesRuteWriter;
+
             RegisterEventHandler();
             InitComboBox();
             InitGrid();
             InitRadioButton();
-            _salesRuteBuilder = salesRuteBuilder;
         }
 
         private void RegisterEventHandler()
@@ -74,6 +77,9 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
             RuteItemGrid.DragDrop += RuteItemGrid_DragDrop;
             RuteItemGrid.QueryContinueDrag += RuteItemGrid_QueryContinueDrag;
             RuteItemGrid.CellFormatting += RuteItemGrid_CellFormatting;
+            RuteItemGrid.DataBindingComplete += RuteItemGrid_DataBindingComplete;
+
+            SalesComboBox.SelectedIndexChanged += SalesComboBox_SelectedIndexChanged;
 
             H11Radio.CheckedChanged += HariRadio_CheckedChanged;
             H12Radio.CheckedChanged += HariRadio_CheckedChanged;
@@ -87,8 +93,25 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
             H24Radio.CheckedChanged += HariRadio_CheckedChanged;
             H25Radio.CheckedChanged += HariRadio_CheckedChanged;
             H26Radio.CheckedChanged += HariRadio_CheckedChanged;
+
         }
 
+        private void RuteItemGrid_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            RuteItemGrid.Columns["CustomerId"].Visible = false;
+            RuteItemGrid.Columns["Hari"].Visible = false;
+            RuteItemGrid.Columns["Wilayah"].Visible = false;
+
+            RuteItemGrid.Columns["CustomerCode"].HeaderText = "Kode";
+            RuteItemGrid.Columns["CustomerName"].HeaderText = "Nama";
+            RuteItemGrid.Columns["Address"].HeaderText = "Alamat";
+
+            RuteItemGrid.Columns["Wilayah"].Width = 70;
+            RuteItemGrid.Columns["CustomerCode"].Width = 70;
+            RuteItemGrid.Columns["CustomerName"].Width = 120;
+            RuteItemGrid.Columns["Address"].Width = 168;
+            RuteItemGrid.Columns["Hari"].Width = 70;
+        }
 
         private void InitComboBox()
         {
@@ -98,6 +121,28 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
             SalesComboBox.DisplayMember = "SalesPersonName";
             SalesComboBox.ValueMember = "SalesPersonId";
             SalesComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+        }
+        private void InitRadioButton()
+        {
+            H11Radio.Tag = "H11";
+            H12Radio.Tag = "H12";
+            H13Radio.Tag = "H13";
+            H14Radio.Tag = "H14";
+            H15Radio.Tag = "H15";
+            H16Radio.Tag = "H16";
+            H21Radio.Tag = "H21";
+            H22Radio.Tag = "H22";
+            H23Radio.Tag = "H23";
+            H24Radio.Tag = "H24";
+            H25Radio.Tag = "H25";
+            H26Radio.Tag = "H26";
+
+            var listHariRute = _hariRuteDal.ListData()?.ToList() ?? new List<HariRuteModel>();
+            listHariRute.ForEach(x => _hariDictionary.Add(x.HariRuteId, x.HariRuteName));
+
+            _hariRuteId = "H11";
+            H11Radio.Checked = true;
+            HariRadio_CheckedChanged(H11Radio, null);
         }
         private void InitGrid()
         {
@@ -121,46 +166,14 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
         }
         private void InitGridRuteItem()
         {
+            LoadRuteItem(SalesComboBox.SelectedValue.ToString(), "H11");
             RuteItemGrid.DataSource = _ruteItemViewBindingSource;
-            RuteItemGrid.Columns["CustomerId"].Visible = false;
-            RuteItemGrid.Columns["Hari"].Visible = false;
-            RuteItemGrid.Columns["Wilayah"].Visible = false;
-
-            RuteItemGrid.Columns["CustomerCode"].HeaderText = "Kode";
-            RuteItemGrid.Columns["CustomerName"].HeaderText = "Nama";
-            RuteItemGrid.Columns["Address"].HeaderText = "Alamat";
-
-            RuteItemGrid.Columns["Wilayah"].Width = 70;
-            RuteItemGrid.Columns["CustomerCode"].Width = 70;
-            RuteItemGrid.Columns["CustomerName"].Width = 120;
-            RuteItemGrid.Columns["Address"].Width = 168;
-            RuteItemGrid.Columns["Hari"].Width = 70;
 
             RuteItemGrid.AllowDrop = true;
             RuteItemGrid.MultiSelect = false;
             RuteItemGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-        }
-        private void InitRadioButton()
-        {
-            H11Radio.Tag = "H11";
-            H12Radio.Tag = "H12";
-            H13Radio.Tag = "H13";
-            H14Radio.Tag = "H14";
-            H15Radio.Tag = "H15";
-            H16Radio.Tag = "H16";
-            H21Radio.Tag = "H21";
-            H22Radio.Tag = "H22";
-            H23Radio.Tag = "H23";
-            H24Radio.Tag = "H24";
-            H25Radio.Tag = "H25";
-            H26Radio.Tag = "H26";
 
-            var listHariRute = _hariRuteDal.ListData()?.ToList() ?? new List<HariRuteModel>();
-            listHariRute.ForEach(x => _hariDictionary.Add(x.HariRuteId, x.HariRuteName));
 
-            _hariRuteId = "H11";
-            H11Radio.Checked = true;
-            HariRadio_CheckedChanged(H11Radio, null);
         }
 
         #region ALL-CUSTOMER-GRID
@@ -240,10 +253,10 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
                 return;
 
             // Calculate color group (0 or 1)
-            int colorGroup = (e.RowIndex / 5) % 2;
+            int colorGroup = (e.RowIndex / 3) % 2;
 
             // Set colors
-            e.CellStyle.BackColor = colorGroup == 0 ? Color.PowderBlue : Color.White;
+            e.CellStyle.BackColor = colorGroup == 0 ? _alternateColor : Color.White;
             e.CellStyle.ForeColor = Color.Black;
         }
         private void MoveRow(int fromIndex, int toIndex)
@@ -272,6 +285,31 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
         }
         #endregion
 
+        #region SALES-COMBOBOX
+        private void SalesComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadRuteItem(SalesComboBox.SelectedValue.ToString(), _hariRuteId);
+        }
+
+        private void LoadRuteItem(string salesId, string hariRuteId)
+        {
+            var salesRute = _salesRuteBuilder 
+                .LoadOrCreate(new SalesPersonModel(salesId), new HariRuteModel(hariRuteId))
+                .Build();
+            _listRuteItemView.Clear();
+            foreach(var item in salesRute.ListCustomer.OrderBy(x => x.NoUrut))
+            {
+                _listRuteItemView.Add(new CustomerViewDto(
+                    item.CustomerId,
+                    item.CustomerCode,
+                    item.CustomerName,
+                    item.Address,
+                    item.Wilayah));
+            }
+            //RuteItemGrid.Refresh();
+        }
+        #endregion
+
 
         private void HariRadio_CheckedChanged(object sender, EventArgs e)
         {
@@ -280,6 +318,36 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
                 return;
             _hariRuteId = radio.Tag.ToString();
             HariLabel.Text = _hariDictionary[_hariRuteId];
+            Color[] palette = {
+                Color.PowderBlue,                // #B0E0E6 (original)
+                Color.FromArgb(255, 182, 193),   // Light Pink (kept)
+                Color.FromArgb(200, 230, 180),   // Sage Green (more distinct green)
+                Color.FromArgb(255, 218, 185),   // Apricot (warmer than peach)
+                Color.FromArgb(230, 210, 250),   // Periwinkle (softer purple)
+                Color.LemonChiffon              // yellow
+            };
+            switch (_hariRuteId.Substring(2,1))
+            {
+                case "1":
+                    _alternateColor = palette[0];
+                    break;
+                case "2":
+                    _alternateColor = palette[1];
+                    break;
+                case "3":
+                    _alternateColor = palette[2];
+                    break;
+                case "4":
+                    _alternateColor = palette[3];
+                    break;
+                case "5":
+                    _alternateColor = palette[4];
+                    break;
+                case "6":
+                    _alternateColor = palette[5];
+                    break;
+            }
+            LoadRuteItem(SalesComboBox.SelectedValue.ToString(), _hariRuteId);
         }
 
         private void PopulateCustomer()

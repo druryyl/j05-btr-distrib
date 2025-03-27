@@ -12,7 +12,8 @@ namespace btr.domain.SalesContext.SalesPersonAgg
         public string SalesRuteId { get; set; }
         public string SalesPersonId { get; set; }
         public string SalesPersonName { get; set; }
-        public string HariId { get; set; }
+        public string HariRuteId { get; set; }
+        public string HariRuteName { get; set; }
         public List<SalesRuteItemModel> ListCustomer { get; set; }
     }
 
@@ -23,5 +24,7 @@ namespace btr.domain.SalesContext.SalesPersonAgg
         public string CustomerId { get; set; }
         public string CustomerCode { get; set; }
         public string CustomerName { get; set; }
+        public string Address { get; set; }
+        public string Wilayah { get; set; }
     }
 }

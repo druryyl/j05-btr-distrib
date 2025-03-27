@@ -2,7 +2,7 @@
 (
 	SalesRuteId VARCHAR(5) NOT NULL CONSTRAINT DF_BTR_SalesRuteItem_SalesRuteId DEFAULT(''),
 	NoUrut INT NOT NULL CONSTRAINT DF_BTR_SalesRuteItem_NoUrut DEFAULT(0),
-	CustomerId INT NOT NULL CONSTRAINT DF_BTR_SalesRuteItem_CustomerId DEFAULT(''),
+	CustomerId VARCHAR(6) NOT NULL CONSTRAINT DF_BTR_SalesRuteItem_CustomerId DEFAULT(''),
 
 	CONSTRAINT PK_BTR_SalesRuteItem PRIMARY KEY CLUSTERED (SalesRuteId, NoUrut)
 )
