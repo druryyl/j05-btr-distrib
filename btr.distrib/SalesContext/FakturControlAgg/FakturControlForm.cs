@@ -73,13 +73,13 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             _piutangDal = piutangDal;
             _fakturBuilder = fakturBuilder;
             _customerDal = customerDal;
+            _paramSistemDal = paramSistemDal;
+            _userDal = userDal;
 
             InitGrid();
             InitContextMenu();
             RefreshGrid();
             RegisterEventHandler();
-            _paramSistemDal = paramSistemDal;
-            _userDal = userDal;
         }
 
         private void RegisterEventHandler()

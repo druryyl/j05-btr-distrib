@@ -13,6 +13,7 @@ using btr.nuna.Infrastructure;
 using System.Data;
 using System.Data.SqlClient;
 using System.Reflection;
+using btr.domain.SalesContext.CustomerAgg;
 
 namespace btr.infrastructure.FinanceContext.PiutangAgg
 {
@@ -106,12 +107,16 @@ namespace btr.infrastructure.FinanceContext.PiutangAgg
                 SELECT
                     aa.PiutangId, aa.PiutangDate, aa.DueDate, aa.CustomerId, 
                     aa.Total, aa.Potongan, aa.Terbayar, aa.Sisa,
-                    ISNULL(bb.CustomerName, '') AS CustomerName
+                    ISNULL(bb.CustomerName, '') AS CustomerName,
+                    ISNULL(bb.CustomerCode, '') AS CustomerCode,
+                    ISNULL(bb.Address1, '') AS Address,
+                    ISNULL(cc.FakturCode, '') AS FakturCode
                 FROM
                     BTR_Piutang aa
                     LEFT JOIN BTR_Customer bb ON aa.CustomerId = bb.CustomerId
+                    LEFT JOIN BTR_Faktur cc ON aa.PiutangId = cc.FakturId
                 WHERE
-                    PiutangId = @PiutangId ";
+                    aa.PiutangId = @PiutangId ";
 
             var dp = new DynamicParameters();
             dp.AddParam("@PiutangId", key.PiutangId, SqlDbType.VarChar);
@@ -128,12 +133,16 @@ namespace btr.infrastructure.FinanceContext.PiutangAgg
                 SELECT
                     aa.PiutangId, aa.PiutangDate, aa.DueDate, aa.CustomerId, 
                     aa.Total, aa.Potongan, aa.Terbayar, aa.Sisa,
-                    ISNULL(bb.CustomerName,  '') AS CustomerName
+                    ISNULL(bb.CustomerName, '') AS CustomerName,
+                    ISNULL(bb.CustomerCode, '') AS CustomerCode,
+                    ISNULL(bb.Address1, '') AS Address,
+                    ISNULL(cc.FakturCode, '') AS FakturCode
                 FROM
                     BTR_Piutang aa
                     LEFT JOIN BTR_Customer bb ON aa.CustomerId = bb.CustomerId
+                    LEFT JOIN BTR_Faktur cc ON aa.PiutangId = cc.FakturId
                 WHERE
-                    PiutangDate BETWEEN @Tgl1 AND @Tgl2 ";
+                    aa.PiutangDate BETWEEN @Tgl1 AND @Tgl2 ";
 
             var dp = new DynamicParameters();
             dp.AddParam("@Tgl1", filter.Tgl1, SqlDbType.DateTime);
@@ -151,12 +160,16 @@ namespace btr.infrastructure.FinanceContext.PiutangAgg
                 SELECT
                     aa.PiutangId, aa.PiutangDate, aa.DueDate, aa.CustomerId, 
                     aa.Total, aa.Potongan, aa.Terbayar, aa.Sisa,
-                    ISNULL(bb.CustomerName, '') AS CustomerName
+                    ISNULL(bb.CustomerName, '') AS CustomerName,
+                    ISNULL(bb.CustomerCode, '') AS CustomerCode,
+                    ISNULL(bb.Address1, '') AS Address,
+                    ISNULL(cc.FakturCode, '') AS FakturCode
                 FROM
                     BTR_Piutang aa
                     LEFT JOIN BTR_Customer bb ON aa.CustomerId = bb.CustomerId
+                    LEFT JOIN BTR_Faktur cc ON aa.PiutangId = cc.FakturId
                 WHERE
-                    PiutangId IN @listPiutangId";
+                    aa.PiutangId IN @listPiutangId";
 
             var result = new List<PiutangModel>();
             var batchSize = 2000;
@@ -171,6 +184,32 @@ namespace btr.infrastructure.FinanceContext.PiutangAgg
                 }
             }
             return result;
+        }
+
+        public IEnumerable<PiutangModel> ListData(ICustomerKey filter)
+        {
+            const string sql = @"
+                SELECT
+                    aa.PiutangId, aa.PiutangDate, aa.DueDate, aa.CustomerId, 
+                    aa.Total, aa.Potongan, aa.Terbayar, aa.Sisa,
+                    ISNULL(bb.CustomerName, '') AS CustomerName,
+                    ISNULL(bb.CustomerCode, '') AS CustomerCode,
+                    ISNULL(bb.Address1, '') AS Address,
+                    ISNULL(cc.FakturCode, '') AS FakturCode
+                FROM
+                    BTR_Piutang aa
+                    LEFT JOIN BTR_Customer bb ON aa.CustomerId = bb.CustomerId
+                    LEFT JOIN BTR_Faktur cc ON aa.PiutangId = cc.FakturId
+                WHERE
+                    aa.CustomerId = @CustomerId ";
+
+            var dp = new DynamicParameters();
+            dp.AddParam("@CustomerId", filter.CustomerId, SqlDbType.VarChar);
+
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                return conn.Read<PiutangModel>(sql, dp);
+            }
         }
     }
 

@@ -20,7 +20,7 @@ namespace btr.distrib.Helpers
         {
             foreach (DataGridViewColumn col in cols)
             {
-                col.DefaultCellStyle.Font = new Font("Lucida Console", 8.25f);
+                col.DefaultCellStyle.Font = new Font("Consolas", 8.25f);
                 if (col.ReadOnly)
                     col.DefaultCellStyle.BackColor = readOnlyColor;
 

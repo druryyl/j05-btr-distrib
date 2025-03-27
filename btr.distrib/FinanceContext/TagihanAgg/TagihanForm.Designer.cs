@@ -124,7 +124,7 @@
             this.FakturGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.FakturGrid.Location = new System.Drawing.Point(6, 96);
             this.FakturGrid.Name = "FakturGrid";
-            this.FakturGrid.Size = new System.Drawing.Size(783, 337);
+            this.FakturGrid.Size = new System.Drawing.Size(927, 337);
             this.FakturGrid.TabIndex = 1;
             // 
             // SaveButton
@@ -132,7 +132,7 @@
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.SaveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(230)))), ((int)(((byte)(242)))));
             this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SaveButton.Location = new System.Drawing.Point(714, 438);
+            this.SaveButton.Location = new System.Drawing.Point(858, 438);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
             this.SaveButton.TabIndex = 13;
@@ -151,7 +151,7 @@
             this.panel2.Controls.Add(this.label1);
             this.panel2.Location = new System.Drawing.Point(184, 6);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(283, 86);
+            this.panel2.Size = new System.Drawing.Size(427, 86);
             this.panel2.TabIndex = 14;
             // 
             // ListFakturButton
@@ -201,7 +201,7 @@
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.TotalTagihanLabel);
             this.panel3.Controls.Add(this.label3);
-            this.panel3.Location = new System.Drawing.Point(471, 6);
+            this.panel3.Location = new System.Drawing.Point(615, 6);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(162, 86);
             this.panel3.TabIndex = 15;
@@ -232,7 +232,7 @@
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel4.Controls.Add(this.JumlahFakturLabel);
             this.panel4.Controls.Add(this.label5);
-            this.panel4.Location = new System.Drawing.Point(637, 6);
+            this.panel4.Location = new System.Drawing.Point(781, 6);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(152, 86);
             this.panel4.TabIndex = 16;
@@ -261,7 +261,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(106)))), ((int)(((byte)(140)))), ((int)(((byte)(175)))));
-            this.ClientSize = new System.Drawing.Size(796, 467);
+            this.ClientSize = new System.Drawing.Size(940, 467);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);

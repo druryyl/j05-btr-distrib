@@ -15,8 +15,12 @@ namespace btr.domain.FinanceContext.PiutangAgg
         public string PiutangId { get; set; }
         public DateTime PiutangDate { get; set; }
         public DateTime DueDate { get; set; }
+
+        public string FakturCode { get; set; }
         public string CustomerId { get; set; }
+        public string CustomerCode { get; set; }
         public string CustomerName { get; set; }
+        public string Address { get; set; }
         public decimal Total { get; set; }
         public decimal Potongan { get; set; }
         public decimal Terbayar { get; set; }

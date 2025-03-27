@@ -15,6 +15,7 @@ namespace btr.application.SalesContext.SalesRuteAgg
     public interface ISalesRuteBuilder : INunaBuilder<SalesRuteModel>
     {
         ISalesRuteBuilder LoadOrCreate(ISalesPersonKey salesKey, IHariRuteKey hariRute);
+        ISalesRuteBuilder Load(ISalesRuteKey salesRuteKey);
 
     }
 
@@ -52,11 +53,21 @@ namespace btr.application.SalesContext.SalesRuteAgg
                     ?? new List<SalesRuteItemModel> ();
             return this;
         }
+        public ISalesRuteBuilder Load(ISalesRuteKey salesRuteKey)
+        {
+            _agg = _salesRuteDal.GetData(salesRuteKey)
+                ?? throw new KeyNotFoundException("SalesRute-ID not found");
+            _agg.ListCustomer = _salesRuteItemDal.ListData(salesRuteKey)
+                ?.ToList() 
+                ?? new List<SalesRuteItemModel>();
+            return this;
+        }
 
         public SalesRuteModel Build()
         {
             _agg.RemoveNull();
             return _agg;
         }
+
     }
 }

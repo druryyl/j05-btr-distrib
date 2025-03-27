@@ -9,6 +9,13 @@ namespace btr.domain.SalesContext.SalesPersonAgg
 {
     public class SalesRuteModel : ISalesRuteKey, ISalesPersonKey
     {
+        public SalesRuteModel()
+        {
+        }
+        public SalesRuteModel(string id)
+        {
+            SalesRuteId = id;
+        }
         public string SalesRuteId { get; set; }
         public string SalesPersonId { get; set; }
         public string SalesPersonName { get; set; }

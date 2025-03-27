@@ -10,12 +10,14 @@ using btr.application.FinanceContext.TagihanAgg;
 using btr.application.SalesContext.FakturAgg.Contracts;
 using btr.application.SalesContext.SalesPersonAgg;
 using btr.application.SalesContext.SalesPersonAgg.Contracts;
+using btr.application.SalesContext.SalesRuteAgg;
 using btr.application.SupportContext.ParamSistemAgg;
 using btr.distrib.Browsers;
 using btr.distrib.Helpers;
 using btr.distrib.SalesContext.FakturAgg;
 using btr.domain.FinanceContext.PiutangAgg;
 using btr.domain.FinanceContext.TagihanAgg;
+using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.FakturAgg;
 using btr.domain.SalesContext.SalesPersonAgg;
 using btr.domain.SupportContext.ParamSistemAgg;
@@ -35,11 +37,12 @@ namespace btr.distrib.FinanceContext.TagihanAgg
         private readonly IParamSistemDal _paramSistemDal;
         private readonly IPiutangDal _piutangDal;
         private readonly ISalesRuteDal _salesRuteDal;
+        private readonly ISalesPersonDal _salesDal;
 
         private readonly ITagihanBuilder _tagihanBuilder;
         private readonly ITagihanWriter _tagihanWriter;
-        
-        private readonly ISalesPersonDal _salesDal;
+        private readonly ISalesRuteBuilder _salesRuteBuilder;
+
         public TagihanForm(ISalesPersonDal salesDal,
             IFakturDal fakturDal,
             ITagihanBuilder tagihanBuilder,
@@ -47,7 +50,8 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             IBrowser<TagihanBrowserView> tagihanBrowser,
             IParamSistemDal paramSistemDal,
             IPiutangDal piutangDal,
-            ISalesRuteDal salesRuteDal)
+            ISalesRuteDal salesRuteDal,
+            ISalesRuteBuilder salesRuteBuilder)
         {
             InitializeComponent();
 
@@ -64,6 +68,7 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             InitGrid();
             InitCombo();
             RegisterEventHandler();
+            _salesRuteBuilder = salesRuteBuilder;
         }
 
         private void RegisterEventHandler()
@@ -81,7 +86,6 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             SaveButton.Click += SaveButton_Click;
         }
 
-
         private void InitCombo()
         {
             var listSales = _salesDal.ListData()?.ToList() ?? new List<SalesPersonModel>();
@@ -95,19 +99,22 @@ namespace btr.distrib.FinanceContext.TagihanAgg
         {
             _bindingSource.DataSource = _listTagihan;
             FakturGrid.DataSource = _bindingSource;
+            FakturGrid.Columns.SetDefaultCellStyle(Color.LemonChiffon);
             FakturGrid.Refresh();
 
             var col = FakturGrid.Columns;
             col.GetCol("FakturCode").HeaderText = @"Faktur";
-            col.GetCol("FakturDate").HeaderText = @"Tgl Faktur";
-            col.GetCol("CustomerId").HeaderText = @"Cust Id";
+            col.GetCol("FakturDate").HeaderText = @"TglFaktur";
+            col.GetCol("CustomerCode").HeaderText = @"CustCode";
             col.GetCol("CustomerName").HeaderText = @"Customer";
             col.GetCol("Alamat").HeaderText = @"Alamat";
-            col.GetCol("NilaiTotal").HeaderText = @"Total Faktur";
+            col.GetCol("NilaiTotal").HeaderText = @"Total";
             col.GetCol("NilaiTerbayar").HeaderText = @"Terbayar";
             col.GetCol("NilaiTagih").HeaderText = @"Tagihanr";
 
             col.GetCol("FakturId").Visible = false;
+            col.GetCol("CustomerId").Visible = false;
+
 
             col.GetCol("FakturDate").DefaultCellStyle.Format = "dd MMM yyyy";
             col.GetCol("NilaiTotal").DefaultCellStyle.Format = "N0";
@@ -119,25 +126,28 @@ namespace btr.distrib.FinanceContext.TagihanAgg
 
             col.GetCol("FakturCode").Width = 60;
             col.GetCol("FakturDate").Width = 80;
-            col.GetCol("CustomerId").Width = 80;
-            col.GetCol("CustomerName").Width = 100;
+            col.GetCol("JatuhTempo").Width = 80;
+            col.GetCol("CustomerCode").Width = 70;
+            col.GetCol("CustomerName").Width = 120;
             col.GetCol("Alamat").Width = 160;
-            col.GetCol("NilaiTotal").Width = 80;
-            col.GetCol("NilaiTerbayar").Width = 80;
-            col.GetCol("NilaiTagih").Width = 80;
+            col.GetCol("NilaiTotal").Width = 75;
+            col.GetCol("NilaiTerbayar").Width = 75;
+            col.GetCol("NilaiTagih").Width = 75;
 
             col.GetCol("FakturDate").ReadOnly = true;
-            col.GetCol("CustomerId").ReadOnly = true;
+            col.GetCol("JatuhTempo").ReadOnly = true;
+            col.GetCol("CustomerCode").ReadOnly = true;
             col.GetCol("CustomerName").ReadOnly = true;
             col.GetCol("Alamat").ReadOnly = true;
             col.GetCol("NilaiTotal").ReadOnly = true;
             col.GetCol("NilaiTerbayar").ReadOnly = true;
             col.GetCol("NilaiTagih").ReadOnly = true;
 
-            col.GetCol("FakturDate").DefaultCellStyle.BackColor = Color.LightBlue;
-            col.GetCol("CustomerId").DefaultCellStyle.BackColor = Color.LightBlue;
-            col.GetCol("CustomerName").DefaultCellStyle.BackColor = Color.LightBlue;
-            col.GetCol("Alamat").DefaultCellStyle.BackColor = Color.LightBlue;
+            col.GetCol("FakturDate").DefaultCellStyle.BackColor = Color.Beige;
+            col.GetCol("JatuhTempo").DefaultCellStyle.BackColor = Color.Beige;
+            col.GetCol("CustomerCode").DefaultCellStyle.BackColor = Color.Beige;
+            col.GetCol("CustomerName").DefaultCellStyle.BackColor = Color.Beige;
+            col.GetCol("Alamat").DefaultCellStyle.BackColor = Color.Beige;
             col.GetCol("NilaiTotal").DefaultCellStyle.BackColor = Color.Beige;
             col.GetCol("NilaiTerbayar").DefaultCellStyle.BackColor = Color.Beige;
             col.GetCol("NilaiTagih").DefaultCellStyle.BackColor = Color.Beige;
@@ -179,7 +189,49 @@ namespace btr.distrib.FinanceContext.TagihanAgg
 
         private void ListFakturButton_Click(object sender, EventArgs e)
         {
+            var salesRuteId = SalesRuteCombo.SelectedValue.ToString();
+            if (salesRuteId == string.Empty)
+                return;
 
+            var salesRuteKey = new SalesRuteModel(salesRuteId);
+            var salesRute = _salesRuteBuilder.Load(salesRuteKey).Build();
+            var listAllPiutang = new List<PiutangModel>();
+            foreach(var item in salesRute.ListCustomer)
+            {
+                var listPiutangThisCustomer = ListPiutangPerCustomer(item);
+                if (listPiutangThisCustomer.Count == 0)
+                    continue;
+                listAllPiutang.AddRange(listPiutangThisCustomer);
+            }
+            foreach(var item in listAllPiutang.OrderBy(x => x.DueDate).ThenBy(x => x.CustomerCode))
+            {
+                var newTagihanItem = new TagihanFakturDto
+                {
+                    FakturCode = item.FakturCode,
+                    FakturDate = $"{item.PiutangDate:dd MMM yyyy}",
+                    JatuhTempo = $"{item.DueDate:dd MMM yyyy}",
+                    CustomerId = item.CustomerId,
+                    CustomerName = item.CustomerName,
+                    CustomerCode = item.CustomerCode,
+                    Alamat = item.Address,
+                    NilaiTotal = item.Total,
+                    NilaiTerbayar = item.Terbayar,
+                    NilaiTagih = item.Sisa,
+                    FakturId = item.PiutangId,
+                };
+                if (_listTagihan.Where(x => x.FakturCode == item.FakturCode).Any())
+                    continue;
+                _listTagihan.Add(newTagihanItem);
+            }
+            RefreshGrid();
+        }
+
+        private List<PiutangModel> ListPiutangPerCustomer(ICustomerKey customerKey)
+        {
+            var listPiutang = _piutangDal.ListData(customerKey)?.ToList() ?? new List<PiutangModel>();
+            listPiutang.RemoveAll(x => x.Sisa < 1);
+            listPiutang.RemoveAll(x => x.DueDate.Date > TglTagihText.Value.Date);
+            return listPiutang;
         }
 
         private void FakturGrid_KeyDown(object sender, KeyEventArgs e)
@@ -242,7 +294,9 @@ namespace btr.distrib.FinanceContext.TagihanAgg
 
             _listTagihan[e.RowIndex].FakturId = faktur.FakturId;
             _listTagihan[e.RowIndex].FakturDate = $"{faktur.FakturDate:dd-MMM-yyyy}";
+            _listTagihan[e.RowIndex].JatuhTempo= $"{faktur.DueDate:dd-MMM-yyyy}";
             _listTagihan[e.RowIndex].CustomerId = faktur.CustomerId;
+            _listTagihan[e.RowIndex].CustomerCode = faktur.CustomerCode;
             _listTagihan[e.RowIndex].CustomerName = faktur.CustomerName;
             _listTagihan[e.RowIndex].Alamat = faktur.Address;
             _listTagihan[e.RowIndex].NilaiTotal = piutang.Total - piutang.Potongan;
@@ -277,7 +331,6 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             LastIdLabel.Text = tagihan.TagihanId;
             ClearForm();
 
-            //PrintToExcel(tagihan);
             var tagihanPrintout = new TagihanPrintOutDto(tagihan);
             PrintRdlc(tagihanPrintout);
         }
@@ -295,6 +348,7 @@ namespace btr.distrib.FinanceContext.TagihanAgg
         {
             var totalTagihan = _listTagihan.Sum(x => x.NilaiTagih);
             TotalTagihanLabel.Text = $"{totalTagihan:N0}";
+            JumlahFakturLabel.Text = $"{_listTagihan.Count:N0}";
             FakturGrid.Refresh();
         }
 
