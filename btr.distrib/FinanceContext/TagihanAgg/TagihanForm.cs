@@ -136,7 +136,7 @@ namespace btr.distrib.FinanceContext.TagihanAgg
 
             TglTagihText.Value = tagihan.TagihanDate;
             SalesCombo.SelectedValue = tagihan.SalesPersonId;
-            TotalTagihanText.Value = tagihan.TotalTagihan;
+            TotalTagihanLabel.Text = $"{tagihan.TotalTagihan:N0}";
 
             _listTagihan.Clear();
             foreach (var item in tagihan.ListFaktur)
@@ -232,7 +232,6 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             _listTagihan.Clear();
             _bindingSource.ResetBindings(false);
         }
-
         private void FakturGridOnCellValidated(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
@@ -293,7 +292,8 @@ namespace btr.distrib.FinanceContext.TagihanAgg
 
         private void RefreshGrid()
         {
-            TotalTagihanText.Value = _listTagihan.Sum(x => x.NilaiTagih);
+            var totalTagihan = _listTagihan.Sum(x => x.NilaiTagih);
+            TotalTagihanLabel.Text = $"{totalTagihan:N0}";
             FakturGrid.Refresh();
         }
 
@@ -302,7 +302,6 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             var fakturCodeKey = new FakturModel{FakturCode = fakturCode};
             var fakturHdr = _fakturDal.GetData((IFakturCode)fakturCodeKey)
                 ?? throw new Exception($"Faktur {fakturCode} tidak ditemukan");
-            //var faktur = _fakturBuilder.Load(fakturHdr).Build();
             return fakturHdr;
         }
         private PiutangModel GetPiutang(string fakturCode)
