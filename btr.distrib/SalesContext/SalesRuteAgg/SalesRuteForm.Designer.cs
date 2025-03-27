@@ -33,7 +33,8 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.CustomerGrid = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.HariLabel = new System.Windows.Forms.Label();
+            this.RuteItemGrid = new System.Windows.Forms.DataGridView();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.H11Radio = new System.Windows.Forms.RadioButton();
             this.H12Radio = new System.Windows.Forms.RadioButton();
@@ -48,7 +49,6 @@
             this.H25Radio = new System.Windows.Forms.RadioButton();
             this.H26Radio = new System.Windows.Forms.RadioButton();
             this.SalesComboBox = new System.Windows.Forms.ComboBox();
-            this.HariLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -56,7 +56,7 @@
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CustomerGrid)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RuteItemGrid)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,8 +75,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
-            this.splitContainer1.Size = new System.Drawing.Size(1021, 590);
-            this.splitContainer1.SplitterDistance = 624;
+            this.splitContainer1.Size = new System.Drawing.Size(1019, 590);
+            this.splitContainer1.SplitterDistance = 577;
             this.splitContainer1.TabIndex = 2;
             // 
             // panel2
@@ -88,7 +88,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(624, 590);
+            this.panel2.Size = new System.Drawing.Size(577, 590);
             this.panel2.TabIndex = 2;
             // 
             // textBox1
@@ -98,7 +98,7 @@
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox1.Location = new System.Drawing.Point(8, 8);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(606, 22);
+            this.textBox1.Size = new System.Drawing.Size(559, 22);
             this.textBox1.TabIndex = 4;
             // 
             // CustomerGrid
@@ -110,7 +110,7 @@
             this.CustomerGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.CustomerGrid.Location = new System.Drawing.Point(8, 35);
             this.CustomerGrid.Name = "CustomerGrid";
-            this.CustomerGrid.Size = new System.Drawing.Size(606, 545);
+            this.CustomerGrid.Size = new System.Drawing.Size(559, 545);
             this.CustomerGrid.TabIndex = 3;
             // 
             // panel1
@@ -118,26 +118,37 @@
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(230)))), ((int)(((byte)(242)))));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.HariLabel);
-            this.panel1.Controls.Add(this.dataGridView3);
+            this.panel1.Controls.Add(this.RuteItemGrid);
             this.panel1.Controls.Add(this.flowLayoutPanel1);
             this.panel1.Controls.Add(this.SalesComboBox);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(393, 590);
+            this.panel1.Size = new System.Drawing.Size(438, 590);
             this.panel1.TabIndex = 1;
             // 
-            // dataGridView3
+            // HariLabel
             // 
-            this.dataGridView3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.HariLabel.AutoSize = true;
+            this.HariLabel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.HariLabel.Location = new System.Drawing.Point(138, 12);
+            this.HariLabel.Name = "HariLabel";
+            this.HariLabel.Size = new System.Drawing.Size(44, 17);
+            this.HariLabel.TabIndex = 10;
+            this.HariLabel.Text = "[Hari]";
+            // 
+            // RuteItemGrid
+            // 
+            this.RuteItemGrid.AllowUserToAddRows = false;
+            this.RuteItemGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView3.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(56)))));
-            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Location = new System.Drawing.Point(8, 106);
-            this.dataGridView3.Name = "dataGridView3";
-            this.dataGridView3.Size = new System.Drawing.Size(375, 474);
-            this.dataGridView3.TabIndex = 9;
+            this.RuteItemGrid.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(56)))));
+            this.RuteItemGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.RuteItemGrid.Location = new System.Drawing.Point(8, 96);
+            this.RuteItemGrid.Name = "RuteItemGrid";
+            this.RuteItemGrid.Size = new System.Drawing.Size(420, 484);
+            this.RuteItemGrid.TabIndex = 9;
             // 
             // flowLayoutPanel1
             // 
@@ -157,7 +168,7 @@
             this.flowLayoutPanel1.Controls.Add(this.H26Radio);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(8, 35);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(375, 65);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(420, 65);
             this.flowLayoutPanel1.TabIndex = 8;
             // 
             // H11Radio
@@ -304,22 +315,12 @@
             this.SalesComboBox.Size = new System.Drawing.Size(124, 21);
             this.SalesComboBox.TabIndex = 0;
             // 
-            // HariLabel
-            // 
-            this.HariLabel.AutoSize = true;
-            this.HariLabel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HariLabel.Location = new System.Drawing.Point(138, 12);
-            this.HariLabel.Name = "HariLabel";
-            this.HariLabel.Size = new System.Drawing.Size(44, 17);
-            this.HariLabel.TabIndex = 10;
-            this.HariLabel.Text = "[Hari]";
-            // 
             // SalesRuteForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(106)))), ((int)(((byte)(140)))), ((int)(((byte)(175)))));
-            this.ClientSize = new System.Drawing.Size(1033, 603);
+            this.ClientSize = new System.Drawing.Size(1031, 603);
             this.Controls.Add(this.splitContainer1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "SalesRuteForm";
@@ -333,7 +334,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.CustomerGrid)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RuteItemGrid)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
@@ -355,7 +356,7 @@
         private System.Windows.Forms.RadioButton H14Radio;
         private System.Windows.Forms.RadioButton H15Radio;
         private System.Windows.Forms.RadioButton H16Radio;
-        private System.Windows.Forms.DataGridView dataGridView3;
+        private System.Windows.Forms.DataGridView RuteItemGrid;
         private System.Windows.Forms.RadioButton H21Radio;
         private System.Windows.Forms.RadioButton H22Radio;
         private System.Windows.Forms.RadioButton H23Radio;

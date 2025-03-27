@@ -13,12 +13,13 @@ namespace btr.domain.SalesContext.SalesPersonAgg
         public string SalesPersonId { get; set; }
         public string SalesPersonName { get; set; }
         public string HariId { get; set; }
+        public List<SalesRuteItemModel> ListCustomer { get; set; }
     }
 
     public class SalesRuteItemModel : ISalesRuteKey, ICustomerKey
     {
         public string SalesRuteId { get; set; }
-        public string NoUrut { get; set; }
+        public int NoUrut { get; set; }
         public string CustomerId { get; set; }
         public string CustomerCode { get; set; }
         public string CustomerName { get; set; }

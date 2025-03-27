@@ -289,8 +289,8 @@
     <Compile Include="SalesContext\OmzetSupplierInfo\OmzetSupplierView.cs" />
     <Compile Include="SalesContext\HariRuteAgg\IHariRuteDal.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\Contracts\ISalesPersonDal.cs" />
-    <Compile Include="SalesContext\SalesPersonAgg\ISalesRuteDal.cs" />
-    <Compile Include="SalesContext\SalesPersonAgg\ISalesRuteItemDal.cs" />
+    <Compile Include="SalesContext\SalesRuteAgg\ISalesRuteDal.cs" />
+    <Compile Include="SalesContext\SalesRuteAgg\ISalesRuteItemDal.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\UseCases\CreateSalesPersonCommand.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\UseCases\GetDataSalesPersonQuery.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\UseCases\ListSalesPersonQuery.cs" />
@@ -298,6 +298,8 @@
     <Compile Include="SalesContext\SalesPersonAgg\Workers\SalesPersonBuilder.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\Workers\SalesPersonValidator.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\Workers\SalesPersonWriter.cs" />
+    <Compile Include="SalesContext\SalesRuteAgg\SalesRuteBuilder.cs" />
+    <Compile Include="SalesContext\SalesRuteAgg\SalesRuteWriter.cs" />
     <Compile Include="SalesContext\WilayahAgg\IWilayahDal.cs" />
     <Compile Include="SalesContext\WilayahAgg\WilayahBuilder.cs" />
     <Compile Include="SalesContext\WilayahAgg\WilayahWriter.cs" />

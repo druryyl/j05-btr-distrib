@@ -2,6 +2,9 @@
 {
     public class  CustomerViewDto
     {
+        public CustomerViewDto()
+        {
+        }
         public CustomerViewDto(string id, string code, string name, 
             string address, string wilayah)
         {
@@ -22,6 +25,11 @@
         {
             Hari = hari;
         } 
+        public CustomerViewDto Clone()
+        {
+            var newItem = new CustomerViewDto(CustomerId, CustomerCode, CustomerName, Address, Wilayah);
+            return newItem;
+        }
     }
 
 }
