@@ -78,6 +78,7 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
             RuteItemGrid.QueryContinueDrag += RuteItemGrid_QueryContinueDrag;
             RuteItemGrid.CellFormatting += RuteItemGrid_CellFormatting;
             RuteItemGrid.DataBindingComplete += RuteItemGrid_DataBindingComplete;
+            _listRuteItemView.ListChanged += ListRuteItemView_ListChanged;
 
             SalesComboBox.SelectedIndexChanged += SalesComboBox_SelectedIndexChanged;
 
@@ -94,6 +95,14 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
             H25Radio.CheckedChanged += HariRadio_CheckedChanged;
             H26Radio.CheckedChanged += HariRadio_CheckedChanged;
 
+        }
+
+        private void ListRuteItemView_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            if (e.ListChangedType == ListChangedType.ItemDeleted)
+            {
+                Save();
+            }
         }
 
         private void RuteItemGrid_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)

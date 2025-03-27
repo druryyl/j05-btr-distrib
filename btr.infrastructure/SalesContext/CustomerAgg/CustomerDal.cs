@@ -179,7 +179,6 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
                 LEFT JOIN BTR_Wilayah bb ON aa.WilayahId = bb.WilayahId
                 LEFT JOIN BTR_Klasifikasi cc ON aa.KlasifikasiId = cc.KlasifikasiId
                 LEFT JOIN BTR_HargaType dd ON aa.HargaTypeId = dd.HargaTypeId
-                LEFT JOIN BTR_Rute ee ON aa.RuteId = ee.RuteId
             WHERE
                 aa.CustomerId = @CustomerId ";
 
@@ -209,8 +208,7 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
                     BTR_Customer aa
                     LEFT JOIN BTR_Wilayah bb ON aa.WilayahId = bb.WilayahId
                     LEFT JOIN BTR_Klasifikasi cc ON aa.KlasifikasiId = cc.KlasifikasiId
-                    LEFT JOIN BTR_HargaType dd ON aa.HargaTypeId = dd.HargaTypeId
-                    LEFT JOIN BTR_Rute ee ON aa.RuteId = ee.RuteId ";
+                    LEFT JOIN BTR_HargaType dd ON aa.HargaTypeId = dd.HargaTypeId";
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
