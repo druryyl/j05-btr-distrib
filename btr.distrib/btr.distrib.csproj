@@ -364,6 +364,7 @@
     </Compile>
     <Compile Include="FinanceContext\ReturBalanceAgg\ReturBalanceViewDto.cs" />
     <Compile Include="FinanceContext\ReturBalanceAgg\ReturItemViewDto.cs" />
+    <Compile Include="FinanceContext\TagihanAgg\TagihanFakturDto.cs" />
     <Compile Include="FinanceContext\TagihanAgg\TagihanForm.cs">
       <SubType>Form</SubType>
     </Compile>

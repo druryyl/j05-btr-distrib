@@ -168,6 +168,7 @@
             // SalesRuteCombo
             // 
             this.SalesRuteCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.SalesRuteCombo.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SalesRuteCombo.FormattingEnabled = true;
             this.SalesRuteCombo.Location = new System.Drawing.Point(7, 48);
             this.SalesRuteCombo.Name = "SalesRuteCombo";
@@ -177,6 +178,7 @@
             // SalesCombo
             // 
             this.SalesCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.SalesCombo.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SalesCombo.FormattingEnabled = true;
             this.SalesCombo.Location = new System.Drawing.Point(7, 21);
             this.SalesCombo.Name = "SalesCombo";

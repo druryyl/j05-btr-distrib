@@ -84,7 +84,8 @@ namespace btr.infrastructure.SalesContext.SalesRuteAgg
                 SELECT
                     aa.SalesRuteId, aa.SalesPersonId, aa.HariRuteId,
                     ISNULL(bb.SalesPersonName, '') SalesPersonName, 
-                    ISNULL(cc.HariRuteName, '') HariRuteName
+                    ISNULL(cc.HariRuteName, '') HariRuteName,
+                    ISNULL(cc.ShortName, '') ShortName
                 FROM
                     BTR_SalesRute aa
                     LEFT JOIN BTR_SalesPerson bb ON aa.SalesPersonId = bb.SalesPersonId
@@ -107,7 +108,8 @@ namespace btr.infrastructure.SalesContext.SalesRuteAgg
                 SELECT
                     aa.SalesRuteId, aa.SalesPersonId, aa.HariRuteId,
                     ISNULL(bb.SalesPersonName, '') SalesPersonName, 
-                    ISNULL(cc.HariRuteName, '') HariRuteName
+                    ISNULL(cc.HariRuteName, '') HariRuteName,
+                    ISNULL(cc.ShortName, '') ShortName
                 FROM
                     BTR_SalesRute aa
                     LEFT JOIN BTR_SalesPerson bb ON aa.SalesPersonId = bb.SalesPersonId
