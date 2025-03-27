@@ -134,6 +134,6 @@
     <Build Include="Tables\SalesContext\BTR_HariRute.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Tables\SalesContext\HariRuteDataSeed.sql" />
+    <None Include="Tables\SalesContext\BTR_HariRuteDataSeed.sql" />
   </ItemGroup>
 </Project>

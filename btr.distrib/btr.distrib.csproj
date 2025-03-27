@@ -699,10 +699,10 @@
     <Compile Include="SalesContext\SalesPersonAgg\SalesPersonForm.Designer.cs">
       <DependentUpon>SalesPersonForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SalesContext\SalesPersonAgg\SalesRuteForm.cs">
+    <Compile Include="SalesContext\SalesRuteAgg\SalesRuteForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SalesContext\SalesPersonAgg\SalesRuteForm.Designer.cs">
+    <Compile Include="SalesContext\SalesRuteAgg\SalesRuteForm.Designer.cs">
       <DependentUpon>SalesRuteForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SalesContext\WilayahAgg\WilayahForm.cs">
@@ -957,7 +957,7 @@
     <EmbeddedResource Include="SalesContext\FakturPerSupplierRpt\FakturPerSupplierForm.resx">
       <DependentUpon>FakturPerSupplierForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SalesContext\SalesPersonAgg\SalesRuteForm.resx">
+    <EmbeddedResource Include="SalesContext\SalesRuteAgg\SalesRuteForm.resx">
       <DependentUpon>SalesRuteForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SharedForm\ParamSistemForm.resx">
@@ -1132,8 +1132,6 @@
       <Name>btr.nuna</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SalesContext\RuteAgg\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
