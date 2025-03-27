@@ -38,7 +38,7 @@ namespace btr.infrastructure.SalesContext.SalesRuteAgg
                     LEFT JOIN BTR_Customer cc ON aa.CustomerId = cc.CustomerId
                     LEFT JOIN BTR_HariRute dd ON bb.HariRuteId = dd.HariRuteId
                 WHERE
-                    aa.SalesPersonId = @SalesPersonId";
+                    bb.SalesPersonId = @SalesPersonId";
 
             var dp = new DynamicParameters();
             dp.AddParam("@SalesPersonId", filter.SalesPersonId, SqlDbType.VarChar);

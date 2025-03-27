@@ -146,6 +146,7 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
         {
             CustomerGrid.DataSource = _customerViewBindingSource;
             PopulateCustomer();
+            RuteInListCutomerUpdateBySales();
             CustomerGrid.Columns["CustomerId"].Visible = false;
             CustomerGrid.Columns["CustomerCode"].HeaderText = "Kode";
             CustomerGrid.Columns["CustomerName"].HeaderText = "Nama";
@@ -345,7 +346,9 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
             _listRuteItemView.Add(newRuteItem);
             RuteItemGrid.Refresh();
             Save();
+            RuteInListCutomerUpdateByHari();
         }
+
         private void LoadRuteItemPerHari(string salesId, string hariRuteId)
         {
             var salesRute = _salesRuteBuilder
@@ -361,7 +364,7 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
                     item.Address,
                     item.Wilayah));
             }
-            RuteInListCutomerUpdateAllByHari();
+            RuteInListCutomerUpdateByHari();
         }
 
         private void PopulateCustomer()
@@ -387,13 +390,14 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
                 .ForEach(x => _listCustomerView.Add(new CustomerViewDto(
                 x.CustomerId, x.CustomerCode, x.CustomerName,
                 x.Address1, x.WilayahName)));
-            CustomerGrid.Refresh();
+            RuteInListCutomerUpdateBySales();
         }
+
         private void RuteInListCutomerUpdateBySales()
         {
             RuteInListCutomerClear();
             var salesId = SalesComboBox.SelectedValue.ToString();
-            if (salesId.Length > 0)
+            if (salesId.Length < 0)
                 return;
             var salesKey = new SalesPersonModel(salesId);
             var listAllRute = _salesRuteItemViewDal.ListData(salesKey)?.ToList() ?? new List<SalesRuteItemViewDto>();
@@ -403,7 +407,7 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
                 if (customer == null) continue;
                 customer.SetHari(item.ShortName);
             }
-            RuteItemGrid.Refresh();
+            CustomerGrid.Refresh();
             return;
 
             void RuteInListCutomerClear()
@@ -413,7 +417,7 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
             }
         }
 
-        private void RuteInListCutomerUpdateAllByHari()
+        private void RuteInListCutomerUpdateByHari()
         {
             if (_hariRuteId == null)
                 return;
@@ -426,6 +430,8 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
                     continue;
                 customer.SetHari(hariShortName);
             }
+            CustomerGrid.Refresh();
+
         }
 
         private void Save()
