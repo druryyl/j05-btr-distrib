@@ -319,7 +319,7 @@
     <Compile Include="Browsers\MutasiBrowser.cs" />
     <Compile Include="Browsers\PackingBrowser.cs" />
     <Compile Include="Browsers\ReturJualBrowser.cs" />
-    <Compile Include="Browsers\RuteBrowser.cs" />
+    <Compile Include="Browsers\HariRuteBrowser.cs" />
     <Compile Include="Browsers\SalesPersonBrowser.cs" />
     <Compile Include="Browsers\TagihanBrowser.cs" />
     <Compile Include="Browsers\WilayahBrowser.cs" />

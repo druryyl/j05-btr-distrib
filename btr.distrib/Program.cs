@@ -17,11 +17,9 @@ using btr.distrib.Helpers;
 using btr.application.SupportContext.TglJamAgg;
 using btr.distrib.Browsers;
 using btr.infrastructure.SupportContext.TglJamAgg;
-using btr.distrib.SalesContext.FakturAgg;
 using Microsoft.Win32;
 using System.Threading;
 using System.Collections.Generic;
-using btr.distrib.SalesContext.RuteAgg;
 
 namespace btr.distrib
 {
