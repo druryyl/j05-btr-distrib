@@ -17,9 +17,9 @@ namespace btr.distrib.Browsers
         IBrowser<RuteBrowserView>,
         IBrowseEngine<RuteBrowserView>
     {
-        private readonly IRuteDal _ruteDal;
+        private readonly IHariRuteDal _ruteDal;
 
-        public RuteBrowser(IRuteDal ruteDal)
+        public RuteBrowser(IHariRuteDal ruteDal)
         {
             _ruteDal = ruteDal;
             Filter = new BrowseFilter();

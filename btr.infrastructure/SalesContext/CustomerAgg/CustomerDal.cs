@@ -26,12 +26,12 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
                 CustomerId, CustomerName, CustomerCode, WilayahId, KlasifikasiId, HargaTypeId, 
                 Address1, Address2, Kota, KodePos, NoTelp, NoFax, Email, Nitku,
                 Npwp, Nik, Nppkp, NamaWp, AddressWp, AddressWp2, IsKenaPajak, JenisIdentitasPajak,
-                IsSuspend, Plafond, CreditBalance, RuteId)
+                IsSuspend, Plafond, CreditBalance)
             VALUES (
                 @CustomerId, @CustomerName, @CustomerCode, @WilayahId, @KlasifikasiId, @HargaTypeId, 
                 @Address1, @Address2, @Kota, @KodePos, @NoTelp, @NoFax, @Email, @Nitku,
                 @Npwp, @Nik, @Nppkp, @NamaWp, @AddressWp, @AddressWp2, @IsKenaPajak, @JenisIdentitasPajak, 
-                @IsSuspend, @Plafond, @CreditBalance, @RuteId)";
+                @IsSuspend, @Plafond, @CreditBalance)";
 
             var dp = new DynamicParameters();
             dp.AddParam("@CustomerId", model.CustomerId, SqlDbType.VarChar);
@@ -64,7 +64,6 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
             dp.AddParam("@IsSuspend", model.IsSuspend, SqlDbType.Bit);
             dp.AddParam("@Plafond", model.Plafond, SqlDbType.Decimal);
             dp.AddParam("@CreditBalance", model.CreditBalance, SqlDbType.Decimal);
-            dp.AddParam("@RuteId", model.RuteId, SqlDbType.Decimal);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -105,7 +104,6 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
                 IsSuspend = @IsSuspend,
                 Plafond = @Plafond,
                 CreditBalance = @CreditBalance,
-                RuteId = @RuteId
             WHERE
                 CustomerId = @CustomerId ";
 
@@ -139,7 +137,6 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
             dp.AddParam("@IsSuspend", model.IsSuspend, SqlDbType.Bit);
             dp.AddParam("@Plafond", model.Plafond, SqlDbType.Decimal);
             dp.AddParam("@CreditBalance", model.CreditBalance, SqlDbType.Decimal);
-            dp.AddParam("@RuteId", model.RuteId, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -173,11 +170,10 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
                 aa.Address1, aa.Address2, aa.Kota, aa.KodePos, aa.NoTelp, aa.NoFax, aa.Email, aa.Nitku,
                 aa.Npwp, aa.Nik, aa.Nppkp, aa.NamaWp, aa.AddressWp, 
                 aa.AddressWp2, aa.IsKenaPajak, aa.JenisIdentitasPajak,
-                aa.IsSuspend,  aa.Plafond, aa.CreditBalance, aa.RuteId,
+                aa.IsSuspend,  aa.Plafond, aa.CreditBalance,
                 ISNULL(bb.WilayahName, '') AS WilayahName,
                 ISNULL(cc.KlasifikasiName, '') AS KlasifikasiName,
-                ISNULL(dd.HargaTypeName, '') AS HargaTypeName,
-                ISNULL(ee.RuteName, '') AS RuteName
+                ISNULL(dd.HargaTypeName, '') AS HargaTypeName
             FROM
                 BTR_Customer aa
                 LEFT JOIN BTR_Wilayah bb ON aa.WilayahId = bb.WilayahId
@@ -205,11 +201,10 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
                     aa.Address1, aa.Address2, aa.Kota, aa.KodePos, aa.NoTelp, aa.NoFax, aa.Email, aa.Nitku,
                     aa.Npwp, aa.Nik, aa.Nppkp, aa.NamaWp, aa.AddressWp, 
                     aa.AddressWp2, aa.IsKenaPajak, aa.JenisIdentitasPajak,
-                    aa.IsSuspend,  aa.Plafond, aa.CreditBalance, aa.RuteId,
+                    aa.IsSuspend,  aa.Plafond, aa.CreditBalance, 
                     ISNULL(bb.WilayahName, '') AS WilayahName,
                     ISNULL(cc.KlasifikasiName, '') AS KlasifikasiName,
-                    ISNULL(dd.HargaTypeName, '') AS HargaTypeName,
-                    ISNULL(ee.RuteName, '') AS RuteName
+                    ISNULL(dd.HargaTypeName, '') AS HargaTypeName
                 FROM
                     BTR_Customer aa
                     LEFT JOIN BTR_Wilayah bb ON aa.WilayahId = bb.WilayahId

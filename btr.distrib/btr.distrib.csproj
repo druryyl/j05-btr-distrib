@@ -692,12 +692,6 @@
     <Compile Include="SalesContext\FakturPerSupplierRpt\FakturPerSupplierForm.Designer.cs">
       <DependentUpon>FakturPerSupplierForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SalesContext\RuteAgg\RuteForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SalesContext\RuteAgg\RuteForm.Designer.cs">
-      <DependentUpon>RuteForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="SalesContext\SalesPersonAgg\CustomerViewDto.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\SalesPersonForm.cs">
       <SubType>Form</SubType>
@@ -963,9 +957,6 @@
     <EmbeddedResource Include="SalesContext\FakturPerSupplierRpt\FakturPerSupplierForm.resx">
       <DependentUpon>FakturPerSupplierForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SalesContext\RuteAgg\RuteForm.resx">
-      <DependentUpon>RuteForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SalesContext\SalesPersonAgg\SalesRuteForm.resx">
       <DependentUpon>SalesRuteForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -1141,6 +1132,8 @@
       <Name>btr.nuna</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="SalesContext\RuteAgg\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
