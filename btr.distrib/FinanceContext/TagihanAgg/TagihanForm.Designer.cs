@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.LastIdLabel = new System.Windows.Forms.Label();
             this.TglTagihText = new System.Windows.Forms.DateTimePicker();
             this.TagihanButton = new System.Windows.Forms.Button();
             this.TagihanIdLabel = new System.Windows.Forms.Label();
             this.TagihanIdText = new System.Windows.Forms.TextBox();
+            this.LastIdLabel = new System.Windows.Forms.Label();
             this.FakturGrid = new System.Windows.Forms.DataGridView();
             this.SaveButton = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -58,7 +58,6 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(230)))), ((int)(((byte)(242)))));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.LastIdLabel);
             this.panel1.Controls.Add(this.TglTagihText);
             this.panel1.Controls.Add(this.TagihanButton);
             this.panel1.Controls.Add(this.TagihanIdLabel);
@@ -67,16 +66,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(174, 86);
             this.panel1.TabIndex = 0;
-            // 
-            // LastIdLabel
-            // 
-            this.LastIdLabel.AutoSize = true;
-            this.LastIdLabel.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LastIdLabel.Location = new System.Drawing.Point(15, 52);
-            this.LastIdLabel.Name = "LastIdLabel";
-            this.LastIdLabel.Size = new System.Drawing.Size(0, 13);
-            this.LastIdLabel.TabIndex = 10;
-            this.LastIdLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // TglTagihText
             // 
@@ -114,6 +103,18 @@
             this.TagihanIdText.Name = "TagihanIdText";
             this.TagihanIdText.Size = new System.Drawing.Size(107, 22);
             this.TagihanIdText.TabIndex = 0;
+            // 
+            // LastIdLabel
+            // 
+            this.LastIdLabel.AutoSize = true;
+            this.LastIdLabel.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LastIdLabel.ForeColor = System.Drawing.Color.DimGray;
+            this.LastIdLabel.Location = new System.Drawing.Point(3, 438);
+            this.LastIdLabel.Name = "LastIdLabel";
+            this.LastIdLabel.Size = new System.Drawing.Size(61, 13);
+            this.LastIdLabel.TabIndex = 10;
+            this.LastIdLabel.Text = "[Last ID]";
+            this.LastIdLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // FakturGrid
             // 
@@ -262,6 +263,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(106)))), ((int)(((byte)(140)))), ((int)(((byte)(175)))));
             this.ClientSize = new System.Drawing.Size(940, 467);
+            this.Controls.Add(this.LastIdLabel);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
@@ -279,6 +281,7 @@
             this.panel3.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

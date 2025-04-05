@@ -61,7 +61,8 @@ namespace btr.infrastructure.PurchaseContext.InvoiceHarianDetilRpt
                     LEFT JOIN (SELECT InvoiceItemId, DiscProsen, DiscRp FROM BTR_InvoiceDisc WHERE NoUrut = 3) ff3 ON aa.InvoiceItemId = ff3.InvoiceItemId
                     LEFT JOIN (SELECT InvoiceItemId, DiscProsen, DiscRp FROM BTR_InvoiceDisc WHERE NoUrut = 4) ff4 ON aa.InvoiceItemId = ff4.InvoiceItemId
                 WHERE
-                    bb.InvoiceDate BETWEEN @Tgl1 AND @Tgl2 ";
+                    bb.InvoiceDate BETWEEN @Tgl1 AND @Tgl2 
+                    AND bb.VoidDate = '3000-01-01'";
 
             var dp = new DynamicParameters();
             dp.AddParam("@Tgl1", filter.Tgl1, SqlDbType.DateTime);

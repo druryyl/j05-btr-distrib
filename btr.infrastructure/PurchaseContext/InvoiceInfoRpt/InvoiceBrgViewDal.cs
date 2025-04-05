@@ -48,7 +48,8 @@ namespace btr.infrastructure.PurchaseContext.InvoiceInfoRpt
                     LEFT JOIN BTR_Brg dd ON bb.BrgId = dd.BrgId
                     LEFT JOIN BTR_Kategori ee ON dd.KategoriId = ee.KategoriId
                 WHERE
-                    InvoiceDate BETWEEN @Tgl1 AND @Tgl2 ";
+                    aa.InvoiceDate BETWEEN @Tgl1 AND @Tgl2 
+                    AND aa.VoidDate = '3000-01-01'";
 
             var dp = new DynamicParameters();
             dp.AddParam("@Tgl1", filter.Tgl1, SqlDbType.DateTime);

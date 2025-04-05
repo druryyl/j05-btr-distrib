@@ -180,7 +180,8 @@ namespace btr.infrastructure.PurchaseContext.InvoiceAgg
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
-                return conn.Read<InvoiceModel>(sql, dp);
+                var result = conn.Read<InvoiceModel>(sql, dp);
+                return result;
             }
         }
     }

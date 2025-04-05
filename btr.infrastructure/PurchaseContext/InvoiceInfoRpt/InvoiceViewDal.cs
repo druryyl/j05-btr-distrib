@@ -38,7 +38,8 @@ namespace btr.infrastructure.PurchaseContext.InvoiceInfoRpt
                     LEFT JOIN BTR_Supplier bb ON aa.SupplierId = bb.SupplierId
                     LEFT JOIN BTR_Warehouse cc ON aa.WarehouseId = cc.WarehouseId
                 WHERE
-                    InvoiceDate BETWEEN @Tgl1 AND @Tgl2 ";
+                    InvoiceDate BETWEEN @Tgl1 AND @Tgl2 
+                    AND aa.VoidDate = '3000-01-01'";
 
             var dp = new DynamicParameters();
             dp.AddParam("@Tgl1", filter.Tgl1, SqlDbType.DateTime);

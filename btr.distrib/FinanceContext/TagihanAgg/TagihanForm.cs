@@ -128,8 +128,8 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             col.GetCol("FakturDate").Width = 80;
             col.GetCol("JatuhTempo").Width = 80;
             col.GetCol("CustomerCode").Width = 70;
-            col.GetCol("CustomerName").Width = 120;
-            col.GetCol("Alamat").Width = 160;
+            col.GetCol("CustomerName").Width = 150;
+            col.GetCol("Alamat").Width = 180;
             col.GetCol("NilaiTotal").Width = 75;
             col.GetCol("NilaiTerbayar").Width = 75;
             col.GetCol("NilaiTagih").Width = 75;
@@ -203,7 +203,7 @@ namespace btr.distrib.FinanceContext.TagihanAgg
                     continue;
                 listAllPiutang.AddRange(listPiutangThisCustomer);
             }
-            foreach(var item in listAllPiutang.OrderBy(x => x.DueDate).ThenBy(x => x.CustomerCode))
+            foreach(var item in listAllPiutang.OrderBy(x => x.CustomerCode).ThenBy(x => x.DueDate))
             {
                 var newTagihanItem = new TagihanFakturDto
                 {
