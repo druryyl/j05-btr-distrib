@@ -36,20 +36,21 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             this.SearchBrgText = new System.Windows.Forms.TextBox();
             this.ListBarangButton = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.KartuStokGrid = new System.Windows.Forms.DataGridView();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.PengakuanRadioButton = new System.Windows.Forms.RadioButton();
-            this.label1 = new System.Windows.Forms.Label();
-            this.PencatatanRadioButton = new System.Windows.Forms.RadioButton();
             this.BrgGrid = new System.Windows.Forms.DataGridView();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.PencatatanRadioButton = new System.Windows.Forms.RadioButton();
+            this.label1 = new System.Windows.Forms.Label();
+            this.PengakuanRadioButton = new System.Windows.Forms.RadioButton();
+            this.KartuStokGrid = new System.Windows.Forms.DataGridView();
+            this.ExcelButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.KartuStokGrid)).BeginInit();
-            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BrgGrid)).BeginInit();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.KartuStokGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -83,7 +84,7 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             // 
             // ListBarangButton
             // 
-            this.ListBarangButton.BackColor = System.Drawing.Color.PowderBlue;
+            this.ListBarangButton.BackColor = System.Drawing.Color.MediumAquamarine;
             this.ListBarangButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ListBarangButton.Location = new System.Drawing.Point(10, 203);
             this.ListBarangButton.Name = "ListBarangButton";
@@ -115,23 +116,22 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             this.splitContainer1.SplitterDistance = 256;
             this.splitContainer1.TabIndex = 5;
             // 
-            // KartuStokGrid
+            // BrgGrid
             // 
-            this.KartuStokGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.KartuStokGrid.BackgroundColor = System.Drawing.Color.DarkSlateGray;
-            this.KartuStokGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.KartuStokGrid.Location = new System.Drawing.Point(0, 43);
-            this.KartuStokGrid.Name = "KartuStokGrid";
-            this.KartuStokGrid.Size = new System.Drawing.Size(756, 453);
-            this.KartuStokGrid.TabIndex = 0;
+            this.BrgGrid.BackgroundColor = System.Drawing.Color.LightSlateGray;
+            this.BrgGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.BrgGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BrgGrid.Location = new System.Drawing.Point(0, 238);
+            this.BrgGrid.Name = "BrgGrid";
+            this.BrgGrid.Size = new System.Drawing.Size(254, 258);
+            this.BrgGrid.TabIndex = 4;
             // 
             // panel2
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.panel2.Controls.Add(this.ExcelButton);
             this.panel2.Controls.Add(this.PencatatanRadioButton);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.PengakuanRadioButton);
@@ -139,6 +139,25 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(755, 43);
             this.panel2.TabIndex = 1;
+            // 
+            // PencatatanRadioButton
+            // 
+            this.PencatatanRadioButton.AutoSize = true;
+            this.PencatatanRadioButton.Location = new System.Drawing.Point(189, 11);
+            this.PencatatanRadioButton.Name = "PencatatanRadioButton";
+            this.PencatatanRadioButton.Size = new System.Drawing.Size(114, 17);
+            this.PencatatanRadioButton.TabIndex = 2;
+            this.PencatatanRadioButton.Text = "By Tgl Pencatatan";
+            this.PencatatanRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(15, 13);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(48, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Sorting:";
             // 
             // PengakuanRadioButton
             // 
@@ -152,34 +171,28 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             this.PengakuanRadioButton.Text = "By Tgl Pengakuan";
             this.PengakuanRadioButton.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // KartuStokGrid
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 13);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(48, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Sorting:";
+            this.KartuStokGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.KartuStokGrid.BackgroundColor = System.Drawing.Color.DarkSlateGray;
+            this.KartuStokGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.KartuStokGrid.Location = new System.Drawing.Point(0, 43);
+            this.KartuStokGrid.Name = "KartuStokGrid";
+            this.KartuStokGrid.Size = new System.Drawing.Size(756, 453);
+            this.KartuStokGrid.TabIndex = 0;
             // 
-            // PencatatanRadioButton
+            // ExcelButton
             // 
-            this.PencatatanRadioButton.AutoSize = true;
-            this.PencatatanRadioButton.Location = new System.Drawing.Point(189, 11);
-            this.PencatatanRadioButton.Name = "PencatatanRadioButton";
-            this.PencatatanRadioButton.Size = new System.Drawing.Size(114, 17);
-            this.PencatatanRadioButton.TabIndex = 2;
-            this.PencatatanRadioButton.Text = "By Tgl Pencatatan";
-            this.PencatatanRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // BrgGrid
-            // 
-            this.BrgGrid.BackgroundColor = System.Drawing.Color.LightSlateGray;
-            this.BrgGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.BrgGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BrgGrid.Location = new System.Drawing.Point(0, 238);
-            this.BrgGrid.Name = "BrgGrid";
-            this.BrgGrid.Size = new System.Drawing.Size(254, 258);
-            this.BrgGrid.TabIndex = 4;
+            this.ExcelButton.BackColor = System.Drawing.Color.MediumAquamarine;
+            this.ExcelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ExcelButton.Location = new System.Drawing.Point(663, 9);
+            this.ExcelButton.Name = "ExcelButton";
+            this.ExcelButton.Size = new System.Drawing.Size(77, 26);
+            this.ExcelButton.TabIndex = 6;
+            this.ExcelButton.Text = "Excel";
+            this.ExcelButton.UseVisualStyleBackColor = false;
             // 
             // KartuStokInfoForm
             // 
@@ -197,10 +210,10 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.KartuStokGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BrgGrid)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.BrgGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.KartuStokGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -217,5 +230,6 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
         private System.Windows.Forms.RadioButton PencatatanRadioButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView BrgGrid;
+        private System.Windows.Forms.Button ExcelButton;
     }
 }

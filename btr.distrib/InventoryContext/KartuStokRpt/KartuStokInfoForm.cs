@@ -1,5 +1,4 @@
 ﻿using btr.application.BrgContext.BrgAgg;
-using btr.application.BrgContext.KategoriAgg;
 using btr.application.InventoryContext.KartuStokRpt;
 using btr.application.InventoryContext.WarehouseAgg;
 using btr.distrib.Helpers;
@@ -12,8 +11,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Mapster;
-using Color = System.Drawing.Color;
 using System.ComponentModel;
+using System.Drawing;
+using ClosedXML.Excel;
 
 namespace btr.distrib.InventoryContext.KartuStokRpt
 {
@@ -24,6 +24,7 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
         private readonly IWarehouseDal _warehouseDal;
         private readonly BindingList<BrgKartuDto> _listBrgKartu;
         private readonly BindingSource _listKartuBindingSource;
+        private List<KartuStokItemInfoDto> _listItemKartuStok;
 
         public KartuStokInfoForm(IBrgDal brgDal,
             IWarehouseDal warehouseDal,
@@ -48,10 +49,16 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
         private void RegisterEventHandler()
         {
             ListBarangButton.Click += ListBarangButton_Click;
+            ExcelButton.Click += ExcelButton_Click;
             BrgGrid.CellDoubleClick += BrgGrid_CellDoubleClick;
             KartuStokGrid.RowPrePaint += KartuStokGrid_RowPrePaint;
             PencatatanRadioButton.CheckedChanged += SortingRadioButton_CheckedChanged;
             PengakuanRadioButton.CheckedChanged -= SortingRadioButton_CheckedChanged;
+        }
+
+        private void ExcelButton_Click(object sender, EventArgs e)
+        {
+            GenToExcel();
         }
 
         private void SortingRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -180,6 +187,73 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             col.GetCol("HargaJual").Visible = false;
         }
 
+        private void GenToExcel()
+        {
+            string filePath;
+            using (var saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = @"Excel Files|*.xlsx";
+                saveFileDialog.Title = @"Save Excel File";
+                saveFileDialog.DefaultExt = "xlsx";
+                saveFileDialog.AddExtension = true;
+                saveFileDialog.FileName = $"kartu-stok-{DateTime.Now:yyyy-MM-dd-HHmm}";
+                if (saveFileDialog.ShowDialog() != DialogResult.OK)
+                    return;
+                filePath = saveFileDialog.FileName;
+            }
+            using (IXLWorkbook wb = new XLWorkbook())
+            {
+                wb.AddWorksheet("kartu-stok-summary")
+                .Cell($"B1")
+                    .InsertTable(_listItemKartuStok, false);
+                var ws = wb.Worksheets.First();
+
+                //  set format row header: font bold, background lightblue, border medium
+                ws.Range(ws.Cell("A1"), ws.Cell($"M1")).Style
+                    .Font.SetFontName("Lucida Console")
+                    .Font.SetFontSize(9)
+                    .Font.SetBold()
+                    .Fill.SetBackgroundColor(XLColor.LightBlue)
+                    .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
+                    .Border.SetInsideBorder(XLBorderStyleValues.Hair);
+
+                //  set format row data: font consolas 9, border medium, border inside hair
+                ws.Range(ws.Cell("A2"), ws.Cell($"M{_listItemKartuStok.Count + 1}")).Style
+                    .Font.SetFontName("Lucida Console")
+                    .Font.SetFontSize(9)
+                    .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
+                    .Border.SetInsideBorder(XLBorderStyleValues.Hair);
+
+                //  add row numbering
+                ws.Cell($"A1").Value = "No";
+                for (var i = 0; i < _listItemKartuStok.Count; i++)
+                    ws.Cell($"A{i + 2}").Value = i + 1;
+                ws.Range(ws.Cell("A2"), ws.Cell($"M{_listItemKartuStok.Count + 1}"))
+                    .Style.NumberFormat.Format = "#,##";
+
+                //  format numeric column  
+                ws.Range(ws.Cell("H2"), ws.Cell($"M{_listItemKartuStok.Count + 1}"))
+                    .Style.NumberFormat.Format = "#,##";
+                //  format date column
+                ws.Range(ws.Cell("C2"), ws.Cell($"C{_listItemKartuStok.Count + 1}"))
+                    .Style.NumberFormat.Format = "dd-MMM-yyyy";
+
+                //  format numeric column DiscTotal with 2 decimal places but hide zero
+                ws.Range(ws.Cell("P2"), ws.Cell($"S{_listItemKartuStok.Count + 1}"))
+                    .Style.NumberFormat.Format = "#,##0.00_);(#,##0.00);-";
+
+                //  set backcolor numeric column
+                ws.Range(ws.Cell("H2"), ws.Cell($"L{_listItemKartuStok.Count + 1}"))
+                    .Style.Fill.SetBackgroundColor(XLColor.LightGreen);
+                ws.Range(ws.Cell("M2"), ws.Cell($"M{_listItemKartuStok.Count + 1}"))
+                    .Style.Fill.SetBackgroundColor(XLColor.LightBlue);
+
+                ws.Columns().AdjustToContents();
+                wb.SaveAs(filePath);
+            }
+            System.Diagnostics.Process.Start(filePath);
+        }
+
         private void GenKartuStok()
         {
             var brgId = BrgGrid.CurrentRow.Cells["BrgId"].Value.ToString();
@@ -225,11 +299,11 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
 
             var listSaldoAwal = GetSaldoAwal(periode, brgKey);
             var listWarehouse = _warehouseDal.ListData()?.ToList() ?? new List<WarehouseModel>();
-            var result = new List<KartuStokItemInfoDto>();
+            _listItemKartuStok = new List<KartuStokItemInfoDto>();
             foreach(var warehouse in listWarehouse)
             {
                 var saldoAwal = listSaldoAwal.FirstOrDefault(x => x.WarehouseId == warehouse.WarehouseId);
-                result.Add(new KartuStokItemInfoDto
+                _listItemKartuStok.Add(new KartuStokItemInfoDto
                 {
                     WarehouseName = warehouse.WarehouseName,
                     JenisMutasi = "Saldo Awal",
@@ -262,7 +336,7 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
                         HargaJual = item.HargaJual,
                         Keterangan = $"{item.JenisMutasi} : {item.ReffId} - {item.Keterangan}"
                     };
-                    result.Add(kartuStok);
+                    _listItemKartuStok.Add(kartuStok);
                     saldo += item.QtyIn - item.QtyOut;
                     noUrut++;
                 }
@@ -278,9 +352,9 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
                 saldoAkhir.QtyKeluar = $"{saldoQtyKeluar:N0}";
                 saldoAkhir.Hpp = 0;
                 saldoAkhir.HargaJual = 0;
-                result.Add(saldoAkhir);
+                _listItemKartuStok.Add(saldoAkhir);
             }
-            KartuStokGrid.DataSource = result;
+            KartuStokGrid.DataSource = _listItemKartuStok;
         }
 
         private IEnumerable<KartuStokStokAwalView> GetSaldoAwal(Periode periode, IBrgKey brgKey)
@@ -297,6 +371,7 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
                 });
             return result;
         }
+
     }
 
     public class KartuStokItemInfoDto 
