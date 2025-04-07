@@ -189,6 +189,9 @@ namespace btr.distrib.FinanceContext.TagihanAgg
 
         private void ListFakturButton_Click(object sender, EventArgs e)
         {
+            if (SalesRuteCombo.SelectedValue is null)
+                return;
+
             var salesRuteId = SalesRuteCombo.SelectedValue.ToString();
             if (salesRuteId == string.Empty)
                 return;

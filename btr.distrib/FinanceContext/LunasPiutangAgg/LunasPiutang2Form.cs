@@ -227,8 +227,10 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             var textBox = sender as NumericUpDown;
             if (e.KeyCode == Keys.F1)
             {
+                textBox.Focus();
+                textBox.Select(0, 0);
                 var piutang = _piutangBuilder.Load(new PiutangModel(_piutangId)).Build();
-                textBox.Value = piutang.Sisa; // piutang.Sisa - ReturText.Value - PotonganText.Value - MateraiText.Value - AdminText.Value;
+                textBox.Value = piutang.Sisa; //piutang.Sisa - ReturText.Value - PotonganText.Value - MateraiText.Value - AdminText.Value; //;
             }
         }
 

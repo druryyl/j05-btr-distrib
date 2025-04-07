@@ -52,7 +52,7 @@
             this.NoRekBgText = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
             this.NilaiPelunasanText = new System.Windows.Forms.NumericUpDown();
-            this.label21 = new System.Windows.Forms.Label();
+            this.JumlahBayarLabel = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -209,7 +209,7 @@
             this.panel6.Controls.Add(this.NoRekBgText);
             this.panel6.Controls.Add(this.label20);
             this.panel6.Controls.Add(this.NilaiPelunasanText);
-            this.panel6.Controls.Add(this.label21);
+            this.panel6.Controls.Add(this.JumlahBayarLabel);
             this.panel6.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel6.Location = new System.Drawing.Point(6, 231);
             this.panel6.Name = "panel6";
@@ -372,14 +372,14 @@
             this.NilaiPelunasanText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.NilaiPelunasanText.ThousandsSeparator = true;
             // 
-            // label21
+            // JumlahBayarLabel
             // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(6, 43);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(79, 13);
-            this.label21.TabIndex = 1;
-            this.label21.Text = "Jumlah Bayar";
+            this.JumlahBayarLabel.AutoSize = true;
+            this.JumlahBayarLabel.Location = new System.Drawing.Point(6, 43);
+            this.JumlahBayarLabel.Name = "JumlahBayarLabel";
+            this.JumlahBayarLabel.Size = new System.Drawing.Size(79, 13);
+            this.JumlahBayarLabel.TabIndex = 1;
+            this.JumlahBayarLabel.Text = "Jumlah Bayar";
             // 
             // panel3
             // 
@@ -665,7 +665,7 @@
         private System.Windows.Forms.TextBox NoRekBgText;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.NumericUpDown NilaiPelunasanText;
-        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label JumlahBayarLabel;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
