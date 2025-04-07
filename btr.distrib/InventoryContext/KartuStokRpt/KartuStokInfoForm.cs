@@ -14,6 +14,8 @@ using Mapster;
 using System.ComponentModel;
 using System.Drawing;
 using ClosedXML.Excel;
+using btr.infrastructure.InventoryContext.MutasiAgg;
+using System.Globalization;
 
 namespace btr.distrib.InventoryContext.KartuStokRpt
 {
@@ -201,15 +203,41 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
                     return;
                 filePath = saveFileDialog.FileName;
             }
+            var listToExcel = new List<KartuStokItemExcelDto>();
+            foreach(var item in _listItemKartuStok)
+            {
+                var tglMutasi = item.MutasiDate.Year == 1 ? string.Empty : item.MutasiDate.ToString("dd-MMM");
+                var qtyAwal = (item.QtyAwal ?? "") == "" ? 0 : long.Parse(item.QtyAwal.Replace(",", ""), CultureInfo.InvariantCulture);
+                var qtyMasuk = (item.QtyMasuk ?? "")  == "" ? 0 : long.Parse(item.QtyMasuk.Replace(",", ""), CultureInfo.InvariantCulture);
+                var qtyKeluar = (item.QtyKeluar ?? "")  == "" ? 0 : long.Parse(item.QtyKeluar.Replace(",", ""), CultureInfo.InvariantCulture);
+                var qtyAkhir = (item.QtyAkhir ?? "")  == "" ? 0 : long.Parse(item.QtyAkhir.Replace(",", ""), CultureInfo.InvariantCulture);
+
+                var newItem = new KartuStokItemExcelDto
+                {
+                    WarehouseName = item.WarehouseName,
+                    No = item.No,
+                    JenisMutasi = item.JenisMutasi,
+                    MutasiDate = tglMutasi,
+                    QtyAwal = qtyAwal,
+                    QtyMasuk = qtyMasuk,
+                    QtyKeluar = qtyKeluar,
+                    QtyAkhir = qtyAkhir,
+                    Hpp = item.Hpp,
+                    HargaJual = item.HargaJual, 
+                    Keterangan = item.Keterangan,
+                };
+                listToExcel.Add(newItem);
+            }
+
             using (IXLWorkbook wb = new XLWorkbook())
             {
                 wb.AddWorksheet("kartu-stok-summary")
                 .Cell($"B1")
-                    .InsertTable(_listItemKartuStok, false);
+                    .InsertTable(listToExcel, false);
                 var ws = wb.Worksheets.First();
 
                 //  set format row header: font bold, background lightblue, border medium
-                ws.Range(ws.Cell("A1"), ws.Cell($"M1")).Style
+                ws.Range(ws.Cell("A1"), ws.Cell($"L1")).Style
                     .Font.SetFontName("Lucida Console")
                     .Font.SetFontSize(9)
                     .Font.SetBold()
@@ -218,7 +246,7 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair);
 
                 //  set format row data: font consolas 9, border medium, border inside hair
-                ws.Range(ws.Cell("A2"), ws.Cell($"M{_listItemKartuStok.Count + 1}")).Style
+                ws.Range(ws.Cell("A2"), ws.Cell($"L{listToExcel.Count + 1}")).Style
                     .Font.SetFontName("Lucida Console")
                     .Font.SetFontSize(9)
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
@@ -226,27 +254,27 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
 
                 //  add row numbering
                 ws.Cell($"A1").Value = "No";
-                for (var i = 0; i < _listItemKartuStok.Count; i++)
+                for (var i = 0; i < listToExcel.Count; i++)
                     ws.Cell($"A{i + 2}").Value = i + 1;
-                ws.Range(ws.Cell("A2"), ws.Cell($"M{_listItemKartuStok.Count + 1}"))
+                ws.Range(ws.Cell("A2"), ws.Cell($"M{listToExcel.Count + 1}"))
                     .Style.NumberFormat.Format = "#,##";
-
-                //  format numeric column  
-                ws.Range(ws.Cell("H2"), ws.Cell($"M{_listItemKartuStok.Count + 1}"))
-                    .Style.NumberFormat.Format = "#,##";
-                //  format date column
-                ws.Range(ws.Cell("C2"), ws.Cell($"C{_listItemKartuStok.Count + 1}"))
+                ws.Range(ws.Cell("E2"), ws.Cell($"E{listToExcel.Count + 1}"))
                     .Style.NumberFormat.Format = "dd-MMM-yyyy";
 
+                ////  format numeric column  
+                //ws.Range(ws.Cell("H2"), ws.Cell($"M{_listItemKartuStok.Count + 1}"))
+                //    .Style.NumberFormat.Format = "#,##";
+                //  format date column
+
                 //  format numeric column DiscTotal with 2 decimal places but hide zero
-                ws.Range(ws.Cell("P2"), ws.Cell($"S{_listItemKartuStok.Count + 1}"))
+                ws.Range(ws.Cell("F2"), ws.Cell($"I{listToExcel.Count + 1}"))
                     .Style.NumberFormat.Format = "#,##0.00_);(#,##0.00);-";
 
-                //  set backcolor numeric column
-                ws.Range(ws.Cell("H2"), ws.Cell($"L{_listItemKartuStok.Count + 1}"))
-                    .Style.Fill.SetBackgroundColor(XLColor.LightGreen);
-                ws.Range(ws.Cell("M2"), ws.Cell($"M{_listItemKartuStok.Count + 1}"))
-                    .Style.Fill.SetBackgroundColor(XLColor.LightBlue);
+                ////  set backcolor numeric column
+                //ws.Range(ws.Cell("H2"), ws.Cell($"L{_listItemKartuStok.Count + 1}"))
+                //    .Style.Fill.SetBackgroundColor(XLColor.LightGreen);
+                //ws.Range(ws.Cell("M2"), ws.Cell($"M{_listItemKartuStok.Count + 1}"))
+                //    .Style.Fill.SetBackgroundColor(XLColor.LightBlue);
 
                 ws.Columns().AdjustToContents();
                 wb.SaveAs(filePath);
@@ -385,6 +413,21 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
         public string QtyKeluar { get; set; }
         public string QtyAkhir { get; set; }
         public decimal Hpp{ get; set; }
+        public decimal HargaJual { get; set; }
+        public string Keterangan { get; set; }
+    }
+
+    public class KartuStokItemExcelDto
+    {
+        public string WarehouseName { get; set; }
+        public int No { get; set; }
+        public string JenisMutasi { get; set; }
+        public string MutasiDate { get; set; }
+        public long QtyAwal { get; set; }
+        public long QtyMasuk { get; set; }
+        public long QtyKeluar { get; set; }
+        public long QtyAkhir { get; set; }
+        public decimal Hpp { get; set; }
         public decimal HargaJual { get; set; }
         public string Keterangan { get; set; }
     }
