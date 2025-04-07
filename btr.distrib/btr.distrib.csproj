@@ -428,6 +428,12 @@
     <Compile Include="InventoryContext\KartuStokRpt\KartuStokInfoForm.Designer.cs">
       <DependentUpon>KartuStokInfoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InventoryContext\KartuStokRpt\KartuStokSummaryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryContext\KartuStokRpt\KartuStokSummaryForm.Designer.cs">
+      <DependentUpon>KartuStokSummaryForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="InventoryContext\MutasiAgg\MutasiItemPrintOutDto.cs" />
     <Compile Include="InventoryContext\MutasiAgg\MutasiForm.cs">
       <SubType>Form</SubType>
@@ -839,6 +845,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\KartuStokRpt\KartuStokInfoForm.resx">
       <DependentUpon>KartuStokInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InventoryContext\KartuStokRpt\KartuStokSummaryForm.resx">
+      <DependentUpon>KartuStokSummaryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\MutasiAgg\MutasiForm.resx">
       <DependentUpon>MutasiForm.cs</DependentUpon>

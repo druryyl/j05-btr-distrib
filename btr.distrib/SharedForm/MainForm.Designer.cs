@@ -61,7 +61,6 @@
             this.InventoryTab = new System.Windows.Forms.RibbonTab();
             this.InventoryTrsPanel = new System.Windows.Forms.RibbonPanel();
             this.IT1OpnameButton = new System.Windows.Forms.RibbonButton();
-            this.IT2PrintFakturButton = new System.Windows.Forms.RibbonButton();
             this.IT3PackingButton = new System.Windows.Forms.RibbonButton();
             this.IT4MutasiButton = new System.Windows.Forms.RibbonButton();
             this.ribbonButton1 = new System.Windows.Forms.RibbonButton();
@@ -103,6 +102,7 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.IF8KartuStokSummary = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -395,7 +395,6 @@
             // InventoryTrsPanel
             // 
             this.InventoryTrsPanel.Items.Add(this.IT1OpnameButton);
-            this.InventoryTrsPanel.Items.Add(this.IT2PrintFakturButton);
             this.InventoryTrsPanel.Items.Add(this.IT3PackingButton);
             this.InventoryTrsPanel.Items.Add(this.IT4MutasiButton);
             this.InventoryTrsPanel.Items.Add(this.ribbonButton1);
@@ -410,16 +409,6 @@
             this.IT1OpnameButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IT1OpnameButton.SmallImage")));
             this.IT1OpnameButton.Text = "IT1-Opname";
             this.IT1OpnameButton.Click += new System.EventHandler(this.IT1OpnameButton_Click);
-            // 
-            // IT2PrintFakturButton
-            // 
-            this.IT2PrintFakturButton.Image = global::btr.distrib.Properties.Resources.icons8_print;
-            this.IT2PrintFakturButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_print;
-            this.IT2PrintFakturButton.Name = "IT2PrintFakturButton";
-            this.IT2PrintFakturButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IT2PrintFakturButton.SmallImage")));
-            this.IT2PrintFakturButton.Text = "IT2-Print Faktur";
-            this.IT2PrintFakturButton.Visible = false;
-            this.IT2PrintFakturButton.Click += new System.EventHandler(this.IT2PrintButton_Click);
             // 
             // IT3PackingButton
             // 
@@ -456,6 +445,7 @@
             this.ReportingPanel.Items.Add(this.IF5StokPeriodikButton);
             this.ReportingPanel.Items.Add(this.IF6StokMutasiButton);
             this.ReportingPanel.Items.Add(this.IF7StokOpnameButton);
+            this.ReportingPanel.Items.Add(this.IF8KartuStokSummary);
             this.ReportingPanel.Name = "ReportingPanel";
             this.ReportingPanel.Text = "Reporting";
             this.ReportingPanel.Click += new System.EventHandler(this.ReportingPanel_Click);
@@ -772,6 +762,15 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
+            // IF8KartuStokSummary
+            // 
+            this.IF8KartuStokSummary.Image = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
+            this.IF8KartuStokSummary.LargeImage = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
+            this.IF8KartuStokSummary.Name = "IF8KartuStokSummary";
+            this.IF8KartuStokSummary.SmallImage = ((System.Drawing.Image)(resources.GetObject("IF8KartuStokSummary.SmallImage")));
+            this.IF8KartuStokSummary.Text = "IF8-KartuStok Summary";
+            this.IF8KartuStokSummary.Click += new System.EventHandler(this.IF8KartuStokSummary_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -831,7 +830,6 @@
         private System.Windows.Forms.ToolStripStatusLabel ServerDbStatus;
         private System.Windows.Forms.RibbonPanel InventoryTrsPanel;
         private System.Windows.Forms.RibbonButton IT1OpnameButton;
-        private System.Windows.Forms.RibbonButton IT2PrintFakturButton;
         private System.Windows.Forms.RibbonButton IT3PackingButton;
         private System.Windows.Forms.RibbonButton IF2KartuStokButton;
         private System.Windows.Forms.RibbonButton InvoiceButton;
@@ -873,5 +871,6 @@
         private System.Windows.Forms.RibbonButton FF3FpKeluaranButton;
         private System.Windows.Forms.RibbonButton RF2ReturBrgInfoButton;
         private System.Windows.Forms.RibbonButton RuteButton;
+        private System.Windows.Forms.RibbonButton IF8KartuStokSummary;
     }
 }

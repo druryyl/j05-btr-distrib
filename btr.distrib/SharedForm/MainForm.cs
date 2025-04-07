@@ -236,14 +236,14 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-        private void IT2PrintButton_Click(object sender, EventArgs e)
-        {if (BringMdiChildToFrontIfLoaded<PrintManagerForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<PrintManagerForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
+        //private void IT2PrintButton_Click(object sender, EventArgs e)
+        //{if (BringMdiChildToFrontIfLoaded<PrintManagerForm>())
+        //        return;
+        //    var form = ThisServicesProvider.GetRequiredService<PrintManagerForm>();
+        //    form.StartPosition = FormStartPosition.CenterScreen;
+        //    form.MdiParent = this;
+        //    form.Show();
+        //}
 
         private void AboutButton_Click(object sender, EventArgs e)
         {
@@ -628,6 +628,16 @@ namespace btr.distrib.SharedForm
             if (BringMdiChildToFrontIfLoaded<SalesRuteForm>())
                 return;
             var form = ThisServicesProvider.GetRequiredService<SalesRuteForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void IF8KartuStokSummary_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<KartuStokSummaryForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<KartuStokSummaryForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

@@ -105,6 +105,7 @@
     <Compile Include="InventoryContext\DriverAgg\DriverDal.cs" />
     <Compile Include="InventoryContext\ImportOpnameAgg\ImportOpnameDal.cs" />
     <Compile Include="InventoryContext\KartuStokRpt\KartuStokDal.cs" />
+    <Compile Include="InventoryContext\KartuStokRpt\KartuStokSummaryDal.cs" />
     <Compile Include="InventoryContext\MutasiAgg\MutasiBrgViewDal.cs" />
     <Compile Include="InventoryContext\MutasiAgg\MutasiDal.cs" />
     <Compile Include="InventoryContext\MutasiAgg\MutasiDiscDal.cs" />

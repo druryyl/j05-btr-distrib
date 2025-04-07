@@ -143,7 +143,7 @@
     <Compile Include="InventoryContext\DriverAgg\IDriverDal.cs" />
     <Compile Include="InventoryContext\ImportOpnameAgg\Contracts\IImportOpnameDal.cs" />
     <Compile Include="InventoryContext\KartuStokRpt\IKartuStokDal.cs" />
-    <Compile Include="InventoryContext\KartuStokRpt\IKartuStokSaldoDal.cs" />
+    <Compile Include="InventoryContext\KartuStokRpt\IKartuStokSummaryDal.cs" />
     <Compile Include="InventoryContext\MutasiAgg\CreateMutasiItemWorker.cs" />
     <Compile Include="InventoryContext\MutasiAgg\IMutasiBrgViewDal.cs" />
     <Compile Include="InventoryContext\MutasiAgg\IMutasiDal.cs" />
