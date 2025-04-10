@@ -61,6 +61,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
         {
             var stokOp = _stokOpBuilder.Load(req).Build();
             var qty = GetCurrentStok(stokOp);
+            stokOp.QtyPcsAdjust = CalcAdjustment(stokOp, qty);
             if (stokOp.QtyPcsAdjust == 0)
                 return new GenStokStokOpResult
                 {
