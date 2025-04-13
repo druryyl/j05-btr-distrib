@@ -50,6 +50,7 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
         public PiutangModel Build()
         {
             _aggregate.RemoveNull();
+            ReCalc();
             return _aggregate;
         }
 
@@ -144,18 +145,14 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
                 NilaiMinus = value,
             };
             _aggregate.ListElement.Add(newElement);
-            ReCalc();
             return this;
         }
 
         private void ReCalc()
         {
-            var potonganBiayaLain = _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Retur).Sum(x => x.NilaiMinus * -1);
-            potonganBiayaLain += _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Potongan).Sum(x => x.NilaiMinus * -1);
-            potonganBiayaLain += _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Materai).Sum(x => x.NilaiMinus * -1);
-            potonganBiayaLain += _aggregate.ListElement.Where(x => x.ElementTag == PiutangElementEnum.Admin).Sum(x => x.NilaiMinus * -1);
+            var totalElement = _aggregate.ListElement.Sum(x => x.NilaiPlus - x.NilaiMinus);
 
-            _aggregate.Potongan = potonganBiayaLain;
+            _aggregate.Potongan = totalElement;
 
             _aggregate.Terbayar = _aggregate.ListLunas.Sum(x => x.Nilai);
             _aggregate.Sisa = _aggregate.Total + _aggregate.Potongan - _aggregate.Terbayar;
@@ -183,6 +180,7 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
                 .Max(x => x.NoUrut);
             noUrut++;
             lunas.NoUrut = noUrut;
+            lunas.PelunasanId = $"{_aggregate.PiutangId}PL{noUrut:D2}";
             _aggregate.ListLunas.Add(lunas);
             _aggregate.Terbayar = _aggregate.ListLunas.Sum(x => x.Nilai);
             _aggregate.Sisa = _aggregate.Total - _aggregate.Terbayar;

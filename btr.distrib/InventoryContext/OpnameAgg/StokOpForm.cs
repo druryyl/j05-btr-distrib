@@ -39,7 +39,8 @@ namespace btr.distrib.InventoryContext.OpnameAgg
         private readonly ISaveStokOpWorker _saveStokOpWorker;
         private readonly IStokOpDal _stokOpDal;
         private readonly IBrgBuilder _brgBuilder;
-        
+        //private bool forceUpdate = false;
+
         public StokOpForm(IBrgDal brgDal, 
             IKategoriDal kategoriDal, 
             IStokBalanceWarehouseDal stokBalanceWarehouseDal, 
@@ -74,8 +75,44 @@ namespace btr.distrib.InventoryContext.OpnameAgg
         {
             ListBrgButton.Click += ListBrgButton_Click;
             BrgGrid.CellValueChanged += BrgGrid_CellValueChanged;
+            //BrgGrid.EditingControlShowing += BrgGrid_EditingControlShowing;
+            //BrgGrid.CellEndEdit += BrgGrid_CellEndEdit;
             ExcelButton.Click += ExcelButton_Click;
         }
+
+        #region FORCE-UPDATE-IF-VALUE-NOT-CHANGED
+        //private void BrgGrid_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        //{
+        //    if (e.Control is TextBox tb)
+        //    {
+        //        tb.KeyDown -= GridTextBox_KeyDown; // prevent multiple subscription
+        //        tb.KeyDown += GridTextBox_KeyDown;
+        //    }
+        //}
+
+        //private void GridTextBox_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    if (e.Control && e.KeyCode == Keys.Enter)
+        //    {
+        //        forceUpdate = true;
+        //        e.Handled = true; // prevent default behavior if needed
+        //    }
+        //}
+
+        //private void BrgGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        //{
+        //    var cell = BrgGrid.Rows[e.RowIndex].Cells[e.ColumnIndex];
+        //    string newValue = cell.EditedFormattedValue?.ToString();
+        //    string oldValue = cell.Value?.ToString();
+
+        //    if (    forceUpdate)
+        //    {
+        //        BrgGrid_CellValueChanged(BrgGrid, e);
+        //    }
+
+        //    forceUpdate = false;
+        //}
+        #endregion
 
         private void ExcelButton_Click(object sender, EventArgs e)
         {

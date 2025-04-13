@@ -29,6 +29,7 @@ namespace btr.infrastructure.FinanceContext.PiutangAgg
 
                 bcp.AddMap("PiutangId", "PiutangId");
                 bcp.AddMap("NoUrut", "NoUrut");
+                bcp.AddMap("PelunasanId", "PelunasanId");
                 bcp.AddMap("LunasDate", "LunasDate");
                 bcp.AddMap("TagihanId", "TagihanId");
                 bcp.AddMap("Nilai", "Nilai");
@@ -67,7 +68,8 @@ namespace btr.infrastructure.FinanceContext.PiutangAgg
         {
             const string sql = @"
                 SELECT
-                    PiutangId, NoUrut, LunasDate, TagihanId, Nilai, JenisLunas,
+                    PiutangId, NoUrut, PelunasanId, LunasDate, 
+                    TagihanId, Nilai, JenisLunas,
                     JatuhTempoBg, NoRekBg, NamaBank, AtasNamaBank
                 FROM
                     BTR_PiutangLunas 

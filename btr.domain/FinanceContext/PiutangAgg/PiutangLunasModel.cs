@@ -7,6 +7,7 @@ namespace btr.domain.FinanceContext.PiutangAgg
     {
         public string PiutangId { get; set; }
         public int NoUrut { get; set; }
+        public string PelunasanId { get; set; }
         public DateTime LunasDate { get; set; }
         public string TagihanId { get; set; }
         public decimal Nilai { get;set; }

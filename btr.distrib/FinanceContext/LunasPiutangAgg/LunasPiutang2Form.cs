@@ -227,10 +227,12 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             var textBox = sender as NumericUpDown;
             if (e.KeyCode == Keys.F1)
             {
+                var currentTagihan = TagihanCombo.SelectedValue.ToString();
                 textBox.Focus();
                 textBox.Select(0, 0);
                 var piutang = _piutangBuilder.Load(new PiutangModel(_piutangId)).Build();
-                textBox.Value = piutang.Sisa; //piutang.Sisa - ReturText.Value - PotonganText.Value - MateraiText.Value - AdminText.Value; //;
+                var nilaiPelunasanSaatIni = piutang.ListLunas.FirstOrDefault(x => x.TagihanId == currentTagihan)?.Nilai??0;
+                textBox.Value = piutang.Sisa + nilaiPelunasanSaatIni; 
             }
         }
 
@@ -260,7 +262,7 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             BayarGrid.DefaultCellStyle = new DataGridViewCellStyle
             {
                 BackColor = System.Drawing.Color.LavenderBlush,
-                Font = new System.Drawing.Font("Lucida Console", 8.25F),
+                Font = new System.Drawing.Font("Consolas", 8.25F),
             };
 
             var cols = BayarGrid.Columns;
@@ -268,11 +270,6 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             cols.GetCol("Tgl").DefaultCellStyle.Format = "ddd, dd-MMM-yyyy";
             cols.GetCol("Nilai").DefaultCellStyle.Format = "N0";
             cols.GetCol("Nilai").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
-            //cols.GetCol("Tgl").Width = 120;
-            //cols.GetCol("Keterangan").Width = 120;
-            //cols.GetCol("Nilai").Width = 80;
-            //cols.GetCol("Nilai").DefaultCellStyle.BackColor = System.Drawing.Color.LavenderBlush;
 
             cols.GetCol("JenisData").Visible = false;
 
@@ -317,21 +314,33 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
                     1)
             };
 
-            var retur = piutang.ListElement?.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Retur)?.NilaiMinus ?? 0;
-            var pot = piutang.ListElement?.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Potongan)?.NilaiMinus ?? 0;
-            var materai = piutang.ListElement?.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Materai)?.NilaiMinus ?? 0;
-            var admin = piutang.ListElement?.FirstOrDefault(x => x.ElementTag == PiutangElementEnum.Admin)?.NilaiMinus ?? 0;
-            var potBiayaLain = materai + admin + retur + pot;
-
-            if(potBiayaLain != 0)
+            foreach(var item in piutang.ListElement ?? new List<PiutangElementModel>())
             {
+                var nilaiElement = item.NilaiPlus - item.NilaiMinus;
+                if (nilaiElement == 0)
+                    continue;
                 noUrut++;
-                var caption = "Biaya Lain";
-                if (potBiayaLain < 0)
-                    caption = "   Potongan";
-                _listLunasPiutangBayar.Add(new LunasPiutangBayarView(noUrut, piutang.PiutangDate, caption, potBiayaLain,2));
+                LunasPiutangBayarView newElement;
+                if (nilaiElement < 0)
+                    newElement = new LunasPiutangBayarView
+                        (
+                            noUrut,
+                            piutang.PiutangDate,
+                            $"   {item.ElementName}",
+                            nilaiElement,
+                            2
+                        );
+                else
+                    newElement = new LunasPiutangBayarView
+                        (
+                            noUrut,
+                            piutang.PiutangDate,
+                            $"{item.ElementName}",
+                            nilaiElement,
+                            2
+                        );
+                _listLunasPiutangBayar.Add(newElement);
             }
-
 
             foreach (var pelunasan in piutang.ListLunas)
             {
@@ -352,8 +361,6 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             cols.GetCol("Tgl").Width = 70;
             cols.GetCol("Keterangan").Width = 150;
             cols.GetCol("Nilai").Width = 80;
-            //BayarGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells; // Auto-resize all columns
-            //BayarGrid.AutoResizeColumns(); // E
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
@@ -389,10 +396,6 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             }
 
             _piutangWriter.Save(ref piutang);
-            //var faktur = _fakturBuilder
-            //    .Load(new FakturModel(_piutangId))
-            //    .Build();
-
             RefreshGridBayar(piutang);
         }
 
