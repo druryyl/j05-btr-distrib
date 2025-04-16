@@ -213,11 +213,14 @@ namespace btr.distrib.SalesContext.FakturControlAgg
             var path = Path.GetTempPath();
             var filename = $"{path}\\FakturControl_{DateTime.Now:yymmdd_HHmmss}.xlsx";
 
+            var clientName = _paramSistemDal.GetData(new ParamSistemModel("CLIENT_NAME"))?.ParamValue ?? "CLIENT_NAME";
+            var clientAddress = _paramSistemDal.GetData(new ParamSistemModel("CLIENT_ADDRESS"))?.ParamValue ?? "CLIENT_ADDRESS";
+
             using (var workbook = new XLWorkbook())
             {
                 var ws = workbook.Worksheets.Add("FakturControl");
                 var baris = 1;
-                ws.Cell($"A{baris}").Value = "CV BINTANG TIMUR RAHAYU";
+                ws.Cell($"A{baris}").Value = clientName;
                 ws.Cell($"A{baris}").Style
                     .Font.SetFontSize(12)
                     .Font.SetBold(false)
@@ -225,7 +228,7 @@ namespace btr.distrib.SalesContext.FakturControlAgg
                 ws.Range(ws.Cell($"A{baris}"), ws.Cell($"F{baris}")).Merge();
                 baris++;
 
-                ws.Cell($"A{baris}").Value = "Jl.Kaliurang Km 5.5 Gg. Durmo No.18";
+                ws.Cell($"A{baris}").Value = clientAddress;
                 ws.Cell($"A{baris}").Style
                     .Font.SetFontSize(10)
                     .Font.SetBold(false)
