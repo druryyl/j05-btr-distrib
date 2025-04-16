@@ -206,7 +206,7 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
         private void FakturCodeText_Validating(object sender, CancelEventArgs e)
         {
             IFakturCode fakturCode = new FakturModel { FakturCode = FakturCodeText.Text };
-            var fakturKey = _fakturDal.GetData(fakturCode) ?? new FakturModel(string.Empty);
+            var fakturKey = _fakturDal.GetData(fakturCode) ?? new FakturModel(string.Empty);    
             var fallback = Policy
                 .Handle<KeyNotFoundException>()
                 .Fallback(() =>

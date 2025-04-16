@@ -52,6 +52,7 @@ using btr.distrib.FinanceContext.FpKeluaranAgg;
 using btr.distrib.InventoryContext.StokPeriodikRpt;
 using btr.distrib.PurchaseContext.PostingStokAgg;
 using btr.distrib.InventoryContext.MutasiRpt;
+using btr.distrib.FinanceContext;
 
 namespace btr.distrib.SharedForm
 {
@@ -638,6 +639,16 @@ namespace btr.distrib.SharedForm
             if (BringMdiChildToFrontIfLoaded<KartuStokSummaryForm>())
                 return;
             var form = ThisServicesProvider.GetRequiredService<KartuStokSummaryForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void FF4PelunasanInfoButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<PelunasanInfoForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<PelunasanInfoForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

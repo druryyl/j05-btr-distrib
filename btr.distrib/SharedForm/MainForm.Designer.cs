@@ -71,6 +71,7 @@
             this.IF5StokPeriodikButton = new System.Windows.Forms.RibbonButton();
             this.IF6StokMutasiButton = new System.Windows.Forms.RibbonButton();
             this.IF7StokOpnameButton = new System.Windows.Forms.RibbonButton();
+            this.IF8KartuStokSummary = new System.Windows.Forms.RibbonButton();
             this.InventoryMasterPanel = new System.Windows.Forms.RibbonPanel();
             this.BrgButton = new System.Windows.Forms.RibbonButton();
             this.WarehouseButton = new System.Windows.Forms.RibbonButton();
@@ -85,6 +86,7 @@
             this.FF1PiutangSalesWilayahButton = new System.Windows.Forms.RibbonButton();
             this.FF2PenerimaanSalesButton = new System.Windows.Forms.RibbonButton();
             this.FF3FpKeluaranButton = new System.Windows.Forms.RibbonButton();
+            this.FF4PelunasanInfoButton = new System.Windows.Forms.RibbonButton();
             this.ReturTab = new System.Windows.Forms.RibbonTab();
             this.ribbonPanel3 = new System.Windows.Forms.RibbonPanel();
             this.RT1ReturJualButton = new System.Windows.Forms.RibbonButton();
@@ -102,7 +104,6 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.IF8KartuStokSummary = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -503,6 +504,15 @@
             this.IF7StokOpnameButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IF7StokOpnameButton.SmallImage")));
             this.IF7StokOpnameButton.Text = "IF6-Stok Opname";
             // 
+            // IF8KartuStokSummary
+            // 
+            this.IF8KartuStokSummary.Image = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
+            this.IF8KartuStokSummary.LargeImage = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
+            this.IF8KartuStokSummary.Name = "IF8KartuStokSummary";
+            this.IF8KartuStokSummary.SmallImage = ((System.Drawing.Image)(resources.GetObject("IF8KartuStokSummary.SmallImage")));
+            this.IF8KartuStokSummary.Text = "IF8-KartuStok Summary";
+            this.IF8KartuStokSummary.Click += new System.EventHandler(this.IF8KartuStokSummary_Click);
+            // 
             // InventoryMasterPanel
             // 
             this.InventoryMasterPanel.Items.Add(this.BrgButton);
@@ -595,6 +605,7 @@
             this.FinanceInfoTab.Items.Add(this.FF1PiutangSalesWilayahButton);
             this.FinanceInfoTab.Items.Add(this.FF2PenerimaanSalesButton);
             this.FinanceInfoTab.Items.Add(this.FF3FpKeluaranButton);
+            this.FinanceInfoTab.Items.Add(this.FF4PelunasanInfoButton);
             this.FinanceInfoTab.Name = "FinanceInfoTab";
             this.FinanceInfoTab.Text = "";
             // 
@@ -622,8 +633,17 @@
             this.FF3FpKeluaranButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_align_text_right_32;
             this.FF3FpKeluaranButton.Name = "FF3FpKeluaranButton";
             this.FF3FpKeluaranButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FF3FpKeluaranButton.SmallImage")));
-            this.FF3FpKeluaranButton.Text = "FF3-FP.Keluaran Info";
+            this.FF3FpKeluaranButton.Text = "FF3-FP Keluaran";
             this.FF3FpKeluaranButton.Click += new System.EventHandler(this.FF3FpKeluaranButton_Click);
+            // 
+            // FF4PelunasanInfoButton
+            // 
+            this.FF4PelunasanInfoButton.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.FF4PelunasanInfoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.FF4PelunasanInfoButton.Name = "FF4PelunasanInfoButton";
+            this.FF4PelunasanInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FF4PelunasanInfoButton.SmallImage")));
+            this.FF4PelunasanInfoButton.Text = "FF4-Pelunasan Info";
+            this.FF4PelunasanInfoButton.Click += new System.EventHandler(this.FF4PelunasanInfoButton_Click);
             // 
             // ReturTab
             // 
@@ -762,15 +782,6 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
-            // IF8KartuStokSummary
-            // 
-            this.IF8KartuStokSummary.Image = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
-            this.IF8KartuStokSummary.LargeImage = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
-            this.IF8KartuStokSummary.Name = "IF8KartuStokSummary";
-            this.IF8KartuStokSummary.SmallImage = ((System.Drawing.Image)(resources.GetObject("IF8KartuStokSummary.SmallImage")));
-            this.IF8KartuStokSummary.Text = "IF8-KartuStok Summary";
-            this.IF8KartuStokSummary.Click += new System.EventHandler(this.IF8KartuStokSummary_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -872,5 +883,6 @@
         private System.Windows.Forms.RibbonButton RF2ReturBrgInfoButton;
         private System.Windows.Forms.RibbonButton RuteButton;
         private System.Windows.Forms.RibbonButton IF8KartuStokSummary;
+        private System.Windows.Forms.RibbonButton FF4PelunasanInfoButton;
     }
 }

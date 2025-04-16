@@ -193,7 +193,7 @@
   <data name="RuteButton.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wQAADsEBuJFr7QAAABJJREFUOE9jYBgFo2AUjAIIAAAEEAABTLtGVQAAAABJRU5ErkJggg==
+        vwAADr8BOAVTJAAAABJJREFUOE9jYBgFo2AUjAIIAAAEEAABTLtGVQAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="InvoiceButton.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -283,20 +283,19 @@
   <data name="IF6StokMutasiButton.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vQAADr0BR/uQrQAAABJJREFUOE9jYBgFo2AUjAIIAAAEEAABTLtGVQAAAABJRU5ErkJggg==
+        vAAADrwBlbxySQAAABJJREFUOE9jYBgFo2AUjAIIAAAEEAABTLtGVQAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="IF7StokOpnameButton.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vgAADr4B6kKxwAAAABJJREFUOE9jYBgFo2AUjAIIAAAEEAABTLtGVQAAAABJRU5ErkJggg==
+        vAAADrwBlbxySQAAABJJREFUOE9jYBgFo2AUjAIIAAAEEAABTLtGVQAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="IF8KartuStokSummary.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAASSURBVDhPY2AYBaNgFIwCCAAABBAAAUy7RlUAAAAASUVO
-        RK5CYII=
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wQAADsEBuJFr7QAAABJJREFUOE9jYBgFo2AUjAIIAAAEEAABTLtGVQAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="BrgButton.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -356,7 +355,13 @@
   <data name="FF3FpKeluaranButton.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vwAADr8BOAVTJAAAABJJREFUOE9jYBgFo2AUjAIIAAAEEAABTLtGVQAAAABJRU5ErkJggg==
+        vQAADr0BR/uQrQAAABJJREFUOE9jYBgFo2AUjAIIAAAEEAABTLtGVQAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="FF4PelunasanInfoButton.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wQAADsEBuJFr7QAAABJJREFUOE9jYBgFo2AUjAIIAAAEEAABTLtGVQAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="RT1ReturJualButton.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -380,7 +385,7 @@
   <data name="RF2ReturBrgInfoButton.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vwAADr8BOAVTJAAAABJJREFUOE9jYBgFo2AUjAIIAAAEEAABTLtGVQAAAABJRU5ErkJggg==
+        vQAADr0BR/uQrQAAABJJREFUOE9jYBgFo2AUjAIIAAAEEAABTLtGVQAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="UserButton.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

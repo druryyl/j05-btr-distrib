@@ -1,21 +1,16 @@
-﻿using btr.application.InventoryContext.StokBalanceInfo;
-using btr.distrib.InventoryContext.StokBalanceRpt;
+﻿using btr.application.FinanceContext.PiutangAgg.Contracts;
+using btr.nuna.Domain;
 using ClosedXML.Excel;
+using Syncfusion.Drawing;
 using Syncfusion.Grouping;
 using Syncfusion.Windows.Forms.Grid.Grouping;
 using Syncfusion.Windows.Forms.Grid;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Linq;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using btr.application.FinanceContext.PiutangAgg.Contracts;
-using Syncfusion.Drawing;
-using btr.nuna.Domain;
 
 namespace btr.distrib.FinanceContext.PiutangSalesWilayahRpt
 {
@@ -335,21 +330,6 @@ namespace btr.distrib.FinanceContext.PiutangSalesWilayahRpt
             System.Diagnostics.Process.Start(filePath);
         }
 
-        private List<StokBalanceView> Filter(List<StokBalanceView> source, string keyword)
-        {
-            if (keyword.Trim().Length == 0)
-                return source;
-            var listFilteredBrgName = source.Where(x => x.BrgName.ToLower().ContainMultiWord(keyword)).ToList();
-            var listFilteredBrgCode = source.Where(x => x.BrgCode.ToLower().StartsWith(keyword.ToLower())).ToList();
-            var listFilteredKategori = source.Where(x => x.KategoriName.ToLower().ContainMultiWord(keyword)).ToList();
-            var listFilteredSupplier = source.Where(x => x.SupplierName.ToLower().ContainMultiWord(keyword)).ToList();
-
-            var result = listFilteredBrgName
-                .Union(listFilteredBrgCode)
-                .Union(listFilteredKategori)
-                .Union(listFilteredSupplier);
-            return result.ToList();
-        }
     }
 
     public class PiutangStructureDto
