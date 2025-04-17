@@ -24,13 +24,24 @@ namespace btr.application.InventoryContext.OpnameAgg
         public string BrgName { get; set; }
         public int QtyBesarAwal { get; set; }
         public int QtyKecilAwal { get; set; }
+        public decimal QtyPcsAwal { get; set; }
 
         public int QtyBesarAdjust { get; set; }
         public int QtyKecilAdjust { get; set; }
+        public decimal QtyPcsAdjust { get; set; }
 
         public int QtyBesarOpname { get; set; }
         public int QtyKecilOpname { get; set; }
+        public decimal QtyPcsOpname { get; set; }
+
         public string UserId { get; set; }
         public string StokOpId { get; set; }
+
+        public decimal HppSatuan { get; set; }
+
+
+        public decimal NilaiAwal { get => HppSatuan * QtyPcsAwal; }
+        public decimal NilaiAdjust { get => HppSatuan * QtyPcsAdjust; }
+        public decimal NilaiOpname { get => HppSatuan * QtyPcsOpname; }
     }
 }

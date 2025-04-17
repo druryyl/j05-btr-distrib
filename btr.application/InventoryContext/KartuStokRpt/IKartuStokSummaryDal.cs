@@ -1,4 +1,5 @@
-﻿using btr.nuna.Domain;
+﻿using btr.domain.InventoryContext.WarehouseAgg;
+using btr.nuna.Domain;
 using btr.nuna.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 namespace btr.application.InventoryContext.KartuStokRpt
 {
     public interface IKartuStokSummaryDal :
-        IListData<KartuStokSummaryDto, Periode>
+        IListData<KartuStokSummaryDto, Periode, IWarehouseKey>
     {
     }
     public class KartuStokSummaryDto
@@ -25,12 +26,14 @@ namespace btr.application.InventoryContext.KartuStokRpt
         public decimal Retur { get; set; }
         public decimal Mutasi { get; set; }
         public decimal Opname { get; set; }
-        public decimal QtyInPcs { get; set; }
-        //public decimal QtyBesar { get; set; }
-        //public string SatBesar { get; set; }
-        //public decimal QtyKecil { get; set; }
-        //public decimal Conversion { get; set; }
-        //public string Satuan { get; set; }
 
+        public decimal StokAwal { get; set; }
+        public decimal MovingStok { get; set; }
+        public decimal StokAkhir { get; set; }
+
+        public decimal NilaiAwal { get; set; }
+        public decimal NilaiMoving { get; set; }
+        public decimal NilaiAkhir { get; set; }
+        public decimal HppAvg { get; set; }
     }
 }

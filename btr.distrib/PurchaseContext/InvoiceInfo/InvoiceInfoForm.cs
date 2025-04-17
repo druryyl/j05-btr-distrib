@@ -61,9 +61,9 @@ namespace btr.distrib.PurchaseContext.InvoiceInfo
 
                 //  set format number for columnto N0
                 ws.Range(ws.Cell($"G{2}"), ws.Cell($"J{_dataSource.Count + 1}"))
-                    .Style.NumberFormat.Format = "#,##";
+                    .Style.NumberFormat.Format = "#,##.00";
                 ws.Range(ws.Cell($"A{2}"), ws.Cell($"A{_dataSource.Count + 1}"))
-                    .Style.NumberFormat.Format = "#,##";
+                    .Style.NumberFormat.Format = "#,##.00";
                 ws.Range(ws.Cell($"D{2}"), ws.Cell($"D{_dataSource.Count + 1}"))
                     .Style.NumberFormat.Format = "dd-MMM-yyyy";
 

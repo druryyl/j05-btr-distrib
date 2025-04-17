@@ -1,4 +1,5 @@
 ﻿using btr.application.InventoryContext.StokPeriodikInfo;
+using btr.domain.InventoryContext.WarehouseAgg;
 using btr.infrastructure.Helpers;
 using btr.nuna.Infrastructure;
 using Dapper;
@@ -49,6 +50,43 @@ namespace btr.infrastructure.InventoryContext.StokPeriodikRpt
 
             var dp = new DynamicParameters();
             dp.AddParam("@mutasiDate", tgl.Date.AddHours(23).AddMinutes(59).AddSeconds(59), System.Data.SqlDbType.DateTime);
+
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                return conn.Read<StokPeriodikDto>(sql, dp);
+            }
+        }
+
+        public IEnumerable<StokPeriodikDto> ListData(DateTime tgl, IWarehouseKey filter2)
+        {
+            const string sql = @"
+                SELECT 
+                    aa.BrgId, aa.WarehouseId, 
+                    ISNULL(bb.BrgCode, '') BrgCode,
+                    ISNULL(bb.BrgName, '') BrgName,
+                    ISNULL(bb.SupplierId, '') SupplierId,
+                    ISNULL(cc.SupplierName, '') SupplierName,
+                    ISNULL(bb.KategoriId, '') KategoriId,
+                    ISNULL(dd.KategoriName, '') KategoriName,
+                    ISNULL(bb.Hpp, 0) Hpp,
+                    SUM(aa.QtyIn - aa.QtyOut) Qty
+                FROM 
+                    BTR_StokMutasi aa
+                    LEFT JOIN BTR_Brg bb ON aa.BrgId = bb.BrgId
+                    LEFT JOIN BTR_Supplier cc ON bb.SupplierId = cc.SupplierId
+                    LEFT JOIN BTR_Kategori dd ON bb.KategoriId = dd.KategoriId
+
+                WHERE 
+                    MutasiDate <= @mutasiDate
+                    AND aa.WarehouseId = @WarehouseId
+                GROUP BY 
+                    aa.BrgId, aa.WarehouseId, bb.BrgCode, bb.BrgName,
+                    bb.SupplierId, cc.SupplierName, bb.KategoriId, 
+                    dd.KategoriName, bb.Hpp ";
+
+            var dp = new DynamicParameters();
+            dp.AddParam("@mutasiDate", tgl.Date.AddHours(23).AddMinutes(59).AddSeconds(59), System.Data.SqlDbType.DateTime);
+            dp.AddParam("@WarehouseId", filter2.WarehouseId, System.Data.SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {

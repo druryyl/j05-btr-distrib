@@ -581,6 +581,10 @@ namespace btr.distrib.InventoryContext.OpnameAgg
         public int Conversion { get; set; }
 
         public decimal HppSatuan { get; set; }
+        
+        
+        
+
         public decimal HppAwal {  get => HppSatuan * QtyPcsAwal; }
         public decimal HppOpname { get => HppSatuan * QtyPcsOpname; }
         public decimal HppAdjust {  get => HppSatuan * QtyPcsAdjust; }

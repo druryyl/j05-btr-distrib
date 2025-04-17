@@ -10,6 +10,11 @@ using btr.nuna.Domain;
 using btr.application.PurchaseContext.InvoiceHarianDetilRpt;
 using ClosedXML.Excel;
 using System.Linq;
+using btr.application.InventoryContext.WarehouseAgg;
+using btr.domain.InventoryContext.WarehouseAgg;
+using btr.application.InventoryContext.StokPeriodikInfo;
+using btr.application.InventoryContext.StokAgg;
+using System.Drawing;
 
 namespace btr.distrib.InventoryContext.KartuStokRpt
 {
@@ -18,23 +23,88 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
         private readonly BindingList<KartuStokSummaryDto> _brgList;
         private readonly BindingSource _brgBindingSource;
         private readonly IKartuStokSummaryDal _kartuStokSummaryDal;
+        private readonly IStokPeriodikDal _stokPeriodikDal;
+        private readonly IWarehouseDal _warehouseDal;
 
-        public KartuStokSummaryForm(IKartuStokSummaryDal kartuStokSummaryDal)
+        public KartuStokSummaryForm(IKartuStokSummaryDal kartuStokSummaryDal,
+            IWarehouseDal warehouseDal,
+            IStokPeriodikDal stokPeriodikDal)
         {
             InitializeComponent();
 
             _brgList = new BindingList<KartuStokSummaryDto>();
             _brgBindingSource = new BindingSource(_brgList, null);
             _kartuStokSummaryDal = kartuStokSummaryDal;
+            _warehouseDal = warehouseDal;
+            _stokPeriodikDal = stokPeriodikDal;
 
-            InitGrid();
             RegisterEventHandler();
+            InitGrid();
+            InitComboWarehouse();
         }
 
         private void RegisterEventHandler()
         {
             ProsesButton.Click += ProsesButton_Click;
             ExcelButton.Click += ExcelButton_Click;
+        }
+
+        private void InitGrid()
+        {
+            InfoGrid.DataSource = _brgBindingSource;
+            InfoGrid.Refresh();
+
+            InfoGrid.TableDescriptor.AllowEdit = false;
+            InfoGrid.TableDescriptor.AllowNew = false;
+            InfoGrid.TableDescriptor.AllowRemove = false;
+            InfoGrid.ShowGroupDropArea = true;
+
+            InfoGrid.TopLevelGroupOptions.ShowFilterBar = true;
+            foreach (GridColumnDescriptor column in InfoGrid.TableDescriptor.Columns)
+            {
+                column.AllowFilter = true;
+            }
+
+            InfoGrid.TableDescriptor.Columns["Invoice"].Appearance.AnyRecordFieldCell.BackColor = Color.PaleGreen;
+            InfoGrid.TableDescriptor.Columns["Faktur"].Appearance.AnyRecordFieldCell.BackColor = Color.PaleGreen;
+            InfoGrid.TableDescriptor.Columns["Retur"].Appearance.AnyRecordFieldCell.BackColor = Color.PaleGreen;
+            InfoGrid.TableDescriptor.Columns["Mutasi"].Appearance.AnyRecordFieldCell.BackColor = Color.PaleGreen;
+            InfoGrid.TableDescriptor.Columns["Opname"].Appearance.AnyRecordFieldCell.BackColor = Color.PaleGreen;
+
+            InfoGrid.TableDescriptor.Columns["StokAwal"].Appearance.AnyRecordFieldCell.BackColor = Color.LightPink;
+            InfoGrid.TableDescriptor.Columns["MovingStok"].Appearance.AnyRecordFieldCell.BackColor = Color.LightPink;
+            InfoGrid.TableDescriptor.Columns["StokAkhir"].Appearance.AnyRecordFieldCell.BackColor = Color.LightPink;
+
+            InfoGrid.TableDescriptor.Columns["NilaiAwal"].Appearance.AnyRecordFieldCell.BackColor = Color.LightYellow;
+            InfoGrid.TableDescriptor.Columns["NilaiMoving"].Appearance.AnyRecordFieldCell.BackColor = Color.LightYellow;
+            InfoGrid.TableDescriptor.Columns["NilaiAkhir"].Appearance.AnyRecordFieldCell.BackColor = Color.LightYellow;
+
+            InfoGrid.TableDescriptor.Columns["Invoice"].Appearance.AnyRecordFieldCell.Format = "#,##";
+            InfoGrid.TableDescriptor.Columns["Faktur"].Appearance.AnyRecordFieldCell.Format = "#,##";
+            InfoGrid.TableDescriptor.Columns["Retur"].Appearance.AnyRecordFieldCell.Format = "#,##";
+            InfoGrid.TableDescriptor.Columns["Mutasi"].Appearance.AnyRecordFieldCell.Format = "#,##";
+            InfoGrid.TableDescriptor.Columns["Opname"].Appearance.AnyRecordFieldCell.Format = "#,##";
+
+            InfoGrid.TableDescriptor.Columns["StokAwal"].Appearance.AnyRecordFieldCell.Format = "#,##";
+            InfoGrid.TableDescriptor.Columns["MovingStok"].Appearance.AnyRecordFieldCell.Format = "#,##";
+            InfoGrid.TableDescriptor.Columns["StokAkhir"].Appearance.AnyRecordFieldCell.Format = "#,##";
+
+            InfoGrid.TableDescriptor.Columns["NilaiAwal"].Appearance.AnyRecordFieldCell.Format = "#,##.00";
+            InfoGrid.TableDescriptor.Columns["NilaiMoving"].Appearance.AnyRecordFieldCell.Format = "#,##.00";
+            InfoGrid.TableDescriptor.Columns["NilaiAkhir"].Appearance.AnyRecordFieldCell.Format = "#,##.00";
+
+            InfoGrid.TableDescriptor.Columns["HppAvg"].Appearance.AnyRecordFieldCell.Format = "#,##.00";
+
+
+
+        }
+
+        private void InitComboWarehouse()
+        {
+            var listWarehouse = _warehouseDal.ListData()?.ToList() ?? new List<WarehouseModel>();
+            WarehouseCombo.DataSource = listWarehouse;
+            WarehouseCombo.DisplayMember = "WarehouseName";
+            WarehouseCombo.ValueMember = "WarehouseId";
         }
 
         private void ExcelButton_Click(object sender, EventArgs e)
@@ -66,8 +136,21 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
                     .InsertTable(listToExcel, false);
                 var ws = wb.Worksheets.First();
 
+                var totalRow = listToExcel.Count + 2;
+                ws.Cell($"P{totalRow}").FormulaA1 = $"SUM(P{2}:P{listToExcel.Count + 1})";
+                ws.Cell($"Q{totalRow}").FormulaA1 = $"SUM(Q{2}:Q{listToExcel.Count + 1})";
+                ws.Cell($"R{totalRow}").FormulaA1 = $"SUM(R{2}:R{listToExcel.Count + 1})";
+                ws.Range(ws.Cell($"P{totalRow}"), ws.Cell($"R{totalRow}")).Style
+                    .Font.SetFontName("Lucida Console")
+                    .Font.SetFontSize(9)
+                    //.Font.SetBold()
+                    .Fill.SetBackgroundColor(XLColor.LightBlue)
+                    .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
+                    .Border.SetInsideBorder(XLBorderStyleValues.Hair)
+                    .NumberFormat.Format = "#,##";
+
                 //  set format row header: font bold, background lightblue, border medium
-                ws.Range(ws.Cell("A1"), ws.Cell($"M1")).Style
+                ws.Range(ws.Cell("A1"), ws.Cell($"S1")).Style
                     .Font.SetFontName("Lucida Console")
                     .Font.SetFontSize(9)
                     .Font.SetBold()
@@ -76,7 +159,7 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair);
 
                 //  set format row data: font consolas 9, border medium, border inside hair
-                ws.Range(ws.Cell("A2"), ws.Cell($"M{listToExcel.Count + 1}")).Style
+                ws.Range(ws.Cell("A2"), ws.Cell($"S{listToExcel.Count + 1}")).Style
                     .Font.SetFontName("Lucida Console")
                     .Font.SetFontSize(9)
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
@@ -90,21 +173,18 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
                     .Style.NumberFormat.Format = "#,##";
 
                 //  format numeric column  
-                ws.Range(ws.Cell("H2"), ws.Cell($"M{listToExcel.Count + 1}"))
+                ws.Range(ws.Cell("H2"), ws.Cell($"O{listToExcel.Count + 1}"))
                     .Style.NumberFormat.Format = "#,##";
-                //  format date column
-                ws.Range(ws.Cell("C2"), ws.Cell($"C{listToExcel.Count + 1}"))
-                    .Style.NumberFormat.Format = "dd-MMM-yyyy";
-
-                //  format numeric column DiscTotal with 2 decimal places but hide zero
                 ws.Range(ws.Cell("P2"), ws.Cell($"S{listToExcel.Count + 1}"))
-                    .Style.NumberFormat.Format = "#,##0.00_);(#,##0.00);-";
+                    .Style.NumberFormat.Format = "#,##.00";
 
                 //  set backcolor numeric column
                 ws.Range(ws.Cell("H2"), ws.Cell($"L{listToExcel.Count + 1}"))
-                    .Style.Fill.SetBackgroundColor(XLColor.LightGreen);
-                ws.Range(ws.Cell("M2"), ws.Cell($"M{listToExcel.Count + 1}"))
-                    .Style.Fill.SetBackgroundColor(XLColor.LightBlue);
+                    .Style.Fill.SetBackgroundColor(XLColor.PaleGreen);
+                ws.Range(ws.Cell("M2"), ws.Cell($"O{listToExcel.Count + 1}"))
+                    .Style.Fill.SetBackgroundColor(XLColor.LightPink);
+                ws.Range(ws.Cell("P2"), ws.Cell($"R{listToExcel.Count + 1}"))
+                    .Style.Fill.SetBackgroundColor(XLColor.LightYellow);
 
                 ws.Columns().AdjustToContents();
                 wb.SaveAs(filePath);
@@ -114,42 +194,47 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
 
         private void ProsesButton_Click(object sender, EventArgs e)
         {
+            if (WarehouseCombo.SelectedValue == null)
+            {
+                MessageBox.Show("Pilih Gudang");
+                return;
+            }
+
+            var warehouseKey = new WarehouseModel(WarehouseCombo.SelectedValue.ToString());
+            var listStokAwal = _stokPeriodikDal.ListData(PeriodeCalender.SelectionStart.AddDays(-1), warehouseKey)
+                ?.ToList() ?? new List<StokPeriodikDto>();
+            var listStokAkhir = _stokPeriodikDal.ListData(PeriodeCalender.SelectionEnd, warehouseKey)
+                ?.ToList() ?? new List<StokPeriodikDto>();
+
             var listBrg = _kartuStokSummaryDal
-                .ListData(new Periode(PeriodeCalender.SelectionStart, PeriodeCalender.SelectionEnd))?.ToList() ?? new List<KartuStokSummaryDto>();
-            listBrg.ForEach(x => x.QtyInPcs = x.Invoice + x.Faktur - x.Retur + x.Mutasi - x.Opname);
-            //listBrg.ForEach(x => x.QtyBesar = x.Conversion != 1 ? x.QtyInPcs / x.Conversion : 0);
-            //listBrg.ForEach(x => x.QtyKecil = x.QtyInPcs % x.Conversion);
-            //listBrg.ForEach(x => x.SatBesar = x.Conversion != 1 ? x.Satuan: string.Empty);
-            //listBrg.ForEach(x => x.Satuan = "PCS");
+                .ListData(new Periode(PeriodeCalender.SelectionStart, PeriodeCalender.SelectionEnd),
+                          warehouseKey)?.ToList() 
+                ?? new List<KartuStokSummaryDto>();
+            foreach (var x in listBrg)
+            {
+                x.MovingStok = x.Invoice + x.Faktur + x.Retur + x.Mutasi + x.Opname;
+                var stokAwal = listStokAwal.FirstOrDefault(y => y.BrgId == x.BrgId);
+                var stokAkhir = listStokAkhir.FirstOrDefault(y => y.BrgId == x.BrgId);
+                x.StokAwal = stokAwal?.Qty ?? 0;
+                x.StokAkhir = stokAkhir?.Qty ?? 0;
+                x.NilaiAwal = (stokAwal?.Hpp ?? 0) * x.StokAwal;
+                x.NilaiAkhir = (stokAkhir?.Hpp ?? 0) * x.StokAkhir;
+                x.NilaiMoving = x.NilaiAkhir - x.NilaiAwal;
+                if (x.MovingStok != 0)
+                    x.HppAvg = Math.Abs(x.NilaiMoving / x.MovingStok);
+                else
+                    if (x.StokAkhir != 0)
+                        x.HppAvg = Math.Abs(x.NilaiAkhir / x.StokAkhir);
+                else
+                    x.HppAvg = 0;
+
+            };
 
 
             InfoGrid.DataSource = listBrg;
             InfoGrid.Refresh();
         }
 
-        private void InitGrid()
-        {
-            InfoGrid.DataSource = _brgBindingSource;
-            InfoGrid.Refresh();
-
-            InfoGrid.TableDescriptor.AllowEdit = false;
-            InfoGrid.TableDescriptor.AllowNew = false;
-            InfoGrid.TableDescriptor.AllowRemove = false;
-            InfoGrid.ShowGroupDropArea = true;
-
-            InfoGrid.TopLevelGroupOptions.ShowFilterBar = true;
-            foreach (GridColumnDescriptor column in InfoGrid.TableDescriptor.Columns)
-            {
-                column.AllowFilter = true;
-            }
-
-
-            InfoGrid.TableDescriptor.Columns["Invoice"].Appearance.AnyRecordFieldCell.Format = "#,##";
-            InfoGrid.TableDescriptor.Columns["Faktur"].Appearance.AnyRecordFieldCell.Format = "#,##";
-            InfoGrid.TableDescriptor.Columns["Retur"].Appearance.AnyRecordFieldCell.Format = "#,##";
-            InfoGrid.TableDescriptor.Columns["Mutasi"].Appearance.AnyRecordFieldCell.Format = "#,##";
-            InfoGrid.TableDescriptor.Columns["Opname"].Appearance.AnyRecordFieldCell.Format = "#,##";
-        }
 
     }
 }

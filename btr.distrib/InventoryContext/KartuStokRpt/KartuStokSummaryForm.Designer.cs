@@ -29,11 +29,12 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ExcelButton = new System.Windows.Forms.Button();
             this.PeriodeCalender = new System.Windows.Forms.MonthCalendar();
             this.ProsesButton = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.InfoGrid = new Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl();
-            this.ExcelButton = new System.Windows.Forms.Button();
+            this.WarehouseCombo = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -46,6 +47,7 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.PaleTurquoise;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.WarehouseCombo);
             this.panel1.Controls.Add(this.ExcelButton);
             this.panel1.Controls.Add(this.PeriodeCalender);
             this.panel1.Controls.Add(this.ProsesButton);
@@ -54,6 +56,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(254, 496);
             this.panel1.TabIndex = 2;
+            // 
+            // ExcelButton
+            // 
+            this.ExcelButton.BackColor = System.Drawing.Color.PowderBlue;
+            this.ExcelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ExcelButton.Location = new System.Drawing.Point(160, 210);
+            this.ExcelButton.Name = "ExcelButton";
+            this.ExcelButton.Size = new System.Drawing.Size(77, 26);
+            this.ExcelButton.TabIndex = 6;
+            this.ExcelButton.Text = "Excel";
+            this.ExcelButton.UseVisualStyleBackColor = false;
             // 
             // PeriodeCalender
             // 
@@ -67,7 +80,7 @@
             // 
             this.ProsesButton.BackColor = System.Drawing.Color.PowderBlue;
             this.ProsesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ProsesButton.Location = new System.Drawing.Point(77, 183);
+            this.ProsesButton.Location = new System.Drawing.Point(77, 210);
             this.ProsesButton.Name = "ProsesButton";
             this.ProsesButton.Size = new System.Drawing.Size(77, 26);
             this.ProsesButton.TabIndex = 3;
@@ -110,16 +123,13 @@
             this.InfoGrid.UseRightToLeftCompatibleTextBox = true;
             this.InfoGrid.VersionInfo = "22.1460.34";
             // 
-            // ExcelButton
+            // WarehouseCombo
             // 
-            this.ExcelButton.BackColor = System.Drawing.Color.PowderBlue;
-            this.ExcelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ExcelButton.Location = new System.Drawing.Point(160, 183);
-            this.ExcelButton.Name = "ExcelButton";
-            this.ExcelButton.Size = new System.Drawing.Size(77, 26);
-            this.ExcelButton.TabIndex = 6;
-            this.ExcelButton.Text = "Excel";
-            this.ExcelButton.UseVisualStyleBackColor = false;
+            this.WarehouseCombo.FormattingEnabled = true;
+            this.WarehouseCombo.Location = new System.Drawing.Point(10, 183);
+            this.WarehouseCombo.Name = "WarehouseCombo";
+            this.WarehouseCombo.Size = new System.Drawing.Size(227, 21);
+            this.WarehouseCombo.TabIndex = 7;
             // 
             // KartuStokSummaryForm
             // 
@@ -149,5 +159,6 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl InfoGrid;
         private System.Windows.Forms.Button ExcelButton;
+        private System.Windows.Forms.ComboBox WarehouseCombo;
     }
 }

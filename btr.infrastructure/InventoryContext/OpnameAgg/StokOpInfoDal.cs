@@ -28,15 +28,18 @@ namespace btr.infrastructure.InventoryContext.OpnameAgg
         {
             const string sql = @"
                 SELECT
-                    aa.BrgId, aa.QtyBesarAwal, aa.QtyKecilAwal, 
-                    aa.QtyBesarAdjust, aa.QtyKecilAdjust, 
-                    aa.QtyBesarOpname, aa.QtyKecilOpname,
+                    aa.BrgId, 
+                    aa.QtyBesarAwal, aa.QtyKecilAwal, aa.QtyPcsAwal,
+                    aa.QtyBesarAdjust, aa.QtyKecilAdjust, aa.QtyPcsAdjust,
+                    aa.QtyBesarOpname, aa.QtyKecilOpname, aa.QtyPcsOpname,
+                
                     aa.UserId, aa.StokOpId, aa.PeriodeOp,
                     ISNULL(bb.BrgCode, '') BrgCode,
                     ISNULL(bb.BrgName, '') BrgName,
                     ISNULL(cc.WarehouseName, '') WarehouseName,
                     ISNULL(dd.KategoriName, '') KategoriName,       
-                    ISNULL(ee.SupplierName, '') SupplierName
+                    ISNULL(ee.SupplierName, '') SupplierName,
+                    ISNULL(bb.Hpp, 0) HppSatuan
                 FROM
                     BTR_StokOp aa
                     LEFT JOIN BTR_Brg bb ON aa.BrgId = bb.BrgId

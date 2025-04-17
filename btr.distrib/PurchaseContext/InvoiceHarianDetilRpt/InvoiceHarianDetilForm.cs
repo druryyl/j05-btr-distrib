@@ -89,30 +89,30 @@ namespace btr.distrib.PurchaseContext.InvoiceHarianDetilRpt
 
 
             InfoGrid.TableDescriptor.Columns["QtyBesar"].Appearance.AnyRecordFieldCell.Format = "N0";
-            InfoGrid.TableDescriptor.Columns["HppSatBesar"].Appearance.AnyRecordFieldCell.Format = "N0";
+            InfoGrid.TableDescriptor.Columns["HppSatBesar"].Appearance.AnyRecordFieldCell.Format = "N2";
             InfoGrid.TableDescriptor.Columns["QtyKecil"].Appearance.AnyRecordFieldCell.Format = "N0";
-            InfoGrid.TableDescriptor.Columns["HppSatKecil"].Appearance.AnyRecordFieldCell.Format = "N0";
+            InfoGrid.TableDescriptor.Columns["HppSatKecil"].Appearance.AnyRecordFieldCell.Format = "N2";
             InfoGrid.TableDescriptor.Columns["QtyBonus"].Appearance.AnyRecordFieldCell.Format = "N0";
-            InfoGrid.TableDescriptor.Columns["SubTotal"].Appearance.AnyRecordFieldCell.Format = "N0";
+            InfoGrid.TableDescriptor.Columns["SubTotal"].Appearance.AnyRecordFieldCell.Format = "N2";
             InfoGrid.TableDescriptor.Columns["DiscProsen1"].Appearance.AnyRecordFieldCell.Format = "N2";
             InfoGrid.TableDescriptor.Columns["DiscProsen2"].Appearance.AnyRecordFieldCell.Format = "N2";
             InfoGrid.TableDescriptor.Columns["DiscProsen3"].Appearance.AnyRecordFieldCell.Format = "N2";
             InfoGrid.TableDescriptor.Columns["DiscProsen4"].Appearance.AnyRecordFieldCell.Format = "N2";
-            InfoGrid.TableDescriptor.Columns["TotalDisc"].Appearance.AnyRecordFieldCell.Format = "N0";
-            InfoGrid.TableDescriptor.Columns["TotalSebelumTax"].Appearance.AnyRecordFieldCell.Format = "N0";
-            InfoGrid.TableDescriptor.Columns["PpnRp"].Appearance.AnyRecordFieldCell.Format = "N0";
-            InfoGrid.TableDescriptor.Columns["Total"].Appearance.AnyRecordFieldCell.Format = "N0";
+            InfoGrid.TableDescriptor.Columns["TotalDisc"].Appearance.AnyRecordFieldCell.Format = "N2";
+            InfoGrid.TableDescriptor.Columns["TotalSebelumTax"].Appearance.AnyRecordFieldCell.Format = "N2";
+            InfoGrid.TableDescriptor.Columns["PpnRp"].Appearance.AnyRecordFieldCell.Format = "N2";
+            InfoGrid.TableDescriptor.Columns["Total"].Appearance.AnyRecordFieldCell.Format = "N2";
             //  format column InvoiceDate to dd-MMM-yyyy
             InfoGrid.TableDescriptor.Columns["InvoiceDate"].Appearance.AnyRecordFieldCell.Format = "dd-MMM-yyyy";
             
-            InfoGrid.TableDescriptor.Columns["QtyBesar"].Appearance.AnyRecordFieldCell.BackColor = Color.LightGreen;
-            InfoGrid.TableDescriptor.Columns["SatBesar"].Appearance.AnyRecordFieldCell.BackColor = Color.LightGreen;
-            InfoGrid.TableDescriptor.Columns["HppSatBesar"].Appearance.AnyRecordFieldCell.BackColor = Color.LightGreen;
-            InfoGrid.TableDescriptor.Columns["QtyKecil"].Appearance.AnyRecordFieldCell.BackColor = Color.LightGreen;
-            InfoGrid.TableDescriptor.Columns["SatKecil"].Appearance.AnyRecordFieldCell.BackColor = Color.LightGreen;
-            InfoGrid.TableDescriptor.Columns["HppSatKecil"].Appearance.AnyRecordFieldCell.BackColor = Color.LightGreen;
-            InfoGrid.TableDescriptor.Columns["QtyBonus"].Appearance.AnyRecordFieldCell.BackColor = Color.LightGreen;
-            InfoGrid.TableDescriptor.Columns["SubTotal"].Appearance.AnyRecordFieldCell.BackColor = Color.LightGreen;
+            InfoGrid.TableDescriptor.Columns["QtyBesar"].Appearance.AnyRecordFieldCell.BackColor = Color.PaleGreen;
+            InfoGrid.TableDescriptor.Columns["SatBesar"].Appearance.AnyRecordFieldCell.BackColor = Color.PaleGreen;
+            InfoGrid.TableDescriptor.Columns["HppSatBesar"].Appearance.AnyRecordFieldCell.BackColor = Color.PaleGreen;
+            InfoGrid.TableDescriptor.Columns["QtyKecil"].Appearance.AnyRecordFieldCell.BackColor = Color.PaleGreen;
+            InfoGrid.TableDescriptor.Columns["SatKecil"].Appearance.AnyRecordFieldCell.BackColor = Color.PaleGreen;
+            InfoGrid.TableDescriptor.Columns["HppSatKecil"].Appearance.AnyRecordFieldCell.BackColor = Color.PaleGreen;
+            InfoGrid.TableDescriptor.Columns["QtyBonus"].Appearance.AnyRecordFieldCell.BackColor = Color.PaleGreen;
+            InfoGrid.TableDescriptor.Columns["SubTotal"].Appearance.AnyRecordFieldCell.BackColor = Color.PaleGreen;
 
             InfoGrid.TableDescriptor.Columns["DiscProsen1"].Appearance.AnyRecordFieldCell.BackColor = Color.LightYellow;
             InfoGrid.TableDescriptor.Columns["DiscProsen2"].Appearance.AnyRecordFieldCell.BackColor = Color.LightYellow;

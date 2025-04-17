@@ -54,6 +54,7 @@
             // PeriodikCalender
             // 
             this.PeriodikCalender.Location = new System.Drawing.Point(3, 3);
+            this.PeriodikCalender.MaxSelectionCount = 1;
             this.PeriodikCalender.Name = "PeriodikCalender";
             this.PeriodikCalender.TabIndex = 5;
             // 

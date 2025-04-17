@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 using btr.nuna.Infrastructure;
 using System.Data.SqlClient;
+using btr.domain.InventoryContext.WarehouseAgg;
 
 namespace btr.infrastructure.InventoryContext.KartuStokRpt
 {
@@ -19,7 +20,7 @@ namespace btr.infrastructure.InventoryContext.KartuStokRpt
             _opt = opt.Value;
         }
 
-        public IEnumerable<KartuStokSummaryDto> ListData(Periode filter)
+        public IEnumerable<KartuStokSummaryDto> ListData(Periode filter, IWarehouseKey warehouseKey)
         {
             const string sql = @"
                 SELECT 
@@ -34,8 +35,6 @@ namespace btr.infrastructure.InventoryContext.KartuStokRpt
                     ISNULL(dd.QtyBalance,0) AS Retur,
                     ISNULL(ee.QtyBalance,0) AS Mutasi,
                     ISNULL(ff.QtyBalance,0) AS Opname
-                    --ISNULL(aa5.ConversionValue,0) AS Conversion,
-                    --ISNULL(aa5.Satuan,0) AS Satuan  
                 FROM( 
                     SELECT  aa.BrgId, bb.WarehouseId
                     FROM    BTR_Brg aa
@@ -45,15 +44,6 @@ namespace btr.infrastructure.InventoryContext.KartuStokRpt
                 LEFT JOIN BTR_Kategori aa2 ON aa1.KategoriId = aa2.KategoriId
                 LEFT JOIN BTR_Warehouse aa3 ON aa.WarehouseId = aa3.WarehouseId
                 LEFT JOIN BTR_Supplier aa4 ON aa1.SupplierId = aa4.SupplierId
-                --LEFT JOIN (
-                --    WITH RankedConversions AS (
-                --        SELECT BrgId, Satuan, Conversion AS ConversionValue,
-                --            ROW_NUMBER() OVER(PARTITION BY BrgId ORDER BY Conversion DESC) AS rn
-                --        FROM
-                --            BTR_BrgSatuan
-                --    SELECT BrgId, Satuan, ConversionValue
-                --    FROM RankedConversions
-                --    WHERE rn = 1) aa5 ON aa1.BrgId = aa5.BrgId
 
                 LEFT JOIN(
                     SELECT  aa.BrgId, cc.WarehouseId, 'INVOICE' AS JenisMutasi,
@@ -63,6 +53,7 @@ namespace btr.infrastructure.InventoryContext.KartuStokRpt
                             LEFT jOIN BTR_Stok cc ON aa.StokId = cc.StokId
                     WHERE   aa.MutasiDate BETWEEN @StartDate AND @EndDate
                             AND aa.JenisMutasi IN ('INVOICE', 'INVOICE-BONUS')
+                            AND cc.WarehouseId = @WarehouseId
                     GROUP BY aa.BrgId, cc.WarehouseId) bb ON aa.BrgId = bb.BrgId AND aa.WarehouseId = bb.WarehouseId
 
                 LEFT JOIN(
@@ -73,6 +64,7 @@ namespace btr.infrastructure.InventoryContext.KartuStokRpt
                             LEFT jOIN BTR_Stok cc ON aa.StokId = cc.StokId
                     WHERE   aa.MutasiDate BETWEEN @StartDate AND @EndDate
                             AND aa.JenisMutasi IN ('FAKTUR', 'FAKTUR-BONUS')
+                            AND cc.WarehouseId = @WarehouseId
                     GROUP BY aa.BrgId, cc.WarehouseId) cc ON aa.BrgId = cc.BrgId AND aa.WarehouseId = cc.WarehouseId
 
                 LEFT JOIN(
@@ -83,6 +75,7 @@ namespace btr.infrastructure.InventoryContext.KartuStokRpt
                             LEFT jOIN BTR_Stok cc ON aa.StokId = cc.StokId
                     WHERE   aa.MutasiDate BETWEEN @StartDate AND @EndDate
                             AND aa.JenisMutasi IN ('RETURJUAL')
+                            AND cc.WarehouseId = @WarehouseId
                     GROUP BY aa.BrgId, cc.WarehouseId) dd ON aa.BrgId = dd.BrgId AND aa.WarehouseId = dd.WarehouseId
 
                 LEFT JOIN(
@@ -93,6 +86,7 @@ namespace btr.infrastructure.InventoryContext.KartuStokRpt
                             LEFT jOIN BTR_Stok cc ON aa.StokId = cc.StokId
                     WHERE   aa.MutasiDate BETWEEN @StartDate AND @EndDate
                             AND aa.JenisMutasi IN ('MUTASI-KLAIM', 'MUTASI-KELUAR', 'MUTASI-MASUK')
+                            AND cc.WarehouseId = @WarehouseId
                     GROUP BY aa.BrgId, cc.WarehouseId) ee ON aa.BrgId = ee.BrgId AND aa.WarehouseId = ee.WarehouseId
 
                 LEFT JOIN(
@@ -103,11 +97,15 @@ namespace btr.infrastructure.InventoryContext.KartuStokRpt
                             LEFT jOIN BTR_Stok cc ON aa.StokId = cc.StokId
                     WHERE   aa.MutasiDate BETWEEN @StartDate AND @EndDate
                             AND aa.JenisMutasi IN ('OPNAME', 'STOKOP', 'ADJUST')
-                    GROUP BY aa.BrgId, cc.WarehouseId) ff ON aa.BrgId = ff.BrgId AND aa.WarehouseId = ff.WarehouseId ";
+                            AND cc.WarehouseId = @WarehouseId
+                    GROUP BY aa.BrgId, cc.WarehouseId) ff ON aa.BrgId = ff.BrgId AND aa.WarehouseId = ff.WarehouseId
+                WHERE       
+                    aa.WarehouseId = @WarehouseId";
 
             var dp = new DynamicParameters();
             dp.AddParam("@StartDate", filter.Tgl1, SqlDbType.DateTime);
             dp.AddParam("@EndDate", filter.Tgl2, SqlDbType.DateTime);
+            dp.AddParam("@WarehouseId", warehouseKey.WarehouseId, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {

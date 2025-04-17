@@ -155,8 +155,6 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
                 UserName = invoice.UserId
             };
             var invoicePrintOut = new InvoicePrintOutDto(invoice, supplier, user);
-            //var form = new InvoicePrintOutForm(invoicePrintOut);
-            //form.ShowDialog();
 
             var invoiceDataset = new ReportDataSource("InvoiceBeliDataset", new List<InvoicePrintOutDto> { invoicePrintOut });
             var invoiceItemDataset = new ReportDataSource("InvoiceBeliItemDataset", invoicePrintOut.ListItem);

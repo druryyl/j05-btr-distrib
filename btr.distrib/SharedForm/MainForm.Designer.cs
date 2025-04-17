@@ -449,7 +449,6 @@
             this.ReportingPanel.Items.Add(this.IF8KartuStokSummary);
             this.ReportingPanel.Name = "ReportingPanel";
             this.ReportingPanel.Text = "Reporting";
-            this.ReportingPanel.Click += new System.EventHandler(this.ReportingPanel_Click);
             // 
             // IF1StokBalanceButton
             // 
@@ -503,6 +502,7 @@
             this.IF7StokOpnameButton.Name = "IF7StokOpnameButton";
             this.IF7StokOpnameButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IF7StokOpnameButton.SmallImage")));
             this.IF7StokOpnameButton.Text = "IF6-Stok Opname";
+            this.IF7StokOpnameButton.Click += new System.EventHandler(this.IF7StokOpnameButton_Click);
             // 
             // IF8KartuStokSummary
             // 
