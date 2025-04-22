@@ -93,6 +93,8 @@ namespace btr.distrib.FinanceContext.PenerimaanPelunasanSalesRpt
                 sumColBayarGiro, sumColRetur, sumColPotongan, sumColMateraiAdmin, sumColTotalBayar });
             InfoGrid.TableDescriptor.SummaryRows.Add(sumRowDescriptor);
 
+            InfoGrid.TableDescriptor.Columns["LunasDate"].Appearance.AnyRecordFieldCell.Format = "dd-MMM-yyyy";
+            InfoGrid.TableDescriptor.Columns["LunasDate"].Width = 100;
 
             InfoGrid.TableDescriptor.Columns["BayarTunai"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["BayarGiro"].Appearance.AnyRecordFieldCell.Format = "N0";

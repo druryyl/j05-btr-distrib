@@ -94,6 +94,12 @@ namespace btr.distrib.FinanceContext.PiutangSalesWilayahRpt
                 sumColBayarGiro, sumColRetur, sumColPotongan, sumColMateraiAdmin, sumColKurangBayar });
             InfoGrid.TableDescriptor.SummaryRows.Add(sumRowDescriptor);
 
+            InfoGrid.TableDescriptor.Columns["FakturDate"].Appearance.AnyRecordFieldCell.Format = "dd-MMM-yyyy";
+            InfoGrid.TableDescriptor.Columns["JatuhTempo"].Appearance.AnyRecordFieldCell.Format = "dd-MMM-yyyy";
+
+            //  set column width to fit the content
+            InfoGrid.TableDescriptor.Columns["FakturDate"].Width = 100;
+            InfoGrid.TableDescriptor.Columns["JatuhTempo"].Width = 100;
 
             InfoGrid.TableDescriptor.Columns["TotalJual"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["BayarTunai"].Appearance.AnyRecordFieldCell.Format = "N0";

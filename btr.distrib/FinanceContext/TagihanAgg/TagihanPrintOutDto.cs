@@ -33,7 +33,7 @@ namespace btr.distrib.FinanceContext.TagihanAgg
                     Customer = item.CustomerName,
                     FakturDate = $"{item.FakturDate:dd-MM-yyyy}",
                     Total = $"{item.NilaiTotal:N0}",
-                    TerBayar = $"{item.NilaiTerbayar}",
+                    TerBayar = $"{item.NilaiTerbayar:N0}",
                     Sisa = $"{sisa:N0}"   
                 };
                 ListItem.Add(newItem);

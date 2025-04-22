@@ -57,7 +57,7 @@ namespace btr.distrib.Browsers
             var resultName = result.Where(x => x.BrgName.ContainMultiWord(Filter.UserKeyword)).ToList();
             var resultId = result.Where(x => x.Id.ToLower().StartsWith(Filter.UserKeyword.ToLower())).ToList();
             var resultCode = result.Where(x => x.Code.ToLower().StartsWith(Filter.UserKeyword.ToLower())).ToList();
-            result = resultName.Concat(resultId).Concat(resultCode).ToList();
+            result = resultName.Union(resultId).Union(resultCode).ToList();
 
             return result;
         }
