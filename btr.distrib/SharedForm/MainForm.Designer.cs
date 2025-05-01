@@ -35,14 +35,17 @@
             this.ST1FakturButton = new System.Windows.Forms.RibbonButton();
             this.ST2ControlFakturButton = new System.Windows.Forms.RibbonButton();
             this.SalesInfoPanel = new System.Windows.Forms.RibbonPanel();
-            this.SF1FakturButton = new System.Windows.Forms.RibbonButton();
-            this.SF2FakturBrgButton = new System.Windows.Forms.RibbonButton();
-            this.SF3FakturSupplierButton = new System.Windows.Forms.RibbonButton();
-            this.SF4FakturCustomerButton = new System.Windows.Forms.RibbonButton();
-            this.SF5FakturPajakButton = new System.Windows.Forms.RibbonButton();
-            this.SF6FakturCashButton = new System.Windows.Forms.RibbonButton();
-            this.SF7OmzetPerSupplier = new System.Windows.Forms.RibbonButton();
-            this.SF8DriverFaktur = new System.Windows.Forms.RibbonButton();
+            this.ribbonButton2 = new System.Windows.Forms.RibbonButton();
+            this.SF1FakturInfoMenu = new System.Windows.Forms.RibbonButton();
+            this.SF2FakturBrgInfoMenu = new System.Windows.Forms.RibbonButton();
+            this.SF3FakturPerSupplierInfoMenu = new System.Windows.Forms.RibbonButton();
+            this.SF4FakturPerCustomerInfoMenu = new System.Windows.Forms.RibbonButton();
+            this.ribbonSeparator1 = new System.Windows.Forms.RibbonSeparator();
+            this.SF5FakturPajakInfoMenu = new System.Windows.Forms.RibbonButton();
+            this.SF6FakturCashInfoMenu = new System.Windows.Forms.RibbonButton();
+            this.SF7OmzetPerSupplierInfoMenu = new System.Windows.Forms.RibbonButton();
+            this.ribbonSeparator2 = new System.Windows.Forms.RibbonSeparator();
+            this.SF8FakturPerDriverInfoMenu = new System.Windows.Forms.RibbonButton();
             this.MasterSalesPanel = new System.Windows.Forms.RibbonPanel();
             this.OutletButton = new System.Windows.Forms.RibbonButton();
             this.SalesPersonButton = new System.Windows.Forms.RibbonButton();
@@ -104,6 +107,7 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ST3SalesReplacementMenu = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -138,8 +142,8 @@
             // 
             this.SalesTab.Name = "SalesTab";
             this.SalesTab.Panels.Add(this.FakturPanel);
-            this.SalesTab.Panels.Add(this.SalesInfoPanel);
             this.SalesTab.Panels.Add(this.MasterSalesPanel);
+            this.SalesTab.Panels.Add(this.SalesInfoPanel);
             this.SalesTab.Text = "Sales";
             // 
             // FakturPanel
@@ -148,8 +152,9 @@
             this.FakturPanel.ButtonMoreVisible = false;
             this.FakturPanel.Items.Add(this.ST1FakturButton);
             this.FakturPanel.Items.Add(this.ST2ControlFakturButton);
+            this.FakturPanel.Items.Add(this.ST3SalesReplacementMenu);
             this.FakturPanel.Name = "FakturPanel";
-            this.FakturPanel.Text = "Transaction";
+            this.FakturPanel.Text = "";
             // 
             // ST1FakturButton
             // 
@@ -171,89 +176,116 @@
             // 
             // SalesInfoPanel
             // 
-            this.SalesInfoPanel.Items.Add(this.SF1FakturButton);
-            this.SalesInfoPanel.Items.Add(this.SF2FakturBrgButton);
-            this.SalesInfoPanel.Items.Add(this.SF3FakturSupplierButton);
-            this.SalesInfoPanel.Items.Add(this.SF4FakturCustomerButton);
-            this.SalesInfoPanel.Items.Add(this.SF5FakturPajakButton);
-            this.SalesInfoPanel.Items.Add(this.SF6FakturCashButton);
-            this.SalesInfoPanel.Items.Add(this.SF7OmzetPerSupplier);
-            this.SalesInfoPanel.Items.Add(this.SF8DriverFaktur);
+            this.SalesInfoPanel.Items.Add(this.ribbonButton2);
             this.SalesInfoPanel.Name = "SalesInfoPanel";
-            this.SalesInfoPanel.Text = "Reporting";
+            this.SalesInfoPanel.Text = "";
             // 
-            // SF1FakturButton
+            // ribbonButton2
             // 
-            this.SF1FakturButton.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.SF1FakturButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.SF1FakturButton.Name = "SF1FakturButton";
-            this.SF1FakturButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("SF1FakturButton.SmallImage")));
-            this.SF1FakturButton.Text = "SF1-Faktur Info";
-            this.SF1FakturButton.Click += new System.EventHandler(this.SF1FakturInfoButton_Click);
+            this.ribbonButton2.DropDownItems.Add(this.SF1FakturInfoMenu);
+            this.ribbonButton2.DropDownItems.Add(this.SF2FakturBrgInfoMenu);
+            this.ribbonButton2.DropDownItems.Add(this.SF3FakturPerSupplierInfoMenu);
+            this.ribbonButton2.DropDownItems.Add(this.SF4FakturPerCustomerInfoMenu);
+            this.ribbonButton2.DropDownItems.Add(this.ribbonSeparator1);
+            this.ribbonButton2.DropDownItems.Add(this.SF5FakturPajakInfoMenu);
+            this.ribbonButton2.DropDownItems.Add(this.SF6FakturCashInfoMenu);
+            this.ribbonButton2.DropDownItems.Add(this.SF7OmzetPerSupplierInfoMenu);
+            this.ribbonButton2.DropDownItems.Add(this.ribbonSeparator2);
+            this.ribbonButton2.DropDownItems.Add(this.SF8FakturPerDriverInfoMenu);
+            this.ribbonButton2.Image = global::btr.distrib.Properties.Resources.icons8_documents;
+            this.ribbonButton2.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents;
+            this.ribbonButton2.Name = "ribbonButton2";
+            this.ribbonButton2.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton2.SmallImage")));
+            this.ribbonButton2.Style = System.Windows.Forms.RibbonButtonStyle.DropDown;
+            this.ribbonButton2.Text = "Reporting";
             // 
-            // SF2FakturBrgButton
+            // SF1FakturInfoMenu
             // 
-            this.SF2FakturBrgButton.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.SF2FakturBrgButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.SF2FakturBrgButton.Name = "SF2FakturBrgButton";
-            this.SF2FakturBrgButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("SF2FakturBrgButton.SmallImage")));
-            this.SF2FakturBrgButton.Text = "SF2-Faktur Brg";
-            this.SF2FakturBrgButton.Click += new System.EventHandler(this.SF2FakturBrgInfoButton_Click);
+            this.SF1FakturInfoMenu.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
+            this.SF1FakturInfoMenu.Image = ((System.Drawing.Image)(resources.GetObject("SF1FakturInfoMenu.Image")));
+            this.SF1FakturInfoMenu.LargeImage = ((System.Drawing.Image)(resources.GetObject("SF1FakturInfoMenu.LargeImage")));
+            this.SF1FakturInfoMenu.Name = "SF1FakturInfoMenu";
+            this.SF1FakturInfoMenu.SmallImage = global::btr.distrib.Properties.Resources.red_icon;
+            this.SF1FakturInfoMenu.Text = "SF1 - Info Faktur ...";
+            this.SF1FakturInfoMenu.Click += new System.EventHandler(this.SF1FakturInfoButton_Click);
             // 
-            // SF3FakturSupplierButton
+            // SF2FakturBrgInfoMenu
             // 
-            this.SF3FakturSupplierButton.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.SF3FakturSupplierButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.SF3FakturSupplierButton.Name = "SF3FakturSupplierButton";
-            this.SF3FakturSupplierButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("SF3FakturSupplierButton.SmallImage")));
-            this.SF3FakturSupplierButton.Text = "SF3-Faktur PerSupplier";
-            this.SF3FakturSupplierButton.Click += new System.EventHandler(this.SF3FakturPerSupplierButton_Click);
+            this.SF2FakturBrgInfoMenu.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
+            this.SF2FakturBrgInfoMenu.Image = ((System.Drawing.Image)(resources.GetObject("SF2FakturBrgInfoMenu.Image")));
+            this.SF2FakturBrgInfoMenu.LargeImage = ((System.Drawing.Image)(resources.GetObject("SF2FakturBrgInfoMenu.LargeImage")));
+            this.SF2FakturBrgInfoMenu.Name = "SF2FakturBrgInfoMenu";
+            this.SF2FakturBrgInfoMenu.SmallImage = global::btr.distrib.Properties.Resources.red_icon;
+            this.SF2FakturBrgInfoMenu.Text = "SF2 - Info Faktur Barang ...";
+            this.SF2FakturBrgInfoMenu.Click += new System.EventHandler(this.SF2FakturBrgInfoButton_Click);
             // 
-            // SF4FakturCustomerButton
+            // SF3FakturPerSupplierInfoMenu
             // 
-            this.SF4FakturCustomerButton.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.SF4FakturCustomerButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.SF4FakturCustomerButton.Name = "SF4FakturCustomerButton";
-            this.SF4FakturCustomerButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("SF4FakturCustomerButton.SmallImage")));
-            this.SF4FakturCustomerButton.Text = "SF4-Faktur PerCustomer";
-            this.SF4FakturCustomerButton.Click += new System.EventHandler(this.SF4FakturPerCustomerButton_Click);
+            this.SF3FakturPerSupplierInfoMenu.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
+            this.SF3FakturPerSupplierInfoMenu.Image = ((System.Drawing.Image)(resources.GetObject("SF3FakturPerSupplierInfoMenu.Image")));
+            this.SF3FakturPerSupplierInfoMenu.LargeImage = ((System.Drawing.Image)(resources.GetObject("SF3FakturPerSupplierInfoMenu.LargeImage")));
+            this.SF3FakturPerSupplierInfoMenu.Name = "SF3FakturPerSupplierInfoMenu";
+            this.SF3FakturPerSupplierInfoMenu.SmallImage = global::btr.distrib.Properties.Resources.red_icon;
+            this.SF3FakturPerSupplierInfoMenu.Text = "SF3 - Info Faktur Per Supplier ...";
+            this.SF3FakturPerSupplierInfoMenu.Click += new System.EventHandler(this.SF3FakturPerSupplierButton_Click);
             // 
-            // SF5FakturPajakButton
+            // SF4FakturPerCustomerInfoMenu
             // 
-            this.SF5FakturPajakButton.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.SF5FakturPajakButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.SF5FakturPajakButton.Name = "SF5FakturPajakButton";
-            this.SF5FakturPajakButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("SF5FakturPajakButton.SmallImage")));
-            this.SF5FakturPajakButton.Text = "SF5-Faktur Pajak";
-            this.SF5FakturPajakButton.DoubleClick += new System.EventHandler(this.SF5FakturPajakButton_DoubleClick);
-            this.SF5FakturPajakButton.Click += new System.EventHandler(this.SF5FakturPajakButton_Click);
+            this.SF4FakturPerCustomerInfoMenu.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
+            this.SF4FakturPerCustomerInfoMenu.Image = ((System.Drawing.Image)(resources.GetObject("SF4FakturPerCustomerInfoMenu.Image")));
+            this.SF4FakturPerCustomerInfoMenu.LargeImage = ((System.Drawing.Image)(resources.GetObject("SF4FakturPerCustomerInfoMenu.LargeImage")));
+            this.SF4FakturPerCustomerInfoMenu.Name = "SF4FakturPerCustomerInfoMenu";
+            this.SF4FakturPerCustomerInfoMenu.SmallImage = global::btr.distrib.Properties.Resources.red_icon;
+            this.SF4FakturPerCustomerInfoMenu.Text = "SF4 - Inf Faktur Per Customer ...";
+            this.SF4FakturPerCustomerInfoMenu.Click += new System.EventHandler(this.SF4FakturPerCustomerButton_Click);
             // 
-            // SF6FakturCashButton
+            // ribbonSeparator1
             // 
-            this.SF6FakturCashButton.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.SF6FakturCashButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.SF6FakturCashButton.Name = "SF6FakturCashButton";
-            this.SF6FakturCashButton.SmallImage = global::btr.distrib.Properties.Resources.icons8_documents;
-            this.SF6FakturCashButton.Text = "SF6-Faktur Cash";
-            this.SF6FakturCashButton.Click += new System.EventHandler(this.SF6FakturCashButton_Click);
+            this.ribbonSeparator1.Name = "ribbonSeparator1";
             // 
-            // SF7OmzetPerSupplier
+            // SF5FakturPajakInfoMenu
             // 
-            this.SF7OmzetPerSupplier.Image = global::btr.distrib.Properties.Resources.icons8_documents;
-            this.SF7OmzetPerSupplier.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents;
-            this.SF7OmzetPerSupplier.Name = "SF7OmzetPerSupplier";
-            this.SF7OmzetPerSupplier.SmallImage = ((System.Drawing.Image)(resources.GetObject("SF7OmzetPerSupplier.SmallImage")));
-            this.SF7OmzetPerSupplier.Text = "SF7-Omzet PerSupplier";
-            this.SF7OmzetPerSupplier.Click += new System.EventHandler(this.SF7OmzetSupplierButton_Click);
+            this.SF5FakturPajakInfoMenu.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
+            this.SF5FakturPajakInfoMenu.Image = ((System.Drawing.Image)(resources.GetObject("SF5FakturPajakInfoMenu.Image")));
+            this.SF5FakturPajakInfoMenu.LargeImage = ((System.Drawing.Image)(resources.GetObject("SF5FakturPajakInfoMenu.LargeImage")));
+            this.SF5FakturPajakInfoMenu.Name = "SF5FakturPajakInfoMenu";
+            this.SF5FakturPajakInfoMenu.SmallImage = global::btr.distrib.Properties.Resources.tosca_icon;
+            this.SF5FakturPajakInfoMenu.Text = "SF5 - Info Faktur Pajak...";
+            this.SF5FakturPajakInfoMenu.Click += new System.EventHandler(this.SF5FakturPajakButton_Click);
             // 
-            // SF8DriverFaktur
+            // SF6FakturCashInfoMenu
             // 
-            this.SF8DriverFaktur.Image = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.SF8DriverFaktur.LargeImage = global::btr.distrib.Properties.Resources.icons8_documents_32;
-            this.SF8DriverFaktur.Name = "SF8DriverFaktur";
-            this.SF8DriverFaktur.SmallImage = ((System.Drawing.Image)(resources.GetObject("SF8DriverFaktur.SmallImage")));
-            this.SF8DriverFaktur.Text = "SF8-Driver Faktur";
-            this.SF8DriverFaktur.Click += new System.EventHandler(this.SF8DriverFaktur_Click);
+            this.SF6FakturCashInfoMenu.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
+            this.SF6FakturCashInfoMenu.Image = ((System.Drawing.Image)(resources.GetObject("SF6FakturCashInfoMenu.Image")));
+            this.SF6FakturCashInfoMenu.LargeImage = ((System.Drawing.Image)(resources.GetObject("SF6FakturCashInfoMenu.LargeImage")));
+            this.SF6FakturCashInfoMenu.Name = "SF6FakturCashInfoMenu";
+            this.SF6FakturCashInfoMenu.SmallImage = global::btr.distrib.Properties.Resources.tosca_icon;
+            this.SF6FakturCashInfoMenu.Text = "SF6 - Info Faktur Cash ...";
+            this.SF6FakturCashInfoMenu.Click += new System.EventHandler(this.SF6FakturCashButton_Click);
+            // 
+            // SF7OmzetPerSupplierInfoMenu
+            // 
+            this.SF7OmzetPerSupplierInfoMenu.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
+            this.SF7OmzetPerSupplierInfoMenu.Image = ((System.Drawing.Image)(resources.GetObject("SF7OmzetPerSupplierInfoMenu.Image")));
+            this.SF7OmzetPerSupplierInfoMenu.LargeImage = ((System.Drawing.Image)(resources.GetObject("SF7OmzetPerSupplierInfoMenu.LargeImage")));
+            this.SF7OmzetPerSupplierInfoMenu.Name = "SF7OmzetPerSupplierInfoMenu";
+            this.SF7OmzetPerSupplierInfoMenu.SmallImage = global::btr.distrib.Properties.Resources.tosca_icon;
+            this.SF7OmzetPerSupplierInfoMenu.Text = "SF7 - Info Omzet Per Supplier ...";
+            this.SF7OmzetPerSupplierInfoMenu.Click += new System.EventHandler(this.SF7OmzetSupplierButton_Click);
+            // 
+            // ribbonSeparator2
+            // 
+            this.ribbonSeparator2.Name = "ribbonSeparator2";
+            // 
+            // SF8FakturPerDriverInfoMenu
+            // 
+            this.SF8FakturPerDriverInfoMenu.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
+            this.SF8FakturPerDriverInfoMenu.Image = ((System.Drawing.Image)(resources.GetObject("SF8FakturPerDriverInfoMenu.Image")));
+            this.SF8FakturPerDriverInfoMenu.LargeImage = ((System.Drawing.Image)(resources.GetObject("SF8FakturPerDriverInfoMenu.LargeImage")));
+            this.SF8FakturPerDriverInfoMenu.Name = "SF8FakturPerDriverInfoMenu";
+            this.SF8FakturPerDriverInfoMenu.SmallImage = global::btr.distrib.Properties.Resources.purrple_icon;
+            this.SF8FakturPerDriverInfoMenu.Text = "SF8 - Info Faktur Per Driver ...";
+            this.SF8FakturPerDriverInfoMenu.Click += new System.EventHandler(this.SF8DriverFaktur_Click);
             // 
             // MasterSalesPanel
             // 
@@ -264,7 +296,7 @@
             this.MasterSalesPanel.Items.Add(this.WilayahButton);
             this.MasterSalesPanel.Items.Add(this.RuteButton);
             this.MasterSalesPanel.Name = "MasterSalesPanel";
-            this.MasterSalesPanel.Text = "Master";
+            this.MasterSalesPanel.Text = "";
             // 
             // OutletButton
             // 
@@ -782,6 +814,15 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
+            // ST3SalesReplacementMenu
+            // 
+            this.ST3SalesReplacementMenu.Image = global::btr.distrib.Properties.Resources.icons8_user_account_32;
+            this.ST3SalesReplacementMenu.LargeImage = global::btr.distrib.Properties.Resources.icons8_user_account_32;
+            this.ST3SalesReplacementMenu.Name = "ST3SalesReplacementMenu";
+            this.ST3SalesReplacementMenu.SmallImage = ((System.Drawing.Image)(resources.GetObject("ST3SalesReplacementMenu.SmallImage")));
+            this.ST3SalesReplacementMenu.Text = "ST3-Sales Replacement";
+            this.ST3SalesReplacementMenu.Click += new System.EventHandler(this.ST3SalesReplacementMenu_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -852,26 +893,18 @@
         private System.Windows.Forms.RibbonButton P2InvoiceBrgInfoButton;
         private System.Windows.Forms.RibbonButton P3InvoiceHarianInfoButton;
         private System.Windows.Forms.RibbonPanel SalesInfoPanel;
-        private System.Windows.Forms.RibbonButton SF1FakturButton;
-        private System.Windows.Forms.RibbonButton SF2FakturBrgButton;
-        private System.Windows.Forms.RibbonButton SF3FakturSupplierButton;
-        private System.Windows.Forms.RibbonButton SF4FakturCustomerButton;
         //private System.Windows.Forms.RibbonPanel TaxTransactionPanel;
         private System.Windows.Forms.RibbonPanel FinanceInfoTab;
         private System.Windows.Forms.RibbonButton FF1PiutangSalesWilayahButton;
         private System.Windows.Forms.RibbonButton FF2PenerimaanSalesButton;
         private System.Windows.Forms.RibbonButton KategoriAButton;
-        private System.Windows.Forms.RibbonButton SF5FakturPajakButton;
         private System.Windows.Forms.RibbonButton ribbonButton1;
-        private System.Windows.Forms.RibbonButton SF6FakturCashButton;
-        private System.Windows.Forms.RibbonButton SF7OmzetPerSupplier;
         private System.Windows.Forms.RibbonTab ReturTab;
         private System.Windows.Forms.RibbonPanel ribbonPanel3;
         private System.Windows.Forms.RibbonButton RT1ReturJualButton;
         private System.Windows.Forms.RibbonPanel ribbonPanel4;
         private System.Windows.Forms.RibbonButton RF1ReturJualInfo;
         private System.Windows.Forms.RibbonButton RT2PostingRetur;
-        private System.Windows.Forms.RibbonButton SF8DriverFaktur;
         private System.Windows.Forms.RibbonButton DriverButton;
         private System.Windows.Forms.RibbonButton FT3FpKeluaranButton;
         private System.Windows.Forms.RibbonButton IF5StokPeriodikButton;
@@ -884,5 +917,17 @@
         private System.Windows.Forms.RibbonButton RuteButton;
         private System.Windows.Forms.RibbonButton IF8KartuStokSummary;
         private System.Windows.Forms.RibbonButton FF4PelunasanInfoButton;
+        private System.Windows.Forms.RibbonButton ribbonButton2;
+        private System.Windows.Forms.RibbonButton SF1FakturInfoMenu;
+        private System.Windows.Forms.RibbonButton SF2FakturBrgInfoMenu;
+        private System.Windows.Forms.RibbonButton SF3FakturPerSupplierInfoMenu;
+        private System.Windows.Forms.RibbonButton SF4FakturPerCustomerInfoMenu;
+        private System.Windows.Forms.RibbonSeparator ribbonSeparator1;
+        private System.Windows.Forms.RibbonButton SF5FakturPajakInfoMenu;
+        private System.Windows.Forms.RibbonButton SF6FakturCashInfoMenu;
+        private System.Windows.Forms.RibbonButton SF7OmzetPerSupplierInfoMenu;
+        private System.Windows.Forms.RibbonSeparator ribbonSeparator2;
+        private System.Windows.Forms.RibbonButton SF8FakturPerDriverInfoMenu;
+        private System.Windows.Forms.RibbonButton ST3SalesReplacementMenu;
     }
 }

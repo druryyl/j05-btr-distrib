@@ -53,6 +53,7 @@ using btr.distrib.InventoryContext.StokPeriodikRpt;
 using btr.distrib.PurchaseContext.PostingStokAgg;
 using btr.distrib.InventoryContext.MutasiRpt;
 using btr.distrib.FinanceContext;
+using btr.distrib.SalesContext.SalesReplacementFeat;
 
 namespace btr.distrib.SharedForm
 {
@@ -477,11 +478,6 @@ namespace btr.distrib.SharedForm
             form.Show();
         }
 
-        private void SF5FakturPajakButton_DoubleClick(object sender, EventArgs e)
-        {
-
-        }
-
         private void SF5FakturPajakButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<FakturPajakInfoForm>())
@@ -649,6 +645,16 @@ namespace btr.distrib.SharedForm
             if (BringMdiChildToFrontIfLoaded<StokOpInfoForm>())
                 return;
             var form = ThisServicesProvider.GetRequiredService<StokOpInfoForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void ST3SalesReplacementMenu_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<SalesReplacementForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<SalesReplacementForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

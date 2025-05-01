@@ -712,6 +712,12 @@
     <Compile Include="SalesContext\SalesPersonAgg\SalesPersonForm.Designer.cs">
       <DependentUpon>SalesPersonForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SalesContext\SalesReplacementFeat\SalesReplacementForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SalesContext\SalesReplacementFeat\SalesReplacementForm.Designer.cs">
+      <DependentUpon>SalesReplacementForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SalesContext\SalesRuteAgg\SalesRuteForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -780,6 +786,11 @@
     <None Include="Resources\icons8_sherlock_holmes_64.png" />
     <None Include="Resources\icons8_route_16.png" />
     <None Include="Resources\icons8_route_32.png" />
+    <None Include="Resources\icons8_report_card_16.png" />
+    <None Include="Resources\icons8_report_card_161.png" />
+    <None Include="Resources\red-icon.png" />
+    <None Include="Resources\tosca-icon.png" />
+    <None Include="Resources\purrple-icon.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -975,6 +986,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SalesContext\FakturPerSupplierRpt\FakturPerSupplierForm.resx">
       <DependentUpon>FakturPerSupplierForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SalesContext\SalesReplacementFeat\SalesReplacementForm.resx">
+      <DependentUpon>SalesReplacementForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SalesContext\SalesRuteAgg\SalesRuteForm.resx">
       <DependentUpon>SalesRuteForm.cs</DependentUpon>

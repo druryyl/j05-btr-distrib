@@ -723,6 +723,16 @@ namespace btr.distrib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap purrple_icon {
+            get {
+                object obj = ResourceManager.GetObject("purrple-icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap real_estate_48px {
             get {
                 object obj = ResourceManager.GetObject("real_estate_48px", resourceCulture);
@@ -733,9 +743,29 @@ namespace btr.distrib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap red_icon {
+            get {
+                object obj = ResourceManager.GetObject("red-icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap tax2 {
             get {
                 object obj = ResourceManager.GetObject("tax2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap tosca_icon {
+            get {
+                object obj = ResourceManager.GetObject("tosca-icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
