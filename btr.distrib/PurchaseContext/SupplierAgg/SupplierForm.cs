@@ -3,7 +3,9 @@ using btr.application.PurchaseContext.SupplierAgg.Workers;
 using btr.distrib.Browsers;
 using btr.distrib.Helpers;
 using btr.domain.PurchaseContext.SupplierAgg;
+using btr.domain.SalesContext.SalesPersonAgg;
 using btr.nuna.Domain;
+using ClosedXML.Excel;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -51,6 +53,76 @@ namespace btr.distrib.PurchaseContext.SupplierAgg
             ListGrid.CellDoubleClick += ListGrid_CellDoubleClick;
 
             NewButton.Click += NewButton_Click;
+            ExcelButton.Click += ExcelButton_Click;
+        }
+
+        private void ExcelButton_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show(@"Export to Excel?", @"Confirmation", MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
+
+            var listDb = _supplierDal.ListData()?.ToList() ?? new List<SupplierModel>();
+            var listData = listDb
+                .Select(x => new
+                {
+                    x.SupplierId,
+                    x.SupplierCode,
+                    x.SupplierName,
+                    x.Address1,
+                    x.Address2,
+                    x.Kota,
+                    x.KodePos,
+                    x.ContactPerson,
+                    x.NoTelp,
+                    x.NoFax,
+                    x.NoPkp,
+                    x.Npwp
+                }).ToList();
+
+            string filePath;
+            using (var saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = @"Excel Files|*.xlsx";
+                saveFileDialog.Title = @"Save Excel File";
+                saveFileDialog.DefaultExt = "xlsx";
+                saveFileDialog.AddExtension = true;
+                saveFileDialog.FileName = $"supplier-info-{DateTime.Now:yyyy-MM-dd-HHmm}";
+                if (saveFileDialog.ShowDialog() != DialogResult.OK)
+                    return;
+                filePath = saveFileDialog.FileName;
+            }
+
+            using (IXLWorkbook wb = new XLWorkbook())
+            {
+                wb.AddWorksheet("supplier-info")
+                    .Cell($"B1")
+                    .InsertTable(listData, false);
+                var ws = wb.Worksheets.First();
+                //  add row number at column A
+                ws.Cell("A1").Value = "No";
+                for (var i = 0; i < listData.Count; i++)
+                    ws.Cell($"A{i + 2}").Value = i + 1;
+
+                //  border header
+                ws.Range("A1:M1").Style.Border.BottomBorder = XLBorderStyleValues.Thin;
+                //  font bold header and background color light blue
+                ws.Range("A1:M1").Style.Font.SetBold();
+                ws.Range("A1:M1").Style.Fill.BackgroundColor = XLColor.LightBlue;
+                //  freeze header
+                ws.SheetView.FreezeRows(1);
+                //  border table
+                ws.Range($"A2:M{listData.Count + 1}").Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                ws.Range($"A1:M{listData.Count + 1}").Style.Border.InsideBorder = XLBorderStyleValues.Hair;
+
+                ws.Range($"A1:M{listData.Count + 1}").Style.Font.SetFontName("Lucida Console");
+                ws.Range($"A1:M{listData.Count + 1}").Style.Font.SetFontSize(9f);
+
+
+                //  auto fit column
+                ws.Columns().AdjustToContents();
+                wb.SaveAs(filePath);
+            }
+            System.Diagnostics.Process.Start(filePath);
         }
 
 
@@ -84,12 +156,14 @@ namespace btr.distrib.PurchaseContext.SupplierAgg
 
             _listSupplier = listSupplier
                 .Select(x => new SupplierFormGridDto(x.SupplierId,
+                    x.SupplierCode,
                     x.SupplierName,
                     $"{x.Address1} {x.Kota}")).ToList();
             ListGrid.DataSource = _listSupplier;
 
             ListGrid.Columns.SetDefaultCellStyle(Color.MistyRose);
             ListGrid.Columns.GetCol("Id").Width = 50;
+            ListGrid.Columns.GetCol("Code").Width = 50;
             ListGrid.Columns.GetCol("Name").Width = 200;
             ListGrid.Columns.GetCol("Alamat").Width = 250;
         }
@@ -196,13 +270,15 @@ namespace btr.distrib.PurchaseContext.SupplierAgg
 
     public class SupplierFormGridDto
     {
-        public SupplierFormGridDto(string id, string name, string alamat)
+        public SupplierFormGridDto(string id, string code,  string name, string alamat)
         {
             Id = id;
+            Code = code;
             Name = name;
             Alamat = alamat;
         }
         public string Id { get; }
+        public string Code { get; }
         public string Name { get; }
         public string Alamat { get; }
     }

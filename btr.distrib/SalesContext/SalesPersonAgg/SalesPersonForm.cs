@@ -11,6 +11,9 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using btr.domain.SalesContext.WilayahAgg;
+using btr.distrib.InventoryContext.BrgAgg;
+using btr.domain.BrgContext.BrgAgg;
+using ClosedXML.Excel;
 
 namespace btr.distrib.SalesContext.SalesPersonAgg
 {
@@ -64,6 +67,59 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
             ListGrid.CellDoubleClick += ListGrid_CellDoubleClick;
 
             NewButton.Click += NewButton_Click;
+            ExcelButton.Click += ExcelButton_Click;
+        }
+        private void ExcelButton_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show(@"Export to Excel?", @"Confirmation", MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
+
+            var listSales = _salesPersonDal.ListData()?.ToList() ?? new List<SalesPersonModel>();
+
+            string filePath;
+            using (var saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = @"Excel Files|*.xlsx";
+                saveFileDialog.Title = @"Save Excel File";
+                saveFileDialog.DefaultExt = "xlsx";
+                saveFileDialog.AddExtension = true;
+                saveFileDialog.FileName = $"salesperson-info-{DateTime.Now:yyyy-MM-dd-HHmm}";
+                if (saveFileDialog.ShowDialog() != DialogResult.OK)
+                    return;
+                filePath = saveFileDialog.FileName;
+            }
+
+            using (IXLWorkbook wb = new XLWorkbook())
+            {
+                wb.AddWorksheet("salesperson-info")
+                    .Cell($"B1")
+                    .InsertTable(listSales, false);
+                var ws = wb.Worksheets.First();
+                //  add row number at column A
+                ws.Cell("A1").Value = "No";
+                for (var i = 0; i < listSales.Count; i++)
+                    ws.Cell($"A{i + 2}").Value = i + 1;
+
+                //  border header
+                ws.Range("A1:F1").Style.Border.BottomBorder = XLBorderStyleValues.Thin;
+                //  font bold header and background color light blue
+                ws.Range("A1:F1").Style.Font.SetBold();
+                ws.Range("A1:F1").Style.Fill.BackgroundColor = XLColor.LightBlue;
+                //  freeze header
+                ws.SheetView.FreezeRows(1);
+                //  border table
+                ws.Range($"A2:F{listSales.Count + 1}").Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                ws.Range($"A1:F{listSales.Count + 1}").Style.Border.InsideBorder = XLBorderStyleValues.Hair;
+
+                ws.Range($"A1:F{listSales.Count + 1}").Style.Font.SetFontName("Lucida Console");
+                ws.Range($"A1:F{listSales.Count + 1}").Style.Font.SetFontSize(9f);
+
+
+                //  auto fit column
+                ws.Columns().AdjustToContents();
+                wb.SaveAs(filePath);
+            }
+            System.Diagnostics.Process.Start(filePath);
         }
 
         private void WilayahButton_Click(object sender, EventArgs e)
@@ -113,12 +169,14 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
 
             _listSalesPerson = listSalesPerson
                 .Select(x => new SalesPersonFormGridDto(x.SalesPersonId,
+                    x.SalesPersonCode,
                     x.SalesPersonName,
                     x.WilayahName)).ToList();
             ListGrid.DataSource = _listSalesPerson;
 
             ListGrid.Columns.SetDefaultCellStyle(Color.PowderBlue);
             ListGrid.Columns.GetCol("Id").Width = 50;
+            ListGrid.Columns.GetCol("Code").Width = 50;
             ListGrid.Columns.GetCol("Name").Width = 100;
             ListGrid.Columns.GetCol("Wilayah").Width = 100;
         }
@@ -207,13 +265,15 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
     }
     public class SalesPersonFormGridDto
     {
-        public SalesPersonFormGridDto(string id, string name, string wilayah)
+        public SalesPersonFormGridDto(string id, string code, string name, string wilayah)
         {
             Id = id;
+            Code = code;
             Name = name;
             Wilayah = wilayah;
         }
         public string Id { get; }
+        public string Code { get; }
         public string Name { get; }
         public string Wilayah { get; }
     }

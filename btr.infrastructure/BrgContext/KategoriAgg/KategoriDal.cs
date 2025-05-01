@@ -22,12 +22,15 @@ namespace btr.infrastructure.BrgContext.KategoriAgg
         public void Insert(KategoriModel model)
         {
             const string sql = @"
-                INSERT INTO BTR_Kategori (KategoriId, KategoriName)
-                VALUES (@KategoriId, @KategoriName)";
+                INSERT INTO BTR_Kategori (KategoriId, KategoriName, Code, SupplierId)
+                VALUES (@KategoriId, @KategoriName, @Code, @SupplierId)";
 
             var dp = new DynamicParameters();
             dp.AddParam("@KategoriId", model.KategoriId, SqlDbType.VarChar);
             dp.AddParam("@KategoriName", model.KategoriName, SqlDbType.VarChar);
+            dp.AddParam("@Code", model.Code, SqlDbType.VarChar);
+            dp.AddParam("@SupplierId", model.SupplierId, SqlDbType.VarChar);
+
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -41,13 +44,17 @@ namespace btr.infrastructure.BrgContext.KategoriAgg
                 UPDATE  
                     BTR_Kategori 
                 SET     
-                    KategoriName = @KategoriName
+                    KategoriName = @KategoriName,
+                    Code = @Code,
+                    SupplierId = @SupplierId
                 WHERE
                     KategoriId= @KategoriId ";
 
             var dp = new DynamicParameters();
             dp.AddParam("@KategoriId", model.KategoriId, SqlDbType.VarChar);
             dp.AddParam("@KategoriName", model.KategoriName, SqlDbType.VarChar);
+            dp.AddParam("@Code", model.Code, SqlDbType.VarChar);
+            dp.AddParam("@SupplierId", model.SupplierId, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -76,11 +83,13 @@ namespace btr.infrastructure.BrgContext.KategoriAgg
         {
             const string sql = @"
                 SELECT
-                    KategoriId, KategoriName
+                    aa.KategoriId, aa.KategoriName, aa.Code, aa.SupplierId,
+                    ISNULL(SupplierName,' ') SupplierName
                 FROM
-                    BTR_Kategori 
+                    BTR_Kategori  aa
+                LEFT JOIN BTR_Supplier bb ON aa.SupplierId = bb.SupplierId
                 WHERE
-                    KategoriId= @KategoriId ";
+                    aa.KategoriId= @KategoriId ";
 
             var dp = new DynamicParameters();
             dp.AddParam("@KategoriId", key.KategoriId, SqlDbType.VarChar);
@@ -95,9 +104,11 @@ namespace btr.infrastructure.BrgContext.KategoriAgg
         {
             const string sql = @"
                 SELECT
-                    KategoriId, KategoriName
+                    aa.KategoriId, aa.KategoriName, aa.Code, aa.SupplierId,
+                    ISNULL(SupplierName,' ') SupplierName
                 FROM
-                    BTR_Kategori  ";
+                    BTR_Kategori  aa
+                LEFT JOIN BTR_Supplier bb ON aa.SupplierId = bb.SupplierId ";
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {

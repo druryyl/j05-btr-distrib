@@ -46,6 +46,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.NewButton = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
+            this.ExcelButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ListGrid)).BeginInit();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -60,7 +61,7 @@
             // 
             // SearchButton
             // 
-            this.SearchButton.Location = new System.Drawing.Point(232, 310);
+            this.SearchButton.Location = new System.Drawing.Point(161, 311);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(75, 23);
             this.SearchButton.TabIndex = 4;
@@ -71,7 +72,7 @@
             // 
             this.SearchText.Location = new System.Drawing.Point(8, 311);
             this.SearchText.Name = "SearchText";
-            this.SearchText.Size = new System.Drawing.Size(219, 22);
+            this.SearchText.Size = new System.Drawing.Size(147, 22);
             this.SearchText.TabIndex = 3;
             // 
             // panel2
@@ -200,7 +201,7 @@
             // NewButton
             // 
             this.NewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.NewButton.Location = new System.Drawing.Point(309, 309);
+            this.NewButton.Location = new System.Drawing.Point(381, 310);
             this.NewButton.Name = "NewButton";
             this.NewButton.Size = new System.Drawing.Size(75, 23);
             this.NewButton.TabIndex = 14;
@@ -217,12 +218,22 @@
             this.SaveButton.Text = "Save";
             this.SaveButton.UseVisualStyleBackColor = true;
             // 
+            // ExcelButton
+            // 
+            this.ExcelButton.Location = new System.Drawing.Point(242, 311);
+            this.ExcelButton.Name = "ExcelButton";
+            this.ExcelButton.Size = new System.Drawing.Size(61, 23);
+            this.ExcelButton.TabIndex = 49;
+            this.ExcelButton.Text = "Excel";
+            this.ExcelButton.UseVisualStyleBackColor = true;
+            // 
             // SalesPersonForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SteelBlue;
             this.ClientSize = new System.Drawing.Size(549, 345);
+            this.Controls.Add(this.ExcelButton);
             this.Controls.Add(this.NewButton);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.panel2);
@@ -260,5 +271,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button NewButton;
         private System.Windows.Forms.Button SaveButton;
+        private System.Windows.Forms.Button ExcelButton;
     }
 }

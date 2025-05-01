@@ -64,6 +64,7 @@
             this.SupplierNameText = new System.Windows.Forms.TextBox();
             this.SupplierButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
+            this.ExcelButton = new System.Windows.Forms.Button();
             this.MainTab.SuspendLayout();
             this.ListPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ListGrid)).BeginInit();
@@ -86,6 +87,7 @@
             // 
             // ListPage
             // 
+            this.ListPage.Controls.Add(this.ExcelButton);
             this.ListPage.Controls.Add(this.SearchButton);
             this.ListPage.Controls.Add(this.SearchText);
             this.ListPage.Controls.Add(this.ListGrid);
@@ -100,7 +102,7 @@
             // SearchButton
             // 
             this.SearchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SearchButton.Location = new System.Drawing.Point(629, 407);
+            this.SearchButton.Location = new System.Drawing.Point(556, 408);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(75, 23);
             this.SearchButton.TabIndex = 8;
@@ -113,7 +115,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.SearchText.Location = new System.Drawing.Point(6, 409);
             this.SearchText.Name = "SearchText";
-            this.SearchText.Size = new System.Drawing.Size(617, 22);
+            this.SearchText.Size = new System.Drawing.Size(544, 22);
             this.SearchText.TabIndex = 7;
             // 
             // ListGrid
@@ -212,7 +214,7 @@
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(9, 10);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(60, 13);
+            this.label12.Size = new System.Drawing.Size(59, 13);
             this.label12.TabIndex = 31;
             this.label12.Text = "No.Telpon";
             // 
@@ -415,6 +417,16 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Suppier ID";
             // 
+            // ExcelButton
+            // 
+            this.ExcelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ExcelButton.Location = new System.Drawing.Point(637, 408);
+            this.ExcelButton.Name = "ExcelButton";
+            this.ExcelButton.Size = new System.Drawing.Size(67, 23);
+            this.ExcelButton.TabIndex = 9;
+            this.ExcelButton.Text = "Excel";
+            this.ExcelButton.UseVisualStyleBackColor = true;
+            // 
             // SupplierForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -480,5 +492,6 @@
         private System.Windows.Forms.TextBox NoFaxText;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox NoTelponText;
+        private System.Windows.Forms.Button ExcelButton;
     }
 }

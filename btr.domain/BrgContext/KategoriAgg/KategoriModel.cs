@@ -9,5 +9,8 @@
 
         public string KategoriId { get; set; }
         public string KategoriName { get; set; }
+        public string Code { get; set; }
+        public string SupplierId { get; set; }
+        public string SupplierName { get; set; }
     }
 }

@@ -33,7 +33,7 @@
             this.SearchButton = new System.Windows.Forms.Button();
             this.SearchText = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.BrgCodeText = new System.Windows.Forms.TextBox();
+            this.KategoriCodeText = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.KategoriIdText = new System.Windows.Forms.TextBox();
             this.KategoriNameText = new System.Windows.Forms.TextBox();
@@ -41,13 +41,14 @@
             this.label6 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.ListGrid = new System.Windows.Forms.DataGridView();
+            this.ExcelButton = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ListGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // NewButton
             // 
-            this.NewButton.Location = new System.Drawing.Point(318, 311);
+            this.NewButton.Location = new System.Drawing.Point(390, 311);
             this.NewButton.Name = "NewButton";
             this.NewButton.Size = new System.Drawing.Size(75, 23);
             this.NewButton.TabIndex = 59;
@@ -65,7 +66,7 @@
             // 
             // SearchButton
             // 
-            this.SearchButton.Location = new System.Drawing.Point(237, 310);
+            this.SearchButton.Location = new System.Drawing.Point(159, 309);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(75, 23);
             this.SearchButton.TabIndex = 56;
@@ -76,7 +77,7 @@
             // 
             this.SearchText.Location = new System.Drawing.Point(13, 311);
             this.SearchText.Name = "SearchText";
-            this.SearchText.Size = new System.Drawing.Size(219, 22);
+            this.SearchText.Size = new System.Drawing.Size(140, 22);
             this.SearchText.TabIndex = 55;
             // 
             // label3
@@ -88,12 +89,12 @@
             this.label3.TabIndex = 11;
             this.label3.Text = "Code";
             // 
-            // BrgCodeText
+            // KategoriCodeText
             // 
-            this.BrgCodeText.Location = new System.Drawing.Point(12, 107);
-            this.BrgCodeText.Name = "BrgCodeText";
-            this.BrgCodeText.Size = new System.Drawing.Size(205, 22);
-            this.BrgCodeText.TabIndex = 9;
+            this.KategoriCodeText.Location = new System.Drawing.Point(12, 107);
+            this.KategoriCodeText.Name = "KategoriCodeText";
+            this.KategoriCodeText.Size = new System.Drawing.Size(205, 22);
+            this.KategoriCodeText.TabIndex = 9;
             // 
             // label2
             // 
@@ -142,7 +143,7 @@
             this.panel2.BackColor = System.Drawing.Color.PaleTurquoise;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.label3);
-            this.panel2.Controls.Add(this.BrgCodeText);
+            this.panel2.Controls.Add(this.KategoriCodeText);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.KategoriIdText);
             this.panel2.Controls.Add(this.KategoriNameText);
@@ -161,12 +162,22 @@
             this.ListGrid.Size = new System.Drawing.Size(300, 292);
             this.ListGrid.TabIndex = 57;
             // 
+            // ExcelButton
+            // 
+            this.ExcelButton.Location = new System.Drawing.Point(237, 309);
+            this.ExcelButton.Name = "ExcelButton";
+            this.ExcelButton.Size = new System.Drawing.Size(75, 23);
+            this.ExcelButton.TabIndex = 61;
+            this.ExcelButton.Text = "Excel";
+            this.ExcelButton.UseVisualStyleBackColor = true;
+            // 
             // KategoriForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(556, 343);
+            this.Controls.Add(this.ExcelButton);
             this.Controls.Add(this.NewButton);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.SearchButton);
@@ -191,7 +202,7 @@
         private System.Windows.Forms.Button SearchButton;
         private System.Windows.Forms.TextBox SearchText;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox BrgCodeText;
+        private System.Windows.Forms.TextBox KategoriCodeText;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox KategoriIdText;
         private System.Windows.Forms.TextBox KategoriNameText;
@@ -199,5 +210,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.DataGridView ListGrid;
+        private System.Windows.Forms.Button ExcelButton;
     }
 }
