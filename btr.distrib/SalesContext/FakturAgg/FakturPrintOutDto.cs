@@ -27,8 +27,6 @@ namespace btr.distrib.SalesContext.FakturAgg
             DriverName = $"{faktur.DriverName}";
 
             TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
-            Terbilang = $"Terbilang #{Math.Round(faktur.GrandTotal, 0).Eja()} rupiah#";
-            Terbilang = textInfo.ToTitleCase(Terbilang);
             Note = faktur.Note.Trim().Length == 0 ? "" : $"Note: {faktur.Note}";
 
             decimal dppProsen;
@@ -42,6 +40,8 @@ namespace btr.distrib.SalesContext.FakturAgg
                 Ppn = $"{faktur.ListItem.Sum(x => x.PpnRp):N0}";
                 PpnProsen = $"PPN {DecFormatter.ToStr(faktur.ListItem.FirstOrDefault().PpnProsen)}% :";
                 GrandTotal = $"{faktur.GrandTotal:N0}";
+                Terbilang = $"Terbilang #{Math.Round(faktur.GrandTotal, 0).Eja()} rupiah#";
+                Terbilang = textInfo.ToTitleCase(Terbilang);
             }
             else
             {
@@ -53,6 +53,8 @@ namespace btr.distrib.SalesContext.FakturAgg
                 Ppn = $"{faktur.ListItemKlaim.Sum(x => x.PpnRp):N0}";
                 PpnProsen = $"PPN {DecFormatter.ToStr(faktur.ListItemKlaim.FirstOrDefault().PpnProsen)}% :";
                 GrandTotal = $"{faktur.GrandTotalKlaim:N0}";
+                Terbilang = $"Terbilang #{Math.Round(faktur.GrandTotalKlaim, 0).Eja()} rupiah#";
+                Terbilang = textInfo.ToTitleCase(Terbilang);
             }
 
 
