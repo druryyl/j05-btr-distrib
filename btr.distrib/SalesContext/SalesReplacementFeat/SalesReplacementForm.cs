@@ -40,8 +40,8 @@ namespace btr.distrib.SalesContext.SalesReplacementFeat
             _bindingSource = new BindingSource(_listFaktur, null);
             _salesPersonDal = salesPersonDal;
 
-            InitGrid();
             InitCombo();
+            InitGrid();
             InitPeriode();
             RegisterControlEventHandler();
         }
@@ -49,7 +49,9 @@ namespace btr.distrib.SalesContext.SalesReplacementFeat
         private void RegisterControlEventHandler()
         {
             LoadFakturButton.Click += LoadFakturButton_Click;
+            SearchFakturButton.Click += LoadFakturButton_Click;
             ReplaceButton.Click += ReplaceButton_Click;
+
             FakturGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
         }
 
@@ -139,14 +141,12 @@ namespace btr.distrib.SalesContext.SalesReplacementFeat
 
         private void InitPeriode()
         {
-            Periode1DatePicker.Value = DateTime.Now.AddDays(-30);
+            Periode1DatePicker.Value = DateTime.Now.AddDays(-7);
             Periode2DatePicker.Value = DateTime.Now;
         }
 
         private Periode GetPeriode()
         {
-
-
             if (Periode2DatePicker.Value.Subtract(Periode1DatePicker.Value).TotalDays > 31)
                 throw new Exception("Periode tidak boleh lebih dari 1 bulan");
 
@@ -211,10 +211,11 @@ namespace btr.distrib.SalesContext.SalesReplacementFeat
 
         private List<FakturModel> FilterSearch(List<FakturModel> listFaktur, string searchText)
         {
+            searchText = searchText.ToLower();
             return listFaktur
-                .Where(x => x.FakturCode.Contains(searchText) ||
-                            x.CustomerCode.Contains(searchText) ||
-                            x.CustomerName.Contains(searchText))
+                .Where(x => x.FakturCode.ToLower().Contains(searchText) ||
+                            x.CustomerCode.ToLower().Contains(searchText) ||
+                            x.CustomerName.ToLower().Contains(searchText))
                 .ToList();
         }
 
