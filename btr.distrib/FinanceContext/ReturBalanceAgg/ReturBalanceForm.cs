@@ -133,7 +133,6 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
             ListReturGrid.TableDescriptor.Columns["Sales"].Width = 70;
             ListReturGrid.TableDescriptor.Columns["GrandTotal"].Width = 70;
             ListReturGrid.TableDescriptor.Columns["Posting"].Width = 70;
-
         }
 
         private void InitGridReturItem()
@@ -143,8 +142,6 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
             ListReturItemGrid.TableDescriptor.AllowEdit = false;
             ListReturItemGrid.TableDescriptor.AllowNew = false;
             ListReturItemGrid.TableDescriptor.AllowRemove = false;
-
-            //ListReturItemGrid.TableDescriptor.VisibleColumns.Remove("BrgId");
 
             ListReturItemGrid.TableDescriptor.Columns["No"].Width = 30;
             ListReturItemGrid.TableDescriptor.Columns["BrgCode"].Width = 70;
@@ -261,6 +258,7 @@ namespace btr.distrib.FinanceContext.ReturBalanceAgg
                 ?? new List<FakturPotDetilViewDto>();
 
             //  ambil available faktur-pot
+            //  TODO: Hilangkan IsHeapFaktur, ubah jadi Cash-Out untuk meng-balance-kan retur       
             var listFakturPot = _fakturPotBalanceDal.ListData(returBalance)?.ToList()
                 ?? new List<FakturPotBalanceModel>();
             var listAvailable = listFakturPot
