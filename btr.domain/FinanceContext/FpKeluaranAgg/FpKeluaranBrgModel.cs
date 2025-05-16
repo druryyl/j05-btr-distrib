@@ -30,7 +30,7 @@ namespace btr.domain.FinanceContext.FpKeluaranAgg
         {
             const string BRG_JASA = "A";
             const string SATUAN_UKUR = "UM.0021";
-            const string KODE_BRG_JASA = "";
+            const string KODE_BRG_JASA = "000000";
 
             FakturId = item.FakturId;
             BarangJasa = BRG_JASA;
