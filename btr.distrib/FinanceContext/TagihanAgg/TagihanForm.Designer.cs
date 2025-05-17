@@ -107,7 +107,7 @@
             // LastIdLabel
             // 
             this.LastIdLabel.AutoSize = true;
-            this.LastIdLabel.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LastIdLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LastIdLabel.ForeColor = System.Drawing.Color.DimGray;
             this.LastIdLabel.Location = new System.Drawing.Point(3, 438);
             this.LastIdLabel.Name = "LastIdLabel";
@@ -169,7 +169,7 @@
             // SalesRuteCombo
             // 
             this.SalesRuteCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.SalesRuteCombo.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SalesRuteCombo.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SalesRuteCombo.FormattingEnabled = true;
             this.SalesRuteCombo.Location = new System.Drawing.Point(7, 48);
             this.SalesRuteCombo.Name = "SalesRuteCombo";
@@ -179,7 +179,7 @@
             // SalesCombo
             // 
             this.SalesCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.SalesCombo.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SalesCombo.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SalesCombo.FormattingEnabled = true;
             this.SalesCombo.Location = new System.Drawing.Point(7, 21);
             this.SalesCombo.Name = "SalesCombo";

@@ -167,7 +167,7 @@
             // BalanceTextBox
             // 
             this.BalanceTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.BalanceTextBox.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BalanceTextBox.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BalanceTextBox.Location = new System.Drawing.Point(424, 276);
             this.BalanceTextBox.Name = "BalanceTextBox";
             this.BalanceTextBox.ReadOnly = true;
@@ -178,7 +178,7 @@
             // TotalReturTextBox
             // 
             this.TotalReturTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.TotalReturTextBox.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalReturTextBox.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalReturTextBox.Location = new System.Drawing.Point(424, 250);
             this.TotalReturTextBox.Name = "TotalReturTextBox";
             this.TotalReturTextBox.ReadOnly = true;
@@ -248,7 +248,7 @@
             // JenisReturText
             // 
             this.JenisReturText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.JenisReturText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.JenisReturText.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.JenisReturText.Location = new System.Drawing.Point(453, 29);
             this.JenisReturText.Name = "JenisReturText";
             this.JenisReturText.ReadOnly = true;
@@ -258,7 +258,7 @@
             // SalesText
             // 
             this.SalesText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.SalesText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SalesText.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SalesText.Location = new System.Drawing.Point(355, 29);
             this.SalesText.Name = "SalesText";
             this.SalesText.ReadOnly = true;
@@ -268,7 +268,7 @@
             // CustomerAddressText
             // 
             this.CustomerAddressText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.CustomerAddressText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CustomerAddressText.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CustomerAddressText.Location = new System.Drawing.Point(159, 57);
             this.CustomerAddressText.Name = "CustomerAddressText";
             this.CustomerAddressText.ReadOnly = true;
@@ -278,7 +278,7 @@
             // CustomerNameText
             // 
             this.CustomerNameText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.CustomerNameText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CustomerNameText.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CustomerNameText.Location = new System.Drawing.Point(6, 57);
             this.CustomerNameText.Name = "CustomerNameText";
             this.CustomerNameText.ReadOnly = true;
@@ -288,7 +288,7 @@
             // ReturJualDateText
             // 
             this.ReturJualDateText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ReturJualDateText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ReturJualDateText.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReturJualDateText.Location = new System.Drawing.Point(230, 29);
             this.ReturJualDateText.Name = "ReturJualDateText";
             this.ReturJualDateText.ReadOnly = true;
@@ -298,7 +298,7 @@
             // ReturJualCodeText
             // 
             this.ReturJualCodeText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ReturJualCodeText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ReturJualCodeText.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReturJualCodeText.Location = new System.Drawing.Point(132, 29);
             this.ReturJualCodeText.Name = "ReturJualCodeText";
             this.ReturJualCodeText.ReadOnly = true;
@@ -308,7 +308,7 @@
             // ReturJualIdText
             // 
             this.ReturJualIdText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ReturJualIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ReturJualIdText.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReturJualIdText.Location = new System.Drawing.Point(6, 29);
             this.ReturJualIdText.Name = "ReturJualIdText";
             this.ReturJualIdText.ReadOnly = true;
