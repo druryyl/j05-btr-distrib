@@ -19,8 +19,8 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
         IPiutangBuilder Customer(ICustomerKey customerKey);
         IPiutangBuilder PiutangDate(DateTime dateTime);
         IPiutangBuilder DueDate(DateTime dateTime);
-        IPiutangBuilder AddPlusElement(PiutangElementEnum elementTag, decimal value);
-        IPiutangBuilder AddMinusElement(PiutangElementEnum elementTag, decimal value);
+        IPiutangBuilder AddPlusElement(PiutangElementEnum elementTag, decimal value, DateTime elementDate);
+        IPiutangBuilder AddMinusElement(PiutangElementEnum elementTag, decimal value, DateTime elementDate);
         IPiutangBuilder ClearElement();
         IPiutangBuilder AddLunasCash(decimal value, DateTime lunasDate, string tagihanId);
         IPiutangBuilder AddLunasBg(decimal value, DateTime lunasDate, string tagihanId, DateTime jatuhTempo, string namaBank, string noRek, string atasNama);
@@ -108,7 +108,7 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
             return this;
         }
 
-        public IPiutangBuilder AddPlusElement(PiutangElementEnum elementTag, decimal value)
+        public IPiutangBuilder AddPlusElement(PiutangElementEnum elementTag, decimal value, DateTime elementDate)
         {
             if (value == 0)
                 return this;
@@ -123,13 +123,14 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
                 ElementTag = elementTag,
                 ElementName = elementTag.ToString(),
                 NilaiPlus = value,
+                ElementDate = elementDate,
             };
             _aggregate.ListElement.Add(newElement);
             ReCalc();
             return this;
         }
 
-        public IPiutangBuilder AddMinusElement(PiutangElementEnum elementTag, decimal value)
+        public IPiutangBuilder AddMinusElement(PiutangElementEnum elementTag, decimal value, DateTime elementDate)
         {
             if (value == 0)
                 return this;
@@ -143,6 +144,7 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
                 ElementTag = elementTag,
                 ElementName = elementTag.ToString(),
                 NilaiMinus = value,
+                ElementDate = elementDate,
             };
             _aggregate.ListElement.Add(newElement);
             return this;

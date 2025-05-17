@@ -48,7 +48,8 @@
             // 
             // NewButton
             // 
-            this.NewButton.Location = new System.Drawing.Point(390, 311);
+            this.NewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.NewButton.Location = new System.Drawing.Point(422, 331);
             this.NewButton.Name = "NewButton";
             this.NewButton.Size = new System.Drawing.Size(75, 23);
             this.NewButton.TabIndex = 59;
@@ -57,7 +58,8 @@
             // 
             // SaveButton
             // 
-            this.SaveButton.Location = new System.Drawing.Point(471, 311);
+            this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.SaveButton.Location = new System.Drawing.Point(503, 331);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
             this.SaveButton.TabIndex = 58;
@@ -66,7 +68,8 @@
             // 
             // SearchButton
             // 
-            this.SearchButton.Location = new System.Drawing.Point(159, 309);
+            this.SearchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.SearchButton.Location = new System.Drawing.Point(159, 329);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(75, 23);
             this.SearchButton.TabIndex = 56;
@@ -75,7 +78,8 @@
             // 
             // SearchText
             // 
-            this.SearchText.Location = new System.Drawing.Point(13, 311);
+            this.SearchText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.SearchText.Location = new System.Drawing.Point(13, 331);
             this.SearchText.Name = "SearchText";
             this.SearchText.Size = new System.Drawing.Size(140, 22);
             this.SearchText.TabIndex = 55;
@@ -140,6 +144,8 @@
             // 
             // panel2
             // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.PaleTurquoise;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.label3);
@@ -149,22 +155,26 @@
             this.panel2.Controls.Add(this.KategoriNameText);
             this.panel2.Controls.Add(this.KategoriButton);
             this.panel2.Controls.Add(this.label6);
-            this.panel2.Location = new System.Drawing.Point(318, 12);
+            this.panel2.Location = new System.Drawing.Point(344, 6);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(228, 292);
+            this.panel2.Size = new System.Drawing.Size(239, 319);
             this.panel2.TabIndex = 60;
             // 
             // ListGrid
             // 
+            this.ListGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ListGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ListGrid.Location = new System.Drawing.Point(12, 12);
+            this.ListGrid.Location = new System.Drawing.Point(6, 6);
             this.ListGrid.Name = "ListGrid";
-            this.ListGrid.Size = new System.Drawing.Size(300, 292);
+            this.ListGrid.Size = new System.Drawing.Size(332, 319);
             this.ListGrid.TabIndex = 57;
             // 
             // ExcelButton
             // 
-            this.ExcelButton.Location = new System.Drawing.Point(237, 309);
+            this.ExcelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ExcelButton.Location = new System.Drawing.Point(237, 329);
             this.ExcelButton.Name = "ExcelButton";
             this.ExcelButton.Size = new System.Drawing.Size(75, 23);
             this.ExcelButton.TabIndex = 61;
@@ -176,7 +186,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
-            this.ClientSize = new System.Drawing.Size(556, 343);
+            this.ClientSize = new System.Drawing.Size(588, 363);
             this.Controls.Add(this.ExcelButton);
             this.Controls.Add(this.NewButton);
             this.Controls.Add(this.SaveButton);

@@ -1,6 +1,7 @@
 ﻿using System;
 using btr.application.FinanceContext.PiutangAgg.Workers;
 using btr.application.SalesContext.FakturAgg.Workers;
+using btr.application.SupportContext.TglJamAgg;
 using btr.domain.FinanceContext.PiutangAgg;
 using btr.domain.SalesContext.FakturAgg;
 using btr.nuna.Application;
@@ -34,12 +35,15 @@ namespace btr.application.FinanceContext.PiutangAgg.UseCases
     {
         private readonly IPiutangBuilder _piutangBuilder;
         private readonly IPiutangWriter _piutangWriter;
+        private readonly ITglJamDal _dateTime;
 
-        public AddLunasPiutangWorker(IPiutangBuilder builder, 
-            IPiutangWriter piutangWriter)
+        public AddLunasPiutangWorker(IPiutangBuilder builder,
+            IPiutangWriter piutangWriter,
+            ITglJamDal dateTime)
         {
             _piutangBuilder = builder;
             _piutangWriter = piutangWriter;
+            _dateTime = dateTime;
         }
 
         public void Execute(AddLunasPiutangRequest req)
@@ -50,10 +54,10 @@ namespace btr.application.FinanceContext.PiutangAgg.UseCases
             piutang.ListElement.RemoveAll(x => x.NoUrut > 1);
             piutang = _piutangBuilder
                 .Attach(piutang)
-                .AddMinusElement(PiutangElementEnum.Retur, req.Retur)
-                .AddMinusElement(PiutangElementEnum.Potongan, req.Potongan)
-                .AddMinusElement(PiutangElementEnum.Materai, req.Materai)
-                .AddMinusElement(PiutangElementEnum.Admin, req.Admin)
+                .AddMinusElement(PiutangElementEnum.Retur, req.Retur, _dateTime.Now)
+                .AddMinusElement(PiutangElementEnum.Potongan, req.Potongan, _dateTime.Now)
+                .AddMinusElement(PiutangElementEnum.Materai, req.Materai, _dateTime.Now)
+                .AddMinusElement(PiutangElementEnum.Admin, req.Admin, _dateTime.Now)
                 .Build();
 
             if (req.Nilai != 0)

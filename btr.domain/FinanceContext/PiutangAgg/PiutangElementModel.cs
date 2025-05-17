@@ -1,4 +1,6 @@
-﻿namespace btr.domain.FinanceContext.PiutangAgg
+﻿using System;
+
+namespace btr.domain.FinanceContext.PiutangAgg
 {
     public class PiutangElementModel
     {
@@ -8,5 +10,6 @@
         public PiutangElementEnum ElementTag { get; set; }
         public decimal NilaiPlus { get; set; }
         public decimal NilaiMinus { get; set; }
-    }
+        public DateTime ElementDate {get; set; }
+}
 }
