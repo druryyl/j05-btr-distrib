@@ -3,8 +3,6 @@ using btr.distrib.InventoryContext.KategoriAgg;
 using btr.distrib.InventoryContext.OpnameAgg;
 using btr.distrib.InventoryContext.PackingAgg;
 using btr.distrib.InventoryContext.WarehouseAgg;
-using btr.distrib.PrintDocs;
-using btr.distrib.PurchaseContext.PurchaseOrderAgg;
 using btr.distrib.PurchaseContext.SupplierAgg;
 using btr.distrib.SalesContext.CustomerAgg;
 using btr.distrib.SalesContext.FakturAgg;
@@ -36,7 +34,6 @@ using btr.distrib.FinanceContext.PenerimaanPelunasanSalesRpt;
 using btr.distrib.InventoryContext.StokBrgSupplierRpt;
 using btr.distrib.SalesContext.FakturPerSupplierRpt;
 using btr.distrib.SalesContext.FakturPerCustomerRpt;
-using btr.application.PurchaseContext.InvoiceHarianDetilRpt;
 using btr.distrib.FinanceContext.TagihanAgg;
 using btr.distrib.PurchaseContext.InvoiceHarianDetilRpt;
 using btr.distrib.InventoryContext.AdjustmentAgg;
@@ -46,8 +43,6 @@ using btr.distrib.InventoryContext.ReturJualRpt;
 using btr.distrib.FinanceContext.ReturBalanceAgg;
 using btr.distrib.SalesContext.DriverFakturRpt;
 using btr.distrib.InventoryContext.DriverAgg;
-using btr.application.InventoryContext.StokAgg;
-using DocumentFormat.OpenXml.Drawing.Charts;
 using btr.distrib.FinanceContext.FpKeluaranAgg;
 using btr.distrib.InventoryContext.StokPeriodikRpt;
 using btr.distrib.PurchaseContext.PostingStokAgg;
@@ -185,16 +180,6 @@ namespace btr.distrib.SharedForm
             if (BringMdiChildToFrontIfLoaded<WilayahForm>())
                 return;
             var form = ThisServicesProvider.GetRequiredService<WilayahForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void PoButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<PurchaseOrderForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<PurchaseOrderForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

@@ -95,6 +95,8 @@
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceDiscModel.cs" />
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceItemModel.cs" />
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceModel.cs" />
+    <Compile Include="PurchaseContext\ReturBeliFeature\IReturBeliKey.cs" />
+    <Compile Include="PurchaseContext\ReturBeliFeature\ReturBeliModel.cs" />
     <Compile Include="SalesContext\AlokasiFpAgg\AlokasiFpItemModel.cs" />
     <Compile Include="SalesContext\AlokasiFpAgg\IAlokasiFpKey.cs" />
     <Compile Include="SalesContext\EFakturAgg\EFakturModel.cs" />
