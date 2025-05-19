@@ -234,6 +234,9 @@
     <Compile Include="PurchaseContext\PurchaseOrderAgg\Workers\PurchaseOrderBuilder.cs" />
     <Compile Include="PurchaseContext\PurchaseOrderAgg\Workers\PurchaseOrderValidator.cs" />
     <Compile Include="PurchaseContext\PurchaseOrderAgg\Workers\PurchaseOrderWriter.cs" />
+    <Compile Include="PurchaseContext\ReturBeliFeature\IReturBeliDal.cs" />
+    <Compile Include="PurchaseContext\ReturBeliFeature\IReturBeliDiscDal.cs" />
+    <Compile Include="PurchaseContext\ReturBeliFeature\IReturBeliItemDal.cs" />
     <Compile Include="PurchaseContext\SupplierAgg\Contracts\ISupplierDal.cs" />
     <Compile Include="PurchaseContext\SupplierAgg\UseCases\GetSupplierQuery.cs" />
     <Compile Include="PurchaseContext\SupplierAgg\UseCases\ListSupplierQuery.cs" />

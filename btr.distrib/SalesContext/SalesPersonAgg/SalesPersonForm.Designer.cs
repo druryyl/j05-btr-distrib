@@ -53,15 +53,19 @@
             // 
             // ListGrid
             // 
+            this.ListGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ListGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ListGrid.Location = new System.Drawing.Point(7, 12);
+            this.ListGrid.Location = new System.Drawing.Point(6, 6);
             this.ListGrid.Name = "ListGrid";
-            this.ListGrid.Size = new System.Drawing.Size(300, 292);
+            this.ListGrid.Size = new System.Drawing.Size(354, 330);
             this.ListGrid.TabIndex = 5;
             // 
             // SearchButton
             // 
-            this.SearchButton.Location = new System.Drawing.Point(161, 311);
+            this.SearchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.SearchButton.Location = new System.Drawing.Point(161, 342);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(75, 23);
             this.SearchButton.TabIndex = 4;
@@ -70,13 +74,16 @@
             // 
             // SearchText
             // 
-            this.SearchText.Location = new System.Drawing.Point(8, 311);
+            this.SearchText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.SearchText.Location = new System.Drawing.Point(8, 342);
             this.SearchText.Name = "SearchText";
             this.SearchText.Size = new System.Drawing.Size(147, 22);
             this.SearchText.TabIndex = 3;
             // 
             // panel2
             // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.AliceBlue;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.WilayahIdText);
@@ -91,9 +98,9 @@
             this.panel2.Controls.Add(this.SalesPersonNameText);
             this.panel2.Controls.Add(this.SalesPersonButton);
             this.panel2.Controls.Add(this.label6);
-            this.panel2.Location = new System.Drawing.Point(313, 12);
+            this.panel2.Location = new System.Drawing.Point(366, 6);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(228, 292);
+            this.panel2.Size = new System.Drawing.Size(231, 329);
             this.panel2.TabIndex = 48;
             // 
             // WilayahIdText
@@ -133,7 +140,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(3, 270);
+            this.checkBox1.Location = new System.Drawing.Point(15, 202);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(61, 17);
             this.checkBox1.TabIndex = 12;
@@ -201,7 +208,7 @@
             // NewButton
             // 
             this.NewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.NewButton.Location = new System.Drawing.Point(381, 310);
+            this.NewButton.Location = new System.Drawing.Point(435, 341);
             this.NewButton.Name = "NewButton";
             this.NewButton.Size = new System.Drawing.Size(75, 23);
             this.NewButton.TabIndex = 14;
@@ -211,7 +218,7 @@
             // SaveButton
             // 
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveButton.Location = new System.Drawing.Point(462, 310);
+            this.SaveButton.Location = new System.Drawing.Point(516, 341);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
             this.SaveButton.TabIndex = 13;
@@ -220,7 +227,8 @@
             // 
             // ExcelButton
             // 
-            this.ExcelButton.Location = new System.Drawing.Point(242, 311);
+            this.ExcelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ExcelButton.Location = new System.Drawing.Point(242, 342);
             this.ExcelButton.Name = "ExcelButton";
             this.ExcelButton.Size = new System.Drawing.Size(61, 23);
             this.ExcelButton.TabIndex = 49;
@@ -232,7 +240,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SteelBlue;
-            this.ClientSize = new System.Drawing.Size(549, 345);
+            this.ClientSize = new System.Drawing.Size(603, 376);
             this.Controls.Add(this.ExcelButton);
             this.Controls.Add(this.NewButton);
             this.Controls.Add(this.SaveButton);

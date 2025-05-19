@@ -178,7 +178,7 @@ namespace btr.distrib.SalesContext.FakturPerSupplierRpt
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair);
                 
-                //  set format row data: font consolas 9, border medium, border inside hair
+                //  set format row data: font Lucida Console 9, border medium, border inside hair
                 ws.Range(ws.Cell("A2"), ws.Cell($"AA{listToExcel.Count + 1}")).Style
                     .Font.SetFontName("Lucida Console")
                     .Font.SetFontSize(9)

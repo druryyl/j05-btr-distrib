@@ -89,7 +89,7 @@
             // 
             // DriverIdText
             // 
-            this.DriverIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DriverIdText.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DriverIdText.Location = new System.Drawing.Point(12, 25);
             this.DriverIdText.Name = "DriverIdText";
             this.DriverIdText.Size = new System.Drawing.Size(177, 22);

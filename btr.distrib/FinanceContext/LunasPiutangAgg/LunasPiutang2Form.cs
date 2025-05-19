@@ -18,6 +18,7 @@ using btr.application.SalesContext.FakturAgg.Contracts;
 using Polly;
 using btr.application.FinanceContext.TagihanAgg;
 using btr.application.FinanceContext.FakturPotBalanceAgg;
+using btr.application.SupportContext.TglJamAgg;
 
 namespace btr.distrib.FinanceContext.LunasPiutangAgg
 {
@@ -31,6 +32,7 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
         private readonly IFakturPotBalanceBuilder _fakturPotBalanceBuilder;
         private readonly IFakturPotBalanceWriter _fakturPotBalanceWriter;
         private readonly IFakturDal _fakturDal;
+        private readonly ITglJamDal _dateTime;
         
         private BindingList<PiutangLunasView> _listPiutangLunasView;
         private BindingList<LunasPiutangBayarView> _listLunasPiutangBayar;
@@ -44,7 +46,8 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             IPiutangWriter piutangWriter,
             ITagihanFakturDal tagihanFakturDal,
             IFakturPotBalanceBuilder fakturPotBalanceBuilder,
-            IFakturPotBalanceWriter fakturPotBalanceWriter)
+            IFakturPotBalanceWriter fakturPotBalanceWriter,
+            ITglJamDal dateTime)
         {
             InitializeComponent();
 
@@ -62,6 +65,7 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             IniGridBayar();
             InitJenisBayarCombo();
             RegisterEventHandler();
+            _dateTime = dateTime;
         }
 
         private void InitNumericUpDown()
@@ -110,10 +114,10 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             piutang.ListElement.Clear();
             piutang = _piutangBuilder
                 .Attach(piutang)
-                .AddMinusElement(PiutangElementEnum.Retur, 0)
-                .AddMinusElement(PiutangElementEnum.Potongan, 0)
-                .AddPlusElement(PiutangElementEnum.Materai, 0)
-                .AddPlusElement(PiutangElementEnum.Admin, 0)
+                .AddMinusElement(PiutangElementEnum.Retur, 0, _dateTime.Now)
+                .AddMinusElement(PiutangElementEnum.Potongan, 0, _dateTime.Now)
+                .AddPlusElement(PiutangElementEnum.Materai, 0, _dateTime.Now)
+                .AddPlusElement(PiutangElementEnum.Admin, 0, _dateTime.Now)
                 .Build();
             piutang.ListElement.RemoveAll(x => x.NilaiPlus + x.NilaiMinus == 0);
             _piutangWriter.Save(ref piutang);
@@ -129,10 +133,10 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             piutang.ListElement.Clear();
             piutang = _piutangBuilder
                 .Attach(piutang)
-                .AddMinusElement(PiutangElementEnum.Retur, ReturText.Value)
-                .AddMinusElement(PiutangElementEnum.Potongan, PotonganText.Value)
-                .AddMinusElement(PiutangElementEnum.Materai, MateraiText.Value)
-                .AddMinusElement(PiutangElementEnum.Admin, AdminText.Value)
+                .AddMinusElement(PiutangElementEnum.Retur, ReturText.Value, _dateTime.Now)
+                .AddMinusElement(PiutangElementEnum.Potongan, PotonganText.Value, _dateTime.Now)
+                .AddMinusElement(PiutangElementEnum.Materai, MateraiText.Value, _dateTime.Now)
+                .AddMinusElement(PiutangElementEnum.Admin, AdminText.Value, _dateTime.Now)
                 .Build();
             _piutangWriter.Save(ref piutang);
             RefreshGridBayar(piutang);

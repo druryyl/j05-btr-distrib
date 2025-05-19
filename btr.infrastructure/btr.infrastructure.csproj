@@ -141,6 +141,9 @@
     <Compile Include="PurchaseContext\InvoiceInfoRpt\InvoiceViewDal.cs" />
     <Compile Include="PurchaseContext\PurchaseOrderAgg\PurchaseOrderDal.cs" />
     <Compile Include="PurchaseContext\PurchaseOrderAgg\PurchaseOrderItemDal.cs" />
+    <Compile Include="PurchaseContext\ReturBeliFeature\ReturBeliDal.cs" />
+    <Compile Include="PurchaseContext\ReturBeliFeature\ReturBeliDiscDal.cs" />
+    <Compile Include="PurchaseContext\ReturBeliFeature\ReturBeliItemDal.cs" />
     <Compile Include="PurchaseContext\SupplierAgg\SupplierDal.cs" />
     <Compile Include="SalesContext\AlokasiFpAgg\AlokasiFpDal.cs" />
     <Compile Include="SalesContext\AlokasiFpAgg\AlokasiFpItemDal.cs" />

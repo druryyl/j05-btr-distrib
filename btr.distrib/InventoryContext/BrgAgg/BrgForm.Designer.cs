@@ -202,7 +202,7 @@
             // 
             // BrgIdText
             // 
-            this.BrgIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BrgIdText.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BrgIdText.Location = new System.Drawing.Point(12, 25);
             this.BrgIdText.Name = "BrgIdText";
             this.BrgIdText.Size = new System.Drawing.Size(177, 22);
@@ -255,7 +255,7 @@
             // 
             // KategoriIdText
             // 
-            this.KategoriIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.KategoriIdText.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.KategoriIdText.Location = new System.Drawing.Point(12, 134);
             this.KategoriIdText.Name = "KategoriIdText";
             this.KategoriIdText.Size = new System.Drawing.Size(169, 22);
@@ -297,7 +297,7 @@
             // 
             // SupplierIdText
             // 
-            this.SupplierIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SupplierIdText.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SupplierIdText.Location = new System.Drawing.Point(12, 25);
             this.SupplierIdText.Name = "SupplierIdText";
             this.SupplierIdText.Size = new System.Drawing.Size(169, 22);
