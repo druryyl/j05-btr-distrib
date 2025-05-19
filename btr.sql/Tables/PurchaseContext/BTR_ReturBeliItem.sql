@@ -1,0 +1,40 @@
+﻿CREATE TABLE BTR_ReturBeliItem(
+    ReturBeliId VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_ReturBeliId DEFAULT(''),
+    ReturBeliItemId VARCHAR(17) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_ReturBeliItemId DEFAULT(''),
+    NoUrut INT NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_NoUrut DEFAULT(0),
+    BrgId VARCHAR(6) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_BrgId DEFAULT(''),
+
+    HrgInputStr VARCHAR(30) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_HrgInputStr DEFAULT(''),
+    HrgDetilStr VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_HrgDetilStr DEFAULT(''),
+
+    QtyInputStr VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_QtyInputStr DEFAULT(''),
+    QtyDetilStr VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_QtyDetilStr DEFAULT(''),
+    
+    QtyBesar INT NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_QtyBesar DEFAULT(0),
+    SatBesar VARCHAR(10) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_SatBesar DEFAULT(''),
+    Conversion INT NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_Conversion DEFAULT(0),
+    HppSatBesar DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_HppSatBesar DEFAULT(0),
+    
+    QtyKecil INT NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_QtyKecil DEFAULT(0),
+    SatKecil VARCHAR(10) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_SatKecil DEFAULT(''),
+    HppSatKecil DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_HppSatKecil DEFAULT(0),
+    
+    QtyBeli INT NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_QtyJual DEFAULT(0),
+    HppSat DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_HppSat DEFAULT(0),
+    SubTotal DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_SubTotal DEFAULT(0),
+    
+    QtyBonus INT NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_QtyBonus DEFAULT(0),
+    QtyPotStok INT NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_QtyPotStok DEFAULT(0),
+    
+    DiscInputStr VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_DiscInputStr DEFAULT(''),
+    DiscDetilStr VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_DiscDetilStr DEFAULT(''),
+    DiscRp DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_DiscRp DEFAULT(0),
+
+    DppProsen DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_DppProsen DEFAULT(0),
+    DppRp DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_DppRp DEFAULT(0),
+    PpnProsen DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_PpnProsen DEFAULT(0),
+    PpnRp DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_PpnRp DEFAULT(0),
+    Total DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_Total DEFAULT(0),
+    
+    CONSTRAINT PK_BTR_ReturBeliItem PRIMARY KEY CLUSTERED (ReturBeliItemId)
+)
