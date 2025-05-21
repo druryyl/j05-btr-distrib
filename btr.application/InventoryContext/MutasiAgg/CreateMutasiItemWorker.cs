@@ -93,8 +93,8 @@ namespace btr.application.InventoryContext.MutasiAgg
             {
                 item.StokBesar = (int)(stokInPcs / item.Conversion);
                 item.StokKecil = stokInPcs % item.Conversion;
-                item.StokDetilStr = $"{item.QtyBesar} {item.SatBesar}{Environment.NewLine}";
-                item.StokDetilStr += $"{item.QtyKecil} {item.SatKecil}";
+                item.StokDetilStr = $"{item.StokBesar} {item.SatBesar}{Environment.NewLine}";
+                item.StokDetilStr += $"{item.StokKecil} {item.SatKecil}";
             }
             
             item.Hpp = brg.Hpp;
