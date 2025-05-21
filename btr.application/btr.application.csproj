@@ -185,6 +185,7 @@
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokFakturWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokInvoiceWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokMutasiWorker.cs" />
+    <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokReturBeliWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokStokOpWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\GenStokReturJualWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\RemoveEditInvoiceWorker.cs" />
@@ -194,6 +195,7 @@
     <Compile Include="InventoryContext\StokAgg\IStokDal.cs" />
     <Compile Include="InventoryContext\StokAgg\IStokMutasiDal.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\RemoveFifoStokWorker.cs" />
+    <Compile Include="InventoryContext\StokAgg\GenStokUseCase\RemoveEditReturBeliWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\StokBuilder.cs" />
     <Compile Include="InventoryContext\StokAgg\StokValidator.cs" />
     <Compile Include="InventoryContext\StokAgg\StokWriter.cs" />
@@ -227,9 +229,14 @@
     <Compile Include="PurchaseContext\InvoiceHarianDetilRpt\IInvoiceHarianDetilDal.cs" />
     <Compile Include="PurchaseContext\InvoiceInfo\IInvoiceViewDal.cs" />
     <Compile Include="PurchaseContext\InvoiceInfo\InvoiceView.cs" />
+    <Compile Include="PurchaseContext\ReturBeliFeature\CreateReturBeliItemWorker.cs" />
     <Compile Include="PurchaseContext\ReturBeliFeature\IReturBeliDal.cs" />
     <Compile Include="PurchaseContext\ReturBeliFeature\IReturBeliDiscDal.cs" />
     <Compile Include="PurchaseContext\ReturBeliFeature\IReturBeliItemDal.cs" />
+    <Compile Include="PurchaseContext\ReturBeliFeature\ReturBeliBuilder.cs" />
+    <Compile Include="PurchaseContext\ReturBeliFeature\ReturBeliWriter.cs" />
+    <Compile Include="PurchaseContext\ReturBeliFeature\SaveReturBeliWorker.cs" />
+    <Compile Include="PurchaseContext\ReturBeliFeature\VoidReturBeliWorker.cs" />
     <Compile Include="PurchaseContext\SupplierAgg\Contracts\ISupplierDal.cs" />
     <Compile Include="PurchaseContext\SupplierAgg\UseCases\GetSupplierQuery.cs" />
     <Compile Include="PurchaseContext\SupplierAgg\UseCases\ListSupplierQuery.cs" />

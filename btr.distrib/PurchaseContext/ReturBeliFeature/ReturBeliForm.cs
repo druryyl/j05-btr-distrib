@@ -1,19 +1,31 @@
 ﻿using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.WarehouseAgg;
+using btr.application.PurchaseContext.ReturBeliAgg;
 using btr.application.PurchaseContext.SupplierAgg.Contracts;
 using btr.application.SupportContext.ParamSistemAgg;
 using btr.application.SupportContext.TglJamAgg;
 using btr.application.SupportContext.UserAgg;
 using btr.distrib.Browsers;
 using btr.distrib.Helpers;
+using btr.distrib.PurchaseContext.ReturBeliAgg;
+using btr.distrib.SalesContext.FakturAgg;
 using btr.distrib.SharedForm;
+using btr.domain.BrgContext.BrgAgg;
+using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.PurchaseContext.ReturBeliFeature;
+using btr.domain.PurchaseContext.SupplierAgg;
 using btr.domain.SupportContext.ParamSistemAgg;
+using btr.domain.SupportContext.UserAgg;
+using btr.nuna.Domain;
+using Mapster;
+using Microsoft.Reporting.WinForms;
+using Polly;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -24,7 +36,7 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
         private readonly IBrowser<SupplierBrowserView> _supplierBrowser;
         private readonly IBrowser<WarehouseBrowserView> _warehouseBrowser;
         private readonly IBrowser<BrgStokBrowserView> _brgStokBrowser;
-        private readonly IBrowser<ReturBeliBrowserView> _invoiceBrowser;
+        private readonly IBrowser<ReturBeliBrowserView> _returBeliBrowser;
 
         private readonly ISupplierDal _supplierDal;
         private readonly IWarehouseDal _warehouseDal;
@@ -38,24 +50,23 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
         private readonly IVoidReturBeliWorker _voidReturBeliWorker;
 
         private readonly IBrgBuilder _brgBuilder;
-        private readonly IReturBeliBuilder _invoiceBuilder;
-        private readonly IReturBeliPrintDoc _invoicePrinter;
+        private readonly IReturBeliBuilder _returBeliBuilder;
 
         private readonly BindingList<ReturBeliItemDto> _listItem = new BindingList<ReturBeliItemDto>();
         private decimal _ppnProsen;
         private decimal _dppProsen;
 
         public ReturBeliForm(IBrowser<SupplierBrowserView> supplierBrowser, IBrowser<WarehouseBrowserView> warehouseBrowser,
-            IBrowser<BrgStokBrowserView> brgStokBrowser, IBrowser<ReturBeliBrowserView> invoiceBrowser, ISupplierDal supplierDal,
+            IBrowser<BrgStokBrowserView> brgStokBrowser, IBrowser<ReturBeliBrowserView> returBeliBrowser, ISupplierDal supplierDal,
             IWarehouseDal warehouseDal, IBrgDal brgDal, ITglJamDal dateTime, IParamSistemDal paramSistemDal, IUserDal userDal, 
             ICreateReturBeliItemWorker createItemWorker, ISaveReturBeliWorker saveReturBeliWorker, IVoidReturBeliWorker voidReturBeliWorker, 
-            IBrgBuilder brgBuilder, IReturBeliBuilder invoiceBuilder, IReturBeliPrintDoc invoicePrinter)
+            IBrgBuilder brgBuilder, IReturBeliBuilder returBeliBuilder)
         {
             InitializeComponent();
             _supplierBrowser = supplierBrowser;
             _warehouseBrowser = warehouseBrowser;
             _brgStokBrowser = brgStokBrowser;
-            _invoiceBrowser = invoiceBrowser;
+            _returBeliBrowser = returBeliBrowser;
             _supplierDal = supplierDal;
             _warehouseDal = warehouseDal;
             _brgDal = brgDal;
@@ -66,8 +77,7 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
             _saveReturBeliWorker = saveReturBeliWorker;
             _voidReturBeliWorker = voidReturBeliWorker;
             _brgBuilder = brgBuilder;
-            _invoiceBuilder = invoiceBuilder;
-            _invoicePrinter = invoicePrinter;
+            _returBeliBuilder = returBeliBuilder;
         }
 
 
@@ -113,19 +123,19 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
         {
             PrintReturBeliRdlc(ReturBeliIdText.Text);
         }
-        private void PrintReturBeliRdlc(string invoiceId)
+        private void PrintReturBeliRdlc(string returBeliId)
         {
-            var invoice = _invoiceBuilder.Load(new ReturBeliModel(invoiceId)).Build();
-            var supplier = _supplierDal.GetData(invoice);
-            var user = _userDal.GetData(invoice) ?? new UserModel
+            var returBeli = _returBeliBuilder.Load(new ReturBeliModel(returBeliId)).Build();
+            var supplier = _supplierDal.GetData(returBeli);
+            var user = _userDal.GetData(returBeli) ?? new UserModel
             {
-                UserId = invoice.UserId,
-                UserName = invoice.UserId
+                UserId = returBeli.UserId,
+                UserName = returBeli.UserId
             };
-            var invoicePrintOut = new ReturBeliPrintOutDto(invoice, supplier, user);
+            var returBeliPrintOut = new ReturBeliPrintOutDto(returBeli, supplier, user);
 
-            var invoiceDataset = new ReportDataSource("ReturBeliBeliDataset", new List<ReturBeliPrintOutDto> { invoicePrintOut });
-            var invoiceItemDataset = new ReportDataSource("ReturBeliBeliItemDataset", invoicePrintOut.ListItem);
+            var returBeliDataset = new ReportDataSource("ReturBeliBeliDataset", new List<ReturBeliPrintOutDto> { returBeliPrintOut });
+            var returBeliItemDataset = new ReportDataSource("ReturBeliBeliItemDataset", returBeliPrintOut.ListItem);
             var clientId = _paramSistemDal.GetData(new ParamSistemModel("CLIENT_ID"))?.ParamValue ?? string.Empty;
 
             var printOutTemplate = string.Empty;
@@ -143,21 +153,12 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
 
             var listDataset = new List<ReportDataSource>
             {
-                invoiceDataset,
-                invoiceItemDataset
+                returBeliDataset,
+                returBeliItemDataset
             };
             var rdlcViewerForm = new RdlcViewerForm();
             rdlcViewerForm.SetReportData(printOutTemplate, listDataset);
             rdlcViewerForm.ShowDialog();
-        }
-        private void PrintReturBeli(string invoiceId)
-        {
-            var invoice = _invoiceBuilder.Load(new ReturBeliModel(invoiceId)).Build();
-            _invoicePrinter.DefaultPrinter = GetPrinterName();
-            _invoicePrinter.CreateDoc(invoice);
-            _invoicePrinter.PrintDoc();
-
-
         }
         private static string GetPrinterName()
         {
@@ -195,9 +196,9 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
 
         private void ReturBeliButton_Click(object sender, EventArgs e)
         {
-            _invoiceBrowser.Filter.Date = new Periode(_dateTime.Now);
+            _returBeliBrowser.Filter.Date = new Periode(_dateTime.Now);
 
-            ReturBeliIdText.Text = _invoiceBrowser.Browse(ReturBeliIdText.Text);
+            ReturBeliIdText.Text = _returBeliBrowser.Browse(ReturBeliIdText.Text);
             LoadReturBeli();
         }
         private void LoadReturBeli()
@@ -210,35 +211,35 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
                     MessageBox.Show(r.Exception.Message);
                 });
 
-            var invoice = policy.Execute(() => _invoiceBuilder
+            var returBeli = policy.Execute(() => _returBeliBuilder
                 .Load(new ReturBeliModel(textbox.Text))
                 .Build());
-            if (invoice is null) return;
-            if (invoice.IsVoid)
+            if (returBeli is null) return;
+            if (returBeli.IsVoid)
             {
                 MessageBox.Show("ReturBeli sudah dihapus");
                 return;
             }
 
-            invoice.RemoveNull();
-            SupplierNameText.Text = invoice.SupplierName;
-            SupplierIdText.Text = invoice.SupplierId;
+            returBeli.RemoveNull();
+            SupplierNameText.Text = returBeli.SupplierName;
+            SupplierIdText.Text = returBeli.SupplierId;
 
-            ReturBeliDateText.Value = invoice.InvoiceDate;
-            ReturBeliCodeText.Text = invoice.InvoiceCode;
-            WarehouseIdText.Text = invoice.WarehouseId;
-            WarehouseNameText.Text = invoice.WarehouseName;
-            TermOfPaymentCombo.SelectedIndex = (int)invoice.TermOfPayment;
-            DueDateText.Value = invoice.DueDate;
-            TotalText.Value = invoice.Total;
-            DiscountText.Value = invoice.Disc;
-            TaxText.Value = invoice.Tax;
-            GrandTotalText.Value = invoice.GrandTotal;
-            UangMukaText.Value = invoice.UangMuka;
-            SisaText.Value = invoice.KurangBayar;
+            ReturBeliDateText.Value = returBeli.ReturBeliDate;
+            ReturBeliCodeText.Text = returBeli.ReturBeliCode;
+            WarehouseIdText.Text = returBeli.WarehouseId;
+            WarehouseNameText.Text = returBeli.WarehouseName;
+            TermOfPaymentCombo.SelectedIndex = (int)returBeli.TermOfPayment;
+            DueDateText.Value = returBeli.DueDate;
+            TotalText.Value = returBeli.Total;
+            DiscountText.Value = returBeli.Disc;
+            TaxText.Value = returBeli.Tax;
+            GrandTotalText.Value = returBeli.GrandTotal;
+            UangMukaText.Value = returBeli.UangMuka;
+            SisaText.Value = returBeli.KurangBayar;
 
             _listItem.Clear();
-            foreach (var newItem in invoice.ListItem
+            foreach (var newItem in returBeli.ListItem
                 .OrderBy(x => x.NoUrut)
                 .Select(item => item.Adapt<ReturBeliItemDto>()))
             {
@@ -246,8 +247,8 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
                 ValidateRow(_listItem.Count - 1, true);
             }
 
-            if (invoice.IsVoid)
-                ShowAsVoid(invoice);
+            if (returBeli.IsVoid)
+                ShowAsVoid(returBeli);
             else
                 ShowAsActive();
             CalcTotal();
@@ -613,14 +614,14 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
 
             ShowAsActive();
         }
-        private void ShowAsVoid(ReturBeliModel invoice)
+        private void ShowAsVoid(ReturBeliModel returBeli)
         {
             this.BackColor = Color.RosyBrown;
             foreach (var item in this.Controls)
                 if (item is Panel panel)
                     panel.BackColor = Color.MistyRose;
 
-            CancelLabel.Text = $@"ReturBeli sudah DIBATALKAN \noleh {invoice.UserIdVoid} \npada {invoice.VoidDate:ddd, dd MMM yyyy}";
+            CancelLabel.Text = $@"ReturBeli sudah DIBATALKAN \noleh {returBeli.UserIdVoid} \npada {returBeli.VoidDate:ddd, dd MMM yyyy}";
             VoidPanel.Visible = true;
             SaveButton.Visible = false;
         }

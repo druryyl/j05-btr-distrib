@@ -314,6 +314,7 @@
     <Compile Include="Browsers\FakturBrowser.cs" />
     <Compile Include="Browsers\FakturCodeOpenBrowser.cs" />
     <Compile Include="Browsers\FpKeluaranBrowser.cs" />
+    <Compile Include="Browsers\ReturBeliBrowser.cs" />
     <Compile Include="Browsers\InvoiceBrowser.cs" />
     <Compile Include="Browsers\KategoriBrowser.cs" />
     <Compile Include="Browsers\MutasiBrowser.cs" />
@@ -608,6 +609,8 @@
     <Compile Include="PurchaseContext\ReturBeliFeature\ReturBeliForm.Designer.cs">
       <DependentUpon>ReturBeliForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PurchaseContext\ReturBeliFeature\ReturBeliItemDto.cs" />
+    <Compile Include="PurchaseContext\ReturBeliFeature\ReturBeliPrintOutDto.cs" />
     <Compile Include="PurchaseContext\SupplierAgg\SupplierForm.cs">
       <SubType>Form</SubType>
     </Compile>
