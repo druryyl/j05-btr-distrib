@@ -227,13 +227,6 @@
     <Compile Include="PurchaseContext\InvoiceHarianDetilRpt\IInvoiceHarianDetilDal.cs" />
     <Compile Include="PurchaseContext\InvoiceInfo\IInvoiceViewDal.cs" />
     <Compile Include="PurchaseContext\InvoiceInfo\InvoiceView.cs" />
-    <Compile Include="PurchaseContext\PurchaseOrderAgg\Contracts\IPurchaseOrderDal.cs" />
-    <Compile Include="PurchaseContext\PurchaseOrderAgg\Contracts\IPurchaseOrderItemDal.cs" />
-    <Compile Include="PurchaseContext\PurchaseOrderAgg\UseCases\CreatePurchaseOrderCommand.cs" />
-    <Compile Include="PurchaseContext\PurchaseOrderAgg\UseCases\GetPurchaseOrderQuery.cs" />
-    <Compile Include="PurchaseContext\PurchaseOrderAgg\Workers\PurchaseOrderBuilder.cs" />
-    <Compile Include="PurchaseContext\PurchaseOrderAgg\Workers\PurchaseOrderValidator.cs" />
-    <Compile Include="PurchaseContext\PurchaseOrderAgg\Workers\PurchaseOrderWriter.cs" />
     <Compile Include="PurchaseContext\ReturBeliFeature\IReturBeliDal.cs" />
     <Compile Include="PurchaseContext\ReturBeliFeature\IReturBeliDiscDal.cs" />
     <Compile Include="PurchaseContext\ReturBeliFeature\IReturBeliItemDal.cs" />

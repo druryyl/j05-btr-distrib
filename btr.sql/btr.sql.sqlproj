@@ -81,8 +81,6 @@
     <Build Include="Tables\PurchaseContext\BTR_Invoice.sql" />
     <Build Include="Tables\PurchaseContext\BTR_InvoiceDisc.sql" />
     <Build Include="Tables\PurchaseContext\BTR_InvoiceItem.sql" />
-    <Build Include="Tables\PurchaseContext\BTR_PurchaseOrder.sql" />
-    <Build Include="Tables\PurchaseContext\BTR_PurchaseOrderItem.sql" />
     <Build Include="Tables\PurchaseContext\BTR_Supplier.sql" />
     <Build Include="Tables\SalesContext\BTR_Customer.sql" />
     <Build Include="Tables\SalesContext\BTR_Faktur.sql" />

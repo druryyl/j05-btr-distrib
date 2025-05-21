@@ -139,8 +139,6 @@
     <Compile Include="PurchaseContext\InvoiceHarianDetilRpt\InvoiceHarianDetilDal.cs" />
     <Compile Include="PurchaseContext\InvoiceInfoRpt\InvoiceBrgViewDal.cs" />
     <Compile Include="PurchaseContext\InvoiceInfoRpt\InvoiceViewDal.cs" />
-    <Compile Include="PurchaseContext\PurchaseOrderAgg\PurchaseOrderDal.cs" />
-    <Compile Include="PurchaseContext\PurchaseOrderAgg\PurchaseOrderItemDal.cs" />
     <Compile Include="PurchaseContext\ReturBeliFeature\ReturBeliDal.cs" />
     <Compile Include="PurchaseContext\ReturBeliFeature\ReturBeliDiscDal.cs" />
     <Compile Include="PurchaseContext\ReturBeliFeature\ReturBeliItemDal.cs" />

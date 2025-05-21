@@ -602,6 +602,12 @@
     <Compile Include="PurchaseContext\PostingStokAgg\PostingStokForm.Designer.cs">
       <DependentUpon>PostingStokForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PurchaseContext\ReturBeliFeature\ReturBeliForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PurchaseContext\ReturBeliFeature\ReturBeliForm.Designer.cs">
+      <DependentUpon>ReturBeliForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="PurchaseContext\SupplierAgg\SupplierForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -928,6 +934,9 @@
     <EmbeddedResource Include="PurchaseContext\PostingStokAgg\PostingStokForm.resx">
       <DependentUpon>PostingStokForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PurchaseContext\ReturBeliFeature\ReturBeliForm.resx">
+      <DependentUpon>ReturBeliForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReportingContext\CustomerChartRpt.resx">
       <DependentUpon>CustomerChartRpt.cs</DependentUpon>
     </EmbeddedResource>
@@ -1155,8 +1164,6 @@
       <Name>btr.nuna</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="PurchaseContext\ReturBeliFeature\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -116,10 +116,8 @@
     <Compile Include="InventoryContext\WarehouseAgg\IWarehouseKey.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\WarehouseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PurchaseContext\PurchaseOrderAgg\IPurchaseOrderKey.cs" />
     <Compile Include="PurchaseContext\SupplierAgg\ISupplierKey.cs" />
     <Compile Include="PurchaseContext\SupplierAgg\SupplierModel.cs" />
-    <Compile Include="PurchaseContext\PurchaseOrderAgg\PurchaseOrderModel.cs" />
     <Compile Include="SalesContext\CustomerAgg\CustomerModel.cs" />
     <Compile Include="SalesContext\CustomerAgg\ICustomerKey.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturDiscountModel.cs" />
