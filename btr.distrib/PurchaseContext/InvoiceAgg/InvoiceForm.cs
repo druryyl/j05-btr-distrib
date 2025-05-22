@@ -94,13 +94,13 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             _invoiceBrowser = invoiceBrowser;
             _invoicePrinter = invoicePrinter;
             _paramSistemDal = paramSistemDal;
+            _voidInvoiceWorker = voidInvoiceWorker;
+            _userDal = userDal;
 
             RegisterEventHandler();
             InitGrid();
             InitParamSistem();
             ClearForm();
-            _voidInvoiceWorker = voidInvoiceWorker;
-            _userDal = userDal;
         }
 
         private void InitParamSistem()
@@ -182,15 +182,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             rdlcViewerForm.SetReportData(printOutTemplate, listDataset);
             rdlcViewerForm.ShowDialog();
         }
-        private void PrintInvoice(string invoiceId)
-        {
-            var invoice = _invoiceBuilder.Load(new InvoiceModel(invoiceId)).Build();
-            _invoicePrinter.DefaultPrinter = GetPrinterName();
-            _invoicePrinter.CreateDoc(invoice);
-            _invoicePrinter.PrintDoc();
 
-
-        }
         private static string GetPrinterName()
         {
             string defaultPrinterName;

@@ -78,8 +78,12 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
             _voidReturBeliWorker = voidReturBeliWorker;
             _brgBuilder = brgBuilder;
             _returBeliBuilder = returBeliBuilder;
-        }
 
+            RegisterEventHandler();
+            InitGrid();
+            InitParamSistem();
+            ClearForm();
+        }
 
         private void InitParamSistem()
         {

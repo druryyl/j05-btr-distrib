@@ -52,7 +52,6 @@
             this.TotalText = new System.Windows.Forms.NumericUpDown();
             this.TotalLabel = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.WarehouseIdText = new System.Windows.Forms.TextBox();
             this.WarehouseNameText = new System.Windows.Forms.TextBox();
             this.WarehouseButton = new System.Windows.Forms.Button();
@@ -99,7 +98,7 @@
             // PrintButton
             // 
             this.PrintButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.PrintButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(230)))), ((int)(((byte)(242)))));
+            this.PrintButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(236)))), ((int)(((byte)(213)))));
             this.PrintButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PrintButton.Location = new System.Drawing.Point(87, 491);
             this.PrintButton.Name = "PrintButton";
@@ -110,6 +109,7 @@
             // 
             // TaxText
             // 
+            this.TaxText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(205)))), ((int)(((byte)(156)))));
             this.TaxText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TaxText.Location = new System.Drawing.Point(11, 128);
             this.TaxText.Maximum = new decimal(new int[] {
@@ -135,6 +135,7 @@
             // 
             // SisaText
             // 
+            this.SisaText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(205)))), ((int)(((byte)(156)))));
             this.SisaText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SisaText.Location = new System.Drawing.Point(11, 248);
             this.SisaText.Maximum = new decimal(new int[] {
@@ -184,7 +185,7 @@
             // 
             // CancelLabel
             // 
-            this.CancelLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(230)))), ((int)(((byte)(242)))));
+            this.CancelLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(236)))), ((int)(((byte)(213)))));
             this.CancelLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CancelLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CancelLabel.ForeColor = System.Drawing.Color.Red;
@@ -243,8 +244,9 @@
             // 
             // GrandTotalText
             // 
+            this.GrandTotalText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(205)))), ((int)(((byte)(156)))));
             this.GrandTotalText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GrandTotalText.Location = new System.Drawing.Point(9, 170);
+            this.GrandTotalText.Location = new System.Drawing.Point(11, 170);
             this.GrandTotalText.Maximum = new decimal(new int[] {
             999999999,
             0,
@@ -259,7 +261,7 @@
             // 
             // panel4
             // 
-            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(230)))), ((int)(((byte)(242)))));
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(236)))), ((int)(((byte)(213)))));
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel4.Controls.Add(this.DueDateText);
             this.panel4.Controls.Add(this.label5);
@@ -319,6 +321,7 @@
             // 
             // DiscountText
             // 
+            this.DiscountText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(205)))), ((int)(((byte)(156)))));
             this.DiscountText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DiscountText.Location = new System.Drawing.Point(11, 63);
             this.DiscountText.Maximum = new decimal(new int[] {
@@ -344,6 +347,7 @@
             // 
             // TotalText
             // 
+            this.TotalText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(205)))), ((int)(((byte)(156)))));
             this.TotalText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalText.Location = new System.Drawing.Point(11, 24);
             this.TotalText.Maximum = new decimal(new int[] {
@@ -369,9 +373,8 @@
             // 
             // panel3
             // 
-            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(230)))), ((int)(((byte)(242)))));
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(236)))), ((int)(((byte)(213)))));
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.checkBox1);
             this.panel3.Controls.Add(this.WarehouseIdText);
             this.panel3.Controls.Add(this.WarehouseNameText);
             this.panel3.Controls.Add(this.WarehouseButton);
@@ -380,16 +383,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(200, 186);
             this.panel3.TabIndex = 62;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(11, 78);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(120, 17);
-            this.checkBox1.TabIndex = 14;
-            this.checkBox1.Text = "Barang Konsinyasi";
-            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // WarehouseIdText
             // 
@@ -402,6 +395,7 @@
             // 
             // WarehouseNameText
             // 
+            this.WarehouseNameText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(205)))), ((int)(((byte)(156)))));
             this.WarehouseNameText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.WarehouseNameText.Location = new System.Drawing.Point(11, 50);
             this.WarehouseNameText.Name = "WarehouseNameText";
@@ -411,7 +405,7 @@
             // 
             // WarehouseButton
             // 
-            this.WarehouseButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(106)))), ((int)(((byte)(140)))), ((int)(((byte)(175)))));
+            this.WarehouseButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(187)))), ((int)(((byte)(120)))));
             this.WarehouseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.WarehouseButton.Location = new System.Drawing.Point(161, 22);
             this.WarehouseButton.Name = "WarehouseButton";
@@ -436,7 +430,7 @@
             this.LastIdLabel.Name = "LastIdLabel";
             this.LastIdLabel.Size = new System.Drawing.Size(175, 13);
             this.LastIdLabel.TabIndex = 16;
-            this.LastIdLabel.Text = "Invoice ID";
+            this.LastIdLabel.Text = "Retur Beli ID";
             this.LastIdLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // ReturBeliCodeText
@@ -462,22 +456,22 @@
             this.InvoiceCodeLabel.AutoSize = true;
             this.InvoiceCodeLabel.Location = new System.Drawing.Point(5, 116);
             this.InvoiceCodeLabel.Name = "InvoiceCodeLabel";
-            this.InvoiceCodeLabel.Size = new System.Drawing.Size(87, 13);
+            this.InvoiceCodeLabel.Size = new System.Drawing.Size(101, 13);
             this.InvoiceCodeLabel.TabIndex = 14;
-            this.InvoiceCodeLabel.Text = "Invoice Number";
+            this.InvoiceCodeLabel.Text = "Retur Beli Number";
             // 
             // InvoiceDateLabel
             // 
             this.InvoiceDateLabel.AutoSize = true;
             this.InvoiceDateLabel.Location = new System.Drawing.Point(5, 75);
             this.InvoiceDateLabel.Name = "InvoiceDateLabel";
-            this.InvoiceDateLabel.Size = new System.Drawing.Size(70, 13);
+            this.InvoiceDateLabel.Size = new System.Drawing.Size(84, 13);
             this.InvoiceDateLabel.TabIndex = 3;
-            this.InvoiceDateLabel.Text = "Invoice Date";
+            this.InvoiceDateLabel.Text = "Retur Beli Date";
             // 
             // InvoiceButton
             // 
-            this.InvoiceButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(106)))), ((int)(((byte)(140)))), ((int)(((byte)(175)))));
+            this.InvoiceButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(187)))), ((int)(((byte)(120)))));
             this.InvoiceButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.InvoiceButton.Location = new System.Drawing.Point(161, 23);
             this.InvoiceButton.Name = "InvoiceButton";
@@ -491,14 +485,14 @@
             this.InvoiceLabel.AutoSize = true;
             this.InvoiceLabel.Location = new System.Drawing.Point(8, 8);
             this.InvoiceLabel.Name = "InvoiceLabel";
-            this.InvoiceLabel.Size = new System.Drawing.Size(57, 13);
+            this.InvoiceLabel.Size = new System.Drawing.Size(71, 13);
             this.InvoiceLabel.TabIndex = 0;
-            this.InvoiceLabel.Text = "Invoice ID";
+            this.InvoiceLabel.Text = "Retur Beli ID";
             // 
             // DeleteButton
             // 
             this.DeleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.DeleteButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(230)))), ((int)(((byte)(242)))));
+            this.DeleteButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(236)))), ((int)(((byte)(213)))));
             this.DeleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DeleteButton.Location = new System.Drawing.Point(962, 491);
             this.DeleteButton.Name = "DeleteButton";
@@ -509,7 +503,7 @@
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(230)))), ((int)(((byte)(242)))));
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(236)))), ((int)(((byte)(213)))));
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.NoFakturPajakText);
             this.panel2.Controls.Add(this.label1);
@@ -554,6 +548,7 @@
             // 
             // SupplierNameText
             // 
+            this.SupplierNameText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(205)))), ((int)(((byte)(156)))));
             this.SupplierNameText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.SupplierNameText.Location = new System.Drawing.Point(11, 50);
             this.SupplierNameText.Name = "SupplierNameText";
@@ -563,7 +558,7 @@
             // 
             // SupplierButton
             // 
-            this.SupplierButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(106)))), ((int)(((byte)(140)))), ((int)(((byte)(175)))));
+            this.SupplierButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(187)))), ((int)(((byte)(120)))));
             this.SupplierButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SupplierButton.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SupplierButton.Location = new System.Drawing.Point(161, 22);
@@ -587,7 +582,7 @@
             this.ReturBeliItemGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ReturBeliItemGrid.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(56)))));
+            this.ReturBeliItemGrid.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(111)))), ((int)(((byte)(71)))));
             this.ReturBeliItemGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ReturBeliItemGrid.Location = new System.Drawing.Point(6, 201);
             this.ReturBeliItemGrid.Name = "ReturBeliItemGrid";
@@ -598,7 +593,7 @@
             // 
             this.PanelTengah.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.PanelTengah.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(230)))), ((int)(((byte)(242)))));
+            this.PanelTengah.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(236)))), ((int)(((byte)(213)))));
             this.PanelTengah.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PanelTengah.Controls.Add(this.DppText);
             this.PanelTengah.Controls.Add(this.TaxText);
@@ -620,6 +615,7 @@
             // 
             // DppText
             // 
+            this.DppText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(205)))), ((int)(((byte)(156)))));
             this.DppText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DppText.Location = new System.Drawing.Point(11, 102);
             this.DppText.Maximum = new decimal(new int[] {
@@ -637,7 +633,7 @@
             // SaveButton
             // 
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(230)))), ((int)(((byte)(242)))));
+            this.SaveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(236)))), ((int)(((byte)(213)))));
             this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SaveButton.Location = new System.Drawing.Point(1043, 491);
             this.SaveButton.Name = "SaveButton";
@@ -649,7 +645,7 @@
             // NewButton
             // 
             this.NewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.NewButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(230)))), ((int)(((byte)(242)))));
+            this.NewButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(236)))), ((int)(((byte)(213)))));
             this.NewButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.NewButton.Location = new System.Drawing.Point(6, 491);
             this.NewButton.Name = "NewButton";
@@ -660,6 +656,7 @@
             // 
             // ReturBeliIdText
             // 
+            this.ReturBeliIdText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(205)))), ((int)(((byte)(156)))));
             this.ReturBeliIdText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ReturBeliIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReturBeliIdText.Location = new System.Drawing.Point(11, 23);
@@ -670,7 +667,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(230)))), ((int)(((byte)(242)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(236)))), ((int)(((byte)(213)))));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.LastIdLabel);
             this.panel1.Controls.Add(this.ReturBeliCodeText);
@@ -689,7 +686,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(106)))), ((int)(((byte)(140)))), ((int)(((byte)(175)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(164)))), ((int)(((byte)(180)))), ((int)(((byte)(101)))));
             this.ClientSize = new System.Drawing.Size(1124, 523);
             this.Controls.Add(this.PrintButton);
             this.Controls.Add(this.PanelAtas4);
@@ -756,7 +753,6 @@
         private System.Windows.Forms.NumericUpDown TotalText;
         private System.Windows.Forms.Label TotalLabel;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.TextBox WarehouseIdText;
         private System.Windows.Forms.TextBox WarehouseNameText;
         private System.Windows.Forms.Button WarehouseButton;

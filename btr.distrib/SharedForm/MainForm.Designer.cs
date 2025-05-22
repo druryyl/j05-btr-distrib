@@ -34,6 +34,12 @@
             this.FakturPanel = new System.Windows.Forms.RibbonPanel();
             this.ST1FakturButton = new System.Windows.Forms.RibbonButton();
             this.ST2ControlFakturButton = new System.Windows.Forms.RibbonButton();
+            this.ST3SalesReplacementMenu = new System.Windows.Forms.RibbonButton();
+            this.MasterSalesPanel = new System.Windows.Forms.RibbonPanel();
+            this.OutletButton = new System.Windows.Forms.RibbonButton();
+            this.SalesPersonButton = new System.Windows.Forms.RibbonButton();
+            this.WilayahButton = new System.Windows.Forms.RibbonButton();
+            this.RuteButton = new System.Windows.Forms.RibbonButton();
             this.SalesInfoPanel = new System.Windows.Forms.RibbonPanel();
             this.ribbonButton2 = new System.Windows.Forms.RibbonButton();
             this.SF1FakturInfoMenu = new System.Windows.Forms.RibbonButton();
@@ -46,11 +52,6 @@
             this.SF7OmzetPerSupplierInfoMenu = new System.Windows.Forms.RibbonButton();
             this.ribbonSeparator2 = new System.Windows.Forms.RibbonSeparator();
             this.SF8FakturPerDriverInfoMenu = new System.Windows.Forms.RibbonButton();
-            this.MasterSalesPanel = new System.Windows.Forms.RibbonPanel();
-            this.OutletButton = new System.Windows.Forms.RibbonButton();
-            this.SalesPersonButton = new System.Windows.Forms.RibbonButton();
-            this.WilayahButton = new System.Windows.Forms.RibbonButton();
-            this.RuteButton = new System.Windows.Forms.RibbonButton();
             this.PurchaseTab = new System.Windows.Forms.RibbonTab();
             this.PurchaseOrderRibbonPanel = new System.Windows.Forms.RibbonPanel();
             this.InvoiceButton = new System.Windows.Forms.RibbonButton();
@@ -107,7 +108,7 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ST3SalesReplacementMenu = new System.Windows.Forms.RibbonButton();
+            this.PT3ReturBeliMenu = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -173,6 +174,62 @@
             this.ST2ControlFakturButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ST2ControlFakturButton.SmallImage")));
             this.ST2ControlFakturButton.Text = "ST2-Control Faktur";
             this.ST2ControlFakturButton.Click += new System.EventHandler(this.ST2ControlFakturButton_Click);
+            // 
+            // ST3SalesReplacementMenu
+            // 
+            this.ST3SalesReplacementMenu.Image = global::btr.distrib.Properties.Resources.icons8_user_account_32;
+            this.ST3SalesReplacementMenu.LargeImage = global::btr.distrib.Properties.Resources.icons8_user_account_32;
+            this.ST3SalesReplacementMenu.Name = "ST3SalesReplacementMenu";
+            this.ST3SalesReplacementMenu.SmallImage = ((System.Drawing.Image)(resources.GetObject("ST3SalesReplacementMenu.SmallImage")));
+            this.ST3SalesReplacementMenu.Text = "ST3-Sales Replacement";
+            this.ST3SalesReplacementMenu.Click += new System.EventHandler(this.ST3SalesReplacementMenu_Click);
+            // 
+            // MasterSalesPanel
+            // 
+            this.MasterSalesPanel.ButtonMoreEnabled = false;
+            this.MasterSalesPanel.ButtonMoreVisible = false;
+            this.MasterSalesPanel.Items.Add(this.OutletButton);
+            this.MasterSalesPanel.Items.Add(this.SalesPersonButton);
+            this.MasterSalesPanel.Items.Add(this.WilayahButton);
+            this.MasterSalesPanel.Items.Add(this.RuteButton);
+            this.MasterSalesPanel.Name = "MasterSalesPanel";
+            this.MasterSalesPanel.Text = "";
+            // 
+            // OutletButton
+            // 
+            this.OutletButton.Image = global::btr.distrib.Properties.Resources.icons8_3d_farm_32;
+            this.OutletButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_3d_farm_32;
+            this.OutletButton.Name = "OutletButton";
+            this.OutletButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("OutletButton.SmallImage")));
+            this.OutletButton.Text = "SM1-Customer";
+            this.OutletButton.Click += new System.EventHandler(this.SM1CustomerButton_Click);
+            // 
+            // SalesPersonButton
+            // 
+            this.SalesPersonButton.Image = global::btr.distrib.Properties.Resources.icons8_caretaker;
+            this.SalesPersonButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_caretaker;
+            this.SalesPersonButton.Name = "SalesPersonButton";
+            this.SalesPersonButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("SalesPersonButton.SmallImage")));
+            this.SalesPersonButton.Text = "SM2-Sales";
+            this.SalesPersonButton.Click += new System.EventHandler(this.SM2SalesPersonButton_Click);
+            // 
+            // WilayahButton
+            // 
+            this.WilayahButton.Image = global::btr.distrib.Properties.Resources.icons8_map_marker;
+            this.WilayahButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_map_marker;
+            this.WilayahButton.Name = "WilayahButton";
+            this.WilayahButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("WilayahButton.SmallImage")));
+            this.WilayahButton.Text = "SM3-Wilayah";
+            this.WilayahButton.Click += new System.EventHandler(this.SM3WilayahButton_Click);
+            // 
+            // RuteButton
+            // 
+            this.RuteButton.Image = global::btr.distrib.Properties.Resources.icons8_route_32;
+            this.RuteButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_route_32;
+            this.RuteButton.Name = "RuteButton";
+            this.RuteButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("RuteButton.SmallImage")));
+            this.RuteButton.Text = "SM4-Rute";
+            this.RuteButton.Click += new System.EventHandler(this.RuteButton_Click);
             // 
             // SalesInfoPanel
             // 
@@ -287,53 +344,6 @@
             this.SF8FakturPerDriverInfoMenu.Text = "SF8 - Info Faktur Per Driver ...";
             this.SF8FakturPerDriverInfoMenu.Click += new System.EventHandler(this.SF8DriverFaktur_Click);
             // 
-            // MasterSalesPanel
-            // 
-            this.MasterSalesPanel.ButtonMoreEnabled = false;
-            this.MasterSalesPanel.ButtonMoreVisible = false;
-            this.MasterSalesPanel.Items.Add(this.OutletButton);
-            this.MasterSalesPanel.Items.Add(this.SalesPersonButton);
-            this.MasterSalesPanel.Items.Add(this.WilayahButton);
-            this.MasterSalesPanel.Items.Add(this.RuteButton);
-            this.MasterSalesPanel.Name = "MasterSalesPanel";
-            this.MasterSalesPanel.Text = "";
-            // 
-            // OutletButton
-            // 
-            this.OutletButton.Image = global::btr.distrib.Properties.Resources.icons8_3d_farm_32;
-            this.OutletButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_3d_farm_32;
-            this.OutletButton.Name = "OutletButton";
-            this.OutletButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("OutletButton.SmallImage")));
-            this.OutletButton.Text = "SM1-Customer";
-            this.OutletButton.Click += new System.EventHandler(this.SM1CustomerButton_Click);
-            // 
-            // SalesPersonButton
-            // 
-            this.SalesPersonButton.Image = global::btr.distrib.Properties.Resources.icons8_caretaker;
-            this.SalesPersonButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_caretaker;
-            this.SalesPersonButton.Name = "SalesPersonButton";
-            this.SalesPersonButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("SalesPersonButton.SmallImage")));
-            this.SalesPersonButton.Text = "SM2-Sales";
-            this.SalesPersonButton.Click += new System.EventHandler(this.SM2SalesPersonButton_Click);
-            // 
-            // WilayahButton
-            // 
-            this.WilayahButton.Image = global::btr.distrib.Properties.Resources.icons8_map_marker;
-            this.WilayahButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_map_marker;
-            this.WilayahButton.Name = "WilayahButton";
-            this.WilayahButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("WilayahButton.SmallImage")));
-            this.WilayahButton.Text = "SM3-Wilayah";
-            this.WilayahButton.Click += new System.EventHandler(this.SM3WilayahButton_Click);
-            // 
-            // RuteButton
-            // 
-            this.RuteButton.Image = global::btr.distrib.Properties.Resources.icons8_route_32;
-            this.RuteButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_route_32;
-            this.RuteButton.Name = "RuteButton";
-            this.RuteButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("RuteButton.SmallImage")));
-            this.RuteButton.Text = "SM4-Rute";
-            this.RuteButton.Click += new System.EventHandler(this.RuteButton_Click);
-            // 
             // PurchaseTab
             // 
             this.PurchaseTab.Name = "PurchaseTab";
@@ -346,6 +356,7 @@
             // 
             this.PurchaseOrderRibbonPanel.Items.Add(this.InvoiceButton);
             this.PurchaseOrderRibbonPanel.Items.Add(this.PT2PostingStok);
+            this.PurchaseOrderRibbonPanel.Items.Add(this.PT3ReturBeliMenu);
             this.PurchaseOrderRibbonPanel.Name = "PurchaseOrderRibbonPanel";
             this.PurchaseOrderRibbonPanel.Text = "Transaction";
             // 
@@ -814,14 +825,14 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
-            // ST3SalesReplacementMenu
+            // PT3ReturBeliMenu
             // 
-            this.ST3SalesReplacementMenu.Image = global::btr.distrib.Properties.Resources.icons8_user_account_32;
-            this.ST3SalesReplacementMenu.LargeImage = global::btr.distrib.Properties.Resources.icons8_user_account_32;
-            this.ST3SalesReplacementMenu.Name = "ST3SalesReplacementMenu";
-            this.ST3SalesReplacementMenu.SmallImage = ((System.Drawing.Image)(resources.GetObject("ST3SalesReplacementMenu.SmallImage")));
-            this.ST3SalesReplacementMenu.Text = "ST3-Sales Replacement";
-            this.ST3SalesReplacementMenu.Click += new System.EventHandler(this.ST3SalesReplacementMenu_Click);
+            this.PT3ReturBeliMenu.Image = global::btr.distrib.Properties.Resources.icons8_return_purchase_32;
+            this.PT3ReturBeliMenu.LargeImage = global::btr.distrib.Properties.Resources.icons8_return_purchase_32;
+            this.PT3ReturBeliMenu.Name = "PT3ReturBeliMenu";
+            this.PT3ReturBeliMenu.SmallImage = ((System.Drawing.Image)(resources.GetObject("PT3ReturBeliMenu.SmallImage")));
+            this.PT3ReturBeliMenu.Text = "PT3-Retur Beli";
+            this.PT3ReturBeliMenu.Click += new System.EventHandler(this.PT3ReturBeliMenu_Click);
             // 
             // MainForm
             // 
@@ -929,5 +940,6 @@
         private System.Windows.Forms.RibbonSeparator ribbonSeparator2;
         private System.Windows.Forms.RibbonButton SF8FakturPerDriverInfoMenu;
         private System.Windows.Forms.RibbonButton ST3SalesReplacementMenu;
+        private System.Windows.Forms.RibbonButton PT3ReturBeliMenu;
     }
 }

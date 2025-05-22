@@ -234,6 +234,7 @@
     <Compile Include="PurchaseContext\ReturBeliFeature\IReturBeliDiscDal.cs" />
     <Compile Include="PurchaseContext\ReturBeliFeature\IReturBeliItemDal.cs" />
     <Compile Include="PurchaseContext\ReturBeliFeature\ReturBeliBuilder.cs" />
+    <Compile Include="PurchaseContext\ReturBeliFeature\ReturBeliValidator.cs" />
     <Compile Include="PurchaseContext\ReturBeliFeature\ReturBeliWriter.cs" />
     <Compile Include="PurchaseContext\ReturBeliFeature\SaveReturBeliWorker.cs" />
     <Compile Include="PurchaseContext\ReturBeliFeature\VoidReturBeliWorker.cs" />

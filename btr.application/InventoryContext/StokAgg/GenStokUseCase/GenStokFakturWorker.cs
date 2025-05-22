@@ -75,7 +75,5 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
             var rollBackReq = new RollBackStokRequest(req.FakturId);
             _rollBackStokWorker.Execute(rollBackReq);
         }
-
-        
     }
 }

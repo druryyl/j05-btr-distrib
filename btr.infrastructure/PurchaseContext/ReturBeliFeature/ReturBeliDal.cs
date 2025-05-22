@@ -138,7 +138,7 @@ namespace btr.infrastructure.PurchaseContext.ReturBeliFeature
                 SELECT
                     aa.ReturBeliId, aa.ReturBeliDate, aa.ReturBeliCode, aa.SupplierId,  aa.WarehouseId, 
                     aa.NoFakturPajak, aa.DueDate, aa.Total, aa.Disc, aa.Dpp, aa.Tax, aa.GrandTotal,
-                    aa.CreateTime, aa.LastUpdate, aa.UserId, aa.VoidDate, aa.UserIdVoid, aa.IsStokPosted,
+                    aa.CreateTime, aa.LastUpdate, aa.UserId, aa.VoidDate, aa.UserIdVoid, aa.IsStokPosted, 
                     ISNULL(bb.SupplierName, '') AS SupplierName,
                     ISNULL(cc.WarehouseName, '') AS WarehouseName
                 FROM
