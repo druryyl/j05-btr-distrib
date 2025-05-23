@@ -23,8 +23,6 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
         public string ReturBeliCode { get; set; }
         public string SupplierId { get; set; }
         public string WarehouseId { get; set; }
-        public int TermOfPayment { get; set; }
-        public string DueDate { get; set; }
         public string UserId { get; set; }
         public IEnumerable<SaveReturBeliRequestItem> ListBrg { get; set; }
     }
@@ -71,8 +69,7 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
             Guard.Argument(() => req).NotNull()
                 .Member(x => x.ReturBeliDate, y => y.ValidDate("yyyy-MM-dd"))
                 .Member(x => x.SupplierId, y => y.NotEmpty())
-                .Member(x => x.WarehouseId, y => y.NotEmpty())
-                .Member(x => x.DueDate, y => y.ValidDate("yyyy-MM-dd"));
+                .Member(x => x.WarehouseId, y => y.NotEmpty());
 
             //  PROSES FAKTUR
             ReturBeliModel result;
@@ -125,10 +122,7 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
                 .ReturBeliCode(req.ReturBeliCode)
                 .Supplier(req)
                 .Warehouse(req)
-                .IsPosted(false)
                 .User(req)
-                .TermOfPayment((TermOfPaymentEnum)req.TermOfPayment)
-                .DueDate(req.DueDate.ToDate(DateFormatEnum.YMD))
                 .Build();
 
             foreach (var item in req.ListBrg)

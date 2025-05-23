@@ -42,7 +42,7 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
 
             //  GENERATE-ID
             if (model.ReturBeliId.IsNullOrEmpty())
-                model.ReturBeliId = _counter.Generate("INVC", IDFormatEnum.PREFYYMnnnnnC);
+                model.ReturBeliId = _counter.Generate("RETB", IDFormatEnum.PREFYYMnnnnnC);
 
             foreach (var item in model.ListItem)
             {

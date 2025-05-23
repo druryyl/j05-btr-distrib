@@ -76,27 +76,6 @@ namespace btr.distrib.PurchaseContext.ReturBeliAgg
                     ListItem.Add(newItem);
                     noUrut++;
                 }
-
-                if (item.QtyBonus != 0)
-                {
-                    var itemBonus = new ReturBeliPrintOutItemDto
-                    {
-                        NoUrut = $"{noUrut}",
-                        BrgCode = item.BrgCode,
-                        BrgName = $"{item.BrgName}",
-                        QtyBesar = "-",
-                        QtyKecil = $"{item.QtyBonus:N0} {item.SatKecil}",
-                        HrgBesar = "-",
-                        HrgKecil = "-",
-                        Disc1 = "-",
-                        Disc2 = "-",
-                        Disc3 = "-",
-                        Disc4 = "-".PadLeft(8),
-                        Total = "-",
-                    };
-                    ListItem.Add(itemBonus);
-                    noUrut++;
-                }
             }
         }
 

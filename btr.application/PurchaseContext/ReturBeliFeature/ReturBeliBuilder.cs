@@ -28,8 +28,6 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
 
         IReturBeliBuilder Supplier(ISupplierKey supplierKey);
         IReturBeliBuilder Warehouse(IWarehouseKey warehouseKey);
-        IReturBeliBuilder TermOfPayment(TermOfPaymentEnum termOfPayment);
-        IReturBeliBuilder DueDate(DateTime dueDate);
 
         IReturBeliBuilder AddItem(IBrgKey brgKey, string hrgInputStr, string qtyString, string discountString, decimal dppProsen, decimal ppnProsen);
         IReturBeliBuilder ClearItem();
@@ -40,7 +38,6 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
         IReturBeliBuilder ReActivate(IUserKey userKey);
         IReturBeliBuilder User(IUserKey user);
         IReturBeliBuilder CalcTotal();
-        IReturBeliBuilder IsPosted(bool isPosted);
     }
 
     public class ReturBeliBuilder : IReturBeliBuilder
@@ -158,17 +155,6 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
             return this;
         }
 
-        public IReturBeliBuilder TermOfPayment(TermOfPaymentEnum termOfPayment)
-        {
-            _aggRoot.TermOfPayment = termOfPayment;
-            return this;
-        }
-
-        public IReturBeliBuilder DueDate(DateTime dueDate)
-        {
-            _aggRoot.DueDate = dueDate;
-            return this;
-        }
         public IReturBeliBuilder FakturPajak(string noSeriFakturPajak)
         {
             _aggRoot.NoFakturPajak = noSeriFakturPajak;
@@ -230,12 +216,6 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
             _aggRoot.Disc = _aggRoot.ListItem.Sum(x => x.DiscRp);
             _aggRoot.Tax = _aggRoot.ListItem.Sum(x => x.PpnRp);
             _aggRoot.GrandTotal = _aggRoot.ListItem.Sum(x => x.Total);
-            return this;
-        }
-
-        public IReturBeliBuilder IsPosted(bool isPosted)
-        {
-            _aggRoot.IsStokPosted = isPosted;
             return this;
         }
     }

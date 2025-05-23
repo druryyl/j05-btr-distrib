@@ -34,9 +34,6 @@ namespace btr.domain.PurchaseContext.ReturBeliFeature
         public decimal HppSat { get; set; }
         public decimal SubTotal { get; set; }
 
-        public int QtyBonus { get; set; }
-        public int QtyPotStok { get; set; }
-
         public string DiscInputStr { get; set; }
         public string DiscDetilStr { get; set; }
         public decimal DiscRp { get; set; }

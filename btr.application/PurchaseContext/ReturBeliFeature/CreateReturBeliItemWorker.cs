@@ -105,9 +105,6 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
             item.QtyBeli = (item.QtyBesar * item.Conversion) + item.QtyKecil;
             item.SubTotal = item.QtyBeli * item.HppSat;
 
-            item.QtyBonus = (int)qtys[2];
-            item.QtyPotStok = item.QtyBeli + item.QtyBonus;
-
             item.QtyDetilStr = GenQtyDetilStr(item);
 
             item.DiscInputStr = req.DiscInputStr ?? string.Empty;
@@ -122,7 +119,7 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
             item.PpnRp = item.DppRp * req.PpnProsen / 100;
             item.Total = item.SubTotal - item.DiscRp + item.PpnRp;
 
-            item.QtyInputStr = $"{item.QtyBesar};{item.QtyKecil};{item.QtyBonus}";
+            item.QtyInputStr = $"{item.QtyBesar};{item.QtyKecil}";
 
             return item;
         }
@@ -196,8 +193,6 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
                 result = $"{item.QtyBesar} {item.SatBesar}{Environment.NewLine}";
             if (item.QtyKecil > 0)
                 result += $"{item.QtyKecil} {item.SatKecil}{Environment.NewLine}";
-            if (item.QtyBonus > 0)
-                result += $"Bonus {item.QtyBonus} {item.SatKecil}";
 
             return result.TrimEnd('\n', '\r');
         }

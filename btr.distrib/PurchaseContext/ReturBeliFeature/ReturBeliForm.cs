@@ -1,4 +1,5 @@
 ﻿using btr.application.BrgContext.BrgAgg;
+using btr.application.InventoryContext.StokAgg.GenStokUseCase;
 using btr.application.InventoryContext.WarehouseAgg;
 using btr.application.PurchaseContext.ReturBeliAgg;
 using btr.application.PurchaseContext.SupplierAgg.Contracts;
@@ -48,6 +49,7 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
         private readonly ICreateReturBeliItemWorker _createItemWorker;
         private readonly ISaveReturBeliWorker _saveReturBeliWorker;
         private readonly IVoidReturBeliWorker _voidReturBeliWorker;
+        private readonly IGenStokReturBeliWorker _genStokReturBeliWorker;
 
         private readonly IBrgBuilder _brgBuilder;
         private readonly IReturBeliBuilder _returBeliBuilder;
@@ -58,9 +60,9 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
 
         public ReturBeliForm(IBrowser<SupplierBrowserView> supplierBrowser, IBrowser<WarehouseBrowserView> warehouseBrowser,
             IBrowser<BrgStokBrowserView> brgStokBrowser, IBrowser<ReturBeliBrowserView> returBeliBrowser, ISupplierDal supplierDal,
-            IWarehouseDal warehouseDal, IBrgDal brgDal, ITglJamDal dateTime, IParamSistemDal paramSistemDal, IUserDal userDal, 
-            ICreateReturBeliItemWorker createItemWorker, ISaveReturBeliWorker saveReturBeliWorker, IVoidReturBeliWorker voidReturBeliWorker, 
-            IBrgBuilder brgBuilder, IReturBeliBuilder returBeliBuilder)
+            IWarehouseDal warehouseDal, IBrgDal brgDal, ITglJamDal dateTime, IParamSistemDal paramSistemDal, IUserDal userDal,
+            ICreateReturBeliItemWorker createItemWorker, ISaveReturBeliWorker saveReturBeliWorker, IVoidReturBeliWorker voidReturBeliWorker,
+            IBrgBuilder brgBuilder, IReturBeliBuilder returBeliBuilder, IGenStokReturBeliWorker genStokReturBeliWorker)
         {
             InitializeComponent();
             _supplierBrowser = supplierBrowser;
@@ -83,6 +85,7 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
             InitGrid();
             InitParamSistem();
             ClearForm();
+            _genStokReturBeliWorker = genStokReturBeliWorker;
         }
 
         private void InitParamSistem()
@@ -233,14 +236,10 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
             ReturBeliCodeText.Text = returBeli.ReturBeliCode;
             WarehouseIdText.Text = returBeli.WarehouseId;
             WarehouseNameText.Text = returBeli.WarehouseName;
-            TermOfPaymentCombo.SelectedIndex = (int)returBeli.TermOfPayment;
-            DueDateText.Value = returBeli.DueDate;
             TotalText.Value = returBeli.Total;
             DiscountText.Value = returBeli.Disc;
             TaxText.Value = returBeli.Tax;
             GrandTotalText.Value = returBeli.GrandTotal;
-            UangMukaText.Value = returBeli.UangMuka;
-            SisaText.Value = returBeli.KurangBayar;
 
             _listItem.Clear();
             foreach (var newItem in returBeli.ListItem
@@ -541,7 +540,6 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
             DppText.Value = _listItem.Sum(x => x.DppRp);
             TaxText.Value = _listItem.Sum(x => x.PpnRp);
             GrandTotalText.Value = _listItem.Sum(x => x.Total);
-            SisaText.Value = GrandTotalText.Value - UangMukaText.Value;
         }
 
         #endregion
@@ -549,9 +547,8 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
         #region SAVE
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            //  simpan kondisi barang sebelum simpan
-            //  untuk deteksi apa perlu gen-stok
             var result = SaveReturBeli();
+            _genStokReturBeliWorker.Execute(new GenStokReturBeliRequest(result.ReturBeliId));
 
             PrintReturBeliRdlc(result.ReturBeliId);
 
@@ -568,8 +565,6 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
                 ReturBeliCode = ReturBeliCodeText.Text,
                 SupplierId = SupplierIdText.Text,
                 WarehouseId = WarehouseIdText.Text,
-                TermOfPayment = TermOfPaymentCombo.SelectedIndex,
-                DueDate = DueDateText.Value.ToString("yyyy-MM-dd"),
                 UserId = mainform.UserId.UserId,
             };
 
@@ -601,15 +596,11 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
             SupplierNameText.Text = string.Empty;
             WarehouseIdText.Text = string.Empty;
             WarehouseNameText.Text = string.Empty;
-            TermOfPaymentCombo.SelectedIndex = 0;
-            DueDateText.Value = _dateTime.Now.AddDays(30);
 
             TotalText.Value = 0;
             DiscountText.Value = 0;
             DppText.Value = 0;
             TaxText.Value = 0;
-            UangMukaText.Value = 0;
-            SisaText.Value = 0;
 
             _listItem.Clear();
             var newItem = new ReturBeliItemDto();
@@ -618,6 +609,7 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
 
             ShowAsActive();
         }
+
         private void ShowAsVoid(ReturBeliModel returBeli)
         {
             this.BackColor = Color.RosyBrown;

@@ -4,10 +4,10 @@
     NoUrut INT NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_NoUrut DEFAULT(0),
     BrgId VARCHAR(6) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_BrgId DEFAULT(''),
 
-    HrgInputStr VARCHAR(30) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_HrgInputStr DEFAULT(''),
+    HrgInputStr VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_HrgInputStr DEFAULT(''),
     HrgDetilStr VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_HrgDetilStr DEFAULT(''),
 
-    QtyInputStr VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_QtyInputStr DEFAULT(''),
+    QtyInputStr VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_QtyInputStr DEFAULT(''),
     QtyDetilStr VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_QtyDetilStr DEFAULT(''),
     
     QtyBesar INT NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_QtyBesar DEFAULT(0),
@@ -23,11 +23,8 @@
     HppSat DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_HppSat DEFAULT(0),
     SubTotal DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_SubTotal DEFAULT(0),
     
-    QtyBonus INT NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_QtyBonus DEFAULT(0),
-    QtyPotStok INT NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_QtyPotStok DEFAULT(0),
-    
-    DiscInputStr VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_DiscInputStr DEFAULT(''),
-    DiscDetilStr VARCHAR(13) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_DiscDetilStr DEFAULT(''),
+    DiscInputStr VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_DiscInputStr DEFAULT(''),
+    DiscDetilStr VARCHAR(50) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_DiscDetilStr DEFAULT(''),
     DiscRp DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_DiscRp DEFAULT(0),
 
     DppProsen DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_ReturBeliItem_DppProsen DEFAULT(0),

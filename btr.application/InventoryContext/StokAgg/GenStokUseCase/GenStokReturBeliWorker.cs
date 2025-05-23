@@ -38,44 +38,36 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
         {
             var returBeli = _returBeliBuilder.Load(req).Build();
 
-            //if (!returBeli.IsVoid)
-            //    ExecuteGenStok(returBeli);
-            //else
-            //    ExecuteVoid(returBeli);
+            if (!returBeli.IsVoid)
+                ExecuteGenStok(returBeli);
+            else
+                ExecuteVoid(returBeli);
         }
 
-        //private void ExecuteGenStok(ReturBeliModel returBeli)
-        //{
-        //    using (var trans = TransHelper.NewScope())
-        //    {
-        //        _rollBackStokWorker.Execute(new RollBackStokRequest(returBeli.ReturBeliId));
-        //        foreach (var item in returBeli.ListItem)
-        //        {
-        //            var brg = _brgBuilder.Load(item).Build();
-        //            var satuan = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty;
+        private void ExecuteGenStok(ReturBeliModel returBeli)
+        {
+            using (var trans = TransHelper.NewScope())
+            {
+                _rollBackStokWorker.Execute(new RollBackStokRequest(returBeli.ReturBeliId));
+                foreach (var item in returBeli.ListItem)
+                {
+                    var brg = _brgBuilder.Load(item).Build();
+                    var satuan = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty;
+                    if (item.QtyBeli == 0)
+                        continue;
 
-        //            if (item. QtyJual != 0)
-        //            {
-        //                var reqRemoveStok = new RemoveFifoStokRequest(item.BrgId,
-        //                    returBeli.WarehouseId, item.QtyJual, satuan, item.HrgSat, returBeli.ReturBeliId, "RETUR-BELI", returBeli.CustomerName, returBeli.ReturBeliDate);
-        //                _removeFifoStokWorker.Execute(reqRemoveStok);
-        //            }
-
-        //            var qtyBonus = item.QtyPotStok - item.QtyJual;
-        //            if (qtyBonus == 0)
-        //                continue;
-
-        //            var reqBonus = new RemoveFifoStokRequest(item.BrgId,
-        //                returBeli.WarehouseId, qtyBonus, satuan, 0, returBeli.ReturBeliId, "FAKTUR-BONUS", returBeli.CustomerName, returBeli.ReturBeliDate);
-        //            _removeFifoStokWorker.Execute(reqBonus);
-        //        }
-        //        trans.Complete();
-        //    }
-        //}
-        //private void ExecuteVoid(IReturBeliKey req)
-        //{
-        //    var rollBackReq = new RollBackStokRequest(req.ReturBeliId);
-        //    _rollBackStokWorker.Execute(rollBackReq);
-        //}
+                    var reqRemoveStok = new RemoveFifoStokRequest(item.BrgId,
+                        returBeli.WarehouseId, item.QtyBeli, satuan, item.HppSat, returBeli.ReturBeliId, 
+                        "RETUR-BELI", returBeli.SupplierName, returBeli.ReturBeliDate);
+                    _removeFifoStokWorker.Execute(reqRemoveStok);
+                }
+                trans.Complete();
+            }
+        }
+        private void ExecuteVoid(IReturBeliKey req)
+        {
+            var rollBackReq = new RollBackStokRequest(req.ReturBeliId);
+            _rollBackStokWorker.Execute(rollBackReq);
+        }
     }
 }
