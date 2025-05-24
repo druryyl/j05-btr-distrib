@@ -49,6 +49,7 @@ using btr.distrib.PurchaseContext.PostingStokAgg;
 using btr.distrib.InventoryContext.MutasiRpt;
 using btr.distrib.FinanceContext;
 using btr.distrib.SalesContext.SalesReplacementFeat;
+using btr.distrib.PurchaseContext.ReturBeliFeature;
 
 namespace btr.distrib.SharedForm
 {
@@ -640,6 +641,16 @@ namespace btr.distrib.SharedForm
             if (BringMdiChildToFrontIfLoaded<SalesReplacementForm>())
                 return;
             var form = ThisServicesProvider.GetRequiredService<SalesReplacementForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void PT3ReturBeliMenu_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<ReturBeliForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<ReturBeliForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

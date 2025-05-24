@@ -3,7 +3,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using btr.application.PurchaseContext.ReturBeliFeature;
-using btr.domain.PurchaseContext.InvoiceAgg;
 using btr.domain.PurchaseContext.ReturBeliFeature;
 using btr.infrastructure.Helpers;
 using btr.nuna.Infrastructure;
@@ -49,8 +48,6 @@ namespace btr.infrastructure.PurchaseContext.ReturBeliAgg
                 bcp.AddMap("QtyBeli", "QtyBeli");
                 bcp.AddMap("HppSat", "HppSat");
                 bcp.AddMap("SubTotal","SubTotal");
-                bcp.AddMap("QtyBonus","QtyBonus");
-                bcp.AddMap("QtyPotStok","QtyPotStok");
 
                 bcp.AddMap("DiscInputStr","DiscInputStr");
                 bcp.AddMap("DiscDetilStr","DiscDetilStr");
@@ -92,7 +89,7 @@ namespace btr.infrastructure.PurchaseContext.ReturBeliAgg
                     aa.HrgInputStr, aa.HrgDetilStr,
                     aa.QtyInputStr, aa.QtyDetilStr, aa.QtyBesar, aa.SatBesar, aa.Conversion, aa.HppSatBesar,
                     aa.QtyKecil, aa.SatKecil, aa.HppSatKecil, aa.QtyBeli, aa.HppSat, aa.SubTotal,
-                    aa.QtyBonus, aa.QtyPotStok, aa.DiscInputStr, aa.DiscDetilStr, aa.DiscRp,
+                    aa.DiscInputStr, aa.DiscDetilStr, aa.DiscRp,
                     aa.PpnProsen, aa.PpnRp, aa.Total,
                     ISNULL(bb.BrgName, '') AS BrgName,
                     ISNULL(bb.BrgCode, '') AS BrgCode

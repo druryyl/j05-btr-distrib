@@ -314,6 +314,7 @@
     <Compile Include="Browsers\FakturBrowser.cs" />
     <Compile Include="Browsers\FakturCodeOpenBrowser.cs" />
     <Compile Include="Browsers\FpKeluaranBrowser.cs" />
+    <Compile Include="Browsers\ReturBeliBrowser.cs" />
     <Compile Include="Browsers\InvoiceBrowser.cs" />
     <Compile Include="Browsers\KategoriBrowser.cs" />
     <Compile Include="Browsers\MutasiBrowser.cs" />
@@ -564,6 +565,11 @@
     <Compile Include="PrintDocs\TagihanPrintDoc.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -602,6 +608,14 @@
     <Compile Include="PurchaseContext\PostingStokAgg\PostingStokForm.Designer.cs">
       <DependentUpon>PostingStokForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PurchaseContext\ReturBeliFeature\ReturBeliForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PurchaseContext\ReturBeliFeature\ReturBeliForm.Designer.cs">
+      <DependentUpon>ReturBeliForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PurchaseContext\ReturBeliFeature\ReturBeliItemDto.cs" />
+    <Compile Include="PurchaseContext\ReturBeliFeature\ReturBeliPrintOutDto.cs" />
     <Compile Include="PurchaseContext\SupplierAgg\SupplierForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -776,14 +790,15 @@
     <Compile Include="WinformAssemblyAnchor.cs" />
     <Content Include="icons8_truck.ico" />
     <None Include="Properties\DataSources\btr.distrib.InventoryContext.MutasiAgg.MutasiPrintOutDto.datasource" />
+    <None Include="Properties\DataSources\btr.distrib.PurchaseContext.ReturBeliFeature.ReturBeliForm.datasource" />
+    <None Include="Properties\DataSources\btr.distrib.PurchaseContext.ReturBeliFeature.ReturBeliPrintOutDto.datasource" />
     <None Include="Resources\icons8_sherlock_holmes_64.png" />
     <None Include="Resources\icons8_route_16.png" />
     <None Include="Resources\icons8_route_32.png" />
-    <None Include="Resources\icons8_report_card_16.png" />
-    <None Include="Resources\icons8_report_card_161.png" />
     <None Include="Resources\red-icon.png" />
     <None Include="Resources\tosca-icon.png" />
     <None Include="Resources\purrple-icon.png" />
+    <None Include="Resources\animasi-login3.gif" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -928,6 +943,9 @@
     <EmbeddedResource Include="PurchaseContext\PostingStokAgg\PostingStokForm.resx">
       <DependentUpon>PostingStokForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PurchaseContext\ReturBeliFeature\ReturBeliForm.resx">
+      <DependentUpon>ReturBeliForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReportingContext\CustomerChartRpt.resx">
       <DependentUpon>CustomerChartRpt.cs</DependentUpon>
     </EmbeddedResource>
@@ -949,7 +967,9 @@
     <Content Include="Reports\InvoicePrintOut-Mgl.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Reports\Report1.rdlc" />
+    <Content Include="Reports\ReturBeliPrintOut-Yk.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="SalesContext\DriverFakturRpt\DriverFakturInfoForm.resx">
       <DependentUpon>DriverFakturInfoForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -1034,7 +1054,6 @@
     <EmbeddedResource Include="SharedForm\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Resources\app-wallpaper-4.jpg" />
     <None Include="Resources\icons8_print.ico" />
     <None Include="Resources\icons8_warehouse.ico" />
     <None Include="Resources\icons8_ingredients.ico" />
@@ -1051,7 +1070,6 @@
     <None Include="Readme.md" />
     <None Include="Resources\icons8_graph_32.png" />
     <None Include="Resources\ingredients_48px.png" />
-    <None Include="Resources\app-wallpaper-3.jpg" />
     <None Include="Resources\factory_48px.png" />
     <None Include="Resources\flag_of_bremen_with_lesser_arms_48px.png" />
     <None Include="Resources\documents_48px1.png" />
@@ -1077,14 +1095,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -1155,8 +1168,6 @@
       <Name>btr.nuna</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="PurchaseContext\ReturBeliFeature\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -2,16 +2,16 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using btr.application.PurchaseContext.InvoiceAgg;
-using btr.domain.PurchaseContext.InvoiceAgg;
+using btr.application.PurchaseContext.ReturBeliFeature;
+using btr.domain.PurchaseContext.ReturBeliFeature;
 using btr.infrastructure.Helpers;
 using btr.nuna.Infrastructure;
 using Dapper;
 using Microsoft.Extensions.Options;
 
-namespace btr.infrastructure.PurchaseContext.InvoiceAgg
+namespace btr.infrastructure.PurchaseContext.ReturBeliAgg
 {
-    public class ReturBeliDiscDal : IInvoiceDiscDal
+    public class ReturBeliDiscDal : IReturBeliDiscDal
     {
         private readonly DatabaseOptions _opt;
 
@@ -20,15 +20,15 @@ namespace btr.infrastructure.PurchaseContext.InvoiceAgg
             _opt = opt.Value;
         }
 
-        public void Insert(IEnumerable<InvoiceDiscModel> listModel)
+        public void Insert(IEnumerable<ReturBeliDiscModel> listModel)
         {
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             using (var bcp = new SqlBulkCopy(conn))
             {
                 conn.Open();
-                bcp.AddMap("InvoiceId","InvoiceId");
-                bcp.AddMap("InvoiceItemId","InvoiceItemId");
-                bcp.AddMap("InvoiceDiscId","InvoiceDiscId");
+                bcp.AddMap("ReturBeliId","ReturBeliId");
+                bcp.AddMap("ReturBeliItemId","ReturBeliItemId");
+                bcp.AddMap("ReturBeliDiscId","ReturBeliDiscId");
                 bcp.AddMap("NoUrut","NoUrut");
                 bcp.AddMap("BrgId","BrgId");
                 bcp.AddMap("DiscProsen","DiscProsen");
@@ -36,21 +36,21 @@ namespace btr.infrastructure.PurchaseContext.InvoiceAgg
 
                 var fetched = listModel.ToList();
                 bcp.BatchSize = fetched.Count;
-                bcp.DestinationTableName = "dbo.BTR_InvoiceDisc";
+                bcp.DestinationTableName = "dbo.BTR_ReturBeliDisc";
                 bcp.WriteToServer(fetched.AsDataTable());
             }
         }
 
-        public void Delete(IInvoiceKey key)
+        public void Delete(IReturBeliKey key)
         {
             const string sql = @"
                 DELETE FROM
-                    BTR_InvoiceDisc
+                    BTR_ReturBeliDisc
                 WHERE
-                    InvoiceId = @InvoiceId ";
+                    ReturBeliId = @ReturBeliId ";
             
             var dp = new DynamicParameters();
-            dp.AddParam("@InvoiceId", key.InvoiceId, SqlDbType.VarChar);
+            dp.AddParam("@ReturBeliId", key.ReturBeliId, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -58,22 +58,22 @@ namespace btr.infrastructure.PurchaseContext.InvoiceAgg
             }
         }
 
-        public IEnumerable<InvoiceDiscModel> ListData(IInvoiceKey filter)
+        public IEnumerable<ReturBeliDiscModel> ListData(IReturBeliKey filter)
         {
             const string sql = @"
                 SELECT
-                    aa.InvoiceId, aa.InvoiceItemId, aa.InvoiceDiscId, aa.NoUrut, aa.BrgId, 
+                    aa.ReturBeliId, aa.ReturBeliItemId, aa.ReturBeliDiscId, aa.NoUrut, aa.BrgId, 
                     aa.DiscProsen, aa.DiscRp
                 FROM                    
-                    BTR_InvoiceDisc aa
+                    BTR_ReturBeliDisc aa
                 WHERE
-                    aa.InvoiceId = @InvoiceId ";
+                    aa.ReturBeliId = @ReturBeliId ";
             var dp = new DynamicParameters();
-            dp.AddParam("@InvoiceId", filter.InvoiceId, SqlDbType.VarChar);
+            dp.AddParam("@ReturBeliId", filter.ReturBeliId, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
-                return conn.Read<InvoiceDiscModel>(sql, dp);
+                return conn.Read<ReturBeliDiscModel>(sql, dp);
             }
         }
     }

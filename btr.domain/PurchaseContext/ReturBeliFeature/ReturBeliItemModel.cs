@@ -1,9 +1,9 @@
 ﻿using btr.domain.BrgContext.BrgAgg;
-using btr.domain.PurchaseContext.ReturBeliFeature;
+using btr.domain.PurchaseContext.InvoiceAgg;
 using System;
 using System.Collections.Generic;
 
-namespace btr.domain.PurchaseContext.InvoiceAgg
+namespace btr.domain.PurchaseContext.ReturBeliFeature
 {
     public class ReturBeliItemModel : IReturBeliKey, IBrgKey
     {
@@ -34,9 +34,6 @@ namespace btr.domain.PurchaseContext.InvoiceAgg
         public decimal HppSat { get; set; }
         public decimal SubTotal { get; set; }
 
-        public int QtyBonus { get; set; }
-        public int QtyPotStok { get; set; }
-
         public string DiscInputStr { get; set; }
         public string DiscDetilStr { get; set; }
         public decimal DiscRp { get; set; }
@@ -47,26 +44,6 @@ namespace btr.domain.PurchaseContext.InvoiceAgg
         public decimal PpnRp { get; set; }
         public decimal Total { get; set; }
 
-        public List<InvoiceDiscModel> ListDisc { get; set; }
-    }
-
-
-    public class PenjelasanReturVsThrow
-    {
-        public void Method1()
-        {
-            Console.WriteLine("Method2 called");
-            Method2();
-            Method3();
-        }
-
-        public void Method2()
-        {
-            return;
-            Console.WriteLine("Method2 called");
-        }
-        public void Method3() {
-            Console.WriteLine("Method3 called");
-        }
+        public List<ReturBeliDiscModel> ListDisc { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using btr.domain.SupportContext.ParamSistemAgg;
 using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Domain;
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace btr.distrib.SharedForm
@@ -21,12 +22,27 @@ namespace btr.distrib.SharedForm
             UserIdText.KeyPress += MoveNextControl;
             PasswrodText.KeyPress += MoveNextControl;
             _paramSistemDal = paramSistemDal;
+            pictureBox1.Paint += PictureBox1_Paint;
+            panel1.Paint += Panel1_Paint;
+        }
+
+        private void Panel1_Paint(object sender, PaintEventArgs e)
+        {
+            Color borderColor = ColorTranslator.FromHtml("#00ADB5");
+            ControlPaint.DrawBorder(e.Graphics, panel1.ClientRectangle,
+                borderColor, ButtonBorderStyle.Dashed);
         }
 
         public void SetStatus(string server, string version)
         {
             var clientId = _paramSistemDal.GetData(new ParamSistemModel("CLIENT_ID"))?.ParamValue??string.Empty;
             StatusLabel.Text = $"{server.ToLower()} | {version} | {clientId.ToLower()}";
+        }
+        private void PictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            Color borderColor = ColorTranslator.FromHtml("#00ADB5");
+            ControlPaint.DrawBorder(e.Graphics, pictureBox1.ClientRectangle,
+                borderColor, ButtonBorderStyle.Dashed);
         }
         private void PasswrodText_KeyDown(object sender, KeyEventArgs e)
         {

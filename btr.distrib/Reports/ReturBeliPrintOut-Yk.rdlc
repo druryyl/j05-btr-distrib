@@ -6,40 +6,40 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>0.27523in</Width>
+              <Width>0.21181in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.69121in</Width>
+              <Width>0.62223in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.64503in</Width>
+              <Width>1.63542in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.48356in</Width>
+              <Width>0.48958in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.73357in</Width>
+              <Width>0.54167in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.65995in</Width>
+              <Width>0.5861in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.57732in</Width>
+              <Width>0.75in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.42106in</Width>
+              <Width>0.42708in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.48646in</Width>
+              <Width>0.4375in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.4419in</Width>
+              <Width>0.44792in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.42094in</Width>
+              <Width>0.39583in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.84502in</Width>
+              <Width>1in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -57,7 +57,7 @@
                             <TextRun>
                               <Value>No</Value>
                               <Style>
-                                <FontFamily>Segoe UI</FontFamily>
+                                <FontFamily>Lucida Console</FontFamily>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -69,9 +69,7 @@
                       <rd:DefaultName>Textbox22</rd:DefaultName>
                       <Style>
                         <Border>
-                          <Color>DimGray</Color>
                           <Style>Solid</Style>
-                          <Width>0.5pt</Width>
                         </Border>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
@@ -93,23 +91,19 @@
                             <TextRun>
                               <Value>Kode</Value>
                               <Style>
-                                <FontFamily>Segoe UI</FontFamily>
+                                <FontFamily>Lucida Console</FontFamily>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
+                          <Style />
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox24</rd:DefaultName>
                       <Style>
                         <Border>
-                          <Color>DimGray</Color>
                           <Style>Solid</Style>
-                          <Width>0.5pt</Width>
                         </Border>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
@@ -131,23 +125,19 @@
                             <TextRun>
                               <Value>Nama Barang</Value>
                               <Style>
-                                <FontFamily>Segoe UI</FontFamily>
+                                <FontFamily>Lucida Console</FontFamily>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
+                          <Style />
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox26</rd:DefaultName>
                       <Style>
                         <Border>
-                          <Color>DimGray</Color>
                           <Style>Solid</Style>
-                          <Width>0.5pt</Width>
                         </Border>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
@@ -169,7 +159,7 @@
                             <TextRun>
                               <Value>Kwantitas</Value>
                               <Style>
-                                <FontFamily>Segoe UI</FontFamily>
+                                <FontFamily>Lucida Console</FontFamily>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -183,9 +173,7 @@
                       <rd:DefaultName>Textbox30</rd:DefaultName>
                       <Style>
                         <Border>
-                          <Color>DimGray</Color>
                           <Style>Solid</Style>
-                          <Width>0.5pt</Width>
                         </Border>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
@@ -209,7 +197,7 @@
                             <TextRun>
                               <Value>@Harga</Value>
                               <Style>
-                                <FontFamily>Segoe UI</FontFamily>
+                                <FontFamily>Lucida Console</FontFamily>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -223,9 +211,7 @@
                       <rd:DefaultName>Textbox34</rd:DefaultName>
                       <Style>
                         <Border>
-                          <Color>DimGray</Color>
                           <Style>Solid</Style>
-                          <Width>0.5pt</Width>
                         </Border>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
@@ -249,7 +235,7 @@
                             <TextRun>
                               <Value>Discount</Value>
                               <Style>
-                                <FontFamily>Segoe UI</FontFamily>
+                                <FontFamily>Lucida Console</FontFamily>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -263,9 +249,7 @@
                       <rd:DefaultName>Textbox38</rd:DefaultName>
                       <Style>
                         <Border>
-                          <Color>DimGray</Color>
                           <Style>Solid</Style>
-                          <Width>0.5pt</Width>
                         </Border>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
@@ -291,7 +275,7 @@
                             <TextRun>
                               <Value>Total</Value>
                               <Style>
-                                <FontFamily>Segoe UI</FontFamily>
+                                <FontFamily>Lucida Console</FontFamily>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -305,9 +289,7 @@
                       <rd:DefaultName>Textbox46</rd:DefaultName>
                       <Style>
                         <Border>
-                          <Color>DimGray</Color>
                           <Style>Solid</Style>
-                          <Width>0.5pt</Width>
                         </Border>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
@@ -355,14 +337,6 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
-                        <LeftBorder>
-                          <Color>DimGray</Color>
-                          <Width>0.5pt</Width>
-                        </LeftBorder>
-                        <RightBorder>
-                          <Color>DimGray</Color>
-                          <Width>0.5pt</Width>
-                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -402,14 +376,6 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
-                        <LeftBorder>
-                          <Color>DimGray</Color>
-                          <Width>0.5pt</Width>
-                        </LeftBorder>
-                        <RightBorder>
-                          <Color>DimGray</Color>
-                          <Width>0.5pt</Width>
-                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -449,14 +415,6 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
-                        <LeftBorder>
-                          <Color>DimGray</Color>
-                          <Width>0.5pt</Width>
-                        </LeftBorder>
-                        <RightBorder>
-                          <Color>DimGray</Color>
-                          <Width>0.5pt</Width>
-                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -498,14 +456,6 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
-                        <LeftBorder>
-                          <Color>DimGray</Color>
-                          <Width>0.5pt</Width>
-                        </LeftBorder>
-                        <RightBorder>
-                          <Color>DimGray</Color>
-                          <Width>0.5pt</Width>
-                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -526,7 +476,7 @@
                             <TextRun>
                               <Value>=Fields!QtyKecil.Value</Value>
                               <Style>
-                                <FontFamily>Segoe UI</FontFamily>
+                                <FontFamily>Arial Narrow</FontFamily>
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
@@ -547,14 +497,6 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
-                        <LeftBorder>
-                          <Color>DimGray</Color>
-                          <Width>0.5pt</Width>
-                        </LeftBorder>
-                        <RightBorder>
-                          <Color>DimGray</Color>
-                          <Width>0.5pt</Width>
-                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -596,14 +538,6 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
-                        <LeftBorder>
-                          <Color>DimGray</Color>
-                          <Width>0.5pt</Width>
-                        </LeftBorder>
-                        <RightBorder>
-                          <Color>DimGray</Color>
-                          <Width>0.5pt</Width>
-                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -645,14 +579,6 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
-                        <LeftBorder>
-                          <Color>DimGray</Color>
-                          <Width>0.5pt</Width>
-                        </LeftBorder>
-                        <RightBorder>
-                          <Color>DimGray</Color>
-                          <Width>0.5pt</Width>
-                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -673,7 +599,7 @@
                             <TextRun>
                               <Value>=Fields!Disc1.Value</Value>
                               <Style>
-                                <FontFamily>Segoe UI</FontFamily>
+                                <FontFamily>Lucida Console</FontFamily>
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
@@ -694,14 +620,6 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
-                        <LeftBorder>
-                          <Color>DimGray</Color>
-                          <Width>0.5pt</Width>
-                        </LeftBorder>
-                        <RightBorder>
-                          <Color>DimGray</Color>
-                          <Width>0.5pt</Width>
-                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -722,7 +640,7 @@
                             <TextRun>
                               <Value>=Fields!Disc2.Value</Value>
                               <Style>
-                                <FontFamily>Segoe UI</FontFamily>
+                                <FontFamily>Lucida Console</FontFamily>
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
@@ -743,14 +661,6 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
-                        <LeftBorder>
-                          <Color>DimGray</Color>
-                          <Width>0.5pt</Width>
-                        </LeftBorder>
-                        <RightBorder>
-                          <Color>DimGray</Color>
-                          <Width>0.5pt</Width>
-                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -771,7 +681,7 @@
                             <TextRun>
                               <Value>=Fields!Disc3.Value</Value>
                               <Style>
-                                <FontFamily>Segoe UI</FontFamily>
+                                <FontFamily>Lucida Console</FontFamily>
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
@@ -792,14 +702,6 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
-                        <LeftBorder>
-                          <Color>DimGray</Color>
-                          <Width>0.5pt</Width>
-                        </LeftBorder>
-                        <RightBorder>
-                          <Color>DimGray</Color>
-                          <Width>0.5pt</Width>
-                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -820,7 +722,7 @@
                             <TextRun>
                               <Value>=Fields!Disc4.Value</Value>
                               <Style>
-                                <FontFamily>Segoe UI</FontFamily>
+                                <FontFamily>Lucida Console</FontFamily>
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
@@ -841,14 +743,6 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
-                        <LeftBorder>
-                          <Color>DimGray</Color>
-                          <Width>0.5pt</Width>
-                        </LeftBorder>
-                        <RightBorder>
-                          <Color>DimGray</Color>
-                          <Width>0.5pt</Width>
-                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -869,8 +763,8 @@
                             <TextRun>
                               <Value>=Fields!Total.Value</Value>
                               <Style>
-                                <FontFamily>Courier New</FontFamily>
-                                <FontSize>9pt</FontSize>
+                                <FontFamily>Lucida Console</FontFamily>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -890,14 +784,6 @@
                         <BottomBorder>
                           <Style>None</Style>
                         </BottomBorder>
-                        <LeftBorder>
-                          <Color>DimGray</Color>
-                          <Width>0.5pt</Width>
-                        </LeftBorder>
-                        <RightBorder>
-                          <Color>DimGray</Color>
-                          <Width>0.5pt</Width>
-                        </RightBorder>
                         <VerticalAlign>Top</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -937,15 +823,16 @@
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
-        <DataSetName>FakturJualItemDataset</DataSetName>
-        <Top>1.12224in</Top>
-        <Left>0.03125in</Left>
+        <DataSetName>ReturBeliItemDataset</DataSetName>
+        <Top>1.14338in</Top>
+        <Left>0.00902in</Left>
         <Height>0.38in</Height>
-        <Width>7.68125in</Width>
+        <Width>7.54514in</Width>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
+          <Color>DimGray</Color>
         </Style>
       </Tablix>
       <Textbox Name="Address2Text2">
@@ -957,7 +844,7 @@
               <TextRun>
                 <Value>Sub Total :</Value>
                 <Style>
-                  <FontFamily>Courier New</FontFamily>
+                  <FontFamily>Lucida Console</FontFamily>
                   <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
@@ -967,28 +854,30 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>1.50974in</Top>
-        <Left>5.52467in</Left>
+        <Top>1.53088in</Top>
+        <Left>5.27291in</Left>
         <Height>0.19445in</Height>
-        <Width>1.34281in</Width>
+        <Width>1.28125in</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
+            <Color>DimGray</Color>
             <Style>Solid</Style>
           </Border>
           <TopBorder>
-            <Style>None</Style>
+            <Color>DimGray</Color>
+            <Width>1pt</Width>
           </TopBorder>
           <BottomBorder>
             <Style>None</Style>
           </BottomBorder>
           <LeftBorder>
             <Color>DimGray</Color>
-            <Width>0.5pt</Width>
+            <Width>1pt</Width>
           </LeftBorder>
           <RightBorder>
             <Color>DimGray</Color>
-            <Width>0.5pt</Width>
+            <Width>1pt</Width>
           </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -1006,7 +895,7 @@
               <TextRun>
                 <Value>Discount :</Value>
                 <Style>
-                  <FontFamily>Courier New</FontFamily>
+                  <FontFamily>Lucida Console</FontFamily>
                   <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
@@ -1016,16 +905,18 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>1.70419in</Top>
-        <Left>5.52467in</Left>
+        <Top>1.72534in</Top>
+        <Left>5.27291in</Left>
         <Height>0.19445in</Height>
-        <Width>1.34281in</Width>
+        <Width>1.28125in</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
+            <Color>DimGray</Color>
             <Style>Solid</Style>
           </Border>
           <TopBorder>
+            <Color>DimGray</Color>
             <Style>None</Style>
           </TopBorder>
           <BottomBorder>
@@ -1033,11 +924,11 @@
           </BottomBorder>
           <LeftBorder>
             <Color>DimGray</Color>
-            <Width>0.5pt</Width>
+            <Width>1pt</Width>
           </LeftBorder>
           <RightBorder>
             <Color>DimGray</Color>
-            <Width>0.5pt</Width>
+            <Width>1pt</Width>
           </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -1053,9 +944,9 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!DppProsen.Value, "FakturJualDataset")</Value>
+                <Value>=First(Fields!PpnProsen.Value, "ReturBeliDataset")</Value>
                 <Style>
-                  <FontFamily>Courier New</FontFamily>
+                  <FontFamily>Lucida Console</FontFamily>
                   <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
@@ -1065,16 +956,18 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>2.09309in</Top>
-        <Left>5.52467in</Left>
+        <Top>2.11979in</Top>
+        <Left>5.27291in</Left>
         <Height>0.19445in</Height>
-        <Width>1.34281in</Width>
+        <Width>1.28125in</Width>
         <ZIndex>3</ZIndex>
         <Style>
           <Border>
+            <Color>DimGray</Color>
             <Style>Solid</Style>
           </Border>
           <TopBorder>
+            <Color>DimGray</Color>
             <Style>None</Style>
           </TopBorder>
           <BottomBorder>
@@ -1082,11 +975,11 @@
           </BottomBorder>
           <LeftBorder>
             <Color>DimGray</Color>
-            <Width>0.5pt</Width>
+            <Width>1pt</Width>
           </LeftBorder>
           <RightBorder>
             <Color>DimGray</Color>
-            <Width>0.5pt</Width>
+            <Width>1pt</Width>
           </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -1104,7 +997,7 @@
               <TextRun>
                 <Value>Grand Total :</Value>
                 <Style>
-                  <FontFamily>Courier New</FontFamily>
+                  <FontFamily>Lucida Console</FontFamily>
                   <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
@@ -1114,29 +1007,25 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>2.48199in</Top>
-        <Left>5.52467in</Left>
+        <Top>2.31424in</Top>
+        <Left>5.27291in</Left>
         <Height>0.19445in</Height>
-        <Width>1.34281in</Width>
+        <Width>1.28125in</Width>
         <ZIndex>4</ZIndex>
         <Style>
           <Border>
+            <Color>DimGray</Color>
             <Style>Solid</Style>
           </Border>
           <TopBorder>
+            <Color>DimGray</Color>
             <Style>None</Style>
           </TopBorder>
-          <BottomBorder>
-            <Color>DimGray</Color>
-            <Width>0.5pt</Width>
-          </BottomBorder>
           <LeftBorder>
             <Color>DimGray</Color>
-            <Width>0.5pt</Width>
           </LeftBorder>
           <RightBorder>
             <Color>DimGray</Color>
-            <Width>0.5pt</Width>
           </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -1151,9 +1040,9 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!SubTotal.Value, "FakturJualDataset")</Value>
+                <Value>=First(Fields!SubTotal.Value, "ReturBeliDataset")</Value>
                 <Style>
-                  <FontFamily>Courier New</FontFamily>
+                  <FontFamily>Lucida Console</FontFamily>
                   <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
@@ -1163,28 +1052,30 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>1.50974in</Top>
-        <Left>6.86748in</Left>
+        <Top>1.53088in</Top>
+        <Left>6.55416in</Left>
         <Height>0.19445in</Height>
-        <Width>0.84502in</Width>
+        <Width>1in</Width>
         <ZIndex>5</ZIndex>
         <Style>
           <Border>
+            <Color>DimGray</Color>
             <Style>Solid</Style>
           </Border>
           <TopBorder>
-            <Style>None</Style>
+            <Color>DimGray</Color>
+            <Width>1pt</Width>
           </TopBorder>
           <BottomBorder>
             <Style>None</Style>
           </BottomBorder>
           <LeftBorder>
             <Color>DimGray</Color>
-            <Width>0.5pt</Width>
+            <Width>1pt</Width>
           </LeftBorder>
           <RightBorder>
             <Color>DimGray</Color>
-            <Width>0.5pt</Width>
+            <Width>1pt</Width>
           </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -1199,9 +1090,9 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!Discount.Value, "FakturJualDataset")</Value>
+                <Value>=First(Fields!Discount.Value, "ReturBeliDataset")</Value>
                 <Style>
-                  <FontFamily>Courier New</FontFamily>
+                  <FontFamily>Lucida Console</FontFamily>
                   <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
@@ -1211,16 +1102,18 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>1.70419in</Top>
-        <Left>6.86748in</Left>
+        <Top>1.72534in</Top>
+        <Left>6.55416in</Left>
         <Height>0.19445in</Height>
-        <Width>0.84502in</Width>
+        <Width>1in</Width>
         <ZIndex>6</ZIndex>
         <Style>
           <Border>
+            <Color>DimGray</Color>
             <Style>Solid</Style>
           </Border>
           <TopBorder>
+            <Color>DimGray</Color>
             <Style>None</Style>
           </TopBorder>
           <BottomBorder>
@@ -1228,11 +1121,11 @@
           </BottomBorder>
           <LeftBorder>
             <Color>DimGray</Color>
-            <Width>0.5pt</Width>
+            <Width>1pt</Width>
           </LeftBorder>
           <RightBorder>
             <Color>DimGray</Color>
-            <Width>0.5pt</Width>
+            <Width>1pt</Width>
           </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -1247,9 +1140,9 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!Dpp.Value, "FakturJualDataset")</Value>
+                <Value>=First(Fields!Ppn.Value, "ReturBeliDataset")</Value>
                 <Style>
-                  <FontFamily>Courier New</FontFamily>
+                  <FontFamily>Lucida Console</FontFamily>
                   <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
@@ -1259,16 +1152,18 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>2.09309in</Top>
-        <Left>6.86748in</Left>
+        <Top>2.11979in</Top>
+        <Left>6.55416in</Left>
         <Height>0.19445in</Height>
-        <Width>0.84502in</Width>
+        <Width>1in</Width>
         <ZIndex>7</ZIndex>
         <Style>
           <Border>
+            <Color>DimGray</Color>
             <Style>Solid</Style>
           </Border>
           <TopBorder>
+            <Color>DimGray</Color>
             <Style>None</Style>
           </TopBorder>
           <BottomBorder>
@@ -1276,11 +1171,11 @@
           </BottomBorder>
           <LeftBorder>
             <Color>DimGray</Color>
-            <Width>0.5pt</Width>
+            <Width>1pt</Width>
           </LeftBorder>
           <RightBorder>
             <Color>DimGray</Color>
-            <Width>0.5pt</Width>
+            <Width>1pt</Width>
           </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -1295,9 +1190,9 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!GrandTotal.Value, "FakturJualDataset")</Value>
+                <Value>=First(Fields!GrandTotal.Value, "ReturBeliDataset")</Value>
                 <Style>
-                  <FontFamily>Courier New</FontFamily>
+                  <FontFamily>Lucida Console</FontFamily>
                   <FontSize>9pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                 </Style>
@@ -1308,29 +1203,25 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>2.48199in</Top>
-        <Left>6.86748in</Left>
+        <Top>2.31424in</Top>
+        <Left>6.55416in</Left>
         <Height>0.19445in</Height>
-        <Width>0.84502in</Width>
+        <Width>1in</Width>
         <ZIndex>8</ZIndex>
         <Style>
           <Border>
+            <Color>DimGray</Color>
             <Style>Solid</Style>
           </Border>
           <TopBorder>
+            <Color>DimGray</Color>
             <Style>None</Style>
           </TopBorder>
-          <BottomBorder>
-            <Color>DimGray</Color>
-            <Width>0.5pt</Width>
-          </BottomBorder>
           <LeftBorder>
             <Color>DimGray</Color>
-            <Width>0.5pt</Width>
           </LeftBorder>
           <RightBorder>
             <Color>DimGray</Color>
-            <Width>0.5pt</Width>
           </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -1339,7 +1230,7 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
-      <Textbox Name="NamaAlamatBtrText">
+      <Textbox Name="NamaAlamatBtrText2">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
         <Paragraphs>
@@ -1393,9 +1284,10 @@
             <Style />
           </Paragraph>
         </Paragraphs>
-        <Left>0.03889in</Left>
-        <Height>0.86806in</Height>
-        <Width>2.60383in</Width>
+        <Top>0.00721in</Top>
+        <Left>0.0125in</Left>
+        <Height>0.84725in</Height>
+        <Width>2.46598in</Width>
         <ZIndex>9</ZIndex>
         <Style>
           <Border>
@@ -1414,28 +1306,28 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!FakturCode.Value, "FakturJualDataset")</Value>
+                <Value>=First(Fields!ReturBeliCode.Value, "ReturBeliDataset")</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style>
-              <TextAlign>Center</TextAlign>
-            </Style>
+            <Style />
           </Paragraph>
         </Paragraphs>
-        <Top>0.86806in</Top>
-        <Left>0.03473in</Left>
-        <Height>0.25346in</Height>
-        <Width>1.4375in</Width>
+        <Top>0.91281in</Top>
+        <Left>0.0125in</Left>
+        <Height>0.23958in</Height>
+        <Width>2.46598in</Width>
         <ZIndex>10</ZIndex>
         <Style>
           <Border>
             <Color>DimGray</Color>
             <Style>Solid</Style>
-            <Width>0.5pt</Width>
           </Border>
+          <BottomBorder>
+            <Style>None</Style>
+          </BottomBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
@@ -1450,7 +1342,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>FAKTUR PENJUALAN</Value>
+                <Value>RETUR PEMBELIAN</Value>
                 <Style>
                   <FontFamily>Lucida Console</FontFamily>
                   <FontSize>14pt</FontSize>
@@ -1459,129 +1351,19 @@
               </TextRun>
             </TextRuns>
             <Style>
-              <TextAlign>Left</TextAlign>
+              <TextAlign>Center</TextAlign>
             </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox13</rd:DefaultName>
-        <Left>2.64272in</Left>
-        <Height>0.86806in</Height>
-        <Width>2.70451in</Width>
+        <Top>0.00721in</Top>
+        <Left>2.52015in</Left>
+        <Height>0.84725in</Height>
+        <Width>2.32568in</Width>
         <ZIndex>11</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
-          </Border>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="SalesText">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!SalesName.Value, "FakturJualDataset")</Value>
-                <Style>
-                  <FontFamily>Segoe UI</FontFamily>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Center</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <Top>0.86806in</Top>
-        <Left>1.47223in</Left>
-        <Height>0.25346in</Height>
-        <Width>1.17049in</Width>
-        <ZIndex>12</ZIndex>
-        <Style>
-          <Border>
-            <Color>DimGray</Color>
-            <Style>Solid</Style>
-            <Width>0.5pt</Width>
-          </Border>
-          <LeftBorder>
-            <Style>None</Style>
-          </LeftBorder>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="JenisBayarText">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!JenisBayar.Value, "FakturJualDataset")</Value>
-                <Style>
-                  <FontFamily>Segoe UI</FontFamily>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Center</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <Top>0.86806in</Top>
-        <Left>2.64272in</Left>
-        <Height>0.25346in</Height>
-        <Width>1.21713in</Width>
-        <ZIndex>13</ZIndex>
-        <Style>
-          <Border>
-            <Color>DimGray</Color>
-            <Style>Solid</Style>
-            <Width>0.5pt</Width>
-          </Border>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="JatuhTempoText">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!JatuhTempo.Value, "FakturJualDataset")</Value>
-                <Style>
-                  <FontFamily>Arial Narrow</FontFamily>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Center</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <Top>0.86806in</Top>
-        <Left>3.85985in</Left>
-        <Height>0.25346in</Height>
-        <Width>1.23727in</Width>
-        <ZIndex>14</ZIndex>
-        <Style>
-          <Border>
-            <Color>DimGray</Color>
-            <Style>Solid</Style>
-            <Width>0.5pt</Width>
           </Border>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -1597,7 +1379,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!FakturDate.Value, "FakturJualDataset")</Value>
+                <Value>=First(Fields!ReturBeliDate.Value, "ReturBeliDataset")</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1607,16 +1389,16 @@
             <Style />
           </Paragraph>
         </Paragraphs>
-        <Top>0.01386in</Top>
-        <Left>5.3375in</Left>
+        <Top>0.00721in</Top>
+        <Left>5.14027in</Left>
         <Height>0.16945in</Height>
         <Width>2.375in</Width>
-        <ZIndex>15</ZIndex>
+        <ZIndex>12</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
-          <VerticalAlign>Top</VerticalAlign>
+          <VerticalAlign>Middle</VerticalAlign>
         </Style>
       </Textbox>
       <Textbox Name="KepadaCustomerIdText">
@@ -1626,7 +1408,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!CustomerId.Value, "FakturJualDataset")</Value>
+                <Value>=First(Fields!SupplierId.Value, "ReturBeliDataset")</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1636,16 +1418,16 @@
             <Style />
           </Paragraph>
         </Paragraphs>
-        <Top>0.18331in</Top>
-        <Left>5.3375in</Left>
+        <Top>0.17666in</Top>
+        <Left>5.14027in</Left>
         <Height>0.16945in</Height>
         <Width>2.375in</Width>
-        <ZIndex>16</ZIndex>
+        <ZIndex>13</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
-          <VerticalAlign>Top</VerticalAlign>
+          <VerticalAlign>Middle</VerticalAlign>
         </Style>
       </Textbox>
       <Textbox Name="CustomerNameText">
@@ -1655,7 +1437,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!CustomerName.Value, "FakturJualDataset")</Value>
+                <Value>=First(Fields!SupplierName.Value, "ReturBeliDataset")</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1666,16 +1448,16 @@
             <Style />
           </Paragraph>
         </Paragraphs>
-        <Top>0.35276in</Top>
-        <Left>5.34723in</Left>
+        <Top>0.34611in</Top>
+        <Left>5.14027in</Left>
         <Height>0.16945in</Height>
         <Width>2.375in</Width>
-        <ZIndex>17</ZIndex>
+        <ZIndex>14</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
-          <VerticalAlign>Top</VerticalAlign>
+          <VerticalAlign>Middle</VerticalAlign>
         </Style>
       </Textbox>
       <Textbox Name="Address1Text">
@@ -1685,26 +1467,26 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!Address1.Value, "FakturJualDataset")</Value>
+                <Value>=First(Fields!Address1.Value, "ReturBeliDataset")</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>8pt</FontSize>
+                  <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
             <Style />
           </Paragraph>
         </Paragraphs>
-        <Top>0.52221in</Top>
-        <Left>5.3375in</Left>
+        <Top>0.51556in</Top>
+        <Left>5.14027in</Left>
         <Height>0.16945in</Height>
         <Width>2.375in</Width>
-        <ZIndex>18</ZIndex>
+        <ZIndex>15</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
-          <VerticalAlign>Top</VerticalAlign>
+          <VerticalAlign>Middle</VerticalAlign>
         </Style>
       </Textbox>
       <Textbox Name="Address2Text">
@@ -1714,21 +1496,21 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!Address2.Value, "FakturJualDataset")</Value>
+                <Value>=First(Fields!Address2.Value, "ReturBeliDataset")</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>8pt</FontSize>
+                  <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
             <Style />
           </Paragraph>
         </Paragraphs>
-        <Top>0.70833in</Top>
-        <Left>5.3375in</Left>
-        <Height>0.15973in</Height>
+        <Top>0.68501in</Top>
+        <Left>5.14027in</Left>
+        <Height>0.16945in</Height>
         <Width>2.375in</Width>
-        <ZIndex>19</ZIndex>
+        <ZIndex>16</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1743,192 +1525,35 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!Terbilang.Value, "FakturJualDataset")</Value>
+                <Value>=First(Fields!Terbilang.Value, "ReturBeliDataset")</Value>
                 <Style>
                   <FontStyle>Italic</FontStyle>
                   <FontFamily>Segoe UI</FontFamily>
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>1.56113in</Top>
-        <Left>0.03473in</Left>
-        <Height>0.53196in</Height>
+        <Top>1.53366in</Top>
+        <Left>0.0125in</Left>
+        <Height>0.97503in</Height>
         <Width>5.03194in</Width>
-        <ZIndex>20</ZIndex>
+        <ZIndex>17</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
-          <VerticalAlign>Middle</VerticalAlign>
+          <VerticalAlign>Top</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
-      <Textbox Name="Textbox1">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!Note.Value, "FakturJualDataset")</Value>
-                <Style>
-                  <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>8pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>2.09309in</Top>
-        <Left>0.03889in</Left>
-        <Height>0.3889in</Height>
-        <Width>5.02778in</Width>
-        <ZIndex>21</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox15">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Tanda Terima,</Value>
-                <Style>
-                  <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>9pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>2.83097in</Top>
-        <Left>0.03751in</Left>
-        <Height>0.20556in</Height>
-        <Width>1.31598in</Width>
-        <ZIndex>22</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox16">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>(Nama Terang / Cap)</Value>
-                <Style>
-                  <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>9pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>3.58618in</Top>
-        <Left>0.03125in</Left>
-        <Height>0.20556in</Height>
-        <Width>1.31598in</Width>
-        <ZIndex>23</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Line Name="Line1">
-        <Top>3.57229in</Top>
-        <Left>0.03473in</Left>
-        <Height>0in</Height>
-        <Width>1.3125in</Width>
-        <ZIndex>24</ZIndex>
-        <Style>
-          <Border>
-            <Style>Solid</Style>
-          </Border>
-        </Style>
-      </Line>
-      <Textbox Name="Textbox17">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Pengirim,</Value>
-                <Style>
-                  <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>9pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>2.83097in</Top>
-        <Left>2.60695in</Left>
-        <Height>0.20556in</Height>
-        <Width>1.31598in</Width>
-        <ZIndex>25</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Line Name="Line2">
-        <Top>3.57229in</Top>
-        <Left>2.60417in</Left>
-        <Height>0in</Height>
-        <Width>1.3125in</Width>
-        <ZIndex>26</ZIndex>
-        <Style>
-          <Border>
-            <Style>Solid</Style>
-          </Border>
-        </Style>
-      </Line>
       <Textbox Name="Textbox19">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
@@ -1947,11 +1572,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>2.76847in</Top>
-        <Left>5.52467in</Left>
+        <Top>2.67712in</Top>
+        <Left>5.47429in</Left>
         <Height>0.20556in</Height>
-        <Width>1.22534in</Width>
-        <ZIndex>27</ZIndex>
+        <Width>1.31598in</Width>
+        <ZIndex>18</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1970,7 +1595,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!UserName.Value, "FakturJualDataset")</Value>
+                <Value>=First(Fields!UserName.Value, "ReturBeliDataset")</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1981,11 +1606,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>3.58618in</Top>
-        <Left>5.49652in</Left>
+        <Top>3.43232in</Top>
+        <Left>5.47429in</Left>
         <Height>0.20556in</Height>
         <Width>1.31598in</Width>
-        <ZIndex>28</ZIndex>
+        <ZIndex>19</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1998,92 +1623,72 @@
         </Style>
       </Textbox>
       <Line Name="Line3">
-        <Top>3.57229in</Top>
-        <Left>5.5in</Left>
+        <Top>3.41844in</Top>
+        <Left>5.47777in</Left>
         <Height>0in</Height>
         <Width>1.3125in</Width>
-        <ZIndex>29</ZIndex>
+        <ZIndex>20</ZIndex>
         <Style>
           <Border>
             <Style>Solid</Style>
           </Border>
         </Style>
       </Line>
-      <Textbox Name="Textbox18">
+      <Line Name="Line4">
+        <Top>1.53088in</Top>
+        <Height>0in</Height>
+        <Width>7.5625in</Width>
+        <ZIndex>21</ZIndex>
+        <Style>
+          <Border>
+            <Style>Solid</Style>
+          </Border>
+        </Style>
+      </Line>
+      <Textbox Name="Address2Text6">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
         <Paragraphs>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>"Telitilah jumlah barang dan harga sebelum faktur ini dibayar / ditanda-tangani"</Value>
+                <Value>Total :</Value>
                 <Style>
-                  <FontStyle>Italic</FontStyle>
-                  <FontFamily>Segoe UI</FontFamily>
+                  <FontFamily>Lucida Console</FontFamily>
                   <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
             <Style>
-              <TextAlign>Center</TextAlign>
+              <TextAlign>Right</TextAlign>
             </Style>
           </Paragraph>
         </Paragraphs>
-        <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>3.83341in</Top>
-        <Height>0.20556in</Height>
-        <Width>6.8125in</Width>
-        <ZIndex>30</ZIndex>
+        <Top>1.92118in</Top>
+        <Left>5.27291in</Left>
+        <Height>0.19445in</Height>
+        <Width>1.28125in</Width>
+        <ZIndex>22</ZIndex>
         <Style>
           <Border>
-            <Style>None</Style>
-          </Border>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Line Name="Line4">
-        <Top>1.50974in</Top>
-        <Left>0.03473in</Left>
-        <Height>0in</Height>
-        <Width>7.67777in</Width>
-        <ZIndex>31</ZIndex>
-        <Style>
-          <Border>
+            <Color>DimGray</Color>
             <Style>Solid</Style>
           </Border>
-        </Style>
-      </Line>
-      <Textbox Name="Textbox21">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!DriverName.Value, "FakturJualDataset")</Value>
-                <Style>
-                  <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>9pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>3.58618in</Top>
-        <Left>2.60069in</Left>
-        <Height>0.20556in</Height>
-        <Width>1.31598in</Width>
-        <ZIndex>32</ZIndex>
-        <Style>
-          <Border>
+          <TopBorder>
+            <Color>DimGray</Color>
             <Style>None</Style>
-          </Border>
+          </TopBorder>
+          <BottomBorder>
+            <Style>None</Style>
+          </BottomBorder>
+          <LeftBorder>
+            <Color>DimGray</Color>
+            <Width>1pt</Width>
+          </LeftBorder>
+          <RightBorder>
+            <Color>DimGray</Color>
+            <Width>1pt</Width>
+          </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
@@ -2097,9 +1702,9 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!Ppn.Value, "FakturJualDataset")</Value>
+                <Value>=First(Fields!Total.Value, "ReturBeliDataset")</Value>
                 <Style>
-                  <FontFamily>Courier New</FontFamily>
+                  <FontFamily>Lucida Console</FontFamily>
                   <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
@@ -2109,16 +1714,18 @@
             </Style>
           </Paragraph>
         </Paragraphs>
-        <Top>2.28754in</Top>
-        <Left>6.86748in</Left>
+        <Top>1.92118in</Top>
+        <Left>6.55416in</Left>
         <Height>0.19445in</Height>
-        <Width>0.84502in</Width>
-        <ZIndex>33</ZIndex>
+        <Width>1in</Width>
+        <ZIndex>23</ZIndex>
         <Style>
           <Border>
+            <Color>DimGray</Color>
             <Style>Solid</Style>
           </Border>
           <TopBorder>
+            <Color>DimGray</Color>
             <Style>None</Style>
           </TopBorder>
           <BottomBorder>
@@ -2126,157 +1733,11 @@
           </BottomBorder>
           <LeftBorder>
             <Color>DimGray</Color>
-            <Width>0.5pt</Width>
+            <Width>1pt</Width>
           </LeftBorder>
           <RightBorder>
             <Color>DimGray</Color>
-            <Width>0.5pt</Width>
-          </RightBorder>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Address2Text6">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!PpnProsen.Value, "FakturJualDataset")</Value>
-                <Style>
-                  <FontFamily>Courier New</FontFamily>
-                  <FontSize>9pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Right</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <Top>2.28754in</Top>
-        <Left>5.52467in</Left>
-        <Height>0.19445in</Height>
-        <Width>1.34281in</Width>
-        <ZIndex>34</ZIndex>
-        <Style>
-          <Border>
-            <Style>Solid</Style>
-          </Border>
-          <TopBorder>
-            <Style>None</Style>
-          </TopBorder>
-          <BottomBorder>
-            <Style>None</Style>
-          </BottomBorder>
-          <LeftBorder>
-            <Color>DimGray</Color>
-            <Width>0.5pt</Width>
-          </LeftBorder>
-          <RightBorder>
-            <Color>DimGray</Color>
-            <Width>0.5pt</Width>
-          </RightBorder>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Address2Text7">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Total :</Value>
-                <Style>
-                  <FontFamily>Courier New</FontFamily>
-                  <FontSize>9pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Right</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <Top>1.89864in</Top>
-        <Left>5.52467in</Left>
-        <Height>0.19445in</Height>
-        <Width>1.34281in</Width>
-        <ZIndex>35</ZIndex>
-        <Style>
-          <Border>
-            <Style>Solid</Style>
-          </Border>
-          <TopBorder>
-            <Style>None</Style>
-          </TopBorder>
-          <BottomBorder>
-            <Style>None</Style>
-          </BottomBorder>
-          <LeftBorder>
-            <Color>DimGray</Color>
-            <Width>0.5pt</Width>
-          </LeftBorder>
-          <RightBorder>
-            <Color>DimGray</Color>
-            <Width>0.5pt</Width>
-          </RightBorder>
-          <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="PpnFooterText3">
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!Total.Value, "FakturJualDataset")</Value>
-                <Style>
-                  <FontFamily>Courier New</FontFamily>
-                  <FontSize>9pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Right</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <Top>1.89864in</Top>
-        <Left>6.86748in</Left>
-        <Height>0.19445in</Height>
-        <Width>0.84502in</Width>
-        <ZIndex>36</ZIndex>
-        <Style>
-          <Border>
-            <Style>Solid</Style>
-          </Border>
-          <TopBorder>
-            <Style>None</Style>
-          </TopBorder>
-          <BottomBorder>
-            <Style>None</Style>
-          </BottomBorder>
-          <LeftBorder>
-            <Color>DimGray</Color>
-            <Width>0.5pt</Width>
-          </LeftBorder>
-          <RightBorder>
-            <Color>DimGray</Color>
-            <Width>0.5pt</Width>
+            <Width>1pt</Width>
           </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -2286,14 +1747,10 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>4.03897in</Height>
-    <Style>
-      <Border>
-        <Style>None</Style>
-      </Border>
-    </Style>
+    <Height>3.64509in</Height>
+    <Style />
   </Body>
-  <Width>7.72223in</Width>
+  <Width>7.5625in</Width>
   <Page>
     <LeftMargin>1in</LeftMargin>
     <RightMargin>1in</RightMargin>
@@ -2303,25 +1760,25 @@
   </Page>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="btrdistribSalesContextFakturAgg">
+    <DataSource Name="btrdistribPurchaseContextReturBeliFeature">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>70729874-a6dc-4267-a147-897d997f975d</rd:DataSourceID>
+      <rd:DataSourceID>d0296020-aa0e-4e77-bfdd-788095b38d21</rd:DataSourceID>
     </DataSource>
-    <DataSource Name="btrdistribSalesContextFakturAgg1">
+    <DataSource Name="btrdistribPurchaseContextReturBeliFeature1">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>5eb89b92-bf0a-4254-b39c-dab4aef3362d</rd:DataSourceID>
+      <rd:DataSourceID>e760d6fa-7c0e-4572-9218-b7c9c90af311</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="FakturJualDataset">
+    <DataSet Name="ReturBeliDataset">
       <Query>
-        <DataSourceName>btrdistribSalesContextFakturAgg</DataSourceName>
+        <DataSourceName>btrdistribPurchaseContextReturBeliFeature</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
@@ -2331,14 +1788,6 @@
         </Field>
         <Field Name="Address2">
           <DataField>Address2</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="CustomerId">
-          <DataField>CustomerId</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="CustomerName">
-          <DataField>CustomerName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Discount">
@@ -2353,32 +1802,12 @@
           <DataField>DppProsen</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="DriverName">
-          <DataField>DriverName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="FakturCode">
-          <DataField>FakturCode</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="FakturDate">
-          <DataField>FakturDate</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="GrandTotal">
           <DataField>GrandTotal</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="JatuhTempo">
           <DataField>JatuhTempo</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="JenisBayar">
-          <DataField>JenisBayar</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Note">
-          <DataField>Note</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Ppn">
@@ -2389,12 +1818,24 @@
           <DataField>PpnProsen</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="SalesName">
-          <DataField>SalesName</DataField>
+        <Field Name="ReturBeliCode">
+          <DataField>ReturBeliCode</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ReturBeliDate">
+          <DataField>ReturBeliDate</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="SubTotal">
           <DataField>SubTotal</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SupplierId">
+          <DataField>SupplierId</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SupplierName">
+          <DataField>SupplierName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Terbilang">
@@ -2411,14 +1852,14 @@
         </Field>
       </Fields>
       <rd:DataSetInfo>
-        <rd:DataSetName>btr.distrib.SalesContext.FakturAgg</rd:DataSetName>
-        <rd:TableName>FakturPrintOutDto</rd:TableName>
-        <rd:ObjectDataSourceType>btr.distrib.SalesContext.FakturAgg.FakturPrintOutDto, btr.distrib, Version=1.0.0.12, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+        <rd:DataSetName>btr.distrib.PurchaseContext.ReturBeliFeature</rd:DataSetName>
+        <rd:TableName>ReturBeliPrintOutDto</rd:TableName>
+        <rd:ObjectDataSourceType>btr.distrib.PurchaseContext.ReturBeliFeature.ReturBeliPrintOutDto, btr.distrib, Version=2.1.0.288, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
-    <DataSet Name="FakturJualItemDataset">
+    <DataSet Name="ReturBeliItemDataset">
       <Query>
-        <DataSourceName>btrdistribSalesContextFakturAgg1</DataSourceName>
+        <DataSourceName>btrdistribPurchaseContextReturBeliFeature1</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
@@ -2472,12 +1913,13 @@
         </Field>
       </Fields>
       <rd:DataSetInfo>
-        <rd:DataSetName>btr.distrib.SalesContext.FakturAgg</rd:DataSetName>
-        <rd:TableName>FakturPrintOutItemDto</rd:TableName>
-        <rd:ObjectDataSourceType>btr.distrib.SalesContext.FakturAgg.FakturPrintOutItemDto, btr.distrib, Version=1.0.0.12, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+        <rd:DataSetName>btr.distrib.PurchaseContext.ReturBeliFeature</rd:DataSetName>
+        <rd:TableName>ReturBeliPrintOutDto</rd:TableName>
+        <rd:ObjectDataSourceSelectMethod>ListItem</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>btr.distrib.PurchaseContext.ReturBeliFeature.ReturBeliPrintOutDto, btr.distrib, Version=2.1.0.288, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
-  <rd:ReportID>84761d52-99ab-4336-bf7f-a7dc8966e3dd</rd:ReportID>
+  <rd:ReportID>c9b76a0d-07e1-4114-9341-a743cc9ab807</rd:ReportID>
 </Report>

@@ -1,42 +1,42 @@
 ﻿using btr.application.BrgContext.BrgAgg;
+using btr.application.InventoryContext.StokAgg.GenStokUseCase;
 using btr.application.InventoryContext.WarehouseAgg;
+using btr.application.PurchaseContext.ReturBeliAgg;
 using btr.application.PurchaseContext.SupplierAgg.Contracts;
+using btr.application.SupportContext.ParamSistemAgg;
 using btr.application.SupportContext.TglJamAgg;
+using btr.application.SupportContext.UserAgg;
 using btr.distrib.Browsers;
 using btr.distrib.Helpers;
+using btr.distrib.SalesContext.FakturAgg;
 using btr.distrib.SharedForm;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
-using btr.domain.PurchaseContext.InvoiceAgg;
+using btr.domain.PurchaseContext.ReturBeliFeature;
 using btr.domain.PurchaseContext.SupplierAgg;
+using btr.domain.SupportContext.ParamSistemAgg;
+using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Domain;
 using Mapster;
+using Microsoft.Reporting.WinForms;
 using Polly;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Linq;
 using System.Windows.Forms;
-using btr.application.InventoryContext.StokAgg.GenStokUseCase;
-using btr.application.PurchaseContext.InvoiceAgg;
-using btr.distrib.PrintDocs;
-using btr.application.SupportContext.ParamSistemAgg;
-using btr.domain.SupportContext.ParamSistemAgg;
-using btr.distrib.SalesContext.FakturAgg;
-using Microsoft.Reporting.WinForms;
-using btr.application.SupportContext.UserAgg;
-using btr.domain.SupportContext.UserAgg;
 
-namespace btr.distrib.PurchaseContext.InvoiceAgg
+namespace btr.distrib.PurchaseContext.ReturBeliFeature
 {
-    public partial class InvoiceForm : Form
+    public partial class ReturBeliForm : Form
     {
         private readonly IBrowser<SupplierBrowserView> _supplierBrowser;
         private readonly IBrowser<WarehouseBrowserView> _warehouseBrowser;
         private readonly IBrowser<BrgStokBrowserView> _brgStokBrowser;
-        private readonly IBrowser<InvoiceBrowserView> _invoiceBrowser;
+        private readonly IBrowser<ReturBeliBrowserView> _returBeliBrowser;
 
         private readonly ISupplierDal _supplierDal;
         private readonly IWarehouseDal _warehouseDal;
@@ -45,62 +45,46 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
         private readonly IParamSistemDal _paramSistemDal;
         private readonly IUserDal _userDal;
 
-        private readonly ICreateInvoiceItemWorker _createItemWorker;
-        private readonly ISaveInvoiceWorker _saveInvoiceWorker;
-        private readonly IVoidInvoiceWorker _voidInvoiceWorker;
+        private readonly ICreateReturBeliItemWorker _createItemWorker;
+        private readonly ISaveReturBeliWorker _saveReturBeliWorker;
+        private readonly IVoidReturBeliWorker _voidReturBeliWorker;
+        private readonly IGenStokReturBeliWorker _genStokReturBeliWorker;
 
         private readonly IBrgBuilder _brgBuilder;
-        private readonly IInvoiceBuilder _invoiceBuilder;
-        private readonly IInvoicePrintDoc _invoicePrinter;
+        private readonly IReturBeliBuilder _returBeliBuilder;
 
-        private readonly BindingList<InvoiceItemDto> _listItem = new BindingList<InvoiceItemDto>();
+        private readonly BindingList<ReturBeliItemDto> _listItem = new BindingList<ReturBeliItemDto>();
         private decimal _ppnProsen;
         private decimal _dppProsen;
 
-
-        public InvoiceForm(IBrowser<SupplierBrowserView> supplierBrowser,
-            IBrowser<WarehouseBrowserView> warehouseBrowser,
-            IBrowser<BrgStokBrowserView> brgStokBrowser,
-            ISupplierDal supplierDal,
-            IWarehouseDal warehouseDal,
-            ICreateInvoiceItemWorker createItemWorker,
-            IBrgBuilder brgBuilder,
-            IBrgDal brgDal,
-            ISaveInvoiceWorker saveInvoiceWorker,
-            IInvoiceBuilder invoiceBuilder,
-            ITglJamDal dateTime,
-            IBrowser<InvoiceBrowserView> invoiceBrowser,
-            IInvoicePrintDoc invoicePrinter,
-            IGenStokInvoiceWorker genStokInvoiceWorker,
-            IParamSistemDal paramSistemDal,
-            IVoidInvoiceWorker voidInvoiceWorker,
-            IUserDal userDal)
+        public ReturBeliForm(IBrowser<SupplierBrowserView> supplierBrowser, IBrowser<WarehouseBrowserView> warehouseBrowser,
+            IBrowser<BrgStokBrowserView> brgStokBrowser, IBrowser<ReturBeliBrowserView> returBeliBrowser, ISupplierDal supplierDal,
+            IWarehouseDal warehouseDal, IBrgDal brgDal, ITglJamDal dateTime, IParamSistemDal paramSistemDal, IUserDal userDal,
+            ICreateReturBeliItemWorker createItemWorker, ISaveReturBeliWorker saveReturBeliWorker, IVoidReturBeliWorker voidReturBeliWorker,
+            IBrgBuilder brgBuilder, IReturBeliBuilder returBeliBuilder, IGenStokReturBeliWorker genStokReturBeliWorker)
         {
             InitializeComponent();
-
             _supplierBrowser = supplierBrowser;
             _warehouseBrowser = warehouseBrowser;
-
+            _brgStokBrowser = brgStokBrowser;
+            _returBeliBrowser = returBeliBrowser;
             _supplierDal = supplierDal;
             _warehouseDal = warehouseDal;
             _brgDal = brgDal;
-
-            _brgBuilder = brgBuilder;
-            _createItemWorker = createItemWorker;
-            _brgStokBrowser = brgStokBrowser;
-            _saveInvoiceWorker = saveInvoiceWorker;
-            _invoiceBuilder = invoiceBuilder;
             _dateTime = dateTime;
-            _invoiceBrowser = invoiceBrowser;
-            _invoicePrinter = invoicePrinter;
             _paramSistemDal = paramSistemDal;
-            _voidInvoiceWorker = voidInvoiceWorker;
             _userDal = userDal;
+            _createItemWorker = createItemWorker;
+            _saveReturBeliWorker = saveReturBeliWorker;
+            _voidReturBeliWorker = voidReturBeliWorker;
+            _brgBuilder = brgBuilder;
+            _returBeliBuilder = returBeliBuilder;
 
             RegisterEventHandler();
             InitGrid();
             InitParamSistem();
             ClearForm();
+            _genStokReturBeliWorker = genStokReturBeliWorker;
         }
 
         private void InitParamSistem()
@@ -116,19 +100,19 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
 
         private void RegisterEventHandler()
         {
-            InvoiceButton.Click += InvoiceButton_Click;
+            InvoiceButton.Click += ReturBeliButton_Click;
             SupplierButton.Click += SupplierButton_Click;
             SupplierIdText.Validated += SupplierIdText_Validated;
 
             WarehouseButton.Click += WarehouseButton_Click;
             WarehouseIdText.Validated += WarehouseIdText_Validated;
 
-            InvoiceItemGrid.CellContentClick += InvoiceItemGrid_CellContentClick;
-            InvoiceItemGrid.CellValueChanged += InvoiceItemGrid_CellValueChanged;
-            InvoiceItemGrid.CellValidating += InvoiceItemGrid_CellValidating; 
-            InvoiceItemGrid.KeyDown += InvoiceItemGrid_KeyDown;
-            InvoiceItemGrid.EditingControlShowing += InvoiceItemGrid_EditingControlShowing;
-            InvoiceItemGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
+            ReturBeliItemGrid.CellContentClick += ReturBeliItemGrid_CellContentClick;
+            ReturBeliItemGrid.CellValueChanged += ReturBeliItemGrid_CellValueChanged;
+            ReturBeliItemGrid.CellValidating += ReturBeliItemGrid_CellValidating;
+            ReturBeliItemGrid.KeyDown += ReturBeliItemGrid_KeyDown;
+            ReturBeliItemGrid.EditingControlShowing += ReturBeliItemGrid_EditingControlShowing;
+            ReturBeliItemGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
 
             SaveButton.Click += SaveButton_Click;
             DeleteButton.Click += DeleteButton_Click;
@@ -143,31 +127,31 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
 
         private void PrintButton_Click(object sender, EventArgs e)
         {
-            PrintInvoiceRdlc(InvoiceIdText.Text);
+            PrintReturBeliRdlc(ReturBeliIdText.Text);
         }
-        private void PrintInvoiceRdlc(string invoiceId)
+        private void PrintReturBeliRdlc(string returBeliId)
         {
-            var invoice = _invoiceBuilder.Load(new InvoiceModel(invoiceId)).Build();
-            var supplier = _supplierDal.GetData(invoice);
-            var user = _userDal.GetData(invoice) ?? new UserModel
+            var returBeli = _returBeliBuilder.Load(new ReturBeliModel(returBeliId)).Build();
+            var supplier = _supplierDal.GetData(returBeli);
+            var user = _userDal.GetData(returBeli) ?? new UserModel
             {
-                UserId = invoice.UserId,
-                UserName = invoice.UserId
+                UserId = returBeli.UserId,
+                UserName = returBeli.UserId
             };
-            var invoicePrintOut = new InvoicePrintOutDto(invoice, supplier, user);
+            var returBeliPrintOut = new ReturBeliPrintOutDto(returBeli, supplier, user);
 
-            var invoiceDataset = new ReportDataSource("InvoiceBeliDataset", new List<InvoicePrintOutDto> { invoicePrintOut });
-            var invoiceItemDataset = new ReportDataSource("InvoiceBeliItemDataset", invoicePrintOut.ListItem);
+            var returBeliDataset = new ReportDataSource("ReturBeliDataset", new List<ReturBeliPrintOutDto> { returBeliPrintOut });
+            var returBeliItemDataset = new ReportDataSource("ReturBeliItemDataset", returBeliPrintOut.ListItem);
             var clientId = _paramSistemDal.GetData(new ParamSistemModel("CLIENT_ID"))?.ParamValue ?? string.Empty;
 
             var printOutTemplate = string.Empty;
             switch (clientId)
             {
                 case "BTR-YK":
-                    printOutTemplate = "InvoicePrintOut-Yk";
+                    printOutTemplate = "ReturBeliPrintOut-Yk";
                     break;
                 case "BTR-MGL":
-                    printOutTemplate = "InvoicePrintOut-Mgl";
+                    printOutTemplate = "ReturBeliPrintOut-Mgl";
                     break;
                 default:
                     break;
@@ -175,14 +159,13 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
 
             var listDataset = new List<ReportDataSource>
             {
-                invoiceDataset,
-                invoiceItemDataset
+                returBeliDataset,
+                returBeliItemDataset
             };
             var rdlcViewerForm = new RdlcViewerForm();
             rdlcViewerForm.SetReportData(printOutTemplate, listDataset);
             rdlcViewerForm.ShowDialog();
         }
-
         private static string GetPrinterName()
         {
             string defaultPrinterName;
@@ -199,15 +182,15 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             return defaultPrinterName;
         }
 
-        private void InvoiceItemGrid_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        private void ReturBeliItemGrid_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
             var grid = (DataGridView)sender;
             if (grid.CurrentCell.ColumnIndex != grid.Columns.GetCol("BrgId").Index) return;
-            
+
             var x = _listItem[e.RowIndex].BrgId;
             if (grid.CurrentRow == null) return;
-            
-            var y = grid.CurrentRow.Cells["BrgId"].Value?.ToString()??string.Empty;
+
+            var y = grid.CurrentRow.Cells["BrgId"].Value?.ToString() ?? string.Empty;
             if (x != y)
                 _listItem[e.RowIndex].HrgInputStr = string.Empty;
         }
@@ -217,61 +200,57 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             ClearForm();
         }
 
-        private void InvoiceButton_Click(object sender, EventArgs e)
+        private void ReturBeliButton_Click(object sender, EventArgs e)
         {
-            _invoiceBrowser.Filter.Date = new Periode(_dateTime.Now);
+            _returBeliBrowser.Filter.Date = new Periode(_dateTime.Now);
 
-            InvoiceIdText.Text = _invoiceBrowser.Browse(InvoiceIdText.Text);
-            LoadInvoice();
+            ReturBeliIdText.Text = _returBeliBrowser.Browse(ReturBeliIdText.Text);
+            LoadReturBeli();
         }
-        private void LoadInvoice()
+        private void LoadReturBeli()
         {
-            var textbox = InvoiceIdText;
-            var policy = Policy<InvoiceModel>
+            var textbox = ReturBeliIdText;
+            var policy = Policy<ReturBeliModel>
                 .Handle<KeyNotFoundException>().Or<ArgumentException>()
-                .Fallback(null as InvoiceModel, (r, c) =>
+                .Fallback(null as ReturBeliModel, (r, c) =>
                 {
                     MessageBox.Show(r.Exception.Message);
                 });
 
-            var invoice = policy.Execute(() => _invoiceBuilder
-                .Load(new InvoiceModel(textbox.Text))
+            var returBeli = policy.Execute(() => _returBeliBuilder
+                .Load(new ReturBeliModel(textbox.Text))
                 .Build());
-            if (invoice is null) return;
-            if (invoice.IsVoid)
+            if (returBeli is null) return;
+            if (returBeli.IsVoid)
             {
-                MessageBox.Show("Invoice sudah dihapus");
+                MessageBox.Show("ReturBeli sudah dihapus");
                 return;
             }
 
-            invoice.RemoveNull();
-            SupplierNameText.Text = invoice.SupplierName;
-            SupplierIdText.Text = invoice.SupplierId;
+            returBeli.RemoveNull();
+            SupplierNameText.Text = returBeli.SupplierName;
+            SupplierIdText.Text = returBeli.SupplierId;
 
-            InvoiceDateText.Value = invoice.InvoiceDate;
-            InvoiceCodeText.Text = invoice.InvoiceCode;
-            WarehouseIdText.Text = invoice.WarehouseId;
-            WarehouseNameText.Text = invoice.WarehouseName;
-            TermOfPaymentCombo.SelectedIndex = (int)invoice.TermOfPayment;
-            DueDateText.Value = invoice.DueDate;
-            TotalText.Value = invoice.Total;
-            DiscountText.Value = invoice.Disc;
-            TaxText.Value = invoice.Tax;
-            GrandTotalText.Value = invoice.GrandTotal;
-            UangMukaText.Value = invoice.UangMuka;
-            SisaText.Value = invoice.KurangBayar;
+            ReturBeliDateText.Value = returBeli.ReturBeliDate;
+            ReturBeliCodeText.Text = returBeli.ReturBeliCode;
+            WarehouseIdText.Text = returBeli.WarehouseId;
+            WarehouseNameText.Text = returBeli.WarehouseName;
+            TotalText.Value = returBeli.Total;
+            DiscountText.Value = returBeli.Disc;
+            TaxText.Value = returBeli.Tax;
+            GrandTotalText.Value = returBeli.GrandTotal;
 
             _listItem.Clear();
-            foreach (var newItem in invoice.ListItem
+            foreach (var newItem in returBeli.ListItem
                 .OrderBy(x => x.NoUrut)
-                .Select(item => item.Adapt<InvoiceItemDto>()))
+                .Select(item => item.Adapt<ReturBeliItemDto>()))
             {
                 _listItem.Add(newItem);
-                ValidateRow(_listItem.Count-1,true);
+                ValidateRow(_listItem.Count - 1, true);
             }
 
-            if (invoice.IsVoid)
-                ShowAsVoid(invoice);
+            if (returBeli.IsVoid)
+                ShowAsVoid(returBeli);
             else
                 ShowAsActive();
             CalcTotal();
@@ -316,7 +295,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
         #endregion
 
         #region GRID
-        private void InvoiceItemGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void ReturBeliItemGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var grid = (DataGridView)sender;
             if (e.ColumnIndex != grid.Columns["Find"].Index)
@@ -325,7 +304,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             BrowseBrg(e.RowIndex);
         }
 
-        private void InvoiceItemGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void ReturBeliItemGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
             var grid = (DataGridView)sender;
@@ -348,7 +327,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             CalcTotal();
         }
 
-        private void InvoiceItemGrid_KeyDown(object sender, KeyEventArgs e)
+        private void ReturBeliItemGrid_KeyDown(object sender, KeyEventArgs e)
         {
             var grid = (DataGridView)sender;
             if (e.KeyCode == Keys.F1)
@@ -365,7 +344,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
         }
 
         #region browse-brg-saat-cell-aktif
-        private void InvoiceItemGrid_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        private void ReturBeliItemGrid_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             var grid = (DataGridView)sender;
             if (grid.CurrentCell.ColumnIndex != 1)
@@ -381,8 +360,8 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
         {
             if (e.KeyCode == Keys.F1)
             {
-                InvoiceItemGrid.EndEdit();
-                BrowseBrg(InvoiceItemGrid.CurrentCell.RowIndex);
+                ReturBeliItemGrid.EndEdit();
+                BrowseBrg(ReturBeliItemGrid.CurrentCell.RowIndex);
             }
         }
         #endregion
@@ -395,7 +374,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             var brgIdPilih = _brgStokBrowser.Browse(brgId);
             _listItem[rowIndex].BrgId = brgIdPilih;
 
-            if (brgId != brgIdPilih) 
+            if (brgId != brgIdPilih)
                 ValidateRow(rowIndex, true);
         }
 
@@ -407,7 +386,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
                 return;
             }
 
-            var req = new CreateInvoiceItemRequest(
+            var req = new CreateReturBeliItemRequest(
                 _listItem[rowIndex].BrgId,
                 _listItem[rowIndex].HrgInputStr,
                 _listItem[rowIndex].QtyInputStr,
@@ -416,8 +395,8 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
                 _listItem[rowIndex].PpnProsen == 0 ? _ppnProsen : _listItem[rowIndex].PpnProsen,
                 isGetHarga);
             var item = _createItemWorker.Execute(req);
-            _listItem[rowIndex] = item.Adapt<InvoiceItemDto>();
-            InvoiceItemGrid.Refresh();
+            _listItem[rowIndex] = item.Adapt<ReturBeliItemDto>();
+            ReturBeliItemGrid.Refresh();
             CalcTotal();
         }
 
@@ -437,7 +416,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             {
                 brg = GetBrgByCode(id);
                 _listItem[rowIndex].BrgId = brg?.BrgId ?? string.Empty;
-                InvoiceItemGrid.Refresh();
+                ReturBeliItemGrid.Refresh();
             }
 
             return brg;
@@ -458,9 +437,9 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             {
                 DataSource = _listItem
             };
-            InvoiceItemGrid.DataSource = binding;
-            InvoiceItemGrid.Refresh();
-            InvoiceItemGrid.Columns.SetDefaultCellStyle(Color.Beige);
+            ReturBeliItemGrid.DataSource = binding;
+            ReturBeliItemGrid.Refresh();
+            ReturBeliItemGrid.Columns.SetDefaultCellStyle(Color.Beige);
 
             DataGridViewButtonColumn buttonCol = new DataGridViewButtonColumn
             {
@@ -469,9 +448,9 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
                 Name = "Find" // Set the button text
             };
             buttonCol.DefaultCellStyle.BackColor = Color.Brown;
-            InvoiceItemGrid.Columns.Insert(1, buttonCol);
+            ReturBeliItemGrid.Columns.Insert(1, buttonCol);
 
-            var cols = InvoiceItemGrid.Columns;
+            var cols = ReturBeliItemGrid.Columns;
             cols.GetCol("BrgId").Visible = true;
             cols.GetCol("BrgId").Width = 50;
 
@@ -549,8 +528,8 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             cols.GetCol("Total").Width = 80;
 
             //  auto-resize-rows
-            InvoiceItemGrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            InvoiceItemGrid.AutoResizeRows();
+            ReturBeliItemGrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            ReturBeliItemGrid.AutoResizeRows();
         }
 
         private void CalcTotal()
@@ -560,7 +539,6 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             DppText.Value = _listItem.Sum(x => x.DppRp);
             TaxText.Value = _listItem.Sum(x => x.PpnRp);
             GrandTotalText.Value = _listItem.Sum(x => x.Total);
-            SisaText.Value = GrandTotalText.Value - UangMukaText.Value;
         }
 
         #endregion
@@ -568,34 +546,31 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
         #region SAVE
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            //  simpan kondisi barang sebelum simpan
-            //  untuk deteksi apa perlu gen-stok
-            var result = SaveInvoice();
+            var result = SaveReturBeli();
+            _genStokReturBeliWorker.Execute(new GenStokReturBeliRequest(result.ReturBeliId));
 
-            PrintInvoiceRdlc(result.InvoiceId);
+            PrintReturBeliRdlc(result.ReturBeliId);
 
             ClearForm();
         }
 
-        private InvoiceModel SaveInvoice()
+        private ReturBeliModel SaveReturBeli()
         {
             var mainform = (MainForm)this.Parent.Parent;
-            var cmd = new SaveInvoiceRequest
+            var cmd = new SaveReturBeliRequest
             {
-                InvoiceId = InvoiceIdText.Text,
-                InvoiceDate = InvoiceDateText.Value.ToString("yyyy-MM-dd"),
-                InvoiceCode = InvoiceCodeText.Text,
+                ReturBeliId = ReturBeliIdText.Text,
+                ReturBeliDate = ReturBeliDateText.Value.ToString("yyyy-MM-dd"),
+                ReturBeliCode = ReturBeliCodeText.Text,
                 SupplierId = SupplierIdText.Text,
                 WarehouseId = WarehouseIdText.Text,
-                TermOfPayment = TermOfPaymentCombo.SelectedIndex,
-                DueDate = DueDateText.Value.ToString("yyyy-MM-dd"),
                 UserId = mainform.UserId.UserId,
             };
 
             var listItem = (
                 from c in _listItem
                 where c.BrgName?.Length > 0
-                select new SaveInvoiceRequestItem
+                select new SaveReturBeliRequestItem
                 {
                     BrgId = c.BrgId,
                     HrgInputStr = c.HrgInputStr,
@@ -605,46 +580,43 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
                     PpnProsen = c.PpnProsen,
                 }).ToList();
             cmd.ListBrg = listItem;
-            var result = _saveInvoiceWorker.Execute(cmd);
-            LastIdLabel.Text = result.InvoiceId;
+            var result = _saveReturBeliWorker.Execute(cmd);
+            LastIdLabel.Text = result.ReturBeliId;
             return result;
         }
-        
+
         private void ClearForm()
         {
-            InvoiceIdText.Text = string.Empty;
-            InvoiceDateText.Value = _dateTime.Now;
-            InvoiceCodeText.Text = string.Empty;
+            ReturBeliIdText.Text = string.Empty;
+            ReturBeliDateText.Value = _dateTime.Now;
+            ReturBeliCodeText.Text = string.Empty;
 
             SupplierIdText.Text = string.Empty;
             SupplierNameText.Text = string.Empty;
             WarehouseIdText.Text = string.Empty;
             WarehouseNameText.Text = string.Empty;
-            TermOfPaymentCombo.SelectedIndex = 0;
-            DueDateText.Value = _dateTime.Now.AddDays(30);
 
             TotalText.Value = 0;
             DiscountText.Value = 0;
             DppText.Value = 0;
             TaxText.Value = 0;
-            UangMukaText.Value = 0;
-            SisaText.Value = 0;
 
             _listItem.Clear();
-            var newItem = new InvoiceItemDto();
+            var newItem = new ReturBeliItemDto();
             newItem.SetPpnProsen(_ppnProsen);
             _listItem.Add(newItem);
 
             ShowAsActive();
         }
-        private void ShowAsVoid(InvoiceModel invoice)
+
+        private void ShowAsVoid(ReturBeliModel returBeli)
         {
             this.BackColor = Color.RosyBrown;
             foreach (var item in this.Controls)
                 if (item is Panel panel)
                     panel.BackColor = Color.MistyRose;
 
-            CancelLabel.Text = $@"Invoice sudah DIBATALKAN \noleh {invoice.UserIdVoid} \npada {invoice.VoidDate:ddd, dd MMM yyyy}";
+            CancelLabel.Text = $@"ReturBeli sudah DIBATALKAN \noleh {returBeli.UserIdVoid} \npada {returBeli.VoidDate:ddd, dd MMM yyyy}";
             VoidPanel.Visible = true;
             SaveButton.Visible = false;
         }
@@ -664,10 +636,10 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
         #region DELETE
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            if (InvoiceIdText.Text == string.Empty)
+            if (ReturBeliIdText.Text == string.Empty)
                 return;
 
-            if (MessageBox.Show("Delete Invoice?", "Invoice", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("Delete ReturBeli?", "ReturBeli", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 Delete();
         }
 
@@ -675,8 +647,8 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
         {
             var mainMenu = this.Parent.Parent;
             var user = ((MainForm)mainMenu).UserId;
-            var req = new VoidInvoiceRequest(InvoiceIdText.Text, user.UserId);
-            _voidInvoiceWorker.Execute(req);
+            var req = new VoidReturBeliRequest(ReturBeliIdText.Text, user.UserId);
+            _voidReturBeliWorker.Execute(req);
 
             ClearForm();
         }

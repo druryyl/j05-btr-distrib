@@ -24,7 +24,6 @@ namespace btr.domain.PurchaseContext.ReturBeliFeature
         public string WarehouseId { get; set; }
         public string WarehouseName { get; set; }
 
-
         public string NoFakturPajak { get; set; }
         public TermOfPaymentEnum TermOfPayment { get; set; }
         public DateTime DueDate { get; set; }
@@ -34,9 +33,6 @@ namespace btr.domain.PurchaseContext.ReturBeliFeature
         public decimal Tax { get; set; }
         public decimal GrandTotal { get; set; }
 
-        public decimal UangMuka { get; set; }
-        public decimal KurangBayar { get; set; }
-
         public DateTime CreateTime { get; set; }
         public DateTime LastUpdate { get; set; }
         public string UserId { get; set; }
@@ -44,8 +40,7 @@ namespace btr.domain.PurchaseContext.ReturBeliFeature
         public DateTime VoidDate { get; set; }
         public string UserIdVoid { get; set; }
         public bool IsVoid { get => VoidDate != new DateTime(3000, 1, 1); }
-        public bool IsStokPosted { get; set; }
 
-        public List<InvoiceItemModel> ListItem { get; set; }
+        public List<ReturBeliItemModel> ListItem { get; set; }
     }
 }

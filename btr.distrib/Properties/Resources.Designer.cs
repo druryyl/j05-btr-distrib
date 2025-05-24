@@ -73,19 +73,9 @@ namespace btr.distrib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap app_wallpaper_3 {
+        internal static System.Drawing.Bitmap animasi_login3 {
             get {
-                object obj = ResourceManager.GetObject("app-wallpaper-3", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap app_wallpaper_4 {
-            get {
-                object obj = ResourceManager.GetObject("app-wallpaper-4", resourceCulture);
+                object obj = ResourceManager.GetObject("animasi-login3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

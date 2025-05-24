@@ -5,17 +5,17 @@ using btr.application.BrgContext.BrgAgg;
 using btr.application.Helpers;
 using btr.application.InventoryContext.StokBalanceAgg;
 using btr.domain.BrgContext.BrgAgg;
-using btr.domain.PurchaseContext.InvoiceAgg;
+using btr.domain.PurchaseContext.ReturBeliFeature;
 using btr.nuna.Application;
 
-namespace btr.application.PurchaseContext.InvoiceAgg
+namespace btr.application.PurchaseContext.ReturBeliAgg
 {
-    public class CreateInvoiceItemRequest : IBrgKey
+    public class CreateReturBeliItemRequest : IBrgKey
     {
-        public CreateInvoiceItemRequest(string brgId, 
+        public CreateReturBeliItemRequest(string brgId,
             string hrgInputStr,
-            string qtyInputStr, 
-            string discInputStr, 
+            string qtyInputStr,
+            string discInputStr,
             decimal dppProsen,
             decimal ppnProsen,
             bool isUbahHarga)
@@ -37,30 +37,30 @@ namespace btr.application.PurchaseContext.InvoiceAgg
         public bool IsGetHarga { get; set; }
     }
 
-    public interface ICreateInvoiceItemWorker : INunaService<InvoiceItemModel, CreateInvoiceItemRequest>
+    public interface ICreateReturBeliItemWorker : INunaService<ReturBeliItemModel, CreateReturBeliItemRequest>
     {
     }
 
-    public class CreateInvoiceItemWorker : ICreateInvoiceItemWorker
+    public class CreateReturBeliItemWorker : ICreateReturBeliItemWorker
     {
         private readonly IBrgBuilder _brgBuilder;
         private readonly IStokBalanceBuilder _stokBalanceBuilder;
 
-        public CreateInvoiceItemWorker(IBrgBuilder brgBuilder, 
+        public CreateReturBeliItemWorker(IBrgBuilder brgBuilder,
             IStokBalanceBuilder stokBalanceBuilder)
         {
             _brgBuilder = brgBuilder;
             _stokBalanceBuilder = stokBalanceBuilder;
         }
 
-        public InvoiceItemModel Execute(CreateInvoiceItemRequest req)
+        public ReturBeliItemModel Execute(CreateReturBeliItemRequest req)
         {
             var brg = _brgBuilder.Load(req).Build();
             var stok = _stokBalanceBuilder.Load(brg).Build();
 
             var qtys = ParseStringMultiNumber(req.QtyInputStr, 3);
 
-            var item = new InvoiceItemModel
+            var item = new ReturBeliItemModel
             {
                 BrgId = req.BrgId,
                 BrgName = brg.BrgName,
@@ -105,9 +105,6 @@ namespace btr.application.PurchaseContext.InvoiceAgg
             item.QtyBeli = (item.QtyBesar * item.Conversion) + item.QtyKecil;
             item.SubTotal = item.QtyBeli * item.HppSat;
 
-            item.QtyBonus = (int)qtys[2];
-            item.QtyPotStok = item.QtyBeli + item.QtyBonus;
-
             item.QtyDetilStr = GenQtyDetilStr(item);
 
             item.DiscInputStr = req.DiscInputStr ?? string.Empty;
@@ -122,7 +119,7 @@ namespace btr.application.PurchaseContext.InvoiceAgg
             item.PpnRp = item.DppRp * req.PpnProsen / 100;
             item.Total = item.SubTotal - item.DiscRp + item.PpnRp;
 
-            item.QtyInputStr = $"{item.QtyBesar};{item.QtyKecil};{item.QtyBonus}";
+            item.QtyInputStr = $"{item.QtyBesar};{item.QtyKecil}";
 
             return item;
         }
@@ -137,7 +134,7 @@ namespace btr.application.PurchaseContext.InvoiceAgg
             var hppStr = DecFormatterHelper.ToStr(hpp);
             var hppBesarStr = DecFormatterHelper.ToStr(hppBesar);
 
-            string result = $"{hppBesarStr};{hppStr}"; 
+            string result = $"{hppBesarStr};{hppStr}";
 
             return result;
         }
@@ -179,7 +176,7 @@ namespace btr.application.PurchaseContext.InvoiceAgg
             hrgInputStr = $"{DecFormatterHelper.ToStr(hppSatBesar)};{DecFormatterHelper.ToStr(hppSatKecil)}";
         }
 
-        private string GenQtyDetilStr(InvoiceItemModel item)
+        private string GenQtyDetilStr(ReturBeliItemModel item)
         {
             var result = string.Empty;
             //  normalisasi; jika qty kecil lebih dari item.Conversion maka ubah jadi qty besar;
@@ -189,19 +186,18 @@ namespace btr.application.PurchaseContext.InvoiceAgg
                     var qtyBesarAdd = (int)(item.QtyKecil / item.Conversion);
                     item.QtyBesar += qtyBesarAdd;
                     item.QtyKecil -= (qtyBesarAdd * item.Conversion);
-                };
+                }
+            ;
 
             if (item.QtyBesar > 0)
                 result = $"{item.QtyBesar} {item.SatBesar}{Environment.NewLine}";
             if (item.QtyKecil > 0)
                 result += $"{item.QtyKecil} {item.SatKecil}{Environment.NewLine}";
-            if (item.QtyBonus > 0)
-                result += $"Bonus {item.QtyBonus} {item.SatKecil}";
 
             return result.TrimEnd('\n', '\r');
         }
 
-        private static string GenDiscDetilStr(IReadOnlyCollection<InvoiceDiscModel> listDisc)
+        private static string GenDiscDetilStr(IReadOnlyCollection<ReturBeliDiscModel> listDisc)
         {
             var listString = new List<string>();
             foreach (var item in listDisc)
@@ -211,7 +207,7 @@ namespace btr.application.PurchaseContext.InvoiceAgg
             return result;
         }
 
-        private static IEnumerable<InvoiceDiscModel> GenListDisc(string brgId, decimal subTotal,
+        private static IEnumerable<ReturBeliDiscModel> GenListDisc(string brgId, decimal subTotal,
             string disccountString)
         {
             var discs = ParseStringMultiNumber(disccountString, 4);
@@ -225,12 +221,12 @@ namespace btr.application.PurchaseContext.InvoiceAgg
             newSubTotal -= discRp[2];
             discRp[3] = newSubTotal * discs[3] / 100;
 
-            var result = new List<InvoiceDiscModel>
+            var result = new List<ReturBeliDiscModel>
             {
-                new InvoiceDiscModel(1, brgId, discs[0], discRp[0]),
-                new InvoiceDiscModel(2, brgId, discs[1], discRp[1]),
-                new InvoiceDiscModel(3, brgId, discs[2], discRp[2]),
-                new InvoiceDiscModel(4, brgId, discs[3], discRp[3])
+                new ReturBeliDiscModel(1, brgId, discs[0], discRp[0]),
+                new ReturBeliDiscModel(2, brgId, discs[1], discRp[1]),
+                new ReturBeliDiscModel(3, brgId, discs[2], discRp[2]),
+                new ReturBeliDiscModel(4, brgId, discs[3], discRp[3])
             };
             result.RemoveAll(x => x.DiscProsen == 0);
             return result;

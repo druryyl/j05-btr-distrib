@@ -123,8 +123,6 @@
   <ItemGroup>
     <Compile Include="Helpers\AppSettingsHelper.cs" />
     <Compile Include="Helpers\CodingPlayground.cs" />
-    <Compile Include="PurchaseContext\PurchaseOrderAgg\PurchaseOrderDalTest.cs" />
-    <Compile Include="PurchaseContext\PurchaseOrderAgg\PurchaseOrderItemDalTest.cs" />
     <Compile Include="Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -152,6 +150,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="PurchaseContext\" />
     <Folder Include="SalesContext\FakturControlAgg\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
