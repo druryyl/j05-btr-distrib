@@ -40,6 +40,8 @@
             this.KategoriButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.KategoriCombo = new System.Windows.Forms.ComboBox();
             this.ListGrid = new System.Windows.Forms.DataGridView();
             this.ExcelButton = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
@@ -49,7 +51,7 @@
             // NewButton
             // 
             this.NewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.NewButton.Location = new System.Drawing.Point(422, 331);
+            this.NewButton.Location = new System.Drawing.Point(608, 331);
             this.NewButton.Name = "NewButton";
             this.NewButton.Size = new System.Drawing.Size(75, 23);
             this.NewButton.TabIndex = 59;
@@ -59,7 +61,7 @@
             // SaveButton
             // 
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveButton.Location = new System.Drawing.Point(503, 331);
+            this.SaveButton.Location = new System.Drawing.Point(689, 331);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
             this.SaveButton.TabIndex = 58;
@@ -148,6 +150,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.PaleTurquoise;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.KategoriCombo);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.KategoriCodeText);
             this.panel2.Controls.Add(this.label2);
@@ -155,10 +159,27 @@
             this.panel2.Controls.Add(this.KategoriNameText);
             this.panel2.Controls.Add(this.KategoriButton);
             this.panel2.Controls.Add(this.label6);
-            this.panel2.Location = new System.Drawing.Point(344, 6);
+            this.panel2.Location = new System.Drawing.Point(530, 6);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(239, 319);
             this.panel2.TabIndex = 60;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 132);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(50, 13);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Supplier";
+            // 
+            // KategoriCombo
+            // 
+            this.KategoriCombo.FormattingEnabled = true;
+            this.KategoriCombo.Location = new System.Drawing.Point(12, 148);
+            this.KategoriCombo.Name = "KategoriCombo";
+            this.KategoriCombo.Size = new System.Drawing.Size(205, 21);
+            this.KategoriCombo.TabIndex = 12;
             // 
             // ListGrid
             // 
@@ -168,7 +189,7 @@
             this.ListGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ListGrid.Location = new System.Drawing.Point(6, 6);
             this.ListGrid.Name = "ListGrid";
-            this.ListGrid.Size = new System.Drawing.Size(332, 319);
+            this.ListGrid.Size = new System.Drawing.Size(518, 319);
             this.ListGrid.TabIndex = 57;
             // 
             // ExcelButton
@@ -186,7 +207,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
-            this.ClientSize = new System.Drawing.Size(588, 363);
+            this.ClientSize = new System.Drawing.Size(774, 363);
             this.Controls.Add(this.ExcelButton);
             this.Controls.Add(this.NewButton);
             this.Controls.Add(this.SaveButton);
@@ -221,5 +242,7 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.DataGridView ListGrid;
         private System.Windows.Forms.Button ExcelButton;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox KategoriCombo;
     }
 }

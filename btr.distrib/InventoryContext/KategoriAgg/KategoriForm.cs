@@ -1,4 +1,5 @@
 ﻿using btr.application.BrgContext.KategoriAgg;
+using btr.application.PurchaseContext.SupplierAgg.Contracts;
 using btr.distrib.Browsers;
 using btr.distrib.Helpers;
 using btr.domain.BrgContext.KategoriAgg;
@@ -21,6 +22,7 @@ namespace btr.distrib.InventoryContext.KategoriAgg
 
         private readonly IKategoriBuilder _kategoriBuilder;
         private readonly IKategoriWriter _kategoriWriter;
+        private readonly ISupplierDal _supplierDal;
 
         private IEnumerable<KategoriFormGridDto> _listKategori;
 
@@ -28,7 +30,8 @@ namespace btr.distrib.InventoryContext.KategoriAgg
             IBrowser<KategoriBrowserView> kategoriBrowser,
             IKategoriBuilder kategoriBuilder,
             IKategoriWriter kategoriWriter
-            )
+,
+            ISupplierDal supplierDal)
         {
             InitializeComponent();
 
@@ -37,9 +40,21 @@ namespace btr.distrib.InventoryContext.KategoriAgg
 
             _kategoriBuilder = kategoriBuilder;
             _kategoriWriter = kategoriWriter;
+            _supplierDal = supplierDal;
 
             RegisterEventHandler();
             InitGrid();
+            InitComboKategori();
+        }
+
+        private void InitComboKategori()
+        {
+            var listSupplier = _supplierDal.ListData()?.ToList()
+                ?? new List<SupplierModel>();
+
+            KategoriCombo.DataSource = listSupplier.OrderBy(x => x.SupplierName).ToList();
+            KategoriCombo.DisplayMember = "SupplierName";
+            KategoriCombo.ValueMember = "SupplierId";
         }
 
         private void RegisterEventHandler()
@@ -158,6 +173,8 @@ namespace btr.distrib.InventoryContext.KategoriAgg
             ListGrid.Columns.GetCol("Id").Width = 50;
             ListGrid.Columns.GetCol("Code").Width = 50;
             ListGrid.Columns.GetCol("Name").Width = 150;
+            ListGrid.Columns.GetCol("SupplierName").Width = 200;
+
         }
 
         private void FilterListGrid(string keyword)
@@ -196,6 +213,8 @@ namespace btr.distrib.InventoryContext.KategoriAgg
         {
             KategoriIdText.Text = kategori.KategoriId;
             KategoriNameText.Text = kategori.KategoriName;
+            KategoriCombo.SelectedValue = kategori.SupplierId;
+            KategoriCodeText.Text = kategori.Code;
         }
 
         private void ClearForm()
@@ -224,6 +243,8 @@ namespace btr.distrib.InventoryContext.KategoriAgg
             kategori = _kategoriBuilder
                 .Attach(kategori)
                 .Name(KategoriNameText.Text)
+                .Code(KategoriCodeText.Text)
+                .Supplier(KategoriCombo.SelectedValue.ToString(), KategoriCombo.Text)
                 .Build();
 
             _kategoriWriter.Save(ref kategori);
@@ -239,7 +260,7 @@ namespace btr.distrib.InventoryContext.KategoriAgg
             Id = id;
             Code = code;
             Name = name;
-            SupplierName = SupplierName;
+            SupplierName = supplierName;
         }
         public string Id { get; }
         public string Code { get; }

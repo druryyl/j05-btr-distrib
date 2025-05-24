@@ -11,6 +11,8 @@ namespace btr.application.BrgContext.KategoriAgg
         IKategoriBuilder Load(IKategoriKey kategoriKey);
         IKategoriBuilder Attach(KategoriModel model);
         IKategoriBuilder Name(string name);
+        IKategoriBuilder Code(string code);
+        IKategoriBuilder Supplier(string supplierId, string supplierName);
     }
 
     public class KategoriBuilder : IKategoriBuilder
@@ -51,6 +53,19 @@ namespace btr.application.BrgContext.KategoriAgg
         public IKategoriBuilder Name(string name)
         {
             _agg.KategoriName = name;
+            return this;
+        }
+
+        public IKategoriBuilder Code(string code)
+        {
+            _agg.Code = code;
+            return this;
+        }
+
+        public IKategoriBuilder Supplier(string supplierId, string supplierName)
+        {
+            _agg.SupplierId = supplierId;
+            _agg.SupplierName = supplierName;
             return this;
         }
     }
