@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 
-namespace btr.distrib.PurchaseContext.ReturBeliAgg
+namespace btr.distrib.PurchaseContext.ReturBeliFeature
 {
     [PublicAPI]
     public class ReturBeliItemDto

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-namespace btr.distrib.PurchaseContext.ReturBeliAgg
+namespace btr.distrib.PurchaseContext.ReturBeliFeature
 {
     public class ReturBeliPrintOutDto
     {
@@ -29,7 +29,7 @@ namespace btr.distrib.PurchaseContext.ReturBeliAgg
 
             SubTotal = $"{returBeli.Total:N0}";
             Discount = $"{returBeli.Disc:N0}";
-            Total = $"{(returBeli.Total - returBeli.Disc):N0}";
+            Total = $"{returBeli.Total - returBeli.Disc:N0}";
 
             Dpp = $"{returBeli.ListItem.Sum(x => x.DppRp):N0}";
             var dppProsen = returBeli.ListItem.FirstOrDefault().DppProsen;
@@ -71,7 +71,7 @@ namespace btr.distrib.PurchaseContext.ReturBeliAgg
                         Disc2 = disc2 == 0 ? "-" : $"{DecFormatter.ToStr(disc2)}%",
                         Disc3 = disc3 == 0 ? "-" : $"{DecFormatter.ToStr(disc3)}%",
                         Disc4 = disc4 == 0 ? "-" : $"{DecFormatter.ToStr(disc4)}%",
-                        Total = $"{(item.SubTotal):N0}",
+                        Total = $"{item.SubTotal:N0}",
                     };
                     ListItem.Add(newItem);
                     noUrut++;

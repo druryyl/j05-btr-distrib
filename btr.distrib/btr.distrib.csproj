@@ -790,6 +790,8 @@
     <Compile Include="WinformAssemblyAnchor.cs" />
     <Content Include="icons8_truck.ico" />
     <None Include="Properties\DataSources\btr.distrib.InventoryContext.MutasiAgg.MutasiPrintOutDto.datasource" />
+    <None Include="Properties\DataSources\btr.distrib.PurchaseContext.ReturBeliFeature.ReturBeliForm.datasource" />
+    <None Include="Properties\DataSources\btr.distrib.PurchaseContext.ReturBeliFeature.ReturBeliPrintOutDto.datasource" />
     <None Include="Resources\icons8_sherlock_holmes_64.png" />
     <None Include="Resources\icons8_route_16.png" />
     <None Include="Resources\icons8_route_32.png" />
@@ -965,7 +967,9 @@
     <Content Include="Reports\InvoicePrintOut-Mgl.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Reports\Report1.rdlc" />
+    <Content Include="Reports\ReturBeliPrintOut-Yk.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="SalesContext\DriverFakturRpt\DriverFakturInfoForm.resx">
       <DependentUpon>DriverFakturInfoForm.cs</DependentUpon>
     </EmbeddedResource>

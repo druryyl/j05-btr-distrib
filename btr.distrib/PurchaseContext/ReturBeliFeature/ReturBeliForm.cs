@@ -8,7 +8,6 @@ using btr.application.SupportContext.TglJamAgg;
 using btr.application.SupportContext.UserAgg;
 using btr.distrib.Browsers;
 using btr.distrib.Helpers;
-using btr.distrib.PurchaseContext.ReturBeliAgg;
 using btr.distrib.SalesContext.FakturAgg;
 using btr.distrib.SharedForm;
 using btr.domain.BrgContext.BrgAgg;
@@ -141,8 +140,8 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
             };
             var returBeliPrintOut = new ReturBeliPrintOutDto(returBeli, supplier, user);
 
-            var returBeliDataset = new ReportDataSource("ReturBeliBeliDataset", new List<ReturBeliPrintOutDto> { returBeliPrintOut });
-            var returBeliItemDataset = new ReportDataSource("ReturBeliBeliItemDataset", returBeliPrintOut.ListItem);
+            var returBeliDataset = new ReportDataSource("ReturBeliDataset", new List<ReturBeliPrintOutDto> { returBeliPrintOut });
+            var returBeliItemDataset = new ReportDataSource("ReturBeliItemDataset", returBeliPrintOut.ListItem);
             var clientId = _paramSistemDal.GetData(new ParamSistemModel("CLIENT_ID"))?.ParamValue ?? string.Empty;
 
             var printOutTemplate = string.Empty;
