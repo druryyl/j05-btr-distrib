@@ -39,7 +39,7 @@ namespace btr.distrib.PurchaseContext.ReturBeliInfo
                 saveFileDialog.Title = @"Save Excel File";
                 saveFileDialog.DefaultExt = "xlsx";
                 saveFileDialog.AddExtension = true;
-                saveFileDialog.FileName = $"returBeli-brg-info-{DateTime.Now:yyyy-MM-dd-HHmm}";
+                saveFileDialog.FileName = $"retur-beli-detil-info-{DateTime.Now:yyyy-MM-dd-HHmm}";
                 if (saveFileDialog.ShowDialog() != DialogResult.OK)
                     return;
                 filePath = saveFileDialog.FileName;
