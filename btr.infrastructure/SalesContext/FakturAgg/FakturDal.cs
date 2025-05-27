@@ -215,6 +215,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 ISNULL(cc.CreditBalance, 0) AS CreditBalance,
                 ISNULL(cc.Address1, '') AS Address,
                 ISNULL(cc.Kota, '') AS Kota,
+                ISNULL(cc.Nitku, '') AS Nitku,
                 ISNULL(dd.WarehouseName, '') AS WarehouseName,
                 ISNULL(ee.DriverName, '') AS DriverName
             FROM 
@@ -253,6 +254,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 ISNULL(cc.CreditBalance, 0) AS CreditBalance,
                 ISNULL(cc.Address1, '') AS Address,
                 ISNULL(cc.Kota, '') AS Kota,
+                ISNULL(cc.Nitku, '') AS Nitku,
                 ISNULL(dd.WarehouseName, '') AS WarehouseName,
                 ISNULL(ee.DriverName, '') AS DriverName
             FROM 
@@ -337,6 +339,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
                 ISNULL(cc.CreditBalance, 0) AS CreditBalance,
                 ISNULL(cc.Address1, '') AS Address,
                 ISNULL(cc.Kota, '') AS Kota,
+                ISNULL(cc.Nitku, '') AS Nitku,
                 ISNULL(dd.WarehouseName, '') AS WarehouseName,
                 ISNULL(ee.DriverName, '') AS DriverName
             FROM 

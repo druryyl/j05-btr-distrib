@@ -248,7 +248,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
                 var customer = _customerBuilder.Load(faktur).Build();
                 var fakturDto = new FpKeluaranFakturDto(faktur.FakturId, faktur.FakturCode, 
                     faktur.FakturDate, customer.CustomerName, customer.Npwp, faktur.Address, 
-                    faktur.GrandTotal, faktur.Tax, true);
+                    customer.Nitku, faktur.GrandTotal, faktur.Tax, true);
 
                 _listFaktur.Add(fakturDto);
                 _listFakturPilih.Add(fakturDto);
@@ -511,6 +511,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             grid["CustomerName"].Width = 110;
             grid["Npwp"].Width = 125;
             grid["Address"].Width = 200;
+            grid["NItku"].Width = 100;
             grid["GrandTotal"].Width = 80;
             grid["Ppn"].Width = 65;
             grid["IsPilih"].Width = 30;
@@ -521,6 +522,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             grid["CustomerName"].HeaderText = "Customer";
             grid["Npwp"].HeaderText = "NPWP";
             grid["Address"].HeaderText = "Alamat";
+            grid["Nitku"].HeaderText = "NITKU";
             grid["GrandTotal"].HeaderText = "Total";
             grid["IsPilih"].HeaderText = "Pilih";
 
@@ -598,7 +600,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             {
                 var newItem = new FpKeluaranFakturDto(item.FakturId, item.FakturCode, 
                     item.FakturDate, item.CustomerName, item.Npwp, 
-                    item.Address, item.GrandTotal, item.Tax, false);
+                    item.Address, item.Nitku, item.GrandTotal, item.Tax, false);
                 _listFaktur.Add(newItem);
             }
         }

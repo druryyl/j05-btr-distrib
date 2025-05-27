@@ -10,7 +10,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
     public class FpKeluaranFakturDto : IFakturKey
     {
         public FpKeluaranFakturDto(string id, string code, DateTime tgl, 
-            string customer, string npwp, string address, 
+            string customer, string npwp, string address, string nitku,
             decimal grandTotal, decimal ppn, bool isPilih)
         {
             FakturId = id;
@@ -19,6 +19,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             CustomerName = customer;
             Npwp = npwp;
             Address = address;
+            Nitku = nitku;
             GrandTotal = grandTotal;
             IsPilih = isPilih;
             Ppn = ppn;
@@ -29,6 +30,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
         public string CustomerName { get; private set; }
         public string Npwp { get; private set; }
         public string Address { get; private set; }
+        public string Nitku { get; private set; }
         public decimal GrandTotal { get; private set; }
         public decimal Ppn { get; private set; }
         public bool IsPilih { get; set; }

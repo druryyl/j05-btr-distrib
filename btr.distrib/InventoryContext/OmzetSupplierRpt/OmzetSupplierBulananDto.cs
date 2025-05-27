@@ -2,6 +2,9 @@
 {
     public class OmzetSupplierBulananDto
     {
+        public OmzetSupplierBulananDto()
+        {
+        }
         public string SupplierName { get; set; }
         public decimal Jan{ get; set; }
         public decimal Feb { get; set; }
