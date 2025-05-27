@@ -608,6 +608,12 @@
     <Compile Include="PurchaseContext\PostingStokAgg\PostingStokForm.Designer.cs">
       <DependentUpon>PostingStokForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PurchaseContext\ReturBeliFeature\ReturBeliBrgInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PurchaseContext\ReturBeliFeature\ReturBeliBrgInfoForm.Designer.cs">
+      <DependentUpon>ReturBeliBrgInfoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="PurchaseContext\ReturBeliFeature\ReturBeliForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -942,6 +948,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PurchaseContext\PostingStokAgg\PostingStokForm.resx">
       <DependentUpon>PostingStokForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PurchaseContext\ReturBeliFeature\ReturBeliBrgInfoForm.resx">
+      <DependentUpon>ReturBeliBrgInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PurchaseContext\ReturBeliFeature\ReturBeliForm.resx">
       <DependentUpon>ReturBeliForm.cs</DependentUpon>

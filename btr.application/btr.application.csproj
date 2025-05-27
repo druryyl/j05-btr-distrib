@@ -229,6 +229,8 @@
     <Compile Include="PurchaseContext\InvoiceHarianDetilRpt\IInvoiceHarianDetilDal.cs" />
     <Compile Include="PurchaseContext\InvoiceInfo\IInvoiceViewDal.cs" />
     <Compile Include="PurchaseContext\InvoiceInfo\InvoiceView.cs" />
+    <Compile Include="PurchaseContext\ReturBeliBrgInfo\IReturBeliBrgViewDal.cs" />
+    <Compile Include="PurchaseContext\ReturBeliBrgInfo\ReturBeliBrgViewDto.cs" />
     <Compile Include="PurchaseContext\ReturBeliFeature\CreateReturBeliItemWorker.cs" />
     <Compile Include="PurchaseContext\ReturBeliFeature\IReturBeliDal.cs" />
     <Compile Include="PurchaseContext\ReturBeliFeature\IReturBeliDiscDal.cs" />

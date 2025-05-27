@@ -50,6 +50,7 @@ using btr.distrib.InventoryContext.MutasiRpt;
 using btr.distrib.FinanceContext;
 using btr.distrib.SalesContext.SalesReplacementFeat;
 using btr.distrib.PurchaseContext.ReturBeliFeature;
+using btr.distrib.PurchaseContext.ReturBeliInfo;
 
 namespace btr.distrib.SharedForm
 {
@@ -651,6 +652,16 @@ namespace btr.distrib.SharedForm
             if (BringMdiChildToFrontIfLoaded<ReturBeliForm>())
                 return;
             var form = ThisServicesProvider.GetRequiredService<ReturBeliForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void PF4ReturBeliDetil_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<ReturBeliBrgInfoForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<ReturBeliBrgInfoForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

@@ -56,6 +56,7 @@
             this.PurchaseOrderRibbonPanel = new System.Windows.Forms.RibbonPanel();
             this.InvoiceButton = new System.Windows.Forms.RibbonButton();
             this.PT2PostingStok = new System.Windows.Forms.RibbonButton();
+            this.PT3ReturBeliMenu = new System.Windows.Forms.RibbonButton();
             this.InvoiceRibbonPanel = new System.Windows.Forms.RibbonPanel();
             this.P01InvoiceInfoButton = new System.Windows.Forms.RibbonButton();
             this.P2InvoiceBrgInfoButton = new System.Windows.Forms.RibbonButton();
@@ -108,7 +109,7 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.PT3ReturBeliMenu = new System.Windows.Forms.RibbonButton();
+            this.PF4ReturBeliDetil = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -378,11 +379,21 @@
             this.PT2PostingStok.Text = "PT2-Posting Stok";
             this.PT2PostingStok.Click += new System.EventHandler(this.PT2PostingStok_Click);
             // 
+            // PT3ReturBeliMenu
+            // 
+            this.PT3ReturBeliMenu.Image = global::btr.distrib.Properties.Resources.icons8_return_purchase_32;
+            this.PT3ReturBeliMenu.LargeImage = global::btr.distrib.Properties.Resources.icons8_return_purchase_32;
+            this.PT3ReturBeliMenu.Name = "PT3ReturBeliMenu";
+            this.PT3ReturBeliMenu.SmallImage = ((System.Drawing.Image)(resources.GetObject("PT3ReturBeliMenu.SmallImage")));
+            this.PT3ReturBeliMenu.Text = "PT3-Retur Beli";
+            this.PT3ReturBeliMenu.Click += new System.EventHandler(this.PT3ReturBeliMenu_Click);
+            // 
             // InvoiceRibbonPanel
             // 
             this.InvoiceRibbonPanel.Items.Add(this.P01InvoiceInfoButton);
             this.InvoiceRibbonPanel.Items.Add(this.P2InvoiceBrgInfoButton);
             this.InvoiceRibbonPanel.Items.Add(this.P3InvoiceHarianInfoButton);
+            this.InvoiceRibbonPanel.Items.Add(this.PF4ReturBeliDetil);
             this.InvoiceRibbonPanel.Name = "InvoiceRibbonPanel";
             this.InvoiceRibbonPanel.Text = "Reporting";
             // 
@@ -825,14 +836,14 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
-            // PT3ReturBeliMenu
+            // PF4ReturBeliDetil
             // 
-            this.PT3ReturBeliMenu.Image = global::btr.distrib.Properties.Resources.icons8_return_purchase_32;
-            this.PT3ReturBeliMenu.LargeImage = global::btr.distrib.Properties.Resources.icons8_return_purchase_32;
-            this.PT3ReturBeliMenu.Name = "PT3ReturBeliMenu";
-            this.PT3ReturBeliMenu.SmallImage = ((System.Drawing.Image)(resources.GetObject("PT3ReturBeliMenu.SmallImage")));
-            this.PT3ReturBeliMenu.Text = "PT3-Retur Beli";
-            this.PT3ReturBeliMenu.Click += new System.EventHandler(this.PT3ReturBeliMenu_Click);
+            this.PF4ReturBeliDetil.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.PF4ReturBeliDetil.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.PF4ReturBeliDetil.Name = "PF4ReturBeliDetil";
+            this.PF4ReturBeliDetil.SmallImage = ((System.Drawing.Image)(resources.GetObject("PF4ReturBeliDetil.SmallImage")));
+            this.PF4ReturBeliDetil.Text = "PF4-Retur Beli Detil";
+            this.PF4ReturBeliDetil.Click += new System.EventHandler(this.PF4ReturBeliDetil_Click);
             // 
             // MainForm
             // 
@@ -941,5 +952,6 @@
         private System.Windows.Forms.RibbonButton SF8FakturPerDriverInfoMenu;
         private System.Windows.Forms.RibbonButton ST3SalesReplacementMenu;
         private System.Windows.Forms.RibbonButton PT3ReturBeliMenu;
+        private System.Windows.Forms.RibbonButton PF4ReturBeliDetil;
     }
 }
