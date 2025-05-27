@@ -104,6 +104,18 @@ namespace btr.distrib.InventoryContext.MutasiAgg
 
             SaveButton.Click += SaveButton_Click;
             NewButton.Click += NewButton_Click;
+            PrintButton.Click += PrintButton_Click;
+        }
+
+        private void PrintButton_Click(object sender, EventArgs e)
+        {
+            if (MutasiIdText.Text.Trim() == string.Empty)
+                return;
+
+            var mutasi = _mutasiBuilder.Load(new MutasiModel(MutasiIdText.Text)).Build();
+            var mutasiPrintDto = new MutasiPrintOutDto(mutasi);
+            PrintMutasiRdlc(mutasiPrintDto);
+            ClearForm();
         }
 
         private void NewButton_Click(object sender, EventArgs e)

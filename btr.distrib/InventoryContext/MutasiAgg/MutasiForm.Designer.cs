@@ -31,12 +31,14 @@ namespace btr.distrib.InventoryContext.MutasiAgg
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.KlaimDateText = new System.Windows.Forms.DateTimePicker();
+            this.label3 = new System.Windows.Forms.Label();
             this.MutasiDateText = new System.Windows.Forms.DateTimePicker();
             this.MutasiDateLabel = new System.Windows.Forms.Label();
-            this.LastIdLabel = new System.Windows.Forms.Label();
             this.MutasiButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.MutasiIdText = new System.Windows.Forms.TextBox();
+            this.LastIdLabel = new System.Windows.Forms.Label();
             this.MutasiItemGrid = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.JenisMutasiCombo = new System.Windows.Forms.ComboBox();
@@ -51,8 +53,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             this.SaveButton = new System.Windows.Forms.Button();
             this.NewButton = new System.Windows.Forms.Button();
             this.TotalText = new System.Windows.Forms.NumericUpDown();
-            this.KlaimDateText = new System.Windows.Forms.DateTimePicker();
-            this.label3 = new System.Windows.Forms.Label();
+            this.PrintButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MutasiItemGrid)).BeginInit();
             this.panel2.SuspendLayout();
@@ -62,7 +63,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.PowderBlue;
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(187)))), ((int)(((byte)(120)))));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.KlaimDateText);
             this.panel1.Controls.Add(this.label3);
@@ -75,6 +76,25 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(200, 143);
             this.panel1.TabIndex = 0;
+            // 
+            // KlaimDateText
+            // 
+            this.KlaimDateText.CustomFormat = "ddd dd-MM-yyyy HH:mm";
+            this.KlaimDateText.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.KlaimDateText.Location = new System.Drawing.Point(9, 112);
+            this.KlaimDateText.Name = "KlaimDateText";
+            this.KlaimDateText.ShowUpDown = true;
+            this.KlaimDateText.Size = new System.Drawing.Size(176, 22);
+            this.KlaimDateText.TabIndex = 8;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 96);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(61, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Klaim Date";
             // 
             // MutasiDateText
             // 
@@ -95,19 +115,9 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             this.MutasiDateLabel.TabIndex = 7;
             this.MutasiDateLabel.Text = "Mutasi  Date";
             // 
-            // LastIdLabel
-            // 
-            this.LastIdLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LastIdLabel.Location = new System.Drawing.Point(3, 454);
-            this.LastIdLabel.Name = "LastIdLabel";
-            this.LastIdLabel.Size = new System.Drawing.Size(182, 15);
-            this.LastIdLabel.TabIndex = 5;
-            this.LastIdLabel.Text = "[Last ID]";
-            this.LastIdLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // MutasiButton
             // 
-            this.MutasiButton.BackColor = System.Drawing.Color.CadetBlue;
+            this.MutasiButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(236)))), ((int)(((byte)(213)))));
             this.MutasiButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MutasiButton.Location = new System.Drawing.Point(162, 22);
             this.MutasiButton.Name = "MutasiButton";
@@ -134,12 +144,23 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             this.MutasiIdText.Size = new System.Drawing.Size(150, 22);
             this.MutasiIdText.TabIndex = 0;
             // 
+            // LastIdLabel
+            // 
+            this.LastIdLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.LastIdLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LastIdLabel.Location = new System.Drawing.Point(3, 420);
+            this.LastIdLabel.Name = "LastIdLabel";
+            this.LastIdLabel.Size = new System.Drawing.Size(182, 15);
+            this.LastIdLabel.TabIndex = 5;
+            this.LastIdLabel.Text = "[Last ID]";
+            this.LastIdLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // MutasiItemGrid
             // 
             this.MutasiItemGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.MutasiItemGrid.BackgroundColor = System.Drawing.Color.DarkSlateGray;
+            this.MutasiItemGrid.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(111)))), ((int)(((byte)(71)))));
             this.MutasiItemGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.MutasiItemGrid.Location = new System.Drawing.Point(6, 158);
             this.MutasiItemGrid.Name = "MutasiItemGrid";
@@ -148,7 +169,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.PowderBlue;
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(187)))), ((int)(((byte)(120)))));
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.JenisMutasiCombo);
             this.panel2.Controls.Add(this.WarehouseNameText);
@@ -170,6 +191,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             // 
             // WarehouseNameText
             // 
+            this.WarehouseNameText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(208)))), ((int)(((byte)(160)))));
             this.WarehouseNameText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.WarehouseNameText.Location = new System.Drawing.Point(9, 47);
             this.WarehouseNameText.Name = "WarehouseNameText";
@@ -179,7 +201,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             // 
             // WarehouseButton
             // 
-            this.WarehouseButton.BackColor = System.Drawing.Color.CadetBlue;
+            this.WarehouseButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(236)))), ((int)(((byte)(213)))));
             this.WarehouseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.WarehouseButton.Location = new System.Drawing.Point(162, 22);
             this.WarehouseButton.Name = "WarehouseButton";
@@ -209,7 +231,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             // 
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel3.BackColor = System.Drawing.Color.PowderBlue;
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(187)))), ((int)(((byte)(120)))));
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.label4);
             this.panel3.Controls.Add(this.KeteranganText);
@@ -232,10 +254,10 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             this.KeteranganText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.KeteranganText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.KeteranganText.Location = new System.Drawing.Point(9, 22);
+            this.KeteranganText.Location = new System.Drawing.Point(8, 22);
             this.KeteranganText.Multiline = true;
             this.KeteranganText.Name = "KeteranganText";
-            this.KeteranganText.Size = new System.Drawing.Size(350, 77);
+            this.KeteranganText.Size = new System.Drawing.Size(358, 111);
             this.KeteranganText.TabIndex = 0;
             // 
             // label5
@@ -252,26 +274,31 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             // SaveButton
             // 
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.SaveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(236)))), ((int)(((byte)(213)))));
+            this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SaveButton.Location = new System.Drawing.Point(719, 449);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
             this.SaveButton.TabIndex = 6;
             this.SaveButton.Text = "Save";
-            this.SaveButton.UseVisualStyleBackColor = true;
+            this.SaveButton.UseVisualStyleBackColor = false;
             // 
             // NewButton
             // 
             this.NewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.NewButton.Location = new System.Drawing.Point(6, 420);
+            this.NewButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(236)))), ((int)(((byte)(213)))));
+            this.NewButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.NewButton.Location = new System.Drawing.Point(6, 449);
             this.NewButton.Name = "NewButton";
             this.NewButton.Size = new System.Drawing.Size(75, 23);
             this.NewButton.TabIndex = 7;
             this.NewButton.Text = "New";
-            this.NewButton.UseVisualStyleBackColor = true;
+            this.NewButton.UseVisualStyleBackColor = false;
             // 
             // TotalText
             // 
             this.TotalText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.TotalText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(208)))), ((int)(((byte)(160)))));
             this.TotalText.InterceptArrowKeys = false;
             this.TotalText.Location = new System.Drawing.Point(674, 420);
             this.TotalText.Maximum = new decimal(new int[] {
@@ -286,31 +313,25 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             this.TotalText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.TotalText.ThousandsSeparator = true;
             // 
-            // KlaimDateText
+            // PrintButton
             // 
-            this.KlaimDateText.CustomFormat = "ddd dd-MM-yyyy HH:mm";
-            this.KlaimDateText.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.KlaimDateText.Location = new System.Drawing.Point(9, 112);
-            this.KlaimDateText.Name = "KlaimDateText";
-            this.KlaimDateText.ShowUpDown = true;
-            this.KlaimDateText.Size = new System.Drawing.Size(176, 22);
-            this.KlaimDateText.TabIndex = 8;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 96);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(61, 13);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Klaim Date";
+            this.PrintButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.PrintButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(236)))), ((int)(((byte)(213)))));
+            this.PrintButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PrintButton.Location = new System.Drawing.Point(87, 449);
+            this.PrintButton.Name = "PrintButton";
+            this.PrintButton.Size = new System.Drawing.Size(75, 23);
+            this.PrintButton.TabIndex = 9;
+            this.PrintButton.Text = "Print";
+            this.PrintButton.UseVisualStyleBackColor = false;
             // 
             // MutasiForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.CadetBlue;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(164)))), ((int)(((byte)(180)))), ((int)(((byte)(101)))));
             this.ClientSize = new System.Drawing.Size(800, 480);
+            this.Controls.Add(this.PrintButton);
             this.Controls.Add(this.TotalText);
             this.Controls.Add(this.NewButton);
             this.Controls.Add(this.LastIdLabel);
@@ -361,5 +382,6 @@ namespace btr.distrib.InventoryContext.MutasiAgg
         private ComboBox JenisMutasiCombo;
         private DateTimePicker KlaimDateText;
         private Label label3;
+        private Button PrintButton;
     }
 }
