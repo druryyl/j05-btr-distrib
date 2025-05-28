@@ -247,11 +247,13 @@ namespace btr.distrib.SalesContext.FakturPerCustomerRpt
             var listFilteredBrgCode = source.Where(x => x.BrgCode.ToLower().StartsWith(keyword.ToLower())).ToList();
             var listFilteredSupplier = source.Where(x => x.SupplierName.ToLower().ContainMultiWord(keyword)).ToList();
             var listFilteredCustomer = source.Where(x => x.CustomerName.ToLower().ContainMultiWord(keyword)).ToList();
+            var listFilteredFakturCode = source.Where(x => x.FakturCode.ToLower().StartsWith(keyword.ToLower())).ToList();
 
             var result = listFilteredBrgName
                 .Union(listFilteredBrgCode)
                 .Union(listFilteredSupplier)
-                .Union(listFilteredCustomer);
+                .Union(listFilteredCustomer)
+                .Union(listFilteredFakturCode);
             return result.ToList();
         }
     }

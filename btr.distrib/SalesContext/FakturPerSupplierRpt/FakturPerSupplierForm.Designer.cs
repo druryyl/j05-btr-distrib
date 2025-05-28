@@ -105,7 +105,6 @@ namespace btr.distrib.SalesContext.FakturPerSupplierRpt
             this.SearchText.Name = "SearchText";
             this.SearchText.Size = new System.Drawing.Size(203, 20);
             this.SearchText.TabIndex = 3;
-            this.SearchText.TextChanged += new System.EventHandler(this.SearchText_TextChanged);
             // 
             // InfoGrid
             // 
