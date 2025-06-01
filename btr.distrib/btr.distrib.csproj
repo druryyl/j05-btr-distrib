@@ -979,6 +979,9 @@
     <Content Include="Reports\ReturBeliPrintOut-Yk.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Reports\MutasiKlaim-Mgl.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="SalesContext\DriverFakturRpt\DriverFakturInfoForm.resx">
       <DependentUpon>DriverFakturInfoForm.cs</DependentUpon>
     </EmbeddedResource>
