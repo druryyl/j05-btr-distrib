@@ -1950,7 +1950,7 @@
         <Top>2.76847in</Top>
         <Left>5.52467in</Left>
         <Height>0.20556in</Height>
-        <Width>1.22534in</Width>
+        <Width>0.46747in</Width>
         <ZIndex>27</ZIndex>
         <Style>
           <Border>
@@ -2278,6 +2278,39 @@
             <Color>DimGray</Color>
             <Width>0.5pt</Width>
           </RightBorder>
+          <VerticalAlign>Middle</VerticalAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="TglFakturText2">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=Mid(First(Fields!FakturDate.Value, "FakturJualDataset"),5)</Value>
+                <Style>
+                  <FontFamily>Segoe UI</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <Top>2.76708in</Top>
+        <Left>5.99214in</Left>
+        <Height>0.20556in</Height>
+        <Width>1.60578in</Width>
+        <ZIndex>37</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
