@@ -1266,7 +1266,7 @@
                 <Value>=First(Fields!ReturJualCode.Value, "ReturJualDataset")</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>8pt</FontSize>
+                  <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1336,7 +1336,7 @@
                 <Value>=First(Fields!SalesName.Value, "ReturJualDataset")</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>8pt</FontSize>
+                  <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1371,7 +1371,7 @@
                 <Value>=First(Fields!JenisRetur.Value, "ReturJualDataset")</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
-                  <FontSize>8pt</FontSize>
+                  <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1724,7 +1724,7 @@
         <Top>2.45403in</Top>
         <Left>5.3559in</Left>
         <Height>0.20556in</Height>
-        <Width>1.31598in</Width>
+        <Width>0.47223in</Width>
         <ZIndex>25</ZIndex>
         <Style>
           <Border>
@@ -1830,11 +1830,40 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
+      <Textbox Name="TglFakturText2">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=Mid(First(Fields!ReturJualDate.Value, "ReturJualDataset"),5)</Value>
+                <Style>
+                  <FontFamily>Segoe UI</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <Top>2.45403in</Top>
+        <Left>5.84757in</Left>
+        <Height>0.20556in</Height>
+        <Width>1.58888in</Width>
+        <ZIndex>30</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <VerticalAlign>Middle</VerticalAlign>
+        </Style>
+      </Textbox>
     </ReportItems>
     <Height>3.4622in</Height>
     <Style />
   </Body>
-  <Width>7.58335in</Width>
+  <Width>7.73959in</Width>
   <Page>
     <LeftMargin>1in</LeftMargin>
     <RightMargin>1in</RightMargin>

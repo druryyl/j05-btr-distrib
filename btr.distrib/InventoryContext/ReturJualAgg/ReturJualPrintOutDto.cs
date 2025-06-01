@@ -33,7 +33,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             PpnProsen = $"PPN {DecFormatter.ToStr(retJual.ListItem.FirstOrDefault().PpnProsen)}% :";
             GrandTotal = $"{retJual.GrandTotal:N0}";
             UserName = retJual.UserId;
-            Note = retJual.Note;
+            Note = retJual.Note; 
 
 
             ListItem = new List<ReturJualPrintOutItemDto>();
