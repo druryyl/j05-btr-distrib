@@ -213,12 +213,14 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             SalesNameText.Text = returJual.SalesPersonName;
             CustomerIdText.Text = returJual.CustomerId;
             CustomerNameText.Text = returJual.CustomerName;
+            CustomerAddressText.Text = returJual.Address;
 
             WarehouseIdText.Text = returJual.WarehouseId;
             WarehouseNameText.Text = returJual.WarehouseName;
 
             DriverIdText.Text = returJual.DriverId;
             DriverNameText.Text = returJual.DriverName;
+            NoteTextBox.Text = returJual.Note;
 
             TotalText.Value = returJual.Total;
             DiscountText.Value = returJual.DiscRp;
@@ -293,6 +295,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             SalesNameText.Clear();
             DriverIdText.Clear();
             DriverNameText.Clear();
+            NoteTextBox.Clear();
             _listItem.Clear();
 
             var newItem = new ReturJualItemDto();
@@ -339,6 +342,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
                 .ReturJualDate(ReturJualDateText.Value)
                 .JenisRetur(JenisReturCombo.SelectedItem.ToString())
                 .User(mainform.UserId.UserId)
+                .Note(NoteTextBox.Text)
                 .Build();
 
             //  clearkan list item lebih dulu karna akan diisi ulang

@@ -1795,6 +1795,41 @@
           </Border>
         </Style>
       </Line>
+      <Textbox Name="Textbox18">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!Note.Value, "ReturJualDataset")</Value>
+                <Style>
+                  <FontStyle>Italic</FontStyle>
+                  <FontFamily>Segoe UI</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox14</rd:DefaultName>
+        <Top>1.97069in</Top>
+        <Left>0.00937in</Left>
+        <Height>0.3889in</Height>
+        <Width>5.03194in</Width>
+        <ZIndex>29</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <VerticalAlign>Middle</VerticalAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
     </ReportItems>
     <Height>3.4622in</Height>
     <Style />
@@ -1873,6 +1908,10 @@
           <DataField>JenisRetur</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="Note">
+          <DataField>Note</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="Ppn">
           <DataField>Ppn</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -1909,7 +1948,7 @@
       <rd:DataSetInfo>
         <rd:DataSetName>btr.distrib.InventoryContext.ReturJualAgg</rd:DataSetName>
         <rd:TableName>ReturJualPrintOutDto</rd:TableName>
-        <rd:ObjectDataSourceType>btr.distrib.InventoryContext.ReturJualAgg.ReturJualPrintOutDto, btr.distrib, Version=1.0.0.12, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+        <rd:ObjectDataSourceType>btr.distrib.InventoryContext.ReturJualAgg.ReturJualPrintOutDto, btr.distrib, Version=2.1.0.292, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
     <DataSet Name="ReturJualItemDataset">

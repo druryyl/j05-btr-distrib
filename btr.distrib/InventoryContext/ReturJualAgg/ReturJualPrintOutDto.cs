@@ -33,6 +33,8 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             PpnProsen = $"PPN {DecFormatter.ToStr(retJual.ListItem.FirstOrDefault().PpnProsen)}% :";
             GrandTotal = $"{retJual.GrandTotal:N0}";
             UserName = retJual.UserId;
+            Note = retJual.Note;
+
 
             ListItem = new List<ReturJualPrintOutItemDto>();
             var noUrut = 1;
@@ -80,6 +82,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
 
         public string Terbilang { get; set; }
         public string UserName { get; set; }
+        public string Note { get; set; }
 
         public List<ReturJualPrintOutItemDto> ListItem { get; set; }
 

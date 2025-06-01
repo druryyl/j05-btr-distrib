@@ -29,14 +29,14 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
                     BTR_ReturJual (
                         ReturJualId, ReturJualDate, JenisRetur, ReturJualCode,
                         CustomerId, WarehouseId, UserId,
-                        SalesPersonId, DriverId,
+                        SalesPersonId, DriverId, Note,
                         Total, DiscRp, PpnRp, GrandTotal,
                         VoidDate, UserIdVoid
                     )
                 VALUES (
                         @ReturJualId, @ReturJualDate, @JenisRetur, @ReturJualCode,
                         @CustomerId, @WarehouseId, @UserId,
-                        @SalesPersonId, @DriverId,
+                        @SalesPersonId, @DriverId, @Note,
                         @Total, @DiscRp, @PpnRp, @GrandTotal,
                         @VoidDate, @UserIdVoid
                     )";
@@ -52,6 +52,7 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
             dp.AddParam("@SalesPersonId", model.SalesPersonId, SqlDbType.VarChar);
             dp.AddParam("@DriverId", model.DriverId, SqlDbType.VarChar);
             dp.AddParam("@UserId", model.UserId, SqlDbType.VarChar);
+            dp.AddParam("@Note", model.Note, SqlDbType.VarChar);
             dp.AddParam("@Total", model.Total, SqlDbType.Decimal);
             dp.AddParam("@DiscRp", model.DiscRp, SqlDbType.Decimal);
             dp.AddParam("@PpnRp", model.PpnRp, SqlDbType.Decimal);
@@ -82,6 +83,7 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
                     WarehouseId = @WarehouseId,
                     SalesPersonId = @SalesPersonId,
                     DriverId = @DriverId,
+                    Note = @Note,
 
                     Total = @Total,
                     DiscRp = @DiscRp,
@@ -104,6 +106,7 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
             dp.AddParam("@SalesPersonId", model.SalesPersonId, SqlDbType.VarChar);
             dp.AddParam("@DriverId", model.DriverId, SqlDbType.VarChar);
             dp.AddParam("@UserId", model.UserId, SqlDbType.VarChar);
+            dp.AddParam("@Note", model.Note, SqlDbType.VarChar);
             dp.AddParam("@Total", model.Total, SqlDbType.Decimal);
             dp.AddParam("@DiscRp", model.DiscRp, SqlDbType.Decimal);
             dp.AddParam("@PpnRp", model.PpnRp, SqlDbType.Decimal);
@@ -147,9 +150,9 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
                     aa.ReturJualId, aa.ReturJualDate, aa.UserId, 
                     aa.JenisRetur, aa.ReturJualCode,
                     aa.CustomerId, aa.WarehouseId, 
-                    aa.SalesPersonId, aa.DriverId,
+                    aa.SalesPersonId, aa.DriverId, aa.Note,
                     aa.Total, aa.DiscRp, aa.PpnRp, aa.GrandTotal,
-                    aa.VoidDate, aa.UserIdVoid,
+                    aa.VoidDate, aa.UserIdVoid, 
                     ISNULL(bb.CustomerName, '') AS CustomerName,
                     ISNULL(bb.Address1, '') AS Address,
                     ISNULL(cc.WarehouseName, '') AS WarehouseName,
@@ -183,7 +186,7 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
                     aa.ReturJualId, aa.ReturJualDate, aa.UserId, 
                     aa.JenisRetur, aa.ReturJualCode,
                     aa.CustomerId, aa.WarehouseId, 
-                    aa.SalesPersonId, aa.DriverId,
+                    aa.SalesPersonId, aa.DriverId, aa.Note,
                     aa.Total, aa.DiscRp, aa.PpnRp, aa.GrandTotal,
                     aa.VoidDate, aa.UserIdVoid,
                     ISNULL(bb.CustomerName, '') AS CustomerName,

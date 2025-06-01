@@ -29,7 +29,7 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
         IReturJualBuilder ReturJualDate(DateTime returJualDate);
         IReturJualBuilder AddItem(ReturJualItemModel item);
         IReturJualBuilder User(string userId);
-        
+        IReturJualBuilder Note(string note);
     }
 
     public class ReturJualBuilder : IReturJualBuilder
@@ -173,6 +173,12 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
             if (!validJenisRetur.Contains(JenisRetur.ToUpper()))
                 throw new ArgumentException("Jenis Retur hanya boleh BAGUS atau RUSAK");
             _aggregate.JenisRetur = JenisRetur;
+            return this;
+        }
+
+        public IReturJualBuilder Note(string note)
+        {
+            _aggregate.Note = note ?? string.Empty;
             return this;
         }
     }
