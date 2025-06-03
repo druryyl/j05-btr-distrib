@@ -30,7 +30,8 @@ namespace btr.infrastructure.PurchaseContext.InvoiceInfoRpt
             const string sql = @"
                 SELECT
                     aa.InvoiceId, aa.InvoiceCode, aa.InvoiceDate AS Tgl,  
-                    aa.Total, aa.Disc, aa.Tax, aa.GrandTotal,
+                    aa.Total, aa.Disc, aa.Tax, aa.GrandTotal, 
+                    IIF(aa.IsStokPosted = 1, 'SUDAH', 'BELUM') AS PostingStok,
                     ISNULL(bb.SupplierName, '') AS SupplierName,
                     ISNULL(cc.WarehouseName, '') AS WarehouseName
                 FROM

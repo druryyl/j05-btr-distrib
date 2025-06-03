@@ -13,5 +13,6 @@ namespace btr.application.PurchaseContext.InvoiceInfo
         public decimal Disc{ get; set; }
         public decimal Tax { get; set; }
         public decimal GrandTotal { get; set; }
+        public string PostingStok { get; set; }
     }
 }

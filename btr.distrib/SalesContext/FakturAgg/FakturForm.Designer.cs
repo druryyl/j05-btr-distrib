@@ -827,7 +827,6 @@
             // 
             // CopyItemJualButton
             // 
-            this.CopyItemJualButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.CopyItemJualButton.BackColor = System.Drawing.Color.Gainsboro;
             this.CopyItemJualButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CopyItemJualButton.Location = new System.Drawing.Point(1042, 179);

@@ -1937,6 +1937,10 @@
           <DataField>JenisRetur</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="Note">
+          <DataField>Note</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="Ppn">
           <DataField>Ppn</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -1973,7 +1977,7 @@
       <rd:DataSetInfo>
         <rd:DataSetName>btr.distrib.InventoryContext.ReturJualAgg</rd:DataSetName>
         <rd:TableName>ReturJualPrintOutDto</rd:TableName>
-        <rd:ObjectDataSourceType>btr.distrib.InventoryContext.ReturJualAgg.ReturJualPrintOutDto, btr.distrib, Version=1.0.0.12, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+        <rd:ObjectDataSourceType>btr.distrib.InventoryContext.ReturJualAgg.ReturJualPrintOutDto, btr.distrib, Version=2.1.0.293, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
     <DataSet Name="ReturJualItemDataset">
