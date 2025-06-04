@@ -63,9 +63,19 @@ namespace btr.application.InventoryContext.OpnameAgg
             //  local function
             void CalculateAdjust()
             {
-                _aggregate.QtyBesarAdjust = _aggregate.QtyBesarOpname - _aggregate.QtyBesarAwal;
-                _aggregate.QtyKecilAdjust = _aggregate.QtyKecilOpname - _aggregate.QtyKecilAwal;
+
                 _aggregate.QtyPcsAdjust = _aggregate.QtyPcsOpname - _aggregate.QtyPcsAwal;
+                var conversion = GetConversion(_aggregate);
+                if (conversion > 1)
+                {
+                    _aggregate.QtyBesarAdjust = _aggregate.QtyPcsAdjust / conversion; 
+                    _aggregate.QtyKecilAdjust = _aggregate.QtyPcsAdjust % conversion;
+                }
+                else
+                {
+                    _aggregate.QtyBesarAdjust = 0;
+                    _aggregate.QtyKecilAdjust = _aggregate.QtyPcsAdjust; // _aggregate.QtyKecilOpname - _aggregate.QtyKecilAwal;
+                }
             }
         }
 
