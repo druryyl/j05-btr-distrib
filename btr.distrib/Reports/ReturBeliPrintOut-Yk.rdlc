@@ -1753,7 +1753,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!Terbilang.Value, "ReturBeliDataset")</Value>
+                <Value>=First(Fields!Note.Value, "ReturBeliDataset")</Value>
                 <Style>
                   <FontStyle>Italic</FontStyle>
                   <FontFamily>Segoe UI</FontFamily>
@@ -1846,6 +1846,10 @@
           <DataField>JatuhTempo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="Note">
+          <DataField>Note</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="Ppn">
           <DataField>Ppn</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -1890,7 +1894,7 @@
       <rd:DataSetInfo>
         <rd:DataSetName>btr.distrib.PurchaseContext.ReturBeliFeature</rd:DataSetName>
         <rd:TableName>ReturBeliPrintOutDto</rd:TableName>
-        <rd:ObjectDataSourceType>btr.distrib.PurchaseContext.ReturBeliFeature.ReturBeliPrintOutDto, btr.distrib, Version=2.1.0.288, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+        <rd:ObjectDataSourceType>btr.distrib.PurchaseContext.ReturBeliFeature.ReturBeliPrintOutDto, btr.distrib, Version=2.1.0.298, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
     <DataSet Name="ReturBeliItemDataset">
