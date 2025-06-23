@@ -14,7 +14,6 @@ using Mapster;
 using System.ComponentModel;
 using System.Drawing;
 using ClosedXML.Excel;
-using btr.infrastructure.InventoryContext.MutasiAgg;
 using System.Globalization;
 
 namespace btr.distrib.InventoryContext.KartuStokRpt
