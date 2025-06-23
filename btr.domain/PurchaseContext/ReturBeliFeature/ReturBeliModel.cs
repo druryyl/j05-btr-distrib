@@ -32,6 +32,7 @@ namespace btr.domain.PurchaseContext.ReturBeliFeature
         public decimal Dpp { get; set; }
         public decimal Tax { get; set; }
         public decimal GrandTotal { get; set; }
+        public string Note { get; set; }
 
         public DateTime CreateTime { get; set; }
         public DateTime LastUpdate { get; set; }

@@ -24,6 +24,7 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
         public string SupplierId { get; set; }
         public string WarehouseId { get; set; }
         public string UserId { get; set; }
+        public string Note { get; set; }
         public IEnumerable<SaveReturBeliRequestItem> ListBrg { get; set; }
     }
 
@@ -123,6 +124,7 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
                 .Supplier(req)
                 .Warehouse(req)
                 .User(req)
+                .Note(req.Note)
                 .Build();
 
             foreach (var item in req.ListBrg)

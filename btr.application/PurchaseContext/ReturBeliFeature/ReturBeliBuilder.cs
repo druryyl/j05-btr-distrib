@@ -28,6 +28,7 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
 
         IReturBeliBuilder Supplier(ISupplierKey supplierKey);
         IReturBeliBuilder Warehouse(IWarehouseKey warehouseKey);
+        IReturBeliBuilder Note(string note);
 
         IReturBeliBuilder AddItem(IBrgKey brgKey, string hrgInputStr, string qtyString, string discountString, decimal dppProsen, decimal ppnProsen);
         IReturBeliBuilder ClearItem();
@@ -216,6 +217,12 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
             _aggRoot.Disc = _aggRoot.ListItem.Sum(x => x.DiscRp);
             _aggRoot.Tax = _aggRoot.ListItem.Sum(x => x.PpnRp);
             _aggRoot.GrandTotal = _aggRoot.ListItem.Sum(x => x.Total);
+            return this;
+        }
+
+        public IReturBeliBuilder Note(string note)
+        {
+            _aggRoot.Note = note;
             return this;
         }
     }

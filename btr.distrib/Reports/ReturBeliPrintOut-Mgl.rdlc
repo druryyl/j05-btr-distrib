@@ -1237,11 +1237,14 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>CV.BINTANG TIMUR RAHAYU</Value>
+                <Value>CV.BINTANG TIMUR RAHARDIAN</Value>
                 <Style>
+                  <FontStyle>Normal</FontStyle>
                   <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
                   <FontWeight>Bold</FontWeight>
+                  <TextDecoration>None</TextDecoration>
+                  <Color>#000000</Color>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1250,38 +1253,56 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Jl.Kaliurang KM 5.5 Gg Durmo No.18</Value>
+                <Value>Jl.Magelang-Salaman Km.3</Value>
                 <Style>
+                  <FontStyle>Normal</FontStyle>
                   <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
+                  <FontWeight>Normal</FontWeight>
+                  <TextDecoration>None</TextDecoration>
+                  <Color>#000000</Color>
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
           </Paragraph>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>0274-546079 </Value>
+                <Value>Kp.Glagah RT.01/RW.03 Banjarnegoro,</Value>
                 <Style>
+                  <FontStyle>Normal</FontStyle>
                   <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
+                  <FontWeight>Normal</FontWeight>
+                  <TextDecoration>None</TextDecoration>
+                  <Color>#000000</Color>
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
           </Paragraph>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>YOGYAKARTA</Value>
+                <Value>Mertoyudan, Magelang - (0293) 364091</Value>
                 <Style>
+                  <FontStyle>Normal</FontStyle>
                   <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
+                  <FontWeight>Normal</FontWeight>
+                  <TextDecoration>None</TextDecoration>
+                  <Color>#000000</Color>
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <Top>0.00721in</Top>
@@ -1540,7 +1561,7 @@
         <rd:DefaultName>Textbox14</rd:DefaultName>
         <Top>1.53366in</Top>
         <Left>0.0125in</Left>
-        <Height>0.58197in</Height>
+        <Height>0.97503in</Height>
         <Width>5.03194in</Width>
         <ZIndex>17</ZIndex>
         <Style>
@@ -1740,42 +1761,6 @@
             <Width>1pt</Width>
           </RightBorder>
           <VerticalAlign>Middle</VerticalAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox15">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!Terbilang.Value, "ReturBeliDataset")</Value>
-                <Style>
-                  <FontStyle>Italic</FontStyle>
-                  <FontFamily>Segoe UI</FontFamily>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Left</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>2.12952in</Top>
-        <Left>0.0125in</Left>
-        <Height>0.38613in</Height>
-        <Width>5.03194in</Width>
-        <ZIndex>24</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <VerticalAlign>Top</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>

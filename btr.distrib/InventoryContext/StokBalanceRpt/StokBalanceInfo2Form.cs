@@ -28,6 +28,7 @@ namespace btr.distrib.InventoryContext.StokBalanceRpt
             InfoGrid.QueryCellStyleInfo += InfoGrid_QueryCellStyleInfo;
             ExcelButton.Click += ExcelButton_Click;
             ProsesButton.Click += ProsesButton_Click;
+            ShowInTransitCheckBox.CheckedChanged += (s, e) => Proses();
             InitGrid();
         }
 
@@ -82,6 +83,10 @@ namespace btr.distrib.InventoryContext.StokBalanceRpt
         private void Proses()
         {
             var listFaktur = _stokBalanceViewDal.ListData()?.ToList() ?? new List<StokBalanceView>();
+            if (ShowInTransitCheckBox.Checked == false)
+            {
+                listFaktur = listFaktur.Where(x => x.WarehouseName != "In-Transit").ToList();
+            }
             listFaktur.ForEach(x => x.NilaiSediaan = x.Hpp * x.Qty);
             var filtered = Filter(listFaktur, SearchText.Text);
             _dataSource = (

@@ -30,6 +30,7 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
             SubTotal = $"{returBeli.Total:N0}";
             Discount = $"{returBeli.Disc:N0}";
             Total = $"{returBeli.Total - returBeli.Disc:N0}";
+            Note = returBeli.Note;
 
             Dpp = $"{returBeli.ListItem.Sum(x => x.DppRp):N0}";
             var dppProsen = returBeli.ListItem.FirstOrDefault().DppProsen;
@@ -96,6 +97,7 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
         public string Ppn { get; set; }
         public string PpnProsen { get; set; }
         public string GrandTotal { get; set; }
+        public string Note { get; set; }
 
         public string Terbilang { get; set; }
         public string UserName { get; set; }

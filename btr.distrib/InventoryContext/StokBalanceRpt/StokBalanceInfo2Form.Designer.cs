@@ -29,10 +29,11 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ExcelButton = new System.Windows.Forms.Button();
             this.ProsesButton = new System.Windows.Forms.Button();
             this.SearchText = new System.Windows.Forms.TextBox();
             this.InfoGrid = new Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl();
-            this.ExcelButton = new System.Windows.Forms.Button();
+            this.ShowInTransitCheckBox = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InfoGrid)).BeginInit();
             this.SuspendLayout();
@@ -42,28 +43,43 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.PowderBlue;
+            this.panel1.Controls.Add(this.ShowInTransitCheckBox);
             this.panel1.Controls.Add(this.ExcelButton);
             this.panel1.Controls.Add(this.ProsesButton);
             this.panel1.Controls.Add(this.SearchText);
+            this.panel1.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(7, 7);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(787, 34);
             this.panel1.TabIndex = 2;
             // 
+            // ExcelButton
+            // 
+            this.ExcelButton.BackColor = System.Drawing.Color.GhostWhite;
+            this.ExcelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ExcelButton.Location = new System.Drawing.Point(339, 6);
+            this.ExcelButton.Name = "ExcelButton";
+            this.ExcelButton.Size = new System.Drawing.Size(119, 23);
+            this.ExcelButton.TabIndex = 4;
+            this.ExcelButton.Text = "Excel";
+            this.ExcelButton.UseVisualStyleBackColor = false;
+            // 
             // ProsesButton
             // 
+            this.ProsesButton.BackColor = System.Drawing.Color.GhostWhite;
+            this.ProsesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ProsesButton.Location = new System.Drawing.Point(214, 6);
             this.ProsesButton.Name = "ProsesButton";
             this.ProsesButton.Size = new System.Drawing.Size(119, 23);
             this.ProsesButton.TabIndex = 2;
             this.ProsesButton.Text = "Proses";
-            this.ProsesButton.UseVisualStyleBackColor = true;
+            this.ProsesButton.UseVisualStyleBackColor = false;
             // 
             // SearchText
             // 
             this.SearchText.Location = new System.Drawing.Point(5, 8);
             this.SearchText.Name = "SearchText";
-            this.SearchText.Size = new System.Drawing.Size(203, 20);
+            this.SearchText.Size = new System.Drawing.Size(203, 18);
             this.SearchText.TabIndex = 3;
             // 
             // InfoGrid
@@ -83,18 +99,19 @@
             this.InfoGrid.UseRightToLeftCompatibleTextBox = true;
             this.InfoGrid.VersionInfo = "22.1460.34";
             // 
-            // ExcelButton
+            // ShowInTransitCheckBox
             // 
-            this.ExcelButton.Location = new System.Drawing.Point(339, 6);
-            this.ExcelButton.Name = "ExcelButton";
-            this.ExcelButton.Size = new System.Drawing.Size(119, 23);
-            this.ExcelButton.TabIndex = 4;
-            this.ExcelButton.Text = "Excel";
-            this.ExcelButton.UseVisualStyleBackColor = true;
+            this.ShowInTransitCheckBox.AutoSize = true;
+            this.ShowInTransitCheckBox.Location = new System.Drawing.Point(464, 11);
+            this.ShowInTransitCheckBox.Name = "ShowInTransitCheckBox";
+            this.ShowInTransitCheckBox.Size = new System.Drawing.Size(164, 15);
+            this.ShowInTransitCheckBox.TabIndex = 5;
+            this.ShowInTransitCheckBox.Text = "Tampilkan In-Transit";
+            this.ShowInTransitCheckBox.UseVisualStyleBackColor = true;
             // 
             // StokBalanceInfo2Form
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 11F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(800, 450);
@@ -117,5 +134,6 @@
         private System.Windows.Forms.TextBox SearchText;
         private Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl InfoGrid;
         private System.Windows.Forms.Button ExcelButton;
+        private System.Windows.Forms.CheckBox ShowInTransitCheckBox;
     }
 }

@@ -239,6 +239,7 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
             DiscountText.Value = returBeli.Disc;
             TaxText.Value = returBeli.Tax;
             GrandTotalText.Value = returBeli.GrandTotal;
+            NoteTextBox.Text = returBeli.Note;
 
             _listItem.Clear();
             foreach (var newItem in returBeli.ListItem
@@ -564,6 +565,7 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
                 ReturBeliCode = ReturBeliCodeText.Text,
                 SupplierId = SupplierIdText.Text,
                 WarehouseId = WarehouseIdText.Text,
+                Note = NoteTextBox.Text,
                 UserId = mainform.UserId.UserId,
             };
 
@@ -600,6 +602,7 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
             DiscountText.Value = 0;
             DppText.Value = 0;
             TaxText.Value = 0;
+            NoteTextBox.Clear();
 
             _listItem.Clear();
             var newItem = new ReturBeliItemDto();

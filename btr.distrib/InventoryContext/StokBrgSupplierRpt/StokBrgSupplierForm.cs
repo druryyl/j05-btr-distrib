@@ -26,6 +26,7 @@ namespace btr.distrib.InventoryContext.StokBrgSupplierRpt
             InfoGrid.QueryCellStyleInfo += InfoGrid_QueryCellStyleInfo;
             ExcelButton.Click += ExcelButton_Click;
             ProsesButton.Click += ProsesButton_Click;
+            ShowInTransitCheckBox.CheckedChanged += (s, e) => Proses();
             InitGrid();
         }
 
@@ -126,7 +127,10 @@ namespace btr.distrib.InventoryContext.StokBrgSupplierRpt
         private void Proses()
         {
             var listStok = _stokBrgSupplierDal.ListData()?.ToList() ?? new List<StokBrgSupplierView>();
-
+            if (ShowInTransitCheckBox.Checked == false)
+            {
+                listStok = listStok.Where(x => x.WarehouseName != "In-Transit").ToList();
+            }
             var filtered = Filter(listStok, SearchText.Text);
             _dataSource = (
                 from c in filtered

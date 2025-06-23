@@ -33,6 +33,7 @@
             this.ProsesButton = new System.Windows.Forms.Button();
             this.SearchText = new System.Windows.Forms.TextBox();
             this.InfoGrid = new Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl();
+            this.ShowInTransitCheckBox = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InfoGrid)).BeginInit();
             this.SuspendLayout();
@@ -43,6 +44,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.PowderBlue;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.ShowInTransitCheckBox);
             this.panel1.Controls.Add(this.ExcelButton);
             this.panel1.Controls.Add(this.ProsesButton);
             this.panel1.Controls.Add(this.SearchText);
@@ -53,7 +55,7 @@
             // 
             // ExcelButton
             // 
-            this.ExcelButton.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.ExcelButton.BackColor = System.Drawing.Color.GhostWhite;
             this.ExcelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ExcelButton.Location = new System.Drawing.Point(339, 6);
             this.ExcelButton.Name = "ExcelButton";
@@ -64,7 +66,7 @@
             // 
             // ProsesButton
             // 
-            this.ProsesButton.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.ProsesButton.BackColor = System.Drawing.Color.GhostWhite;
             this.ProsesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ProsesButton.Location = new System.Drawing.Point(214, 6);
             this.ProsesButton.Name = "ProsesButton";
@@ -78,7 +80,7 @@
             this.SearchText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.SearchText.Location = new System.Drawing.Point(5, 8);
             this.SearchText.Name = "SearchText";
-            this.SearchText.Size = new System.Drawing.Size(203, 20);
+            this.SearchText.Size = new System.Drawing.Size(203, 18);
             this.SearchText.TabIndex = 3;
             // 
             // InfoGrid
@@ -98,9 +100,19 @@
             this.InfoGrid.UseRightToLeftCompatibleTextBox = true;
             this.InfoGrid.VersionInfo = "22.1460.34";
             // 
+            // ShowInTransitCheckBox
+            // 
+            this.ShowInTransitCheckBox.AutoSize = true;
+            this.ShowInTransitCheckBox.Location = new System.Drawing.Point(464, 11);
+            this.ShowInTransitCheckBox.Name = "ShowInTransitCheckBox";
+            this.ShowInTransitCheckBox.Size = new System.Drawing.Size(164, 15);
+            this.ShowInTransitCheckBox.TabIndex = 6;
+            this.ShowInTransitCheckBox.Text = "Tampilkan In-Transit";
+            this.ShowInTransitCheckBox.UseVisualStyleBackColor = true;
+            // 
             // StokBrgSupplierForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 11F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(800, 450);
@@ -123,5 +135,6 @@
         private System.Windows.Forms.Button ProsesButton;
         private System.Windows.Forms.TextBox SearchText;
         private Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl InfoGrid;
+        private System.Windows.Forms.CheckBox ShowInTransitCheckBox;
     }
 }

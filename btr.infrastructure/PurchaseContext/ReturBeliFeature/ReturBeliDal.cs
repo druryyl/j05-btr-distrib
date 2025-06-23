@@ -25,11 +25,11 @@ namespace btr.infrastructure.PurchaseContext.ReturBeliFeature
             const string sql = @"
                 INSERT INTO BTR_ReturBeli (
                     ReturBeliId, ReturBeliDate, ReturBeliCode, SupplierId,  WarehouseId, 
-                    NoFakturPajak, Total, Disc, Dpp, Tax, GrandTotal,
+                    NoFakturPajak, Total, Disc, Dpp, Tax, GrandTotal, Note,
                     CreateTime, LastUpdate, UserId, VoidDate, UserIdVoid)
                 VALUES(
                     @ReturBeliId, @ReturBeliDate, @ReturBeliCode, @SupplierId,  @WarehouseId, 
-                    @NoFakturPajak, @Total, @Disc, @Dpp, @Tax, @GrandTotal,
+                    @NoFakturPajak, @Total, @Disc, @Dpp, @Tax, @GrandTotal, @Note,
                     @CreateTime, @LastUpdate, @UserId, @VoidDate, @UserIdVoid)";
 
             var dp = new DynamicParameters();
@@ -45,6 +45,7 @@ namespace btr.infrastructure.PurchaseContext.ReturBeliFeature
             dp.AddParam("@Dpp", model.Dpp, SqlDbType.Decimal);
             dp.AddParam("@Tax", model.Tax, SqlDbType.Decimal);  
             dp.AddParam("@GrandTotal", model.GrandTotal, SqlDbType.Decimal);
+            dp.AddParam("@Note", model.Note, SqlDbType.VarChar);
 
             dp.AddParam("@CreateTime", model.CreateTime, SqlDbType.DateTime); 
             dp.AddParam("@LastUpdate", model.LastUpdate, SqlDbType.DateTime); 
@@ -74,6 +75,7 @@ namespace btr.infrastructure.PurchaseContext.ReturBeliFeature
                     Dpp = @Dpp,
                     Tax = @Tax, 
                     GrandTotal = @GrandTotal,
+                    Note = @Note,
                     CreateTime = @CreateTime,
                     LastUpdate = @LastUpdate,
                     UserId = @UserId,
@@ -96,6 +98,7 @@ namespace btr.infrastructure.PurchaseContext.ReturBeliFeature
             dp.AddParam("@Dpp", model.Dpp, SqlDbType.Decimal);
             dp.AddParam("@Tax", model.Tax, SqlDbType.Decimal);  
             dp.AddParam("@GrandTotal", model.GrandTotal, SqlDbType.Decimal);
+            dp.AddParam("@Note", model.Note, SqlDbType.VarChar);
 
             dp.AddParam("@CreateTime", model.CreateTime, SqlDbType.DateTime);
             dp.AddParam("@LastUpdate", model.LastUpdate, SqlDbType.DateTime);
@@ -131,7 +134,7 @@ namespace btr.infrastructure.PurchaseContext.ReturBeliFeature
             const string sql = @"
                 SELECT
                     aa.ReturBeliId, aa.ReturBeliDate, aa.ReturBeliCode, aa.SupplierId,  aa.WarehouseId, 
-                    aa.NoFakturPajak, aa.Total, aa.Disc, aa.Dpp, aa.Tax, aa.GrandTotal,
+                    aa.NoFakturPajak, aa.Total, aa.Disc, aa.Dpp, aa.Tax, aa.GrandTotal, aa.Note,
                     aa.CreateTime, aa.LastUpdate, aa.UserId, aa.VoidDate, aa.UserIdVoid,
                     ISNULL(bb.SupplierName, '') AS SupplierName,
                     ISNULL(cc.WarehouseName, '') AS WarehouseName
@@ -156,7 +159,7 @@ namespace btr.infrastructure.PurchaseContext.ReturBeliFeature
             const string sql = @"
                 SELECT
                     aa.ReturBeliId, aa.ReturBeliDate, aa.ReturBeliCode, aa.SupplierId,  aa.WarehouseId, 
-                    aa.NoFakturPajak, aa.Total, aa.Disc, aa.Dpp, aa.Tax, aa.GrandTotal,
+                    aa.NoFakturPajak, aa.Total, aa.Disc, aa.Dpp, aa.Tax, aa.GrandTotal, aa.Note,
                     aa.CreateTime, aa.LastUpdate, aa.UserId, aa.VoidDate, aa.UserIdVoid, 
                     ISNULL(bb.SupplierName, '') AS SupplierName,
                     ISNULL(cc.WarehouseName, '') AS WarehouseName
