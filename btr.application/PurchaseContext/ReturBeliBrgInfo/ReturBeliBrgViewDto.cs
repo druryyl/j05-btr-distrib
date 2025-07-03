@@ -11,6 +11,7 @@ namespace btr.application.PurchaseContext.InvoiceBrgInfo
         public string BrgCode { get; set; }
         public string SupplierName { get; set; }
         public string Kategori { get; set; }
+        public string Warehouse { get; set; }
 
         public decimal Hpp { get; set; }
         public int QtyBesar { get; set; }
@@ -18,6 +19,7 @@ namespace btr.application.PurchaseContext.InvoiceBrgInfo
         public int Qty { get; set; }
         public string Satuan { get; set; }
         public decimal SubTotal { get; set; }
+        public string DiscProsen { get; set; }
         public decimal Disc { get; set; }
         public decimal Tax { get; set; }
         public decimal Total { get; set; }

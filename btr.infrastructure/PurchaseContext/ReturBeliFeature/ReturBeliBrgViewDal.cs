@@ -30,19 +30,22 @@ namespace btr.infrastructure.PurchaseContext.ReturBeliInfoRpt
                     ISNULL(bb.QtyKecil, 0) AS Qty, 
                     ISNULL(bb.SatKecil, 0) AS Satuan, 
                     ISNULL(bb.SubTotal, 0) AS SubTotal, 
+                    ISNULL(bb.DiscInputStr, '') AS DiscProsen,        
                     ISNULL(bb.DiscRp, 0) AS Disc, 
                     ISNULL(bb.PpnRp, 0) AS Tax, 
                     ISNULL(bb.Total, 0) AS Total,
                     ISNULL(cc.SupplierName, '') AS SupplierName,
                     ISNULL(dd.BrgName, '') AS BrgName,
                     ISNULL(dd.BrgCode, '') AS BrgCode,
-                    ISNULL(ee.KategoriName, '') AS Kategori
+                    ISNULL(ee.KategoriName, '') AS Kategori,
+                    ISNULL(ff.WarehouseName, '') AS Gudang
                 FROM
                     BTR_ReturBeli aa
                     LEFT JOIN BTR_ReturBeliItem bb ON aa.ReturBeliId = bb.ReturBeliId
                     LEFT JOIN BTR_Supplier cc ON aa.SupplierId = cc.SupplierId
                     LEFT JOIN BTR_Brg dd ON bb.BrgId = dd.BrgId
                     LEFT JOIN BTR_Kategori ee ON dd.KategoriId = ee.KategoriId
+                    LEFT JOIN BTR_Warehouse ff ON aa.WarehouseId = ff.WarehouseId
                 WHERE
                     aa.ReturBeliDate BETWEEN @Tgl1 AND @Tgl2 
                     AND aa.VoidDate = '3000-01-01'";
