@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>300</ApplicationRevision>
+    <ApplicationRevision>302</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -400,6 +400,7 @@
     </Compile>
     <Compile Include="Helpers\ControlStyle.cs" />
     <Compile Include="Helpers\DataGridViewExtensions.cs" />
+    <Compile Include="Helpers\SortableBindingListHelper.cs" />
     <Compile Include="InventoryContext\AdjustmentAgg\AdjustmentForm.cs">
       <SubType>Form</SubType>
     </Compile>

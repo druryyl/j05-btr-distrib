@@ -38,7 +38,7 @@ namespace btr.infrastructure.PurchaseContext.ReturBeliInfoRpt
                     ISNULL(dd.BrgName, '') AS BrgName,
                     ISNULL(dd.BrgCode, '') AS BrgCode,
                     ISNULL(ee.KategoriName, '') AS Kategori,
-                    ISNULL(ff.WarehouseName, '') AS Gudang
+                    ISNULL(ff.WarehouseName, '') AS Warehouse
                 FROM
                     BTR_ReturBeli aa
                     LEFT JOIN BTR_ReturBeliItem bb ON aa.ReturBeliId = bb.ReturBeliId

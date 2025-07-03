@@ -39,8 +39,8 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
         private readonly IBrowser<FpKeluaranBrowserView> _fakturBrowser;
         private readonly ITglJamDal _dateTime;
 
-        private readonly BindingList<FpKeluaranFakturDto> _listFaktur;
-        private readonly BindingList<FpKeluaranFakturDto> _listFakturPilih;
+        private readonly SortableBindingList<FpKeluaranFakturDto> _listFaktur;
+        private readonly SortableBindingList<FpKeluaranFakturDto> _listFakturPilih;
         private readonly BindingSource _fakturBindingSource;
 
         private readonly string _npwpPenjual = string.Empty;
@@ -58,8 +58,8 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             InitializeComponent();
 
             _fakturDal = fakturDal;
-            _listFaktur = new BindingList<FpKeluaranFakturDto>();
-            _listFakturPilih = new BindingList<FpKeluaranFakturDto>();
+            _listFaktur = new SortableBindingList<FpKeluaranFakturDto>();
+            _listFakturPilih = new SortableBindingList<FpKeluaranFakturDto>();
             _fakturBindingSource = new BindingSource(_listFaktur, null);
             _fpKeluaranBuilder = fpKeluaranBuilder;
             _fpKeluaranWriter = fpKeluaranWriter;
@@ -545,6 +545,10 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
                 else
                     row.DefaultCellStyle.BackColor = Color.White;
             };
+            foreach (DataGridViewColumn col in FakturGrid.Columns)
+            {
+                col.SortMode = DataGridViewColumnSortMode.Automatic;
+            }
         }
         #endregion
 

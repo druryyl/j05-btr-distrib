@@ -61,6 +61,7 @@
             this.P01InvoiceInfoButton = new System.Windows.Forms.RibbonButton();
             this.P2InvoiceBrgInfoButton = new System.Windows.Forms.RibbonButton();
             this.P3InvoiceHarianInfoButton = new System.Windows.Forms.RibbonButton();
+            this.PF4ReturBeliDetil = new System.Windows.Forms.RibbonButton();
             this.MasterPurchaseRibbonPanel = new System.Windows.Forms.RibbonPanel();
             this.SupplierButton = new System.Windows.Forms.RibbonButton();
             this.InventoryTab = new System.Windows.Forms.RibbonTab();
@@ -109,7 +110,6 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.PF4ReturBeliDetil = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -423,6 +423,15 @@
             this.P3InvoiceHarianInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("P3InvoiceHarianInfoButton.SmallImage")));
             this.P3InvoiceHarianInfoButton.Text = "PF3-Invoice Harian";
             this.P3InvoiceHarianInfoButton.Click += new System.EventHandler(this.P3InvoiceHarianButton_Click);
+            // 
+            // PF4ReturBeliDetil
+            // 
+            this.PF4ReturBeliDetil.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.PF4ReturBeliDetil.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.PF4ReturBeliDetil.Name = "PF4ReturBeliDetil";
+            this.PF4ReturBeliDetil.SmallImage = ((System.Drawing.Image)(resources.GetObject("PF4ReturBeliDetil.SmallImage")));
+            this.PF4ReturBeliDetil.Text = "PF4-Retur Beli Detil";
+            this.PF4ReturBeliDetil.Click += new System.EventHandler(this.PF4ReturBeliDetil_Click);
             // 
             // MasterPurchaseRibbonPanel
             // 
@@ -753,7 +762,7 @@
             this.RF2ReturBrgInfoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_hashtag_activity_feed_32;
             this.RF2ReturBrgInfoButton.Name = "RF2ReturBrgInfoButton";
             this.RF2ReturBrgInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("RF2ReturBrgInfoButton.SmallImage")));
-            this.RF2ReturBrgInfoButton.Text = "RF2-Info Retur Brg";
+            this.RF2ReturBrgInfoButton.Text = "RF2-Info Retr-Brg";
             this.RF2ReturBrgInfoButton.Click += new System.EventHandler(this.RF2ReturBrgInfoButton_Click);
             // 
             // SettingTab
@@ -835,15 +844,6 @@
             this.ServerDbStatus.Name = "ServerDbStatus";
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
-            // 
-            // PF4ReturBeliDetil
-            // 
-            this.PF4ReturBeliDetil.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
-            this.PF4ReturBeliDetil.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
-            this.PF4ReturBeliDetil.Name = "PF4ReturBeliDetil";
-            this.PF4ReturBeliDetil.SmallImage = ((System.Drawing.Image)(resources.GetObject("PF4ReturBeliDetil.SmallImage")));
-            this.PF4ReturBeliDetil.Text = "PF4-Retur Beli Detil";
-            this.PF4ReturBeliDetil.Click += new System.EventHandler(this.PF4ReturBeliDetil_Click);
             // 
             // MainForm
             // 

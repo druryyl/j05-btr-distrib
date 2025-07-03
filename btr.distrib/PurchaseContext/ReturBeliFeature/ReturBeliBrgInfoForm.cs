@@ -52,15 +52,15 @@ namespace btr.distrib.PurchaseContext.ReturBeliInfo
                     .InsertTable(_dataSource, false);
                 var ws = wb.Worksheets.First();
                 //  set border and font
-                ws.Range(ws.Cell($"A{1}"), ws.Cell($"Q{_dataSource.Count + 1}")).Style
+                ws.Range(ws.Cell($"A{1}"), ws.Cell($"W{_dataSource.Count + 1}")).Style
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair);
-                ws.Range(ws.Cell($"A{1}"), ws.Cell($"Q{_dataSource.Count + 1}")).Style
+                ws.Range(ws.Cell($"A{1}"), ws.Cell($"W{_dataSource.Count + 1}")).Style
                     .Font.SetFontName("Lucida Console")
                     .Font.SetFontSize(9);
 
                 //  set format number for columnto N0
-                ws.Range(ws.Cell($"I{2}"), ws.Cell($"Q{_dataSource.Count + 1}"))
+                ws.Range(ws.Cell($"I{2}"), ws.Cell($"W{_dataSource.Count + 1}"))
                     .Style.NumberFormat.Format = "#,##.00";
                 ws.Range(ws.Cell($"J{2}"), ws.Cell($"L{_dataSource.Count + 1}"))
                     .Style.NumberFormat.Format = "#,##";
@@ -128,6 +128,8 @@ namespace btr.distrib.PurchaseContext.ReturBeliInfo
             sumRowDescriptor.SummaryColumns.AddRange(new GridSummaryColumnDescriptor[] { sumColTotal, sumColDiskon, sumColTax, sumColGrandTot });
             InfoGrid.TableDescriptor.SummaryRows.Add(sumRowDescriptor);
 
+            //  hide column DiscProsen
+            InfoGrid.TableDescriptor.VisibleColumns.Remove("DiscProsen");
 
             InfoGrid.TableDescriptor.Columns["Hpp"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["Qty"].Appearance.AnyRecordFieldCell.Format = "N0";
