@@ -288,11 +288,10 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
             var tgl2 = PeriodeCalender.SelectionEnd;
             var periode = new Periode(tgl1, tgl2);
             var brgKey = new BrgModel(brgId);
-            //GenKartuStok(periode, new BrgModel(brgId));
 
             var listKartuStokRaw = _kartuStokDal.ListData(periode, brgKey)?.ToList()
                 ?? new List<KartuStokView>();
-            //  sum QtyIn, QtyOut grouped by ReffId
+            
             List<KartuStokView> listKartuStok;
             if (PencatatanRadioButton.Checked)
                 listKartuStok = listKartuStokRaw
@@ -306,7 +305,8 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
                         Hpp = x.Hpp,
                         HargaJual = x.HargaJual,
                         Keterangan = x.Keterangan,
-                        MutasiDate = x.MutasiDate
+                        MutasiDate = x.MutasiDate,
+                        ReffCode = x.ReffCode
                     }).ToList();
             else
                 listKartuStok = listKartuStokRaw
@@ -321,7 +321,8 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
                         Hpp = x.Hpp,
                         HargaJual = x.HargaJual,
                         Keterangan = x.Keterangan,
-                        MutasiDate = x.MutasiDate
+                        MutasiDate = x.MutasiDate,
+                        ReffCode = x.ReffCode
                     }).ToList();
 
             var listSaldoAwal = GetSaldoAwal(periode, brgKey);
@@ -361,7 +362,7 @@ namespace btr.distrib.InventoryContext.KartuStokRpt
                         QtyAkhir = $"{(saldo + item.QtyIn - item.QtyOut):N0}",
                         Hpp = item.Hpp,
                         HargaJual = item.HargaJual,
-                        Keterangan = $"{item.JenisMutasi} : {item.ReffId} - {item.Keterangan}"
+                        Keterangan = $"{item.JenisMutasi} : {item.ReffCode} - {item.Keterangan}"
                     };
                     _listItemKartuStok.Add(kartuStok);
                     saldo += item.QtyIn - item.QtyOut;

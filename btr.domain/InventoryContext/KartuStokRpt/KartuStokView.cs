@@ -15,6 +15,7 @@ namespace btr.domain.InventoryContext.KartuStokRpt
         public decimal Hpp { get; set; }
         public decimal HargaJual { get; set; }
         public string Keterangan { get; set; }
+        public string ReffCode { get; set; }
     }
 
     public class KartuStokStokAwalView

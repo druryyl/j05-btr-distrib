@@ -26,26 +26,17 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
         private readonly IBrgBuilder _brgBuilder;
         private readonly IAddStokWorker _addStokWorker;
         private readonly IRemoveStokEditInvoiceWorker _removeStokEditInvoiceWorker;
-        private readonly IStokDal _stokDal;
-        private readonly IStokBuilder _stokBuilder;
-        private readonly IStokWriter _stokWriter;
 
 
         public GenStokInvoiceWorker(IInvoiceBuilder invoiceBuilder,
             IBrgBuilder brgBuilder,
             IAddStokWorker addFifoStokWorker,
-            IRemoveStokEditInvoiceWorker removeStokEditInvoiceWorker,
-            IStokDal stokDal,
-            IStokBuilder stokBuilder,
-            IStokWriter stokWriter)
+            IRemoveStokEditInvoiceWorker removeStokEditInvoiceWorker)
         {
             _invoiceBuilder = invoiceBuilder;
             _brgBuilder = brgBuilder;
             _addStokWorker = addFifoStokWorker;
             _removeStokEditInvoiceWorker = removeStokEditInvoiceWorker;
-            _stokDal = stokDal;
-            _stokBuilder = stokBuilder;
-            _stokWriter = stokWriter;
         }
 
         public void Execute(GenStokInvoiceRequest req)
@@ -54,8 +45,6 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
 
             using (var trans = TransHelper.NewScope())
             {
-                //  TODO: Harusnya di sini remove kembali stok yang tidak bisa di-rollback
-                //        (setelah add stok invoice hasil edit)  
                 var reqRemove = new RemoveStokEditInvoiceRequest(invoice.InvoiceId);
                 _removeStokEditInvoiceWorker.Execute(reqRemove);
                 
@@ -80,7 +69,6 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                     _addStokWorker.Execute(reqBonus);
                 }
 
-                //  TODO: nah di sini pross remove
                 trans.Complete();
             }
         }

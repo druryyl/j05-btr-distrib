@@ -29,10 +29,13 @@ namespace btr.infrastructure.InventoryContext.KartuStokRpt
                 SELECT
                     aa.WarehouseId, aa.StokId, aa.NoUrut, aa.MutasiDate, aa.JenisMutasi, 
                     aa.ReffId, aa.MutasiDate, aa.QtyIn, aa.QtyOut, aa.HargaJual, aa.Keterangan, 
-                    bb.NilaiPersediaan as Hpp
+                    bb.NilaiPersediaan as Hpp,
+                    ISNULL(cc.FakturCode, ISNULL(dd.InvoiceCode, aa.ReffId)) AS ReffCode
                 FROM
                     BTR_StokMutasi aa
                     LEFT JOIN BTR_Stok bb ON aa.StokId = bb.StokId
+                    LEFT JOIN BTR_Faktur cc ON aa.ReffId = cc.FakturId
+                    LEFT JOIN BTR_Invoice dd ON aa.ReffId = dd.InvoiceId
                 WHERE
                     aa.BrgId = @BrgId AND
                     aa.MutasiDate BETWEEN @StartDate AND @EndDate
