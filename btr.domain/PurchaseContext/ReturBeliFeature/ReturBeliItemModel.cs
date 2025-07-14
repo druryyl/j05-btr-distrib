@@ -15,6 +15,8 @@ namespace btr.domain.PurchaseContext.ReturBeliFeature
         public string BrgCode { get; set; }
         public string BrgName { get; set; }
 
+        public string StokStr { get; set; }
+
         public string HrgInputStr { get; set; }
         public string HrgDetilStr { get; set; }
 

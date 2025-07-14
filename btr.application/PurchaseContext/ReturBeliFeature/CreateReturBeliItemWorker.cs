@@ -5,6 +5,7 @@ using btr.application.BrgContext.BrgAgg;
 using btr.application.Helpers;
 using btr.application.InventoryContext.StokBalanceAgg;
 using btr.domain.BrgContext.BrgAgg;
+using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.PurchaseContext.ReturBeliFeature;
 using btr.nuna.Application;
 
@@ -18,7 +19,8 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
             string discInputStr,
             decimal dppProsen,
             decimal ppnProsen,
-            bool isUbahHarga)
+            bool isUbahHarga,
+            string warehouseId)
         {
             BrgId = brgId;
             HrgInputStr = hrgInputStr;
@@ -27,6 +29,7 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
             DppProsen = dppProsen;
             PpnProsen = ppnProsen;
             IsGetHarga = isUbahHarga;
+            WarehouseId = warehouseId;
         }
         public string BrgId { get; set; }
         public string HrgInputStr { get; set; }
@@ -35,6 +38,7 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
         public decimal DppProsen { get; set; }
         public decimal PpnProsen { get; set; }
         public bool IsGetHarga { get; set; }
+        public string WarehouseId { get; set; }
     }
 
     public interface ICreateReturBeliItemWorker : INunaService<ReturBeliItemModel, CreateReturBeliItemRequest>
@@ -56,8 +60,7 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
         public ReturBeliItemModel Execute(CreateReturBeliItemRequest req)
         {
             var brg = _brgBuilder.Load(req).Build();
-            var stok = _stokBalanceBuilder.Load(brg).Build();
-
+            var stokStr = GenStokStr(brg, new WarehouseModel(req.WarehouseId));
             var qtys = ParseStringMultiNumber(req.QtyInputStr, 3);
 
             var item = new ReturBeliItemModel
@@ -65,6 +68,7 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
                 BrgId = req.BrgId,
                 BrgName = brg.BrgName,
                 BrgCode = brg.BrgCode,
+                StokStr = stokStr,
                 QtyInputStr = req.QtyInputStr,
                 HrgInputStr = req.HrgInputStr,
                 DiscInputStr = req.DiscInputStr,
@@ -122,6 +126,45 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
             item.QtyInputStr = $"{item.QtyBesar};{item.QtyKecil}";
 
             return item;
+        }
+
+        private string GenStokStr(BrgModel brg, IWarehouseKey warehouseKey)
+        {
+            var stokBesar = 0;
+            var stokKecil = 0;
+            var satKecil = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1) ?? DefBrgSatModel();
+            var satBesar = brg.ListSatuan.FirstOrDefault(x => x.Conversion > 1) ?? DefBrgSatModel();
+            var stok = _stokBalanceBuilder.Load(brg).Build();
+            var stokWh = stok.ListWarehouse.FirstOrDefault(x => x.WarehouseId == warehouseKey.WarehouseId);
+            if (stokWh is null)
+                return GabungString();
+
+            if (satBesar.Conversion != 0)
+            { 
+                stokBesar = stokWh.Qty / satBesar.Conversion;
+                stokKecil = stokWh.Qty % satBesar.Conversion;
+            }
+            else
+            {
+                stokKecil = stokWh.Qty;
+            }
+            return GabungString();
+
+            string GabungString()
+            {
+                if (satBesar.Satuan == string.Empty)
+                    return $"{stokKecil} {satKecil.Satuan}";
+                return $"{stokBesar} {satBesar.Satuan}{Environment.NewLine}{stokKecil} {satKecil.Satuan}";
+            }
+
+            BrgSatuanModel DefBrgSatModel()
+            {
+                return new BrgSatuanModel
+                {
+                    Satuan = "",
+                    Conversion = 0
+                };
+            }
         }
 
         private string GetCurrentHpp(BrgModel brg)

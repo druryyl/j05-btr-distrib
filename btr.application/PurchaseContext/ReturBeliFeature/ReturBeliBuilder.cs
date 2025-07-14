@@ -30,7 +30,8 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
         IReturBeliBuilder Warehouse(IWarehouseKey warehouseKey);
         IReturBeliBuilder Note(string note);
 
-        IReturBeliBuilder AddItem(IBrgKey brgKey, string hrgInputStr, string qtyString, string discountString, decimal dppProsen, decimal ppnProsen);
+        IReturBeliBuilder AddItem(IBrgKey brgKey, string hrgInputStr, string qtyString, 
+            string discountString, decimal dppProsen, decimal ppnProsen);
         IReturBeliBuilder ClearItem();
 
         IReturBeliBuilder FakturPajak(string noSeriFakturPajak);
@@ -170,7 +171,7 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
             var item = _createReturBeliItemWorker.Execute(
                 new CreateReturBeliItemRequest(
                     brgKey.BrgId, hrgInputStr, qtyInputStr,
-                    discInputStr, dppProsen, ppnProsen, false));
+                    discInputStr, dppProsen, ppnProsen, false, _aggRoot.WarehouseId));
 
             var noUrutMax = _aggRoot.ListItem
                 .DefaultIfEmpty(new ReturBeliItemModel() { NoUrut = 0 })

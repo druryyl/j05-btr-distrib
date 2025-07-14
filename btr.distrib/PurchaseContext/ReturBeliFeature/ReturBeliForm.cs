@@ -45,6 +45,7 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
         private readonly IParamSistemDal _paramSistemDal;
         private readonly IUserDal _userDal;
 
+
         private readonly ICreateReturBeliItemWorker _createItemWorker;
         private readonly ISaveReturBeliWorker _saveReturBeliWorker;
         private readonly IVoidReturBeliWorker _voidReturBeliWorker;
@@ -386,7 +387,6 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
             {
                 return;
             }
-
             var req = new CreateReturBeliItemRequest(
                 _listItem[rowIndex].BrgId,
                 _listItem[rowIndex].HrgInputStr,
@@ -394,7 +394,8 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
                 _listItem[rowIndex].DiscInputStr,
                 _listItem[rowIndex].DppProsen == 0 ? _dppProsen : _listItem[rowIndex].DppProsen,
                 _listItem[rowIndex].PpnProsen == 0 ? _ppnProsen : _listItem[rowIndex].PpnProsen,
-                isGetHarga);
+                isGetHarga,
+                WarehouseIdText.Text);
             var item = _createItemWorker.Execute(req);
             _listItem[rowIndex] = item.Adapt<ReturBeliItemDto>();
             ReturBeliItemGrid.Refresh();
@@ -463,6 +464,10 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
             cols.GetCol("BrgName").Visible = true;
             cols.GetCol("BrgName").Width = 160;
             cols.GetCol("BrgName").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            
+            cols.GetCol("StokStr").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            cols.GetCol("StokStr").HeaderText = @"Stok";
+            cols.GetCol("StokStr").Width = 80;
 
             cols.GetCol("HrgInputStr").Visible = true;
             cols.GetCol("HrgInputStr").Width = 130;

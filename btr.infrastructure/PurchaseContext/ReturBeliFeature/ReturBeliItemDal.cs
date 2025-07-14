@@ -30,6 +30,7 @@ namespace btr.infrastructure.PurchaseContext.ReturBeliAgg
                 bcp.AddMap("ReturBeliItemId", "ReturBeliItemId");
                 bcp.AddMap("NoUrut","NoUrut");
                 bcp.AddMap("BrgId","BrgId");
+                bcp.AddMap("StokStr", "StokStr");
                 bcp.AddMap("QtyInputStr","QtyInputStr");
                 bcp.AddMap("QtyDetilStr","QtyDetilStr");
 
@@ -85,7 +86,7 @@ namespace btr.infrastructure.PurchaseContext.ReturBeliAgg
         {
             const string sql = @"
                 SELECT
-                    aa.ReturBeliId, aa.ReturBeliItemId, aa.NoUrut, aa.BrgId, 
+                    aa.ReturBeliId, aa.ReturBeliItemId, aa.NoUrut, aa.BrgId, aa.StokStr,
                     aa.HrgInputStr, aa.HrgDetilStr,
                     aa.QtyInputStr, aa.QtyDetilStr, aa.QtyBesar, aa.SatBesar, aa.Conversion, aa.HppSatBesar,
                     aa.QtyKecil, aa.SatKecil, aa.HppSatKecil, aa.QtyBeli, aa.HppSat, aa.SubTotal,
