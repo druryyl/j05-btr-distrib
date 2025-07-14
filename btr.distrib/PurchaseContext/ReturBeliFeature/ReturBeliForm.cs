@@ -16,6 +16,7 @@ using btr.domain.PurchaseContext.ReturBeliFeature;
 using btr.domain.PurchaseContext.SupplierAgg;
 using btr.domain.SupportContext.ParamSistemAgg;
 using btr.domain.SupportContext.UserAgg;
+using btr.nuna.Application;
 using btr.nuna.Domain;
 using Mapster;
 using Microsoft.Reporting.WinForms;
@@ -552,11 +553,10 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
         #region SAVE
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            var result = SaveReturBeli();
+            ReturBeliModel result = null;
+            result = SaveReturBeli();
             _genStokReturBeliWorker.Execute(new GenStokReturBeliRequest(result.ReturBeliId));
-
             PrintReturBeliRdlc(result.ReturBeliId);
-
             ClearForm();
         }
 

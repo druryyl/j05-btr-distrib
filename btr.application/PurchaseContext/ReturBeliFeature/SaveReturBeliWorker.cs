@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Transactions;
 using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.StokAgg.GenStokUseCase;
 using btr.domain.BrgContext.BrgAgg;
@@ -82,7 +83,7 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
             {
                 result = SaveReturBeli(req);
                 UpdateHpp(result);
-
+                _genStokWorker.Execute(new GenStokReturBeliRequest(result.ReturBeliId));
                 trans.Complete();
             }
 
