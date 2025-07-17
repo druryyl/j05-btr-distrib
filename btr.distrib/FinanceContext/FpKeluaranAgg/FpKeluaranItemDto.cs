@@ -11,7 +11,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
     {
         public FpKeluaranFakturDto(string id, string code, DateTime tgl, 
             string customer, string npwp, string address, string nitku,
-            decimal grandTotal, decimal ppn, bool isPilih)
+            decimal grandTotal, decimal ppn, bool isPilih, bool isKembali)
         {
             FakturId = id;
             FakturCode = code;
@@ -23,6 +23,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             GrandTotal = grandTotal;
             IsPilih = isPilih;
             Ppn = ppn;
+            IsKembali = isKembali;
         }
         public string FakturId { get; private set; }
         public string FakturCode { get; private set; }
@@ -34,5 +35,6 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
         public decimal GrandTotal { get; private set; }
         public decimal Ppn { get; private set; }
         public bool IsPilih { get; set; }
+        public bool IsKembali { get; set; }
     }
 }

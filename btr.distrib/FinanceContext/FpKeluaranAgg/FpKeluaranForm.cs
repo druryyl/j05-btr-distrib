@@ -10,6 +10,7 @@ using btr.distrib.SalesContext.FakturControlAgg;
 using btr.distrib.SharedForm;
 using btr.domain.FinanceContext.FpKeluaranAgg;
 using btr.domain.SalesContext.FakturAgg;
+using btr.domain.SalesContext.FakturControlAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
 using ClosedXML.Excel;
@@ -35,6 +36,8 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
         private readonly IFakturBuilder _fakturBuilder;
         private readonly IFakturWriter _fakturWriter;
         private readonly ICustomerBuilder _customerBuilder;
+        private readonly IFakturStatusDal _fakturStatusDal;
+
 
         private readonly IBrowser<FpKeluaranBrowserView> _fakturBrowser;
         private readonly ITglJamDal _dateTime;
@@ -53,7 +56,8 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             IFakturWriter fakturWriter,
             IBrowser<FpKeluaranBrowserView> fakturBrowser,
             IParamSistemDal paramSistemDal,
-            ITglJamDal dateTime)
+            ITglJamDal dateTime,
+            IFakturStatusDal fakturStatusDal)
         {
             InitializeComponent();
 
@@ -75,6 +79,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             InitGrid();
             InitCalender();
             _dateTime = dateTime;
+            _fakturStatusDal = fakturStatusDal;
         }
 
         private void RegisterEventHandler()
@@ -248,7 +253,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
                 var customer = _customerBuilder.Load(faktur).Build();
                 var fakturDto = new FpKeluaranFakturDto(faktur.FakturId, faktur.FakturCode, 
                     faktur.FakturDate, customer.CustomerName, customer.Npwp, faktur.Address, 
-                    customer.Nitku, faktur.GrandTotal, faktur.Tax, true);
+                    customer.Nitku, faktur.GrandTotal, faktur.Tax, true, true);
 
                 _listFaktur.Add(fakturDto);
                 _listFakturPilih.Add(fakturDto);
@@ -505,6 +510,7 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
 
             var grid = FakturGrid.Columns;
             grid["FakturId"].Visible = false;
+            grid["IsKembali"].Visible = false;
 
             grid["FakturCode"].Width = 70;
             grid["FakturDate"].Width = 80;
@@ -595,6 +601,8 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             var listFaktur = _fakturDal.ListData(periode)?.ToList() ?? new List<FakturModel>();
             listFaktur.RemoveAll(x => x.FpKeluaranId != string.Empty);
 
+            var listStatus = _fakturStatusDal.ListData(periode)?.ToList() ?? new List<FakturControlStatusModel>();
+
             var searchText = SearchText.Text.ToUpper();
             if (searchText != string.Empty)
                 listFaktur = listFaktur.Where(x => x.FakturCode.ToUpper().Contains(searchText) || x.CustomerName.ToUpper().Contains(searchText)).ToList();
@@ -602,9 +610,14 @@ namespace btr.distrib.FinanceContext.FpKeluaranAgg
             _listFaktur.Clear();
             foreach(var item in listFaktur)
             {
+                var status = listStatus.FirstOrDefault(x => x.FakturId == item.FakturId);
+                if (status.StatusFaktur != StatusFakturEnum.KembaliFaktur)
+                    continue;
+
                 var newItem = new FpKeluaranFakturDto(item.FakturId, item.FakturCode, 
                     item.FakturDate, item.CustomerName, item.Npwp, 
-                    item.Address, item.Nitku, item.GrandTotal, item.Tax, false);
+                    item.Address, item.Nitku, item.GrandTotal, item.Tax, false, status.StatusFaktur == StatusFakturEnum.KembaliFaktur);
+
                 _listFaktur.Add(newItem);
             }
         }

@@ -261,6 +261,7 @@
     <Compile Include="SalesContext\FakturAgg\Contracts\IFakturItemDal.cs" />
     <Compile Include="SalesContext\FakturAgg\Contracts\IFakturItemKlaimDal.cs" />
     <Compile Include="SalesContext\FakturAgg\Contracts\IFakturDiscountKlaimDal.cs" />
+    <Compile Include="SalesContext\FakturAgg\Contracts\IFakturStatusDal.cs" />
     <Compile Include="SalesContext\FakturAgg\UseCases\ChangeToCashFakturWorker.cs" />
     <Compile Include="SalesContext\FakturAgg\UseCases\ChangeToCreditFakturWorker.cs" />
     <Compile Include="SalesContext\FakturAgg\UseCases\GetFakturQuery.cs" />
