@@ -18,6 +18,8 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
             string customerId,
             string hrgInputStr,
             string qtyInputStr,
+            int subQty,
+            string subSatuan,
             string discInputStr,
             decimal ppnProsen,
             string jenisRetur) 
@@ -27,6 +29,8 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
 
             HrgInputStr = hrgInputStr;
             QtyInputStr = qtyInputStr;
+            SubQty = subQty;
+            SubSatuan = subSatuan;
             DiscInputStr = discInputStr;
             PpnProsen = ppnProsen;
             JenisRetur = jenisRetur;
@@ -35,6 +39,8 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
         public string CustomerId { get; set; }
         public string HrgInputStr { get; set; }
         public string QtyInputStr { get; set; }
+        public int SubQty { get; set; }
+        public string SubSatuan { get; set; }
         public string DiscInputStr { get; set; }
         public decimal PpnProsen { get; set; }
         public string JenisRetur { get; set; }
@@ -65,6 +71,8 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
             {
                 BrgId = req.BrgId ?? string.Empty,
                 QtyInputStr = req.QtyInputStr,
+                SubQty = req.SubQty,
+                SubSatuan = req.SubSatuan ?? string.Empty,
                 HrgInputStr = req.HrgInputStr,
                 DiscInputStr = req.DiscInputStr,
                 PpnProsen = req.PpnProsen

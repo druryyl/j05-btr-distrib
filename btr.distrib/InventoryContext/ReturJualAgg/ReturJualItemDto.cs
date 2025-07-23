@@ -23,6 +23,9 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
         
         //  input
         public string QtyInputStr { get; set; }
+        public int SubQty { get; set; }
+        public string SubSatuan { get; set; }
+
         public string HrgInputStr { get; set; }
         public string QtyHrgDetilStr { get; private set; }
         public string DiscInputStr { get; set; }

@@ -48,7 +48,10 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
         public ReturJualBuilder(IReturJualDal returJualDal, 
             IReturJualItemDal returJualItemDal, 
             IReturJualItemQtyHrgDal returJualItemQtyHrgDal, 
-            IReturJualItemDiscDal returJualItemDiscDal, ICustomerDal customerDal, IWarehouseDal warehouseDal, ISalesPersonDal salesPersonDal, IDriverDal driverDal)
+            IReturJualItemDiscDal returJualItemDiscDal, ICustomerDal customerDal, 
+            IWarehouseDal warehouseDal, 
+            ISalesPersonDal salesPersonDal, 
+            IDriverDal driverDal)
         {
             _returJualDal = returJualDal;
             _returJualItemDal = returJualItemDal;

@@ -41,6 +41,9 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
                 bcp.ColumnMappings.Add("DiscInputStr", "DiscInputStr");
                 bcp.ColumnMappings.Add("DiscDetilStr", "DiscDetilStr");
 
+                bcp.ColumnMappings.Add("SubQty", "SubQty");
+                bcp.ColumnMappings.Add("SubSatuan", "SubSatuan");
+
                 bcp.ColumnMappings.Add("Qty", "Qty");
                 bcp.ColumnMappings.Add("HrgSat", "HrgSat");
                 bcp.ColumnMappings.Add("SubTotal", "SubTotal");
@@ -82,7 +85,7 @@ namespace btr.infrastructure.InventoryContext.ReturJualAgg
             const string sql = @"
                 SELECT 
                     aa.ReturJualId, aa.ReturJualItemId, aa.NoUrut, aa.BrgId, aa.BrgCode,
-                    aa.QtyInputStr, aa.HrgInputStr, aa.DiscInputStr, 
+                    aa.QtyInputStr, aa.HrgInputStr, aa.DiscInputStr, aa.SubQty, aa.SubSatuan,
                     aa.Qty, aa.HrgSat, aa.SubTotal, aa.DiscRp, aa.PpnRp, aa.PpnProsen, aa.Total,
                     ISNULL(bb.BrgName, '') BrgName
                 FROM 

@@ -231,7 +231,8 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             var jenisRetur = JenisReturCombo.SelectedItem.ToString();
             foreach (var item in returJual.ListItem)
             {
-                var createReturJualItemRequest = new CreateReturJualItemRequest(item.BrgId, CustomerIdText.Text, item.HrgInputStr, item.QtyInputStr, item.DiscInputStr, item.PpnProsen, jenisRetur);
+                var createReturJualItemRequest = new CreateReturJualItemRequest(item.BrgId, CustomerIdText.Text, item.HrgInputStr, 
+                    item.QtyInputStr, item.SubQty, item.SubSatuan, item.DiscInputStr, item.PpnProsen, jenisRetur);
                 var newItemModel = _createReturJualItemWorker.Execute(createReturJualItemRequest);
                 var newItemDto = newItemModel.Adapt<ReturJualItemDto>();
                 _listItem.Add(newItemDto);
@@ -354,8 +355,8 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
                         .Attach(current)
                         .AddItem(_createReturJualItemWorker.Execute(
                             new CreateReturJualItemRequest(item.BrgId, current.CustomerId,
-                                item.HrgInputStr, item.QtyInputStr, item.DiscInputStr,
-                                item.PpnProsen, current.JenisRetur)))
+                                item.HrgInputStr, item.QtyInputStr, item.SubQty, item.SubSatuan,
+                                item.DiscInputStr, item.PpnProsen, current.JenisRetur)))
                         //.AddItem(item.Adapt<ReturJualItemModel>())
                         .Build());
 
@@ -562,6 +563,10 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             cols.GetCol("QtyInputStr").Width = 50;
             cols.GetCol("QtyInputStr").HeaderText = @"Qty";
 
+            cols.GetCol("SubQty").Width = 40;
+            cols.GetCol("SubSatuan").Width = 60;
+            cols.GetCol("SubSatuan").HeaderText = @"SubSat";
+
             cols.GetCol("HrgInputStr").Visible = true;
             cols.GetCol("HrgInputStr").Width = 100;
             cols.GetCol("HrgInputStr").DefaultCellStyle.WrapMode = DataGridViewTriState.True;
@@ -643,8 +648,8 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             var jenisRetur = JenisReturCombo.SelectedItem.ToString();
             var req = new CreateReturJualItemRequest(
                 item.BrgId ?? string.Empty, CustomerIdText.Text, 
-                item.HrgInputStr, item.QtyInputStr, item.DiscInputStr, 
-                item.PpnProsen == 0 ? _ppnProsen : item.PpnProsen, 
+                item.HrgInputStr, item.QtyInputStr, item.SubQty, item.SubSatuan,
+                item.DiscInputStr,  item.PpnProsen == 0 ? _ppnProsen : item.PpnProsen, 
                 jenisRetur);
             var newItem = _createReturJualItemWorker.Execute(req);
             

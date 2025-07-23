@@ -17,6 +17,9 @@ namespace btr.domain.InventoryContext.ReturJualAgg
         public string HrgInputStr { get; set; }
         public string QtyHrgDetilStr { get; set; }
         public string DiscInputStr { get; set; }
+        
+        public int SubQty{ get; set; }
+        public string SubSatuan{ get; set; }
 
         //  detil tampilan
         public string DiscDetilStr { get; set; }
