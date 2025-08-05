@@ -22,6 +22,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
                 $"{customer.Address2}-{customer.Kota}" : $"{customer.Kota}";
             SalesName = $"Sales: {retJual.SalesPersonName}";
             JenisRetur = $"Jenis Retur: BRG {retJual.JenisRetur}";
+            DriverName = $"Driver: {retJual.DriverName}";
 
             TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
             Terbilang = $"Terbilang #{Math.Round(retJual.GrandTotal, 0).Eja()} rupiah#";
@@ -70,6 +71,8 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
         public string CustomerName { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
+
+        public string DriverName { get; set; }
 
         public string SalesName { get; set; }
         public string JenisRetur { get; set; }

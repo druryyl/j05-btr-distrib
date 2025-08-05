@@ -44,13 +44,22 @@ namespace btr.distrib.Browsers
                 {
                     Id = x.ReturJualId,
                     Tgl = x.ReturJualDate.ToString("dd-MMM HH:mm"),
+                    ReturCode = x.ReturJualCode,
+                    SalesPerson = x.SalesPersonName,
                     Customer = x.CustomerName,
                     GrandTotal = x.GrandTotal
                 }).ToList();
 
             if (Filter.UserKeyword.Length > 0)
-                result = result
-                    .Where(x => x.Customer.ContainMultiWord(Filter.UserKeyword)).ToList();
+            {
+                var listCustomer = result.Where(x => x.Customer.ContainMultiWord(Filter.UserKeyword)).ToList();
+                var listSales  = result.Where(x => x.SalesPerson.ContainMultiWord(Filter.UserKeyword)).ToList();
+                var listCode = result.Where(x => x.ReturCode.Contains(Filter.UserKeyword)).ToList();
+                result = listCustomer
+                    .Union(listSales)
+                    .Union(listCode)
+                    .ToList();
+            }
 
             return result;
         }
@@ -60,6 +69,9 @@ namespace btr.distrib.Browsers
     {
         public string Id { get; set; }
         public string Tgl { get; set; }
+        public string ReturCode { get; set; }
+        public string SalesPerson { get; set; }
+
         public string Customer { get; set; }
         public decimal GrandTotal { get; set; }
     }
