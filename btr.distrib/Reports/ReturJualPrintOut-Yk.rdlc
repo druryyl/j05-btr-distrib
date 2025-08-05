@@ -1866,7 +1866,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!UserName.Value, "ReturJualDataset")</Value>
+                <Value>=First(Fields!DriverName.Value, "ReturJualDataset")</Value>
                 <Style>
                   <FontFamily>Segoe UI</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1963,6 +1963,10 @@
           <DataField>Discount</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="DriverName">
+          <DataField>DriverName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="GrandTotal">
           <DataField>GrandTotal</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -2011,7 +2015,7 @@
       <rd:DataSetInfo>
         <rd:DataSetName>btr.distrib.InventoryContext.ReturJualAgg</rd:DataSetName>
         <rd:TableName>ReturJualPrintOutDto</rd:TableName>
-        <rd:ObjectDataSourceType>btr.distrib.InventoryContext.ReturJualAgg.ReturJualPrintOutDto, btr.distrib, Version=2.1.0.292, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+        <rd:ObjectDataSourceType>btr.distrib.InventoryContext.ReturJualAgg.ReturJualPrintOutDto, btr.distrib, Version=2.1.0.304, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
     <DataSet Name="ReturJualItemDataset">
