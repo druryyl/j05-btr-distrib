@@ -214,7 +214,7 @@ namespace btr.distrib.InventoryContext.ReturJualRpt
                 }
             }
 
-            _dataSource = Filter(listFaktur, CustomerText.Text);
+            _dataSource = Filter(listFaktur, SearchText.Text);
             _dataSource.ForEach(x => x.ReturJualDate = x.ReturJualDate.Date);
             InfoGrid.DataSource = _dataSource;
         }
@@ -223,11 +223,14 @@ namespace btr.distrib.InventoryContext.ReturJualRpt
         {
             if (keyword.Trim().Length == 0)
                 return source;
+            keyword = keyword.ToLower().Trim();
             var listFilteredCustomer = source.Where(x => x.CustomerName.ToLower().ContainMultiWord(keyword)).ToList();
             var listFilteredAddress = source.Where(x => x.BrgName.ToLower().ContainMultiWord(keyword)).ToList();
+            var listReturJualCode = source.Where(x => x.ReturJualCode.ToLower().StartsWith(keyword)).ToList();
 
             var result = listFilteredCustomer
-                .Union(listFilteredAddress);
+                .Union(listFilteredAddress)
+                .Union(listReturJualCode);
             return result.ToList();
         }
     }

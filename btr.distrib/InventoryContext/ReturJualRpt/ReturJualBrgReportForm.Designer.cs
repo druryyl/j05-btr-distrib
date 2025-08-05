@@ -31,7 +31,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.ExcelButton = new System.Windows.Forms.Button();
             this.ProsesButton = new System.Windows.Forms.Button();
-            this.CustomerText = new System.Windows.Forms.TextBox();
+            this.SearchText = new System.Windows.Forms.TextBox();
             this.Tgl2Date = new System.Windows.Forms.DateTimePicker();
             this.Tgl1Date = new System.Windows.Forms.DateTimePicker();
             this.InfoGrid = new Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl();
@@ -46,7 +46,7 @@
             this.panel1.BackColor = System.Drawing.Color.PowderBlue;
             this.panel1.Controls.Add(this.ExcelButton);
             this.panel1.Controls.Add(this.ProsesButton);
-            this.panel1.Controls.Add(this.CustomerText);
+            this.panel1.Controls.Add(this.SearchText);
             this.panel1.Controls.Add(this.Tgl2Date);
             this.panel1.Controls.Add(this.Tgl1Date);
             this.panel1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -73,12 +73,12 @@
             this.ProsesButton.Text = "Proses";
             this.ProsesButton.UseVisualStyleBackColor = true;
             // 
-            // CustomerText
+            // SearchText
             // 
-            this.CustomerText.Location = new System.Drawing.Point(330, 6);
-            this.CustomerText.Name = "CustomerText";
-            this.CustomerText.Size = new System.Drawing.Size(156, 22);
-            this.CustomerText.TabIndex = 3;
+            this.SearchText.Location = new System.Drawing.Point(330, 6);
+            this.SearchText.Name = "SearchText";
+            this.SearchText.Size = new System.Drawing.Size(156, 22);
+            this.SearchText.TabIndex = 3;
             // 
             // Tgl2Date
             // 
@@ -115,7 +115,7 @@
             this.InfoGrid.UseRightToLeftCompatibleTextBox = true;
             this.InfoGrid.VersionInfo = "22.1460.34";
             // 
-            // ReturJjualReportForm
+            // ReturJualBrgReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -124,7 +124,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.InfoGrid);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Name = "ReturJjualReportForm";
+            this.Name = "ReturJualBrgReportForm";
             this.Text = "Retur Jual Report";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -138,7 +138,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button ExcelButton;
         private System.Windows.Forms.Button ProsesButton;
-        private System.Windows.Forms.TextBox CustomerText;
+        private System.Windows.Forms.TextBox SearchText;
         private System.Windows.Forms.DateTimePicker Tgl2Date;
         private System.Windows.Forms.DateTimePicker Tgl1Date;
         private Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl InfoGrid;

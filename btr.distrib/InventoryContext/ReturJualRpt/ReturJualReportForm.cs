@@ -173,7 +173,7 @@ namespace btr.distrib.InventoryContext.ReturJualRpt
                 .OrderBy(x => x.ReturJualDate.Date)
                 .ToList();
 
-            _dataSource = Filter(listRetur, CustomerText.Text);
+            _dataSource = Filter(listRetur, SearchText.Text);
             _dataSource.ForEach(x => x.ReturJualDate = x.ReturJualDate.Date);
             InfoGrid.DataSource = _dataSource;
         }
@@ -182,13 +182,16 @@ namespace btr.distrib.InventoryContext.ReturJualRpt
         {
             if (keyword.Trim().Length == 0)
                 return source;
+            keyword = keyword.ToLower().Trim();
             var listFilteredCustomer = source.Where(x => x.CustomerName.ToLower().ContainMultiWord(keyword)).ToList();
             var listFilteredAddress = source.Where(x => x.CustomerCode.ToLower().ContainMultiWord(keyword)).ToList();
             var listFilteredSales = source.Where(x => x.SalesName.ToLower().ContainMultiWord(keyword)).ToList();
+            var listReturJualCode = source.Where(x => x.ReturJualCode.ToLower().StartsWith(keyword)).ToList();
 
             var result = listFilteredCustomer
                 .Union(listFilteredAddress)
-                .Union(listFilteredSales);
+                .Union(listFilteredSales)
+                .Union(listReturJualCode);
             return result.ToList();
         }
     }
