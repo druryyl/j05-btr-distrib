@@ -76,7 +76,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
             var hargaKecil = request.HargaJual / konversi;
 
             var listStokAll = _stokDal.ListData(request, request)?.ToList()
-                ?? throw new KeyNotFoundException("Stok not found");
+                ?? throw new KeyNotFoundException($"Stok not found: {brg.BrgName}");
             //      reff-id yang diprioritaskan taro di atas
             var listStok = listStokAll.Where(x => x.ReffId == request.PriorityReffId).ToList();
             listStok.AddRange(listStokAll

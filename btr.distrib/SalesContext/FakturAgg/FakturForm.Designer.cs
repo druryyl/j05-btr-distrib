@@ -51,17 +51,16 @@
             this.SaveButton = new System.Windows.Forms.Button();
             this.NewButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.OrderIdText = new System.Windows.Forms.TextBox();
             this.FakturCodeButton = new System.Windows.Forms.Button();
             this.FakturCodeText = new System.Windows.Forms.TextBox();
             this.FakturIdText = new System.Windows.Forms.TextBox();
             this.SalesIdText = new System.Windows.Forms.TextBox();
             this.SalesPersonNameTextBox = new System.Windows.Forms.TextBox();
             this.SalesPersonButton = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
             this.FakturDateText = new System.Windows.Forms.DateTimePicker();
-            this.label2 = new System.Windows.Forms.Label();
             this.FakturButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.LastIdLabel = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.CustomerAddressText = new System.Windows.Forms.TextBox();
@@ -399,27 +398,34 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.Cornsilk;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.OrderIdText);
             this.panel1.Controls.Add(this.FakturCodeButton);
             this.panel1.Controls.Add(this.FakturCodeText);
             this.panel1.Controls.Add(this.FakturIdText);
             this.panel1.Controls.Add(this.SalesIdText);
             this.panel1.Controls.Add(this.SalesPersonNameTextBox);
             this.panel1.Controls.Add(this.SalesPersonButton);
-            this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.FakturDateText);
-            this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.FakturButton);
-            this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(6, 9);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 194);
+            this.panel1.Size = new System.Drawing.Size(219, 193);
             this.panel1.TabIndex = 36;
+            // 
+            // OrderIdText
+            // 
+            this.OrderIdText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.OrderIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OrderIdText.Location = new System.Drawing.Point(11, 108);
+            this.OrderIdText.Name = "OrderIdText";
+            this.OrderIdText.Size = new System.Drawing.Size(190, 22);
+            this.OrderIdText.TabIndex = 8;
             // 
             // FakturCodeButton
             // 
             this.FakturCodeButton.BackColor = System.Drawing.Color.Moccasin;
             this.FakturCodeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.FakturCodeButton.Location = new System.Drawing.Point(160, 49);
+            this.FakturCodeButton.Location = new System.Drawing.Point(175, 38);
             this.FakturCodeButton.Name = "FakturCodeButton";
             this.FakturCodeButton.Size = new System.Drawing.Size(26, 22);
             this.FakturCodeButton.TabIndex = 7;
@@ -430,20 +436,20 @@
             // 
             this.FakturCodeText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.FakturCodeText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FakturCodeText.Location = new System.Drawing.Point(11, 49);
+            this.FakturCodeText.Location = new System.Drawing.Point(11, 38);
             this.FakturCodeText.Name = "FakturCodeText";
             this.FakturCodeText.ReadOnly = true;
-            this.FakturCodeText.Size = new System.Drawing.Size(147, 22);
+            this.FakturCodeText.Size = new System.Drawing.Size(160, 22);
             this.FakturCodeText.TabIndex = 6;
             // 
             // FakturIdText
             // 
             this.FakturIdText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.FakturIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FakturIdText.Location = new System.Drawing.Point(11, 23);
+            this.FakturIdText.Location = new System.Drawing.Point(11, 12);
             this.FakturIdText.Name = "FakturIdText";
             this.FakturIdText.ReadOnly = true;
-            this.FakturIdText.Size = new System.Drawing.Size(147, 22);
+            this.FakturIdText.Size = new System.Drawing.Size(160, 22);
             this.FakturIdText.TabIndex = 0;
             // 
             // SalesIdText
@@ -452,7 +458,7 @@
             this.SalesIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SalesIdText.Location = new System.Drawing.Point(11, 136);
             this.SalesIdText.Name = "SalesIdText";
-            this.SalesIdText.Size = new System.Drawing.Size(147, 22);
+            this.SalesIdText.Size = new System.Drawing.Size(160, 22);
             this.SalesIdText.TabIndex = 3;
             // 
             // SalesPersonNameTextBox
@@ -461,67 +467,50 @@
             this.SalesPersonNameTextBox.Location = new System.Drawing.Point(11, 162);
             this.SalesPersonNameTextBox.Name = "SalesPersonNameTextBox";
             this.SalesPersonNameTextBox.ReadOnly = true;
-            this.SalesPersonNameTextBox.Size = new System.Drawing.Size(176, 22);
+            this.SalesPersonNameTextBox.Size = new System.Drawing.Size(190, 22);
             this.SalesPersonNameTextBox.TabIndex = 5;
             // 
             // SalesPersonButton
             // 
             this.SalesPersonButton.BackColor = System.Drawing.Color.Moccasin;
             this.SalesPersonButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SalesPersonButton.Location = new System.Drawing.Point(160, 136);
+            this.SalesPersonButton.Location = new System.Drawing.Point(175, 136);
             this.SalesPersonButton.Name = "SalesPersonButton";
             this.SalesPersonButton.Size = new System.Drawing.Size(26, 22);
             this.SalesPersonButton.TabIndex = 4;
             this.SalesPersonButton.Text = "...";
             this.SalesPersonButton.UseVisualStyleBackColor = false;
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 122);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(33, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Sales";
-            // 
             // FakturDateText
             // 
             this.FakturDateText.CustomFormat = "ddd dd-MM-yyyy HH:mm";
             this.FakturDateText.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.FakturDateText.Location = new System.Drawing.Point(11, 97);
+            this.FakturDateText.Location = new System.Drawing.Point(11, 66);
             this.FakturDateText.Name = "FakturDateText";
             this.FakturDateText.ShowUpDown = true;
-            this.FakturDateText.Size = new System.Drawing.Size(176, 22);
+            this.FakturDateText.Size = new System.Drawing.Size(190, 22);
             this.FakturDateText.TabIndex = 2;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 81);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(67, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Faktur Date";
             // 
             // FakturButton
             // 
             this.FakturButton.BackColor = System.Drawing.Color.Moccasin;
             this.FakturButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.FakturButton.Location = new System.Drawing.Point(160, 23);
+            this.FakturButton.Location = new System.Drawing.Point(175, 12);
             this.FakturButton.Name = "FakturButton";
             this.FakturButton.Size = new System.Drawing.Size(26, 22);
             this.FakturButton.TabIndex = 1;
             this.FakturButton.Text = "...";
             this.FakturButton.UseVisualStyleBackColor = false;
             // 
-            // label1
+            // label2
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 8);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(54, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Faktur ID";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(87, 501);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(67, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Faktur Date";
+            this.label2.Visible = false;
             // 
             // LastIdLabel
             // 
@@ -546,7 +535,7 @@
             this.panel2.Controls.Add(this.CustomerNameTextBox);
             this.panel2.Controls.Add(this.CustomerButton);
             this.panel2.Controls.Add(this.label6);
-            this.panel2.Location = new System.Drawing.Point(212, 9);
+            this.panel2.Location = new System.Drawing.Point(231, 9);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(200, 192);
             this.panel2.TabIndex = 37;
@@ -661,9 +650,9 @@
             this.panel3.Controls.Add(this.WarehouseNameText);
             this.panel3.Controls.Add(this.WarehouseButton);
             this.panel3.Controls.Add(this.label7);
-            this.panel3.Location = new System.Drawing.Point(418, 9);
+            this.panel3.Location = new System.Drawing.Point(437, 9);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(200, 192);
+            this.panel3.Size = new System.Drawing.Size(181, 192);
             this.panel3.TabIndex = 38;
             // 
             // DriverIdText
@@ -672,7 +661,7 @@
             this.DriverIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DriverIdText.Location = new System.Drawing.Point(11, 134);
             this.DriverIdText.Name = "DriverIdText";
-            this.DriverIdText.Size = new System.Drawing.Size(147, 22);
+            this.DriverIdText.Size = new System.Drawing.Size(132, 22);
             this.DriverIdText.TabIndex = 15;
             // 
             // DriverNameText
@@ -681,14 +670,14 @@
             this.DriverNameText.Location = new System.Drawing.Point(11, 160);
             this.DriverNameText.Name = "DriverNameText";
             this.DriverNameText.ReadOnly = true;
-            this.DriverNameText.Size = new System.Drawing.Size(176, 22);
+            this.DriverNameText.Size = new System.Drawing.Size(161, 22);
             this.DriverNameText.TabIndex = 24;
             // 
             // DriverButton
             // 
             this.DriverButton.BackColor = System.Drawing.Color.Moccasin;
             this.DriverButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DriverButton.Location = new System.Drawing.Point(160, 134);
+            this.DriverButton.Location = new System.Drawing.Point(147, 134);
             this.DriverButton.Name = "DriverButton";
             this.DriverButton.Size = new System.Drawing.Size(26, 22);
             this.DriverButton.TabIndex = 16;
@@ -701,7 +690,7 @@
             this.WarehouseIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.WarehouseIdText.Location = new System.Drawing.Point(11, 25);
             this.WarehouseIdText.Name = "WarehouseIdText";
-            this.WarehouseIdText.Size = new System.Drawing.Size(147, 22);
+            this.WarehouseIdText.Size = new System.Drawing.Size(132, 22);
             this.WarehouseIdText.TabIndex = 11;
             // 
             // TglRencanaKirimTextBox
@@ -710,7 +699,7 @@
             this.TglRencanaKirimTextBox.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.TglRencanaKirimTextBox.Location = new System.Drawing.Point(11, 108);
             this.TglRencanaKirimTextBox.Name = "TglRencanaKirimTextBox";
-            this.TglRencanaKirimTextBox.Size = new System.Drawing.Size(176, 22);
+            this.TglRencanaKirimTextBox.Size = new System.Drawing.Size(161, 22);
             this.TglRencanaKirimTextBox.TabIndex = 14;
             // 
             // TglRencanaKirimLabel
@@ -728,14 +717,14 @@
             this.WarehouseNameText.Location = new System.Drawing.Point(11, 51);
             this.WarehouseNameText.Name = "WarehouseNameText";
             this.WarehouseNameText.ReadOnly = true;
-            this.WarehouseNameText.Size = new System.Drawing.Size(176, 22);
+            this.WarehouseNameText.Size = new System.Drawing.Size(161, 22);
             this.WarehouseNameText.TabIndex = 13;
             // 
             // WarehouseButton
             // 
             this.WarehouseButton.BackColor = System.Drawing.Color.Moccasin;
             this.WarehouseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.WarehouseButton.Location = new System.Drawing.Point(160, 25);
+            this.WarehouseButton.Location = new System.Drawing.Point(147, 25);
             this.WarehouseButton.Name = "WarehouseButton";
             this.WarehouseButton.Size = new System.Drawing.Size(26, 22);
             this.WarehouseButton.TabIndex = 12;
@@ -850,6 +839,7 @@
             this.Controls.Add(this.FakturItemGrid);
             this.Controls.Add(this.PanelTengah);
             this.Controls.Add(this.SaveButton);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.NewButton);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
@@ -910,11 +900,9 @@
         private System.Windows.Forms.TextBox SalesIdText;
         private System.Windows.Forms.TextBox SalesPersonNameTextBox;
         private System.Windows.Forms.Button SalesPersonButton;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DateTimePicker FakturDateText;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button FakturButton;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox CustomerIdText;
         private System.Windows.Forms.NumericUpDown CreditBalanceTextBox;
@@ -949,5 +937,6 @@
         private System.Windows.Forms.RadioButton FakturJualRadio;
         private System.Windows.Forms.RadioButton FakturKlaimRadio;
         private System.Windows.Forms.Button CopyItemJualButton;
+        private System.Windows.Forms.TextBox OrderIdText;
     }
 }

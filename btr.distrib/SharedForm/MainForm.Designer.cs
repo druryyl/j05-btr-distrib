@@ -110,6 +110,7 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ST4OrderMenu = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -155,6 +156,7 @@
             this.FakturPanel.Items.Add(this.ST1FakturButton);
             this.FakturPanel.Items.Add(this.ST2ControlFakturButton);
             this.FakturPanel.Items.Add(this.ST3SalesReplacementMenu);
+            this.FakturPanel.Items.Add(this.ST4OrderMenu);
             this.FakturPanel.Name = "FakturPanel";
             this.FakturPanel.Text = "";
             // 
@@ -845,6 +847,15 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
+            // ST4OrderMenu
+            // 
+            this.ST4OrderMenu.Image = ((System.Drawing.Image)(resources.GetObject("ST4OrderMenu.Image")));
+            this.ST4OrderMenu.LargeImage = ((System.Drawing.Image)(resources.GetObject("ST4OrderMenu.LargeImage")));
+            this.ST4OrderMenu.Name = "ST4OrderMenu";
+            this.ST4OrderMenu.SmallImage = ((System.Drawing.Image)(resources.GetObject("ST4OrderMenu.SmallImage")));
+            this.ST4OrderMenu.Text = "Sales Order";
+            this.ST4OrderMenu.Click += new System.EventHandler(this.ST4OrderMenu_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -953,5 +964,6 @@
         private System.Windows.Forms.RibbonButton ST3SalesReplacementMenu;
         private System.Windows.Forms.RibbonButton PT3ReturBeliMenu;
         private System.Windows.Forms.RibbonButton PF4ReturBeliDetil;
+        private System.Windows.Forms.RibbonButton ST4OrderMenu;
     }
 }

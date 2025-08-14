@@ -23,10 +23,8 @@ using btr.application.SalesContext.CustomerAgg.Contracts;
 using btr.domain.SupportContext.ParamSistemAgg;
 using Microsoft.Reporting.WinForms;
 using btr.application.SupportContext.ParamSistemAgg;
-using btr.infrastructure.SalesContext.FakturAgg;
 using btr.application.SupportContext.UserAgg;
 using System.Drawing;
-using System.Windows.Forms.DataVisualization.Charting;
 
 namespace btr.distrib.SalesContext.FakturControlAgg
 {

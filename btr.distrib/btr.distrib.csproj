@@ -401,6 +401,7 @@
     <Compile Include="Helpers\ControlStyle.cs" />
     <Compile Include="Helpers\DataGridViewExtensions.cs" />
     <Compile Include="Helpers\SortableBindingListHelper.cs" />
+    <Compile Include="Helpers\TextBoxExtensions.cs" />
     <Compile Include="InventoryContext\AdjustmentAgg\AdjustmentForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -719,6 +720,13 @@
     <Compile Include="SalesContext\FakturPerSupplierRpt\FakturPerSupplierForm.Designer.cs">
       <DependentUpon>FakturPerSupplierForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SalesContext\OrderFeature\ListOrderDto.cs" />
+    <Compile Include="SalesContext\OrderFeature\ListOrderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SalesContext\OrderFeature\ListOrderForm.Designer.cs">
+      <DependentUpon>ListOrderForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SalesContext\SalesPersonAgg\CustomerViewDto.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\SalesPersonForm.cs">
       <SubType>Form</SubType>
@@ -1015,6 +1023,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SalesContext\FakturPerSupplierRpt\FakturPerSupplierForm.resx">
       <DependentUpon>FakturPerSupplierForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SalesContext\OrderFeature\ListOrderForm.resx">
+      <DependentUpon>ListOrderForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SalesContext\SalesReplacementFeat\SalesReplacementForm.resx">
       <DependentUpon>SalesReplacementForm.cs</DependentUpon>

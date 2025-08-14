@@ -24,14 +24,16 @@ namespace btr.infrastructure.SalesContext.FakturAgg
         {
             const string sql = @"
             INSERT INTO BTR_Faktur(
-                FakturId, FakturDate, FakturCode, FakturCodeOri, SalesPersonId, CustomerId, HargaTypeId,
+                FakturId, FakturDate, FakturCode, FakturCodeOri, 
+                OrderId, SalesPersonId, CustomerId, HargaTypeId,
                 WarehouseId, TglRencanaKirim, DriverId, TermOfPayment, DueDate, 
                 Total, Discount, Dpp, Tax, GrandTotal, 
                 TotalKlaim, DiscountKlaim, DppKlaim, TaxKlaim, GrandTotalKlaim, 
                 UangMuka, KurangBayar, NoFakturPajak, FpKeluaranId,     
                 CreateTime, LastUpdate, UserId, VoidDate, UserIdVoid, Note, IsHasKlaim)
             VALUES(
-                @FakturId, @FakturDate, @FakturCode, @FakturCodeOri, @SalesPersonId, @CustomerId, @HargaTypeId,
+                @FakturId, @FakturDate, @FakturCode, @FakturCodeOri, 
+                @OrderId, @SalesPersonId, @CustomerId, @HargaTypeId,
                 @WarehouseId, @TglRencanaKirim, @DriverId, @TermOfPayment, @DueDate, 
                 @Total, @Discount, @Dpp, @Tax, @GrandTotal, 
                 @TotalKlaim, @DiscountKlaim, @DppKlaim, @TaxKlaim, @GrandTotalKlaim, 
@@ -44,6 +46,8 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             dp.AddParam("@FakturDate", model.FakturDate, SqlDbType.DateTime);
             dp.AddParam("@FakturCode", model.FakturCode, SqlDbType.VarChar);
             dp.AddParam("@FakturCodeOri", model.FakturCodeOri, SqlDbType.VarChar);
+
+            dp.AddParam("@OrderId", model.OrderId, SqlDbType.VarChar);
             dp.AddParam("@SalesPersonId", model.SalesPersonId, SqlDbType.VarChar);
             dp.AddParam("@CustomerId", model.CustomerId, SqlDbType.VarChar);
             dp.AddParam("@HargaTypeId", model.HargaTypeId, SqlDbType.VarChar);
@@ -94,7 +98,8 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             SET
                 FakturCode = @FakturCode,
                 FakturCodeOri = @FakturCodeOri,
-                FakturDate = @FakturDate, 
+                FakturDate = @FakturDate,
+                OrderId = @OrderId,     
                 SalesPersonId = @SalesPersonId, 
                 CustomerId = @CustomerId,
                 HargaTypeId = @HargaTypeId,
@@ -138,6 +143,7 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             dp.AddParam("@FakturCode", model.FakturCode, SqlDbType.VarChar);
             dp.AddParam("@FakturCodeOri", model.FakturCodeOri, SqlDbType.VarChar);
 
+            dp.AddParam("@OrderId", model.OrderId, SqlDbType.VarChar);
             dp.AddParam("@SalesPersonId", model.SalesPersonId, SqlDbType.VarChar);
             dp.AddParam("@CustomerId", model.CustomerId, SqlDbType.VarChar);
             dp.AddParam("@HargaTypeId", model.HargaTypeId, SqlDbType.VarChar);
@@ -201,7 +207,8 @@ namespace btr.infrastructure.SalesContext.FakturAgg
         {
             const string sql = @"
             SELECT
-                aa.FakturId, aa.FakturDate, aa.FakturCode, aa.FakturCodeOri, aa.SalesPersonId, aa.CustomerId, aa.HargaTypeId,
+                aa.FakturId, aa.FakturDate, aa.FakturCode, aa.FakturCodeOri, 
+                aa.OrderId, aa.SalesPersonId, aa.CustomerId, aa.HargaTypeId,
                 aa.WarehouseId, aa.TglRencanaKirim, aa.DriverId, aa.TermOfPayment, aa.DueDate, 
                 aa.Total, aa.Discount, aa.Dpp, aa.Tax, aa.GrandTotal, 
                 aa.TotalKlaim, aa.DiscountKlaim, aa.DppKlaim, aa.TaxKlaim, aa.GrandTotalKlaim, 
@@ -240,7 +247,8 @@ namespace btr.infrastructure.SalesContext.FakturAgg
         {
             const string sql = @"
             SELECT
-                aa.FakturId, aa.FakturDate, aa.FakturCode, aa.FakturCodeOri, aa.SalesPersonId, aa.CustomerId, aa.HargaTypeId,
+                aa.FakturId, aa.FakturDate, aa.FakturCode, aa.FakturCodeOri, 
+                aa.OrderId, aa.SalesPersonId, aa.CustomerId, aa.HargaTypeId,
                 aa.WarehouseId, aa.TglRencanaKirim, aa.DriverId, aa.TermOfPayment, aa.DueDate, 
                 aa.Total, aa.Discount, aa.Dpp, aa.Tax, aa.GrandTotal, 
                 aa.TotalKlaim, aa.DiscountKlaim, aa.DppKlaim, aa.TaxKlaim, aa.GrandTotalKlaim, 
@@ -325,7 +333,8 @@ namespace btr.infrastructure.SalesContext.FakturAgg
         {
             const string sql = @"
             SELECT
-                aa.FakturId, aa.FakturDate, aa.FakturCode, aa.FakturCodeOri, aa.SalesPersonId, aa.CustomerId, aa.HargaTypeId,
+                aa.FakturId, aa.FakturDate, aa.FakturCode, aa.FakturCodeOri, 
+                aa.OrderId, aa.SalesPersonId, aa.CustomerId, aa.HargaTypeId,
                 aa.WarehouseId, aa.TglRencanaKirim, aa.DriverId, aa.TermOfPayment, aa.DueDate, 
                 aa.Total, aa.Discount, aa.Dpp, aa.Tax, aa.GrandTotal, 
                 aa.TotalKlaim, aa.DiscountKlaim, aa.DppKlaim, aa.TaxKlaim, aa.GrandTotalKlaim, 

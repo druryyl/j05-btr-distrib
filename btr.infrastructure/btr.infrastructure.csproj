@@ -167,6 +167,8 @@
     <Compile Include="SalesContext\FakturPerSupplierRpt\FakturPerSupplierDal.cs" />
     <Compile Include="SalesContext\HariRuteAgg\HariRuteDal.cs" />
     <Compile Include="SalesContext\KlasifikasiAgg\KlasifikasiDal.cs" />
+    <Compile Include="SalesContext\OrderFeature\OrderDal.cs" />
+    <Compile Include="SalesContext\OrderFeature\OrderItemDal.cs" />
     <Compile Include="SalesContext\SalesPersonAgg\SalesPersonDal.cs" />
     <Compile Include="SalesContext\SalesRuteAgg\SalesRuteDal.cs" />
     <Compile Include="SalesContext\SalesRuteAgg\SalesRuteItemViewDal.cs" />

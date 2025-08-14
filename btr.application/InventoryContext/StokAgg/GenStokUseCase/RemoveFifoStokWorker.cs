@@ -72,7 +72,7 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
             var hargaKecil = request.HargaJual / konversi;
 
             var listStok = _stokDal.ListData(request, request)?.ToList()
-                ?? throw new KeyNotFoundException("Stok not found");
+                ?? throw new KeyNotFoundException($"Stok not found: {brg.BrgName}");
             int sisa = qtyKecil;
             var listMovingStok = new List<StokModel>();
             while (sisa > 0)

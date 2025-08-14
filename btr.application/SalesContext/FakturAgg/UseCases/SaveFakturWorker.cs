@@ -7,6 +7,7 @@ using btr.domain.InventoryContext.DriverAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.FakturAgg;
+using btr.domain.SalesContext.OrderAgg;
 using btr.domain.SalesContext.SalesPersonAgg;
 using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Application;
@@ -24,6 +25,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
         public string FakturCode { get; set; }
         public string FakturDate { get; set; }
         public string CustomerId { get; set; }
+        public string OrderId { get; set; }
         public string SalesPersonId { get; set; }
         public string WarehouseId { get; set; }
         public string RencanaKirimDate { get; set; }
@@ -153,6 +155,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
                 .FakturCode(req.FakturCode)
                 .FakturDate(req.FakturDate.ToDate(DateFormatEnum.YMD))
                 .Customer(req)
+                .Order(OrderModel.Key(req.OrderId))
                 .SalesPerson(req)
                 .Warehouse(req)
                 .TglRencanaKirim(req.RencanaKirimDate.ToDate(DateFormatEnum.YMD))

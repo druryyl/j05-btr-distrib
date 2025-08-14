@@ -1,36 +1,40 @@
-﻿using btr.application.SalesContext.FakturAgg.UseCases;
+﻿using btr.application.BrgContext.BrgAgg;
+using btr.application.FinanceContext.PiutangAgg.Workers;
+using btr.application.InventoryContext.DriverAgg;
+using btr.application.InventoryContext.WarehouseAgg;
+using btr.application.SalesContext.CustomerAgg.Contracts;
+using btr.application.SalesContext.FakturAgg.UseCases;
+using btr.application.SalesContext.FakturAgg.Workers;
+using btr.application.SalesContext.OrderFeature;
+using btr.application.SalesContext.SalesPersonAgg.Contracts;
+using btr.application.SupportContext.ParamSistemAgg;
+using btr.application.SupportContext.TglJamAgg;
+using btr.application.SupportContext.UserAgg;
 using btr.distrib.Browsers;
+using btr.distrib.Helpers;
 using btr.distrib.SharedForm;
+using btr.domain.BrgContext.BrgAgg;
+using btr.domain.FinanceContext.PiutangAgg;
+using btr.domain.InventoryContext.DriverAgg;
+using btr.domain.InventoryContext.WarehouseAgg;
+using btr.domain.SalesContext.CustomerAgg;
+using btr.domain.SalesContext.FakturAgg;
+using btr.domain.SalesContext.OrderAgg;
+using btr.domain.SalesContext.SalesPersonAgg;
+using btr.domain.SupportContext.ParamSistemAgg;
+using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Domain;
+using Mapster;
+using Microsoft.Reporting.WinForms;
 using Polly;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using btr.distrib.Helpers;
-using btr.domain.SalesContext.CustomerAgg;
-using btr.domain.InventoryContext.WarehouseAgg;
-using btr.application.SalesContext.SalesPersonAgg.Contracts;
-using btr.domain.SalesContext.SalesPersonAgg;
-using btr.application.SalesContext.CustomerAgg.Contracts;
-using btr.domain.BrgContext.BrgAgg;
-using btr.application.BrgContext.BrgAgg;
-using btr.application.InventoryContext.WarehouseAgg;
-using btr.application.SupportContext.TglJamAgg;
-using btr.application.SalesContext.FakturAgg.Workers;
-using btr.domain.SalesContext.FakturAgg;
-using Mapster;
-using btr.domain.FinanceContext.PiutangAgg;
-using btr.application.FinanceContext.PiutangAgg.Workers;
-using btr.application.InventoryContext.DriverAgg;
-using btr.domain.InventoryContext.DriverAgg;
-using btr.application.SupportContext.ParamSistemAgg;
-using btr.domain.SupportContext.ParamSistemAgg;
-using Microsoft.Reporting.WinForms;
-using btr.application.SupportContext.UserAgg;
-using btr.domain.SupportContext.UserAgg;
 
 namespace btr.distrib.SalesContext.FakturAgg
 {
@@ -53,6 +57,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly ICustomerDal _customerDal;
         private readonly IWarehouseDal _warehouseDal;
         private readonly IBrgBuilder _brgBuilder;
+        private readonly IOrderBuilder _orderBuilder;
         private readonly ITglJamDal _dateTime;
         private readonly IBrgDal _brgDal;
         private readonly IDriverDal _driverDal;
@@ -91,7 +96,8 @@ namespace btr.distrib.SalesContext.FakturAgg
             IDriverDal driverDal,
             IParamSistemDal paramSIstemDal,
             IBrowser<FakturCodeOpenBrowserView> fakturCodeOpenBrowser,
-            IUserDal userDal)
+            IUserDal userDal,
+            IOrderBuilder orderBuilder)
         {
             InitializeComponent();
             _warehouseBrowser = warehouseBrowser;
@@ -119,10 +125,12 @@ namespace btr.distrib.SalesContext.FakturAgg
             _fakturCodeOpenBrowser = fakturCodeOpenBrowser;
             _userDal = userDal;
             _bindingSource = new BindingSource();
+            _orderBuilder = orderBuilder;
 
             InitParamSistem();
             RegisterEventHandler();
             InitGrid();
+            InitTextBox();
             ClearForm();
         }
 
@@ -143,6 +151,8 @@ namespace btr.distrib.SalesContext.FakturAgg
             FakturButton.Click += FakturButton_Click;
 
             FakturCodeButton.Click += FakturCodeButton_Click;
+
+            OrderIdText.Validated += OrderIdText_Validated;
 
             SalesPersonButton.Click += SalesPersonButton_Click;
             SalesIdText.Validated += SalesIdText_Validated;
@@ -173,6 +183,14 @@ namespace btr.distrib.SalesContext.FakturAgg
 
             FakturJualRadio.CheckedChanged += JenisFakturRadio_CheckedChanged;
             FakturKlaimRadio.CheckedChanged += JenisFakturRadio_CheckedChanged;
+        }
+
+        private void InitTextBox()
+        {
+            FakturIdText.SetPlaceholder("Faktur Id");
+            FakturCodeText.SetPlaceholder("Faktur Code");
+            SalesIdText.SetPlaceholder("Sales Id...");
+            OrderIdText.SetPlaceholder("Order Id...");
         }
 
         private void CopyItemJualButton_Click(object sender, EventArgs e)
@@ -357,6 +375,7 @@ namespace btr.distrib.SalesContext.FakturAgg
 
             FakturDateText.Value = faktur.FakturDate;
             FakturCodeText.Text = faktur.FakturCode;
+            OrderIdText.Text = faktur.OrderId;
             SalesIdText.Text = faktur.SalesPersonId;
             SalesPersonNameTextBox.Text = faktur.SalesPersonName;
             CustomerIdText.Text = faktur.CustomerId;
@@ -427,7 +446,50 @@ namespace btr.distrib.SalesContext.FakturAgg
         }
         #endregion
 
+
         #region SALES-PERSON
+        public void LoadOrder(string orderId)
+        {
+            OrderIdText.Text = orderId;
+            OrderIdText_Validated(OrderIdText, null);
+        }
+        private void OrderIdText_Validated(object sender, EventArgs e)
+        {
+            var textbox = (TextBox)sender;
+            if (textbox.Text.Length == 0)
+                return;
+            
+            var order = _orderBuilder.Load(OrderModel.Key(textbox.Text)).Build();
+            SalesIdText.Text = order.SalesId;
+            var sales = _salesPersonDal.GetData(new SalesPersonModel(order.SalesId));
+            SalesPersonNameTextBox.Text = sales?.SalesPersonName ?? string.Empty;
+            var customer = _customerDal.GetData(new CustomerModel(order.CustomerId));
+            CustomerIdText.Text = order.CustomerId;
+            CustomerNameTextBox.Text = customer?.CustomerName ?? string.Empty;
+            CustomerAddressText.Text = customer?.Address1 ?? string.Empty;
+            _tipeHarga = customer?.HargaTypeId ?? string.Empty;
+            LoadBrg(order);
+        }
+        private void LoadBrg(OrderModel order)
+        {
+            _listItemJual.Clear();
+            _listItemKlaim.Clear();
+            foreach (var item in order.ListItems)   
+            {
+                var newItem = item.Adapt<FakturItemDto>();
+                newItem.SetPPnProsen(_ppnProsen);
+                newItem.QtyInputStr = $"{item.QtyBesar};{item.QtyKecil};0";
+                _listItemJual.Add(newItem);
+                _listItemKlaim.Add(newItem);
+            }
+            RefreshItemView();
+            foreach(DataGridViewRow item in FakturItemGrid.Rows)
+            {
+                if (item.Index > _listItemJual.Count - 1)
+                    continue;
+                ValidateRow(item.Index);
+            }
+        }
         private void SalesPersonButton_Click(object sender, EventArgs e)
         {
             _salesBrowser.Filter.UserKeyword = SalesIdText.Text;
@@ -799,24 +861,39 @@ namespace btr.distrib.SalesContext.FakturAgg
         #region SAVE
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            var faktur = SaveFaktur();
-            SavePiutang(faktur);
-
-            ClearForm();
-            
-            var fakturDb = _fakturBuilder
-                .Load(faktur)
-                .Build();
-            LastIdLabel.Text = $@"{fakturDb.FakturId} - {fakturDb.FakturCode}".Trim();
-            var customer = _customerDal.GetData(fakturDb);
-            var user = _userDal.GetData(fakturDb) ?? new UserModel
+            try
             {
-                UserId = fakturDb.UserId,
-                UserName = fakturDb.UserId
-            };
-            var isKlaim = FakturKlaimRadio.Checked;
-            var fakturPrintout = new FakturPrintOutDto(fakturDb, customer, user, isKlaim);
-            PrintFakturRdlc(fakturPrintout);
+                var faktur = SaveFaktur();
+                SavePiutang(faktur);
+
+                ClearForm();
+
+                var fakturDb = _fakturBuilder
+                    .Load(faktur)
+                    .Build();
+                LastIdLabel.Text = $@"{fakturDb.FakturId} - {fakturDb.FakturCode}".Trim();
+                var customer = _customerDal.GetData(fakturDb);
+                var user = _userDal.GetData(fakturDb) ?? new UserModel
+                {
+                    UserId = fakturDb.UserId,
+                    UserName = fakturDb.UserId
+                };
+                var isKlaim = FakturKlaimRadio.Checked;
+                var fakturPrintout = new FakturPrintOutDto(fakturDb, customer, user, isKlaim);
+                PrintFakturRdlc(fakturPrintout);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         private FakturModel SaveFaktur()
@@ -827,6 +904,7 @@ namespace btr.distrib.SalesContext.FakturAgg
                 FakturId = FakturIdText.Text,
                 FakturCode = FakturCodeText.Text,
                 FakturDate = FakturDateText.Value.ToString("yyyy-MM-dd"),
+                OrderId = OrderIdText.Text,
                 CustomerId = CustomerIdText.Text,
                 SalesPersonId = SalesIdText.Text,
                 WarehouseId = WarehouseIdText.Text,
@@ -869,13 +947,15 @@ namespace btr.distrib.SalesContext.FakturAgg
                 }).ToList();
             cmd.ListBrgKlaim = listItemKlaim;
 
-
             var result = _saveFakturWorker.Execute(cmd);
             return result;
         }
 
         private void SavePiutang(FakturModel faktur)
         {
+            if (faktur is null)
+                return;
+
             PiutangModel piutang;
             try
             {
@@ -940,5 +1020,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             RefreshItemView();
         }
         #endregion
+
     }
+
 }

@@ -137,6 +137,9 @@
     <Compile Include="SalesContext\HariRuteAgg\HariRuteModel.cs" />
     <Compile Include="SalesContext\KlasifikasiAgg\IKlasifikasiKey.cs" />
     <Compile Include="SalesContext\KlasifikasiAgg\KlasifikasiModel.cs" />
+    <Compile Include="SalesContext\OrderFeature\OrderItemType.cs" />
+    <Compile Include="SalesContext\OrderFeature\OrderModel.cs" />
+    <Compile Include="SalesContext\OrderMapFeature\OrderMapModel.cs" />
     <Compile Include="SalesContext\RuteAgg\IRuteKey.cs" />
     <Compile Include="SalesContext\RuteAgg\RuteItemModel.cs" />
     <Compile Include="SalesContext\RuteAgg\RuteModel.cs" />

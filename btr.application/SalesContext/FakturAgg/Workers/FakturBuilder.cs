@@ -14,6 +14,7 @@ using btr.domain.InventoryContext.DriverAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.FakturAgg;
+using btr.domain.SalesContext.OrderAgg;
 using btr.domain.SalesContext.SalesPersonAgg;
 using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Application;
@@ -30,6 +31,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         IFakturBuilder FakturDate(DateTime fakturDate);
         IFakturBuilder FakturCode(string fakturCode);
         IFakturBuilder Customer(ICustomerKey customerKey);
+        IFakturBuilder Order(IOrderKey orderKey);
         IFakturBuilder SalesPerson(ISalesPersonKey salesPersonKey);
         IFakturBuilder Warehouse(IWarehouseKey warehouseKey);
         IFakturBuilder TglRencanaKirim(DateTime tglRencanaKirim);
@@ -346,6 +348,12 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         public IFakturBuilder FakturCode(string fakturCode)
         {
             _aggRoot.FakturCode = fakturCode;
+            return this;
+        }
+
+        public IFakturBuilder Order(IOrderKey orderKey)
+        {
+            _aggRoot.OrderId = orderKey.OrderId;
             return this;
         }
     }
