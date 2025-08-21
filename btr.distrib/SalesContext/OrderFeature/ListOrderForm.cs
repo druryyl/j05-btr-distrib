@@ -1,10 +1,10 @@
 ﻿using btr.application.SalesContext.OrderFeature;
+using btr.application.SalesContext.OrderMapFeature;
 using btr.distrib.Helpers;
 using btr.distrib.SalesContext.FakturAgg;
 using btr.distrib.SharedForm;
-using btr.domain.SalesContext.CustomerAgg;
-using btr.domain.SalesContext.FakturAgg;
 using btr.domain.SalesContext.OrderAgg;
+using btr.domain.SalesContext.OrderStatusFeature;
 using btr.nuna.Domain;
 using System;
 using System.Collections.Generic;
@@ -13,25 +13,27 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
 
 namespace btr.distrib.SalesContext.OrderFeature
 {
     public partial class ListOrderForm : Form
     {
-        private readonly BindingList<ListOrderDto> _listOrderView;
+        private readonly SortableBindingList<ListOrderDto> _listOrderView;
         private readonly BindingSource _orderViewBindingSource;
 
         private readonly IOrderDal _orderDal;
+        private readonly IOrderMapDal _orderMapDal;
         private ContextMenu _gridContextMenu;
 
-        public ListOrderForm(IOrderDal orderDal)
+        public ListOrderForm(IOrderDal orderDal, 
+            IOrderMapDal orderMapDal)
         {
             InitializeComponent();
-            
-            _orderDal = orderDal;
 
-            _listOrderView = new BindingList<ListOrderDto>();
+            _orderDal = orderDal;
+            _orderMapDal = orderMapDal;
+
+            _listOrderView = new SortableBindingList<ListOrderDto>();
             _orderViewBindingSource = new BindingSource(_listOrderView, null);
 
             RegisterEventHandler();
@@ -51,6 +53,12 @@ namespace btr.distrib.SalesContext.OrderFeature
             SearchButton.Click += SearchButton_Click;
             OrderGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
             OrderGrid.MouseClick += OrderGrid_MouseClick;
+            ShowAllCheckBox.CheckedChanged += ShowAllCheckBox_CheckedChanged;
+        }
+
+        private void ShowAllCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            RefreshData();
         }
 
         private void SearchButton_Click(object sender, EventArgs e)
@@ -60,6 +68,8 @@ namespace btr.distrib.SalesContext.OrderFeature
 
         public void RefreshData()
         {
+            var isAll = ShowAllCheckBox.Checked;
+
             var periode = new Periode(PeriodeStartDatePicker.Value, PeriodeEndDatePicker.Value);
             var diffDate = periode.Tgl2 - periode.Tgl1;
             if (diffDate.Days > 31)
@@ -68,6 +78,7 @@ namespace btr.distrib.SalesContext.OrderFeature
                 return;
             }
             var listOrder = _orderDal.ListData(periode)?.ToList() ?? new List<OrderModel>();
+            var listOrderMap = _orderMapDal.ListData(periode)?.ToList() ?? new List<OrderMapModel>();
             _listOrderView.Clear();
 
             if (SearchTextBox.Text.Length > 0)
@@ -82,9 +93,33 @@ namespace btr.distrib.SalesContext.OrderFeature
                     .ToList();
             }
 
+
             listOrder.ForEach(x => _listOrderView.Add(new ListOrderDto(
                 x.OrderId, x.OrderDate.ToDate(DateFormatEnum.YMD), x.SalesName, x.UserEmail, x.OrderLocalId,
                 x.CustomerName, x.CustomerCode, x.CustomerAddress, x.TotalAmount, x.StatusSync)));
+            foreach(var order in _listOrderView)
+            {
+                var orderMap = listOrderMap.FirstOrDefault(m => m.OrderId == order.OrderId);
+                if (orderMap != null)
+                {
+                    order.SetFakturInfo(orderMap.FakturId, orderMap.FakturCode, orderMap.UserName, orderMap.FakturDate, orderMap.NilaiFaktur);
+                }
+            }
+            
+            if (isAll)
+            {
+                _orderViewBindingSource.DataSource = _listOrderView;
+            }
+            else
+            {
+                _orderViewBindingSource.DataSource = _listOrderView.Where(x => x.SyncStatus == "DOWNLOADED").ToList();
+            }
+            _listOrderView.RaiseListChangedEvents = false;
+            _listOrderView.ResetBindings();
+            _listOrderView.RaiseListChangedEvents = true;
+            _listOrderView.ResetBindings();
+
+            OrderGrid.Refresh();
         }
 
         public void InitGrid()
@@ -96,6 +131,8 @@ namespace btr.distrib.SalesContext.OrderFeature
             OrderGrid.Columns["Customer"].Width = 220;
             OrderGrid.Columns["TotalAmount"].Width = 80;
             OrderGrid.Columns["SyncStatus"].Width = 100;
+            OrderGrid.Columns["Faktur"].Width = 80;
+            OrderGrid.Columns["NilaiFaktur"].Width = 80;
 
             OrderGrid.Columns["CustomerCode"].Visible = false;
             OrderGrid.Columns["OrderId"].Visible = false;
@@ -120,7 +157,27 @@ namespace btr.distrib.SalesContext.OrderFeature
 
             OrderGrid.Columns["Address"].DefaultCellStyle.Font = new Font("Segoe UI", 8);
             OrderGrid.Columns["SyncStatus"].DefaultCellStyle.Font = new Font("Segoe UI", 8);
+            OrderGrid.Columns["FakturId"].Visible = false;
+            OrderGrid.Columns["FakturDate"].Visible = false;
+            OrderGrid.Columns["FakturCode"].Visible = false;
 
+
+            OrderGrid.CellFormatting += (s, e) =>
+            {
+                if (e.RowIndex < 0)
+                    return;
+                var row = OrderGrid.Rows[e.RowIndex];
+                var item = (ListOrderDto)row.DataBoundItem;
+                if (item.SyncStatus == "DOWNLOADED")
+                    row.DefaultCellStyle.BackColor = Color.White;
+                else
+                    row.DefaultCellStyle.BackColor = Color.PaleGreen;
+            };
+            
+            foreach (DataGridViewColumn col in OrderGrid.Columns)
+            {
+                col.SortMode = DataGridViewColumnSortMode.Automatic;
+            }
         }
         private void OrderGrid_MouseClick(object sender, MouseEventArgs e)
         {
@@ -134,8 +191,29 @@ namespace btr.distrib.SalesContext.OrderFeature
         {
             _gridContextMenu = new ContextMenu();
             _gridContextMenu.MenuItems.Add(new MenuItem("Create Faktur", CreatetFaktur_OnClick));
+            _gridContextMenu.MenuItems.Add(new MenuItem("Delete Order", DeleteOrder_OnClick));
 
             OrderGrid.ContextMenu = _gridContextMenu;
+        }
+
+        private void DeleteOrder_OnClick(object sender, EventArgs e)
+        {
+            var grid = OrderGrid;
+            var orderKey = OrderModel.Key(grid.CurrentRow.Cells["OrderId"].Value.ToString());
+
+            var thisOrder = _listOrderView.FirstOrDefault(x => x.OrderId == orderKey.OrderId);
+            if (thisOrder.SyncStatus == "TERBIT FAKTUR")
+            {
+                MessageBox.Show("Order sudah terbit faktur, tidak bisa dihapus", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (MessageBox.Show("Are you sure you want to delete this order?", "Delete Order", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                return;
+
+            _orderDal.Delete(orderKey);
+            _orderMapDal.Delete(orderKey);
+            RefreshData();
         }
 
         private void CreatetFaktur_OnClick(object sender, EventArgs e)

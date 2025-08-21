@@ -12,6 +12,7 @@
     ContactPerson VARCHAR(30) NOT NULL CONSTRAINT DF_BTR_Supplier_ContactPerson DEFAULT(''),
     Npwp VARCHAR(30) NOT NULL CONSTRAINT DF_BTR_Supplier_Npwp DEFAULT(''),
     NoPkp VARCHAR(30) NOT NULL CONSTRAINT DF_BTR_Supplier_NoPkp DEFAULT(''),
+    Keyword VARCHAR(30) NOT NULL CONSTRAINT DF_BTR_Supplier_Keyword DEFAULT(''),
     
     CONSTRAINT PK_BTR_Supplier PRIMARY KEY CLUSTERED (SupplierId)
 )

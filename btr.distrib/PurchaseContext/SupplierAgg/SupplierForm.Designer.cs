@@ -30,6 +30,7 @@
         {
             this.MainTab = new System.Windows.Forms.TabControl();
             this.ListPage = new System.Windows.Forms.TabPage();
+            this.ExcelButton = new System.Windows.Forms.Button();
             this.SearchButton = new System.Windows.Forms.Button();
             this.SearchText = new System.Windows.Forms.TextBox();
             this.ListGrid = new System.Windows.Forms.DataGridView();
@@ -64,7 +65,8 @@
             this.SupplierNameText = new System.Windows.Forms.TextBox();
             this.SupplierButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.ExcelButton = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.KeywordText = new System.Windows.Forms.TextBox();
             this.MainTab.SuspendLayout();
             this.ListPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ListGrid)).BeginInit();
@@ -98,6 +100,16 @@
             this.ListPage.TabIndex = 1;
             this.ListPage.Text = "List";
             this.ListPage.UseVisualStyleBackColor = true;
+            // 
+            // ExcelButton
+            // 
+            this.ExcelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ExcelButton.Location = new System.Drawing.Point(637, 408);
+            this.ExcelButton.Name = "ExcelButton";
+            this.ExcelButton.Size = new System.Drawing.Size(67, 23);
+            this.ExcelButton.TabIndex = 9;
+            this.ExcelButton.Text = "Excel";
+            this.ExcelButton.UseVisualStyleBackColor = true;
             // 
             // SearchButton
             // 
@@ -347,6 +359,8 @@
             // 
             this.panel2.BackColor = System.Drawing.Color.MistyRose;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.label8);
+            this.panel2.Controls.Add(this.KeywordText);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.SupplierCodeText);
             this.panel2.Controls.Add(this.label2);
@@ -417,15 +431,21 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Suppier ID";
             // 
-            // ExcelButton
+            // label8
             // 
-            this.ExcelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ExcelButton.Location = new System.Drawing.Point(637, 408);
-            this.ExcelButton.Name = "ExcelButton";
-            this.ExcelButton.Size = new System.Drawing.Size(67, 23);
-            this.ExcelButton.TabIndex = 9;
-            this.ExcelButton.Text = "Excel";
-            this.ExcelButton.UseVisualStyleBackColor = true;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(12, 132);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(51, 13);
+            this.label8.TabIndex = 13;
+            this.label8.Text = "Keyword";
+            // 
+            // KeywordText
+            // 
+            this.KeywordText.Location = new System.Drawing.Point(12, 148);
+            this.KeywordText.Name = "KeywordText";
+            this.KeywordText.Size = new System.Drawing.Size(205, 22);
+            this.KeywordText.TabIndex = 12;
             // 
             // SupplierForm
             // 
@@ -493,5 +513,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox NoTelponText;
         private System.Windows.Forms.Button ExcelButton;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox KeywordText;
     }
 }

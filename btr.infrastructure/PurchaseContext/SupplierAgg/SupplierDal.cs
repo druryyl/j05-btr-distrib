@@ -25,11 +25,11 @@ namespace btr.infrastructure.PurchaseContext.SupplierAgg
                 INSERT INTO BTR_Supplier (
                     SupplierId, SupplierName, SupplierCode,
                     Address1, Address2, Kota, KodePos, NoTelp,
-                    NoFax, ContactPerson, Npwp, NoPkp)
+                    NoFax, ContactPerson, Npwp, NoPkp, Keyword)
                 VALUES(
                     @SupplierId, @SupplierName, @SupplierCode,
                     @Address1, @Address2, @Kota, @KodePos, @NoTelp,
-                    @NoFax, @ContactPerson, @Npwp, @NoPkp) ";
+                    @NoFax, @ContactPerson, @Npwp, @NoPkp, @Keyword) ";
 
             var dp = new DynamicParameters();
             dp.AddParam("@SupplierId", model.SupplierId, SqlDbType.VarChar);
@@ -46,6 +46,7 @@ namespace btr.infrastructure.PurchaseContext.SupplierAgg
 
             dp.AddParam("@Npwp", model.Npwp, SqlDbType.VarChar);
             dp.AddParam("@NoPkp", model.NoPkp, SqlDbType.VarChar);
+            dp.AddParam("@Keyword", model.Keyword, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -70,7 +71,8 @@ namespace btr.infrastructure.PurchaseContext.SupplierAgg
                     NoFax = @NoFax, 
                     ContactPerson = @ContactPerson, 
                     Npwp = @Npwp, 
-                    NoPkp = @NoPkp
+                    NoPkp = @NoPkp,
+                    Keyword = @Keyword
                 WHERE
                     SupplierId = @SupplierId ";
 
@@ -89,6 +91,7 @@ namespace btr.infrastructure.PurchaseContext.SupplierAgg
 
             dp.AddParam("@Npwp", model.Npwp, SqlDbType.VarChar);
             dp.AddParam("@NoPkp", model.NoPkp, SqlDbType.VarChar);
+            dp.AddParam("@Keyword", model.Keyword, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -119,7 +122,7 @@ namespace btr.infrastructure.PurchaseContext.SupplierAgg
                 SELECT
                     SupplierId, SupplierName, SupplierCode,
                     Address1, Address2, Kota, KodePos, NoTelp,
-                    NoFax, ContactPerson, Npwp, NoPkp
+                    NoFax, ContactPerson, Npwp, NoPkp, Keyword
                 FROM
                      BTR_Supplier
                 WHERE
@@ -140,7 +143,7 @@ namespace btr.infrastructure.PurchaseContext.SupplierAgg
                 SELECT
                     SupplierId, SupplierName, SupplierCode,
                     Address1, Address2, Kota, KodePos, NoTelp,
-                    NoFax, ContactPerson, Npwp, NoPkp
+                    NoFax, ContactPerson, Npwp, NoPkp, Keyword
                 FROM
                      BTR_Supplier  ";
 

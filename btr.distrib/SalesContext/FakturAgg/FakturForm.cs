@@ -31,6 +31,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.InteropServices;
@@ -477,10 +478,10 @@ namespace btr.distrib.SalesContext.FakturAgg
             foreach (var item in order.ListItems)   
             {
                 var newItem = item.Adapt<FakturItemDto>();
+                newItem.DiscInputStr = $"{item.Disc1.ToSmartString()};{item.Disc2.ToSmartString()};{item.Disc3.ToSmartString()};{item.Disc4.ToSmartString()}";
                 newItem.SetPPnProsen(_ppnProsen);
-                newItem.QtyInputStr = $"{item.QtyBesar};{item.QtyKecil};0";
+                newItem.QtyInputStr = $"{item.QtyBesar};{item.QtyKecil};{item.QtyBonus}";
                 _listItemJual.Add(newItem);
-                _listItemKlaim.Add(newItem);
             }
             RefreshItemView();
             foreach(DataGridViewRow item in FakturItemGrid.Rows)
@@ -1023,4 +1024,19 @@ namespace btr.distrib.SalesContext.FakturAgg
 
     }
 
+public static class DecimalExtensions
+    {
+        public static string ToSmartString(this decimal value, int maxDecimalPlaces = 8)
+        {
+            // Check if the number is an integer (no fractional part)
+            if (value == Math.Truncate(value))
+            {
+                return value.ToString("0", CultureInfo.InvariantCulture);
+            }
+
+            // For numbers with fractional part, remove trailing zeros
+            string formatString = $"0.{new string('#', maxDecimalPlaces)}";
+            return value.ToString(formatString, CultureInfo.InvariantCulture);
+        }
+    }
 }

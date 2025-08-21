@@ -76,7 +76,8 @@ namespace btr.distrib.PurchaseContext.SupplierAgg
                     x.NoTelp,
                     x.NoFax,
                     x.NoPkp,
-                    x.Npwp
+                    x.Npwp,
+                    x.Keyword
                 }).ToList();
 
             string filePath;
@@ -216,6 +217,7 @@ namespace btr.distrib.PurchaseContext.SupplierAgg
             NoFaxText.Text = supplier.NoFax;
 
             NpwpText.Text = supplier.Npwp;
+            KeywordText.Text = supplier.Keyword;
         }
 
         private void ClearForm()
@@ -230,6 +232,8 @@ namespace btr.distrib.PurchaseContext.SupplierAgg
             NoTelponText.Clear();
             NoFaxText.Clear();
             NpwpText.Clear();
+            NoPkpText.Clear();
+            KeywordText.Clear();
         }
         #endregion
 
@@ -259,6 +263,7 @@ namespace btr.distrib.PurchaseContext.SupplierAgg
                 .NoFax(NoFaxText.Text)
                 .Npwp(NpwpText.Text)
                 .NoPkp(NoPkpText.Text)
+                .Keyword(KeywordText.Text)
                 .Build();
 
             _supplierWriter.Save(ref supplier);

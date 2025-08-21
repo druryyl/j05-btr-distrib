@@ -34,6 +34,7 @@
             this.SearchButton = new System.Windows.Forms.Button();
             this.SearchTextBox = new System.Windows.Forms.TextBox();
             this.PeriodeStartDatePicker = new System.Windows.Forms.DateTimePicker();
+            this.ShowAllCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.OrderGrid)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -56,6 +57,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.ShowAllCheckBox);
             this.panel1.Controls.Add(this.PeriodeEndDatePicker);
             this.panel1.Controls.Add(this.SearchButton);
             this.panel1.Controls.Add(this.SearchTextBox);
@@ -102,6 +104,16 @@
             this.PeriodeStartDatePicker.Size = new System.Drawing.Size(129, 22);
             this.PeriodeStartDatePicker.TabIndex = 0;
             // 
+            // ShowAllCheckBox
+            // 
+            this.ShowAllCheckBox.AutoSize = true;
+            this.ShowAllCheckBox.Location = new System.Drawing.Point(679, 17);
+            this.ShowAllCheckBox.Name = "ShowAllCheckBox";
+            this.ShowAllCheckBox.Size = new System.Drawing.Size(71, 17);
+            this.ShowAllCheckBox.TabIndex = 4;
+            this.ShowAllCheckBox.Text = "Show All";
+            this.ShowAllCheckBox.UseVisualStyleBackColor = true;
+            // 
             // ListOrderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -128,5 +140,6 @@
         private System.Windows.Forms.TextBox SearchTextBox;
         private System.Windows.Forms.DateTimePicker PeriodeStartDatePicker;
         private System.Windows.Forms.DateTimePicker PeriodeEndDatePicker;
+        private System.Windows.Forms.CheckBox ShowAllCheckBox;
     }
 }

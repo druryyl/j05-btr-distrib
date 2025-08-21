@@ -133,6 +133,7 @@
     <Build Include="Tables\PurchaseContext\BTR_ReturBeli.sql" />
     <Build Include="Tables\PurchaseContext\BTR_ReturBeliItem.sql" />
     <Build Include="Tables\PurchaseContext\BTR_ReturBeliDisc.sql" />
+    <Build Include="Tables\SalesContext\BTR_OrderMap.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Tables\SalesContext\BTR_HariRuteDataSeed.sql" />

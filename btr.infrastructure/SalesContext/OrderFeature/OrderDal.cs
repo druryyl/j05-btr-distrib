@@ -71,7 +71,7 @@ namespace btr.infrastructure.SalesContext.OrderFeature
                 TotalAmount = @TotalAmount,
                 UserEmail = @UserEmail,
                 StatusSync = @StatusSync,
-                FakturId = @FakturCode
+                FakturCode = @FakturCode
             WHERE
                 OrderId = @OrderId";
 

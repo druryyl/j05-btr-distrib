@@ -21,5 +21,7 @@
         
         public string Npwp { get; set; }
         public string NoPkp { get; set; }
+        
+        public string Keyword { get; set; }
     }
 }

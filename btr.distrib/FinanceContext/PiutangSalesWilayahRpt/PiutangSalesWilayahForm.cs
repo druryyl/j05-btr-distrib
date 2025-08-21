@@ -281,8 +281,7 @@ namespace btr.distrib.FinanceContext.PiutangSalesWilayahRpt
                             .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                             .Border.SetInsideBorder(XLBorderStyleValues.Hair);
                         //  set format for  column  number
-                        ws.Range(ws.Cell($"F{barisAwal}"), ws.Cell($"L{baris - 1}"))
-                            .Style.NumberFormat.Format = "#,##";
+                        ws.Range(ws.Cell($"F{barisAwal}"), ws.Cell($"L{baris - 1}")).Style.NumberFormat.Format = "#,##0";
                         //  set format date as dd-MM-yyyy
                         ws.Range(ws.Cell($"C{barisAwal}"), ws.Cell($"C{baris - 1}"))
                             .Style.NumberFormat.Format = "dd-MMM-yyyy";

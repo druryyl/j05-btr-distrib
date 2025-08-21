@@ -11,6 +11,8 @@ namespace btr.domain.SalesContext.OrderStatusFeature
         public string OrderId { get; set; }
         public string FakturId { get; set; }
         public string FakturCode { get; set; }
+        public DateTime FakturDate { get; set; }
+        public decimal NilaiFaktur { get; set; }
         public string UserName { get; set; }
         public DateTime Timestamp { get; set; }
     }

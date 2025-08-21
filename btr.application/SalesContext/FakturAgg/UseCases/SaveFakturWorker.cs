@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using btr.application.InventoryContext.StokAgg.GenStokUseCase;
 using btr.application.SalesContext.FakturAgg.Workers;
+using btr.application.SalesContext.OrderFeature;
+using btr.application.SalesContext.OrderMapFeature;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.DriverAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.FakturAgg;
 using btr.domain.SalesContext.OrderAgg;
+using btr.domain.SalesContext.OrderStatusFeature;
 using btr.domain.SalesContext.SalesPersonAgg;
 using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Application;
@@ -59,15 +62,19 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
         private readonly IFakturWriter _fakturWriter;
         private readonly IMediator _mediator;
         private readonly IGenStokFakturWorker _genStokWorker;
+        private readonly IOrderMapDal _orderMapDal;
+        private readonly IOrderDal _orderDal;
 
         public SaveFakturWorker(IFakturBuilder fakturBuilder,
             IFakturWriter fakturWriter,
-            IMediator mediator, IGenStokFakturWorker genStokWorker)
+            IMediator mediator, IGenStokFakturWorker genStokWorker, IOrderMapDal orderMapDal, IOrderDal orderDal)
         {
             _fakturBuilder = fakturBuilder;
             _fakturWriter = fakturWriter;
             _mediator = mediator;
             _genStokWorker = genStokWorker;
+            _orderMapDal = orderMapDal;
+            _orderDal = orderDal;
         }
 
         public FakturModel Execute(SaveFakturRequest req)
@@ -86,10 +93,27 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
                 .Handle<KeyNotFoundException>()
                 .Fallback(() => null);
             var existingFaktur = fallback.Execute(() => _fakturBuilder.Load(req).Build());
-
+            var order = _orderDal.GetData(OrderModel.Key(req.OrderId));
+            if (order != null)
+                order.StatusSync = "TERBIT FAKTUR";
             using (var trans = TransHelper.NewScope())
             {
                 result = SaveFaktur(req);
+
+                _orderMapDal.Delete(OrderModel.Key(req.OrderId));
+                _orderMapDal.Insert(new OrderMapModel
+                {
+                    OrderId = req.OrderId,
+                    FakturId = result.FakturId,
+                    FakturCode = result.FakturCode,
+                    Timestamp = DateTime.Now,
+                    UserName = req.UserId
+                });
+
+                if (order != null)
+                {
+                    _orderDal.Update(order);
+                }
                 
                 //      generate stok dilakukan jika data baru atau...
                 //      edit faktur dan item berubah (jika hanya edit header,
@@ -106,6 +130,8 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
 
                 if (IsItemBerubah(existingFaktur, result))
                     _genStokWorker.Execute(genStokReq);
+
+
 
                 trans.Complete();
             }
