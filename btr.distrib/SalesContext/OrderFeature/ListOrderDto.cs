@@ -11,7 +11,7 @@ namespace btr.distrib.SalesContext.OrderFeature
         public ListOrderDto(string orderId, DateTime orderDate,
             string sales, string email, string localID,
             string customerName, string customerCode, string address,
-            decimal totalAmount, string syncStatus)
+            int itemCount, decimal totalAmount, string syncStatus)
         {
             OrderId = orderId;
             OrderDate = orderDate;
@@ -21,6 +21,7 @@ namespace btr.distrib.SalesContext.OrderFeature
             CustomerName = customerName;
             CustomerCode = customerCode;
             Address = address;
+            ItemCount = itemCount;
             TotalAmount = totalAmount;
             SyncStatus = syncStatus;
         }
@@ -35,6 +36,7 @@ namespace btr.distrib.SalesContext.OrderFeature
         public string CustomerName { get; private set; }
         public string CustomerCode { get; private set; }
         public string Address { get; private set; }
+        public int ItemCount { get; set; }
         public decimal TotalAmount { get; private set; }
         public string SyncStatus { get; private set; }
         public string OrderId { get; private set; }

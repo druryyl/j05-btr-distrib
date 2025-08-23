@@ -22,11 +22,13 @@ namespace btr.distrib.SalesContext.OrderFeature
         private readonly BindingSource _orderViewBindingSource;
 
         private readonly IOrderDal _orderDal;
+        private readonly IOrderSummaryDal _orderSummaryDal;
         private readonly IOrderMapDal _orderMapDal;
         private ContextMenu _gridContextMenu;
 
-        public ListOrderForm(IOrderDal orderDal, 
-            IOrderMapDal orderMapDal)
+        public ListOrderForm(IOrderDal orderDal,
+            IOrderMapDal orderMapDal,
+            IOrderSummaryDal orderSummaryDal)
         {
             InitializeComponent();
 
@@ -40,6 +42,7 @@ namespace btr.distrib.SalesContext.OrderFeature
             InitGrid();
             InitDatePicker();
             InitContextMenu();
+            _orderSummaryDal = orderSummaryDal;
         }
 
         private void InitDatePicker()
@@ -54,6 +57,22 @@ namespace btr.distrib.SalesContext.OrderFeature
             OrderGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
             OrderGrid.MouseClick += OrderGrid_MouseClick;
             ShowAllCheckBox.CheckedChanged += ShowAllCheckBox_CheckedChanged;
+            ListRadioButton.CheckedChanged += ViewRadioButton_CheckedChanged;
+            PeriodeStartDatePicker.ValueChanged += ViewRadioButton_CheckedChanged;
+        }
+
+        private void ViewRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ListRadioButton.Checked)
+            {
+                OrderGrid.Visible = true;
+                SummaryGrid.Visible = false;
+            }
+            else
+            {
+                OrderGrid.Visible = false;
+                SummaryGrid.Visible = true;
+            }
         }
 
         private void ShowAllCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -96,7 +115,7 @@ namespace btr.distrib.SalesContext.OrderFeature
 
             listOrder.ForEach(x => _listOrderView.Add(new ListOrderDto(
                 x.OrderId, x.OrderDate.ToDate(DateFormatEnum.YMD), x.SalesName, x.UserEmail, x.OrderLocalId,
-                x.CustomerName, x.CustomerCode, x.CustomerAddress, x.TotalAmount, x.StatusSync)));
+                x.CustomerName, x.CustomerCode, x.CustomerAddress, x.ItemCount, x.TotalAmount, x.StatusSync)));
             foreach(var order in _listOrderView)
             {
                 var orderMap = listOrderMap.FirstOrDefault(m => m.OrderId == order.OrderId);
@@ -120,6 +139,16 @@ namespace btr.distrib.SalesContext.OrderFeature
             _listOrderView.ResetBindings();
 
             OrderGrid.Refresh();
+            var summaryList = _orderSummaryDal.ListDataSummary(periode)?.ToList() ?? new List<OrderSummaryDto>();
+            SummaryGrid.DataSource = summaryList;
+            SummaryGrid.Refresh();
+            SummaryGrid.Columns.SetDefaultCellStyle(Color.Cornsilk);
+            //  auto size columns
+            foreach (DataGridViewColumn col in SummaryGrid.Columns)
+            {
+                col.SortMode = DataGridViewColumnSortMode.Automatic;
+                col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            }
         }
 
         public void InitGrid()
@@ -179,6 +208,7 @@ namespace btr.distrib.SalesContext.OrderFeature
                 col.SortMode = DataGridViewColumnSortMode.Automatic;
             }
         }
+
         private void OrderGrid_MouseClick(object sender, MouseEventArgs e)
         {
             var grid = (DataGridView)sender;

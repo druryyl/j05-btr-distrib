@@ -15,7 +15,7 @@ using Microsoft.Extensions.Options;
 
 namespace btr.infrastructure.SalesContext.OrderFeature
 {
-    public class OrderDal : IOrderDal
+    public class OrderDal : IOrderDal, IOrderSummaryDal
     {
         private readonly DatabaseOptions _opt;
         public OrderDal(IOptions<DatabaseOptions> opt)
@@ -149,12 +149,18 @@ namespace btr.infrastructure.SalesContext.OrderFeature
         {
             const string sql = @"
             SELECT
-                OrderId, OrderLocalId, CustomerId, CustomerCode, CustomerName, CustomerAddress,
-                OrderDate, SalesId, SalesName, TotalAmount, UserEmail, StatusSync, FakturCode
+                aa.OrderId, aa.OrderLocalId, aa.CustomerId, aa.CustomerCode, aa.CustomerName, aa.CustomerAddress,
+                aa.OrderDate, aa.SalesId, aa.SalesName, COUNT(bb.OrderId) ItemCount, aa.TotalAmount, 
+                aa.UserEmail, aa.StatusSync, aa.FakturCode
             FROM
-                BTR_Order
+                BTR_Order aa
+                LEFT JOIN BTR_OrderItem bb ON aa.OrderId = bb.OrderId
             WHERE 
-                OrderDate BETWEEN @Tgl1 AND @Tgl2";
+                OrderDate BETWEEN @Tgl1 AND @Tgl2
+            GROUP BY
+                aa.OrderId, aa.OrderLocalId, aa.CustomerId, aa.CustomerCode, aa.CustomerName, aa.CustomerAddress,
+                aa.OrderDate, aa.SalesId, aa.SalesName, aa.TotalAmount, 
+                aa.UserEmail, aa.StatusSync, aa.FakturCode";
 
             var dp = new DynamicParameters();
             dp.AddParam("@Tgl1", periode.Tgl1.ToString("yyyy-MM-dd"), SqlDbType.VarChar);
@@ -163,6 +169,35 @@ namespace btr.infrastructure.SalesContext.OrderFeature
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
                 return conn.Read<OrderModel>(sql, dp);
+            }
+        }
+
+        public IEnumerable<OrderSummaryDto> ListDataSummary(Periode periode)
+        {
+            const string sql = @"
+            SELECT
+                aa.OrderDate, aa.UserEmail, COUNT(aa.OrderId) AS OrderCount, 
+                SUM(bb.ItemCount) OrderItemCount, SUM(aa.TotalAmount) TotalAmountSum
+            FROM
+                BTR_Order aa
+                LEFT JOIN (
+                    SELECT OrderId, COUNT(*) AS ItemCount 
+                    FROM BTR_OrderItem 
+                    GROUP BY OrderId) bb ON aa.OrderId = bb.OrderId
+            WHERE 
+                OrderDate BETWEEN @Tgl1 AND @Tgl2
+            GROUP BY
+                aa.OrderDate, aa.UserEmail
+            ORDER BY
+                aa.OrderDate, aa.UserEmail";
+
+            var dp = new DynamicParameters();
+            dp.AddParam("@Tgl1", periode.Tgl1.ToString("yyyy-MM-dd"), SqlDbType.VarChar);
+            dp.AddParam("@Tgl2", periode.Tgl2.ToString("yyyy-MM-dd"), SqlDbType.VarChar);
+
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                return conn.Read<OrderSummaryDto>(sql, dp);
             }
         }
     }

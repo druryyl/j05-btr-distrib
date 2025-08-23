@@ -30,13 +30,17 @@
         {
             this.OrderGrid = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ShowAllCheckBox = new System.Windows.Forms.CheckBox();
             this.PeriodeEndDatePicker = new System.Windows.Forms.DateTimePicker();
             this.SearchButton = new System.Windows.Forms.Button();
             this.SearchTextBox = new System.Windows.Forms.TextBox();
             this.PeriodeStartDatePicker = new System.Windows.Forms.DateTimePicker();
-            this.ShowAllCheckBox = new System.Windows.Forms.CheckBox();
+            this.ListRadioButton = new System.Windows.Forms.RadioButton();
+            this.SummaryRadioButton = new System.Windows.Forms.RadioButton();
+            this.SummaryGrid = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.OrderGrid)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SummaryGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // OrderGrid
@@ -57,6 +61,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.SummaryRadioButton);
+            this.panel1.Controls.Add(this.ListRadioButton);
             this.panel1.Controls.Add(this.ShowAllCheckBox);
             this.panel1.Controls.Add(this.PeriodeEndDatePicker);
             this.panel1.Controls.Add(this.SearchButton);
@@ -66,6 +72,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(972, 50);
             this.panel1.TabIndex = 1;
+            // 
+            // ShowAllCheckBox
+            // 
+            this.ShowAllCheckBox.AutoSize = true;
+            this.ShowAllCheckBox.Location = new System.Drawing.Point(679, 17);
+            this.ShowAllCheckBox.Name = "ShowAllCheckBox";
+            this.ShowAllCheckBox.Size = new System.Drawing.Size(71, 17);
+            this.ShowAllCheckBox.TabIndex = 4;
+            this.ShowAllCheckBox.Text = "Show All";
+            this.ShowAllCheckBox.UseVisualStyleBackColor = true;
             // 
             // PeriodeEndDatePicker
             // 
@@ -104,15 +120,40 @@
             this.PeriodeStartDatePicker.Size = new System.Drawing.Size(129, 22);
             this.PeriodeStartDatePicker.TabIndex = 0;
             // 
-            // ShowAllCheckBox
+            // ListRadioButton
             // 
-            this.ShowAllCheckBox.AutoSize = true;
-            this.ShowAllCheckBox.Location = new System.Drawing.Point(679, 17);
-            this.ShowAllCheckBox.Name = "ShowAllCheckBox";
-            this.ShowAllCheckBox.Size = new System.Drawing.Size(71, 17);
-            this.ShowAllCheckBox.TabIndex = 4;
-            this.ShowAllCheckBox.Text = "Show All";
-            this.ShowAllCheckBox.UseVisualStyleBackColor = true;
+            this.ListRadioButton.AutoSize = true;
+            this.ListRadioButton.Checked = true;
+            this.ListRadioButton.Location = new System.Drawing.Point(846, 16);
+            this.ListRadioButton.Name = "ListRadioButton";
+            this.ListRadioButton.Size = new System.Drawing.Size(42, 17);
+            this.ListRadioButton.TabIndex = 5;
+            this.ListRadioButton.TabStop = true;
+            this.ListRadioButton.Text = "List";
+            this.ListRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // SummaryRadioButton
+            // 
+            this.SummaryRadioButton.AutoSize = true;
+            this.SummaryRadioButton.Location = new System.Drawing.Point(894, 16);
+            this.SummaryRadioButton.Name = "SummaryRadioButton";
+            this.SummaryRadioButton.Size = new System.Drawing.Size(71, 17);
+            this.SummaryRadioButton.TabIndex = 6;
+            this.SummaryRadioButton.Text = "Summary";
+            this.SummaryRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // SummaryGrid
+            // 
+            this.SummaryGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.SummaryGrid.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.SummaryGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.SummaryGrid.Location = new System.Drawing.Point(6, 62);
+            this.SummaryGrid.Name = "SummaryGrid";
+            this.SummaryGrid.Size = new System.Drawing.Size(972, 376);
+            this.SummaryGrid.TabIndex = 2;
+            this.SummaryGrid.Visible = false;
             // 
             // ListOrderForm
             // 
@@ -122,12 +163,14 @@
             this.ClientSize = new System.Drawing.Size(984, 450);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.OrderGrid);
+            this.Controls.Add(this.SummaryGrid);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "ListOrderForm";
             this.Text = "List Order";
             ((System.ComponentModel.ISupportInitialize)(this.OrderGrid)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SummaryGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -141,5 +184,8 @@
         private System.Windows.Forms.DateTimePicker PeriodeStartDatePicker;
         private System.Windows.Forms.DateTimePicker PeriodeEndDatePicker;
         private System.Windows.Forms.CheckBox ShowAllCheckBox;
+        private System.Windows.Forms.RadioButton SummaryRadioButton;
+        private System.Windows.Forms.RadioButton ListRadioButton;
+        private System.Windows.Forms.DataGridView SummaryGrid;
     }
 }
