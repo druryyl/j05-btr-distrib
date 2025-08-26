@@ -35,6 +35,7 @@
             this.ST1FakturButton = new System.Windows.Forms.RibbonButton();
             this.ST2ControlFakturButton = new System.Windows.Forms.RibbonButton();
             this.ST3SalesReplacementMenu = new System.Windows.Forms.RibbonButton();
+            this.ST4OrderMenu = new System.Windows.Forms.RibbonButton();
             this.MasterSalesPanel = new System.Windows.Forms.RibbonPanel();
             this.OutletButton = new System.Windows.Forms.RibbonButton();
             this.SalesPersonButton = new System.Windows.Forms.RibbonButton();
@@ -110,7 +111,6 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ST4OrderMenu = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -186,6 +186,15 @@
             this.ST3SalesReplacementMenu.SmallImage = ((System.Drawing.Image)(resources.GetObject("ST3SalesReplacementMenu.SmallImage")));
             this.ST3SalesReplacementMenu.Text = "ST3-Sales Replacement";
             this.ST3SalesReplacementMenu.Click += new System.EventHandler(this.ST3SalesReplacementMenu_Click);
+            // 
+            // ST4OrderMenu
+            // 
+            this.ST4OrderMenu.Image = global::btr.distrib.Properties.Resources.icons8_smartphone_tablet_32;
+            this.ST4OrderMenu.LargeImage = global::btr.distrib.Properties.Resources.icons8_smartphone_tablet_32;
+            this.ST4OrderMenu.Name = "ST4OrderMenu";
+            this.ST4OrderMenu.SmallImage = ((System.Drawing.Image)(resources.GetObject("ST4OrderMenu.SmallImage")));
+            this.ST4OrderMenu.Text = "ST4-Sales Order";
+            this.ST4OrderMenu.Click += new System.EventHandler(this.ST4OrderMenu_Click);
             // 
             // MasterSalesPanel
             // 
@@ -846,15 +855,6 @@
             this.ServerDbStatus.Name = "ServerDbStatus";
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
-            // 
-            // ST4OrderMenu
-            // 
-            this.ST4OrderMenu.Image = ((System.Drawing.Image)(resources.GetObject("ST4OrderMenu.Image")));
-            this.ST4OrderMenu.LargeImage = ((System.Drawing.Image)(resources.GetObject("ST4OrderMenu.LargeImage")));
-            this.ST4OrderMenu.Name = "ST4OrderMenu";
-            this.ST4OrderMenu.SmallImage = ((System.Drawing.Image)(resources.GetObject("ST4OrderMenu.SmallImage")));
-            this.ST4OrderMenu.Text = "Sales Order";
-            this.ST4OrderMenu.Click += new System.EventHandler(this.ST4OrderMenu_Click);
             // 
             // MainForm
             // 
