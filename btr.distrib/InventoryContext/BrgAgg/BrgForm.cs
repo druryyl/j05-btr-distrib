@@ -134,6 +134,8 @@ namespace btr.distrib.InventoryContext.BrgAgg
                     Hpp1 = x.Hpp,
                     HrgJual1Gt = listBrgHrg.FirstOrDefault(y => y.BrgId == x.BrgId && y.HargaTypeId == "GT")?.Harga ?? 0,
                     HrgJual1Mt = listBrgHrg.FirstOrDefault(y => y.BrgId == x.BrgId && y.HargaTypeId == "MT")?.Harga ?? 0,
+                    HrgJual31 = listBrgHrg.FirstOrDefault(y => y.BrgId == x.BrgId && y.HargaTypeId == "H3")?.Harga ?? 0,
+                    HrgJual41 = listBrgHrg.FirstOrDefault(y => y.BrgId == x.BrgId && y.HargaTypeId == "H4")?.Harga ?? 0,
                     Satuan2 = listBrgSat.FirstOrDefault(y => y.BrgId == x.BrgId && y.Conversion > 1)?.Satuan ?? string.Empty,
                     Conversion = listBrgSat.FirstOrDefault(y => y.BrgId == x.BrgId && y.Conversion > 1)?.Conversion ?? 0,
                     SupplierName = x.SupplierName,
@@ -166,26 +168,26 @@ namespace btr.distrib.InventoryContext.BrgAgg
                     ws.Cell($"A{i + 2}").Value = i + 1;
 
                 //  border header
-                ws.Range("A1:P1").Style.Border.BottomBorder = XLBorderStyleValues.Thin;
+                ws.Range("A1:T1").Style.Border.BottomBorder = XLBorderStyleValues.Thin;
                 //  font bold header and background color light blue
-                ws.Range("A1:P1").Style.Font.SetBold();
-                ws.Range("A1:P1").Style.Fill.BackgroundColor = XLColor.LightBlue;
+                ws.Range("A1:T1").Style.Font.SetBold();
+                ws.Range("A1:T1").Style.Fill.BackgroundColor = XLColor.LightBlue;
                 //  freeze header
                 ws.SheetView.FreezeRows(1);
                 //  border table
-                ws.Range($"A2:P{listBrgExcel.Count + 1}").Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
-                ws.Range($"A2:P{listBrgExcel.Count + 1}").Style.Border.InsideBorder = XLBorderStyleValues.Hair;
+                ws.Range($"A2:T{listBrgExcel.Count + 1}").Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                ws.Range($"A2:T{listBrgExcel.Count + 1}").Style.Border.InsideBorder = XLBorderStyleValues.Hair;
                 
                 //  format number thousand separator and zero decimal place
-                ws.Range($"F2:M{listBrgExcel.Count + 1}").Style.NumberFormat.Format = "#,##";
+                ws.Range($"F2:P{listBrgExcel.Count + 1}").Style.NumberFormat.Format = "#,##";
                 ws.Range($"A2:A{listBrgExcel.Count + 1}").Style.NumberFormat.Format = "#,##";
                 
-                ws.Range($"A1:P{listBrgExcel.Count + 1}").Style.Font.SetFontName("Lucida Console");
-                ws.Range($"A1:P{listBrgExcel.Count + 1}").Style.Font.SetFontSize(9f);
+                ws.Range($"A1:T{listBrgExcel.Count + 1}").Style.Font.SetFontName("Lucida Console");
+                ws.Range($"A1:T{listBrgExcel.Count + 1}").Style.Font.SetFontSize(9f);
                 
                 //  set backcolor column E to H as light yellow
-                ws.Range($"E2:H{listBrgExcel.Count + 1}").Style.Fill.BackgroundColor = XLColor.LightYellow;
-                ws.Range($"I2:M{listBrgExcel.Count + 1}").Style.Fill.BackgroundColor = XLColor.LightGreen;
+                ws.Range($"E2:J{listBrgExcel.Count + 1}").Style.Fill.BackgroundColor = XLColor.LightYellow;
+                ws.Range($"K2:P{listBrgExcel.Count + 1}").Style.Fill.BackgroundColor = XLColor.LightGreen;
 
                 //  auto fit column
                 ws.Columns().AdjustToContents();
@@ -481,15 +483,24 @@ namespace btr.distrib.InventoryContext.BrgAgg
                 var hpp1 = item.Hpp;
                 var gt = harga.FirstOrDefault(x => x.HargaTypeId == "GT") ?? new BrgHargaModel { Harga = 0 };
                 var mt = harga.FirstOrDefault(x => x.HargaTypeId == "MT") ?? new BrgHargaModel { Harga = 0 };
+                var h3 = harga.FirstOrDefault(x => x.HargaTypeId == "H3") ?? new BrgHargaModel { Harga = 0 };
+                var h4 = harga.FirstOrDefault(x => x.HargaTypeId == "H4") ?? new BrgHargaModel { Harga = 0 };
+
                 var hargaGt1 = gt.Harga;
                 var hargaMt1 = mt.Harga;
+                var hargaH31 = h3.Harga;
+                var hargaH41 = h4.Harga;
+
                 var hpp2 = konversi.Conversion != 1 ? hpp1 * konversi.Conversion : 0;
                 var hargaGt2 = konversi.Conversion != 1 ?  hargaGt1 * konversi.Conversion : 0;
                 var hargaMt2 = konversi.Conversion != 1 ? hargaMt1 * konversi.Conversion : 0;
+                var harga32 = konversi.Conversion != 1 ? hargaH31 * konversi.Conversion : 0;
+                var harga42 = konversi.Conversion != 1 ? hargaH41 * konversi.Conversion : 0;
 
                 var brg = new BrgFormBrgDto(
                     item.BrgId, item.BrgCode, item.BrgName, item.KategoriName, item.SupplierName,
-                    hpp1, hargaGt1, hargaMt1, hpp2, hargaGt2, hargaMt2);
+                    hpp1, hargaGt1, hargaMt1, hargaH31, hargaH41,
+                    hpp2, hargaGt2, hargaMt2, harga32, harga42);
                 _listBrg.Add(brg);
             }
 
@@ -510,10 +521,14 @@ namespace btr.distrib.InventoryContext.BrgAgg
             BrgGrid.Columns.GetCol("Hpp1").DefaultCellStyle.BackColor = Color.LightYellow;
             BrgGrid.Columns.GetCol("HargaGt1").DefaultCellStyle.BackColor = Color.LightYellow;
             BrgGrid.Columns.GetCol("HargaMt1").DefaultCellStyle.BackColor = Color.LightYellow;
+            BrgGrid.Columns.GetCol("Harga31").DefaultCellStyle.BackColor = Color.LightYellow;
+            BrgGrid.Columns.GetCol("Harga41").DefaultCellStyle.BackColor = Color.LightYellow;
 
             BrgGrid.Columns.GetCol("Hpp2").DefaultCellStyle.BackColor = Color.LightGreen;
             BrgGrid.Columns.GetCol("HargaGt2").DefaultCellStyle.BackColor = Color.LightGreen;
             BrgGrid.Columns.GetCol("HargaMt2").DefaultCellStyle.BackColor = Color.LightGreen;
+            BrgGrid.Columns.GetCol("Harga32").DefaultCellStyle.BackColor = Color.LightYellow;
+            BrgGrid.Columns.GetCol("Harga42").DefaultCellStyle.BackColor = Color.LightYellow;
 
             if (BrgGrid.Rows.Count == 0)
                 return;
