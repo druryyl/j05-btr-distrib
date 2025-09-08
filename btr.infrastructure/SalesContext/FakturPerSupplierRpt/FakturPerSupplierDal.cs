@@ -32,6 +32,7 @@ namespace btr.infrastructure.SalesContext.FakturPerSupplierRpt
                     ISNULL(ee.SalesPersonName, '') AS SalesPersonName,
                     ISNULL(dd.CustomerCode, '') AS CustomerCode,
                     ISNULL(dd.CustomerName, '') AS CustomerName, 
+                    ISNULL(hh.KlasifikasiName, '') AS Klasifikasi,
                     ISNULL(dd.Address1, '') AS CustomerAddress,
                     ISNULL(dd.Kota, '') AS CustomerKota,
                     ISNULL(cc.BrgCode, '') AS BrgCode,
@@ -61,6 +62,7 @@ namespace btr.infrastructure.SalesContext.FakturPerSupplierRpt
                     LEFT JOIN (SELECT FakturItemId, DiscProsen, DiscRp FROM BTR_FakturDiscount WHERE NoUrut = 3) ff3 ON aa.FakturItemId = ff3.FakturItemId
                     LEFT JOIN (SELECT FakturItemId, DiscProsen, DiscRp FROM BTR_FakturDiscount WHERE NoUrut = 4) ff4 ON aa.FakturItemId = ff4.FakturItemId
                     LEFT JOIN BTR_Supplier gg ON cc.SupplierId = gg.SupplierId
+                    LEFT JOIN BTR_Klasifikasi hh ON dd.KlasifikasiId = hh.KlasifikasiId
                 WHERE
                     bb.FakturDate BETWEEN @Tgl1 AND @Tgl2  
                     AND bb.VoidDate = @TglVoid ";

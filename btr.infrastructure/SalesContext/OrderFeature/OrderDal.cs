@@ -27,10 +27,10 @@ namespace btr.infrastructure.SalesContext.OrderFeature
             const string sql = @"
                 INSERT INTO BTR_Order(
                     OrderId, OrderLocalId, CustomerId, CustomerCode, CustomerName, CustomerAddress,
-                    OrderDate, SalesId, SalesName, TotalAmount, UserEmail, StatusSync, FakturCode)
+                    OrderDate, SalesId, SalesName, TotalAmount, UserEmail, StatusSync, FakturCode, OrderNote)
                 VALUES (
                     @OrderId, @OrderLocalId, @CustomerId, @CustomerCode, @CustomerName, @CustomerAddress,
-                    @OrderDate, @SalesId, @SalesName, @TotalAmount, @UserEmail, @StatusSync, @FakturCode)";
+                    @OrderDate, @SalesId, @SalesName, @TotalAmount, @UserEmail, @StatusSync, @FakturCode, @OrderNote)";
 
             var dp = new DynamicParameters();
             dp.AddParam("@OrderId", model.OrderId, SqlDbType.VarChar);
@@ -46,6 +46,7 @@ namespace btr.infrastructure.SalesContext.OrderFeature
             dp.AddParam("@UserEmail", model.UserEmail, SqlDbType.VarChar);
             dp.AddParam("@StatusSync", model.StatusSync, SqlDbType.VarChar);
             dp.AddParam("@FakturCode", model.FakturCode, SqlDbType.VarChar);
+            dp.AddParam("@OrderNote", model.OrderNote, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -71,7 +72,8 @@ namespace btr.infrastructure.SalesContext.OrderFeature
                 TotalAmount = @TotalAmount,
                 UserEmail = @UserEmail,
                 StatusSync = @StatusSync,
-                FakturCode = @FakturCode
+                FakturCode = @FakturCode,
+                OrderNote = @OrderNote
             WHERE
                 OrderId = @OrderId";
 
@@ -89,6 +91,7 @@ namespace btr.infrastructure.SalesContext.OrderFeature
             dp.AddParam("@UserEmail", model.UserEmail, SqlDbType.VarChar);
             dp.AddParam("@StatusSync", model.StatusSync, SqlDbType.VarChar);
             dp.AddParam("@FakturCode", model.FakturCode, SqlDbType.VarChar);
+            dp.AddParam("@OrderNote", model.OrderNote, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -129,12 +132,18 @@ namespace btr.infrastructure.SalesContext.OrderFeature
         {
             const string sql = @"
             SELECT
-                OrderId, OrderLocalId, CustomerId, CustomerCode, CustomerName, CustomerAddress,
-                OrderDate, SalesId, SalesName, TotalAmount, UserEmail, StatusSync, FakturCode
+                aa.OrderId, aa.OrderLocalId, aa.CustomerId, aa.CustomerCode, aa.CustomerName, aa.CustomerAddress,
+                aa.OrderDate, aa.SalesId, aa.SalesName, COUNT(bb.OrderId) ItemCount, aa.TotalAmount, 
+                aa.UserEmail, aa.StatusSync, aa.FakturCode, aa.OrderNote
             FROM
-                BTR_Order
+                BTR_Order aa
+                LEFT JOIN BTR_OrderItem bb ON aa.OrderId = bb.OrderId
             WHERE
-                OrderId = @OrderId";
+                aa.OrderId = @OrderId
+            GROUP BY
+                aa.OrderId, aa.OrderLocalId, aa.CustomerId, aa.CustomerCode, aa.CustomerName, aa.CustomerAddress,
+                aa.OrderDate, aa.SalesId, aa.SalesName, aa.TotalAmount, 
+                aa.UserEmail, aa.StatusSync, aa.FakturCode, aa.OrderNote";
 
             var dp = new DynamicParameters();
             dp.AddParam("@OrderId", key.OrderId, SqlDbType.VarChar);
@@ -151,7 +160,7 @@ namespace btr.infrastructure.SalesContext.OrderFeature
             SELECT
                 aa.OrderId, aa.OrderLocalId, aa.CustomerId, aa.CustomerCode, aa.CustomerName, aa.CustomerAddress,
                 aa.OrderDate, aa.SalesId, aa.SalesName, COUNT(bb.OrderId) ItemCount, aa.TotalAmount, 
-                aa.UserEmail, aa.StatusSync, aa.FakturCode
+                aa.UserEmail, aa.StatusSync, aa.FakturCode, aa.OrderNote
             FROM
                 BTR_Order aa
                 LEFT JOIN BTR_OrderItem bb ON aa.OrderId = bb.OrderId
@@ -160,7 +169,7 @@ namespace btr.infrastructure.SalesContext.OrderFeature
             GROUP BY
                 aa.OrderId, aa.OrderLocalId, aa.CustomerId, aa.CustomerCode, aa.CustomerName, aa.CustomerAddress,
                 aa.OrderDate, aa.SalesId, aa.SalesName, aa.TotalAmount, 
-                aa.UserEmail, aa.StatusSync, aa.FakturCode";
+                aa.UserEmail, aa.StatusSync, aa.FakturCode, aa.OrderNote";
 
             var dp = new DynamicParameters();
             dp.AddParam("@Tgl1", periode.Tgl1.ToString("yyyy-MM-dd"), SqlDbType.VarChar);

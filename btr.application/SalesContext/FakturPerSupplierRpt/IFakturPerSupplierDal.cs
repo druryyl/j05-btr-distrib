@@ -18,7 +18,8 @@ namespace btr.application.SalesContext.FakturPerSupplierRpt
         public DateTime FakturDate {get;set;}
         public string SalesPersonName {get;set;}
         public string CustomerCode {get;set;}
-        public string CustomerName {get;set;} 
+        public string CustomerName {get;set;}
+        public string Klasifikasi {get;set; }
         public string CustomerAddress {get;set;}
         public string CustomerKota {get;set;}
         public string BrgCode {get;set;}

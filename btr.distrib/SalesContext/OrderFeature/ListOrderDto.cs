@@ -11,7 +11,7 @@ namespace btr.distrib.SalesContext.OrderFeature
         public ListOrderDto(string orderId, DateTime orderDate,
             string sales, string email, string localID,
             string customerName, string customerCode, string address,
-            int itemCount, decimal totalAmount, string syncStatus)
+            int itemCount, decimal totalAmount, string syncStatus, string orderNote)
         {
             OrderId = orderId;
             OrderDate = orderDate;
@@ -24,6 +24,7 @@ namespace btr.distrib.SalesContext.OrderFeature
             ItemCount = itemCount;
             TotalAmount = totalAmount;
             SyncStatus = syncStatus;
+            OrderNote = orderNote;
         }
 
         public string ID => $"{Email}\r\n  {LocalID}";
@@ -46,6 +47,7 @@ namespace btr.distrib.SalesContext.OrderFeature
         public string Faktur => $"{FakturCode}\r\n{FakturDate:dd-MM-yyyy}";
         public decimal NilaiFaktur { get; private set; }
         public string UserrName { get; private set; }
+        public string OrderNote { get; private set; }
 
         public void SetFakturInfo(string fakturId, string fakturCode, string userrName, DateTime fakturDate, Decimal nilaiFaktur)
         {

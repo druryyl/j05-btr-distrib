@@ -115,7 +115,7 @@ namespace btr.distrib.SalesContext.OrderFeature
 
             listOrder.ForEach(x => _listOrderView.Add(new ListOrderDto(
                 x.OrderId, x.OrderDate.ToDate(DateFormatEnum.YMD), x.SalesName, x.UserEmail, x.OrderLocalId,
-                x.CustomerName, x.CustomerCode, x.CustomerAddress, x.ItemCount, x.TotalAmount, x.StatusSync)));
+                x.CustomerName, x.CustomerCode, x.CustomerAddress, x.ItemCount, x.TotalAmount, x.StatusSync, x.OrderNote)));
             foreach(var order in _listOrderView)
             {
                 var orderMap = listOrderMap.FirstOrDefault(m => m.OrderId == order.OrderId);
@@ -162,6 +162,7 @@ namespace btr.distrib.SalesContext.OrderFeature
             OrderGrid.Columns["SyncStatus"].Width = 100;
             OrderGrid.Columns["Faktur"].Width = 80;
             OrderGrid.Columns["NilaiFaktur"].Width = 80;
+            OrderGrid.Columns["OrderNote"].Width = 200;
 
             OrderGrid.Columns["CustomerCode"].Visible = false;
             OrderGrid.Columns["OrderId"].Visible = false;
@@ -183,6 +184,7 @@ namespace btr.distrib.SalesContext.OrderFeature
             OrderGrid.Columns["CustomerCode"].DefaultCellStyle.Font = new Font("Segoe UI", 8);
             OrderGrid.Columns["Customer"].DefaultCellStyle.Font = new Font("Segoe UI", 8);
             OrderGrid.Columns["ID"].DefaultCellStyle.Font = new Font("Segoe UI", 8);
+            OrderGrid.Columns["OrderNote"].DefaultCellStyle.Font = new Font("Segoe UI", 8);
 
             OrderGrid.Columns["Address"].DefaultCellStyle.Font = new Font("Segoe UI", 8);
             OrderGrid.Columns["SyncStatus"].DefaultCellStyle.Font = new Font("Segoe UI", 8);

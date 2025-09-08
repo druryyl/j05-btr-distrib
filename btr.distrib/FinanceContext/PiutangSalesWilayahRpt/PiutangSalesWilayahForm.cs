@@ -26,7 +26,66 @@ namespace btr.distrib.FinanceContext.PiutangSalesWilayahRpt
             InfoGrid.QueryCellStyleInfo += InfoGrid_QueryCellStyleInfo;
             ProsesButton.Click += ProsesButton_Click;
             ExcelButton.Click += ExcelButton_Click;
+            ExcelFlatButton.Click += ExcelButtonFlat_Click;
             InitGrid();
+        }
+
+        private void ExcelButtonFlat_Click(object sender, EventArgs e)
+        {
+            string filePath;
+            using (var saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = @"Excel Files|*.xlsx";
+                saveFileDialog.Title = @"Save Excel File";
+                saveFileDialog.DefaultExt = "xlsx";
+                saveFileDialog.AddExtension = true;
+                saveFileDialog.FileName = $"piutang-sales-per-wilayah-info-{DateTime.Now:yyyy-MM-dd-HHmm}";
+                if (saveFileDialog.ShowDialog() != DialogResult.OK)
+                    return;
+                filePath = saveFileDialog.FileName;
+            }
+
+            using (IXLWorkbook wb = new XLWorkbook())
+            {
+                var filtered = this.InfoGrid.Table.FilteredRecords;
+                var listToExcel = new List<PiutangSalesWilayahDto>();
+                foreach (var item in filtered)
+                {
+                    listToExcel.Add(item.GetData() as PiutangSalesWilayahDto);
+                }
+
+                var excelContent = listToExcel
+                    .OrderBy(x => x.SalesName)
+                    .ThenBy(x => x.WilayahName)
+                    .ThenBy(x => x.CustomerName)
+                    .ToList();
+
+                wb.AddWorksheet("piutang-sales-per-wilayah-info")
+                    .Cell($"B1")
+                        .InsertTable(excelContent, false);
+                var ws = wb.Worksheets.First();
+                //  set border and font
+                ws.Range(ws.Cell($"A{1}"), ws.Cell($"N{listToExcel.Count + 1}")).Style
+                    .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
+                    .Border.SetInsideBorder(XLBorderStyleValues.Hair);
+                ws.Range(ws.Cell($"A{1}"), ws.Cell($"N{listToExcel.Count + 1}")).Style
+                    .Font.SetFontName("Lucida Console")
+                    .Font.SetFontSize(9);
+
+                //  set format for  column  number 
+                ws.Range(ws.Cell($"H{2}"), ws.Cell($"N{listToExcel.Count + 1}"))
+                    .Style.NumberFormat.Format = "#,##0";
+                ws.Range(ws.Cell($"E{2}"), ws.Cell($"G{listToExcel.Count + 1}"))
+                    .Style.DateFormat.Format= "dd-MM-yyyy";
+                //  add rownumbering
+                ws.Cell($"A1").Value = "No";
+                for (var i = 0; i < listToExcel.Count; i++)
+                    ws.Cell($"A{i + 2}").Value = i + 1;
+
+                ws.Columns().AdjustToContents();
+                wb.SaveAs(filePath);
+            }
+            System.Diagnostics.Process.Start(filePath);
         }
 
         private void InfoGrid_QueryCellStyleInfo(object sender, GridTableCellStyleInfoEventArgs e)
