@@ -66,19 +66,19 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
 
                 var ws = wb.Worksheets.First();
                 //  set border and font
-                ws.Range(ws.Cell($"A{1}"), ws.Cell($"P{excelDs.Count + 1}")).Style
+                ws.Range(ws.Cell($"A{1}"), ws.Cell($"Q{excelDs.Count + 1}")).Style
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair);
-                ws.Range(ws.Cell($"A{1}"), ws.Cell($"P{excelDs.Count + 1}")).Style
+                ws.Range(ws.Cell($"A{1}"), ws.Cell($"Q{excelDs.Count + 1}")).Style
                     .Font.SetFontName("Lucida Console")
                     .Font.SetFontSize(9);
 
                 //  hide columns O
-                ws.Columns("O").Hide();
+                ws.Columns("P").Hide();
                 //  replace column P with empty space if its value is FALSE
 
                 //  set format number for column K, L, M, N to N0
-                ws.Range(ws.Cell($"K{2}"), ws.Cell($"P{excelDs.Count + 1}"))
+                ws.Range(ws.Cell($"K{2}"), ws.Cell($"QP{excelDs.Count + 1}"))
                     .Style.NumberFormat.Format = "#,##";
                 ws.Range(ws.Cell($"A{2}"), ws.Cell($"A{excelDs.Count + 1}"))
                     .Style.NumberFormat.Format = "#,##";
@@ -92,13 +92,13 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
 
                 //  replace status FALSE dengan string kosong
                 for (var i = 0; i < excelDs.Count; i++)
-                    if (ws.Cell($"P{i + 2}").Value.ToString() == "FALSE")
-                        ws.Cell($"P{i + 2}").Value = "";
+                    if (ws.Cell($"Q{i + 2}").Value.ToString() == "FALSE")
+                        ws.Cell($"Q{i + 2}").Value = "";
 
                 //  replace status TRUE dengan string "YA""
                 for (var i = 0; i < excelDs.Count; i++)
-                    if (ws.Cell($"P{i + 2}").Value.ToString() == "TRUE")
-                        ws.Cell($"P{i + 2}").Value = "YA";
+                    if (ws.Cell($"Q{i + 2}").Value.ToString() == "TRUE")
+                        ws.Cell($"Q{i + 2}").Value = "YA";
 
 
 

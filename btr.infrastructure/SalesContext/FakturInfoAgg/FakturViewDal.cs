@@ -32,7 +32,8 @@ namespace btr.infrastructure.SalesContext.FakturInfoAgg
                     ISNULL(dd.WilayahName , '') AS WilayahName,
                     ISNULL(ee.SalesPersonName, '') SalesPersonName,
                     ISNULL(ff.WarehouseName, '') AS WarehouseName,
-                    ISNULL(gg.StatusFaktur,0) AS StatusFaktur
+                    ISNULL(gg.StatusFaktur,0) AS StatusFaktur,
+                    ISNULL(hh.KlasifikasiName, '') AS KlasifikasiName   
                 FROM
                     BTR_Faktur aa
                     LEFT JOIN BTR_User bb ON aa.UserId = bb.UserId
@@ -41,6 +42,7 @@ namespace btr.infrastructure.SalesContext.FakturInfoAgg
                     LEFT JOIN BTR_SalesPerson ee ON aa.SalesPersonId = ee.SalesPersonId 
                     LEFT JOIN BTR_Warehouse ff ON aa.WarehouseId = ff.WarehouseId
                     LEFT JOIN BTR_FakturControlStatus gg ON aa.FakturId = gg.FakturId AND StatusFaktur = 2
+                    LEFT JOIN BTR_Klasifikasi hh ON cc.KlasifikasiId = hh.KlasifikasiId
                 WHERE
                     aa.FakturDate BETWEEN @Tgl1 AND @Tgl2  
                     AND aa.VoidDate = '3000-01-01'";
@@ -68,7 +70,8 @@ namespace btr.infrastructure.SalesContext.FakturInfoAgg
                     ISNULL(dd.WilayahName , '') AS WilayahName,
                     ISNULL(ee.SalesPersonName, '') SalesPersonName,
                     ISNULL(ff.WarehouseName, '') AS WarehouseName,
-                    ISNULL(gg.StatusFaktur,0) AS StatusFaktur
+                    ISNULL(gg.StatusFaktur,0) AS StatusFaktur,
+                    ISNULL(hh.KlasifikasiName, '') AS KlasifikasiName
                 FROM
                     BTR_Faktur aa
                     LEFT JOIN BTR_User bb ON aa.UserId = bb.UserId
@@ -77,6 +80,7 @@ namespace btr.infrastructure.SalesContext.FakturInfoAgg
                     LEFT JOIN BTR_SalesPerson ee ON aa.SalesPersonId = ee.SalesPersonId 
                     LEFT JOIN BTR_Warehouse ff ON aa.WarehouseId = ff.WarehouseId
                     LEFT JOIN BTR_FakturControlStatus gg ON aa.FakturId = gg.FakturId AND StatusFaktur = 2
+                    LEFT JOIN BTR_Klasifikasi hh ON cc.KlasifikasiId = hh.KlasifikasiId
                 WHERE
                     aa.FakturDate BETWEEN @Tgl1 AND @Tgl2  
                     AND aa.VoidDate <> '3000-01-01'";

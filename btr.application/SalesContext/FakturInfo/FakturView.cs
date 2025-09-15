@@ -11,6 +11,7 @@ namespace btr.application.SalesContext.FakturInfo
         public string Customer { get; set; }
         public string Address { get; set; }
         public string WilayahName { get; set; }
+        public string KlasifikasiName { get; set; }
         public string SalesPersonName { get; set; }
         public string WarehouseName { get; set; }
         public decimal Total { get; set; }
