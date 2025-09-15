@@ -864,7 +864,7 @@
             this.RF3ReturJualPerSupplierInfoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_hashtag_activity_feed_32;
             this.RF3ReturJualPerSupplierInfoButton.Name = "RF3ReturJualPerSupplierInfoButton";
             this.RF3ReturJualPerSupplierInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("RF3ReturJualPerSupplierInfoButton.SmallImage")));
-            this.RF3ReturJualPerSupplierInfoButton.Text = "RF3-Info Retur Per Supplier";
+            this.RF3ReturJualPerSupplierInfoButton.Text = "RF3-Retur Per-Supplier";
             this.RF3ReturJualPerSupplierInfoButton.Click += new System.EventHandler(this.RF3ReturJualPerSupplierInfoButton_Click);
             // 
             // MainForm
