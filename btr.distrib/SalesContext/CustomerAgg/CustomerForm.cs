@@ -117,7 +117,7 @@ namespace btr.distrib.SalesContext.CustomerAgg
                     AddressWp = x.AddressWp,
                     IsKenaPajak = x.IsKenaPajak,
                     HargaTypeName = listHargaType.FirstOrDefault(y => y.HargaTypeId == x.HargaTypeId)?.HargaTypeName,
-                    IsSuspend = x.IsSuspend
+                    IsSuspend = x.IsSuspend,
                 }).ToList();
             
             string filePath;
@@ -215,7 +215,8 @@ namespace btr.distrib.SalesContext.CustomerAgg
                     x.Plafond,
                     x.CreditBalance,
                     x.Npwp,
-                    x.NamaWp)).ToList();
+                    x.NamaWp,
+                    x.KlasifikasiName, x.HargaTypeName)).ToList();
             CustGrid.DataSource = _listCust;
 
             CustGrid.Columns.SetDefaultCellStyle(Color.Beige);
@@ -407,7 +408,7 @@ namespace btr.distrib.SalesContext.CustomerAgg
     {
         public CustomerFormGridDto(string id, string code, string name, string alamat, 
             string kota, decimal plafond, decimal creditBalance,
-            string npwp, string namaWp)
+            string npwp, string namaWp, string klasifikasiName, string hargaTypeName)
         {
             Id = id;
             Code = code;
@@ -418,6 +419,8 @@ namespace btr.distrib.SalesContext.CustomerAgg
             CreditBalance = creditBalance;
             Npwp = npwp;
             NamaWp = namaWp;
+            KlasifikasiName = klasifikasiName;
+            HargaTypeName = hargaTypeName;
         }
         public string Id { get; }
         public string Code{ get; }
@@ -425,10 +428,12 @@ namespace btr.distrib.SalesContext.CustomerAgg
         public string Name { get; }
         public string Alamat { get; }
         public string Kota { get; }
+        public string KlasifikasiName { get; set; }
         public decimal Plafond { get; }
         public decimal CreditBalance { get; }
         public string Npwp { get; set; }
         public string NamaWp { get; set; }
+        public string HargaTypeName { get; set; }
     }
 
     public class CustomerFormExcelDto
@@ -450,6 +455,5 @@ namespace btr.distrib.SalesContext.CustomerAgg
         public bool IsKenaPajak {get;set; }
         public string HargaTypeName {get;set;   }
         public bool IsSuspend {get;set;   }
-        
     }
 }

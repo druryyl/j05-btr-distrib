@@ -18,7 +18,7 @@ namespace btr.domain.SalesContext.CustomerAgg
         public string WilayahId {get;set;}
         public string WilayahName { get; set;}
         public string KlasifikasiId { get; set; }
-        public string KlasidikasiName { get; set; }
+        public string KlasifikasiName { get; set; }
         public string HargaTypeId { get; set; }
         public string HargaTypeName { get; set; }
 

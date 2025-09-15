@@ -108,7 +108,7 @@ namespace btr.application.SalesContext.CustomerAgg.Workers
             var klasifikasi = _klasifikasiDal.GetData(klasifikasiKey)
                 ?? throw new KeyNotFoundException("Klasifikasi invalid");
             _aggRoot.KlasifikasiId = klasifikasi.KlasifikasiId;
-            _aggRoot.KlasidikasiName = klasifikasi.KlasifikasiName;
+            _aggRoot.KlasifikasiName = klasifikasi.KlasifikasiName;
             return this;
         }
 
