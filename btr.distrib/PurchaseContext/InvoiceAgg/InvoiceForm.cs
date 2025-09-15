@@ -355,6 +355,9 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             {
                 if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("BrgId").Index)
                     BrowseBrg(grid.CurrentCell.RowIndex);
+                if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("DiscInputStr").Index)
+                    if (MessageBox.Show("Set semua disc sama?", "Disc", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        SetAllDiscount(grid.CurrentCell.RowIndex);
             }
 
             if (e.KeyCode == Keys.Delete)
@@ -561,6 +564,21 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             TaxText.Value = _listItem.Sum(x => x.PpnRp);
             GrandTotalText.Value = _listItem.Sum(x => x.Total);
             SisaText.Value = GrandTotalText.Value - UangMukaText.Value;
+        }
+        private void SetAllDiscount(int rowIndex)
+        {
+            var disc = _listItem[rowIndex].DiscInputStr;
+            foreach (var item in _listItem)
+                item.DiscInputStr = disc;
+            InvoiceItemGrid.Refresh();
+
+            foreach (DataGridViewRow item in InvoiceItemGrid.Rows)
+            {
+                if (item.Index > _listItem.Count - 1)
+                    continue;
+                ValidateRow(item.Index, false);
+            }
+            CalcTotal();
         }
 
         #endregion

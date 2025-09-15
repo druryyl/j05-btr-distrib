@@ -27,6 +27,7 @@ using btr.nuna.Domain;
 using Mapster;
 using Microsoft.Reporting.WinForms;
 using Polly;
+using Syncfusion.Windows.Forms.Grid;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -636,16 +637,35 @@ namespace btr.distrib.SalesContext.FakturAgg
             switch (e.KeyCode)
             {
                 case Keys.F1:
-                {
                     if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("BrgId").Index)
                         BrowseBrg(grid.CurrentCell.RowIndex);
+                    if (grid.CurrentCell.ColumnIndex == grid.Columns.GetCol("DiscInputStr").Index)
+                        if (MessageBox.Show("Set semua item dengan diskon ini?", "Konfirmasi", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                            SetAllDiscount(grid.CurrentCell.RowIndex);
+
                     break;
-                }
+
                 case Keys.Delete:
                     _listItem.RemoveAt(grid.CurrentCell.RowIndex);
                     grid.Refresh();
                     break;
             }
+        }
+
+        private void SetAllDiscount(int rowIndex)
+        {
+            var disc = _listItem[rowIndex].DiscInputStr;
+            foreach (var item in _listItem)
+                item.DiscInputStr = disc;
+            FakturItemGrid.Refresh();
+
+            foreach(DataGridViewRow item in FakturItemGrid.Rows)
+            {
+                if (item.Index > _listItem.Count - 1)
+                    continue;
+                ValidateRow(item.Index);
+            }
+            CalcTotal();
         }
 
         #region browse-brg-saat-cell-aktif
