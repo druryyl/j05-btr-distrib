@@ -111,6 +111,7 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.RF3ReturJualPerSupplierInfoButton = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -755,6 +756,7 @@
             // 
             this.ribbonPanel4.Items.Add(this.RF1ReturJualInfo);
             this.ribbonPanel4.Items.Add(this.RF2ReturBrgInfoButton);
+            this.ribbonPanel4.Items.Add(this.RF3ReturJualPerSupplierInfoButton);
             this.ribbonPanel4.Name = "ribbonPanel4";
             this.ribbonPanel4.Text = "";
             // 
@@ -855,6 +857,15 @@
             this.ServerDbStatus.Name = "ServerDbStatus";
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
+            // 
+            // RF3ReturJualPerSupplierInfoButton
+            // 
+            this.RF3ReturJualPerSupplierInfoButton.Image = global::btr.distrib.Properties.Resources.icons8_hashtag_activity_feed_32;
+            this.RF3ReturJualPerSupplierInfoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_hashtag_activity_feed_32;
+            this.RF3ReturJualPerSupplierInfoButton.Name = "RF3ReturJualPerSupplierInfoButton";
+            this.RF3ReturJualPerSupplierInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("RF3ReturJualPerSupplierInfoButton.SmallImage")));
+            this.RF3ReturJualPerSupplierInfoButton.Text = "RF3-Info Retur Per Supplier";
+            this.RF3ReturJualPerSupplierInfoButton.Click += new System.EventHandler(this.RF3ReturJualPerSupplierInfoButton_Click);
             // 
             // MainForm
             // 
@@ -965,5 +976,6 @@
         private System.Windows.Forms.RibbonButton PT3ReturBeliMenu;
         private System.Windows.Forms.RibbonButton PF4ReturBeliDetil;
         private System.Windows.Forms.RibbonButton ST4OrderMenu;
+        private System.Windows.Forms.RibbonButton RF3ReturJualPerSupplierInfoButton;
     }
 }

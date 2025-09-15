@@ -509,6 +509,12 @@
     <Compile Include="InventoryContext\ReturJualRpt\ReturJualBrgReportForm.Designer.cs">
       <DependentUpon>ReturJualBrgReportForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InventoryContext\ReturJualRpt\ReturJualPerSupplierReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryContext\ReturJualRpt\ReturJualPerSupplierReportForm.Designer.cs">
+      <DependentUpon>ReturJualPerSupplierReportForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="InventoryContext\ReturJualRpt\ReturJualReportForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -922,6 +928,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\ReturJualRpt\ReturJualBrgReportForm.resx">
       <DependentUpon>ReturJualBrgReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InventoryContext\ReturJualRpt\ReturJualPerSupplierReportForm.resx">
+      <DependentUpon>ReturJualPerSupplierReportForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\ReturJualRpt\ReturJualReportForm.resx">
       <DependentUpon>ReturJualReportForm.cs</DependentUpon>

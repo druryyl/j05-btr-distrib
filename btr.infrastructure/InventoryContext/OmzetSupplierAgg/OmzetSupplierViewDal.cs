@@ -51,5 +51,34 @@ namespace btr.infrastructure.InventoryContext.OmzetSupplierAgg
                 return conn.Read<OmzetSupplierView>(sql, dp);
             }
         }
+
+        public IEnumerable<OmzetSupplierView> ListDataRetur(Periode filter)
+        {
+            //  QUERY
+            const string sql = @"
+                SELECT 
+                    dd.SupplierName, CONVERT(Date, bb.ReturJualDate) AS FakturDate, SUM(aa.Total) AS Total
+                FROM 
+                    BTR_ReturJUalItem aa
+                    LEFT jOIN BTR_ReturJUal bb ON aa.ReturJualId = bb.ReturJualId
+                    LEFT JOIN BTR_Brg cc ON aa.BrgId = cc.BrgId
+                    LEFT JOIN BTR_Supplier dd ON cc.SupplierId = dd.SupplierId
+                WHERE
+                    bb.ReturJualDate BETWEEN @Tgl1 AND @Tgl2
+                    AND bb.VoidDate = '3000-01-01'
+                GROUP BY
+                    dd.SupplierName, CONVERT(Date, bb.ReturJualDate)";
+
+            //  PARAMETER
+            var dp = new DynamicParameters();
+            dp.AddParam("@Tgl1", filter.Tgl1, SqlDbType.DateTime);
+            dp.AddParam("@Tgl2", filter.Tgl2, SqlDbType.DateTime);
+
+            //  READ
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                return conn.Read<OmzetSupplierView>(sql, dp);
+            }
+        }
     }
 }
