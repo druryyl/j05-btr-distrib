@@ -34,7 +34,8 @@ namespace btr.infrastructure.SalesContext.FakturInfoAgg
                     ISNULL(bb.QtyJual, 0) * ISNULL(bb.HrgSat, 0) AS SubTotal,
                     ISNULL(bb.DiscRp, 0) AS DiscRp,
                     ISNULL(bb.PpnRp, 0) AS PpnRp,
-                    ISNULL(bb.Total, 0) AS Total
+                    ISNULL(bb.Total, 0) AS Total,
+                    ISNULL(ii.KlasifikasiName, '') AS KlasifikasiName
                 FROM
                     BTR_Faktur aa
                     LEFT JOIN BTR_FakturItem bb ON aa.FakturId = bb.FakturId
@@ -43,6 +44,7 @@ namespace btr.infrastructure.SalesContext.FakturInfoAgg
                     LEFT JOIN BTR_Brg ff ON bb.BrgId = ff.BrgId
                     LEFT JOIN BTR_Kategori gg ON ff.KategoriId = gg.KategoriId
                     LEFT JOIN BTR_Supplier hh ON ff.SupplierId = hh.SupplierId
+                    LEFT JOIN BTR_Klasifikasi ii ON cc.KlasifikasiId = ii.KlasifikasiId
                 WHERE
                     aa.FakturDate BETWEEN @Tgl1 AND @Tgl2 
                     AND aa.VoidDate = '3000-01-01'";

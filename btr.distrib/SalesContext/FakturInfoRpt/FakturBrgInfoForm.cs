@@ -53,28 +53,28 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
                 var ws = wb.Worksheets.First();
 
                 //  set border and font
-                ws.Range(ws.Cell("A1"), ws.Cell($"O{_dataSource.Count + 1}")).Style
+                ws.Range(ws.Cell("A1"), ws.Cell($"P{_dataSource.Count + 1}")).Style
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair);
-                ws.Cell($"K{_dataSource.Count + 2}").Value= "Total";
-                ws.Range(ws.Cell($"K{_dataSource.Count + 2}"), ws.Cell($"O{_dataSource.Count + 2}")).Style
+                ws.Cell($"L{_dataSource.Count + 2}").Value= "Total";
+                ws.Range(ws.Cell($"L{_dataSource.Count + 2}"), ws.Cell($"P{_dataSource.Count + 2}")).Style
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Font.SetFontName("Lucida Console")
                     .Font.SetFontSize(11)
                     .Font.SetBold();
 
-                ws.Range(ws.Cell("A1"), ws.Cell($"O{_dataSource.Count + 2}")).Style
+                ws.Range(ws.Cell("A1"), ws.Cell($"P{_dataSource.Count + 2}")).Style
                     .Font.SetFontName("Lucida Console")
                     .Font.SetFontSize(9);
 
                 //  add row total L,M,N,O
-                ws.Cell($"L{_dataSource.Count + 2}").FormulaA1 = $"=SUM(L2:L{_dataSource.Count + 1})";
                 ws.Cell($"M{_dataSource.Count + 2}").FormulaA1 = $"=SUM(M2:M{_dataSource.Count + 1})";
                 ws.Cell($"N{_dataSource.Count + 2}").FormulaA1 = $"=SUM(N2:N{_dataSource.Count + 1})";
                 ws.Cell($"O{_dataSource.Count + 2}").FormulaA1 = $"=SUM(O2:O{_dataSource.Count + 1})";
-                
+                ws.Cell($"P{_dataSource.Count + 2}").FormulaA1 = $"=SUM(P2:P{_dataSource.Count + 1})";
+
                 //  set format number for column A, J, K, L, M, N, O to N0
-                ws.Range(ws.Cell("J2"), ws.Cell($"O{_dataSource.Count + 2}"))
+                ws.Range(ws.Cell("L2"), ws.Cell($"Q{_dataSource.Count + 2}"))
                     .Style.NumberFormat.Format = "#,##";
                 ws.Range(ws.Cell("A2"), ws.Cell($"A{_dataSource.Count + 2}"))
                     .Style.NumberFormat.Format = "#,##";
