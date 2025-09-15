@@ -40,6 +40,7 @@ namespace btr.application.PurchaseContext.InvoiceAgg
         IInvoiceBuilder User(IUserKey user);
         IInvoiceBuilder CalcTotal();
         IInvoiceBuilder IsPosted(bool isPosted);
+        IInvoiceBuilder Note(string note);
     }
 
     public class InvoiceBuilder : IInvoiceBuilder
@@ -235,6 +236,12 @@ namespace btr.application.PurchaseContext.InvoiceAgg
         public IInvoiceBuilder IsPosted(bool isPosted)
         {
             _aggRoot.IsStokPosted = isPosted;
+            return this;
+        }
+
+        public IInvoiceBuilder Note(string note)
+        {
+            _aggRoot.Note = note;
             return this;
         }
     }

@@ -43,6 +43,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             PpnProsen = $"PPN {DecFormatter.ToStr(invoice.ListItem.FirstOrDefault().PpnProsen)}% :";
             GrandTotal = $"{invoice.GrandTotal:N0}";
             UserName = user.UserName;
+            Note = invoice.Note;
 
             ListItem = new List<InvoicePrintOutItemDto>();
             var noUrut = 1;
@@ -120,6 +121,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
 
         public string Terbilang { get; set; }
         public string UserName { get; set; }
+        public string Note { get; set; }
         public List<InvoicePrintOutItemDto> ListItem { get; set; }
     }
 

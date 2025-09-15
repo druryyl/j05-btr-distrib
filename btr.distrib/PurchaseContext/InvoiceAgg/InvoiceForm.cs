@@ -260,6 +260,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             GrandTotalText.Value = invoice.GrandTotal;
             UangMukaText.Value = invoice.UangMuka;
             SisaText.Value = invoice.KurangBayar;
+            NoteTextBox.Text = invoice.Note;
 
             _listItem.Clear();
             foreach (var newItem in invoice.ListItem
@@ -608,6 +609,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
                 TermOfPayment = TermOfPaymentCombo.SelectedIndex,
                 DueDate = DueDateText.Value.ToString("yyyy-MM-dd"),
                 UserId = mainform.UserId.UserId,
+                Note = NoteTextBox.Text,
             };
 
             var listItem = (
@@ -640,6 +642,7 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
             WarehouseNameText.Text = string.Empty;
             TermOfPaymentCombo.SelectedIndex = 0;
             DueDateText.Value = _dateTime.Now.AddDays(30);
+            NoteTextBox.Text = string.Empty;
 
             TotalText.Value = 0;
             DiscountText.Value = 0;

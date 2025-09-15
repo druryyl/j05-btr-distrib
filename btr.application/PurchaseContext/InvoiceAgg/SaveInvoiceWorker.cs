@@ -27,6 +27,7 @@ namespace btr.application.PurchaseContext.InvoiceAgg
         public int TermOfPayment { get; set; }
         public string DueDate { get; set; }
         public string UserId { get; set; }
+        public string Note { get; set; }
         public IEnumerable<SaveInvoiceRequestItem> ListBrg { get; set; }
     }
 
@@ -130,6 +131,7 @@ namespace btr.application.PurchaseContext.InvoiceAgg
                 .User(req)
                 .TermOfPayment((TermOfPaymentEnum)req.TermOfPayment)
                 .DueDate(req.DueDate.ToDate(DateFormatEnum.YMD))
+                .Note(req.Note)
                 .Build();
 
             foreach (var item in req.ListBrg)
