@@ -58,7 +58,8 @@ namespace btr.infrastructure.SalesContext.FakturPerCustomerRpt
                     aa.SubTotal - ISNULL(aa.DiscRp, 0) TotalSebelumTax,
                     aa.PpnRp,
                     aa.Total,
-                    ISNULL(jj.StatusFaktur,0) StatusFaktur
+                    ISNULL(jj.StatusFaktur,0) StatusFaktur,
+                    ISNULL(kk.KlasifikasiName, '') AS KlasifikasiName
                 FROM
                     BTR_FakturItem aa
                     LEFT JOIN BTR_Faktur bb ON aa.FakturId = bb.FakturId
@@ -73,6 +74,7 @@ namespace btr.infrastructure.SalesContext.FakturPerCustomerRpt
                     LEFT JOIN BTR_Kategori hh ON cc.KategoriId = hh.KategoriId
                     LEFT JOIN BTR_Wilayah ii ON dd.WilayahId = ii.WilayahId
                     LEFT JOIN BTR_FakturControlStatus jj ON bb.FakturId = jj.FakturId AND StatusFaktur = 2
+                    LEFT JOIN BTR_Klasifikasi kk ON dd.KlasifikasiId = kk.KlasifikasiId
                 WHERE
                     bb.FakturDate BETWEEN @Tgl1 AND @Tgl2 
                     AND bb.VoidDate = '3000-01-01'";

@@ -173,7 +173,7 @@ namespace btr.distrib.SalesContext.FakturPerCustomerRpt
                 var ws = wb.Worksheets.First();
 
                 //  set format row header: font bold, background lightblue, border medium
-                ws.Range(ws.Cell("A1"), ws.Cell($"AF1")).Style
+                ws.Range(ws.Cell("A1"), ws.Cell($"AG1")).Style
                     .Font.SetFontName("Lucida Console")
                     .Font.SetFontSize(9)
                     .Font.SetBold()
@@ -182,7 +182,7 @@ namespace btr.distrib.SalesContext.FakturPerCustomerRpt
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair);
 
                 //  set format row data: font Lucida Console 9, border medium, border inside hair
-                ws.Range(ws.Cell("A2"), ws.Cell($"AF{listToExcel.Count + 1}")).Style
+                ws.Range(ws.Cell("A2"), ws.Cell($"AG{listToExcel.Count + 1}")).Style
                     .Font.SetFontName("Lucida Console")
                     .Font.SetFontSize(9)
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
@@ -192,11 +192,11 @@ namespace btr.distrib.SalesContext.FakturPerCustomerRpt
                 ws.Cell($"A1").Value = "No";
                 for (var i = 0; i < listToExcel.Count; i++)
                     ws.Cell($"A{i + 2}").Value = i + 1;
-                ws.Range(ws.Cell("A2"), ws.Cell($"AF{listToExcel.Count + 1}"))
+                ws.Range(ws.Cell("A2"), ws.Cell($"AG{listToExcel.Count + 1}"))
                     .Style.NumberFormat.Format = "#,##";
 
                 //  format numeric column  
-                ws.Range(ws.Cell("P2"), ws.Cell($"AF{listToExcel.Count + 1}"))
+                ws.Range(ws.Cell("Q2"), ws.Cell($"AG{listToExcel.Count + 1}"))
                     .Style.NumberFormat.Format = "#,##";
 
                 //  format date column to dd MMM yyyy
@@ -206,26 +206,26 @@ namespace btr.distrib.SalesContext.FakturPerCustomerRpt
                     .Style.NumberFormat.Format = "dd-MMM-yyyy";
                 
                 //  format numeric column DiscTotal with 2 decimal places but hide zero
-                ws.Range(ws.Cell("Y2"), ws.Cell($"AB{listToExcel.Count + 1}"))
+                ws.Range(ws.Cell("Z2"), ws.Cell($"AC{listToExcel.Count + 1}"))
                     .Style.NumberFormat.Format = "#,##0.00_);(#,##0.00);-";
 
                 //  set backcolor numeric column
-                ws.Range(ws.Cell("P2"), ws.Cell($"X{listToExcel.Count + 1}"))
+                ws.Range(ws.Cell("Q2"), ws.Cell($"Y{listToExcel.Count + 1}"))
                     .Style.Fill.SetBackgroundColor(XLColor.LightGreen);
-                ws.Range(ws.Cell("Y2"), ws.Cell($"AD{listToExcel.Count + 1}"))
+                ws.Range(ws.Cell("Z2"), ws.Cell($"AD{listToExcel.Count + 1}"))
                     .Style.Fill.SetBackgroundColor(XLColor.LightYellow);
-                ws.Range(ws.Cell("AE2"), ws.Cell($"AF{listToExcel.Count + 1}"))
+                ws.Range(ws.Cell("AE2"), ws.Cell($"AG{listToExcel.Count + 1}"))
                     .Style.Fill.SetBackgroundColor(XLColor.LightMauve);
 
                 //  add row footer: sum column NilaiStokBesar, NilaiStokKecil, NilaiInPcs
-                ws.Cell($"X{listToExcel.Count + 2}").FormulaA1 = $"=SUM(X2:X{listToExcel.Count + 1})";
-                ws.Cell($"AC{listToExcel.Count + 2}").FormulaA1 = $"=SUM(AC2:AC{listToExcel.Count + 1})";
+                ws.Cell($"Y{listToExcel.Count + 2}").FormulaA1 = $"=SUM(Y2:Y{listToExcel.Count + 1})";
                 ws.Cell($"AD{listToExcel.Count + 2}").FormulaA1 = $"=SUM(AD2:AD{listToExcel.Count + 1})";
                 ws.Cell($"AE{listToExcel.Count + 2}").FormulaA1 = $"=SUM(AE2:AE{listToExcel.Count + 1})";
                 ws.Cell($"AF{listToExcel.Count + 2}").FormulaA1 = $"=SUM(AF2:AF{listToExcel.Count + 1})";
+                ws.Cell($"AG{listToExcel.Count + 2}").FormulaA1 = $"=SUM(AG2:AG{listToExcel.Count + 1})";
 
                 //  format row footer font bold, background yellow, border medium
-                ws.Range(ws.Cell($"S{listToExcel.Count + 2}"), ws.Cell($"AF{listToExcel.Count + 2}")).Style
+                ws.Range(ws.Cell($"S{listToExcel.Count + 2}"), ws.Cell($"AG{listToExcel.Count + 2}")).Style
                     .Font.SetFontName("Concolas")
                     .Font.SetBold()
                     .NumberFormat.SetFormat("#,##")

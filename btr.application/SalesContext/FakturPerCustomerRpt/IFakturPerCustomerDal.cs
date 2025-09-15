@@ -20,6 +20,7 @@ namespace btr.application.SalesContext.FakturPerCustomerRpt
         public string BrgName {get;set;}
         public string CustomerCode {get;set;}
         public string CustomerName {get;set;}
+        public string KlasifikasiName { get; set; }
         public string CustomerAddress {get;set;}
         public string CustomerKota {get;set;}
         public string WilayahName {get;set;}
