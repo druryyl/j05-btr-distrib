@@ -274,7 +274,7 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             {
                 MessageBox.Show("Faktur tidak ditemukan");
             }
-            if (piutang.Sisa <= 0)
+            if (piutang.Sisa <= 1)
             {
                 MessageBox.Show("Faktur sudah lunas");
                 return;
@@ -302,7 +302,7 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             _listTagihan[e.RowIndex].CustomerCode = faktur.CustomerCode;
             _listTagihan[e.RowIndex].CustomerName = faktur.CustomerName;
             _listTagihan[e.RowIndex].Alamat = faktur.Address;
-            _listTagihan[e.RowIndex].NilaiTotal = piutang.Total - piutang.Potongan;
+            _listTagihan[e.RowIndex].NilaiTotal = piutang.Total + piutang.Potongan;
             _listTagihan[e.RowIndex].NilaiTerbayar = piutang.Terbayar;
             _listTagihan[e.RowIndex].NilaiTagih = piutang.Sisa;
 
