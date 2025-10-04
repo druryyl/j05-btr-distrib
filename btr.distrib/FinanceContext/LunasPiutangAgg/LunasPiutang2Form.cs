@@ -399,6 +399,11 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
                 i++;
             }
 
+            if (piutang.Sisa <=1)
+                piutang.StatusPiutang = StatusPiutangEnum.Lunas;
+            else
+                piutang.StatusPiutang = StatusPiutangEnum.Tercatat; // agar bisa ditagihkan lagi
+
             _piutangWriter.Save(ref piutang);
             RefreshGridBayar(piutang);
         }

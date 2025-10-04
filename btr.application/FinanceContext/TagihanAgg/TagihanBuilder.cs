@@ -18,7 +18,8 @@ namespace btr.application.FinanceContext.TagihanAgg
         ITagihanBuilder Attach(TagihanModel tagihan);
         ITagihanBuilder TglTagihan(DateTime tglTagihan);
         ITagihanBuilder Sales(ISalesPersonKey salesKey);
-        ITagihanBuilder AddFaktur(IFakturKey fakturKey, decimal total, decimal terbayar, decimal sisaTagihan);
+        ITagihanBuilder AddFaktur(IFakturKey fakturKey, decimal total, decimal terbayar, decimal sisaTagihan,
+            bool isTandaTerima, string keterangan, DateTime tandaTerimaDate);
        ITagihanBuilder RemoveFaktur(IFakturKey fakturKey); 
     }
     public class TagihanBuilder : ITagihanBuilder
@@ -85,7 +86,8 @@ namespace btr.application.FinanceContext.TagihanAgg
             return this;
         }
 
-        public ITagihanBuilder AddFaktur(IFakturKey fakturKey, decimal total, decimal terbayar, decimal tagih)
+        public ITagihanBuilder AddFaktur(IFakturKey fakturKey, decimal total, decimal terbayar, decimal tagih,
+            bool isTandaTerima, string keterangan, DateTime tandaTerimaDate)
         {
             var faktur = _fakturDal.GetData(fakturKey)
                 ?? throw new KeyNotFoundException("Faktur not found"); 
@@ -101,7 +103,10 @@ namespace btr.application.FinanceContext.TagihanAgg
                 Alamat = faktur.Address,
                 NilaiTotal = total,
                 NilaiTerbayar = terbayar,
-                NilaiTagih = tagih
+                NilaiTagih = tagih,
+                IsTandaTerima = isTandaTerima,
+                Keterangan = keterangan,
+                TandaTerimaDate = tandaTerimaDate
             };
             _aggregate.TotalTagihan += tagih;
             _aggregate.ListFaktur.Add(tagihanFaktur);

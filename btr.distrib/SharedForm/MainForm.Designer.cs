@@ -86,8 +86,10 @@
             this.DriverButton = new System.Windows.Forms.RibbonButton();
             this.FinanceTab = new System.Windows.Forms.RibbonTab();
             this.ribbonPanel1 = new System.Windows.Forms.RibbonPanel();
-            this.FT1LunasPiutangButton = new System.Windows.Forms.RibbonButton();
             this.FT2TagihanSalesButton = new System.Windows.Forms.RibbonButton();
+            this.FT4TandaTerimaButton = new System.Windows.Forms.RibbonButton();
+            this.FT1LunasPiutangButton = new System.Windows.Forms.RibbonButton();
+            this.ribbonSeparator3 = new System.Windows.Forms.RibbonSeparator();
             this.FT3FpKeluaranButton = new System.Windows.Forms.RibbonButton();
             this.FinanceInfoTab = new System.Windows.Forms.RibbonPanel();
             this.FF1PiutangSalesWilayahButton = new System.Windows.Forms.RibbonButton();
@@ -101,6 +103,7 @@
             this.ribbonPanel4 = new System.Windows.Forms.RibbonPanel();
             this.RF1ReturJualInfo = new System.Windows.Forms.RibbonButton();
             this.RF2ReturBrgInfoButton = new System.Windows.Forms.RibbonButton();
+            this.RF3ReturJualPerSupplierInfoButton = new System.Windows.Forms.RibbonButton();
             this.SettingTab = new System.Windows.Forms.RibbonTab();
             this.DeliveryPanel = new System.Windows.Forms.RibbonPanel();
             this.UserButton = new System.Windows.Forms.RibbonButton();
@@ -111,7 +114,6 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.RF3ReturJualPerSupplierInfoButton = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -642,20 +644,13 @@
             // 
             // ribbonPanel1
             // 
-            this.ribbonPanel1.Items.Add(this.FT1LunasPiutangButton);
             this.ribbonPanel1.Items.Add(this.FT2TagihanSalesButton);
+            this.ribbonPanel1.Items.Add(this.FT4TandaTerimaButton);
+            this.ribbonPanel1.Items.Add(this.FT1LunasPiutangButton);
+            this.ribbonPanel1.Items.Add(this.ribbonSeparator3);
             this.ribbonPanel1.Items.Add(this.FT3FpKeluaranButton);
             this.ribbonPanel1.Name = "ribbonPanel1";
             this.ribbonPanel1.Text = "";
-            // 
-            // FT1LunasPiutangButton
-            // 
-            this.FT1LunasPiutangButton.Image = global::btr.distrib.Properties.Resources.icons8_general_ledger_32;
-            this.FT1LunasPiutangButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_general_ledger_32;
-            this.FT1LunasPiutangButton.Name = "FT1LunasPiutangButton";
-            this.FT1LunasPiutangButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FT1LunasPiutangButton.SmallImage")));
-            this.FT1LunasPiutangButton.Text = "FT1-Lunas Piutang";
-            this.FT1LunasPiutangButton.Click += new System.EventHandler(this.FT1LunasPiutangButton_Click);
             // 
             // FT2TagihanSalesButton
             // 
@@ -665,6 +660,28 @@
             this.FT2TagihanSalesButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FT2TagihanSalesButton.SmallImage")));
             this.FT2TagihanSalesButton.Text = "FT2-Tagihan Sales";
             this.FT2TagihanSalesButton.Click += new System.EventHandler(this.FT2TagihanSalesButton_Click_1);
+            // 
+            // FT4TandaTerimaButton
+            // 
+            this.FT4TandaTerimaButton.Image = global::btr.distrib.Properties.Resources.icons8_in_progress_32;
+            this.FT4TandaTerimaButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_in_progress_32;
+            this.FT4TandaTerimaButton.Name = "FT4TandaTerimaButton";
+            this.FT4TandaTerimaButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FT4TandaTerimaButton.SmallImage")));
+            this.FT4TandaTerimaButton.Text = "FT4-Tanda Terima";
+            this.FT4TandaTerimaButton.Click += new System.EventHandler(this.FT4TandaTerimaButton_Click);
+            // 
+            // FT1LunasPiutangButton
+            // 
+            this.FT1LunasPiutangButton.Image = global::btr.distrib.Properties.Resources.icons8_cash_32;
+            this.FT1LunasPiutangButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_cash_32;
+            this.FT1LunasPiutangButton.Name = "FT1LunasPiutangButton";
+            this.FT1LunasPiutangButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FT1LunasPiutangButton.SmallImage")));
+            this.FT1LunasPiutangButton.Text = "FT1-Lunas Piutang";
+            this.FT1LunasPiutangButton.Click += new System.EventHandler(this.FT1LunasPiutangButton_Click);
+            // 
+            // ribbonSeparator3
+            // 
+            this.ribbonSeparator3.Name = "ribbonSeparator3";
             // 
             // FT3FpKeluaranButton
             // 
@@ -778,6 +795,15 @@
             this.RF2ReturBrgInfoButton.Text = "RF2-Info Retr-Brg";
             this.RF2ReturBrgInfoButton.Click += new System.EventHandler(this.RF2ReturBrgInfoButton_Click);
             // 
+            // RF3ReturJualPerSupplierInfoButton
+            // 
+            this.RF3ReturJualPerSupplierInfoButton.Image = global::btr.distrib.Properties.Resources.icons8_hashtag_activity_feed_32;
+            this.RF3ReturJualPerSupplierInfoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_hashtag_activity_feed_32;
+            this.RF3ReturJualPerSupplierInfoButton.Name = "RF3ReturJualPerSupplierInfoButton";
+            this.RF3ReturJualPerSupplierInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("RF3ReturJualPerSupplierInfoButton.SmallImage")));
+            this.RF3ReturJualPerSupplierInfoButton.Text = "RF3-Retur Per-Supplier";
+            this.RF3ReturJualPerSupplierInfoButton.Click += new System.EventHandler(this.RF3ReturJualPerSupplierInfoButton_Click);
+            // 
             // SettingTab
             // 
             this.SettingTab.Name = "SettingTab";
@@ -857,15 +883,6 @@
             this.ServerDbStatus.Name = "ServerDbStatus";
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
-            // 
-            // RF3ReturJualPerSupplierInfoButton
-            // 
-            this.RF3ReturJualPerSupplierInfoButton.Image = global::btr.distrib.Properties.Resources.icons8_hashtag_activity_feed_32;
-            this.RF3ReturJualPerSupplierInfoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_hashtag_activity_feed_32;
-            this.RF3ReturJualPerSupplierInfoButton.Name = "RF3ReturJualPerSupplierInfoButton";
-            this.RF3ReturJualPerSupplierInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("RF3ReturJualPerSupplierInfoButton.SmallImage")));
-            this.RF3ReturJualPerSupplierInfoButton.Text = "RF3-Retur Per-Supplier";
-            this.RF3ReturJualPerSupplierInfoButton.Click += new System.EventHandler(this.RF3ReturJualPerSupplierInfoButton_Click);
             // 
             // MainForm
             // 
@@ -977,5 +994,7 @@
         private System.Windows.Forms.RibbonButton PF4ReturBeliDetil;
         private System.Windows.Forms.RibbonButton ST4OrderMenu;
         private System.Windows.Forms.RibbonButton RF3ReturJualPerSupplierInfoButton;
+        private System.Windows.Forms.RibbonButton FT4TandaTerimaButton;
+        private System.Windows.Forms.RibbonSeparator ribbonSeparator3;
     }
 }

@@ -26,6 +26,7 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
         IPiutangBuilder AddLunasBg(decimal value, DateTime lunasDate, string tagihanId, DateTime jatuhTempo, string namaBank, string noRek, string atasNama);
         IPiutangBuilder SetUangMuka(decimal value);
         IPiutangBuilder RemoveLunas(string tagihanId);
+        IPiutangBuilder StatusPiutang(StatusPiutangEnum status);
         IPiutangBuilder NilaiPiutang(decimal nilai);
     }
     public class PiutangBuilder : IPiutangBuilder
@@ -246,5 +247,10 @@ namespace btr.application.FinanceContext.PiutangAgg.Workers
             return this;
         }
 
+        public IPiutangBuilder StatusPiutang(StatusPiutangEnum status)
+        {
+            _aggregate.StatusPiutang = status;
+            return this;
+        }
     }
 }

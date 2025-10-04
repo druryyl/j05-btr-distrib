@@ -911,7 +911,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -996,6 +996,7 @@ namespace btr.distrib.SalesContext.FakturAgg
                     .PiutangDate(faktur.FakturDate)
                     .DueDate(faktur.DueDate)
                     .NilaiPiutang(faktur.GrandTotal)
+                    .StatusPiutang(StatusPiutangEnum.Tercatat)
                     .Build();
             }
             piutang = _piutangBuilder

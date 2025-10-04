@@ -100,8 +100,8 @@
     <Reference Include="MediatR.Contracts, Version=2.0.1.0, Culture=neutral, PublicKeyToken=bb9a41a5e8aaa7e2, processorArchitecture=MSIL">
       <HintPath>..\packages\MediatR.Contracts.2.0.1\lib\netstandard2.0\MediatR.Contracts.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.Configuration, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Configuration.7.0.0\lib\net462\Microsoft.Extensions.Configuration.dll</HintPath>
@@ -219,8 +219,8 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.IO.Packaging, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IO.Packaging.6.0.0\lib\net461\System.IO.Packaging.dll</HintPath>
+    <Reference Include="System.IO.Packaging, Version=6.0.0.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Packaging.6.0.1\lib\net461\System.IO.Packaging.dll</HintPath>
     </Reference>
     <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
@@ -269,11 +269,11 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Text.Encodings.Web, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Text.Encodings.Web.7.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
-    <Reference Include="System.Text.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Text.Json.7.0.0\lib\net462\System.Text.Json.dll</HintPath>
+    <Reference Include="System.Text.Json, Version=8.0.0.5, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.8.0.5\lib\net462\System.Text.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Text.RegularExpressions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.RegularExpressions.4.3.1\lib\net463\System.Text.RegularExpressions.dll</HintPath>
@@ -371,6 +371,12 @@
     </Compile>
     <Compile Include="FinanceContext\ReturBalanceAgg\ReturBalanceViewDto.cs" />
     <Compile Include="FinanceContext\ReturBalanceAgg\ReturItemViewDto.cs" />
+    <Compile Include="FinanceContext\TagihanAgg\FakturTagihanCard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FinanceContext\TagihanAgg\FakturTagihanCard.Designer.cs">
+      <DependentUpon>FakturTagihanCard.cs</DependentUpon>
+    </Compile>
     <Compile Include="FinanceContext\TagihanAgg\TagihanFakturDto.cs" />
     <Compile Include="FinanceContext\TagihanAgg\TagihanForm.cs">
       <SubType>Form</SubType>
@@ -386,6 +392,12 @@
       <DependentUpon>TagihanPrintOutForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FinanceContext\TagihanAgg\TagihanPrintOutItemDto.cs" />
+    <Compile Include="FinanceContext\TagihanAgg\TandaTerimaTagihanForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FinanceContext\TagihanAgg\TandaTerimaTagihanForm.Designer.cs">
+      <DependentUpon>TandaTerimaTagihanForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\BrowseFilter.cs" />
     <Compile Include="Helpers\CodeRedReporting.cs" />
     <Compile Include="Helpers\DecimalStringFormatter.cs" />
@@ -821,6 +833,10 @@
     <None Include="Resources\purrple-icon.png" />
     <None Include="Resources\animasi-login3.gif" />
     <None Include="Resources\icons8_smartphone_tablet_32.png" />
+    <None Include="Resources\icons8_in_progress_16.png" />
+    <None Include="Resources\icons8_in_progress_32.png" />
+    <None Include="Resources\icons8_refund_32.png" />
+    <None Include="Resources\icons8_cash_32.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -877,12 +893,18 @@
     <EmbeddedResource Include="FinanceContext\ReturBalanceAgg\ReturBalanceForm.resx">
       <DependentUpon>ReturBalanceForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FinanceContext\TagihanAgg\FakturTagihanCard.resx">
+      <DependentUpon>FakturTagihanCard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FinanceContext\TagihanAgg\TagihanForm.resx">
       <DependentUpon>TagihanForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FinanceContext\TagihanAgg\TagihanPrintOut.rdlc" />
     <EmbeddedResource Include="FinanceContext\TagihanAgg\TagihanPrintOutForm.resx">
       <DependentUpon>TagihanPrintOutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FinanceContext\TagihanAgg\TandaTerimaTagihanForm.resx">
+      <DependentUpon>TandaTerimaTagihanForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InventoryContext\AdjustmentAgg\AdjustmentForm.resx">
       <DependentUpon>AdjustmentForm.cs</DependentUpon>

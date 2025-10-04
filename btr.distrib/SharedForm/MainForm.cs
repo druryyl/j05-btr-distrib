@@ -687,5 +687,15 @@ namespace btr.distrib.SharedForm
             form.MdiParent = this;
             form.Show(); 
         }
+
+        private void FT4TandaTerimaButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<TandaTerimaTagihanForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<TandaTerimaTagihanForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
     }
 }

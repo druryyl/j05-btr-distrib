@@ -14,6 +14,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Reflection;
 using btr.domain.SalesContext.CustomerAgg;
+using btr.domain.SalesContext.SalesPersonAgg;
 
 namespace btr.infrastructure.FinanceContext.PiutangAgg
 {
@@ -31,16 +32,17 @@ namespace btr.infrastructure.FinanceContext.PiutangAgg
             const string sql = @"
                 INSERT INTO BTR_Piutang(
                     PiutangId, PiutangDate, DueDate, CustomerId, 
-                    Total, Potongan, Terbayar, Sisa)
+                    StatusPiutang, Total, Potongan, Terbayar, Sisa)
                 VALUES(
                     @PiutangId, @PiutangDate, @DueDate, @CustomerId, 
-                    @Total, @Potongan, @Terbayar, @Sisa)";
+                    @StatusPiutang, @Total, @Potongan, @Terbayar, @Sisa)";
 
             var dp = new DynamicParameters();
             dp.AddParam("@PiutangId", model.PiutangId, SqlDbType.VarChar); 
             dp.AddParam("@PiutangDate", model.PiutangDate, SqlDbType.DateTime); 
             dp.AddParam("@DueDate", model.DueDate, SqlDbType.DateTime); 
             dp.AddParam("@CustomerId", model.CustomerId, SqlDbType.VarChar); 
+            dp.AddParam("@StatusPiutang", (int)model.StatusPiutang, SqlDbType.Int);
             dp.AddParam("@Total", model.Total, SqlDbType.Decimal); 
             dp.AddParam("@Potongan", model.Potongan, SqlDbType.Decimal); 
             dp.AddParam("@Terbayar", model.Terbayar, SqlDbType.Decimal);
@@ -61,6 +63,7 @@ namespace btr.infrastructure.FinanceContext.PiutangAgg
                     PiutangDate = @PiutangDate, 
                     DueDate = @DueDate, 
                     CustomerId = @CustomerId, 
+                    StatusPiutang = @StatusPiutang,
                     Total = @Total, 
                     Potongan = @Potongan,
                     Terbayar = @Terbayar, 
@@ -73,6 +76,7 @@ namespace btr.infrastructure.FinanceContext.PiutangAgg
             dp.AddParam("@PiutangDate", model.PiutangDate, SqlDbType.DateTime);
             dp.AddParam("@DueDate", model.DueDate, SqlDbType.DateTime);
             dp.AddParam("@CustomerId", model.CustomerId, SqlDbType.VarChar);
+            dp.AddParam("@StatusPiutang", (int)model.StatusPiutang, SqlDbType.Int);
             dp.AddParam("@Total", model.Total, SqlDbType.Decimal);
             dp.AddParam("@Potongan", model.Potongan, SqlDbType.Decimal);
             dp.AddParam("@Terbayar", model.Terbayar, SqlDbType.Decimal);
@@ -105,7 +109,7 @@ namespace btr.infrastructure.FinanceContext.PiutangAgg
         {
             const string sql = @"
                 SELECT
-                    aa.PiutangId, aa.PiutangDate, aa.DueDate, aa.CustomerId, 
+                    aa.PiutangId, aa.PiutangDate, aa.DueDate, aa.CustomerId, aa.StatusPiutang,
                     aa.Total, aa.Potongan, aa.Terbayar, aa.Sisa,
                     ISNULL(bb.CustomerName, '') AS CustomerName,
                     ISNULL(bb.CustomerCode, '') AS CustomerCode,
@@ -131,7 +135,7 @@ namespace btr.infrastructure.FinanceContext.PiutangAgg
         {
             const string sql = @"
                 SELECT
-                    aa.PiutangId, aa.PiutangDate, aa.DueDate, aa.CustomerId, 
+                    aa.PiutangId, aa.PiutangDate, aa.DueDate, aa.CustomerId, aa.StatusPiutang,
                     aa.Total, aa.Potongan, aa.Terbayar, aa.Sisa,
                     ISNULL(bb.CustomerName, '') AS CustomerName,
                     ISNULL(bb.CustomerCode, '') AS CustomerCode,
@@ -158,7 +162,7 @@ namespace btr.infrastructure.FinanceContext.PiutangAgg
         {
             const string sql = @"
                 SELECT
-                    aa.PiutangId, aa.PiutangDate, aa.DueDate, aa.CustomerId, 
+                    aa.PiutangId, aa.PiutangDate, aa.DueDate, aa.CustomerId, aa.StatusPiutang,
                     aa.Total, aa.Potongan, aa.Terbayar, aa.Sisa,
                     ISNULL(bb.CustomerName, '') AS CustomerName,
                     ISNULL(bb.CustomerCode, '') AS CustomerCode,
@@ -186,11 +190,11 @@ namespace btr.infrastructure.FinanceContext.PiutangAgg
             return result;
         }
 
-        public IEnumerable<PiutangModel> ListData(ICustomerKey filter)
+        public IEnumerable<PiutangModel> ListData(ICustomerKey filter, Periode periode)
         {
             const string sql = @"
                 SELECT
-                    aa.PiutangId, aa.PiutangDate, aa.DueDate, aa.CustomerId, 
+                    aa.PiutangId, aa.PiutangDate, aa.DueDate, aa.CustomerId, aa.StatusPiutang,
                     aa.Total, aa.Potongan, aa.Terbayar, aa.Sisa,
                     ISNULL(bb.CustomerName, '') AS CustomerName,
                     ISNULL(bb.CustomerCode, '') AS CustomerCode,
@@ -201,10 +205,42 @@ namespace btr.infrastructure.FinanceContext.PiutangAgg
                     LEFT JOIN BTR_Customer bb ON aa.CustomerId = bb.CustomerId
                     LEFT JOIN BTR_Faktur cc ON aa.PiutangId = cc.FakturId
                 WHERE
-                    aa.CustomerId = @CustomerId ";
+                    aa.CustomerId = @CustomerId 
+                    AND aa.PiutangDate BETWEEN @Tgl1 AND @Tgl2 ";
 
             var dp = new DynamicParameters();
             dp.AddParam("@CustomerId", filter.CustomerId, SqlDbType.VarChar);
+            dp.AddParam("@Tgl1", periode.Tgl1, SqlDbType.DateTime);
+            dp.AddParam("@Tgl2", periode.Tgl2, SqlDbType.DateTime);
+
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                return conn.Read<PiutangModel>(sql, dp);
+            }
+        }
+
+        public IEnumerable<PiutangModel> ListData(ISalesPersonKey filter, Periode periode)
+        {
+            const string sql = @"
+                SELECT
+                    aa.PiutangId, aa.PiutangDate, aa.DueDate, aa.CustomerId, aa.StatusPiutang,
+                    aa.Total, aa.Potongan, aa.Terbayar, aa.Sisa,
+                    ISNULL(bb.CustomerName, '') AS CustomerName,
+                    ISNULL(bb.CustomerCode, '') AS CustomerCode,
+                    ISNULL(bb.Address1, '') AS Address,
+                    ISNULL(cc.FakturCode, '') AS FakturCode
+                FROM
+                    BTR_Piutang aa
+                    LEFT JOIN BTR_Customer bb ON aa.CustomerId = bb.CustomerId
+                    LEFT JOIN BTR_Faktur cc ON aa.PiutangId = cc.FakturId
+                WHERE
+                    cc.SalesPersonId = @SalesId 
+                    AND aa.PiutangDate BETWEEN @Tgl1 AND @Tgl2 ";
+
+            var dp = new DynamicParameters();
+            dp.AddParam("@SalesId ", filter.SalesPersonId, SqlDbType.VarChar);
+            dp.AddParam("@Tgl1", periode.Tgl1, SqlDbType.DateTime);
+            dp.AddParam("@Tgl2", periode.Tgl2, SqlDbType.DateTime);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {

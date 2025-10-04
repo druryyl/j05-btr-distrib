@@ -25,8 +25,12 @@ namespace btr.domain.FinanceContext.PiutangAgg
         public decimal Potongan { get; set; }
         public decimal Terbayar { get; set; }
         public decimal Sisa { get; set; }
+        public StatusPiutangEnum StatusPiutang { get; set; }
         public List<PiutangElementModel> ListElement { get; set; }
         public List<PiutangLunasModel> ListLunas { get; set; }
+
+        public void TandaTerima() => StatusPiutang = StatusPiutangEnum.Ditagihkan;
+        public void TagihUlang() => StatusPiutang = StatusPiutangEnum.Tercatat;
     }
     
     public enum PiutangElementEnum
@@ -37,5 +41,12 @@ namespace btr.domain.FinanceContext.PiutangAgg
         Potongan,
         Materai,
         Admin,
+    }
+
+    public enum StatusPiutangEnum
+    {
+        Tercatat,
+        Ditagihkan,
+        Lunas,
     }
 }

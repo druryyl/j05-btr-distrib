@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -6,6 +7,7 @@ using btr.application.FinanceContext.TagihanAgg;
 using btr.domain.FinanceContext.TagihanAgg;
 using btr.domain.SalesContext.FakturAgg;
 using btr.infrastructure.Helpers;
+using btr.nuna.Domain;
 using btr.nuna.Infrastructure;
 using Dapper;
 using Microsoft.Extensions.Options;
@@ -35,6 +37,10 @@ namespace btr.infrastructure.FinanceContext.TagihanAgg
                 bcp.AddMap("NilaiTotal", "NilaiTotal");
                 bcp.AddMap("NilaiTerbayar", "NilaiTerbayar");
                 bcp.AddMap("NilaiTagih", "NilaiTagih");
+                bcp.AddMap("IsTandaTerima", "IsTandaTerima");
+                bcp.AddMap("Keterangan", "Keterangan");
+                bcp.AddMap("TandaTerimaDate", "TandaTerimaDate");
+                bcp.AddMap("IsTagihUlang", "IsTagihUlang");
 
                 var fetched = listModel.ToList();
                 bcp.BatchSize = fetched.Count;
@@ -67,6 +73,8 @@ namespace btr.infrastructure.FinanceContext.TagihanAgg
                 SELECT  
                     aa.TagihanId, aa.NoUrut, aa.FakturId, 
                     aa.CustomerId, aa.NilaiTotal, aa.NilaiTerbayar, aa.NilaiTagih,
+                    aa.IsTandaTerima, aa.Keterangan, aa.TandaTerimaDate, 
+                    aa.IsTagihUlang,
                     ISNULL(bb.FakturCode, '') AS FakturCode,
                     ISNULL(bb.FakturDate, '3000-01-01') AS FakturDate,
                     ISNULL(cc.CustomerName, '') CustomerName, 
@@ -117,6 +125,43 @@ namespace btr.infrastructure.FinanceContext.TagihanAgg
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
                 return conn.Read<TagihanFakturViewDto>(sql, dp);
+            }
+        }
+
+        public IEnumerable<TandaTerimaTagihanViewDto> ListData(Periode filter)
+        {
+            const string sql = @"
+                SELECT  
+                    aa.TagihanId, aa.FakturId, 
+                    aa.CustomerId, aa.NilaiTotal, aa.NilaiTerbayar, aa.NilaiTagih,
+                    aa.IsTandaTerima, aa.Keterangan, aa.TandaTerimaDate, 
+                    aa.IsTagihUlang,
+                    ISNULL(bb.FakturCode, '') AS FakturCode,
+                    ISNULL(bb.FakturDate, '3000-01-01') AS FakturDate,
+                    ISNULL(bb.SalesPersonId, '') AS SalesPersonId,      
+                    ISNULL(cc.CustomerName, '') CustomerName, 
+                    ISNULL(cc.Address1, '') Alamat,
+                    ISNULL(dd.SalesPersonName, '') AS SalesPersonName
+                FROM
+                    BTR_TagihanFaktur aa
+                    LEFT JOIN BTR_Faktur bb ON aa.FakturId = bb.FakturId
+                    LEFT JOIN BTR_Customer cc ON bb.CustomerId = cc.CustomerId
+                    LEFT JOIN BTR_SalesPerson dd ON bb.SalesPersonId = dd.SalesPersonId
+                WHERE
+                    bb.FakturDate BETWEEN @Tgl1 AND @Tgl2
+                ORDER BY
+                    NoUrut";
+
+            // parameter
+            var dp = new DynamicParameters();
+            dp.AddParam("@Tgl1", filter.Tgl1, SqlDbType.DateTime);
+            dp.AddParam("@Tgl2", filter.Tgl2, SqlDbType.DateTime);
+
+
+            //  execute query
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                return conn.Read<TandaTerimaTagihanViewDto>(sql, dp);
             }
         }
     }
