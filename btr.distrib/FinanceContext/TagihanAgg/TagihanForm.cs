@@ -32,11 +32,11 @@ namespace btr.distrib.FinanceContext.TagihanAgg
 {
     public partial class TagihanForm : Form
     {
-        private BindingSource _fakturBindingSource = new BindingSource();
-        private BindingSource _searchResultBindingSource = new BindingSource();
+        private readonly BindingSource _fakturBindingSource = new BindingSource();
+        private readonly BindingSource _searchResultBindingSource = new BindingSource();
 
-        private SortableBindingList<TagihanFakturDto> _listTagihan = new SortableBindingList<TagihanFakturDto>();
-        private SortableBindingList<SearchResultDto> _listResult = new SortableBindingList<SearchResultDto>();
+        private readonly SortableBindingList<TagihanFakturDto> _listTagihan = new SortableBindingList<TagihanFakturDto>();
+        private readonly SortableBindingList<SearchResultDto> _listResult = new SortableBindingList<SearchResultDto>();
         
         private readonly IBrowser<TagihanBrowserView> _tagihanBrowser;
 
@@ -147,19 +147,21 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             _listTagihan.Clear();
             foreach (var item in tagihan.ListFaktur)
             {
-                var newItem = new TagihanFakturDto();
-                newItem.FakturId = item.FakturId;
-                newItem.FakturCode = item.FakturCode;
-                newItem.FakturDate = item.FakturDate;
-                newItem.CustomerId = item.CustomerId;
-                newItem.CustomerName = item.CustomerName;
-                newItem.Alamat = item.Alamat;
-                newItem.NilaiTerbayar = item.NilaiTerbayar;
-                newItem.NilaiTotal = item.NilaiTotal;
-                newItem.NilaiTagih = item.NilaiTagih;
-                newItem.IsTandaTerima = item.IsTandaTerima;
-                newItem.Keterangan = item.Keterangan;
-                newItem.TandaTerimaDate = item.TandaTerimaDate;
+                var newItem = new TagihanFakturDto
+                {
+                    FakturId = item.FakturId,
+                    FakturCode = item.FakturCode,
+                    FakturDate = item.FakturDate,
+                    CustomerId = item.CustomerId,
+                    CustomerName = item.CustomerName,
+                    Alamat = item.Alamat,
+                    NilaiTerbayar = item.NilaiTerbayar,
+                    NilaiTotal = item.NilaiTotal,
+                    NilaiTagih = item.NilaiTagih,
+                    IsTandaTerima = item.IsTandaTerima,
+                    Keterangan = item.Keterangan,
+                    TandaTerimaDate = item.TandaTerimaDate
+                };
                 _listTagihan.Add(newItem);
             }
 
@@ -199,7 +201,7 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             var salesId = SalesCombo.SelectedValue.ToString();
             if (salesId == string.Empty)
                 return;
-            var listRute = _salesRuteDal.ListData(new SalesPersonModel(salesId));
+            //var listRute = _salesRuteDal.ListData(new SalesPersonModel(salesId));
             //SalesRuteCombo.DataSource = listRute;
             //SalesRuteCombo.DisplayMember = "ShortName";
             //SalesRuteCombo.ValueMember= "SalesRuteId";
