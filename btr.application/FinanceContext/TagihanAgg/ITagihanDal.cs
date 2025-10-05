@@ -46,6 +46,7 @@ namespace btr.application.FinanceContext.TagihanAgg
         public decimal NilaiTotal { get; private set; }
         public decimal NilaiTerbayar { get; private set; }
         public decimal NilaiTagih { get; private set; }
+        public decimal NilaiPelunasan { get; private set; }
 
         public bool IsTandaTerima { get; set; }
         public bool IsTagihUlang { get; set; }

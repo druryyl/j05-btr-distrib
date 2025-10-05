@@ -47,7 +47,6 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
         private readonly BindingList<LunasPiutangTagihanViewDto> _listTagihan;
         private readonly BindingSource _tagihanBindingSource;
         private BindingList<LunasPiutangBayarView> _listLunasBayar;
-        private BindingSource _lunasBayarBindingSource;
 
         private string _piutangId = string.Empty;
 
@@ -109,6 +108,14 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             FakturCodeText.KeyDown += FakturCodeText_KeyDown;
             TagihanCombo.SelectedIndexChanged += TagihanCombo_SelectedIndexChanged;
             BayarGrid.CellFormatting += BayarGrid_CellFormatting;
+
+            TagihanGrid.CellDoubleClick += (s, e) =>
+            {
+                if (e.RowIndex < 0) return;
+                var row = TagihanGrid.Rows[e.RowIndex];
+                var item = (LunasPiutangTagihanViewDto)row.DataBoundItem;
+                LoadPiutang(item.FakturId);
+            };
         }
 
         #region PEMBAYARAN-HEADER
@@ -536,20 +543,23 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             grid["FakturCode"].HeaderText = "Faktur";
             grid["FakturCode"].Width = 70;
             
-            grid["SalesName"].HeaderText = "Sales";
-            grid["SalesName"].Width = 70;
+            grid["SalesName"].Visible = false;
+            grid["CustomerName"].Visible = false;
+            grid["Alamat"].Visible = false;
 
-            grid["CustomerName"].HeaderText = "Customer";
-            grid["CustomerName"].Width = 150;
-            grid["CustomerName"].DefaultCellStyle.Font = new Font("Segoe UI", 8);
-
-            grid["Alamat"].HeaderText = "Alamat";
-            grid["Alamat"].Width = 150;
-            grid["Alamat"].DefaultCellStyle.Font = new Font("Segoe UI", 8);
+            grid["Customer"].HeaderText = "Customer";
+            grid["Customer"].Width = 150;
+            grid["Customer"].DefaultCellStyle.Font = new Font("Segoe UI", 8);
+            grid["Customer"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
 
             grid["NilaiTotal"].HeaderText = "Total";
+            grid["NilaiTotal"].Width = 80;
             grid["NilaiTerbayar"].HeaderText = "Terbayar";
+            grid["NilaiTerbayar"].Width = 80;
             grid["NilaiTagih"].HeaderText = "Tagih";
+            grid["NilaiTagih"].Width = 80;
+            grid["NilaiPelunasan"].HeaderText = "Pelunasan";
+            grid["NilaiPelunasan"].Width = 80;
 
             grid["IsTandaTerima"].Visible= false;
             grid["Keterangan"].Width = 120;
@@ -559,14 +569,23 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             {
                 col.SortMode = DataGridViewColumnSortMode.Automatic;
             }
+
             TagihanGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
+            TagihanGrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            
             TagihanGrid.CellFormatting += (s, e) =>
             {
                 if (e.RowIndex < 0) return;
                 var row = TagihanGrid.Rows[e.RowIndex];
                 var item = (LunasPiutangTagihanViewDto)row.DataBoundItem;
                 if (!item.IsTandaTerima)
-                    row.DefaultCellStyle.BackColor = Color.MistyRose;
+                    row.DefaultCellStyle.ForeColor = Color.Red;
+                else
+                    row.DefaultCellStyle.ForeColor = Color.Black;
+
+                if (item.NilaiPelunasan > 0)
+                    //  set backcolor to B4DEBD
+                    row.DefaultCellStyle.BackColor = Color.FromArgb(180, 222, 189);
                 else
                     row.DefaultCellStyle.BackColor = Color.White;
             };
@@ -589,16 +608,18 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             if (listCustomer.Count() > 0)
                 foreach (var item in listCustomer)
                 {
-                    var listPiutangThisCustomer = ListTagihanPerCustomer(item, periode);
-                    if (listPiutangThisCustomer.Count == 0)
+                    var listTagihanThisCustomer = ListTagihanPerCustomer(item, periode);
+                    if (listTagihanThisCustomer.Count == 0)
                         continue;
-                    listPiutangThisCustomer.RemoveAll(x => x.IsTandaTerima == false);
-                    listAllTagihan.AddRange(listPiutangThisCustomer);
+                    if (!IgnoreTTCheckBox.Checked)
+                        listTagihanThisCustomer.RemoveAll(x => x.IsTandaTerima == false);
+                    listAllTagihan.AddRange(listTagihanThisCustomer);
                 }
             else
             {
                 listAllTagihan = ListTagihanPerSales(sales, periode);
-                listAllTagihan.RemoveAll(x => x.IsTandaTerima == false);
+                if (!IgnoreTTCheckBox.Checked)
+                    listAllTagihan.RemoveAll(x => x.IsTandaTerima == false);
             }
 
             if (SearchText.Text.Trim().Length > 0)
@@ -679,18 +700,18 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
         private List<TandaTerimaTagihanViewDto> ListTagihanPerCustomer(ICustomerKey customer, Periode periode)
         {
             var listTagihan = _tagihanFakturDal.ListData(periode)?.ToList() ?? new List<TandaTerimaTagihanViewDto>();
-            var listPiutang = listTagihan
+            var result = listTagihan
                 .Where(x => x.CustomerId == customer.CustomerId)
                 .ToList();
-            return listTagihan;
+            return result;
         }
         private List<TandaTerimaTagihanViewDto> ListTagihanPerSales(ISalesPersonKey sales, Periode periode)
         {
             var listTagihan = _tagihanFakturDal.ListData(periode)?.ToList() ?? new List<TandaTerimaTagihanViewDto>();
-            var listPiutang = listTagihan
+            var result = listTagihan
                 .Where(x => x.SalesPersonId == sales.SalesPersonId)
                 .ToList();
-            return listTagihan;
+            return result;
         }
         #endregion
 
@@ -715,12 +736,16 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             FakturId = tandaTerima.FakturId;
             FakturDate = tandaTerima.FakturDate;
             FakturCode = tandaTerima.FakturCode;
+            
             SalesName = tandaTerima.SalesPersonName;
             CustomerName = tandaTerima.CustomerName;
             Alamat = tandaTerima.Alamat;
+            
             NilaiTotal = tandaTerima.NilaiTotal;
             NilaiTerbayar = tandaTerima.NilaiTerbayar;
             NilaiTagih = tandaTerima.NilaiTagih;
+            NilaiPelunasan = tandaTerima.NilaiPelunasan;
+
             Keterangan = tandaTerima.Keterangan;
             IsTandaTerima = tandaTerima.IsTandaTerima;
         }
@@ -731,9 +756,11 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
         public string SalesName { get; set; }
         public string CustomerName { get; set; }
         public string Alamat { get; set; }
+        public string Customer => $"{CustomerName}\n{Alamat}";
         public decimal NilaiTotal { get; set; }
         public decimal NilaiTerbayar { get; set; }
         public decimal NilaiTagih { get; set; }
+        public decimal NilaiPelunasan { get; set; }
         public string Keterangan { get; set; }
         public bool IsTandaTerima { get; set; }
     }

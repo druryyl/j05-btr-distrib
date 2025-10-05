@@ -85,6 +85,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.ReturText = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
+            this.IgnoreTTCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -141,6 +142,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(191)))), ((int)(((byte)(207)))));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.IgnoreTTCheckBox);
             this.panel1.Controls.Add(this.SalesCombo);
             this.panel1.Controls.Add(this.Sab2CheckBox);
             this.panel1.Controls.Add(this.Jum2CheckBox);
@@ -793,6 +795,17 @@
             this.label8.TabIndex = 3;
             this.label8.Text = "Materai | Admin";
             // 
+            // IgnoreTTCheckBox
+            // 
+            this.IgnoreTTCheckBox.AutoSize = true;
+            this.IgnoreTTCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.IgnoreTTCheckBox.Location = new System.Drawing.Point(529, 61);
+            this.IgnoreTTCheckBox.Name = "IgnoreTTCheckBox";
+            this.IgnoreTTCheckBox.Size = new System.Drawing.Size(134, 17);
+            this.IgnoreTTCheckBox.TabIndex = 51;
+            this.IgnoreTTCheckBox.Text = "Abaikan Tanda-Terima";
+            this.IgnoreTTCheckBox.UseVisualStyleBackColor = true;
+            // 
             // LunasPiutang2Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -885,5 +898,6 @@
         private System.Windows.Forms.CheckBox Sen1CheckBox;
         private System.Windows.Forms.ComboBox SalesCombo;
         private System.Windows.Forms.DataGridView TagihanGrid;
+        private System.Windows.Forms.CheckBox IgnoreTTCheckBox;
     }
 }
