@@ -192,7 +192,6 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             SalesCombo.DataSource = listSales.OrderBy(x => x.SalesPersonName).ToList();
             SalesCombo.DisplayMember = "SalesPersonName";
             SalesCombo.ValueMember = "SalesPersonId";
-
         }
         private void SalesCombo_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -201,10 +200,7 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             var salesId = SalesCombo.SelectedValue.ToString();
             if (salesId == string.Empty)
                 return;
-            //var listRute = _salesRuteDal.ListData(new SalesPersonModel(salesId));
-            //SalesRuteCombo.DataSource = listRute;
-            //SalesRuteCombo.DisplayMember = "ShortName";
-            //SalesRuteCombo.ValueMember= "SalesRuteId";
+
         }
         #endregion
 

@@ -30,7 +30,7 @@ namespace btr.infrastructure.FinanceContext.PiutangAgg
                 SELECT
                     aa.PiutangId, aa.CustomerId, 
                     CAST(aa.PiutangDate AS Date) AS PiutangDate, 
-                    aa.Total, aa.Potongan, aa.Terbayar, aa.Sisa, 
+                    aa.Total, aa.Potongan, aa.Terbayar, aa.Sisa, aa.StatusPiutang,
                     ISNULL(FakturCode, '') AS FakturCode, 
                     ISNULL(CustomerName, '') AS Customer,
                     ISNULL(Address1, '') AS Address,

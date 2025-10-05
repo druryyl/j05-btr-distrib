@@ -29,12 +29,25 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.TagihanGrid = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.SalesCombo = new System.Windows.Forms.ComboBox();
+            this.Sab2CheckBox = new System.Windows.Forms.CheckBox();
+            this.Jum2CheckBox = new System.Windows.Forms.CheckBox();
+            this.Kam2CheckBox = new System.Windows.Forms.CheckBox();
+            this.Rab2CheckBox = new System.Windows.Forms.CheckBox();
+            this.Sel2CheckBox = new System.Windows.Forms.CheckBox();
+            this.Sen2CheckBox = new System.Windows.Forms.CheckBox();
+            this.Sab1CheckBox = new System.Windows.Forms.CheckBox();
+            this.Jum1CheckBox = new System.Windows.Forms.CheckBox();
+            this.Kam1CheckBox = new System.Windows.Forms.CheckBox();
+            this.Rab1CheckBox = new System.Windows.Forms.CheckBox();
+            this.Sel1CheckBox = new System.Windows.Forms.CheckBox();
+            this.Sen1CheckBox = new System.Windows.Forms.CheckBox();
             this.SearchButton = new System.Windows.Forms.Button();
             this.SearchText = new System.Windows.Forms.TextBox();
-            this.Tgl2Text = new System.Windows.Forms.DateTimePicker();
-            this.Tgl1Text = new System.Windows.Forms.DateTimePicker();
-            this.ListPiutangGrid = new Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl();
+            this.Tgl2DatePicker = new System.Windows.Forms.DateTimePicker();
+            this.Tgl1DatePicker = new System.Windows.Forms.DateTimePicker();
             this.BayarGrid = new System.Windows.Forms.DataGridView();
             this.panel6 = new System.Windows.Forms.Panel();
             this.DeleteButton = new System.Windows.Forms.Button();
@@ -76,8 +89,8 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TagihanGrid)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ListPiutangGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BayarGrid)).BeginInit();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NilaiPelunasanText)).BeginInit();
@@ -97,8 +110,8 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.TagihanGrid);
             this.splitContainer1.Panel1.Controls.Add(this.panel1);
-            this.splitContainer1.Panel1.Controls.Add(this.ListPiutangGrid);
             // 
             // splitContainer1.Panel2
             // 
@@ -110,78 +123,234 @@
             this.splitContainer1.SplitterDistance = 828;
             this.splitContainer1.TabIndex = 58;
             // 
+            // TagihanGrid
+            // 
+            this.TagihanGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TagihanGrid.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(79)))), ((int)(((byte)(107)))));
+            this.TagihanGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.TagihanGrid.Location = new System.Drawing.Point(6, 103);
+            this.TagihanGrid.Name = "TagihanGrid";
+            this.TagihanGrid.Size = new System.Drawing.Size(822, 474);
+            this.TagihanGrid.TabIndex = 6;
+            // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.Color.Thistle;
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(191)))), ((int)(((byte)(207)))));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.SalesCombo);
+            this.panel1.Controls.Add(this.Sab2CheckBox);
+            this.panel1.Controls.Add(this.Jum2CheckBox);
+            this.panel1.Controls.Add(this.Kam2CheckBox);
+            this.panel1.Controls.Add(this.Rab2CheckBox);
+            this.panel1.Controls.Add(this.Sel2CheckBox);
+            this.panel1.Controls.Add(this.Sen2CheckBox);
+            this.panel1.Controls.Add(this.Sab1CheckBox);
+            this.panel1.Controls.Add(this.Jum1CheckBox);
+            this.panel1.Controls.Add(this.Kam1CheckBox);
+            this.panel1.Controls.Add(this.Rab1CheckBox);
+            this.panel1.Controls.Add(this.Sel1CheckBox);
+            this.panel1.Controls.Add(this.Sen1CheckBox);
             this.panel1.Controls.Add(this.SearchButton);
             this.panel1.Controls.Add(this.SearchText);
-            this.panel1.Controls.Add(this.Tgl2Text);
-            this.panel1.Controls.Add(this.Tgl1Text);
+            this.panel1.Controls.Add(this.Tgl2DatePicker);
+            this.panel1.Controls.Add(this.Tgl1DatePicker);
             this.panel1.Location = new System.Drawing.Point(6, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(822, 39);
+            this.panel1.Size = new System.Drawing.Size(822, 91);
             this.panel1.TabIndex = 0;
+            // 
+            // SalesCombo
+            // 
+            this.SalesCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.SalesCombo.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SalesCombo.FormattingEnabled = true;
+            this.SalesCombo.Location = new System.Drawing.Point(351, 9);
+            this.SalesCombo.Name = "SalesCombo";
+            this.SalesCombo.Size = new System.Drawing.Size(172, 19);
+            this.SalesCombo.TabIndex = 50;
+            // 
+            // Sab2CheckBox
+            // 
+            this.Sab2CheckBox.AutoSize = true;
+            this.Sab2CheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Sab2CheckBox.Location = new System.Drawing.Point(299, 58);
+            this.Sab2CheckBox.Name = "Sab2CheckBox";
+            this.Sab2CheckBox.Size = new System.Drawing.Size(52, 17);
+            this.Sab2CheckBox.TabIndex = 48;
+            this.Sab2CheckBox.Text = "Sab-2";
+            this.Sab2CheckBox.UseVisualStyleBackColor = true;
+            // 
+            // Jum2CheckBox
+            // 
+            this.Jum2CheckBox.AutoSize = true;
+            this.Jum2CheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Jum2CheckBox.Location = new System.Drawing.Point(240, 58);
+            this.Jum2CheckBox.Name = "Jum2CheckBox";
+            this.Jum2CheckBox.Size = new System.Drawing.Size(53, 17);
+            this.Jum2CheckBox.TabIndex = 47;
+            this.Jum2CheckBox.Text = "Jum-2";
+            this.Jum2CheckBox.UseVisualStyleBackColor = true;
+            // 
+            // Kam2CheckBox
+            // 
+            this.Kam2CheckBox.AutoSize = true;
+            this.Kam2CheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Kam2CheckBox.Location = new System.Drawing.Point(180, 58);
+            this.Kam2CheckBox.Name = "Kam2CheckBox";
+            this.Kam2CheckBox.Size = new System.Drawing.Size(54, 17);
+            this.Kam2CheckBox.TabIndex = 46;
+            this.Kam2CheckBox.Text = "Kam-2";
+            this.Kam2CheckBox.UseVisualStyleBackColor = true;
+            // 
+            // Rab2CheckBox
+            // 
+            this.Rab2CheckBox.AutoSize = true;
+            this.Rab2CheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Rab2CheckBox.Location = new System.Drawing.Point(121, 58);
+            this.Rab2CheckBox.Name = "Rab2CheckBox";
+            this.Rab2CheckBox.Size = new System.Drawing.Size(53, 17);
+            this.Rab2CheckBox.TabIndex = 45;
+            this.Rab2CheckBox.Text = "Rab-2";
+            this.Rab2CheckBox.UseVisualStyleBackColor = true;
+            // 
+            // Sel2CheckBox
+            // 
+            this.Sel2CheckBox.AutoSize = true;
+            this.Sel2CheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Sel2CheckBox.Location = new System.Drawing.Point(67, 58);
+            this.Sel2CheckBox.Name = "Sel2CheckBox";
+            this.Sel2CheckBox.Size = new System.Drawing.Size(48, 17);
+            this.Sel2CheckBox.TabIndex = 44;
+            this.Sel2CheckBox.Text = "Sel-2";
+            this.Sel2CheckBox.UseVisualStyleBackColor = true;
+            // 
+            // Sen2CheckBox
+            // 
+            this.Sen2CheckBox.AutoSize = true;
+            this.Sen2CheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Sen2CheckBox.Location = new System.Drawing.Point(9, 58);
+            this.Sen2CheckBox.Name = "Sen2CheckBox";
+            this.Sen2CheckBox.Size = new System.Drawing.Size(52, 17);
+            this.Sen2CheckBox.TabIndex = 43;
+            this.Sen2CheckBox.Text = "Sen-2";
+            this.Sen2CheckBox.UseVisualStyleBackColor = true;
+            // 
+            // Sab1CheckBox
+            // 
+            this.Sab1CheckBox.AutoSize = true;
+            this.Sab1CheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Sab1CheckBox.Location = new System.Drawing.Point(299, 35);
+            this.Sab1CheckBox.Name = "Sab1CheckBox";
+            this.Sab1CheckBox.Size = new System.Drawing.Size(52, 17);
+            this.Sab1CheckBox.TabIndex = 42;
+            this.Sab1CheckBox.Text = "Sab-1";
+            this.Sab1CheckBox.UseVisualStyleBackColor = true;
+            // 
+            // Jum1CheckBox
+            // 
+            this.Jum1CheckBox.AutoSize = true;
+            this.Jum1CheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Jum1CheckBox.Location = new System.Drawing.Point(240, 35);
+            this.Jum1CheckBox.Name = "Jum1CheckBox";
+            this.Jum1CheckBox.Size = new System.Drawing.Size(53, 17);
+            this.Jum1CheckBox.TabIndex = 41;
+            this.Jum1CheckBox.Text = "Jum-1";
+            this.Jum1CheckBox.UseVisualStyleBackColor = true;
+            // 
+            // Kam1CheckBox
+            // 
+            this.Kam1CheckBox.AutoSize = true;
+            this.Kam1CheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Kam1CheckBox.Location = new System.Drawing.Point(180, 35);
+            this.Kam1CheckBox.Name = "Kam1CheckBox";
+            this.Kam1CheckBox.Size = new System.Drawing.Size(54, 17);
+            this.Kam1CheckBox.TabIndex = 40;
+            this.Kam1CheckBox.Text = "Kam-1";
+            this.Kam1CheckBox.UseVisualStyleBackColor = true;
+            // 
+            // Rab1CheckBox
+            // 
+            this.Rab1CheckBox.AutoSize = true;
+            this.Rab1CheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Rab1CheckBox.Location = new System.Drawing.Point(121, 35);
+            this.Rab1CheckBox.Name = "Rab1CheckBox";
+            this.Rab1CheckBox.Size = new System.Drawing.Size(53, 17);
+            this.Rab1CheckBox.TabIndex = 39;
+            this.Rab1CheckBox.Text = "Rab-1";
+            this.Rab1CheckBox.UseVisualStyleBackColor = true;
+            // 
+            // Sel1CheckBox
+            // 
+            this.Sel1CheckBox.AutoSize = true;
+            this.Sel1CheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Sel1CheckBox.Location = new System.Drawing.Point(67, 35);
+            this.Sel1CheckBox.Name = "Sel1CheckBox";
+            this.Sel1CheckBox.Size = new System.Drawing.Size(48, 17);
+            this.Sel1CheckBox.TabIndex = 38;
+            this.Sel1CheckBox.Text = "Sel-1";
+            this.Sel1CheckBox.UseVisualStyleBackColor = true;
+            // 
+            // Sen1CheckBox
+            // 
+            this.Sen1CheckBox.AutoSize = true;
+            this.Sen1CheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Sen1CheckBox.Location = new System.Drawing.Point(9, 35);
+            this.Sen1CheckBox.Name = "Sen1CheckBox";
+            this.Sen1CheckBox.Size = new System.Drawing.Size(52, 17);
+            this.Sen1CheckBox.TabIndex = 37;
+            this.Sen1CheckBox.Tag = "";
+            this.Sen1CheckBox.Text = "Sen-1";
+            this.Sen1CheckBox.UseVisualStyleBackColor = true;
             // 
             // SearchButton
             // 
-            this.SearchButton.Location = new System.Drawing.Point(465, 7);
+            this.SearchButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(81)))), ((int)(((byte)(133)))));
+            this.SearchButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.SearchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SearchButton.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.SearchButton.Location = new System.Drawing.Point(443, 58);
             this.SearchButton.Name = "SearchButton";
-            this.SearchButton.Size = new System.Drawing.Size(75, 23);
+            this.SearchButton.Size = new System.Drawing.Size(80, 23);
             this.SearchButton.TabIndex = 3;
             this.SearchButton.Text = "Search";
-            this.SearchButton.UseVisualStyleBackColor = true;
+            this.SearchButton.UseVisualStyleBackColor = false;
             // 
             // SearchText
             // 
-            this.SearchText.Location = new System.Drawing.Point(281, 7);
+            this.SearchText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.SearchText.Location = new System.Drawing.Point(351, 33);
             this.SearchText.Name = "SearchText";
-            this.SearchText.Size = new System.Drawing.Size(178, 22);
+            this.SearchText.Size = new System.Drawing.Size(172, 22);
             this.SearchText.TabIndex = 2;
             // 
-            // Tgl2Text
+            // Tgl2DatePicker
             // 
-            this.Tgl2Text.CustomFormat = "ddd dd MMM yyyy";
-            this.Tgl2Text.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.Tgl2Text.Location = new System.Drawing.Point(145, 7);
-            this.Tgl2Text.Name = "Tgl2Text";
-            this.Tgl2Text.Size = new System.Drawing.Size(130, 22);
-            this.Tgl2Text.TabIndex = 1;
+            this.Tgl2DatePicker.CustomFormat = "ddd dd MMM yyyy";
+            this.Tgl2DatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.Tgl2DatePicker.Location = new System.Drawing.Point(180, 7);
+            this.Tgl2DatePicker.Name = "Tgl2DatePicker";
+            this.Tgl2DatePicker.Size = new System.Drawing.Size(165, 22);
+            this.Tgl2DatePicker.TabIndex = 1;
             // 
-            // Tgl1Text
+            // Tgl1DatePicker
             // 
-            this.Tgl1Text.CustomFormat = "ddd dd MMM yyyy";
-            this.Tgl1Text.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.Tgl1Text.Location = new System.Drawing.Point(9, 7);
-            this.Tgl1Text.Name = "Tgl1Text";
-            this.Tgl1Text.Size = new System.Drawing.Size(130, 22);
-            this.Tgl1Text.TabIndex = 0;
-            // 
-            // ListPiutangGrid
-            // 
-            this.ListPiutangGrid.AlphaBlendSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.ListPiutangGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ListPiutangGrid.BackColor = System.Drawing.SystemColors.Window;
-            this.ListPiutangGrid.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ListPiutangGrid.Location = new System.Drawing.Point(6, 50);
-            this.ListPiutangGrid.Name = "ListPiutangGrid";
-            this.ListPiutangGrid.ShowCurrentCellBorderBehavior = Syncfusion.Windows.Forms.Grid.GridShowCurrentCellBorder.GrayWhenLostFocus;
-            this.ListPiutangGrid.Size = new System.Drawing.Size(822, 527);
-            this.ListPiutangGrid.TabIndex = 1;
-            this.ListPiutangGrid.Text = "gridGroupingControl1";
-            this.ListPiutangGrid.UseRightToLeftCompatibleTextBox = true;
-            this.ListPiutangGrid.VersionInfo = "22.1460.34";
+            this.Tgl1DatePicker.CustomFormat = "ddd dd MMM yyyy";
+            this.Tgl1DatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.Tgl1DatePicker.Location = new System.Drawing.Point(9, 7);
+            this.Tgl1DatePicker.Name = "Tgl1DatePicker";
+            this.Tgl1DatePicker.Size = new System.Drawing.Size(165, 22);
+            this.Tgl1DatePicker.TabIndex = 0;
             // 
             // BayarGrid
             // 
             this.BayarGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.BayarGrid.BackgroundColor = System.Drawing.Color.Maroon;
+            this.BayarGrid.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(79)))), ((int)(((byte)(107)))));
             this.BayarGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.BayarGrid.Location = new System.Drawing.Point(6, 406);
             this.BayarGrid.Name = "BayarGrid";
@@ -192,7 +361,7 @@
             // 
             this.panel6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel6.BackColor = System.Drawing.Color.LavenderBlush;
+            this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(234)))), ((int)(((byte)(177)))));
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel6.Controls.Add(this.DeleteButton);
             this.panel6.Controls.Add(this.label4);
@@ -219,12 +388,16 @@
             // DeleteButton
             // 
             this.DeleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.DeleteButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(81)))), ((int)(((byte)(133)))));
+            this.DeleteButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.DeleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DeleteButton.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.DeleteButton.Location = new System.Drawing.Point(190, 140);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(75, 23);
             this.DeleteButton.TabIndex = 8;
             this.DeleteButton.Text = "Delete";
-            this.DeleteButton.UseVisualStyleBackColor = true;
+            this.DeleteButton.UseVisualStyleBackColor = false;
             // 
             // label4
             // 
@@ -297,12 +470,16 @@
             // SaveButton
             // 
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.SaveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(81)))), ((int)(((byte)(133)))));
+            this.SaveButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveButton.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.SaveButton.Location = new System.Drawing.Point(271, 139);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
             this.SaveButton.TabIndex = 9;
             this.SaveButton.Text = "Save";
-            this.SaveButton.UseVisualStyleBackColor = true;
+            this.SaveButton.UseVisualStyleBackColor = false;
             // 
             // AtasNamaText
             // 
@@ -385,7 +562,7 @@
             // 
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel3.BackColor = System.Drawing.Color.Thistle;
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(234)))), ((int)(((byte)(177)))));
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.label6);
             this.panel3.Controls.Add(this.label5);
@@ -426,6 +603,7 @@
             // 
             this.JatuhTempoText2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.JatuhTempoText2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.JatuhTempoText2.Location = new System.Drawing.Point(264, 76);
             this.JatuhTempoText2.Name = "JatuhTempoText2";
             this.JatuhTempoText2.ReadOnly = true;
@@ -434,6 +612,7 @@
             // 
             // TglFakturText2
             // 
+            this.TglFakturText2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.TglFakturText2.Location = new System.Drawing.Point(173, 76);
             this.TglFakturText2.Name = "TglFakturText2";
             this.TglFakturText2.ReadOnly = true;
@@ -442,6 +621,7 @@
             // 
             // SalesText
             // 
+            this.SalesText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.SalesText.Location = new System.Drawing.Point(95, 76);
             this.SalesText.Name = "SalesText";
             this.SalesText.ReadOnly = true;
@@ -470,6 +650,7 @@
             // 
             // FakturCodeText
             // 
+            this.FakturCodeText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.FakturCodeText.Location = new System.Drawing.Point(9, 76);
             this.FakturCodeText.Name = "FakturCodeText";
             this.FakturCodeText.Size = new System.Drawing.Size(80, 22);
@@ -479,6 +660,7 @@
             // 
             this.AddressText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.AddressText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.AddressText.Location = new System.Drawing.Point(9, 35);
             this.AddressText.Name = "AddressText";
             this.AddressText.ReadOnly = true;
@@ -489,6 +671,7 @@
             // 
             this.CustomerText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.CustomerText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.CustomerText.Location = new System.Drawing.Point(9, 7);
             this.CustomerText.Name = "CustomerText";
             this.CustomerText.ReadOnly = true;
@@ -499,7 +682,7 @@
             // 
             this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel4.BackColor = System.Drawing.Color.LavenderBlush;
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(234)))), ((int)(((byte)(177)))));
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel4.Controls.Add(this.UpdateElementButton);
             this.panel4.Controls.Add(this.AdminText);
@@ -517,12 +700,16 @@
             // UpdateElementButton
             // 
             this.UpdateElementButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.UpdateElementButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(81)))), ((int)(((byte)(133)))));
+            this.UpdateElementButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.UpdateElementButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.UpdateElementButton.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.UpdateElementButton.Location = new System.Drawing.Point(270, 74);
             this.UpdateElementButton.Name = "UpdateElementButton";
             this.UpdateElementButton.Size = new System.Drawing.Size(75, 23);
             this.UpdateElementButton.TabIndex = 4;
             this.UpdateElementButton.Text = "Update";
-            this.UpdateElementButton.UseVisualStyleBackColor = true;
+            this.UpdateElementButton.UseVisualStyleBackColor = false;
             // 
             // AdminText
             // 
@@ -610,7 +797,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.PaleVioletRed;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(130)))), ((int)(((byte)(169)))));
             this.ClientSize = new System.Drawing.Size(1198, 583);
             this.Controls.Add(this.splitContainer1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -620,9 +807,9 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.TagihanGrid)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ListPiutangGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BayarGrid)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
@@ -645,9 +832,8 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button SearchButton;
         private System.Windows.Forms.TextBox SearchText;
-        private System.Windows.Forms.DateTimePicker Tgl2Text;
-        private System.Windows.Forms.DateTimePicker Tgl1Text;
-        private Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl ListPiutangGrid;
+        private System.Windows.Forms.DateTimePicker Tgl2DatePicker;
+        private System.Windows.Forms.DateTimePicker Tgl1DatePicker;
         private System.Windows.Forms.DataGridView BayarGrid;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Button DeleteButton;
@@ -685,5 +871,19 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.NumericUpDown ReturText;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.CheckBox Sab2CheckBox;
+        private System.Windows.Forms.CheckBox Jum2CheckBox;
+        private System.Windows.Forms.CheckBox Kam2CheckBox;
+        private System.Windows.Forms.CheckBox Rab2CheckBox;
+        private System.Windows.Forms.CheckBox Sel2CheckBox;
+        private System.Windows.Forms.CheckBox Sen2CheckBox;
+        private System.Windows.Forms.CheckBox Sab1CheckBox;
+        private System.Windows.Forms.CheckBox Jum1CheckBox;
+        private System.Windows.Forms.CheckBox Kam1CheckBox;
+        private System.Windows.Forms.CheckBox Rab1CheckBox;
+        private System.Windows.Forms.CheckBox Sel1CheckBox;
+        private System.Windows.Forms.CheckBox Sen1CheckBox;
+        private System.Windows.Forms.ComboBox SalesCombo;
+        private System.Windows.Forms.DataGridView TagihanGrid;
     }
 }
