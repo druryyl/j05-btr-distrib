@@ -123,6 +123,7 @@
     <Compile Include="FinanceContext\PiutangAgg\Contracts\IPiutangLunasDal.cs" />
     <Compile Include="FinanceContext\PiutangAgg\Contracts\IPIutangLunasViewDal.cs" />
     <Compile Include="FinanceContext\PiutangAgg\Contracts\IPiutangSalesWilayahDal.cs" />
+    <Compile Include="FinanceContext\PiutangAgg\Contracts\IPiutangTrackerDal.cs" />
     <Compile Include="FinanceContext\PiutangAgg\UseCases\CancelPiutangWorker.cs" />
     <Compile Include="FinanceContext\PiutangAgg\UseCases\CreatePiutangWorker.cs" />
     <Compile Include="FinanceContext\PiutangAgg\UseCases\AddLunasPiutangWorker.cs" />

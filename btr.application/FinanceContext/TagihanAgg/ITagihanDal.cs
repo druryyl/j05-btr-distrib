@@ -40,11 +40,13 @@ namespace btr.application.FinanceContext.TagihanAgg
         public string FakturId { get; private set; }
         public string FakturCode { get; private set; }
         public DateTime FakturDate { get; private set; }
+        public string CustomerId { get; private set; }
         public string CustomerName { get; private set; }
         public string Alamat { get; private set; }
         public decimal NilaiTotal { get; private set; }
         public decimal NilaiTerbayar { get; private set; }
         public decimal NilaiTagih { get; private set; }
+        public decimal NilaiPelunasan { get; private set; }
 
         public bool IsTandaTerima { get; set; }
         public bool IsTagihUlang { get; set; }

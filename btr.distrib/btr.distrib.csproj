@@ -377,6 +377,12 @@
     <Compile Include="FinanceContext\TagihanAgg\FakturTagihanCard.Designer.cs">
       <DependentUpon>FakturTagihanCard.cs</DependentUpon>
     </Compile>
+    <Compile Include="FinanceContext\TagihanAgg\PiutangTrackerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FinanceContext\TagihanAgg\PiutangTrackerForm.Designer.cs">
+      <DependentUpon>PiutangTrackerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FinanceContext\TagihanAgg\TagihanFakturDto.cs" />
     <Compile Include="FinanceContext\TagihanAgg\TagihanForm.cs">
       <SubType>Form</SubType>
@@ -895,6 +901,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FinanceContext\TagihanAgg\FakturTagihanCard.resx">
       <DependentUpon>FakturTagihanCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FinanceContext\TagihanAgg\PiutangTrackerForm.resx">
+      <DependentUpon>PiutangTrackerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FinanceContext\TagihanAgg\TagihanForm.resx">
       <DependentUpon>TagihanForm.cs</DependentUpon>

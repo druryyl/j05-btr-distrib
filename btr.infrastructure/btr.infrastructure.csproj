@@ -87,6 +87,7 @@
     <Compile Include="FinanceContext\PiutangAgg\PiutangElementDal.cs" />
     <Compile Include="FinanceContext\PiutangAgg\PiutangLunasDal.cs" />
     <Compile Include="FinanceContext\PiutangAgg\PIutangLunasViewDal.cs" />
+    <Compile Include="FinanceContext\PiutangAgg\PiutangTrackerDal.cs" />
     <Compile Include="FinanceContext\PiutangSalesWilayahRpt\PiutangSalesWilayahDal.cs" />
     <Compile Include="FinanceContext\ReturBalanceAgg\ReturBalanceDal.cs" />
     <Compile Include="FinanceContext\ReturBalanceAgg\ReturBalancePostDal.cs" />

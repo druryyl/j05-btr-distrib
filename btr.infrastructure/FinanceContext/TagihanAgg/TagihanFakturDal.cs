@@ -141,16 +141,18 @@ namespace btr.infrastructure.FinanceContext.TagihanAgg
                     ISNULL(bb.SalesPersonId, '') AS SalesPersonId,      
                     ISNULL(cc.CustomerName, '') CustomerName, 
                     ISNULL(cc.Address1, '') Alamat,
-                    ISNULL(dd.SalesPersonName, '') AS SalesPersonName
+                    ISNULL(dd.SalesPersonName, '') AS SalesPersonName,
+                    ISNULL(ee.Nilai, 0) AS NilaiPelunasan
                 FROM
                     BTR_TagihanFaktur aa
                     LEFT JOIN BTR_Faktur bb ON aa.FakturId = bb.FakturId
                     LEFT JOIN BTR_Customer cc ON bb.CustomerId = cc.CustomerId
                     LEFT JOIN BTR_SalesPerson dd ON bb.SalesPersonId = dd.SalesPersonId
+                    LEFT JOIN BTR_PiutangLunas ee ON aa.TagihanId = ee.TagihanId AND aa.FakturId = ee.PiutangId
                 WHERE
                     bb.FakturDate BETWEEN @Tgl1 AND @Tgl2
                 ORDER BY
-                    NoUrut";
+                    aa.TagihanId, aa.NoUrut";
 
             // parameter
             var dp = new DynamicParameters();
