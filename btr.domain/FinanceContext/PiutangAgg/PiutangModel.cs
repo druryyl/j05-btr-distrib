@@ -30,6 +30,7 @@ namespace btr.domain.FinanceContext.PiutangAgg
         public List<PiutangLunasModel> ListLunas { get; set; }
 
         public void TandaTerima() => StatusPiutang = StatusPiutangEnum.Ditagihkan;
+        public void Ditagihkan() => StatusPiutang = StatusPiutangEnum.Ditagihkan;
         public void TagihUlang() => StatusPiutang = StatusPiutangEnum.Tercatat;
     }
     

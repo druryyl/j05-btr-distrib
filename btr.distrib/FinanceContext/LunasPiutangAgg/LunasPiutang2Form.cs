@@ -613,6 +613,8 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
                         continue;
                     if (!IgnoreTTCheckBox.Checked)
                         listTagihanThisCustomer.RemoveAll(x => x.IsTandaTerima == false);
+
+                    listTagihanThisCustomer.RemoveAll(x => x.IsTagihUlang);
                     listAllTagihan.AddRange(listTagihanThisCustomer);
                 }
             else
@@ -620,6 +622,7 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
                 listAllTagihan = ListTagihanPerSales(sales, periode);
                 if (!IgnoreTTCheckBox.Checked)
                     listAllTagihan.RemoveAll(x => x.IsTandaTerima == false);
+                listAllTagihan.RemoveAll(x => x.IsTagihUlang);
             }
 
             if (SearchText.Text.Trim().Length > 0)

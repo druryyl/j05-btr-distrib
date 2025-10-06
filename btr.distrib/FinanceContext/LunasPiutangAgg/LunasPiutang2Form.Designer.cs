@@ -31,6 +31,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.TagihanGrid = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.IgnoreTTCheckBox = new System.Windows.Forms.CheckBox();
             this.SalesCombo = new System.Windows.Forms.ComboBox();
             this.Sab2CheckBox = new System.Windows.Forms.CheckBox();
             this.Jum2CheckBox = new System.Windows.Forms.CheckBox();
@@ -85,7 +86,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.ReturText = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
-            this.IgnoreTTCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -164,6 +164,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(822, 91);
             this.panel1.TabIndex = 0;
+            // 
+            // IgnoreTTCheckBox
+            // 
+            this.IgnoreTTCheckBox.AutoSize = true;
+            this.IgnoreTTCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.IgnoreTTCheckBox.Location = new System.Drawing.Point(529, 61);
+            this.IgnoreTTCheckBox.Name = "IgnoreTTCheckBox";
+            this.IgnoreTTCheckBox.Size = new System.Drawing.Size(126, 17);
+            this.IgnoreTTCheckBox.TabIndex = 51;
+            this.IgnoreTTCheckBox.Text = "Ignore Tanda-Terima";
+            this.IgnoreTTCheckBox.UseVisualStyleBackColor = true;
             // 
             // SalesCombo
             // 
@@ -794,17 +805,6 @@
             this.label8.Size = new System.Drawing.Size(97, 13);
             this.label8.TabIndex = 3;
             this.label8.Text = "Materai | Admin";
-            // 
-            // IgnoreTTCheckBox
-            // 
-            this.IgnoreTTCheckBox.AutoSize = true;
-            this.IgnoreTTCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.IgnoreTTCheckBox.Location = new System.Drawing.Point(529, 61);
-            this.IgnoreTTCheckBox.Name = "IgnoreTTCheckBox";
-            this.IgnoreTTCheckBox.Size = new System.Drawing.Size(134, 17);
-            this.IgnoreTTCheckBox.TabIndex = 51;
-            this.IgnoreTTCheckBox.Text = "Abaikan Tanda-Terima";
-            this.IgnoreTTCheckBox.UseVisualStyleBackColor = true;
             // 
             // LunasPiutang2Form
             // 
