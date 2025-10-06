@@ -100,20 +100,8 @@ namespace btr.distrib.FinanceContext.TagihanAgg
                     _tagihanWriter.Save(tagihan);
                 }
 
-                //var listTagihUlang = _listTandaTerima
-                //    .Where(x => x.IsTagihUlang)?
-                //    .ToList() ?? new List<TandaTerimaTagihanViewDto>();
-
                 ApplyProgress.Value = 0;
                 ApplyProgress.Maximum = _listTandaTerima.Count;
-
-                //foreach (var item in listTagihUlang)
-                //{
-                //    ApplyProgress.Value++;
-                //    var piutang = _piutangBuilder.Load(new PiutangModel(item.FakturId)).Build();
-                //    piutang.TagihUlang();
-                //    _piutangWriter.Save(ref piutang);
-                //}
 
                 foreach (var item in _listTandaTerima)
                 {

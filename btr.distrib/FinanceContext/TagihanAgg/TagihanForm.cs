@@ -94,12 +94,88 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             SearchButton.Click += SearchButton_Click;
             SearchButton.KeyDown += SearchButton_KeyDown;
 
-            FakturGrid.CellValueChanged += FakturGrid_CellValidated;
             FakturGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
             FakturGrid.KeyDown += FakturGrid_KeyDown;
 
+            FakturGrid.CellValidating += FakturGrid_CellValidating;
+
             SearchResultGrid.CellContentClick += SearchResultGrid_CellContentClick;
             SaveButton.Click += SaveButton_Click;
+        }
+
+        private void FakturGrid_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+            if (e.ColumnIndex != FakturGrid.Columns.GetCol("FakturCode").Index) return;
+            _listTagihan[e.RowIndex].RemoveNull();
+            if (string.IsNullOrEmpty(_listTagihan[e.RowIndex].FakturCode)) return;
+
+            var fakturCode = _listTagihan[e.RowIndex].FakturCode;
+            var countFakturCode = _listTagihan.Count(x => x.FakturCode == fakturCode);
+            if (countFakturCode > 1)
+            {
+                MessageBox.Show("Faktur sudah diinputkan");
+                _listTagihan.RemoveAt(e.RowIndex);
+                RefreshGrid();
+                return;
+            }
+
+            var faktur = GetFaktur(fakturCode);
+            var piutang = GetPiutang(fakturCode);
+
+            if (piutang == null)
+            {
+                MessageBox.Show("Faktur tidak ditemukan");
+                e.Cancel = true;
+                return;
+            }
+            if (piutang.Sisa <= 1)
+            {
+                MessageBox.Show("Faktur sudah lunas");
+                e.Cancel = true;
+                return;
+            }
+            if (piutang.StatusPiutang == StatusPiutangEnum.Ditagihkan)
+            {
+                MessageBox.Show("Faktur masih memiliki tagihan aktif");
+                e.Cancel = true;
+                return;
+            }
+            ;
+
+            if (faktur.SalesPersonId != SalesCombo.SelectedValue.ToString())
+            {
+                MessageBox.Show(@"Sales tidak sesuai dengan faktur");
+                _listTagihan[e.RowIndex].FakturCode = "";
+                _listTagihan[e.RowIndex].FakturId = "";
+                _listTagihan[e.RowIndex].FakturDate = new DateTime(3000, 1, 1);
+                _listTagihan[e.RowIndex].CustomerId = "";
+                _listTagihan[e.RowIndex].CustomerName = "";
+                _listTagihan[e.RowIndex].Alamat = "";
+                _listTagihan[e.RowIndex].NilaiTotal = 0;
+                _listTagihan[e.RowIndex].NilaiTerbayar = 0;
+                _listTagihan[e.RowIndex].NilaiTagih = 0;
+                _listTagihan[e.RowIndex].IsTandaTerima = false;
+                _listTagihan[e.RowIndex].Keterangan = "";
+                _listTagihan[e.RowIndex].TandaTerimaDate = new DateTime(3000, 1, 1);
+                return;
+            }
+
+            _listTagihan[e.RowIndex].FakturId = faktur.FakturId;
+            _listTagihan[e.RowIndex].FakturDate = faktur.FakturDate;
+            _listTagihan[e.RowIndex].JatuhTempo = faktur.DueDate;
+            _listTagihan[e.RowIndex].CustomerId = faktur.CustomerId;
+            _listTagihan[e.RowIndex].CustomerCode = faktur.CustomerCode;
+            _listTagihan[e.RowIndex].CustomerName = faktur.CustomerName;
+            _listTagihan[e.RowIndex].Alamat = faktur.Address;
+            _listTagihan[e.RowIndex].NilaiTotal = piutang.Total + piutang.Potongan;
+            _listTagihan[e.RowIndex].NilaiTerbayar = piutang.Terbayar;
+            _listTagihan[e.RowIndex].NilaiTagih = piutang.Sisa;
+            _listTagihan[e.RowIndex].IsTandaTerima = false;
+            _listTagihan[e.RowIndex].Keterangan = "";
+            _listTagihan[e.RowIndex].TandaTerimaDate = new DateTime(3000, 1, 1);
+
+            RefreshGrid();
         }
 
         #region TAGIHAN-ID
@@ -142,7 +218,6 @@ namespace btr.distrib.FinanceContext.TagihanAgg
 
             TglTagihText.Value = tagihan.TagihanDate;
             SalesCombo.SelectedValue = tagihan.SalesPersonId;
-            //TotalTagihanLabel.Text = $"{tagihan.TotalTagihan:N0}";
 
             _listTagihan.Clear();
             foreach (var item in tagihan.ListFaktur)
@@ -432,70 +507,6 @@ namespace btr.distrib.FinanceContext.TagihanAgg
                     grid.Refresh();
                     break;
             }
-        }
-        private void FakturGrid_CellValidated(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0) return;
-            if (e.ColumnIndex != FakturGrid.Columns.GetCol("FakturCode").Index) return;
-            _listTagihan[e.RowIndex].RemoveNull();
-            if (string.IsNullOrEmpty(_listTagihan[e.RowIndex].FakturCode)) return;
-
-            var fakturCode = _listTagihan[e.RowIndex].FakturCode;
-            var countFakturCode = _listTagihan.Count(x => x.FakturCode == fakturCode);
-            if (countFakturCode > 1)
-            {
-                MessageBox.Show("Faktur sudah diinputkan");
-                _listTagihan.RemoveAt(e.RowIndex);
-                RefreshGrid();
-                return;
-            }
-
-            var faktur = GetFaktur(fakturCode);
-            var piutang = GetPiutang(fakturCode);
-
-            if (piutang == null)
-            {
-                MessageBox.Show("Faktur tidak ditemukan");
-            }
-            if (piutang.Sisa <= 1)
-            {
-                MessageBox.Show("Faktur sudah lunas");
-                return;
-            }
-
-            if (faktur.SalesPersonId != SalesCombo.SelectedValue.ToString())
-            {
-                MessageBox.Show(@"Sales tidak sesuai dengan faktur");
-                _listTagihan[e.RowIndex].FakturCode = "";
-                _listTagihan[e.RowIndex].FakturId = "";
-                _listTagihan[e.RowIndex].FakturDate = new DateTime(3000,1,1);
-                _listTagihan[e.RowIndex].CustomerId = "";
-                _listTagihan[e.RowIndex].CustomerName = "";
-                _listTagihan[e.RowIndex].Alamat = "";
-                _listTagihan[e.RowIndex].NilaiTotal = 0;
-                _listTagihan[e.RowIndex].NilaiTerbayar = 0;
-                _listTagihan[e.RowIndex].NilaiTagih = 0;
-                _listTagihan[e.RowIndex].IsTandaTerima = false;
-                _listTagihan[e.RowIndex].Keterangan = "";
-                _listTagihan[e.RowIndex].TandaTerimaDate = new DateTime(3000, 1, 1);
-                return;
-            }
-
-            _listTagihan[e.RowIndex].FakturId = faktur.FakturId;
-            _listTagihan[e.RowIndex].FakturDate = faktur.FakturDate;
-            _listTagihan[e.RowIndex].JatuhTempo = faktur.DueDate;
-            _listTagihan[e.RowIndex].CustomerId = faktur.CustomerId;
-            _listTagihan[e.RowIndex].CustomerCode = faktur.CustomerCode;
-            _listTagihan[e.RowIndex].CustomerName = faktur.CustomerName;
-            _listTagihan[e.RowIndex].Alamat = faktur.Address;
-            _listTagihan[e.RowIndex].NilaiTotal = piutang.Total + piutang.Potongan;
-            _listTagihan[e.RowIndex].NilaiTerbayar = piutang.Terbayar;
-            _listTagihan[e.RowIndex].NilaiTagih = piutang.Sisa;
-            _listTagihan[e.RowIndex].IsTandaTerima = false;
-            _listTagihan[e.RowIndex].Keterangan = "";
-            _listTagihan[e.RowIndex].TandaTerimaDate = new DateTime(3000, 1, 1);
-
-            RefreshGrid();
         }
         private FakturModel GetFaktur(string fakturCode)
         {
