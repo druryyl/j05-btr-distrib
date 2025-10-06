@@ -1,8 +1,10 @@
 ﻿using btr.application.FinanceContext.PiutangAgg.Workers;
 using btr.application.FinanceContext.TagihanAgg;
+using btr.application.SalesContext.SalesPersonAgg.Contracts;
 using btr.distrib.Helpers;
 using btr.domain.FinanceContext.PiutangAgg;
 using btr.domain.FinanceContext.TagihanAgg;
+using btr.domain.SalesContext.SalesPersonAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
 using DocumentFormat.OpenXml.Office2013.Drawing.ChartStyle;
@@ -27,12 +29,14 @@ namespace btr.distrib.FinanceContext.TagihanAgg
         private readonly ITagihanWriter _tagihanWriter;
         private readonly IPiutangBuilder _piutangBuilder;
         private readonly IPiutangWriter _piutangWriter;
+        private readonly ISalesPersonDal _salesDal;
 
         public TandaTerimaTagihanForm(ITagihanFakturDal tagihanFakturDal,
             ITagihanBuilder tagihanBuilder,
             ITagihanWriter tagihanWriter,
             IPiutangBuilder piutangBuilder,
-            IPiutangWriter piutangWriter)
+            IPiutangWriter piutangWriter,
+            ISalesPersonDal salesDal)
         {
             InitializeComponent();
 
@@ -41,11 +45,21 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             _tagihanFakturDal = tagihanFakturDal;
             _tagihanBuilder = tagihanBuilder;
             _tagihanWriter = tagihanWriter;
+            _piutangBuilder = piutangBuilder;
+            _piutangWriter = piutangWriter;
+            _salesDal = salesDal;
 
             InitEventHandler();
             InitGrid();
-            _piutangBuilder = piutangBuilder;
-            _piutangWriter = piutangWriter;
+            InitSalesCombo();
+        }
+
+        private void InitSalesCombo()
+        {
+            var listSales = _salesDal.ListData()?.ToList() ?? new List<SalesPersonModel>();
+            SalesCombo.DataSource = listSales.OrderBy(x => x.SalesPersonName).ToList();
+            SalesCombo.DisplayMember = "SalesPersonName";
+            SalesCombo.ValueMember = "SalesPersonId";
         }
 
         private void InitEventHandler()
@@ -194,6 +208,8 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             var periode = new Periode(Tgl1Date.Value);
             var listFaktur = _tagihanFakturDal.ListData(periode)?.ToList()
                 ?? new List<TandaTerimaTagihanViewDto>();
+            listFaktur = listFaktur.Where(x => x.SalesPersonId == (string)SalesCombo.SelectedValue).ToList();
+
             var keyword = SearchText.Text?.Trim().ToLower();
             if (keyword?.Length > 0)
             {

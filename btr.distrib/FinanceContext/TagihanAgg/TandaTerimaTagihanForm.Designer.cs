@@ -41,6 +41,7 @@
             this.ApplyButton = new System.Windows.Forms.Button();
             this.TotalAmountLabel = new System.Windows.Forms.Label();
             this.ApplyProgress = new System.Windows.Forms.ProgressBar();
+            this.SalesCombo = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TagihanGrid)).BeginInit();
             this.panel2.SuspendLayout();
@@ -52,6 +53,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(193)))), ((int)(((byte)(201)))));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.SalesCombo);
             this.panel1.Controls.Add(this.UncheckAllButton);
             this.panel1.Controls.Add(this.CheckAllTUButton);
             this.panel1.Controls.Add(this.CheckAllTTButton);
@@ -70,7 +72,7 @@
             this.UncheckAllButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(79)))), ((int)(((byte)(107)))));
             this.UncheckAllButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.UncheckAllButton.ForeColor = System.Drawing.Color.Black;
-            this.UncheckAllButton.Location = new System.Drawing.Point(741, 8);
+            this.UncheckAllButton.Location = new System.Drawing.Point(904, 8);
             this.UncheckAllButton.Name = "UncheckAllButton";
             this.UncheckAllButton.Size = new System.Drawing.Size(83, 23);
             this.UncheckAllButton.TabIndex = 5;
@@ -83,7 +85,7 @@
             this.CheckAllTUButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(79)))), ((int)(((byte)(107)))));
             this.CheckAllTUButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CheckAllTUButton.ForeColor = System.Drawing.Color.Black;
-            this.CheckAllTUButton.Location = new System.Drawing.Point(652, 8);
+            this.CheckAllTUButton.Location = new System.Drawing.Point(815, 8);
             this.CheckAllTUButton.Name = "CheckAllTUButton";
             this.CheckAllTUButton.Size = new System.Drawing.Size(83, 23);
             this.CheckAllTUButton.TabIndex = 4;
@@ -96,7 +98,7 @@
             this.CheckAllTTButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(79)))), ((int)(((byte)(107)))));
             this.CheckAllTTButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CheckAllTTButton.ForeColor = System.Drawing.Color.Black;
-            this.CheckAllTTButton.Location = new System.Drawing.Point(563, 8);
+            this.CheckAllTTButton.Location = new System.Drawing.Point(726, 8);
             this.CheckAllTTButton.Name = "CheckAllTTButton";
             this.CheckAllTTButton.Size = new System.Drawing.Size(83, 23);
             this.CheckAllTTButton.TabIndex = 3;
@@ -109,7 +111,7 @@
             this.ProsesButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(79)))), ((int)(((byte)(107)))));
             this.ProsesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ProsesButton.ForeColor = System.Drawing.Color.White;
-            this.ProsesButton.Location = new System.Drawing.Point(438, 8);
+            this.ProsesButton.Location = new System.Drawing.Point(574, 8);
             this.ProsesButton.Name = "ProsesButton";
             this.ProsesButton.Size = new System.Drawing.Size(119, 23);
             this.ProsesButton.TabIndex = 2;
@@ -212,6 +214,16 @@
             this.ApplyProgress.Value = 40;
             this.ApplyProgress.Visible = false;
             // 
+            // SalesCombo
+            // 
+            this.SalesCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.SalesCombo.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SalesCombo.FormattingEnabled = true;
+            this.SalesCombo.Location = new System.Drawing.Point(438, 10);
+            this.SalesCombo.Name = "SalesCombo";
+            this.SalesCombo.Size = new System.Drawing.Size(130, 19);
+            this.SalesCombo.TabIndex = 18;
+            // 
             // TandaTerimaTagihanForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -248,5 +260,6 @@
         private System.Windows.Forms.Button UncheckAllButton;
         private System.Windows.Forms.Button ApplyButton;
         private System.Windows.Forms.ProgressBar ApplyProgress;
+        private System.Windows.Forms.ComboBox SalesCombo;
     }
 }
