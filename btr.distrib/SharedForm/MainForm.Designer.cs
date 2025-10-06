@@ -114,6 +114,7 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.FT5PiutangTracker = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -647,6 +648,7 @@
             this.ribbonPanel1.Items.Add(this.FT2TagihanSalesButton);
             this.ribbonPanel1.Items.Add(this.FT4TandaTerimaButton);
             this.ribbonPanel1.Items.Add(this.FT1LunasPiutangButton);
+            this.ribbonPanel1.Items.Add(this.FT5PiutangTracker);
             this.ribbonPanel1.Items.Add(this.ribbonSeparator3);
             this.ribbonPanel1.Items.Add(this.FT3FpKeluaranButton);
             this.ribbonPanel1.Name = "ribbonPanel1";
@@ -884,6 +886,15 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
+            // FT5PiutangTracker
+            // 
+            this.FT5PiutangTracker.Image = global::btr.distrib.Properties.Resources.icons8_pipe_organ_32;
+            this.FT5PiutangTracker.LargeImage = global::btr.distrib.Properties.Resources.icons8_pipe_organ_32;
+            this.FT5PiutangTracker.Name = "FT5PiutangTracker";
+            this.FT5PiutangTracker.SmallImage = ((System.Drawing.Image)(resources.GetObject("FT5PiutangTracker.SmallImage")));
+            this.FT5PiutangTracker.Text = "FT5-Piutang Tracker";
+            this.FT5PiutangTracker.Click += new System.EventHandler(this.FT5PiutangTracker_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -996,5 +1007,6 @@
         private System.Windows.Forms.RibbonButton RF3ReturJualPerSupplierInfoButton;
         private System.Windows.Forms.RibbonButton FT4TandaTerimaButton;
         private System.Windows.Forms.RibbonSeparator ribbonSeparator3;
+        private System.Windows.Forms.RibbonButton FT5PiutangTracker;
     }
 }

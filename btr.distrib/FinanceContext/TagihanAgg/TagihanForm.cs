@@ -523,8 +523,6 @@ namespace btr.distrib.FinanceContext.TagihanAgg
 
             var piutangKey = new PiutangModel { PiutangId = faktur.FakturId };
             var piutang = _piutangDal.GetData(piutangKey) ?? throw new KeyNotFoundException("Piutang not found");
-            //var piutang = _piutangBuilder.Load(piutangKey).Build();
-
             return piutang;
         }
         #endregion
@@ -582,6 +580,9 @@ namespace btr.distrib.FinanceContext.TagihanAgg
                     SearchResultGrid.Refresh();
                     return;
                 }
+                var piutangKey = new PiutangModel { PiutangId = item.FakturId };
+                var piutang = _piutangDal.GetData(piutangKey) ?? throw new KeyNotFoundException("Piutang not found");
+
                 var newTagihanItem = new TagihanFakturDto
                 {
                     FakturCode = item.FakturCode,
@@ -590,8 +591,8 @@ namespace btr.distrib.FinanceContext.TagihanAgg
                     CustomerName = item.CustomerName,
                     Alamat = item.Alamat,
                     NilaiTotal = item.NilaiFaktur,
-                    NilaiTerbayar = 0,
-                    NilaiTagih = item.NilaiFaktur,
+                    NilaiTerbayar = piutang.Terbayar,
+                    NilaiTagih = piutang.Sisa,
                     FakturId = item.FakturId,
                     IsTandaTerima = false,
                     Keterangan = string.Empty,

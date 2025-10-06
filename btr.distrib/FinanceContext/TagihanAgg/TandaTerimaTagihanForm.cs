@@ -223,7 +223,10 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             TagihanGrid.DefaultCellStyle.Font = new Font("Lucida Console", 8);
 
             var grid = TagihanGrid.Columns;
-            grid["TagihanId"].Visible = false;
+            grid["TagihanId"].Visible = true;
+            // move "TagihanId" to last column
+            grid["TagihanId"].DisplayIndex = grid.Count - 1;
+
             grid["TagihanId"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft;
 
             grid["SalesPersonId"].Visible = false;

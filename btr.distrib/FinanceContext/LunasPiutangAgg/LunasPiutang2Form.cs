@@ -109,14 +109,9 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             TagihanCombo.SelectedIndexChanged += TagihanCombo_SelectedIndexChanged;
             BayarGrid.CellFormatting += BayarGrid_CellFormatting;
 
-            TagihanGrid.CellDoubleClick += (s, e) =>
-            {
-                if (e.RowIndex < 0) return;
-                var row = TagihanGrid.Rows[e.RowIndex];
-                var item = (LunasPiutangTagihanViewDto)row.DataBoundItem;
-                LoadPiutang(item.FakturId);
-            };
+            TagihanGrid.CellDoubleClick += TagihanGrid_CellDoubleClick;
         }
+
 
         #region PEMBAYARAN-HEADER
         private void LoadTagihan(string tagihanId)
@@ -407,9 +402,9 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             }
 
             var datasource = listTagihan.Select((x, y) => new TagihanView(
-                x.TagihanId, $"[{y + 1:D0}] {x.TagihanDate:dd-MMM} {x.SalesPersonName}"))
+                x.TagihanId, $"{x.TagihanId} ({x.TagihanDate:dd-MMM})"))
                 .ToList();
-
+            //[{y + 1:D0}] 
             TagihanCombo.DataSource = datasource;
             TagihanCombo.DisplayMember = "TagihanDisplay";
             TagihanCombo.ValueMember = "TagihanId";
@@ -533,7 +528,7 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             TagihanGrid.Columns.SetDefaultCellStyle(Color.Azure);
             
             var grid = TagihanGrid.Columns;
-            grid["TagihanId"].Visible = false;
+            grid["TagihanId"].Visible = true;
             grid["FakturId"].Visible = false;
 
             grid["FakturDate"].HeaderText = "Tgl";
@@ -590,6 +585,15 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
                     row.DefaultCellStyle.BackColor = Color.White;
             };
         }
+
+        private void TagihanGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+            var row = TagihanGrid.Rows[e.RowIndex];
+            var item = (LunasPiutangTagihanViewDto)row.DataBoundItem;
+            LoadPiutang(item.FakturId);
+            TagihanCombo.SelectedValue = item.TagihanId;
+        }        
         #endregion
 
         #region SEARCH-BUTTON
@@ -752,7 +756,6 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             Keterangan = tandaTerima.Keterangan;
             IsTandaTerima = tandaTerima.IsTandaTerima;
         }
-        public string TagihanId { get; set; }
         public string FakturId { get; set; }
         public DateTime FakturDate { get; set; }
         public string FakturCode { get; set; }
@@ -764,6 +767,7 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
         public decimal NilaiTerbayar { get; set; }
         public decimal NilaiTagih { get; set; }
         public decimal NilaiPelunasan { get; set; }
+        public string TagihanId { get; set; }
         public string Keterangan { get; set; }
         public bool IsTandaTerima { get; set; }
     }
