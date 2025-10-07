@@ -1,9 +1,13 @@
 ﻿using btr.application.InventoryContext.StokAgg;
 using btr.application.InventoryContext.StokAgg.GenStokUseCase;
+using btr.application.InventoryContext.StokBalanceAgg;
+using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.StokAgg;
+using btr.domain.InventoryContext.StokBalanceAgg;
 using btr.domain.PurchaseContext.ReturBeliFeature;
 using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Application;
+using MediatR;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -31,6 +35,8 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
         private readonly IStokBuilder _stokBuilder;
         private readonly IStokWriter _stokWriter;
         private readonly IStokMutasiDal _stokMutasiDal;
+        private readonly IStokBalanceBuilder _stokBalanceBuilder;
+        private readonly IStokBalanceWriter _stokBalanceWriter;
 
         private readonly IRemoveStokEditReturBeliWorker _removeStokReturBeliWorker;
 
@@ -39,7 +45,9 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
             IRemoveStokEditReturBeliWorker removeStokReturBeliWorker,
             IStokBuilder stokBuilder,
             IStokWriter stokWriter,
-            IStokMutasiDal stokMutasiDal)
+            IStokMutasiDal stokMutasiDal,
+            IStokBalanceBuilder stokBalanceBuilder,
+            IStokBalanceWriter stokBalanceWriter)
         {
             _builder = builder;
             _returBeliWriter = returBeliWriter;
@@ -47,6 +55,8 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
             _stokBuilder = stokBuilder;
             _stokWriter = stokWriter;
             _stokMutasiDal = stokMutasiDal;
+            _stokBalanceBuilder = stokBalanceBuilder;
+            _stokBalanceWriter = stokBalanceWriter;
         }
 
         public void Execute(VoidReturBeliRequest req)
@@ -62,20 +72,33 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
                 ?? new List<StokMutasiModel>();
             var listStokId = listStokMutasi.Select(x => x.StokId).Distinct();
             var listStok = new List<StokModel>();
-            foreach(var stokId in listStokId)
+            var listBalanceStok = new List<StokBalanceModel>();
+            foreach (var stokId in listStokId)
             {
                 var stok = _stokBuilder
                     .Load(new StokModel { StokId = stokId })
                     .RollBack(reffKey)
                     .Build();
                 listStok.Add(stok);
+                var balance = _stokBalanceBuilder
+                    .Load(new BrgModel{ BrgId = stok.BrgId })
+                    .Qty(stok, stok.Qty)
+                    .Build();
+                listBalanceStok.Add(balance);
             }
+
 
             //  apply database
             using (var trans = TransHelper.NewScope())
             {
                 foreach(var item in listStok)
                     _stokWriter.Save(item);
+
+                foreach(var item2 in listBalanceStok)
+                {
+                    var xTemp = item2;
+                    _stokBalanceWriter.Save(ref xTemp);
+                }
 
                 _ = _returBeliWriter.Save(returBeli);
                 trans.Complete();

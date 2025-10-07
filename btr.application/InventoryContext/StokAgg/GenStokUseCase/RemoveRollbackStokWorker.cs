@@ -31,16 +31,19 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
         private readonly IStokMutasiDal _stokMutasiDal;
         private readonly IRemovePriorityStokWorker _removePriorityStokWorker;
         private readonly IBrgBuilder _brgBuilder;
+        private readonly IGenStokBalanceWorker _stokBalanceWorker;
 
         public RemoveRollbackStokWorker(IStokDal stokDal,
             IStokMutasiDal stokMutasiDal,
             IRemovePriorityStokWorker removePriorityStokWorker,
-            IBrgBuilder brgBuilder)
+            IBrgBuilder brgBuilder,
+            IGenStokBalanceWorker stokBalanceWorker)
         {
             _stokDal = stokDal;
             _stokMutasiDal = stokMutasiDal;
             _removePriorityStokWorker = removePriorityStokWorker;
             _brgBuilder = brgBuilder;
+            _stokBalanceWorker = stokBalanceWorker;
         }
 
         public void Execute(RemoveRollbackRequest request)
@@ -70,6 +73,12 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                 if (req.Qty == 0)
                     continue;
                 _removePriorityStokWorker.Execute(req);
+
+
+            }
+            foreach(var item in listStok.Select(x => new GenStokBalanceRequest(x.BrgId, x.WarehouseId)).Distinct())
+            {
+                _stokBalanceWorker.Execute(item);
             }
         }
 

@@ -75,6 +75,7 @@
             this.SaveButton = new System.Windows.Forms.Button();
             this.NewButton = new System.Windows.Forms.Button();
             this.PrintButton = new System.Windows.Forms.Button();
+            this.DeleteButton = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.PanelAtas4.SuspendLayout();
@@ -594,12 +595,23 @@
             this.PrintButton.Text = "Print";
             this.PrintButton.UseVisualStyleBackColor = true;
             // 
+            // DeleteButton
+            // 
+            this.DeleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.DeleteButton.Location = new System.Drawing.Point(1009, 515);
+            this.DeleteButton.Name = "DeleteButton";
+            this.DeleteButton.Size = new System.Drawing.Size(75, 23);
+            this.DeleteButton.TabIndex = 55;
+            this.DeleteButton.Text = "Delete";
+            this.DeleteButton.UseVisualStyleBackColor = true;
+            // 
             // ReturJualForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Khaki;
             this.ClientSize = new System.Drawing.Size(1171, 542);
+            this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.PrintButton);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel3);
@@ -680,5 +692,6 @@
         private System.Windows.Forms.ComboBox JenisReturCombo;
         private System.Windows.Forms.Label CodeLabel;
         private System.Windows.Forms.Button PrintButton;
+        private System.Windows.Forms.Button DeleteButton;
     }
 }

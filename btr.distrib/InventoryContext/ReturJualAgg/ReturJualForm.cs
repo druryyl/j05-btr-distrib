@@ -143,7 +143,27 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             FakturItemGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
             
             SaveButton.Click += SaveButton_Click;
+            DeleteButton.Click += DeleteButton_Click;
             PrintButton.Click += PrintButton_Click;
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Hapus Retur Jual?", "", MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
+            DeleteReturJual();
+        }
+
+        private void DeleteReturJual()
+        {
+            var returJualId = ReturJualIdText.Text;
+            var returJualKey = new ReturJualModel(returJualId);
+            var returJual = _builder.Load(returJualKey).Build();
+            returJual.VoidDate = DateTime.Now;
+            returJual.UserIdVoid = ((MainForm)this.Parent.Parent).UserId.UserId;
+            _writer.Save(returJual);
+            //  generate stok
+
         }
 
         private void FakturItemGrid_KeyDown(object sender, KeyEventArgs e)
@@ -312,13 +332,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             using (var trans = TransHelper.NewScope())
             {
                 returJual = _writer.Save(returJual);
-
-                //  revert stok (kasus save ulang retur jual yg sudah pernah di-generate stoknya)
-
-
-                //if (returJual.JenisRetur == "BAGUS")
-                    _genStokReturJualWorker.Execute(new GenStokReturJualRequest(returJual.ReturJualId));
-                
+                _genStokReturJualWorker.Execute(new GenStokReturJualRequest(returJual.ReturJualId));
                 trans.Complete();
             }
             LastIdText.Text = returJual.ReturJualId;

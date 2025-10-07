@@ -4,6 +4,7 @@ using btr.domain.InventoryContext.ReturJualAgg;
 using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
+using System;
 using System.Linq;
 
 namespace btr.application.InventoryContext.ReturJualAgg.Workers
@@ -17,6 +18,7 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
         private readonly IReturJualDal _returJualDal;
         private readonly IReturJualItemDal _returJualItemDal;
         private readonly IReturJualItemDiscDal _returJualItemDiscDal;
+        private readonly IReturJualBuilder _returJualBuilder;
         private readonly INunaCounterBL _counter;
         private readonly IUserBuilder _userBuilder;
 
@@ -24,13 +26,15 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
             IReturJualItemDal returJualItemDal,
             INunaCounterBL counter,
             IUserBuilder userBuilder,
-            IReturJualItemDiscDal returJualItemDiscDal)
+            IReturJualItemDiscDal returJualItemDiscDal,
+            IReturJualBuilder returJualBuilder)
         {
             _returJualDal = returJualDal;
             _returJualItemDal = returJualItemDal;
             _counter = counter;
             _userBuilder = userBuilder;
             _returJualItemDiscDal = returJualItemDiscDal;
+            _returJualBuilder = returJualBuilder;
         }
 
 
@@ -83,6 +87,5 @@ namespace btr.application.InventoryContext.ReturJualAgg.Workers
             result = result.Substring(1);
             return result;
         }
-
     }
 }
