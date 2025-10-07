@@ -3,6 +3,8 @@ using btr.domain.SalesContext.FakturAgg;
 using btr.nuna.Domain;
 using btr.nuna.Infrastructure;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace btr.application.FinanceContext.TagihanAgg
 {
@@ -22,6 +24,8 @@ namespace btr.application.FinanceContext.TagihanAgg
         IListData<TagihanFakturViewDto, IFakturKey>,
         IListData<TandaTerimaTagihanViewDto, Periode>
     {
+        IEnumerable<TagihanFakturModel> ListDataByFaktur(IFakturKey fakturKey);
+        void Update(TagihanFakturModel model, ITagihanKey tagihan, IFakturKey faktur);
     }
 
     public class TagihanFakturViewDto

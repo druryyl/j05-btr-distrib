@@ -166,5 +166,75 @@ namespace btr.infrastructure.FinanceContext.TagihanAgg
                 return conn.Read<TandaTerimaTagihanViewDto>(sql, dp);
             }
         }
+
+        public IEnumerable<TagihanFakturModel> ListDataByFaktur(IFakturKey fakturKey)
+        {
+            const string sql = @"
+                SELECT  
+                    aa.TagihanId, aa.NoUrut, aa.FakturId, 
+                    aa.CustomerId, aa.NilaiTotal, aa.NilaiTerbayar, aa.NilaiTagih,
+                    aa.IsTandaTerima, aa.Keterangan, aa.TandaTerimaDate, 
+                    aa.IsTagihUlang,
+                    ISNULL(bb.FakturCode, '') AS FakturCode,
+                    ISNULL(bb.FakturDate, '3000-01-01') AS FakturDate,
+                    ISNULL(cc.CustomerName, '') CustomerName, 
+                    ISNULL(cc.Address1, '') Alamat
+                FROM
+                    BTR_TagihanFaktur aa
+                    LEFT JOIN BTR_Faktur bb ON aa.FakturId = bb.FakturId
+                    LEFT JOIN BTR_Customer cc ON bb.CustomerId = cc.CustomerId
+                WHERE
+                    aa.FakturId = @FakturId";
+
+            // parameter
+            var dp = new DynamicParameters();
+            dp.AddParam("@FakturId", fakturKey.FakturId, SqlDbType.VarChar);
+
+            //  execute query
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                return conn.Read<TagihanFakturModel>(sql, dp);
+            }
+        }
+
+        public void Update(TagihanFakturModel model, ITagihanKey tagihan, IFakturKey faktur )
+        {
+            const string sql = @"
+                UPDATE
+                    BTR_TagihanFaktur
+                SET
+                    NoUrut = @NoUrut,  
+                    CustomerId = @CustomerId, 
+                    NilaiTotal = @NilaiTotal, 
+                    NilaiTerbayar = @NilaiTerbayar, 
+                    NilaiTagih = @NilaiTagih,
+                    IsTandaTerima = @IsTandaTerima, 
+                    Keterangan = @Keterangan, 
+                    TandaTerimaDate = @TandaTerimaDate, 
+                    IsTagihUlang = @IsTagihUlang
+                WHERE
+                    TagihanId = @TagihanId 
+                    AND FakturId = @FakturId";
+
+            // parameter
+            var dp = new DynamicParameters();
+            dp.AddParam("@TagihanId", tagihan.TagihanId, SqlDbType.VarChar);
+            dp.AddParam("@FakturId", faktur.FakturId, SqlDbType.VarChar);
+            dp.AddParam("@NoUrut", model.NoUrut, SqlDbType.Int);
+            dp.AddParam("@CustomerId", model.CustomerId, SqlDbType.VarChar);
+            dp.AddParam("@NilaiTotal", model.NilaiTotal, SqlDbType.Decimal);
+            dp.AddParam("@NilaiTerbayar", model.NilaiTerbayar, SqlDbType.Decimal);
+            dp.AddParam("@NilaiTagih", model.NilaiTagih, SqlDbType.Decimal);
+            dp.AddParam("@IsTandaTerima", model.IsTandaTerima, SqlDbType.Bit);
+            dp.AddParam("@Keterangan", model.Keterangan, SqlDbType.VarChar);
+            dp.AddParam("@TandaTerimaDate", model.TandaTerimaDate, SqlDbType.DateTime);
+            dp.AddParam("@IsTagihUlang", model.IsTagihUlang, SqlDbType.Bit);
+
+            //  execute query
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                conn.Execute(sql, dp);
+            }
+        }
     }
 }

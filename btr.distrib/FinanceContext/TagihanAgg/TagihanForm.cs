@@ -43,6 +43,7 @@ namespace btr.distrib.FinanceContext.TagihanAgg
         private readonly IFakturDal _fakturDal;
         private readonly IParamSistemDal _paramSistemDal;
         private readonly IPiutangDal _piutangDal;
+        private readonly ITagihanFakturDal _tagihanFakturDal;
         private readonly IPiutangBuilder _piutangBuilder;
         private readonly IPiutangWriter _piutangWriter;
         private readonly ISalesRuteDal _salesRuteDal;
@@ -62,7 +63,8 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             ISalesRuteDal salesRuteDal,
             ISalesRuteBuilder salesRuteBuilder,
             IPiutangBuilder piutangBuilder,
-            IPiutangWriter piutangWriter)
+            IPiutangWriter piutangWriter,
+            ITagihanFakturDal tagihanFakturDal)
         {
             InitializeComponent();
 
@@ -73,12 +75,13 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             _tagihanBrowser = tagihanBrowser;
             _paramSistemDal = paramSistemDal;
             _piutangDal = piutangDal;
-            TglTagihText.Value = DateTime.Now;
             _salesRuteDal = salesRuteDal;
             _salesRuteBuilder = salesRuteBuilder;
             _piutangBuilder = piutangBuilder;
             _piutangWriter = piutangWriter;
+            _tagihanFakturDal = tagihanFakturDal;
 
+            TglTagihText.Value = DateTime.Now;
             InitTagihanGrid();
             InitSearchResultGrid();
             InitCombo();
@@ -145,9 +148,14 @@ namespace btr.distrib.FinanceContext.TagihanAgg
 
             if (piutang.StatusPiutang == StatusPiutangEnum.Ditagihkan)
             {
-                MessageBox.Show("Faktur masih memiliki tagihan aktif");
-                e.Cancel = true;
-                return;
+                var response = MessageBox.Show("Faktur masih memiliki tagihan aktif. Close tagihan aktif sebelumnya?", "", MessageBoxButtons.YesNo);
+                if (response == DialogResult.Yes)
+                    CloseAllTagihanAktif(piutang);
+                else
+                { 
+                    e.Cancel = true;
+                    return;
+                }
             }
 
             var faktur = GetFaktur(newFakturCode);
@@ -158,6 +166,32 @@ namespace btr.distrib.FinanceContext.TagihanAgg
                 return;
             }
         }
+
+        private void CloseAllTagihanAktif(PiutangModel piutang)
+        {
+            var fakturKey = new FakturModel(piutang.PiutangId);
+            var listTagihan = _tagihanFakturDal.ListDataByFaktur(fakturKey)?.ToList() ?? new List<TagihanFakturModel>();
+            foreach (var tagihan in listTagihan)
+            {
+                if (tagihan.IsTagihUlang)
+                    continue;
+
+                if (tagihan.IsTandaTerima == false && tagihan.IsTagihUlang == false)
+                    tagihan.IsTagihUlang = true;
+                if (tagihan.IsTandaTerima == true)
+                {
+                    tagihan.IsTandaTerima = false;
+                    tagihan.IsTagihUlang = true;
+                }
+                _tagihanFakturDal.Update(tagihan, tagihan, fakturKey);
+            }
+            var ptg = _piutangBuilder
+                .Load(piutang)
+                .Build();
+            ptg.StatusPiutang = StatusPiutangEnum.Tercatat;
+            _piutangWriter.Save(ref ptg);
+        }
+
         private void FakturGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0 || e.ColumnIndex != FakturGrid.Columns.GetCol("FakturCode").Index)
@@ -172,8 +206,6 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             }
             else
             {
-                // At this point, we assume validation passed (because if it failed, 
-                // CellValueChanged wouldn't fire due to e.Cancel = true)
                 var faktur = GetFaktur(rowItem.FakturCode);
                 var piutang = GetPiutang(rowItem.FakturCode);
 
@@ -189,12 +221,12 @@ namespace btr.distrib.FinanceContext.TagihanAgg
                 rowItem.NilaiTagih = piutang.Sisa;
                 rowItem.IsTandaTerima = false;
                 rowItem.Keterangan = "";
-                rowItem.TandaTerimaDate = DateTime.MaxValue; // or new DateTime(3000,1,1)
+                rowItem.TandaTerimaDate = new DateTime(3000, 1, 1);
             }
 
             RefreshGrid();
         }
-        private void ResetFakturFields(TagihanFakturDto item) // replace TagihanItem with your actual type
+        private void ResetFakturFields(TagihanFakturDto item) 
         {
             item.FakturId = "";
             item.FakturDate = new DateTime(3000, 1, 1);
@@ -600,6 +632,7 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             if (e.RowIndex < 0) return;
             if (e.ColumnIndex != SearchResultGrid.Columns.GetCol("IsSelected").Index) return;
             SearchResultGrid.EndEdit();
+            FakturGrid.EndEdit();
 
             var item = _listResult[e.RowIndex];
             if (item.IsSelected)
