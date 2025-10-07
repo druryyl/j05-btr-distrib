@@ -46,18 +46,21 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
             {
                 var reqRemove = new RemoveRollbackRequest(returJual.ReturJualId,"RETURJUAL-VOID", returJual.ReturJualDate);
                 _removeRollbackStokWorker.Execute(reqRemove);
-                
-                foreach (var item in returJual.ListItem)
+
+                if (returJual.JenisRetur == "BAGUS")
                 {
-                    if (item.Qty == 0)
-                        continue;
+                    foreach (var item in returJual.ListItem)
+                    {
+                        if (item.Qty == 0)
+                            continue;
 
-                    var brg = _brgBuilder.Load(item).Build();
-                    var satuan = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty;
+                        var brg = _brgBuilder.Load(item).Build();
+                        var satuan = brg.ListSatuan.FirstOrDefault(x => x.Conversion == 1)?.Satuan ?? string.Empty;
 
-                    var reqAddStok = new AddStokRequest(item.BrgId,
-                        returJual.WarehouseId, item.Qty, satuan, brg.Hpp, returJual.ReturJualId, "RETURJUAL", returJual.CustomerName, returJual.ReturJualDate);
-                    _addStokWorker.Execute(reqAddStok);
+                        var reqAddStok = new AddStokRequest(item.BrgId,
+                            returJual.WarehouseId, item.Qty, satuan, brg.Hpp, returJual.ReturJualId, "RETURJUAL", returJual.CustomerName, returJual.ReturJualDate);
+                        _addStokWorker.Execute(reqAddStok);
+                    }
                 }
                 trans.Complete();
             }

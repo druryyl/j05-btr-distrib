@@ -312,8 +312,11 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             using (var trans = TransHelper.NewScope())
             {
                 returJual = _writer.Save(returJual);
-                
-                if (returJual.JenisRetur == "BAGUS")
+
+                //  revert stok (kasus save ulang retur jual yg sudah pernah di-generate stoknya)
+
+
+                //if (returJual.JenisRetur == "BAGUS")
                     _genStokReturJualWorker.Execute(new GenStokReturJualRequest(returJual.ReturJualId));
                 
                 trans.Complete();
