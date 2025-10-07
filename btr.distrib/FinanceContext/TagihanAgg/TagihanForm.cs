@@ -365,10 +365,11 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             if (Kam2CheckBox.Checked) listHari.Add(GetHariFromCheckBox(Kam2CheckBox));
             if (Jum2CheckBox.Checked) listHari.Add(GetHariFromCheckBox(Jum2CheckBox));
             if (Sab2CheckBox.Checked) listHari.Add(GetHariFromCheckBox(Sab2CheckBox));
-
-            if (listHari.Count == 0)
-                listHari = new List<string> { "H11", "H12", "H13", "H14", "H15", "H16", "H21", "H22", "H23", "H24", "H25", "H26" };
             return listHari;
+
+            //if (listHari.Count == 0)
+            //    listHari = new List<string> { "H11", "H12", "H13", "H14", "H15", "H16", "H21", "H22", "H23", "H24", "H25", "H26" };
+            //return listHari;
         }
         private string GetHariFromCheckBox(CheckBox checkBox)
         {

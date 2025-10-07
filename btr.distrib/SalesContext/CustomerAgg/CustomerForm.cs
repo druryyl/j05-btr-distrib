@@ -239,7 +239,12 @@ namespace btr.distrib.SalesContext.CustomerAgg
             var listFilter = _listCust.Where(x => x.Name.ContainMultiWord(keyword)).ToList();
             var listByAlamat = _listCust.Where(x => x.Alamat.ContainMultiWord(keyword)).ToList();
             var listCustomerCode = _listCust.Where(x => x.Code ==  keyword).ToList();
-            var result = listFilter.Union(listByAlamat).Union(listCustomerCode).ToList();
+            var listByNamaWp = _listCust.Where(x => x.NamaWp.ContainMultiWord(keyword)).ToList();
+            var result = listFilter
+                .Union(listByAlamat)
+                .Union(listCustomerCode)
+                .Union(listByNamaWp)
+                .ToList();
             CustGrid.DataSource = result;
         }
         #endregion
