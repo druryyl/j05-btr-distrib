@@ -28,6 +28,9 @@ using btr.distrib.SalesContext.FakturAgg;
 using btr.application.SupportContext.ParamSistemAgg;
 using btr.domain.SupportContext.ParamSistemAgg;
 using Microsoft.Reporting.WinForms;
+using btr.application.InventoryContext.StokAgg;
+using btr.domain.InventoryContext.StokAgg;
+using btr.application.InventoryContext.ReturJualAgg.Contracts;
 
 namespace btr.distrib.InventoryContext.ReturJualAgg
 {
@@ -50,6 +53,8 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
         private readonly IReturJualBuilder _builder;
         private readonly IReturJualWriter _writer;
         private readonly IParamSistemDal _paramSistemDal;
+        private readonly IRemoveRollbackStokWorker _removeRollbackStokWorker;
+        private readonly IReturJualDal _returJualDal;
 
         private readonly ICreateReturJualItemWorker _createReturJualItemWorker;
         private readonly IGenStokReturJualWorker _genStokReturJualWorker;
@@ -70,7 +75,9 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             IReturJualWriter writer,
             IBrowser<ReturJualBrowserView> returJualBrowser,
             IGenStokReturJualWorker genStokReturJualWorker,
-            IParamSistemDal paramSistemDal)
+            IParamSistemDal paramSistemDal,
+            IRemoveRollbackStokWorker removeRollbackStokWorker,
+            IReturJualDal returJualDal)
         {
             InitializeComponent();
 
@@ -91,6 +98,8 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             _returJualBrowser = returJualBrowser;
             _genStokReturJualWorker = genStokReturJualWorker;
             _paramSistemDal = paramSistemDal;
+            _removeRollbackStokWorker = removeRollbackStokWorker;
+            _returJualDal = returJualDal;
 
             RegisterEventHandler();
             InitGrid();
@@ -152,6 +161,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             if (MessageBox.Show("Hapus Retur Jual?", "", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
             DeleteReturJual();
+            ClearDisplay();
         }
 
         private void DeleteReturJual()
@@ -161,9 +171,14 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             var returJual = _builder.Load(returJualKey).Build();
             returJual.VoidDate = DateTime.Now;
             returJual.UserIdVoid = ((MainForm)this.Parent.Parent).UserId.UserId;
-            _writer.Save(returJual);
-            //  generate stok
+            var reqRemove = new RemoveRollbackRequest(returJual.ReturJualId, "RETURJUAL-VOID", returJual.ReturJualDate);
 
+            using (var trans = TransHelper.NewScope())
+            {
+                _returJualDal.Update(returJual);
+                _removeRollbackStokWorker.Execute(reqRemove);
+                trans.Complete();
+            }
         }
 
         private void FakturItemGrid_KeyDown(object sender, KeyEventArgs e)
@@ -276,6 +291,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             CancelLabel.Text = $@"Retur Jual sudah DIBATALKAN \noleh {returJual.UserIdVoid} \npada {returJual.VoidDate:ddd, dd MMM yyyy}";
             VoidPanel.Visible = true;
             SaveButton.Visible = false;
+            DeleteButton.Visible = false;
         }
 
         private void ShowAsActive()

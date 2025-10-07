@@ -41,8 +41,16 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
             var noUrut = 1;
             foreach (var item in retJual.ListItem)
             {
-                var qty = item.Qty == 0 ? "-" :
-                    $"{item.Qty:N0} PCS";
+                //var qty = item.Qty == 0 ? "-" :
+                //    $"{item.Qty:N0} PCS";
+
+                var qty = GetQtyString(item);
+
+                //var qtyBesar = item.QtyBesar == 0 ? "-      " :
+                //    $"{item.QtyBesar:N0} {item.SatBesar}";
+                //var qtyKecil = item.QtyKecil == 0 ? "-      " :
+                //    $"{item.QtyKecil:N0} {item.SatKecil}";
+
                 var disc1 = item.ListDisc.FirstOrDefault(x => x.NoUrut == 1)?.DiscProsen ?? 0;
                 var disc2 = item.ListDisc.FirstOrDefault(x => x.NoUrut == 2)?.DiscProsen ?? 0;
                 var disc3 = item.ListDisc.FirstOrDefault(x => x.NoUrut == 3)?.DiscProsen ?? 0;
@@ -63,6 +71,26 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
                 ListItem.Add(newItem);
                 noUrut++;
             }
+        }
+
+        private string GetQtyString(ReturJualItemModel item)
+        {
+            var qtyB = item.ListQtyHrg.FirstOrDefault(x => x.NoUrut == 1)?.Qty ?? 0;
+            var satB = item.ListQtyHrg.FirstOrDefault(x => x.NoUrut == 1)?.Satuan ?? "";
+            var qtyK = item.ListQtyHrg.FirstOrDefault(x => x.NoUrut == 2)?.Qty ?? 0;
+            var satK = item.ListQtyHrg.FirstOrDefault(x => x.NoUrut == 2)?.Satuan ?? "";
+            var qty = "";
+            if (qtyB != 0)
+                qty += $"{qtyB:N0} {satB}";
+            if (qtyK != 0)
+                {
+                if (qty.Length != 0)
+                    qty += " + ";
+                qty += $"{qtyK:N0} {satK}";
+            }
+            if (qty.Length == 0)
+                qty = "-";
+            return qty;
         }
 
         public string ReturJualCode { get; set; }
