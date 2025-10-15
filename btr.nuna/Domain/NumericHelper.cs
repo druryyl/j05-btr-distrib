@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace btr.nuna.Domain
 {
@@ -6,95 +7,107 @@ namespace btr.nuna.Domain
     {
         public static string Eja(this decimal bilangan)
         {
+            if (bilangan == 0) return "nol";
+
             var result = "";
-            var bilString = bilangan.ToString().Trim();
-            var dummy = "";
-            var hundredCounter = 0;
-            var result1 = "";
+            var bilString = Math.Floor(bilangan).ToString(); // Bagian bulat saja
+            var length = bilString.Length;
 
-            bool isFirst = true;
-
-            for (int i = bilString.Length - 1; i >= 0; i--)
+            // Kelompokkan angka per 3 digit dari kanan
+            var groups = new List<string>();
+            for (int i = length; i > 0; i -= 3)
             {
-                var c = bilString[i];
-                dummy = c + dummy;
-                if (dummy.Length == 3)
-                {
-                    result1 = ConvertHundred(dummy, isFirst);
-                    if (result1 == "satu") result1 = "se";
-                    if (hundredCounter == 1) result1 += " ribu ";
-                    if (hundredCounter == 2) result1 += " juta ";
-                    if (hundredCounter == 3) result1 += " milyar ";
-                    if (hundredCounter == 4) result1 += " trilyun ";
-                    hundredCounter++;
-                    dummy = "";
-                    result = result1 + result;
-                    isFirst = false;
-                }
+                int start = Math.Max(0, i - 3);
+                int count = Math.Min(3, i - start);
+                groups.Insert(0, bilString.Substring(start, count));
             }
-            if (dummy != "")
-            {
-                result1 = ConvertHundred(dummy, isFirst);
-                if (result1 == "satu") result1 = "se";
-                if (hundredCounter == 1) result1 += " ribu ";
-                if (hundredCounter == 2) result1 += " juta ";
-                if (hundredCounter == 3) result1 += " milyar ";
-                if (hundredCounter == 4) result1 += " trilyun ";
 
-                if (result1 == "se juta ") result1 = " satu juta ";
-                result = result1 + result;
+            // Process each group
+            for (int i = 0; i < groups.Count; i++)
+            {
+                var group = groups[i];
+                var groupValue = int.Parse(group);
+
+                if (groupValue == 0) continue;
+
+                var groupText = ConvertHundred(group, i == groups.Count - 1);
+                var multiplier = GetMultiplier(groups.Count - i - 1);
+
+                result += groupText + multiplier + " ";
             }
-            return result;
+
+            return result.Trim() + " rupiah";
         }
 
-        private static string ConvertHundred(string bilangan, bool isFirst)
+        private static string ConvertHundred(string bilangan, bool isLastGroup)
         {
             string[] eja = { "", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan" };
 
             var sBilangan = bilangan.PadLeft(3, '0');
-
-            var iBilangan0 = Convert.ToInt16(sBilangan[0].ToString().Trim());
-            var iBilangan1 = Convert.ToInt16(sBilangan[1].ToString().Trim());
-            var iBilangan2 = Convert.ToInt16(sBilangan[2].ToString().Trim());
-
-            var angkaRatusan = eja[iBilangan0];
-            var angkaPuluhan = eja[iBilangan1];
-            var angkaSatuan = eja[iBilangan2];
-
-            if (angkaRatusan == "satu") angkaRatusan = "se";
-
-            var isBelas = false;
-            if (angkaPuluhan == "satu")
-            {
-                isBelas = true;
-                if (angkaSatuan == "satu") angkaPuluhan = "se";
-                else angkaPuluhan = angkaSatuan;
-                angkaSatuan = "belas";
-            }
+            var iBilangan0 = int.Parse(sBilangan[0].ToString());
+            var iBilangan1 = int.Parse(sBilangan[1].ToString());
+            var iBilangan2 = int.Parse(sBilangan[2].ToString());
 
             var result = "";
-            if (angkaRatusan != "")
+
+            // Ratusan
+            if (iBilangan0 > 0)
             {
-                if (angkaRatusan == "se")
-                    result = angkaRatusan + "ratus ";
+                if (iBilangan0 == 1)
+                    result += "seratus ";
                 else
-                    result = angkaRatusan + " ratus ";
+                    result += eja[iBilangan0] + " ratus ";
             }
 
-            if (angkaPuluhan != "")
-                if (!isBelas)
-                    if (angkaPuluhan == "se")
-                        result += angkaPuluhan + "puluh ";
+            // Puluhan dan Satuan
+            if (iBilangan1 > 0)
+            {
+                if (iBilangan1 == 1)
+                {
+                    if (iBilangan2 == 0)
+                        result += "sepuluh";
+                    else if (iBilangan2 == 1)
+                        result += "sebelas";
                     else
-                        result += angkaPuluhan + " puluh ";
-                else 
-                    result += angkaPuluhan;
+                        result += eja[iBilangan2] + " belas";
+                }
+                else
+                {
+                    result += eja[iBilangan1] + " puluh";
+                    if (iBilangan2 > 0)
+                        result += " " + eja[iBilangan2];
+                }
+            }
+            else
+            {
+                // Hanya satuan
+                if (iBilangan2 > 0)
+                {
+                    // Khusus untuk angka 1 di posisi terakhir kelompok pertama
+                    if (iBilangan2 == 1 && isLastGroup && bilangan.Length == 1)
+                        result += "satu";
+                    else if (iBilangan2 == 1)
+                        result += "se";
+                    else
+                        result += eja[iBilangan2];
+                }
+            }
 
-            result += angkaSatuan;
+            return result.Trim();
+        }
 
-            if ((result == "satu") && (!isFirst)) return "se";
-
-            return result;
+        private static string GetMultiplier(int level)
+        {
+            switch(level)
+            {
+                case 1:  return " ribu";
+                case 2:  return " juta";
+                case 3:
+                    return " milyar";
+                case 4:
+                    return " trilyun";
+            };
+            return string.Empty;
         }
     }
 }

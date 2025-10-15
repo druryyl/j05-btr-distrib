@@ -1,22 +1,26 @@
-﻿using btr.application.SalesContext.CustomerAgg.Contracts;
+﻿using btr.application.BrgContext.HargaTypeAgg;
+using btr.application.SalesContext.CustomerAgg.Contracts;
 using btr.application.SalesContext.CustomerAgg.Workers;
-using btr.distrib.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-using btr.nuna.Domain;
-using btr.domain.SalesContext.CustomerAgg;
-using btr.distrib.Browsers;
-using btr.application.SalesContext.WilayahAgg;
-using btr.application.BrgContext.HargaTypeAgg;
-using btr.domain.BrgContext.HargaTypeAgg;
-using System.Drawing;
 using btr.application.SalesContext.KlasifikasiAgg;
+using btr.application.SalesContext.WilayahAgg;
+using btr.distrib.Browsers;
+using btr.distrib.Helpers;
+using btr.distrib.SharedForm;
+using btr.domain.BrgContext.HargaTypeAgg;
+using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.KlasifikasiAgg;
 using btr.domain.SalesContext.WilayahAgg;
+using btr.nuna.Domain;
 using ClosedXML.Excel;
 using Syncfusion.DataSource.Extensions;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
+using System.Globalization;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace btr.distrib.SalesContext.CustomerAgg
 {
@@ -32,6 +36,9 @@ namespace btr.distrib.SalesContext.CustomerAgg
         private readonly IHargaTypeDal _hargaTypeDal;
         private readonly ICustomerWriter _customerWriter;
         private readonly IWilayahDal _wilayahDal;
+
+        private LocationType _location;
+        private LocationType _locationOriginal;
 
         public CustomerForm(ICustomerDal customerDal,
             ICustomerBuilder customerBuilder,
@@ -54,15 +61,17 @@ namespace btr.distrib.SalesContext.CustomerAgg
 
             _customerBuilder = customerBuilder;
             _customerWriter = customerWriter;
+            _location = new LocationType(0, 0, 0, new DateTime(3000, 1, 1), "");
+            _locationOriginal = new LocationType(0, 0, 0, new DateTime(3000, 1, 1), "");
+
+            PlafondText.Maximum = 9999999999;
+            CreditBalanceText.Maximum = 9999999999;
+            CreditBalanceText.Minimum = -9999999999;
 
             RegisterEventHandler();
             InitGrid();
             InitKlasifikasi();
             InitTipeHarga();
-
-            PlafondText.Maximum = 9999999999;
-            CreditBalanceText.Maximum = 9999999999;
-            CreditBalanceText.Minimum = -9999999999;
         }
 
         private void RegisterEventHandler()
@@ -81,10 +90,22 @@ namespace btr.distrib.SalesContext.CustomerAgg
             WilayahButton.Click += WilayahButton_Click;
 
             NewButton.Click += NewButton_Click;
-            
             ExcelButton.Click += ExcelButton_Click;
+            CoordinateText.Validating += CoordinateText_Validating;
+            OpenInMapButton.Click += OpenInMapButton_Click;
         }
 
+        private void OpenInMapButton_Click(object sender, EventArgs e)
+        {
+            var lat = _location.Latitude;
+            var lng = _location.Longitude;
+            var url = $"https://www.google.com/maps?q={lat},{lng}";
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = url,
+                UseShellExecute = true
+            });
+        }
         private void ExcelButton_Click(object sender, EventArgs e)
         {
             var listCust = _customerDal.ListData()?.ToList()
@@ -298,6 +319,12 @@ namespace btr.distrib.SalesContext.CustomerAgg
             EmailText.Text = customer.Email;
             NitkuText.Text = customer.Nitku;
             JenisIdentitasCombo.Text = customer.JenisIdentitasPajak;
+
+            _location = new LocationType(customer.Latitude, customer.Longitude, 
+                customer.Accuracy, customer.CoordinateTimestamp, customer.CoordinateUser);
+            _locationOriginal = new LocationType(customer.Latitude, customer.Longitude,
+                customer.Accuracy, customer.CoordinateTimestamp, customer.CoordinateUser);
+            CoordinateText.Text = _location.GetCoordinate();
         }
 
         private void ClearForm()
@@ -322,6 +349,8 @@ namespace btr.distrib.SalesContext.CustomerAgg
             Alamat1WpText.Clear();
             EmailText.Clear();
             NitkuText.Clear();
+            _location = new LocationType(0, 0, 0, new DateTime(3000, 1, 1), "");
+            CoordinateText.Text = _location.GetCoordinate();
         }
         #endregion
 
@@ -403,8 +432,45 @@ namespace btr.distrib.SalesContext.CustomerAgg
                 .JenisIdentitasPajak(JenisIdentitasCombo.Text)
                 .Build();
 
+            var isCoordinateChange = false;
+            if (_location.Latitude != _locationOriginal.Latitude)
+                isCoordinateChange = true;
+
+            if (_location.Longitude != _locationOriginal.Longitude)
+                isCoordinateChange = true;
+
+            if (isCoordinateChange)
+            {
+                customer.Latitude = _location.Latitude;
+                customer.Longitude = _location.Longitude;
+                customer.Accuracy = 12;
+                customer.CoordinateTimestamp = DateTime.Now;
+                customer.CoordinateUser = ((MainForm)this.Parent.Parent).UserId.UserId;
+            }
+
+
             _customerWriter.Save(ref customer);
             ClearForm();
+        }
+        #endregion
+
+
+        #region TEXT-COORDINATE
+        private void CoordinateText_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var content = ((TextBox)sender).Text.Trim();
+            if (content == string.Empty)
+                return;
+            try
+            {
+                _location.SetCoordinate(content);
+                CoordinateText.Text = _location.GetCoordinate();
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message);
+                e.Cancel = true;
+            }
         }
         #endregion
     }
@@ -460,5 +526,130 @@ namespace btr.distrib.SalesContext.CustomerAgg
         public bool IsKenaPajak {get;set; }
         public string HargaTypeName {get;set;   }
         public bool IsSuspend {get;set;   }
+    }
+
+    public class LocationType
+    {
+        public LocationType(double lat, double ltd, double accuracy, DateTime coordTimestampe, string coordUser)
+        {
+            Latitude = lat;
+            Longitude = ltd;
+            Accuracy = accuracy;
+            CoordinateTimestamp = coordTimestampe;
+            CoordinateUser = coordUser;
+        }
+        public double Latitude { get; private set; }
+        public double Longitude { get; private set; }
+        public double Accuracy { get; private set; }
+        public DateTime CoordinateTimestamp { get; private set; }
+        public string CoordinateUser { get; private set; }
+
+        public void SetCoordinate(string coordinate)
+        {
+            if (string.IsNullOrWhiteSpace(coordinate))
+                throw new ArgumentException("Coordinate cannot be null or empty", nameof(coordinate));
+
+            if (!IsDecimalLatLon(coordinate))
+            { 
+                var fromDms = TryConvertDmsToDecimal(coordinate);
+                if (fromDms == null)
+                    throw new ArgumentException("Invalid Coordinate", nameof(coordinate));
+                else
+                    coordinate = fromDms;
+            }
+
+            var parts = coordinate.Split(',');
+
+            if (parts.Length != 2)
+                throw new ArgumentException("Coordinate must contain exactly one comma separating latitude and longitude", nameof(coordinate));
+
+            var latString = parts[0].Trim();
+            var lngString = parts[1].Trim();
+
+            if (string.IsNullOrWhiteSpace(latString) || string.IsNullOrWhiteSpace(lngString))
+                throw new ArgumentException("Both latitude and longitude must be provided", nameof(coordinate));
+
+            if (!double.TryParse(latString, out double latitude) || !double.TryParse(lngString, out double longitude))
+                throw new ArgumentException("Invalid latitude or longitude format", nameof(coordinate));
+
+            if (latitude < -90 || latitude > 90)
+                throw new ArgumentException($"Latitude must be between -90 and 90 degrees. Value: {latitude}", nameof(coordinate));
+
+            if (longitude < -180 || longitude > 180)
+                throw new ArgumentException($"Longitude must be between -180 and 180 degrees. Value: {longitude}", nameof(coordinate));
+
+            // Only update latitude and longitude, keep other properties unchanged
+            Latitude = latitude;
+            Longitude = longitude;
+        }
+
+
+        // Regex pattern for DMS format, e.g. 7°48'02.3"S 110°20'30.1"E
+        private static readonly Regex DmsPattern = new Regex(
+            @"(?<latDeg>\d{1,2})°(?<latMin>\d{1,2})'(?<latSec>[\d.]+)""?(?<latDir>[NS])\s*" +
+            @"(?<lonDeg>\d{1,3})°(?<lonMin>\d{1,2})'(?<lonSec>[\d.]+)""?(?<lonDir>[EW])",
+            RegexOptions.Compiled | RegexOptions.IgnoreCase
+        );
+
+        public static string TryConvertDmsToDecimal(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+                return null;
+
+            var match = DmsPattern.Match(input.Trim());
+            if (!match.Success)
+                return null;
+
+            // Parse latitude
+            double latDeg = double.Parse(match.Groups["latDeg"].Value, CultureInfo.InvariantCulture);
+            double latMin = double.Parse(match.Groups["latMin"].Value, CultureInfo.InvariantCulture);
+            double latSec = double.Parse(match.Groups["latSec"].Value, CultureInfo.InvariantCulture);
+            char latDir = char.ToUpperInvariant(match.Groups["latDir"].Value[0]);
+
+            // Parse longitude
+            double lonDeg = double.Parse(match.Groups["lonDeg"].Value, CultureInfo.InvariantCulture);
+            double lonMin = double.Parse(match.Groups["lonMin"].Value, CultureInfo.InvariantCulture);
+            double lonSec = double.Parse(match.Groups["lonSec"].Value, CultureInfo.InvariantCulture);
+            char lonDir = char.ToUpperInvariant(match.Groups["lonDir"].Value[0]);
+
+            // Convert DMS to decimal degrees
+            double latitude = latDeg + (latMin / 60.0) + (latSec / 3600.0);
+            double longitude = lonDeg + (lonMin / 60.0) + (lonSec / 3600.0);
+
+            if (latDir == 'S') latitude *= -1;
+            if (lonDir == 'W') longitude *= -1;
+
+            return string.Format(
+                CultureInfo.InvariantCulture,
+                "{0},{1}",
+                latitude,
+                longitude
+            );
+        }
+        private static readonly Regex LatLonPattern = new Regex(
+            @"^\s*([+-]?\d{1,2}(?:\.\d+)?),\s*([+-]?\d{1,3}(?:\.\d+)?)\s*$",
+            RegexOptions.Compiled
+        );
+
+        public static bool IsDecimalLatLon(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+                return false;
+
+            var match = LatLonPattern.Match(input);
+            if (!match.Success)
+                return false;
+
+            double lat = double.Parse(match.Groups[1].Value);
+            double lon = double.Parse(match.Groups[2].Value);
+
+            // Ensure within valid coordinate ranges
+            return lat >= -90 && lat <= 90 && lon >= -180 && lon <= 180;
+        }
+        public string GetCoordinate()
+        {
+            var result = $"{Latitude:N5}, {Longitude:N5}";
+            return result;
+        }
     }
 }

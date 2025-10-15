@@ -32,7 +32,23 @@ namespace btr.test.Helpers
             var result = bilangan.Eja();
             result.Should().Be("seratus");
         }
-    
+
+
+        [Fact]
+        public void EjaBilanganTest2()
+        {
+            decimal bilangan = 10200902;
+            var result = bilangan.Eja();
+            result.Should().Be("sepuluh juta dua ratus ribu sembilan ratus dua rupiah");
+        }
+        [Fact]
+        public void EjaBilanganTest3()
+        {
+            decimal bilangan = 10000000;
+            var result = bilangan.Eja();
+            result.Should().Be("sepuluh juta rupiah");
+        }
+
         [Fact]
         public void FormatNumerikTest()
         {

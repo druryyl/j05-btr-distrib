@@ -61,7 +61,10 @@
             this.NpwpText = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label13 = new System.Windows.Forms.Label();
+            this.UserTimestampLabel = new System.Windows.Forms.Label();
+            this.OpenInMapButton = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.CoordinateText = new System.Windows.Forms.TextBox();
             this.NoFaxText = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.NoTelponText = new System.Windows.Forms.TextBox();
@@ -71,7 +74,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.KodePosText = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.KotaText = new System.Windows.Forms.TextBox();
             this.Alamat1Text = new System.Windows.Forms.TextBox();
             this.Alamat2Text = new System.Windows.Forms.TextBox();
@@ -447,7 +449,10 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.panel1.BackColor = System.Drawing.Color.Cornsilk;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.label13);
+            this.panel1.Controls.Add(this.UserTimestampLabel);
+            this.panel1.Controls.Add(this.OpenInMapButton);
+            this.panel1.Controls.Add(this.label10);
+            this.panel1.Controls.Add(this.CoordinateText);
             this.panel1.Controls.Add(this.NoFaxText);
             this.panel1.Controls.Add(this.label12);
             this.panel1.Controls.Add(this.NoTelponText);
@@ -457,7 +462,6 @@
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.KodePosText);
-            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.KotaText);
             this.panel1.Controls.Add(this.Alamat1Text);
             this.panel1.Controls.Add(this.Alamat2Text);
@@ -467,18 +471,48 @@
             this.panel1.Size = new System.Drawing.Size(228, 396);
             this.panel1.TabIndex = 52;
             // 
-            // label13
+            // UserTimestampLabel
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(8, 286);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(42, 13);
-            this.label13.TabIndex = 28;
-            this.label13.Text = "No.Fax";
+            this.UserTimestampLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UserTimestampLabel.ForeColor = System.Drawing.Color.DimGray;
+            this.UserTimestampLabel.Location = new System.Drawing.Point(10, 357);
+            this.UserTimestampLabel.Name = "UserTimestampLabel";
+            this.UserTimestampLabel.Size = new System.Drawing.Size(207, 13);
+            this.UserTimestampLabel.TabIndex = 57;
+            this.UserTimestampLabel.Text = "-";
+            this.UserTimestampLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // OpenInMapButton
+            // 
+            this.OpenInMapButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.OpenInMapButton.BackColor = System.Drawing.Color.NavajoWhite;
+            this.OpenInMapButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OpenInMapButton.Location = new System.Drawing.Point(127, 331);
+            this.OpenInMapButton.Name = "OpenInMapButton";
+            this.OpenInMapButton.Size = new System.Drawing.Size(90, 23);
+            this.OpenInMapButton.TabIndex = 56;
+            this.OpenInMapButton.Text = "Open in Maps";
+            this.OpenInMapButton.UseVisualStyleBackColor = false;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(9, 287);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(99, 13);
+            this.label10.TabIndex = 55;
+            this.label10.Text = "Lokasi (Koordinat)";
+            // 
+            // CoordinateText
+            // 
+            this.CoordinateText.Location = new System.Drawing.Point(13, 303);
+            this.CoordinateText.Name = "CoordinateText";
+            this.CoordinateText.Size = new System.Drawing.Size(205, 22);
+            this.CoordinateText.TabIndex = 54;
             // 
             // NoFaxText
             // 
-            this.NoFaxText.Location = new System.Drawing.Point(12, 302);
+            this.NoFaxText.Location = new System.Drawing.Point(12, 262);
             this.NoFaxText.Name = "NoFaxText";
             this.NoFaxText.Size = new System.Drawing.Size(205, 22);
             this.NoFaxText.TabIndex = 22;
@@ -486,15 +520,15 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(9, 245);
+            this.label12.Location = new System.Drawing.Point(9, 218);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(59, 13);
+            this.label12.Size = new System.Drawing.Size(104, 13);
             this.label12.TabIndex = 26;
-            this.label12.Text = "No.Telpon";
+            this.label12.Text = "No.Telpon - No.Fax";
             // 
             // NoTelponText
             // 
-            this.NoTelponText.Location = new System.Drawing.Point(12, 261);
+            this.NoTelponText.Location = new System.Drawing.Point(12, 234);
             this.NoTelponText.Name = "NoTelponText";
             this.NoTelponText.Size = new System.Drawing.Size(205, 22);
             this.NoTelponText.TabIndex = 21;
@@ -536,7 +570,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 204);
+            this.label4.Location = new System.Drawing.Point(9, 175);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(54, 13);
             this.label4.TabIndex = 13;
@@ -544,23 +578,14 @@
             // 
             // KodePosText
             // 
-            this.KodePosText.Location = new System.Drawing.Point(12, 220);
+            this.KodePosText.Location = new System.Drawing.Point(12, 191);
             this.KodePosText.Name = "KodePosText";
             this.KodePosText.Size = new System.Drawing.Size(205, 22);
             this.KodePosText.TabIndex = 20;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 147);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(30, 13);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "Kota";
-            // 
             // KotaText
             // 
-            this.KotaText.Location = new System.Drawing.Point(12, 163);
+            this.KotaText.Location = new System.Drawing.Point(12, 150);
             this.KotaText.Name = "KotaText";
             this.KotaText.Size = new System.Drawing.Size(205, 22);
             this.KotaText.TabIndex = 19;
@@ -743,7 +768,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox KodePosText;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox KotaText;
         private System.Windows.Forms.TextBox Alamat1Text;
         private System.Windows.Forms.TextBox Alamat2Text;
@@ -757,7 +781,6 @@
         private System.Windows.Forms.TextBox CustNameText;
         private System.Windows.Forms.Button CustButton;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox NoFaxText;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox NoTelponText;
@@ -783,5 +806,9 @@
         private System.Windows.Forms.ComboBox JenisIdentitasCombo;
         private System.Windows.Forms.TextBox NikText;
         private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Button OpenInMapButton;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox CoordinateText;
+        private System.Windows.Forms.Label UserTimestampLabel;
     }
 }

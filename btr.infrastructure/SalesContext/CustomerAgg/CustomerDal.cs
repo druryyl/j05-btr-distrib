@@ -26,12 +26,14 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
                 CustomerId, CustomerName, CustomerCode, WilayahId, KlasifikasiId, HargaTypeId, 
                 Address1, Address2, Kota, KodePos, NoTelp, NoFax, Email, Nitku,
                 Npwp, Nik, Nppkp, NamaWp, AddressWp, AddressWp2, IsKenaPajak, JenisIdentitasPajak,
-                IsSuspend, Plafond, CreditBalance)
+                IsSuspend, Plafond, CreditBalance, 
+                Latitude, Longitude, Accuracy, CoordinateTimestamp, CoordinateUser)
             VALUES (
                 @CustomerId, @CustomerName, @CustomerCode, @WilayahId, @KlasifikasiId, @HargaTypeId, 
                 @Address1, @Address2, @Kota, @KodePos, @NoTelp, @NoFax, @Email, @Nitku,
                 @Npwp, @Nik, @Nppkp, @NamaWp, @AddressWp, @AddressWp2, @IsKenaPajak, @JenisIdentitasPajak, 
-                @IsSuspend, @Plafond, @CreditBalance)";
+                @IsSuspend, @Plafond, @CreditBalance, 
+                @Latitude, @Longitude, @Accuracy, @CoordinateTimestamp, @CoordinateUser)";
 
             var dp = new DynamicParameters();
             dp.AddParam("@CustomerId", model.CustomerId, SqlDbType.VarChar);
@@ -64,6 +66,12 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
             dp.AddParam("@IsSuspend", model.IsSuspend, SqlDbType.Bit);
             dp.AddParam("@Plafond", model.Plafond, SqlDbType.Decimal);
             dp.AddParam("@CreditBalance", model.CreditBalance, SqlDbType.Decimal);
+
+            dp.AddParam("@Latitude", model.Latitude, SqlDbType.Float);
+            dp.AddParam("@Longitude", model.Longitude, SqlDbType.Float);
+            dp.AddParam("@Accuracy", model.Longitude, SqlDbType.Float);
+            dp.AddParam("@CoordinateTimestamp", model.CoordinateTimestamp, SqlDbType.DateTime);
+            dp.AddParam("@CoordinateUser", model.CoordinateUser, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -103,7 +111,12 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
                 JenisIdentitasPajak = @JenisIdentitasPajak,
                 IsSuspend = @IsSuspend,
                 Plafond = @Plafond,
-                CreditBalance = @CreditBalance
+                CreditBalance = @CreditBalance,
+                Latitude = @Latitude,
+                Longitude = @Longitude,
+                Accuracy = @Accuracy,
+                CoordinateTimestamp = @CoordinateTimestamp,
+                CoordinateUser = @CoordinateUser
             WHERE
                 CustomerId = @CustomerId ";
 
@@ -138,6 +151,12 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
             dp.AddParam("@Plafond", model.Plafond, SqlDbType.Decimal);
             dp.AddParam("@CreditBalance", model.CreditBalance, SqlDbType.Decimal);
 
+            dp.AddParam("@Latitude", model.Latitude, SqlDbType.Float);
+            dp.AddParam("@Longitude", model.Longitude, SqlDbType.Float);
+            dp.AddParam("@Accuracy", model.Longitude, SqlDbType.Float);
+            dp.AddParam("@CoordinateTimestamp", model.CoordinateTimestamp, SqlDbType.DateTime);
+            dp.AddParam("@CoordinateUser", model.CoordinateUser, SqlDbType.VarChar);
+
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
                 conn.Execute(sql, dp);
@@ -171,6 +190,7 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
                 aa.Npwp, aa.Nik, aa.Nppkp, aa.NamaWp, aa.AddressWp, 
                 aa.AddressWp2, aa.IsKenaPajak, aa.JenisIdentitasPajak,
                 aa.IsSuspend,  aa.Plafond, aa.CreditBalance,
+                aa.Latitude, aa.Longitude, aa.Accuracy, aa.CoordinateTimestamp, aa.CoordinateUser,
                 ISNULL(bb.WilayahName, '') AS WilayahName,
                 ISNULL(cc.KlasifikasiName, '') AS KlasifikasiName,
                 ISNULL(dd.HargaTypeName, '') AS HargaTypeName
@@ -201,6 +221,7 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
                     aa.Npwp, aa.Nik, aa.Nppkp, aa.NamaWp, aa.AddressWp, 
                     aa.AddressWp2, aa.IsKenaPajak, aa.JenisIdentitasPajak,
                     aa.IsSuspend,  aa.Plafond, aa.CreditBalance, 
+                    aa.Latitude, aa.Longitude, aa.Accuracy, aa.CoordinateTimestamp, aa.CoordinateUser,
                     ISNULL(bb.WilayahName, '') AS WilayahName,
                     ISNULL(cc.KlasifikasiName, '') AS KlasifikasiName,
                     ISNULL(dd.HargaTypeName, '') AS HargaTypeName

@@ -30,5 +30,11 @@
     Plafond DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_Customer_Plafond DEFAULT(0),
     CreditBalance DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_Customer_CreditBalance DEFAULT(0),
 
+    Latitude FLOAT NOT NULL CONSTRAINT DF_BTR_Customer_Latitude DEFAULT(0),
+    Longitude FLOAT NOT NULL CONSTRAINT DF_BTR_Customer_Longitude DEFAULT(0),
+    Accuracy FLOAT NOT NULL CONSTRAINT DF_BTR_Customer_Accuracy DEFAULT(0),
+    CoordinateTimestamp FLOAT NOT NULL CONSTRAINT DF_BTR_Customer_CoordinateTimestamp DEFAULT(0),
+    CoordinateUser FLOAT NOT NULL CONSTRAINT DF_BTR_Customer_CoordinateUser DEFAULT(0)
+
     CONSTRAINT  PK_BTR_Customer PRIMARY KEY CLUSTERED(CustomerId)
 )

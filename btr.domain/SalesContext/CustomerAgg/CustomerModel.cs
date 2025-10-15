@@ -1,6 +1,7 @@
 ﻿using btr.domain.BrgContext.HargaTypeAgg;
 using btr.domain.SalesContext.KlasifikasiAgg;
 using btr.domain.SalesContext.WilayahAgg;
+using System;
 
 namespace btr.domain.SalesContext.CustomerAgg
 {
@@ -38,6 +39,12 @@ namespace btr.domain.SalesContext.CustomerAgg
         public string AddressWp { get;set;}
         public string AddressWp2 { get;set;}
         public bool IsKenaPajak {get;set;}
+
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+        public double Accuracy { get; set; }
+        public DateTime CoordinateTimestamp { get; set; }
+        public string CoordinateUser { get; set; }
 
         public string JenisIdentitasPajak { get; set; }
         public bool IsSuspend {get;set;}

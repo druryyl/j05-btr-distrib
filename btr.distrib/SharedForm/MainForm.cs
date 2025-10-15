@@ -683,8 +683,8 @@ namespace btr.distrib.SharedForm
             if (BringMdiChildToFrontIfLoaded<ReturJualPerSupplierReportForm>())
                 return;
             var form = ThisServicesProvider.GetRequiredService<ReturJualPerSupplierReportForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
+            form.StartPosition = FormStartPosition.CenterScreen;
             form.Show(); 
         }
 

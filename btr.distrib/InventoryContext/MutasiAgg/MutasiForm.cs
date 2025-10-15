@@ -73,11 +73,12 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             _mutasiBuilder = mutasiBuilder;
             _dateTime = dateTime;
             _mutasiBrowser = mutasiBrowser;
+            _paramSistemDal = paramSistemDal;
 
             RegisterEventHandler();
             InitGrid();
             InitCombo();
-            _paramSistemDal = paramSistemDal;
+            ShowAsActive();
         }
 
         private void InitCombo()
@@ -153,6 +154,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             WarehouseNameText.Text = mutasi.WarehouseName;
             TotalText.Value = mutasi.NilaiSediaan;
             LastIdLabel.Text = $@"{mutasi.MutasiId}";
+            KeteranganText.Text = mutasi.Keterangan;
             switch (mutasi.JenisMutasi)
             {
                 case JenisMutasiEnum.MutasiKeluar:
@@ -510,6 +512,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             KlaimDateText.Value = _dateTime.Now;
             WarehouseIdText.Text = string.Empty;
             WarehouseNameText.Text = string.Empty;
+            KeteranganText.Text = string.Empty;
 
             TotalText.Value= 0;
 
