@@ -148,6 +148,7 @@
     <Compile Include="SalesContext\AlokasiFpAgg\AlokasiFpDal.cs" />
     <Compile Include="SalesContext\AlokasiFpAgg\AlokasiFpItemDal.cs" />
     <Compile Include="SalesContext\CustomerAgg\CustomerDal.cs" />
+    <Compile Include="SalesContext\CustomerAgg\CustomerLocHistDal.cs" />
     <Compile Include="SalesContext\DriverFakturRpt\DriverFakturInfoDal.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturAlokasiFpItemDal.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturCodeOpenDal.cs" />

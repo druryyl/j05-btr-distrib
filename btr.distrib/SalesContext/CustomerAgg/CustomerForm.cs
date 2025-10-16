@@ -35,6 +35,7 @@ namespace btr.distrib.SalesContext.CustomerAgg
         private readonly IKlasifikasiDal _klasifikasiDal;
         private readonly IHargaTypeDal _hargaTypeDal;
         private readonly ICustomerWriter _customerWriter;
+        private readonly ICustomerLocHistDal _customerLocHistDal;
         private readonly IWilayahDal _wilayahDal;
 
         private LocationType _location;
@@ -47,7 +48,8 @@ namespace btr.distrib.SalesContext.CustomerAgg
             IHargaTypeDal hargaTypeDal,
             ICustomerWriter customerWriter,
             IWilayahDal wilayahDal,
-            IBrowser<WilayahBrowserView> wilayahBrowser)
+            IBrowser<WilayahBrowserView> wilayahBrowser,
+            ICustomerLocHistDal customerLocHistDal)
         {
             InitializeComponent();
 
@@ -72,6 +74,7 @@ namespace btr.distrib.SalesContext.CustomerAgg
             InitGrid();
             InitKlasifikasi();
             InitTipeHarga();
+            _customerLocHistDal = customerLocHistDal;
         }
 
         private void RegisterEventHandler()
@@ -446,6 +449,9 @@ namespace btr.distrib.SalesContext.CustomerAgg
                 customer.Accuracy = 12;
                 customer.CoordinateTimestamp = DateTime.Now;
                 customer.CoordinateUser = ((MainForm)this.Parent.Parent).UserId.UserId;
+
+                var locHist = CustomerLocHistModel.Create(customer.CustomerId, _location.Latitude, _location.Longitude, _location.Accuracy, customer.CoordinateUser);
+                _customerLocHistDal.Insert(locHist);
             }
 
 
