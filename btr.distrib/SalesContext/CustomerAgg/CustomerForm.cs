@@ -442,6 +442,7 @@ namespace btr.distrib.SalesContext.CustomerAgg
             if (_location.Longitude != _locationOriginal.Longitude)
                 isCoordinateChange = true;
 
+            customer.CoordinateTimestamp = new DateTime(3000,1,1);
             if (isCoordinateChange)
             {
                 customer.Latitude = _location.Latitude;
