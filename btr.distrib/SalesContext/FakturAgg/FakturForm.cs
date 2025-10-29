@@ -1,4 +1,5 @@
 ﻿using btr.application.BrgContext.BrgAgg;
+using btr.application.FinanceContext.PiutangAgg.Contracts;
 using btr.application.FinanceContext.PiutangAgg.Workers;
 using btr.application.InventoryContext.DriverAgg;
 using btr.application.InventoryContext.WarehouseAgg;
@@ -70,6 +71,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly IPiutangBuilder _piutangBuilder;
         private readonly IPiutangWriter _piutangWriter;
         private readonly IParamSistemDal _paramSistemDal;
+        private readonly IPiutangDal _piutangDal;
 
 
         private string _tipeHarga = string.Empty;
@@ -99,7 +101,8 @@ namespace btr.distrib.SalesContext.FakturAgg
             IParamSistemDal paramSIstemDal,
             IBrowser<FakturCodeOpenBrowserView> fakturCodeOpenBrowser,
             IUserDal userDal,
-            IOrderBuilder orderBuilder)
+            IOrderBuilder orderBuilder,
+            IPiutangDal piutangDal)
         {
             InitializeComponent();
             _warehouseBrowser = warehouseBrowser;
@@ -134,6 +137,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             InitGrid();
             InitTextBox();
             ClearForm();
+            _piutangDal = piutangDal;
         }
 
         private void InitParamSistem()
@@ -452,6 +456,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         #region SALES-PERSON
         public void LoadOrder(string orderId)
         {
+            ClearForm();
             OrderIdText.Text = orderId;
             OrderIdText_Validated(OrderIdText, null);
         }
@@ -541,6 +546,17 @@ namespace btr.distrib.SalesContext.FakturAgg
             CustomerNameTextBox.Text = customer?.CustomerName ?? string.Empty;
             CustomerAddressText.Text = customer?.Address1 ?? string.Empty;
             _tipeHarga = customer?.HargaTypeId??string.Empty;
+
+            //  cek piutang
+            var duaBulanLalu = DateTime.Now.AddMonths(-2);
+            var startDate = new DateTime(2000, 1, 1);
+            var periode = new Periode(startDate, duaBulanLalu);
+            var listPiutang = _piutangDal.ListData(customer, periode);
+            if (listPiutang is null)
+                return;
+            var sumPiutang = listPiutang.Sum(x => x.Sisa);
+            if (sumPiutang > 10)
+                MessageBox.Show($"Customer masih mempunya piutang lebih dari 2 bulan senilai {sumPiutang:N0}");
         }
         private void CustomerIdText_KeyDown(object sender, KeyEventArgs e)
         {

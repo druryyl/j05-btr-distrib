@@ -1,15 +1,16 @@
-﻿using btr.nuna.Domain;
+﻿using btr.application.FinanceContext.PiutangAgg.Contracts;
+using btr.application.SalesContext.FakturBrgInfo;
+using btr.nuna.Domain;
+using ClosedXML.Excel;
+using Syncfusion.Drawing;
 using Syncfusion.Grouping;
-using Syncfusion.Windows.Forms.Grid.Grouping;
 using Syncfusion.Windows.Forms.Grid;
+using Syncfusion.Windows.Forms.Grid.Grouping;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using btr.application.SalesContext.FakturBrgInfo;
-using Syncfusion.Drawing;
-using ClosedXML.Excel;
 
 namespace btr.distrib.SalesContext.FakturInfoRpt
 {
@@ -45,45 +46,52 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
                 filePath = saveFileDialog.FileName;
             }
 
+            var filtered = this.InfoGrid.Table.FilteredRecords;
+            var listToExcel = new List<FakturBrgView>();
+            foreach (var item in filtered)
+            {
+                listToExcel.Add(item.GetData() as FakturBrgView);
+            }
+
             using (IXLWorkbook wb = new XLWorkbook())
             {
                 wb.AddWorksheet("Faktu-Brg-Info")
                     .Cell($"B1")
-                    .InsertTable(_dataSource, false);
+                    .InsertTable(listToExcel, false);
                 var ws = wb.Worksheets.First();
 
                 //  set border and font
-                ws.Range(ws.Cell("A1"), ws.Cell($"P{_dataSource.Count + 1}")).Style
+                ws.Range(ws.Cell("A1"), ws.Cell($"P{listToExcel.Count + 1}")).Style
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair);
-                ws.Cell($"L{_dataSource.Count + 2}").Value= "Total";
-                ws.Range(ws.Cell($"L{_dataSource.Count + 2}"), ws.Cell($"P{_dataSource.Count + 2}")).Style
+                ws.Cell($"L{listToExcel.Count + 2}").Value= "Total";
+                ws.Range(ws.Cell($"L{listToExcel.Count + 2}"), ws.Cell($"P{listToExcel.Count + 2}")).Style
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Font.SetFontName("Lucida Console")
                     .Font.SetFontSize(11)
                     .Font.SetBold();
 
-                ws.Range(ws.Cell("A1"), ws.Cell($"P{_dataSource.Count + 2}")).Style
+                ws.Range(ws.Cell("A1"), ws.Cell($"P{listToExcel.Count + 2}")).Style
                     .Font.SetFontName("Lucida Console")
                     .Font.SetFontSize(9);
 
                 //  add row total L,M,N,O
-                ws.Cell($"M{_dataSource.Count + 2}").FormulaA1 = $"=SUM(M2:M{_dataSource.Count + 1})";
-                ws.Cell($"N{_dataSource.Count + 2}").FormulaA1 = $"=SUM(N2:N{_dataSource.Count + 1})";
-                ws.Cell($"O{_dataSource.Count + 2}").FormulaA1 = $"=SUM(O2:O{_dataSource.Count + 1})";
-                ws.Cell($"P{_dataSource.Count + 2}").FormulaA1 = $"=SUM(P2:P{_dataSource.Count + 1})";
+                ws.Cell($"M{listToExcel.Count + 2}").FormulaA1 = $"=SUM(M2:M{listToExcel.Count + 1})";
+                ws.Cell($"N{listToExcel.Count + 2}").FormulaA1 = $"=SUM(N2:N{listToExcel.Count + 1})";
+                ws.Cell($"O{listToExcel.Count + 2}").FormulaA1 = $"=SUM(O2:O{listToExcel.Count + 1})";
+                ws.Cell($"P{listToExcel.Count + 2}").FormulaA1 = $"=SUM(P2:P{listToExcel.Count + 1})";
 
                 //  set format number for column A, J, K, L, M, N, O to N0
-                ws.Range(ws.Cell("L2"), ws.Cell($"Q{_dataSource.Count + 2}"))
+                ws.Range(ws.Cell("L2"), ws.Cell($"Q{listToExcel.Count + 2}"))
                     .Style.NumberFormat.Format = "#,##";
-                ws.Range(ws.Cell("A2"), ws.Cell($"A{_dataSource.Count + 2}"))
+                ws.Range(ws.Cell("A2"), ws.Cell($"A{listToExcel.Count + 2}"))
                     .Style.NumberFormat.Format = "#,##";
-                ws.Range(ws.Cell("D2"), ws.Cell($"D{_dataSource.Count + 2}"))
+                ws.Range(ws.Cell("D2"), ws.Cell($"D{listToExcel.Count + 2}"))
                     .Style.NumberFormat.Format = "dd-MMM-yyyy";
 
                 //  add rownumbering
                 ws.Cell($"A1").Value = "No";
-                for (var i = 0; i < _dataSource.Count; i++)
+                for (var i = 0; i < listToExcel.Count; i++)
                     ws.Cell($"A{i + 2}").Value = i + 1;
                 ws.Columns().AdjustToContents();
                 wb.SaveAs(filePath);

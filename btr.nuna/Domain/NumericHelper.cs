@@ -36,7 +36,7 @@ namespace btr.nuna.Domain
                 result += groupText + multiplier + " ";
             }
 
-            return result.Trim() + " rupiah";
+            return result.Trim(); // + " rupiah";
         }
 
         private static string ConvertHundred(string bilangan, bool isLastGroup)
@@ -84,10 +84,12 @@ namespace btr.nuna.Domain
                 if (iBilangan2 > 0)
                 {
                     // Khusus untuk angka 1 di posisi terakhir kelompok pertama
-                    if (iBilangan2 == 1 && isLastGroup && bilangan.Length == 1)
+                    //if (iBilangan2 == 1 && isLastGroup && bilangan.Length == 1)
+                    //    result += "satu";
+                    //else if (iBilangan2 == 1)
+                    //    result += "se";
+                    if (iBilangan2 == 1)
                         result += "satu";
-                    else if (iBilangan2 == 1)
-                        result += "se";
                     else
                         result += eja[iBilangan2];
                 }

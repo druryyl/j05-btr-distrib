@@ -123,6 +123,7 @@
   <ItemGroup>
     <Compile Include="Helpers\AppSettingsHelper.cs" />
     <Compile Include="Helpers\CodingPlayground.cs" />
+    <Compile Include="SalesContext\NumericHelperTest.cs" />
     <Compile Include="Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
+﻿using btr.application.FinanceContext.PiutangAgg.Contracts;
 using btr.application.PurchaseContext.InvoiceBrgInfo;
 using btr.nuna.Domain;
 using ClosedXML.Excel;
@@ -10,6 +6,11 @@ using Syncfusion.Drawing;
 using Syncfusion.Grouping;
 using Syncfusion.Windows.Forms.Grid;
 using Syncfusion.Windows.Forms.Grid.Grouping;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace btr.distrib.PurchaseContext.InvoiceInfo
 {
@@ -45,33 +46,40 @@ namespace btr.distrib.PurchaseContext.InvoiceInfo
                 filePath = saveFileDialog.FileName;
             }
 
+            var filtered = this.InfoGrid.Table.FilteredRecords;
+            var listToExcel = new List<InvoiceBrgViewDto>();
+            foreach (var item in filtered)
+            {
+                listToExcel.Add(item.GetData() as InvoiceBrgViewDto);
+            }
+
             using (IXLWorkbook wb = new XLWorkbook())
             {
                 wb.AddWorksheet("invoice-brg-info")
                     .Cell($"B1")
-                    .InsertTable(_dataSource, false);
+                    .InsertTable(listToExcel, false);
                 var ws = wb.Worksheets.First();
                 //  set border and font
-                ws.Range(ws.Cell($"A{1}"), ws.Cell($"Q{_dataSource.Count + 1}")).Style
+                ws.Range(ws.Cell($"A{1}"), ws.Cell($"Q{listToExcel.Count + 1}")).Style
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair);
-                ws.Range(ws.Cell($"A{1}"), ws.Cell($"Q{_dataSource.Count + 1}")).Style
+                ws.Range(ws.Cell($"A{1}"), ws.Cell($"Q{listToExcel.Count + 1}")).Style
                     .Font.SetFontName("Lucida Console")
                     .Font.SetFontSize(9);
 
                 //  set format number for columnto N0
-                ws.Range(ws.Cell($"I{2}"), ws.Cell($"Q{_dataSource.Count + 1}"))
+                ws.Range(ws.Cell($"I{2}"), ws.Cell($"Q{listToExcel.Count + 1}"))
                     .Style.NumberFormat.Format = "#,##.00";
-                ws.Range(ws.Cell($"J{2}"), ws.Cell($"L{_dataSource.Count + 1}"))
+                ws.Range(ws.Cell($"J{2}"), ws.Cell($"L{listToExcel.Count + 1}"))
                     .Style.NumberFormat.Format = "#,##";
-                ws.Range(ws.Cell($"A{2}"), ws.Cell($"A{_dataSource.Count + 1}"))
+                ws.Range(ws.Cell($"A{2}"), ws.Cell($"A{listToExcel.Count + 1}"))
                     .Style.NumberFormat.Format = "#,##.00";
-                ws.Range(ws.Cell($"D{2}"), ws.Cell($"D{_dataSource.Count + 1}"))
+                ws.Range(ws.Cell($"D{2}"), ws.Cell($"D{listToExcel.Count + 1}"))
                     .Style.NumberFormat.Format = "dd-MMM-yyyy";
 
                 //  add rownumbering
                 ws.Cell($"A1").Value = "No";
-                for (var i = 0; i < _dataSource.Count; i++)
+                for (var i = 0; i < listToExcel.Count; i++)
                     ws.Cell($"A{i + 2}").Value = i + 1;
                 ws.Columns().AdjustToContents();
                 wb.SaveAs(filePath);

@@ -10,6 +10,7 @@ using btr.nuna.Application;
 using MediatR;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace btr.application.PurchaseContext.ReturBeliAgg
 {
@@ -37,6 +38,7 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
         private readonly IStokMutasiDal _stokMutasiDal;
         private readonly IStokBalanceBuilder _stokBalanceBuilder;
         private readonly IStokBalanceWriter _stokBalanceWriter;
+        private readonly IGenStokBalanceWorker _genStokBalance;
 
         private readonly IRemoveStokEditReturBeliWorker _removeStokReturBeliWorker;
 
@@ -47,7 +49,8 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
             IStokWriter stokWriter,
             IStokMutasiDal stokMutasiDal,
             IStokBalanceBuilder stokBalanceBuilder,
-            IStokBalanceWriter stokBalanceWriter)
+            IStokBalanceWriter stokBalanceWriter,
+            IGenStokBalanceWorker genStokBalance)
         {
             _builder = builder;
             _returBeliWriter = returBeliWriter;
@@ -57,6 +60,7 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
             _stokMutasiDal = stokMutasiDal;
             _stokBalanceBuilder = stokBalanceBuilder;
             _stokBalanceWriter = stokBalanceWriter;
+            _genStokBalance = genStokBalance;
         }
 
         public void Execute(VoidReturBeliRequest req)
@@ -94,10 +98,13 @@ namespace btr.application.PurchaseContext.ReturBeliAgg
                 foreach(var item in listStok)
                     _stokWriter.Save(item);
 
-                foreach(var item2 in listBalanceStok)
+                foreach (var item2 in listBalanceStok)
                 {
-                    var xTemp = item2;
-                    _stokBalanceWriter.Save(ref xTemp);
+                    foreach(var item3 in item2.ListWarehouse)
+                    {
+                        var cmd = new GenStokBalanceRequest(item2.BrgId, item3.WarehouseId);
+                        _genStokBalance.Execute(cmd);
+                    }
                 }
 
                 _ = _returBeliWriter.Save(returBeli);

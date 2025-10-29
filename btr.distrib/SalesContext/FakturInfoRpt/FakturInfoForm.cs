@@ -1,18 +1,19 @@
-﻿using btr.nuna.Domain;
+﻿using btr.application.FinanceContext.PiutangAgg.Contracts;
+using btr.application.SalesContext.FakturInfo;
+using btr.nuna.Domain;
+using ClosedXML.Excel;
+using Mapster;
 using Syncfusion.Drawing;
 using Syncfusion.Grouping;
 using Syncfusion.Windows.Forms.Grid;
 using Syncfusion.Windows.Forms.Grid.Grouping;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using btr.application.SalesContext.FakturInfo;
-using ClosedXML.Excel;
 using System.Windows.Forms.DataVisualization.Charting;
-using System.Data;
-using Mapster;
 
 namespace btr.distrib.SalesContext.FakturInfoRpt
 {
@@ -33,7 +34,7 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
 
         private void ExcelButton_Click(object sender, EventArgs e)
         {
-            //  export _dataSource to excel
+            //  export listToExcel to excel
             string filePath;
             using (var saveFileDialog = new SaveFileDialog())
             {
@@ -47,6 +48,13 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
                 filePath = saveFileDialog.FileName;
             }
 
+            var filtered = this.InfoGrid.Table.FilteredRecords;
+            var listToExcel = new List<FakturView>();
+            foreach (var item in filtered)
+            {
+                listToExcel.Add(item.GetData() as FakturView);
+            }
+
             using (IXLWorkbook wb = new XLWorkbook())
             {
                 var excelDs = new List<FakturView>();
@@ -57,7 +65,7 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
                     var strData = record.ToString().Substring(28);
                     var listProp = strData.Split(',');
                     var fakturId = listProp[0].Substring(11,13);
-                    var faktur = _dataSource.FirstOrDefault(x => x.FakturId == fakturId);
+                    var faktur = listToExcel.FirstOrDefault(x => x.FakturId == fakturId);
                     excelDs.Add(faktur);
                 }
                 wb.AddWorksheet("Faktu-Info")

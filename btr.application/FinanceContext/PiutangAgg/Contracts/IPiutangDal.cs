@@ -18,4 +18,5 @@ namespace btr.application.FinanceContext.PiutangAgg.Contracts
         IListData<PiutangModel, ISalesPersonKey, Periode>
     {
     }
+
 }
