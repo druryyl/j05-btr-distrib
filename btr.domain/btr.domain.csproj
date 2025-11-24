@@ -117,6 +117,7 @@
     <Compile Include="PurchaseContext\ReturBeliFeature\ReturBeliItemModel.cs" />
     <Compile Include="SalesContext\AlokasiFpAgg\AlokasiFpItemModel.cs" />
     <Compile Include="SalesContext\AlokasiFpAgg\IAlokasiFpKey.cs" />
+    <Compile Include="SalesContext\CheckInFeature\CheckInModel.cs" />
     <Compile Include="SalesContext\CustomerAgg\CustomerLocHistModel.cs" />
     <Compile Include="SalesContext\EFakturAgg\EFakturModel.cs" />
     <Compile Include="SalesContext\FakturAgg\FakturAlokasiFpItemView.cs" />

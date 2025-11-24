@@ -744,6 +744,12 @@
     <Compile Include="SalesContext\FakturPerSupplierRpt\FakturPerSupplierForm.Designer.cs">
       <DependentUpon>FakturPerSupplierForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SalesContext\LocationFeature\CHeckInInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SalesContext\LocationFeature\CHeckInInfoForm.Designer.cs">
+      <DependentUpon>CHeckInInfoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SalesContext\OrderFeature\ListOrderDto.cs" />
     <Compile Include="SalesContext\OrderFeature\ListOrderForm.cs">
       <SubType>Form</SubType>
@@ -1064,6 +1070,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SalesContext\FakturPerSupplierRpt\FakturPerSupplierForm.resx">
       <DependentUpon>FakturPerSupplierForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SalesContext\LocationFeature\CHeckInInfoForm.resx">
+      <DependentUpon>CHeckInInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SalesContext\OrderFeature\ListOrderForm.resx">
       <DependentUpon>ListOrderForm.cs</DependentUpon>

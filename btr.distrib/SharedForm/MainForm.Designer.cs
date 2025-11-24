@@ -89,6 +89,7 @@
             this.FT2TagihanSalesButton = new System.Windows.Forms.RibbonButton();
             this.FT4TandaTerimaButton = new System.Windows.Forms.RibbonButton();
             this.FT1LunasPiutangButton = new System.Windows.Forms.RibbonButton();
+            this.FT5PiutangTracker = new System.Windows.Forms.RibbonButton();
             this.ribbonSeparator3 = new System.Windows.Forms.RibbonSeparator();
             this.FT3FpKeluaranButton = new System.Windows.Forms.RibbonButton();
             this.FinanceInfoTab = new System.Windows.Forms.RibbonPanel();
@@ -114,7 +115,8 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.FT5PiutangTracker = new System.Windows.Forms.RibbonButton();
+            this.ribbonButton3 = new System.Windows.Forms.RibbonButton();
+            this.RO1CheckInListMenu = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -250,6 +252,7 @@
             // SalesInfoPanel
             // 
             this.SalesInfoPanel.Items.Add(this.ribbonButton2);
+            this.SalesInfoPanel.Items.Add(this.ribbonButton3);
             this.SalesInfoPanel.Name = "SalesInfoPanel";
             this.SalesInfoPanel.Text = "";
             // 
@@ -270,7 +273,7 @@
             this.ribbonButton2.Name = "ribbonButton2";
             this.ribbonButton2.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton2.SmallImage")));
             this.ribbonButton2.Style = System.Windows.Forms.RibbonButtonStyle.DropDown;
-            this.ribbonButton2.Text = "Reporting";
+            this.ribbonButton2.Text = "Reporting Faktur";
             // 
             // SF1FakturInfoMenu
             // 
@@ -681,6 +684,15 @@
             this.FT1LunasPiutangButton.Text = "FT1-Lunas Piutang";
             this.FT1LunasPiutangButton.Click += new System.EventHandler(this.FT1LunasPiutangButton_Click);
             // 
+            // FT5PiutangTracker
+            // 
+            this.FT5PiutangTracker.Image = global::btr.distrib.Properties.Resources.icons8_pipe_organ_32;
+            this.FT5PiutangTracker.LargeImage = global::btr.distrib.Properties.Resources.icons8_pipe_organ_32;
+            this.FT5PiutangTracker.Name = "FT5PiutangTracker";
+            this.FT5PiutangTracker.SmallImage = ((System.Drawing.Image)(resources.GetObject("FT5PiutangTracker.SmallImage")));
+            this.FT5PiutangTracker.Text = "FT5-Piutang Tracker";
+            this.FT5PiutangTracker.Click += new System.EventHandler(this.FT5PiutangTracker_Click);
+            // 
             // ribbonSeparator3
             // 
             this.ribbonSeparator3.Name = "ribbonSeparator3";
@@ -886,14 +898,25 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
-            // FT5PiutangTracker
+            // ribbonButton3
             // 
-            this.FT5PiutangTracker.Image = global::btr.distrib.Properties.Resources.icons8_pipe_organ_32;
-            this.FT5PiutangTracker.LargeImage = global::btr.distrib.Properties.Resources.icons8_pipe_organ_32;
-            this.FT5PiutangTracker.Name = "FT5PiutangTracker";
-            this.FT5PiutangTracker.SmallImage = ((System.Drawing.Image)(resources.GetObject("FT5PiutangTracker.SmallImage")));
-            this.FT5PiutangTracker.Text = "FT5-Piutang Tracker";
-            this.FT5PiutangTracker.Click += new System.EventHandler(this.FT5PiutangTracker_Click);
+            this.ribbonButton3.DropDownItems.Add(this.RO1CheckInListMenu);
+            this.ribbonButton3.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.ribbonButton3.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.ribbonButton3.Name = "ribbonButton3";
+            this.ribbonButton3.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton3.SmallImage")));
+            this.ribbonButton3.Style = System.Windows.Forms.RibbonButtonStyle.DropDown;
+            this.ribbonButton3.Text = "Reporting Order";
+            // 
+            // RO1CheckInListMenu
+            // 
+            this.RO1CheckInListMenu.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
+            this.RO1CheckInListMenu.Image = ((System.Drawing.Image)(resources.GetObject("RO1CheckInListMenu.Image")));
+            this.RO1CheckInListMenu.LargeImage = ((System.Drawing.Image)(resources.GetObject("RO1CheckInListMenu.LargeImage")));
+            this.RO1CheckInListMenu.Name = "RO1CheckInListMenu";
+            this.RO1CheckInListMenu.SmallImage = ((System.Drawing.Image)(resources.GetObject("RO1CheckInListMenu.SmallImage")));
+            this.RO1CheckInListMenu.Text = "RO1-CheckIn List";
+            this.RO1CheckInListMenu.Click += new System.EventHandler(this.RO1CheckInListMenu_Click);
             // 
             // MainForm
             // 
@@ -1008,5 +1031,7 @@
         private System.Windows.Forms.RibbonButton FT4TandaTerimaButton;
         private System.Windows.Forms.RibbonSeparator ribbonSeparator3;
         private System.Windows.Forms.RibbonButton FT5PiutangTracker;
+        private System.Windows.Forms.RibbonButton ribbonButton3;
+        private System.Windows.Forms.RibbonButton RO1CheckInListMenu;
     }
 }

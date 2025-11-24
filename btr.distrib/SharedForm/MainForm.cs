@@ -52,6 +52,7 @@ using btr.distrib.SalesContext.SalesReplacementFeat;
 using btr.distrib.PurchaseContext.ReturBeliFeature;
 using btr.distrib.PurchaseContext.ReturBeliInfo;
 using btr.distrib.SalesContext.OrderFeature;
+using btr.distrib.SalesContext.LocationFeature;
 
 namespace btr.distrib.SharedForm
 {
@@ -703,6 +704,16 @@ namespace btr.distrib.SharedForm
             if (BringMdiChildToFrontIfLoaded<PiutangTrackerForm>())
                 return;
             var form = ThisServicesProvider.GetRequiredService<PiutangTrackerForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void RO1CheckInListMenu_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<CheckInInfoForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<CheckInInfoForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();

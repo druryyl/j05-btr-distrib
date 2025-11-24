@@ -147,6 +147,7 @@
     <Compile Include="PurchaseContext\SupplierAgg\SupplierDal.cs" />
     <Compile Include="SalesContext\AlokasiFpAgg\AlokasiFpDal.cs" />
     <Compile Include="SalesContext\AlokasiFpAgg\AlokasiFpItemDal.cs" />
+    <Compile Include="SalesContext\CheckInFeature\CheckInDal.cs" />
     <Compile Include="SalesContext\CustomerAgg\CustomerDal.cs" />
     <Compile Include="SalesContext\CustomerAgg\CustomerLocHistDal.cs" />
     <Compile Include="SalesContext\DriverFakturRpt\DriverFakturInfoDal.cs" />
