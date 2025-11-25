@@ -53,6 +53,8 @@
             this.SF7OmzetPerSupplierInfoMenu = new System.Windows.Forms.RibbonButton();
             this.ribbonSeparator2 = new System.Windows.Forms.RibbonSeparator();
             this.SF8FakturPerDriverInfoMenu = new System.Windows.Forms.RibbonButton();
+            this.ribbonButton3 = new System.Windows.Forms.RibbonButton();
+            this.RO1CheckInListMenu = new System.Windows.Forms.RibbonButton();
             this.PurchaseTab = new System.Windows.Forms.RibbonTab();
             this.PurchaseOrderRibbonPanel = new System.Windows.Forms.RibbonPanel();
             this.InvoiceButton = new System.Windows.Forms.RibbonButton();
@@ -115,8 +117,7 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ribbonButton3 = new System.Windows.Forms.RibbonButton();
-            this.RO1CheckInListMenu = new System.Windows.Forms.RibbonButton();
+            this.RO2SalesOmzetMenu = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -362,6 +363,27 @@
             this.SF8FakturPerDriverInfoMenu.SmallImage = global::btr.distrib.Properties.Resources.purrple_icon;
             this.SF8FakturPerDriverInfoMenu.Text = "SF8 - Info Faktur Per Driver ...";
             this.SF8FakturPerDriverInfoMenu.Click += new System.EventHandler(this.SF8DriverFaktur_Click);
+            // 
+            // ribbonButton3
+            // 
+            this.ribbonButton3.DropDownItems.Add(this.RO1CheckInListMenu);
+            this.ribbonButton3.DropDownItems.Add(this.RO2SalesOmzetMenu);
+            this.ribbonButton3.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.ribbonButton3.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.ribbonButton3.Name = "ribbonButton3";
+            this.ribbonButton3.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton3.SmallImage")));
+            this.ribbonButton3.Style = System.Windows.Forms.RibbonButtonStyle.DropDown;
+            this.ribbonButton3.Text = "Reporting Order";
+            // 
+            // RO1CheckInListMenu
+            // 
+            this.RO1CheckInListMenu.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
+            this.RO1CheckInListMenu.Image = ((System.Drawing.Image)(resources.GetObject("RO1CheckInListMenu.Image")));
+            this.RO1CheckInListMenu.LargeImage = ((System.Drawing.Image)(resources.GetObject("RO1CheckInListMenu.LargeImage")));
+            this.RO1CheckInListMenu.Name = "RO1CheckInListMenu";
+            this.RO1CheckInListMenu.SmallImage = ((System.Drawing.Image)(resources.GetObject("RO1CheckInListMenu.SmallImage")));
+            this.RO1CheckInListMenu.Text = "RO1-CheckIn List";
+            this.RO1CheckInListMenu.Click += new System.EventHandler(this.RO1CheckInListMenu_Click);
             // 
             // PurchaseTab
             // 
@@ -898,25 +920,15 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
-            // ribbonButton3
+            // RO2SalesOmzetMenu
             // 
-            this.ribbonButton3.DropDownItems.Add(this.RO1CheckInListMenu);
-            this.ribbonButton3.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
-            this.ribbonButton3.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
-            this.ribbonButton3.Name = "ribbonButton3";
-            this.ribbonButton3.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton3.SmallImage")));
-            this.ribbonButton3.Style = System.Windows.Forms.RibbonButtonStyle.DropDown;
-            this.ribbonButton3.Text = "Reporting Order";
-            // 
-            // RO1CheckInListMenu
-            // 
-            this.RO1CheckInListMenu.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
-            this.RO1CheckInListMenu.Image = ((System.Drawing.Image)(resources.GetObject("RO1CheckInListMenu.Image")));
-            this.RO1CheckInListMenu.LargeImage = ((System.Drawing.Image)(resources.GetObject("RO1CheckInListMenu.LargeImage")));
-            this.RO1CheckInListMenu.Name = "RO1CheckInListMenu";
-            this.RO1CheckInListMenu.SmallImage = ((System.Drawing.Image)(resources.GetObject("RO1CheckInListMenu.SmallImage")));
-            this.RO1CheckInListMenu.Text = "RO1-CheckIn List";
-            this.RO1CheckInListMenu.Click += new System.EventHandler(this.RO1CheckInListMenu_Click);
+            this.RO2SalesOmzetMenu.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
+            this.RO2SalesOmzetMenu.Image = ((System.Drawing.Image)(resources.GetObject("RO2SalesOmzetMenu.Image")));
+            this.RO2SalesOmzetMenu.LargeImage = ((System.Drawing.Image)(resources.GetObject("RO2SalesOmzetMenu.LargeImage")));
+            this.RO2SalesOmzetMenu.Name = "RO2SalesOmzetMenu";
+            this.RO2SalesOmzetMenu.SmallImage = ((System.Drawing.Image)(resources.GetObject("RO2SalesOmzetMenu.SmallImage")));
+            this.RO2SalesOmzetMenu.Text = "RO2-Sales Omzet";
+            this.RO2SalesOmzetMenu.Click += new System.EventHandler(this.RO2SalesOmzetMenu_Click);
             // 
             // MainForm
             // 
@@ -1033,5 +1045,6 @@
         private System.Windows.Forms.RibbonButton FT5PiutangTracker;
         private System.Windows.Forms.RibbonButton ribbonButton3;
         private System.Windows.Forms.RibbonButton RO1CheckInListMenu;
+        private System.Windows.Forms.RibbonButton RO2SalesOmzetMenu;
     }
 }

@@ -299,6 +299,7 @@
     <Compile Include="SalesContext\OmzetSupplierInfo\IOmzetSupplierViewDal.cs" />
     <Compile Include="SalesContext\OmzetSupplierInfo\OmzetSupplierView.cs" />
     <Compile Include="SalesContext\HariRuteAgg\IHariRuteDal.cs" />
+    <Compile Include="SalesContext\OrderFeature\IEffectiveCallOmzetDal.cs" />
     <Compile Include="SalesContext\OrderFeature\IOrderDal.cs" />
     <Compile Include="SalesContext\OrderFeature\IOrderItemDal.cs" />
     <Compile Include="SalesContext\OrderFeature\OrderBuilder.cs" />
