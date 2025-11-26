@@ -236,5 +236,29 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
                 return conn.Read<CustomerModel>(sql);
             }
         }
+
+        public IEnumerable<CustomerLocationView> ListLocation()
+        {
+            const string sql = @"
+                SELECT
+                    aa.CustomerId, aa.CustomerName, aa.CustomerCode, 
+                    aa.WilayahId, aa.KlasifikasiId, 
+                    aa.Latitude, aa.Longitude, aa.Accuracy, aa.CoordinateTimestamp, aa.CoordinateUser,
+                    CASE 
+                        WHEN aa.Latitude <> 0 AND aa.Longitude <> 0 THEN 1 
+                        ELSE 0 
+                    END AS HasCoordinate,
+                    ISNULL(bb.WilayahName, '') AS WilayahName,
+                    ISNULL(cc.KlasifikasiName, '') AS KlasifikasiName
+                FROM
+                    BTR_Customer aa
+                    LEFT JOIN BTR_Wilayah bb ON aa.WilayahId = bb.WilayahId
+                    LEFT JOIN BTR_Klasifikasi cc ON aa.KlasifikasiId = cc.KlasifikasiId ";
+
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                return conn.Read<CustomerLocationView>(sql);
+            }
+         }
     }
 }

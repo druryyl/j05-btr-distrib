@@ -738,5 +738,15 @@ namespace btr.distrib.SharedForm
             form.MdiParent = this;
             form.Show();
         }
+
+        private void RO4CoordinateCoverageMenu_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<LocationCoverageInfoForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<LocationCoverageInfoForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
     }
 }
