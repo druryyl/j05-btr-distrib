@@ -6,6 +6,8 @@ using btr.distrib.SharedForm;
 using btr.domain.SalesContext.OrderAgg;
 using btr.domain.SalesContext.OrderStatusFeature;
 using btr.nuna.Domain;
+using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Drawing.Charts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -59,6 +61,21 @@ namespace btr.distrib.SalesContext.OrderFeature
             ShowAllCheckBox.CheckedChanged += ShowAllCheckBox_CheckedChanged;
             ListRadioButton.CheckedChanged += ViewRadioButton_CheckedChanged;
             PeriodeStartDatePicker.ValueChanged += ViewRadioButton_CheckedChanged;
+            ExcelButton.Click += ExcelButton_Click;
+        }
+
+        private void ExcelButton_Click(object sender, EventArgs e)
+        {
+            if (ListRadioButton.Checked)
+            {
+                ExportOrdersToExcel(_listOrderView.ToList());
+            }
+            else
+            {
+                var periode = new Periode(PeriodeStartDatePicker.Value, PeriodeEndDatePicker.Value);
+                var summaryList = _orderSummaryDal.ListDataSummary(periode)?.ToList() ?? new List<OrderSummaryDto>();
+                ExportOrderSummaryToExcel(summaryList);
+            }
         }
 
         private void ViewRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -257,6 +274,191 @@ namespace btr.distrib.SalesContext.OrderFeature
             mainMenu.ST1FakturButton_Click(null, null);
             var fakturForm = Application.OpenForms.OfType<FakturForm>().FirstOrDefault();
             fakturForm?.LoadOrder(orderKey.OrderId);
+        }
+
+        private void ExportOrdersToExcel(List<ListOrderDto> listOrders)
+        {
+            if (listOrders == null || !listOrders.Any())
+            {
+                MessageBox.Show(@"No data to export.", @"Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (MessageBox.Show(@"Export to Excel?", @"Confirmation", MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
+
+            string filePath;
+            using (var saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = @"Excel Files|*.xlsx";
+                saveFileDialog.Title = @"Save Excel File";
+                saveFileDialog.DefaultExt = "xlsx";
+                saveFileDialog.AddExtension = true;
+                saveFileDialog.FileName = $"orders-info-{DateTime.Now:yyyy-MM-dd-HHmm}";
+                if (saveFileDialog.ShowDialog() != DialogResult.OK)
+                    return;
+                filePath = saveFileDialog.FileName;
+            }
+
+            using (IXLWorkbook wb = new XLWorkbook())
+            {
+                var ws = wb.AddWorksheet("orders-info");
+
+                // Create header row
+                var headers = new[]
+                {
+            "No", "Order ID", "Order Date", "Sales", "Email", "Local ID",
+            "Customer Name", "Customer Code", "Address", "Item Count",
+            "Total Amount", "Sync Status", "Order Note", "Faktur Code",
+            "Faktur Date", "Nilai Faktur", "Username"
+        };
+
+                for (int i = 0; i < headers.Length; i++)
+                {
+                    ws.Cell(1, i + 1).Value = headers[i];
+                }
+
+                // Fill data rows
+                for (int i = 0; i < listOrders.Count; i++)
+                {
+                    var order = listOrders[i];
+                    int row = i + 2; // Start from row 2 (after header)
+
+                    ws.Cell(row, 1).Value = i + 1; // No
+                    ws.Cell(row, 2).Value = order.OrderId;
+                    ws.Cell(row, 3).Value = order.OrderDate;
+                    ws.Cell(row, 4).Value = order.Sales;
+                    ws.Cell(row, 5).Value = order.Email;
+                    ws.Cell(row, 6).Value = order.LocalID;
+                    ws.Cell(row, 7).Value = order.CustomerName;
+                    ws.Cell(row, 8).Value = order.CustomerCode;
+                    ws.Cell(row, 9).Value = order.Address;
+                    ws.Cell(row, 10).Value = order.ItemCount;
+                    ws.Cell(row, 11).Value = order.TotalAmount;
+                    ws.Cell(row, 12).Value = order.SyncStatus;
+                    ws.Cell(row, 13).Value = order.OrderNote;
+                    ws.Cell(row, 14).Value = order.FakturCode;
+                    ws.Cell(row, 15).Value = order.FakturDate;
+                    ws.Cell(row, 16).Value = order.NilaiFaktur;
+                    ws.Cell(row, 17).Value = order.UserrName;
+                }
+
+                // Format header row
+                var headerRange = ws.Range($"A1:Q{listOrders.Count + 1}"); // Q is column 17
+                var headerRow = ws.Range("A1:Q1");
+
+                // Header styling
+                headerRow.Style.Border.BottomBorder = XLBorderStyleValues.Thin;
+                headerRow.Style.Font.SetBold();
+                headerRow.Style.Fill.BackgroundColor = XLColor.LightBlue;
+
+                // Table border styling
+                ws.Range($"A2:Q{listOrders.Count + 1}").Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                ws.Range($"A1:Q{listOrders.Count + 1}").Style.Border.InsideBorder = XLBorderStyleValues.Hair;
+
+                // Font styling
+                headerRange.Style.Font.SetFontName("Lucida Console");
+                headerRange.Style.Font.SetFontSize(9f);
+
+                // Freeze header row
+                ws.SheetView.FreezeRows(1);
+
+                // Auto-fit columns
+                ws.Columns().AdjustToContents();
+
+                wb.SaveAs(filePath);
+            }
+
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
+            {
+                FileName = filePath,
+                UseShellExecute = true
+            });
+        }
+        private void ExportOrderSummaryToExcel(List<OrderSummaryDto> orderSummaryList)
+        {
+            if (orderSummaryList == null || !orderSummaryList.Any())
+            {
+                MessageBox.Show(@"No data to export.", @"Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (MessageBox.Show(@"Export to Excel?", @"Confirmation", MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
+
+            string filePath;
+            using (var saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = @"Excel Files|*.xlsx";
+                saveFileDialog.Title = @"Save Excel File";
+                saveFileDialog.DefaultExt = "xlsx";
+                saveFileDialog.AddExtension = true;
+                saveFileDialog.FileName = $"order-summary-{DateTime.Now:yyyy-MM-dd-HHmm}";
+                if (saveFileDialog.ShowDialog() != DialogResult.OK)
+                    return;
+                filePath = saveFileDialog.FileName;
+            }
+
+            using (IXLWorkbook wb = new XLWorkbook())
+            {
+                var ws = wb.AddWorksheet("order-summary");
+
+                // Create header row
+                var headers = new[]
+                {
+            "No", "Order Date", "User Email", "Order Count", "Item Count", "Total Amount"
+        };
+
+                for (int i = 0; i < headers.Length; i++)
+                {
+                    ws.Cell(1, i + 1).Value = headers[i];
+                }
+
+                // Fill data rows
+                for (int i = 0; i < orderSummaryList.Count; i++)
+                {
+                    var summary = orderSummaryList[i];
+                    int row = i + 2; // Start from row 2 (after header)
+
+                    ws.Cell(row, 1).Value = i + 1; // No
+                    ws.Cell(row, 2).Value = summary.OrderDate;
+                    ws.Cell(row, 3).Value = summary.UserEmail;
+                    ws.Cell(row, 4).Value = summary.OrderCount;
+                    ws.Cell(row, 5).Value = summary.OrderItemCount;
+                    ws.Cell(row, 6).Value = summary.TotalAmountSum;
+                }
+
+                // Format header row
+                var headerRange = ws.Range($"A1:F{orderSummaryList.Count + 1}");
+                var headerRow = ws.Range("A1:F1");
+
+                // Header styling
+                headerRow.Style.Border.BottomBorder = XLBorderStyleValues.Thin;
+                headerRow.Style.Font.SetBold();
+                headerRow.Style.Fill.BackgroundColor = XLColor.LightBlue;
+
+                // Table border styling
+                ws.Range($"A2:F{orderSummaryList.Count + 1}").Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                ws.Range($"A1:F{orderSummaryList.Count + 1}").Style.Border.InsideBorder = XLBorderStyleValues.Hair;
+
+                // Font styling
+                headerRange.Style.Font.SetFontName("Lucida Console");
+                headerRange.Style.Font.SetFontSize(9f);
+
+                // Freeze header row
+                ws.SheetView.FreezeRows(1);
+
+                // Auto-fit columns
+                ws.Columns().AdjustToContents();
+
+                wb.SaveAs(filePath);
+            }
+
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
+            {
+                FileName = filePath,
+                UseShellExecute = true
+            });
         }
     }
 }

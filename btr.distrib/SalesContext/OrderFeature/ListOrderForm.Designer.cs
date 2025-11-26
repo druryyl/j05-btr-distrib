@@ -30,14 +30,15 @@
         {
             this.OrderGrid = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.SummaryRadioButton = new System.Windows.Forms.RadioButton();
+            this.ListRadioButton = new System.Windows.Forms.RadioButton();
             this.ShowAllCheckBox = new System.Windows.Forms.CheckBox();
             this.PeriodeEndDatePicker = new System.Windows.Forms.DateTimePicker();
             this.SearchButton = new System.Windows.Forms.Button();
             this.SearchTextBox = new System.Windows.Forms.TextBox();
             this.PeriodeStartDatePicker = new System.Windows.Forms.DateTimePicker();
-            this.ListRadioButton = new System.Windows.Forms.RadioButton();
-            this.SummaryRadioButton = new System.Windows.Forms.RadioButton();
             this.SummaryGrid = new System.Windows.Forms.DataGridView();
+            this.ExcelButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.OrderGrid)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SummaryGrid)).BeginInit();
@@ -52,7 +53,7 @@
             this.OrderGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.OrderGrid.Location = new System.Drawing.Point(6, 62);
             this.OrderGrid.Name = "OrderGrid";
-            this.OrderGrid.Size = new System.Drawing.Size(972, 376);
+            this.OrderGrid.Size = new System.Drawing.Size(972, 412);
             this.OrderGrid.TabIndex = 0;
             // 
             // panel1
@@ -61,6 +62,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.ExcelButton);
             this.panel1.Controls.Add(this.SummaryRadioButton);
             this.panel1.Controls.Add(this.ListRadioButton);
             this.panel1.Controls.Add(this.ShowAllCheckBox);
@@ -73,10 +75,32 @@
             this.panel1.Size = new System.Drawing.Size(972, 50);
             this.panel1.TabIndex = 1;
             // 
+            // SummaryRadioButton
+            // 
+            this.SummaryRadioButton.AutoSize = true;
+            this.SummaryRadioButton.Location = new System.Drawing.Point(894, 16);
+            this.SummaryRadioButton.Name = "SummaryRadioButton";
+            this.SummaryRadioButton.Size = new System.Drawing.Size(71, 17);
+            this.SummaryRadioButton.TabIndex = 6;
+            this.SummaryRadioButton.Text = "Summary";
+            this.SummaryRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // ListRadioButton
+            // 
+            this.ListRadioButton.AutoSize = true;
+            this.ListRadioButton.Checked = true;
+            this.ListRadioButton.Location = new System.Drawing.Point(846, 16);
+            this.ListRadioButton.Name = "ListRadioButton";
+            this.ListRadioButton.Size = new System.Drawing.Size(42, 17);
+            this.ListRadioButton.TabIndex = 5;
+            this.ListRadioButton.TabStop = true;
+            this.ListRadioButton.Text = "List";
+            this.ListRadioButton.UseVisualStyleBackColor = true;
+            // 
             // ShowAllCheckBox
             // 
             this.ShowAllCheckBox.AutoSize = true;
-            this.ShowAllCheckBox.Location = new System.Drawing.Point(679, 17);
+            this.ShowAllCheckBox.Location = new System.Drawing.Point(769, 17);
             this.ShowAllCheckBox.Name = "ShowAllCheckBox";
             this.ShowAllCheckBox.Size = new System.Drawing.Size(71, 17);
             this.ShowAllCheckBox.TabIndex = 4;
@@ -120,28 +144,6 @@
             this.PeriodeStartDatePicker.Size = new System.Drawing.Size(129, 22);
             this.PeriodeStartDatePicker.TabIndex = 0;
             // 
-            // ListRadioButton
-            // 
-            this.ListRadioButton.AutoSize = true;
-            this.ListRadioButton.Checked = true;
-            this.ListRadioButton.Location = new System.Drawing.Point(846, 16);
-            this.ListRadioButton.Name = "ListRadioButton";
-            this.ListRadioButton.Size = new System.Drawing.Size(42, 17);
-            this.ListRadioButton.TabIndex = 5;
-            this.ListRadioButton.TabStop = true;
-            this.ListRadioButton.Text = "List";
-            this.ListRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // SummaryRadioButton
-            // 
-            this.SummaryRadioButton.AutoSize = true;
-            this.SummaryRadioButton.Location = new System.Drawing.Point(894, 16);
-            this.SummaryRadioButton.Name = "SummaryRadioButton";
-            this.SummaryRadioButton.Size = new System.Drawing.Size(71, 17);
-            this.SummaryRadioButton.TabIndex = 6;
-            this.SummaryRadioButton.Text = "Summary";
-            this.SummaryRadioButton.UseVisualStyleBackColor = true;
-            // 
             // SummaryGrid
             // 
             this.SummaryGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -151,16 +153,27 @@
             this.SummaryGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.SummaryGrid.Location = new System.Drawing.Point(6, 62);
             this.SummaryGrid.Name = "SummaryGrid";
-            this.SummaryGrid.Size = new System.Drawing.Size(972, 376);
+            this.SummaryGrid.Size = new System.Drawing.Size(972, 412);
             this.SummaryGrid.TabIndex = 2;
             this.SummaryGrid.Visible = false;
+            // 
+            // ExcelButton
+            // 
+            this.ExcelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(199)))), ((int)(((byte)(199)))));
+            this.ExcelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ExcelButton.Location = new System.Drawing.Point(679, 13);
+            this.ExcelButton.Name = "ExcelButton";
+            this.ExcelButton.Size = new System.Drawing.Size(75, 23);
+            this.ExcelButton.TabIndex = 7;
+            this.ExcelButton.Text = "Excel";
+            this.ExcelButton.UseVisualStyleBackColor = false;
             // 
             // ListOrderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(135)))), ((int)(((byte)(133)))), ((int)(((byte)(162)))));
-            this.ClientSize = new System.Drawing.Size(984, 450);
+            this.ClientSize = new System.Drawing.Size(984, 486);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.OrderGrid);
             this.Controls.Add(this.SummaryGrid);
@@ -187,5 +200,6 @@
         private System.Windows.Forms.RadioButton SummaryRadioButton;
         private System.Windows.Forms.RadioButton ListRadioButton;
         private System.Windows.Forms.DataGridView SummaryGrid;
+        private System.Windows.Forms.Button ExcelButton;
     }
 }

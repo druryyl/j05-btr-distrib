@@ -461,13 +461,13 @@ namespace btr.distrib.SalesContext.CustomerAgg
         }
         #endregion
 
-
         #region TEXT-COORDINATE
         private void CoordinateText_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
             var content = ((TextBox)sender).Text.Trim();
             if (content == string.Empty)
-                return;
+                content = "0,0";
+
             try
             {
                 _location.SetCoordinate(content);
