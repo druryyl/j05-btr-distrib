@@ -750,6 +750,12 @@
     <Compile Include="SalesContext\LocationFeature\CHeckInInfoForm.Designer.cs">
       <DependentUpon>CHeckInInfoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SalesContext\LocationFeature\EffectiveCallInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SalesContext\LocationFeature\EffectiveCallInfoForm.Designer.cs">
+      <DependentUpon>EffectiveCallInfoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SalesContext\OrderFeature\ListOrderDto.cs" />
     <Compile Include="SalesContext\OrderFeature\ListOrderForm.cs">
       <SubType>Form</SubType>
@@ -1079,6 +1085,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SalesContext\LocationFeature\CHeckInInfoForm.resx">
       <DependentUpon>CHeckInInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SalesContext\LocationFeature\EffectiveCallInfoForm.resx">
+      <DependentUpon>EffectiveCallInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SalesContext\OrderFeature\ListOrderForm.resx">
       <DependentUpon>ListOrderForm.cs</DependentUpon>

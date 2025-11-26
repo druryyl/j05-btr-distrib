@@ -25,6 +25,10 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
             _salesOmzetDal = salesOmzetDal;
             ProsesButton.Click += ProsesButton_Click;
             ExcelButton.Click += ExcelButton_Click;
+
+            // Register the QueryCellStyleInfo event for conditional formatting
+            InfoGrid.QueryCellStyleInfo += InfoGrid_QueryCellStyleInfo;
+
             InitGrid();
             _dataSource = new List<SalesOmzetView>();
         }
@@ -66,12 +70,16 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
                 ws.Cell("G1").Value = "Invoice Total";
                 ws.Cell("H1").Value = "Omzet Date";
                 ws.Cell("I1").Value = "Order ID";
+                ws.Cell("J1").Value = "Status";
 
                 // Fill data rows
                 for (var i = 0; i < listToExcel.Count; i++)
                 {
                     var omzet = listToExcel[i];
                     var row = i + 2;
+
+                    // Determine status based on business logic
+                    string status = GetOrderStatus(omzet.OrderId, omzet.FakturCode);
 
                     ws.Cell($"A{row}").Value = i + 1;
                     ws.Cell($"B{row}").Value = omzet.SalesPersonName;
@@ -82,10 +90,16 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
                     ws.Cell($"G{row}").Value = omzet.FakturTotal;
                     ws.Cell($"H{row}").Value = omzet.OmzetDate;
                     ws.Cell($"I{row}").Value = omzet.OrderId;
+                    ws.Cell($"J{row}").Value = status;
+
+                    // Apply conditional formatting to Excel rows
+                    var rowRange = ws.Range(ws.Cell($"A{row}"), ws.Cell($"J{row}"));
+                    Color bgColor = GetStatusColor(status);
+                    rowRange.Style.Fill.BackgroundColor = XLColor.FromColor(bgColor);
                 }
 
                 // Apply styling to the entire data range
-                var dataRange = ws.Range(ws.Cell($"A1"), ws.Cell($"I{listToExcel.Count + 1}"));
+                var dataRange = ws.Range(ws.Cell($"A1"), ws.Cell($"J{listToExcel.Count + 1}"));
                 dataRange.Style
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair)
@@ -93,7 +107,7 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
                     .Font.SetFontSize(9);
 
                 // Format header row
-                var headerRange = ws.Range(ws.Cell($"A1"), ws.Cell($"I1"));
+                var headerRange = ws.Range(ws.Cell($"A1"), ws.Cell($"J1"));
                 headerRange.Style
                     .Font.Bold = true;
 
@@ -199,6 +213,7 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
             }
 
             var listOmzet = _salesOmzetDal.ListData(periode)?.ToList() ?? new List<SalesOmzetView>();
+            //listOmzet.RemoveAll(x => !string.IsNullOrEmpty(x.OrderId) && string.IsNullOrEmpty(x.FakturCode));
             _dataSource = Filter(listOmzet, SearchText.Text);
             InfoGrid.DataSource = _dataSource;
         }
@@ -225,9 +240,69 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
             return result.ToList();
         }
 
-        // Optional: Style grouping headers
+        // Helper method to determine order status
+        private string GetOrderStatus(string orderId, string fakturCode)
+        {
+            bool hasOrderId = !string.IsNullOrEmpty(orderId);
+            bool hasFakturCode = !string.IsNullOrEmpty(fakturCode);
+
+            if (hasOrderId && !hasFakturCode)
+                return "Outstanding Order";
+            else if (hasOrderId && hasFakturCode)
+                return "Completed Order";
+            else if (!hasOrderId && hasFakturCode)
+                return "Direct Sales";
+            else
+                return "Unknown";
+        }
+
+        // Helper method to get color based on status
+        private Color GetStatusColor(string status)
+        {
+            switch (status)
+            {
+                case "Outstanding Order":
+                    return Color.LightCoral;  // Red-ish for outstanding
+                case "Completed Order":
+                    return Color.LightGreen;  // Green for completed
+                case "Direct Sales":
+                    return Color.LightSkyBlue;  // Blue for direct sales
+                default:
+                    return Color.White;
+            }
+        }
+
+        // Conditional formatting for grid rows
         private void InfoGrid_QueryCellStyleInfo(object sender, GridTableCellStyleInfoEventArgs e)
         {
+            //// Apply conditional formatting to record rows only
+            //if (e.TableCellIdentity.TableCellType == GridTableCellType.RecordFieldCell ||
+            //    e.TableCellIdentity.TableCellType == GridTableCellType.AlternateRecordFieldCell)
+            //{
+            //    // Get the record from the table
+            //    var table = e.TableCellIdentity.Table;
+            //    var recordIndex = e.TableCellIdentity.RowIndex;
+
+            //    if (table != null && table.Records != null && recordIndex > 0 && recordIndex <= table.Records.Count)
+            //    {
+            //        var record = table.Records[recordIndex - 1];
+            //        if (record != null)
+            //        {
+            //            var data = record.GetData() as SalesOmzetView;
+            //            if (data != null)
+            //            {
+            //                // Get status based on business logic
+            //                string status = GetOrderStatus(data.OrderId, data.FakturCode);
+            //                Color bgColor = GetStatusColor(status);
+
+            //                // Apply background color
+            //                e.Style.BackColor = bgColor;
+            //            }
+            //        }
+            //    }
+            //}
+
+            // Style grouping headers
             if (e.TableCellIdentity.TableCellType == GridTableCellType.GroupCaptionCell)
             {
                 e.Style.Themed = false;

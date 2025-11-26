@@ -728,5 +728,15 @@ namespace btr.distrib.SharedForm
             form.MdiParent = this;
             form.Show();
         }
+
+        private void RO3EffectiveCallMenu_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<EffectiveCallInfoForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<EffectiveCallInfoForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
     }
 }

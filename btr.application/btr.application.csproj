@@ -249,6 +249,7 @@
     <Compile Include="PurchaseContext\SupplierAgg\Workers\SupplierWriter.cs" />
     <Compile Include="SalesContext\AlokasiFpAgg\IAlokasiFpItemDal.cs" />
     <Compile Include="SalesContext\CheckInFeature\ICheckInDal.cs" />
+    <Compile Include="SalesContext\CheckInFeature\IEffectiveCallDal.cs" />
     <Compile Include="SalesContext\CustomerAgg\Contracts\ICustomerDal.cs" />
     <Compile Include="SalesContext\CustomerAgg\Contracts\ICustomerLocHistDal.cs" />
     <Compile Include="SalesContext\CustomerAgg\UseCases\GetCustomerQuery.cs" />
@@ -299,7 +300,7 @@
     <Compile Include="SalesContext\OmzetSupplierInfo\IOmzetSupplierViewDal.cs" />
     <Compile Include="SalesContext\OmzetSupplierInfo\OmzetSupplierView.cs" />
     <Compile Include="SalesContext\HariRuteAgg\IHariRuteDal.cs" />
-    <Compile Include="SalesContext\OrderFeature\IEffectiveCallOmzetDal.cs" />
+    <Compile Include="SalesContext\OrderFeature\ISalesOmzetDal.cs" />
     <Compile Include="SalesContext\OrderFeature\IOrderDal.cs" />
     <Compile Include="SalesContext\OrderFeature\IOrderItemDal.cs" />
     <Compile Include="SalesContext\OrderFeature\OrderBuilder.cs" />
