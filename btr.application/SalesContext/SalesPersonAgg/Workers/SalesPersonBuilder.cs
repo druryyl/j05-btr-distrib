@@ -16,6 +16,7 @@ namespace btr.application.SalesContext.SalesPersonAgg.Workers
         ISalesPersonBuilder Wilayah(IWilayahKey wilayahKey);
         ISalesPersonBuilder Name(string name);
         ISalesPersonBuilder Code(string code);
+        ISalesPersonBuilder Email(string email);
 
     }
 
@@ -87,6 +88,12 @@ namespace btr.application.SalesContext.SalesPersonAgg.Workers
         public ISalesPersonBuilder Code(string code)
         {
             _aggRoot.SalesPersonCode = code;
+            return this;
+        }
+
+        public ISalesPersonBuilder Email(string email)
+        {
+            _aggRoot.Email = email;
             return this;
         }
     }

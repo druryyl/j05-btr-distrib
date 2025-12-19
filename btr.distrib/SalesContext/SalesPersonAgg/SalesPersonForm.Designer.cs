@@ -32,6 +32,8 @@
             this.SearchButton = new System.Windows.Forms.Button();
             this.SearchText = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.EmailLabel = new System.Windows.Forms.Label();
+            this.EmailText = new System.Windows.Forms.TextBox();
             this.WilayahIdText = new System.Windows.Forms.TextBox();
             this.WilayahNameText = new System.Windows.Forms.TextBox();
             this.WilayahButton = new System.Windows.Forms.Button();
@@ -86,6 +88,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.AliceBlue;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.EmailLabel);
+            this.panel2.Controls.Add(this.EmailText);
             this.panel2.Controls.Add(this.WilayahIdText);
             this.panel2.Controls.Add(this.WilayahNameText);
             this.panel2.Controls.Add(this.WilayahButton);
@@ -102,6 +106,22 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(231, 329);
             this.panel2.TabIndex = 48;
+            // 
+            // EmailLabel
+            // 
+            this.EmailLabel.AutoSize = true;
+            this.EmailLabel.Location = new System.Drawing.Point(12, 199);
+            this.EmailLabel.Name = "EmailLabel";
+            this.EmailLabel.Size = new System.Drawing.Size(34, 13);
+            this.EmailLabel.TabIndex = 59;
+            this.EmailLabel.Text = "Email";
+            // 
+            // EmailText
+            // 
+            this.EmailText.Location = new System.Drawing.Point(12, 215);
+            this.EmailText.Name = "EmailText";
+            this.EmailText.Size = new System.Drawing.Size(205, 22);
+            this.EmailText.TabIndex = 58;
             // 
             // WilayahIdText
             // 
@@ -140,7 +160,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(15, 202);
+            this.checkBox1.Location = new System.Drawing.Point(15, 307);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(61, 17);
             this.checkBox1.TabIndex = 12;
@@ -280,5 +300,7 @@
         private System.Windows.Forms.Button NewButton;
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button ExcelButton;
+        private System.Windows.Forms.Label EmailLabel;
+        private System.Windows.Forms.TextBox EmailText;
     }
 }

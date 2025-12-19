@@ -244,6 +244,7 @@ namespace btr.infrastructure.SalesContext.CustomerAgg
                     aa.CustomerId, aa.CustomerName, aa.CustomerCode, 
                     aa.WilayahId, aa.KlasifikasiId, 
                     aa.Latitude, aa.Longitude, aa.Accuracy, aa.CoordinateTimestamp, aa.CoordinateUser,
+                    aa.Address1 AS CustomerAddress,
                     CASE 
                         WHEN aa.Latitude <> 0 AND aa.Longitude <> 0 THEN 1 
                         ELSE 0 

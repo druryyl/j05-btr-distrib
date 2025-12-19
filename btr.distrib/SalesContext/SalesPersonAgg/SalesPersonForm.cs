@@ -101,18 +101,18 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
                     ws.Cell($"A{i + 2}").Value = i + 1;
 
                 //  border header
-                ws.Range("A1:F1").Style.Border.BottomBorder = XLBorderStyleValues.Thin;
+                ws.Range("A1:G1").Style.Border.BottomBorder = XLBorderStyleValues.Thin;
                 //  font bold header and background color light blue
-                ws.Range("A1:F1").Style.Font.SetBold();
-                ws.Range("A1:F1").Style.Fill.BackgroundColor = XLColor.LightBlue;
+                ws.Range("A1:G1").Style.Font.SetBold();
+                ws.Range("A1:G1").Style.Fill.BackgroundColor = XLColor.LightBlue;
                 //  freeze header
                 ws.SheetView.FreezeRows(1);
                 //  border table
-                ws.Range($"A2:F{listSales.Count + 1}").Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
-                ws.Range($"A1:F{listSales.Count + 1}").Style.Border.InsideBorder = XLBorderStyleValues.Hair;
+                ws.Range($"A2:G{listSales.Count + 1}").Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                ws.Range($"A1:G{listSales.Count + 1}").Style.Border.InsideBorder = XLBorderStyleValues.Hair;
 
-                ws.Range($"A1:F{listSales.Count + 1}").Style.Font.SetFontName("Lucida Console");
-                ws.Range($"A1:F{listSales.Count + 1}").Style.Font.SetFontSize(9f);
+                ws.Range($"A1:G{listSales.Count + 1}").Style.Font.SetFontName("Lucida Console");
+                ws.Range($"A1:G{listSales.Count + 1}").Style.Font.SetFontSize(9f);
 
 
                 //  auto fit column
@@ -171,7 +171,8 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
                 .Select(x => new SalesPersonFormGridDto(x.SalesPersonId,
                     x.SalesPersonCode,
                     x.SalesPersonName,
-                    x.WilayahName)).ToList();
+                    x.WilayahName,
+                    x.Email)).ToList();
             ListGrid.DataSource = _listSalesPerson;
 
             ListGrid.Columns.SetDefaultCellStyle(Color.PowderBlue);
@@ -179,6 +180,7 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
             ListGrid.Columns.GetCol("Code").Width = 50;
             ListGrid.Columns.GetCol("Name").Width = 100;
             ListGrid.Columns.GetCol("Wilayah").Width = 100;
+            ListGrid.Columns.GetCol("Email").Width = 120;
         }
 
         private void FilterListGrid(string keyword)
@@ -190,7 +192,8 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
             }
             var listFilter = _listSalesPerson.Where(x => x.Name.ContainMultiWord(keyword)).ToList();
             var listByWilayah = _listSalesPerson.Where(x => x.Wilayah.ContainMultiWord(keyword)).ToList();
-            listFilter.AddRange(listByWilayah);
+            var listByEmail = _listSalesPerson.Where(x => x.Email.ContainMultiWord(keyword)).ToList();
+            listFilter.AddRange(listByWilayah.Union(listByEmail));
             ListGrid.DataSource = listFilter;
         }
         #endregion
@@ -222,6 +225,7 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
             SalesPersonCodeText.Text = salesPerson.SalesPersonCode;
             WilayahIdText.Text = salesPerson.WilayahId;
             WilayahNameText.Text = salesPerson.WilayahName;
+            EmailText.Text = salesPerson.Email;
         }
 
         private void ClearForm()
@@ -231,6 +235,7 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
             SalesPersonCodeText.Clear();
             WilayahIdText.Clear();
             WilayahNameText.Clear();
+            EmailText.Clear();
         }
         #endregion
 
@@ -255,6 +260,7 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
                 .Name(SalesPersonNameText.Text)
                 .Code(SalesPersonCodeText.Text)
                 .Wilayah(new WilayahModel(WilayahIdText.Text))
+                .Email(EmailText.Text)
                 .Build();
 
             _salesPersonWriter.Save(ref salesPerson);
@@ -265,16 +271,18 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
     }
     public class SalesPersonFormGridDto
     {
-        public SalesPersonFormGridDto(string id, string code, string name, string wilayah)
+        public SalesPersonFormGridDto(string id, string code, string name, string wilayah, string email)
         {
             Id = id;
             Code = code;
             Name = name;
             Wilayah = wilayah;
+            Email = email;
         }
         public string Id { get; }
         public string Code { get; }
         public string Name { get; }
         public string Wilayah { get; }
-    }
+        public string Email { get; }
+        }
 }

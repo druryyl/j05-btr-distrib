@@ -23,15 +23,16 @@ namespace btr.infrastructure.SalesContext.SalesPersonAgg
         {
             const string sql = @"
             INSERT INTO BTR_SalesPerson(
-                SalesPersonId, SalesPersonCode, SalesPersonName, WilayahId)
+                SalesPersonId, SalesPersonCode, SalesPersonName, WilayahId, Email)
             VALUES (
-                @SalesPersonId, @SalesPersonCode, @SalesPersonName, @WilayahId)";
+                @SalesPersonId, @SalesPersonCode, @SalesPersonName, @WilayahId, @Email)";
 
             var dp = new DynamicParameters();
             dp.AddParam("@SalesPersonId", model.SalesPersonId, SqlDbType.VarChar);
             dp.AddParam("@SalesPersonCode", model.SalesPersonCode, SqlDbType.VarChar);
             dp.AddParam("@SalesPersonName", model.SalesPersonName, SqlDbType.VarChar);
             dp.AddParam("@WilayahId", model.WilayahId, SqlDbType.VarChar);
+            dp.AddParam("@EMail", model.Email, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -47,7 +48,8 @@ namespace btr.infrastructure.SalesContext.SalesPersonAgg
             SET
                 SalesPersonName = @SalesPersonName,
                 SalesPersonCode = @SalesPersonCode,
-                WilayahId = @WilayahId
+                WilayahId = @WilayahId,
+                Email = @Email
             WHERE
                 SalesPersonId = @SalesPersonId ";
 
@@ -56,6 +58,7 @@ namespace btr.infrastructure.SalesContext.SalesPersonAgg
             dp.AddParam("@SalesPersonCode", model.SalesPersonCode, SqlDbType.VarChar);
             dp.AddParam("@SalesPersonName", model.SalesPersonName, SqlDbType.VarChar);
             dp.AddParam("@WilayahId", model.WilayahId, SqlDbType.VarChar);
+            dp.AddParam("@EMail", model.Email, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -85,7 +88,7 @@ namespace btr.infrastructure.SalesContext.SalesPersonAgg
             const string sql = @"
             SELECT
                 aa.SalesPersonId, aa.SalesPersonName, 
-                aa.SalesPersonCode, aa.WilayahId,
+                aa.SalesPersonCode, aa.WilayahId, aa.Email,
                 ISNULL(bb.WilayahName, '') AS WilayahName
             FROM
                 BTR_SalesPerson aa
@@ -107,7 +110,7 @@ namespace btr.infrastructure.SalesContext.SalesPersonAgg
             const string sql = @"
             SELECT
                 aa.SalesPersonId, aa.SalesPersonName, 
-                aa.SalesPersonCode, aa.WilayahId,
+                aa.SalesPersonCode, aa.WilayahId, aa.Email,
                 ISNULL(bb.WilayahName, '') AS WilayahName
             FROM
                 BTR_SalesPerson aa

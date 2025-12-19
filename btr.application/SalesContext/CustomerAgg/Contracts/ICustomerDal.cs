@@ -18,6 +18,8 @@ namespace btr.application.SalesContext.CustomerAgg.Contracts
     public class CustomerLocationView
     {
         public string CustomerId { get; set; }
+        public string CustomerCode { get; set; }
+
         public string CustomerName { get; set; }
         public string CustomerAddress { get; set; }
         public string WilayahId { get; set; }
