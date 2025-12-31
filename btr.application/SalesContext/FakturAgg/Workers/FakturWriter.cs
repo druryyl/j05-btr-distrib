@@ -6,6 +6,7 @@ using FluentValidation;
 using btr.nuna.Domain;
 using btr.application.SupportContext.UserAgg;
 using btr.domain.SupportContext.UserAgg;
+using System;
 
 namespace btr.application.SalesContext.FakturAgg.Workers
 {
@@ -57,7 +58,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
 
             if (!model.IsVoid)
                 if (model.FakturCode.IsNullOrEmpty())
-                    model.FakturCode = GenerateFakturCode(model);
+                    model.FakturCode = GenerateFakturCode(model, model.FakturDate);
             
             foreach (var item in model.ListItem)
             {
@@ -110,11 +111,15 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             return model;
         }
 
-        private string GenerateFakturCode(IUserKey userKey)
+        private string GenerateFakturCode(IUserKey userKey, DateTime tgl)
         {
             var user = _userBuilder.Load(userKey).Build();
             var prefix = user.Prefix;
-            var result = _counter.Generate(prefix, IDFormatEnum.Pn7);
+            var result = string.Empty;
+            if (tgl.Year < 2026)
+                result = _counter.Generate(prefix, IDFormatEnum.Pn7);
+            else
+                result = _counter.Generate($"{prefix}{tgl:yy}", IDFormatEnum.Pn7);
             return result;
         }
     }
