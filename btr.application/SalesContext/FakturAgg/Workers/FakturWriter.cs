@@ -116,10 +116,16 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             var user = _userBuilder.Load(userKey).Build();
             var prefix = user.Prefix;
             var result = string.Empty;
+            result = _counter.Generate(prefix, IDFormatEnum.Pn7);
+            if (tgl.Year > 2025)
+
             if (tgl.Year < 2026)
                 result = _counter.Generate(prefix, IDFormatEnum.Pn7);
             else
+            {
                 result = _counter.Generate($"{prefix}{tgl:yy}", IDFormatEnum.Pn7);
+                result = result.Remove(3, 2);
+            }
             return result;
         }
     }
