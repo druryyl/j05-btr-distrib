@@ -172,6 +172,7 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
             InfoGrid.TableDescriptor.Columns["Tax"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["GrandTotal"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["Tgl"].Appearance.AnyRecordFieldCell.Format= "dd-MMM-yyyy";
+            InfoGrid.TableDescriptor.Columns["JatuhTempo"].Appearance.AnyRecordFieldCell.Format = "dd-MMM-yyyy";
             InfoGrid.Refresh();
             Proses();
         }

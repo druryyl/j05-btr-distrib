@@ -24,6 +24,7 @@ namespace btr.infrastructure.SalesContext.FakturInfoAgg
             const string sql = @"
                 SELECT 
                     aa.FakturId, aa.FakturCode, aa.FakturDate as Tgl, 
+                    aa.DueDate AS JatuhTempo,
                     aa.Total, aa.Discount, aa.Tax, aa.GrandTotal,
                     ISNULL(bb.UserName, '') Admin, 
                     ISNULL(cc.CustomerName, '') AS Customer,
@@ -62,6 +63,7 @@ namespace btr.infrastructure.SalesContext.FakturInfoAgg
             const string sql = @"
                 SELECT 
                     aa.FakturId, aa.FakturCodeOri AS FakturCode, aa.FakturDate as Tgl, 
+                    aa.DueDate AS JatuhTempo,
                     aa.Total, aa.Discount, aa.Tax, aa.GrandTotal,
                     ISNULL(bb.UserName, '') Admin, 
                     ISNULL(cc.CustomerName, '') AS Customer,

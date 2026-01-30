@@ -24,6 +24,8 @@ namespace btr.infrastructure.SalesContext.FakturInfoAgg
             const string sql = @"
                 SELECT 
                     aa.FakturId, aa.FakturCode, aa.FakturDate, 
+                    aa.DueDate AS JatuhTempo,
+                    ISNULL(cc.CustomerCode, '') AS CustomerCode,    
                     ISNULL(cc.CustomerName, '') AS CustomerName,
                     ISNULL(dd.WilayahName, '') AS WilayahName,
                     ISNULL(ff.BrgName, '') AS BrgName,

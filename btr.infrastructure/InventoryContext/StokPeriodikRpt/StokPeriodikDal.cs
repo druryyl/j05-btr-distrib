@@ -33,6 +33,7 @@ namespace btr.infrastructure.InventoryContext.StokPeriodikRpt
                     ISNULL(cc.SupplierName, '') SupplierName,
                     ISNULL(bb.KategoriId, '') KategoriId,
                     ISNULL(dd.KategoriName, '') KategoriName,
+                    ISNULL(ee.WarehouseName, '') WarehouseName,                    
                     ISNULL(bb.Hpp, 0) Hpp,
                     SUM(aa.QtyIn - aa.QtyOut) Qty
                 FROM 
@@ -40,13 +41,13 @@ namespace btr.infrastructure.InventoryContext.StokPeriodikRpt
                     LEFT JOIN BTR_Brg bb ON aa.BrgId = bb.BrgId
                     LEFT JOIN BTR_Supplier cc ON bb.SupplierId = cc.SupplierId
                     LEFT JOIN BTR_Kategori dd ON bb.KategoriId = dd.KategoriId
-
+                    LEFT JOIN BTR_Warehouse ee ON aa.WarehouseId = ee.WarehouseId
                 WHERE 
                     MutasiDate <= @mutasiDate
                 GROUP BY 
                     aa.BrgId, aa.WarehouseId, bb.BrgCode, bb.BrgName,
                     bb.SupplierId, cc.SupplierName, bb.KategoriId, 
-                    dd.KategoriName, bb.Hpp ";
+                    dd.KategoriName, ee.WarehouseName, bb.Hpp        ";
 
             var dp = new DynamicParameters();
             dp.AddParam("@mutasiDate", tgl.Date.AddHours(23).AddMinutes(59).AddSeconds(59), System.Data.SqlDbType.DateTime);

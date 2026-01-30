@@ -100,8 +100,8 @@ namespace btr.distrib.SalesContext.FakturPerSupplierRpt
             InfoGrid.TableDescriptor.Columns["PpnRp"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["Total"].Appearance.AnyRecordFieldCell.Format = "N0";
             // format column FakturDate to dd MMM yyy
-            InfoGrid.TableDescriptor.Columns["FakturDate"].Appearance.AnyRecordFieldCell.Format = "dd MMM yyyy";
-            
+            InfoGrid.TableDescriptor.Columns["FakturDate"].Appearance.AnyRecordFieldCell.Format = "dd-MM-yyyy";
+            InfoGrid.TableDescriptor.Columns["JatuhTempo"].Appearance.AnyRecordFieldCell.Format = "dd-MM-yyyy";
 
             InfoGrid.TableDescriptor.Columns["QtyBesar"].Appearance.AnyRecordFieldCell.BackColor = Color.LightGreen;
             InfoGrid.TableDescriptor.Columns["HrgSatBesar"].Appearance.AnyRecordFieldCell.BackColor = Color.LightGreen;

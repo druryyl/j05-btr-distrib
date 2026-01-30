@@ -29,6 +29,7 @@ namespace btr.infrastructure.SalesContext.FakturPerSupplierRpt
                     ISNULL(gg.Kota, '') AS SupplierKota,
                     ISNULL(bb.FakturCode, '') AS FakturCode,
                     ISNULL(bb.FakturDate, '') AS FakturDate,
+                    ISNULL(bb.DueDate, '') AS JatuhTempo,
                     ISNULL(ee.SalesPersonName, '') AS SalesPersonName,
                     ISNULL(dd.CustomerCode, '') AS CustomerCode,
                     ISNULL(dd.CustomerName, '') AS CustomerName, 

@@ -156,6 +156,8 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
             InfoGrid.TableDescriptor.Columns["PpnRp"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["Total"].Appearance.AnyRecordFieldCell.Format = "N0";
             InfoGrid.TableDescriptor.Columns["FakturDate"].Appearance.AnyRecordFieldCell.Format = "dd-MMM-yyyy";
+            InfoGrid.TableDescriptor.Columns["JatuhTempo"].Appearance.AnyRecordFieldCell.Format = "dd-MMM-yyyy";
+
             InfoGrid.Refresh();
             Proses();
         }

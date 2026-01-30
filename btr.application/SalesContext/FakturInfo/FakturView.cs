@@ -7,7 +7,9 @@ namespace btr.application.SalesContext.FakturInfo
         public string FakturId { get; set; }
         public string FakturCode { get; set; }
         public DateTime Tgl { get; set; }
+        public DateTime JatuhTempo { get; set; }
         public string Admin { get; set; }
+        public string CustomerCode { get; set; }
         public string Customer { get; set; }
         public string Address { get; set; }
         public string WilayahName { get; set; }
