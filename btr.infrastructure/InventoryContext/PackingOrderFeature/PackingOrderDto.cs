@@ -52,11 +52,11 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
 
         public PackingOrderModel ToModel(IEnumerable<PackingOrderItemModel> listItem)
         {
-            var customer = new CustomerType(
+            var customer = new CustomerReff(
                 CustomerId, CustomerCode, CustomerName, Alamat, NoTelp);
-            var faktur = new FakturType(
+            var faktur = new FakturReff(
                 FakturId, FakturCode, FakturDate, AdminName);
-            var location = new LocationType(
+            var location = new LocationReff(
                 Latitude, Longitude, Accuracy);
             return new PackingOrderModel(
                 PackingOrderId,

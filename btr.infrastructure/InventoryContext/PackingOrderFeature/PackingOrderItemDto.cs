@@ -38,7 +38,7 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
 
         public PackingOrderItemModel ToModel()
         {
-            var brg = new BrgType(BrgId, BrgCode, BrgName);
+            var brg = new BrgReff(BrgId, BrgCode, BrgName);
             var qtyBesar = new QtyType(QtyBesar, SatBesar);
             var qtyKecil = new QtyType(QtyKecil, SatKecil);
 

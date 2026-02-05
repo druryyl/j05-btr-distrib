@@ -15,9 +15,9 @@ namespace btr.domain.InventoryContext.PackingOrderFeature
         public PackingOrderModel(
             string packingOrderId,
             DateTime packingOrderDate,
-            CustomerType customer,
-            LocationType location,
-            FakturType faktur,
+            CustomerReff customer,
+            LocationReff location,
+            FakturReff faktur,
             IEnumerable<PackingOrderItemModel> listItem)
         {
             PackingOrderId = packingOrderId;
@@ -32,14 +32,14 @@ namespace btr.domain.InventoryContext.PackingOrderFeature
         {
             var newId = Ulid.NewUlid().ToString();
             var address = JoinNonEmpty(",", customer.Address1, customer.Address2, customer.Kota); 
-            var customerReff = new CustomerType(faktur.CustomerId, faktur.CustomerCode, faktur.CustomerName, address, customer.NoTelp);
-            var location = new LocationType(
+            var customerReff = new CustomerReff(faktur.CustomerId, faktur.CustomerCode, faktur.CustomerName, address, customer.NoTelp);
+            var location = new LocationReff(
                 Convert.ToDecimal(customer.Latitude), 
                 Convert.ToDecimal(customer.Longitude), 
                 (int)customer.Accuracy);
-            var fakturReff = new FakturType(faktur.FakturId, faktur.FakturCode, faktur.FakturDate, faktur.UserId);
+            var fakturReff = new FakturReff(faktur.FakturId, faktur.FakturCode, faktur.FakturDate, faktur.UserId);
             var listBrg = faktur.ListItem.Select((x,idx) => new PackingOrderItemModel(idx, 
-                new BrgType(x.BrgId, x.BrgCode, x.BrgName), 
+                new BrgReff(x.BrgId, x.BrgCode, x.BrgName), 
                 new QtyType(x.QtyBesar, x.SatBesar), 
                 new QtyType(x.QtyKecil + x.QtyBonus, x.SatKecil)));
             var result = new PackingOrderModel(newId, DateTime.Now, customerReff, location, fakturReff, listBrg);
@@ -52,9 +52,9 @@ namespace btr.domain.InventoryContext.PackingOrderFeature
         public static PackingOrderModel Default => new PackingOrderModel(
             "-",
             new DateTime(3000, 1, 1),
-            CustomerType.Default,
-            LocationType.Default,
-            FakturType.Default,
+            CustomerReff.Default,
+            LocationReff.Default,
+            FakturReff.Default,
             Enumerable.Empty<PackingOrderItemModel>());
 
         public static IPackingOrderKey Key(string id)
@@ -67,9 +67,9 @@ namespace btr.domain.InventoryContext.PackingOrderFeature
         public string PackingOrderId { get; private set; }
         public DateTime PackingOrderDate { get; private set; }
         public string PackingOrderCode { get; private set; }
-        public CustomerType Customer { get; private set; }
-        public FakturType Faktur { get; private set; }
-        public LocationType Location { get; private set; }
+        public CustomerReff Customer { get; private set; }
+        public FakturReff Faktur { get; private set; }
+        public LocationReff Location { get; private set; }
         public IEnumerable<PackingOrderItemModel> ListItem => _listItem;
     }
 

@@ -1,8 +1,8 @@
 ﻿namespace btr.domain.InventoryContext.PackingOrderFeature
 {
-    public class CustomerType : ICustomerKey
+    public class CustomerReff : ICustomerKey
     {
-        public CustomerType(string customerId, string customerCode,
+        public CustomerReff(string customerId, string customerCode,
             string customerName, string alamat, string noTelp)
         {
             CustomerId = customerId;
@@ -12,7 +12,7 @@
             NoTelp = noTelp;
         }
 
-        public static CustomerType Default => new CustomerType(
+        public static CustomerReff Default => new CustomerReff(
             "-", "-", "-", "-", "-");
 
         public static ICustomerKey Key(string id)

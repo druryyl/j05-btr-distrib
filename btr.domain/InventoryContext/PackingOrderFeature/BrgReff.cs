@@ -1,15 +1,15 @@
 ﻿namespace btr.domain.InventoryContext.PackingOrderFeature
 {
-    public class BrgType : IBrgKey
+    public class BrgReff : IBrgKey
     {
-        public BrgType(string brgId, string brgCode, string brgName)
+        public BrgReff(string brgId, string brgCode, string brgName)
         {
             BrgId = brgId;
             BrgCode = brgCode;
             BrgName = brgName;
         }
 
-        public static BrgType Default => new BrgType(
+        public static BrgReff Default => new BrgReff(
             "-", "-", "-");
 
         public static IBrgKey Key(string id)

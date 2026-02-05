@@ -2,7 +2,7 @@
 {
     public class PackingOrderItemModel
     {
-        public PackingOrderItemModel(int noUrut, BrgType brg, QtyType qtyBesar, QtyType qtyKecil)
+        public PackingOrderItemModel(int noUrut, BrgReff brg, QtyType qtyBesar, QtyType qtyKecil)
         {
             NoUrut = noUrut;
             Brg = brg;
@@ -10,7 +10,7 @@
             QtyKecil = qtyKecil;
         }
         public int NoUrut { get; }
-        public BrgType Brg { get; }
+        public BrgReff Brg { get; }
         public QtyType QtyBesar { get; }
         public QtyType QtyKecil { get; }
     }

@@ -3,9 +3,9 @@ using System;
 
 namespace btr.domain.InventoryContext.PackingOrderFeature
 {
-    public class FakturType : IFakturKey
+    public class FakturReff : IFakturKey
     {
-        public FakturType(string fakturId, string fakturCode, DateTime fakturDate, string adminName)
+        public FakturReff(string fakturId, string fakturCode, DateTime fakturDate, string adminName)
         {
             FakturId = fakturId;
             FakturCode = fakturCode;
@@ -13,7 +13,7 @@ namespace btr.domain.InventoryContext.PackingOrderFeature
             AdminName = adminName;
         }
 
-        public static FakturType Default => new FakturType(
+        public static FakturReff Default => new FakturReff(
             "-", "-", new DateTime(3000, 1, 1), string.Empty);
 
         public static IFakturKey Key(string id)

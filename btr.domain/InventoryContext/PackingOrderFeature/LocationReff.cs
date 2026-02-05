@@ -1,15 +1,15 @@
 ﻿namespace btr.domain.InventoryContext.PackingOrderFeature
 {
-    public class LocationType
+    public class LocationReff
     {
-        public LocationType(decimal latitude, decimal longitude, int accuracy)
+        public LocationReff(decimal latitude, decimal longitude, int accuracy)
         {
             Latitude = latitude;
             Longitude = longitude;
             Accuracy = accuracy;
         }
 
-        public static LocationType Default => new LocationType(
+        public static LocationReff Default => new LocationReff(
             0, 0, 0);
 
         public decimal Latitude { get; private set; }
