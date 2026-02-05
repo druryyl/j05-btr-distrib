@@ -64,6 +64,7 @@
     <Folder Include="Tables\PurchaseContext\" />
     <Folder Include="Tables\Finance" />
     <Folder Include="Tables\InventoryContext\" />
+    <Folder Include="PackingOrderModel" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="DataSeeds\SpecialWarehouse.sql" />
@@ -136,6 +137,8 @@
     <Build Include="Tables\SalesContext\BTR_OrderMap.sql" />
     <Build Include="Tables\SalesContext\BTR_CustomerLocHistory.sql" />
     <Build Include="Tables\SalesContext\BTR_CheckIn.sql" />
+    <Build Include="PackingOrderModel\BTR_PackingOrder.sql" />
+    <Build Include="PackingOrderModel\BTR_PackingOrderItem.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Tables\SalesContext\BTR_HariRuteDataSeed.sql" />

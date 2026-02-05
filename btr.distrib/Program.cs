@@ -218,6 +218,21 @@ namespace btr.distrib
                         .AddClasses(c => c.AssignableTo(typeof(INunaService<>)))
                         .UsingRegistrationStrategy(RegistrationStrategy.Skip)
                         .AsSelfWithInterfaces()
+                        .WithScopedLifetime()
+                    .FromAssemblyOf<InfrastructureAssemblyAnchor>()
+                        .AddClasses(c => c.AssignableTo(typeof(ISaveChange<>)))
+                        .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+                        .AsSelfWithInterfaces()
+                        .WithScopedLifetime()
+                    .FromAssemblyOf<InfrastructureAssemblyAnchor>()
+                        .AddClasses(c => c.AssignableTo(typeof(IDeleteEntity<>)))
+                        .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+                        .AsSelfWithInterfaces()
+                        .WithScopedLifetime()
+                    .FromAssemblyOf<InfrastructureAssemblyAnchor>()
+                        .AddClasses(c => c.AssignableTo(typeof(ILoadEntity<,>)))
+                        .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+                        .AsSelfWithInterfaces()
                         .WithScopedLifetime());
 
             services

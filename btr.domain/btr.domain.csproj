@@ -102,6 +102,13 @@
     <Compile Include="InventoryContext\OpnameAgg\IStokOpKey.cs" />
     <Compile Include="InventoryContext\OpnameAgg\OpnameModel.cs" />
     <Compile Include="InventoryContext\OpnameAgg\StokOpModel.cs" />
+    <Compile Include="InventoryContext\PackingOrderFeature\BrgType.cs" />
+    <Compile Include="InventoryContext\PackingOrderFeature\CustomerType.cs" />
+    <Compile Include="InventoryContext\PackingOrderFeature\FakturType.cs" />
+    <Compile Include="InventoryContext\PackingOrderFeature\LocationType.cs" />
+    <Compile Include="InventoryContext\PackingOrderFeature\PackingOrderItemModel.cs" />
+    <Compile Include="InventoryContext\PackingOrderFeature\PackingOrderModel.cs" />
+    <Compile Include="InventoryContext\PackingOrderFeature\QtyType.cs" />
     <Compile Include="InventoryContext\ReturJualAgg\ReturJualItemDiscModel.cs" />
     <Compile Include="InventoryContext\ReturJualAgg\ReturJualItemModel.cs" />
     <Compile Include="InventoryContext\ReturJualAgg\ReturJualItemQtyHrgModel.cs" />

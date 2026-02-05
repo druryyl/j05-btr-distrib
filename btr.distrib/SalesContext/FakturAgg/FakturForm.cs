@@ -2,6 +2,7 @@
 using btr.application.FinanceContext.PiutangAgg.Contracts;
 using btr.application.FinanceContext.PiutangAgg.Workers;
 using btr.application.InventoryContext.DriverAgg;
+using btr.application.InventoryContext.PackingOrderFeature;
 using btr.application.InventoryContext.WarehouseAgg;
 using btr.application.SalesContext.CustomerAgg.Contracts;
 using btr.application.SalesContext.FakturAgg.UseCases;
@@ -17,6 +18,7 @@ using btr.distrib.SharedForm;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.FinanceContext.PiutangAgg;
 using btr.domain.InventoryContext.DriverAgg;
+using btr.domain.InventoryContext.PackingOrderFeature;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.FakturAgg;
@@ -73,6 +75,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly IParamSistemDal _paramSistemDal;
         private readonly IPiutangDal _piutangDal;
 
+        private readonly IPackingOrderRepo _packingOrderRepo;
 
         private string _tipeHarga = string.Empty;
         private decimal _ppnProsen = 0;
@@ -102,7 +105,8 @@ namespace btr.distrib.SalesContext.FakturAgg
             IBrowser<FakturCodeOpenBrowserView> fakturCodeOpenBrowser,
             IUserDal userDal,
             IOrderBuilder orderBuilder,
-            IPiutangDal piutangDal)
+            IPiutangDal piutangDal,
+            IPackingOrderRepo packingOrderRepo)
         {
             InitializeComponent();
             _warehouseBrowser = warehouseBrowser;
@@ -131,13 +135,14 @@ namespace btr.distrib.SalesContext.FakturAgg
             _userDal = userDal;
             _bindingSource = new BindingSource();
             _orderBuilder = orderBuilder;
+            _piutangDal = piutangDal;
+            _packingOrderRepo = packingOrderRepo;
 
             InitParamSistem();
             RegisterEventHandler();
             InitGrid();
             InitTextBox();
             ClearForm();
-            _piutangDal = piutangDal;
         }
 
         private void InitParamSistem()
@@ -451,7 +456,6 @@ namespace btr.distrib.SalesContext.FakturAgg
             SaveButton.Visible = true;
         }
         #endregion
-
 
         #region SALES-PERSON
         public void LoadOrder(string orderId)
@@ -902,6 +906,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             {
                 var faktur = SaveFaktur();
                 SavePiutang(faktur);
+                SavePackingOrder(faktur);
 
                 ClearForm();
 
@@ -952,8 +957,8 @@ namespace btr.distrib.SalesContext.FakturAgg
                 UserId = mainform.UserId.UserId,
                 Cash = UangMukaText.Value,
                 Note = NoteTextBox.Text,
-
             };
+
             var listItem = (
                 from c in _listItemJual
                 where c.BrgName?.Length > 0
@@ -1022,6 +1027,21 @@ namespace btr.distrib.SalesContext.FakturAgg
             _piutangWriter.Save(ref piutang);
         }
 
+        public void SavePackingOrder(FakturModel faktur)
+        {
+            if (faktur is null)
+                return;
+            var packingOrderMayBe = _packingOrderRepo.LoadEntity(faktur);
+            var customer = _customerDal.GetData(faktur);
+            var packingOrder = packingOrderMayBe
+                .Match(
+                    onSome: x => new PackingOrderModel(x.PackingOrderId, x.PackingOrderDate, 
+                    x.Customer, x.Location, x.Faktur,  x.ListItem.ToList()),
+                    onNone: () => PackingOrderModel.CreateFromFaktur(faktur, customer)
+                );
+            _packingOrderRepo.SaveChanges(packingOrder);
+        }
+
         private void PrintFakturRdlc(FakturPrintOutDto faktur)
         {
             var fakturJualDataset = new ReportDataSource("FakturJualDataset", new List<FakturPrintOutDto> { faktur });
@@ -1061,7 +1081,7 @@ namespace btr.distrib.SalesContext.FakturAgg
 
     }
 
-public static class DecimalExtensions
+    public static class DecimalExtensions
     {
         public static string ToSmartString(this decimal value, int maxDecimalPlaces = 8)
         {

@@ -121,6 +121,11 @@
     <Compile Include="InventoryContext\PackingAgg\PackingDal.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingFakturDal.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingBrgDal.cs" />
+    <Compile Include="InventoryContext\PackingOrderFeature\PackingOrderDal.cs" />
+    <Compile Include="InventoryContext\PackingOrderFeature\PackingOrderDto.cs" />
+    <Compile Include="InventoryContext\PackingOrderFeature\PackingOrderItemDal.cs" />
+    <Compile Include="InventoryContext\PackingOrderFeature\PackingOrderItemDto.cs" />
+    <Compile Include="InventoryContext\PackingOrderFeature\PackingOrderRepo.cs" />
     <Compile Include="InventoryContext\ReturJualAgg\ReturJualDal.cs" />
     <Compile Include="InventoryContext\ReturJualAgg\ReturJualItemDal.cs" />
     <Compile Include="InventoryContext\ReturJualAgg\ReturJualItemDiscDal.cs" />

@@ -169,6 +169,7 @@
     <Compile Include="InventoryContext\PackingAgg\IPackingFakturBrgDal.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingBuilder.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingWriter.cs" />
+    <Compile Include="InventoryContext\PackingOrderFeature\IPackingOrderRepo.cs" />
     <Compile Include="InventoryContext\ReturJualAgg\Contracts\IReturJualBrgViewDal.cs" />
     <Compile Include="InventoryContext\ReturJualAgg\Contracts\IReturJualDal.cs" />
     <Compile Include="InventoryContext\ReturJualAgg\Contracts\IReturJualItemDal.cs" />

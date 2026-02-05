@@ -51,9 +51,13 @@
   <ItemGroup>
     <Compile Include="Application\GuardExtension.cs" />
     <Compile Include="Application\INunaCounterDal.cs" />
+    <Compile Include="Application\MayBeMonad.cs" />
     <Compile Include="Application\NunaCounterBL.cs" />
     <Compile Include="Application\NunaWorker.cs" />
+    <Compile Include="Application\RepoInterface.cs" />
+    <Compile Include="Application\ResultMonad.cs" />
     <Compile Include="Application\TransHelper.cs" />
+    <Compile Include="Domain\CollectionHelper.cs" />
     <Compile Include="Domain\DateTimeConversion.cs" />
     <Compile Include="Domain\DateTimeProvider.cs" />
     <Compile Include="Domain\NumericHelper.cs" />
