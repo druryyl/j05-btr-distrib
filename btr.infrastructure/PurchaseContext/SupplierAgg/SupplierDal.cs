@@ -25,11 +25,11 @@ namespace btr.infrastructure.PurchaseContext.SupplierAgg
                 INSERT INTO BTR_Supplier (
                     SupplierId, SupplierName, SupplierCode,
                     Address1, Address2, Kota, KodePos, NoTelp,
-                    NoFax, ContactPerson, Npwp, NoPkp, Keyword)
+                    NoFax, ContactPerson, Npwp, NoPkp, Keyword, DepoId)
                 VALUES(
                     @SupplierId, @SupplierName, @SupplierCode,
                     @Address1, @Address2, @Kota, @KodePos, @NoTelp,
-                    @NoFax, @ContactPerson, @Npwp, @NoPkp, @Keyword) ";
+                    @NoFax, @ContactPerson, @Npwp, @NoPkp, @Keyword, @DepoId) ";
 
             var dp = new DynamicParameters();
             dp.AddParam("@SupplierId", model.SupplierId, SqlDbType.VarChar);
@@ -47,6 +47,7 @@ namespace btr.infrastructure.PurchaseContext.SupplierAgg
             dp.AddParam("@Npwp", model.Npwp, SqlDbType.VarChar);
             dp.AddParam("@NoPkp", model.NoPkp, SqlDbType.VarChar);
             dp.AddParam("@Keyword", model.Keyword, SqlDbType.VarChar);
+            dp.AddParam("@DepoId", model.DepoId, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -72,7 +73,8 @@ namespace btr.infrastructure.PurchaseContext.SupplierAgg
                     ContactPerson = @ContactPerson, 
                     Npwp = @Npwp, 
                     NoPkp = @NoPkp,
-                    Keyword = @Keyword
+                    Keyword = @Keyword,
+                    DepoId = @DepoId
                 WHERE
                     SupplierId = @SupplierId ";
 
@@ -92,6 +94,7 @@ namespace btr.infrastructure.PurchaseContext.SupplierAgg
             dp.AddParam("@Npwp", model.Npwp, SqlDbType.VarChar);
             dp.AddParam("@NoPkp", model.NoPkp, SqlDbType.VarChar);
             dp.AddParam("@Keyword", model.Keyword, SqlDbType.VarChar);
+            dp.AddParam("@DepoId", model.DepoId, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -120,11 +123,13 @@ namespace btr.infrastructure.PurchaseContext.SupplierAgg
         {
             const string sql = @"
                 SELECT
-                    SupplierId, SupplierName, SupplierCode,
-                    Address1, Address2, Kota, KodePos, NoTelp,
-                    NoFax, ContactPerson, Npwp, NoPkp, Keyword
+                    aa.SupplierId, aa.SupplierName, aa.SupplierCode,
+                    aa.Address1, aa.Address2, aa.Kota, aa.KodePos, aa.NoTelp,
+                    aa.NoFax, aa.ContactPerson, aa.Npwp, aa.NoPkp, aa.Keyword, aa.DepoId,
+                    ISNULL(bb.DepoName, '') AS DepoName
                 FROM
-                     BTR_Supplier
+                    BTR_Supplier aa
+                    LEFT JOIN BTR_Depo bb ON aa.DepoId = bb.DepoId      
                 WHERE
                     SupplierId = @SupplierId  ";
 
@@ -141,11 +146,13 @@ namespace btr.infrastructure.PurchaseContext.SupplierAgg
         {
             const string sql = @"
                 SELECT
-                    SupplierId, SupplierName, SupplierCode,
-                    Address1, Address2, Kota, KodePos, NoTelp,
-                    NoFax, ContactPerson, Npwp, NoPkp, Keyword
+                    aa.SupplierId, aa.SupplierName, aa.SupplierCode,
+                    aa.Address1, aa.Address2, aa.Kota, aa.KodePos, aa.NoTelp,
+                    aa.NoFax, aa.ContactPerson, aa.Npwp, aa.NoPkp, aa.Keyword, aa.DepoId,
+                    ISNULL(bb.DepoName, '') AS DepoName
                 FROM
-                     BTR_Supplier  ";
+                    BTR_Supplier aa
+                    LEFT JOIN BTR_Depo bb ON aa.DepoId = bb.DepoId ";
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {

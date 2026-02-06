@@ -211,6 +211,7 @@
     <Compile Include="InventoryContext\StokBrgSupplierRpt\IStokBrgSupplierDal.cs" />
     <Compile Include="InventoryContext\StokPeriodikInfo\IStokPeriodikDal.cs" />
     <Compile Include="InventoryContext\StokPeriodikInfo\StokPeriodikDto.cs" />
+    <Compile Include="InventoryContext\WarehouseAgg\IDepoDal.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\IWarehouseDal.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\GetWarehouseQuery.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\ListWarehouseQuery.cs" />

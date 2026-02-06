@@ -58,6 +58,8 @@
             this.Alamat2Text = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.KeywordText = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.SupplierCodeText = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -65,8 +67,8 @@
             this.SupplierNameText = new System.Windows.Forms.TextBox();
             this.SupplierButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.KeywordText = new System.Windows.Forms.TextBox();
+            this.DepoCombo = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.MainTab.SuspendLayout();
             this.ListPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ListGrid)).BeginInit();
@@ -107,7 +109,7 @@
             this.ExcelButton.Location = new System.Drawing.Point(637, 408);
             this.ExcelButton.Name = "ExcelButton";
             this.ExcelButton.Size = new System.Drawing.Size(67, 23);
-            this.ExcelButton.TabIndex = 9;
+            this.ExcelButton.TabIndex = 4;
             this.ExcelButton.Text = "Excel";
             this.ExcelButton.UseVisualStyleBackColor = true;
             // 
@@ -117,7 +119,7 @@
             this.SearchButton.Location = new System.Drawing.Point(556, 408);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(75, 23);
-            this.SearchButton.TabIndex = 8;
+            this.SearchButton.TabIndex = 3;
             this.SearchButton.Text = "Search";
             this.SearchButton.UseVisualStyleBackColor = true;
             // 
@@ -128,7 +130,7 @@
             this.SearchText.Location = new System.Drawing.Point(6, 409);
             this.SearchText.Name = "SearchText";
             this.SearchText.Size = new System.Drawing.Size(544, 22);
-            this.SearchText.TabIndex = 7;
+            this.SearchText.TabIndex = 2;
             // 
             // ListGrid
             // 
@@ -139,7 +141,7 @@
             this.ListGrid.Location = new System.Drawing.Point(6, 9);
             this.ListGrid.Name = "ListGrid";
             this.ListGrid.Size = new System.Drawing.Size(698, 392);
-            this.ListGrid.TabIndex = 6;
+            this.ListGrid.TabIndex = 1;
             // 
             // DetilPage
             // 
@@ -203,7 +205,7 @@
             this.textBox1.Location = new System.Drawing.Point(13, 108);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(205, 22);
-            this.textBox1.TabIndex = 16;
+            this.textBox1.TabIndex = 17;
             // 
             // label13
             // 
@@ -219,7 +221,7 @@
             this.NoFaxText.Location = new System.Drawing.Point(12, 67);
             this.NoFaxText.Name = "NoFaxText";
             this.NoFaxText.Size = new System.Drawing.Size(205, 22);
-            this.NoFaxText.TabIndex = 15;
+            this.NoFaxText.TabIndex = 16;
             // 
             // label12
             // 
@@ -235,7 +237,7 @@
             this.NoTelponText.Location = new System.Drawing.Point(12, 26);
             this.NoTelponText.Name = "NoTelponText";
             this.NoTelponText.Size = new System.Drawing.Size(205, 22);
-            this.NoTelponText.TabIndex = 14;
+            this.NoTelponText.TabIndex = 15;
             // 
             // panel3
             // 
@@ -264,7 +266,7 @@
             this.NoPkpText.Location = new System.Drawing.Point(13, 66);
             this.NoPkpText.Name = "NoPkpText";
             this.NoPkpText.Size = new System.Drawing.Size(205, 22);
-            this.NoPkpText.TabIndex = 18;
+            this.NoPkpText.TabIndex = 19;
             // 
             // NpwpText
             // 
@@ -272,7 +274,7 @@
             this.NpwpText.Location = new System.Drawing.Point(13, 25);
             this.NpwpText.Name = "NpwpText";
             this.NpwpText.Size = new System.Drawing.Size(205, 22);
-            this.NpwpText.TabIndex = 17;
+            this.NpwpText.TabIndex = 18;
             // 
             // label11
             // 
@@ -313,7 +315,7 @@
             this.KodePosText.Location = new System.Drawing.Point(12, 135);
             this.KodePosText.Name = "KodePosText";
             this.KodePosText.Size = new System.Drawing.Size(205, 22);
-            this.KodePosText.TabIndex = 13;
+            this.KodePosText.TabIndex = 14;
             // 
             // label1
             // 
@@ -329,7 +331,7 @@
             this.KotaText.Location = new System.Drawing.Point(12, 94);
             this.KotaText.Name = "KotaText";
             this.KotaText.Size = new System.Drawing.Size(205, 22);
-            this.KotaText.TabIndex = 12;
+            this.KotaText.TabIndex = 13;
             // 
             // Alamat1Text
             // 
@@ -337,14 +339,14 @@
             this.Alamat1Text.Location = new System.Drawing.Point(12, 25);
             this.Alamat1Text.Name = "Alamat1Text";
             this.Alamat1Text.Size = new System.Drawing.Size(205, 22);
-            this.Alamat1Text.TabIndex = 10;
+            this.Alamat1Text.TabIndex = 11;
             // 
             // Alamat2Text
             // 
             this.Alamat2Text.Location = new System.Drawing.Point(12, 53);
             this.Alamat2Text.Name = "Alamat2Text";
             this.Alamat2Text.Size = new System.Drawing.Size(205, 22);
-            this.Alamat2Text.TabIndex = 11;
+            this.Alamat2Text.TabIndex = 12;
             // 
             // label5
             // 
@@ -359,6 +361,8 @@
             // 
             this.panel2.BackColor = System.Drawing.Color.MistyRose;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.label9);
+            this.panel2.Controls.Add(this.DepoCombo);
             this.panel2.Controls.Add(this.label8);
             this.panel2.Controls.Add(this.KeywordText);
             this.panel2.Controls.Add(this.label3);
@@ -372,6 +376,22 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(228, 396);
             this.panel2.TabIndex = 51;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(12, 132);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(51, 13);
+            this.label8.TabIndex = 13;
+            this.label8.Text = "Keyword";
+            // 
+            // KeywordText
+            // 
+            this.KeywordText.Location = new System.Drawing.Point(12, 148);
+            this.KeywordText.Name = "KeywordText";
+            this.KeywordText.Size = new System.Drawing.Size(205, 22);
+            this.KeywordText.TabIndex = 9;
             // 
             // label3
             // 
@@ -387,7 +407,7 @@
             this.SupplierCodeText.Location = new System.Drawing.Point(12, 107);
             this.SupplierCodeText.Name = "SupplierCodeText";
             this.SupplierCodeText.Size = new System.Drawing.Size(205, 22);
-            this.SupplierCodeText.TabIndex = 9;
+            this.SupplierCodeText.TabIndex = 8;
             // 
             // label2
             // 
@@ -404,21 +424,21 @@
             this.SupplierIdText.Location = new System.Drawing.Point(12, 25);
             this.SupplierIdText.Name = "SupplierIdText";
             this.SupplierIdText.Size = new System.Drawing.Size(177, 22);
-            this.SupplierIdText.TabIndex = 6;
+            this.SupplierIdText.TabIndex = 5;
             // 
             // SupplierNameText
             // 
             this.SupplierNameText.Location = new System.Drawing.Point(12, 66);
             this.SupplierNameText.Name = "SupplierNameText";
             this.SupplierNameText.Size = new System.Drawing.Size(205, 22);
-            this.SupplierNameText.TabIndex = 8;
+            this.SupplierNameText.TabIndex = 7;
             // 
             // SupplierButton
             // 
             this.SupplierButton.Location = new System.Drawing.Point(195, 25);
             this.SupplierButton.Name = "SupplierButton";
             this.SupplierButton.Size = new System.Drawing.Size(28, 23);
-            this.SupplierButton.TabIndex = 7;
+            this.SupplierButton.TabIndex = 6;
             this.SupplierButton.Text = "...";
             this.SupplierButton.UseVisualStyleBackColor = true;
             // 
@@ -431,21 +451,22 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Suppier ID";
             // 
-            // label8
+            // DepoCombo
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 132);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(51, 13);
-            this.label8.TabIndex = 13;
-            this.label8.Text = "Keyword";
+            this.DepoCombo.FormattingEnabled = true;
+            this.DepoCombo.Location = new System.Drawing.Point(12, 211);
+            this.DepoCombo.Name = "DepoCombo";
+            this.DepoCombo.Size = new System.Drawing.Size(205, 21);
+            this.DepoCombo.TabIndex = 10;
             // 
-            // KeywordText
+            // label9
             // 
-            this.KeywordText.Location = new System.Drawing.Point(12, 148);
-            this.KeywordText.Name = "KeywordText";
-            this.KeywordText.Size = new System.Drawing.Size(205, 22);
-            this.KeywordText.TabIndex = 12;
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(12, 195);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(96, 13);
+            this.label9.TabIndex = 15;
+            this.label9.Text = "Depo Lokasi Stok";
             // 
             // SupplierForm
             // 
@@ -515,5 +536,7 @@
         private System.Windows.Forms.Button ExcelButton;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox KeywordText;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox DepoCombo;
     }
 }

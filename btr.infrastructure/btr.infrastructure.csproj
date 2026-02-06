@@ -139,6 +139,7 @@
     <Compile Include="InventoryContext\StokBalanceRpt\StokBalanceViewDal.cs" />
     <Compile Include="InventoryContext\StokBrgSupplierRpt\StokBrgSupplierDal.cs" />
     <Compile Include="InventoryContext\StokPeriodikRpt\StokPeriodikDal.cs" />
+    <Compile Include="InventoryContext\WarehouseAgg\DepoDal.cs" />
     <Compile Include="InventoryContext\WarehouseAgg\WarehouseDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PurchaseContext\InvoiceAgg\InvoiceDal.cs" />

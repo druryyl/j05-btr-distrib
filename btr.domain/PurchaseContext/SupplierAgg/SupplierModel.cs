@@ -23,5 +23,7 @@
         public string NoPkp { get; set; }
         
         public string Keyword { get; set; }
+        public string DepoId { get; set; }
+        public string DepoName { get; set; }
     }
 }

@@ -21,6 +21,7 @@ namespace btr.application.PurchaseContext.SupplierAgg.Workers
         ISupplierBuilder Npwp(string nnpwp);
         ISupplierBuilder NoPkp(string noPkp);
         ISupplierBuilder Keyword(string keyword);
+        ISupplierBuilder Depo(string depoId);
     }
 
     public class SupplierBuilder : ISupplierBuilder
@@ -116,6 +117,12 @@ namespace btr.application.PurchaseContext.SupplierAgg.Workers
         public ISupplierBuilder Keyword(string keyword)
         {
             _agg.Keyword = keyword;
+            return this;
+        }
+
+        public ISupplierBuilder Depo(string depoId)
+        {
+            _agg.DepoId = depoId;
             return this;
         }
     }

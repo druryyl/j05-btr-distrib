@@ -139,6 +139,7 @@
     <Build Include="Tables\SalesContext\BTR_CheckIn.sql" />
     <Build Include="PackingOrderModel\BTR_PackingOrder.sql" />
     <Build Include="PackingOrderModel\BTR_PackingOrderItem.sql" />
+    <Build Include="Tables\InventoryContext\BTR_Depo.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Tables\SalesContext\BTR_HariRuteDataSeed.sql" />

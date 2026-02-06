@@ -1,7 +1,9 @@
-﻿using btr.application.PurchaseContext.SupplierAgg.Contracts;
+﻿using btr.application.InventoryContext.WarehouseAgg;
+using btr.application.PurchaseContext.SupplierAgg.Contracts;
 using btr.application.PurchaseContext.SupplierAgg.Workers;
 using btr.distrib.Browsers;
 using btr.distrib.Helpers;
+using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.PurchaseContext.SupplierAgg;
 using btr.domain.SalesContext.SalesPersonAgg;
 using btr.nuna.Domain;
@@ -17,6 +19,7 @@ namespace btr.distrib.PurchaseContext.SupplierAgg
     public partial class SupplierForm : Form
     {
         private readonly ISupplierDal _supplierDal;
+        private readonly IDepoDal _depoDal;
         private readonly ISupplierBuilder _supplierBuilder;
         private IEnumerable<SupplierFormGridDto> _listSupplier;
 
@@ -26,21 +29,29 @@ namespace btr.distrib.PurchaseContext.SupplierAgg
         public SupplierForm(ISupplierDal supplierDal,
             ISupplierBuilder supplierBuilder,
             IBrowser<SupplierBrowserView> supplierBrowser,
-            ISupplierWriter supplierWriter)
+            ISupplierWriter supplierWriter,
+            IDepoDal depoDal)
         {
             InitializeComponent();
 
             _supplierDal = supplierDal;
-
             _supplierBrowser = supplierBrowser;
-
             _supplierBuilder = supplierBuilder;
             _supplierWriter = supplierWriter;
+            _depoDal = depoDal;
 
             RegisterEventHandler();
             InitGrid();
+            InitCombo();
         }
 
+        private void InitCombo()
+        {
+            var listDepo = _depoDal.ListData()?.ToList() ?? new List<DepoModel>();
+            DepoCombo.DataSource = listDepo;
+            DepoCombo.DisplayMember = "DepoNAme";
+            DepoCombo.ValueMember = "DepoId";
+        }
         private void RegisterEventHandler()
         {
             SearchButton.Click += SearchButton_Click;
@@ -77,7 +88,9 @@ namespace btr.distrib.PurchaseContext.SupplierAgg
                     x.NoFax,
                     x.NoPkp,
                     x.Npwp,
-                    x.Keyword
+                    x.Keyword,
+                    x.DepoId,
+                    x.DepoName,
                 }).ToList();
 
             string filePath;
@@ -159,7 +172,8 @@ namespace btr.distrib.PurchaseContext.SupplierAgg
                 .Select(x => new SupplierFormGridDto(x.SupplierId,
                     x.SupplierCode,
                     x.SupplierName,
-                    $"{x.Address1} {x.Kota}")).ToList();
+                    $"{x.Address1} {x.Kota}",
+                    x.DepoName)).ToList();
             ListGrid.DataSource = _listSupplier;
 
             ListGrid.Columns.SetDefaultCellStyle(Color.MistyRose);
@@ -167,6 +181,7 @@ namespace btr.distrib.PurchaseContext.SupplierAgg
             ListGrid.Columns.GetCol("Code").Width = 50;
             ListGrid.Columns.GetCol("Name").Width = 200;
             ListGrid.Columns.GetCol("Alamat").Width = 250;
+            ListGrid.Columns.GetCol("Depo").Width = 100;
         }
 
         private void FilterListGrid(string keyword)
@@ -218,6 +233,7 @@ namespace btr.distrib.PurchaseContext.SupplierAgg
 
             NpwpText.Text = supplier.Npwp;
             KeywordText.Text = supplier.Keyword;
+            DepoCombo.SelectedValue = supplier.DepoId;
         }
 
         private void ClearForm()
@@ -234,6 +250,7 @@ namespace btr.distrib.PurchaseContext.SupplierAgg
             NpwpText.Clear();
             NoPkpText.Clear();
             KeywordText.Clear();
+            DepoCombo.SelectedIndex = -1;
         }
         #endregion
 
@@ -264,6 +281,7 @@ namespace btr.distrib.PurchaseContext.SupplierAgg
                 .Npwp(NpwpText.Text)
                 .NoPkp(NoPkpText.Text)
                 .Keyword(KeywordText.Text)
+                .Depo(DepoCombo.SelectedValue?.ToString())
                 .Build();
 
             _supplierWriter.Save(ref supplier);
@@ -275,17 +293,20 @@ namespace btr.distrib.PurchaseContext.SupplierAgg
 
     public class SupplierFormGridDto
     {
-        public SupplierFormGridDto(string id, string code,  string name, string alamat)
+        public SupplierFormGridDto(string id, string code,  string name, 
+            string alamat, string depo)
         {
             Id = id;
             Code = code;
             Name = name;
             Alamat = alamat;
+            Depo = depo;
         }
         public string Id { get; }
         public string Code { get; }
         public string Name { get; }
         public string Alamat { get; }
+        public string Depo { get; }
     }
 
 }

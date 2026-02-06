@@ -89,6 +89,8 @@
     <Compile Include="InventoryContext\AdjustmentAgg\IAdjustmentKey.cs" />
     <Compile Include="InventoryContext\DeliveryAgg\DeliveryModel.cs" />
     <Compile Include="InventoryContext\DeliveryAgg\IDeliveryKey.cs" />
+    <Compile Include="InventoryContext\WarehouseAgg\DepoModel.cs" />
+    <Compile Include="InventoryContext\WarehouseAgg\IDepoKey.cs" />
     <Compile Include="InventoryContext\DriverAgg\DriverModel.cs" />
     <Compile Include="InventoryContext\DriverAgg\IDriverKey.cs" />
     <Compile Include="InventoryContext\ImportOpnameAgg\ImportOpnameModel.cs" />
