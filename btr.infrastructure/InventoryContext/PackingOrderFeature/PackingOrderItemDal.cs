@@ -40,6 +40,7 @@ namespace BtrGudang.Infrastructure.PackingOrderFeature
                 bcp.AddMap("SatBesar", "SatBesar");
                 bcp.AddMap("QtyKecil", "QtyKecil");
                 bcp.AddMap("SatKecil", "SatKecil");
+                bcp.AddMap("DepoId", "DepoId");
 
                 var fetched = listDto.ToList();
                 bcp.BatchSize = fetched.Count;
@@ -68,11 +69,14 @@ namespace BtrGudang.Infrastructure.PackingOrderFeature
         {
             const string sql = @"
                 SELECT
-                    PackingOrderId, NoUrut, 
-                    BrgId, BrgCode, BrgName,
-                    QtyBesar, SatBesar,
-                    QtyKecil, SatKecil
-                FROM BTR_PackingOrderItem
+                    aa.PackingOrderId, aa.NoUrut, 
+                    aa.BrgId, aa.BrgCode, aa.BrgName,
+                    aa.QtyBesar, aa.SatBesar,
+                    aa.QtyKecil, aa.SatKecil,
+                    aa.DepoId, 
+                    ISNULL(bb.DepoName, '') AS DepoName
+                FROM BTR_PackingOrderItem aa
+                LEFT JOIN BTR_Depo bb ON aa.DepoId = bb.DepoId  
                 WHERE PackingOrderId = @PackingOrderId
                 ORDER BY NoUrut
                 ";

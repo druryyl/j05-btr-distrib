@@ -74,6 +74,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly IPiutangWriter _piutangWriter;
         private readonly IParamSistemDal _paramSistemDal;
         private readonly IPiutangDal _piutangDal;
+        private readonly IDepoDal _depoDal;
 
         private readonly IPackingOrderRepo _packingOrderRepo;
 
@@ -106,7 +107,8 @@ namespace btr.distrib.SalesContext.FakturAgg
             IUserDal userDal,
             IOrderBuilder orderBuilder,
             IPiutangDal piutangDal,
-            IPackingOrderRepo packingOrderRepo)
+            IPackingOrderRepo packingOrderRepo,
+            IDepoDal depoDal)
         {
             InitializeComponent();
             _warehouseBrowser = warehouseBrowser;
@@ -143,6 +145,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             InitGrid();
             InitTextBox();
             ClearForm();
+            _depoDal = depoDal;
         }
 
         private void InitParamSistem()
@@ -1037,9 +1040,24 @@ namespace btr.distrib.SalesContext.FakturAgg
                 .Match(
                     onSome: x => new PackingOrderModel(x.PackingOrderId, x.PackingOrderDate, 
                     x.Customer, x.Location, x.Faktur,  x.ListItem.ToList()),
-                    onNone: () => PackingOrderModel.CreateFromFaktur(faktur, customer)
+                    onNone: () => PackingOrderModel.CreateFromFaktur(faktur, customer, CreateBrgDepoDict(faktur.ListItem))
                 );
             _packingOrderRepo.SaveChanges(packingOrder);
+        }
+
+        public Dictionary<string, DepoType> CreateBrgDepoDict(IEnumerable<FakturItemModel> listBrg)
+        {
+            var dict = new Dictionary<string, DepoType>();
+            foreach (var item in listBrg)
+            {
+                if (dict.ContainsKey(item.BrgId))
+                    continue;
+                var depo = _depoDal.GetData(item);
+                if (depo is null)
+                    continue;
+                dict.Add(item.BrgId, depo);
+            }
+            return dict;
         }
 
         private void PrintFakturRdlc(FakturPrintOutDto faktur)

@@ -23,9 +23,9 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
         public string AdminName { get; set; }
 
         // Flattened LocationType properties
-        public decimal Latitude { get; set; }
-        public decimal Longitude { get; set; }
-        public int Accuracy { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+        public double Accuracy { get; set; }
 
         public static PackingOrderDto FromModel(PackingOrderModel model)
         {

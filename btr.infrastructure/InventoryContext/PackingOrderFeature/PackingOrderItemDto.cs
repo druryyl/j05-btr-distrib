@@ -20,6 +20,8 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
         public decimal QtyKecil { get; set; }
         public string SatKecil { get; set; }
 
+        public string DepoId { get; set; }
+        public string DepoName { get; set; }
         public static PackingOrderItemDto FromModel(PackingOrderItemModel model, string packingorderId)
         {
             return new PackingOrderItemDto
@@ -32,7 +34,10 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
                 QtyBesar = model.QtyBesar.Qty,
                 SatBesar = model.QtyBesar.Satuan,
                 QtyKecil = model.QtyKecil.Qty,
-                SatKecil = model.QtyKecil.Satuan
+                SatKecil = model.QtyKecil.Satuan,
+                DepoId = model.DepoId,
+                DepoName = model.DepoName
+
             };
         }
 
@@ -42,7 +47,7 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
             var qtyBesar = new QtyType(QtyBesar, SatBesar);
             var qtyKecil = new QtyType(QtyKecil, SatKecil);
 
-            return new PackingOrderItemModel(NoUrut, brg, qtyBesar, qtyKecil);
+            return new PackingOrderItemModel(NoUrut, brg, qtyBesar, qtyKecil, DepoId, DepoName);
         }
     }
 }

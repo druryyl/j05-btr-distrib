@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace btr.domain.InventoryContext.WarehouseAgg
 {
-    public class DepoModel : IDepoKey
+    public class DepoType : IDepoKey
     {
-        public DepoModel(string depoId, string depoName)
+        public DepoType(string depoId, string depoName)
         {
             DepoId = depoId;
             DepoName = depoName;
         }
         public string DepoId { get; private set; }
         public string DepoName { get; private set; }
+        public static DepoType Default => new DepoType("-", "-");
     }
 }

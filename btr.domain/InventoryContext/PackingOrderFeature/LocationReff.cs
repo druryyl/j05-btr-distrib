@@ -2,7 +2,7 @@
 {
     public class LocationReff
     {
-        public LocationReff(decimal latitude, decimal longitude, int accuracy)
+        public LocationReff(double latitude, double longitude, double accuracy)
         {
             Latitude = latitude;
             Longitude = longitude;
@@ -12,9 +12,9 @@
         public static LocationReff Default => new LocationReff(
             0, 0, 0);
 
-        public decimal Latitude { get; private set; }
-        public decimal Longitude { get; private set; }
-        public int Accuracy { get; private set; }
+        public double Latitude { get; private set; }
+        public double Longitude { get; private set; }
+        public double Accuracy { get; private set; }
     }
 }
 

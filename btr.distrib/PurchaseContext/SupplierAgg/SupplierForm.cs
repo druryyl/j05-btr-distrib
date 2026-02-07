@@ -47,7 +47,7 @@ namespace btr.distrib.PurchaseContext.SupplierAgg
 
         private void InitCombo()
         {
-            var listDepo = _depoDal.ListData()?.ToList() ?? new List<DepoModel>();
+            var listDepo = _depoDal.ListData()?.ToList() ?? new List<DepoType>();
             DepoCombo.DataSource = listDepo;
             DepoCombo.DisplayMember = "DepoNAme";
             DepoCombo.ValueMember = "DepoId";

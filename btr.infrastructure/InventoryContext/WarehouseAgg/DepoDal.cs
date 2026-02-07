@@ -1,4 +1,5 @@
 ﻿using btr.application.InventoryContext.WarehouseAgg;
+using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.infrastructure.Helpers;
 using btr.nuna.Infrastructure;
@@ -23,7 +24,7 @@ namespace btr.infrastructure.InventoryContext.WarehouseAgg
             _opt = opt.Value;
         }
 
-        public void Insert(DepoModel model)
+        public void Insert(DepoType model)
         {
             const string sql = @"
             INSERT INTO BTR_Depo(
@@ -41,7 +42,7 @@ namespace btr.infrastructure.InventoryContext.WarehouseAgg
             }
         }
 
-        public void Update(DepoModel model)
+        public void Update(DepoType model)
         {
             const string sql = @"
             UPDATE 
@@ -78,7 +79,7 @@ namespace btr.infrastructure.InventoryContext.WarehouseAgg
             }
         }
 
-        public DepoModel GetData(IDepoKey key)
+        public DepoType GetData(IDepoKey key)
         {
             const string sql = @"
             SELECT
@@ -93,11 +94,33 @@ namespace btr.infrastructure.InventoryContext.WarehouseAgg
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
-                return conn.ReadSingle<DepoModel>(sql, dp);
+                return conn.ReadSingle<DepoType>(sql, dp);
             }
         }
 
-        public IEnumerable<DepoModel> ListData()
+        public DepoType GetData(IBrgKey brg)
+        {
+            const string sql = @"
+            SELECT
+                aa.DepoId, aa.DepoName
+            FROM
+                BTR_Depo aa
+                INNER JOIN BTR_Supplier bb ON aa.DepoId = bb.DepoId  
+                INNER JOIN BTR_Kategori cc ON bb.SupplierId = cc.SupplierId
+                INNER JOIN BTR_Brg dd ON cc.KategoriId = dd.KategoriId
+            WHERE
+                dd.BrgId = @BrgId ";
+
+            var dp = new DynamicParameters();
+            dp.AddParam("@BrgId", brg.BrgId, SqlDbType.VarChar);
+
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                return conn.ReadSingle<DepoType>(sql, dp);
+            }
+        }
+
+        public IEnumerable<DepoType> ListData()
         {
             const string sql = @"
             SELECT
@@ -107,7 +130,7 @@ namespace btr.infrastructure.InventoryContext.WarehouseAgg
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
-                return conn.Read<DepoModel>(sql);
+                return conn.Read<DepoType>(sql);
             }
         }
     }

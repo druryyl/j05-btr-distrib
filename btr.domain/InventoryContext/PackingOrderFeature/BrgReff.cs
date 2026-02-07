@@ -1,4 +1,6 @@
-﻿namespace btr.domain.InventoryContext.PackingOrderFeature
+﻿using btr.domain.BrgContext.BrgAgg;
+
+namespace btr.domain.InventoryContext.PackingOrderFeature
 {
     public class BrgReff : IBrgKey
     {
@@ -22,10 +24,5 @@
         public string BrgId { get; private set; }
         public string BrgCode { get; private set; }
         public string BrgName { get; private set; }
-    }
-
-    public interface IBrgKey
-    {
-        string BrgId { get; }
     }
 }

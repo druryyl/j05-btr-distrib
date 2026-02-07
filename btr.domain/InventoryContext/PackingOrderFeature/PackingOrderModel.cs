@@ -1,4 +1,5 @@
-﻿using btr.domain.SalesContext.CustomerAgg;
+﻿using btr.domain.InventoryContext.WarehouseAgg;
+using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.FakturAgg;
 using System;
 using System.Collections.Generic;
@@ -28,20 +29,25 @@ namespace btr.domain.InventoryContext.PackingOrderFeature
             _listItem = listItem.ToList();
         }
 
-        public static PackingOrderModel CreateFromFaktur(FakturModel faktur, CustomerModel customer)
+        public static PackingOrderModel CreateFromFaktur(FakturModel faktur, CustomerModel customer, Dictionary<string, DepoType> brgDepoDict)
         {
             var newId = Ulid.NewUlid().ToString();
             var address = JoinNonEmpty(",", customer.Address1, customer.Address2, customer.Kota); 
             var customerReff = new CustomerReff(faktur.CustomerId, faktur.CustomerCode, faktur.CustomerName, address, customer.NoTelp);
             var location = new LocationReff(
-                Convert.ToDecimal(customer.Latitude), 
-                Convert.ToDecimal(customer.Longitude), 
-                (int)customer.Accuracy);
+                customer.Latitude, 
+                customer.Longitude, 
+                customer.Accuracy);
             var fakturReff = new FakturReff(faktur.FakturId, faktur.FakturCode, faktur.FakturDate, faktur.UserId);
-            var listBrg = faktur.ListItem.Select((x,idx) => new PackingOrderItemModel(idx, 
-                new BrgReff(x.BrgId, x.BrgCode, x.BrgName), 
-                new QtyType(x.QtyBesar, x.SatBesar), 
-                new QtyType(x.QtyKecil + x.QtyBonus, x.SatKecil)));
+            var listBrg = faktur.ListItem.Select((x,idx) =>
+            {
+                var depo = brgDepoDict.ContainsKey(x.BrgId) ? brgDepoDict[x.BrgId] : DepoType.Default;
+                return new PackingOrderItemModel(idx,
+                    new BrgReff(x.BrgId, x.BrgCode, x.BrgName),
+                    new QtyType(x.QtyBesar, x.SatBesar),
+                    new QtyType(x.QtyKecil + x.QtyBonus, x.SatKecil),
+                    depo.DepoId, depo.DepoName);
+            });
             var result = new PackingOrderModel(newId, DateTime.Now, customerReff, location, fakturReff, listBrg);
             return result;
         }

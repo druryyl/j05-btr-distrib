@@ -1,4 +1,5 @@
-﻿using btr.domain.InventoryContext.WarehouseAgg;
+﻿using btr.domain.BrgContext.BrgAgg;
+using btr.domain.InventoryContext.WarehouseAgg;
 using btr.nuna.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -9,11 +10,12 @@ using System.Threading.Tasks;
 namespace btr.application.InventoryContext.WarehouseAgg
 {
     public interface IDepoDal :
-        IInsert<DepoModel>,
-        IUpdate<DepoModel>,
+        IInsert<DepoType>,
+        IUpdate<DepoType>,
         IDelete<IDepoKey>,
-        IGetData<DepoModel, IDepoKey>,
-        IListData<DepoModel>
+        IGetData<DepoType, IDepoKey>,
+        IGetData<DepoType, IBrgKey>,
+        IListData<DepoType>
     {
     }
 }
