@@ -1,4 +1,5 @@
 ﻿using btr.domain.InventoryContext.DriverAgg;
+using btr.domain.InventoryContext.PackingOrderFeature;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.SalesPersonAgg;
@@ -79,5 +80,8 @@ namespace btr.domain.SalesContext.FakturAgg
     
         public List<FakturItemModel> ListItem { get; set; }
         public List<FakturItemModel> ListItemKlaim { get; set; }
+
+        public FakturReff ToReff()
+            => new FakturReff(FakturId, FakturCode, FakturDate, UserId);
     }
 }

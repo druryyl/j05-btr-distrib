@@ -122,6 +122,7 @@
     <Compile Include="InventoryContext\PackingAgg\PackingFakturDal.cs" />
     <Compile Include="InventoryContext\PackingAgg\PackingBrgDal.cs" />
     <Compile Include="InventoryContext\PackingOrderFeature\PackingOrderDal.cs" />
+    <Compile Include="InventoryContext\PackingOrderFeature\PackingOrderDepoDal.cs" />
     <Compile Include="InventoryContext\PackingOrderFeature\PackingOrderDto.cs" />
     <Compile Include="InventoryContext\PackingOrderFeature\PackingOrderItemDal.cs" />
     <Compile Include="InventoryContext\PackingOrderFeature\PackingOrderItemDto.cs" />

@@ -12,6 +12,7 @@ namespace btr.domain.InventoryContext.PackingOrderFeature
     public class PackingOrderModel : IPackingOrderKey
     {
         private readonly List<PackingOrderItemModel> _listItem;
+        private readonly List<DepoType> _listDepo;
 
         public PackingOrderModel(
             string packingOrderId,
@@ -19,7 +20,8 @@ namespace btr.domain.InventoryContext.PackingOrderFeature
             CustomerReff customer,
             LocationReff location,
             FakturReff faktur,
-            IEnumerable<PackingOrderItemModel> listItem)
+            IEnumerable<PackingOrderItemModel> listItem,
+            IEnumerable<DepoType> listDepo)
         {
             PackingOrderId = packingOrderId;
             PackingOrderDate = packingOrderDate;
@@ -27,13 +29,14 @@ namespace btr.domain.InventoryContext.PackingOrderFeature
             Location = location;
             Faktur = faktur;
             _listItem = listItem.ToList();
+            _listDepo = listDepo.ToList();
         }
 
         public static PackingOrderModel CreateFromFaktur(FakturModel faktur, CustomerModel customer, Dictionary<string, DepoType> brgDepoDict)
         {
             var newId = Ulid.NewUlid().ToString();
             var address = JoinNonEmpty(",", customer.Address1, customer.Address2, customer.Kota); 
-            var customerReff = new CustomerReff(faktur.CustomerId, faktur.CustomerCode, faktur.CustomerName, address, customer.NoTelp);
+            var customerReff = new CustomerReff(faktur.CustomerId, customer.CustomerCode, customer.CustomerName, address, customer.NoTelp);
             var location = new LocationReff(
                 customer.Latitude, 
                 customer.Longitude, 
@@ -48,7 +51,23 @@ namespace btr.domain.InventoryContext.PackingOrderFeature
                     new QtyType(x.QtyKecil + x.QtyBonus, x.SatKecil),
                     depo.DepoId, depo.DepoName);
             });
-            var result = new PackingOrderModel(newId, DateTime.Now, customerReff, location, fakturReff, listBrg);
+            //var listDepo = listBrg
+            //    .Select(x => new DepoType(x.DepoId, x.DepoName))
+            //    .Distinct()
+            //    .ToList();
+            var listDepo = listBrg
+                .GroupBy(x => new { x.DepoId, x.DepoName })
+                .Select(g => new DepoType(g.Key.DepoId, g.Key.DepoName))
+                .ToList();
+            var result = new PackingOrderModel(newId, DateTime.Now, customerReff, location, fakturReff, listBrg, listDepo);
+            return result;
+        }
+
+        public static PackingOrderModel UpdateFromFaktur(PackingOrderModel packingOrder, FakturModel faktur, 
+            CustomerModel customer, Dictionary<string, DepoType> brgDepoDict)
+        {
+            var result = CreateFromFaktur(faktur, customer, brgDepoDict);
+            result.PackingOrderId = packingOrder.PackingOrderId;
             return result;
         }
 
@@ -61,7 +80,8 @@ namespace btr.domain.InventoryContext.PackingOrderFeature
             CustomerReff.Default,
             LocationReff.Default,
             FakturReff.Default,
-            Enumerable.Empty<PackingOrderItemModel>());
+            Enumerable.Empty<PackingOrderItemModel>(),
+            Enumerable.Empty<DepoType>());
 
         public static IPackingOrderKey Key(string id)
         {
@@ -77,6 +97,15 @@ namespace btr.domain.InventoryContext.PackingOrderFeature
         public FakturReff Faktur { get; private set; }
         public LocationReff Location { get; private set; }
         public IEnumerable<PackingOrderItemModel> ListItem => _listItem;
+        public IEnumerable<DepoType> ListDepo => _listDepo;
+
+        public void AddDepo(DepoType depo)
+        {
+            if (!_listDepo.Any(x => x.DepoId == depo.DepoId))
+            {
+                _listDepo.Add(depo);
+            }
+        }
     }
 
     public interface IPackingOrderKey

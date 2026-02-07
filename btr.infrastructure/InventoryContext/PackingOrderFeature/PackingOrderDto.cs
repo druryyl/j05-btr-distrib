@@ -1,6 +1,8 @@
 ﻿using btr.domain.InventoryContext.PackingOrderFeature;
+using btr.domain.InventoryContext.WarehouseAgg;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace btr.infrastructure.InventoryContext.PackingOrderFeature
 {
@@ -50,7 +52,8 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
             };
         }
 
-        public PackingOrderModel ToModel(IEnumerable<PackingOrderItemModel> listItem)
+        public PackingOrderModel ToModel(IEnumerable<PackingOrderItemModel> listItem,
+            IEnumerable<DepoType> listDepo)
         {
             var customer = new CustomerReff(
                 CustomerId, CustomerCode, CustomerName, Alamat, NoTelp);
@@ -64,7 +67,8 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
                 customer,
                 location,
                 faktur,
-                listItem);
+                listItem,
+                listDepo);
         }
     }
 }

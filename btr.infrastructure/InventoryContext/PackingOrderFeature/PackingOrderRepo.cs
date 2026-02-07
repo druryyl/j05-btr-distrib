@@ -12,12 +12,15 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
     {
         private readonly IPackingOrderDal _packingOrderDal;
         private readonly IPackingOrderItemDal _packingOrderItemDal;
+        private readonly IPackingOrderDepoDal _packingOrderDeporDal;
 
-        public PackingOrderRepo(IPackingOrderDal packingOrderDal, 
-            IPackingOrderItemDal packingOrderItemDal)
+        public PackingOrderRepo(IPackingOrderDal packingOrderDal,
+            IPackingOrderItemDal packingOrderItemDal,
+            IPackingOrderDepoDal packingOrdeDeporDal)
         {
             _packingOrderDal = packingOrderDal;
             _packingOrderItemDal = packingOrderItemDal;
+            _packingOrderDeporDal = packingOrdeDeporDal;
         }
 
 
@@ -28,10 +31,14 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
                     onSome: _ => _packingOrderDal.Update(PackingOrderDto.FromModel(model)),
                     onNone: () => _packingOrderDal.Insert(PackingOrderDto.FromModel(model)));
 
-
             _packingOrderItemDal.Delete(model);
             _packingOrderItemDal.Insert(model.ListItem
                 .Select(x => PackingOrderItemDto.FromModel(x, model.PackingOrderId))
+                .ToList());
+
+            _packingOrderDeporDal.Delete(model);
+            _packingOrderDeporDal.Insert(model.ListDepo
+                .Select(x => PackingOrderDepoDto.FromModel(x, model.PackingOrderId))
                 .ToList());
         }
 
@@ -39,6 +46,7 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
         {
             _packingOrderDal.Delete(key);
             _packingOrderItemDal.Delete(key);
+            _packingOrderDeporDal.Delete(key);
         }
 
         public MayBe<PackingOrderModel> LoadEntity(IPackingOrderKey key)
@@ -48,7 +56,13 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
             var listDtlModel = listDtl
                 .Select(x => x.ToModel())
                 .ToList();
-            var model = hdr?.ToModel(listDtlModel);
+
+            var listDepo = _packingOrderDeporDal.ListData(key).SafeToList();
+            var listDepoModel = listDepo
+                .Select(x => x.ToModel())
+                .ToList();
+
+            var model = hdr?.ToModel(listDtlModel, listDepoModel);
             return MayBe.From(model);
         }
 

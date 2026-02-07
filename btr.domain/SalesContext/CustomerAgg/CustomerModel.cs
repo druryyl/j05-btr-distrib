@@ -1,7 +1,9 @@
 ﻿using btr.domain.BrgContext.HargaTypeAgg;
+using btr.domain.InventoryContext.PackingOrderFeature;
 using btr.domain.SalesContext.KlasifikasiAgg;
 using btr.domain.SalesContext.WilayahAgg;
 using System;
+using System.Linq;
 
 namespace btr.domain.SalesContext.CustomerAgg
 {
@@ -50,5 +52,12 @@ namespace btr.domain.SalesContext.CustomerAgg
         public bool IsSuspend {get;set;}
         public decimal Plafond {get;set;}
         public decimal CreditBalance { get; set; }
+
+        public CustomerReff ToReff()
+            => new CustomerReff(CustomerId, CustomerCode, CustomerName,
+                JoinNonEmpty(",", Address1, Address2, Kota), NoTelp);
+        private static string JoinNonEmpty(string separator, params string[] values)
+            => string.Join(separator, values.Where(v => !string.IsNullOrWhiteSpace(v)));
+
     }
 }

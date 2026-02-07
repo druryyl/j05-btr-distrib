@@ -1,4 +1,6 @@
-﻿namespace btr.domain.InventoryContext.PackingOrderFeature
+﻿using btr.domain.SalesContext.CustomerAgg;
+
+namespace btr.domain.InventoryContext.PackingOrderFeature
 {
     public class CustomerReff : ICustomerKey
     {
@@ -27,11 +29,6 @@
         public string CustomerName { get; private set; }
         public string Alamat { get; private set; }
         public string NoTelp { get; private set; }
-    }
-
-    public interface ICustomerKey
-    {
-        string CustomerId { get; }
     }
 }
 
