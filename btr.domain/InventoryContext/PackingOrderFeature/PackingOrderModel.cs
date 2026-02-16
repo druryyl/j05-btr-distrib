@@ -1,4 +1,5 @@
-﻿using btr.domain.InventoryContext.WarehouseAgg;
+﻿using btr.domain.BrgContext.KategoriAgg;
+using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.FakturAgg;
 using System;
@@ -32,7 +33,8 @@ namespace btr.domain.InventoryContext.PackingOrderFeature
             _listDepo = listDepo.ToList();
         }
 
-        public static PackingOrderModel CreateFromFaktur(FakturModel faktur, CustomerModel customer, Dictionary<string, DepoType> brgDepoDict)
+        public static PackingOrderModel CreateFromFaktur(FakturModel faktur, CustomerModel customer, 
+            IEnumerable<FakturItemCatSupDepoView> listBrgDepo)
         {
             var newId = Ulid.NewUlid().ToString();
             var address = JoinNonEmpty(",", customer.Address1, customer.Address2, customer.Kota); 
@@ -44,17 +46,14 @@ namespace btr.domain.InventoryContext.PackingOrderFeature
             var fakturReff = new FakturReff(faktur.FakturId, faktur.FakturCode, faktur.FakturDate, faktur.UserId);
             var listBrg = faktur.ListItem.Select((x,idx) =>
             {
-                var depo = brgDepoDict.ContainsKey(x.BrgId) ? brgDepoDict[x.BrgId] : DepoType.Default;
+                var depoView = listBrgDepo.FirstOrDefault(y => y.BrgId == x.BrgId) ?? FakturItemCatSupDepoView.Default;
                 return new PackingOrderItemModel(idx,
-                    new BrgReff(x.BrgId, x.BrgCode, x.BrgName),
+                    new BrgReff(x.BrgId, x.BrgCode, x.BrgName, depoView.KategoriName, depoView.SupplierName),
                     new QtyType(x.QtyBesar, x.SatBesar),
                     new QtyType(x.QtyKecil + x.QtyBonus, x.SatKecil),
-                    depo.DepoId, depo.DepoName);
+                    depoView.DepoId, depoView.DepoName);
             });
-            //var listDepo = listBrg
-            //    .Select(x => new DepoType(x.DepoId, x.DepoName))
-            //    .Distinct()
-            //    .ToList();
+
             var listDepo = listBrg
                 .GroupBy(x => new { x.DepoId, x.DepoName })
                 .Select(g => new DepoType(g.Key.DepoId, g.Key.DepoName))
@@ -64,9 +63,9 @@ namespace btr.domain.InventoryContext.PackingOrderFeature
         }
 
         public static PackingOrderModel UpdateFromFaktur(PackingOrderModel packingOrder, FakturModel faktur, 
-            CustomerModel customer, Dictionary<string, DepoType> brgDepoDict)
+            CustomerModel customer, IEnumerable<FakturItemCatSupDepoView> listBrgDepo)
         {
-            var result = CreateFromFaktur(faktur, customer, brgDepoDict);
+            var result = CreateFromFaktur(faktur, customer, listBrgDepo);
             result.PackingOrderId = packingOrder.PackingOrderId;
             return result;
         }

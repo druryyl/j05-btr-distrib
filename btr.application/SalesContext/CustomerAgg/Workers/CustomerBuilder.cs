@@ -184,7 +184,7 @@ namespace btr.application.SalesContext.CustomerAgg.Workers
 
         public ICustomerBuilder AddressWp(string address1)
         {
-            if (address1.Length > 136)
+            if (address1.Length > 250)
                 throw new ArgumentException("AddressWp terlalu panjang");
             
             _aggRoot.AddressWp = address1;

@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using btr.application.SalesContext.FakturAgg.Contracts;
+using btr.domain.InventoryContext.PackingOrderFeature;
 using btr.domain.SalesContext.FakturAgg;
 using btr.infrastructure.Helpers;
 using btr.nuna.Infrastructure;
@@ -114,6 +115,33 @@ namespace btr.infrastructure.SalesContext.FakturAgg
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
                 return conn.Read<FakturItemModel>(sql, dp);
+            }
+        }
+
+        public IEnumerable<FakturItemCatSupDepoView> ListBrgDepo(IFakturKey key)
+        {
+            const string sql = @"
+                    SELECT
+                        aa.BrgId, 
+                        ISNULL(cc.KategoriName, '') AS KategoriName,
+                        ISNULL(dd.Keyword, '') AS SupplierName,
+                        ISNULL(ee.DepoId, '') AS DepoId,
+                        ISNULL(ee.DepoName, '') AS DepoName     
+                    FROM 
+                        BTR_FakturItem aa
+                        INNER JOIN BTR_Brg bb ON aa.BrgId = bb.BrgId
+                        INNER JOIN BTR_Kategori cc ON bb.KategoriId = cc.KategoriId
+                        INNER JOIN BTR_Supplier dd ON cc.SupplierId = dd.SupplierId
+                        INNER JOIN BTR_Depo ee ON dd.DepoId = ee.DepoId
+                    WHERE
+                        aa.FakturId = @FakturId ";
+
+            var dp = new DynamicParameters();
+            dp.AddParam("@FakturId", key.FakturId, SqlDbType.VarChar);
+
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                return conn.Read<FakturItemCatSupDepoView>(sql, dp);
             }
         }
     }

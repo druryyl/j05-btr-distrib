@@ -8,14 +8,16 @@
 	CustomerName VARCHAR(100) NOT NULL CONSTRAINT DF_BTR_PackingOrder_CustomerName DEFAULT (''),
 	Alamat VARCHAR(200) NOT NULL CONSTRAINT DF_BTR_PackingOrder_AlamatKirim DEFAULT (''),
 	NoTelp VARCHAR(20) NOT NULL CONSTRAINT DF_BTR_PackingOrder_NoTelp DEFAULT (''),
-	Latitude DECIMAL(18, 15) NOT NULL CONSTRAINT DF_BTR_PackingOrder_Latitude DEFAULT (0),
-	Longitude DECIMAL(18, 15) NOT NULL CONSTRAINT DF_BTR_PackingOrder_Longitude DEFAULT (0),
-	Accuracy INT NOT NULL CONSTRAINT DF_BTR_PackingOrder_Accuracy DEFAULT (0),
+	Latitude FLOAT NOT NULL CONSTRAINT DF_BTR_PackingOrder_Latitude DEFAULT (0),
+	Longitude FLOAT NOT NULL CONSTRAINT DF_BTR_PackingOrder_Longitude DEFAULT (0),
+	Accuracy FLOAT NOT NULL CONSTRAINT DF_BTR_PackingOrder_Accuracy DEFAULT (0),
 
 	FakturId VARCHAR(26) NOT NULL CONSTRAINT DF_BTR_PackingOrder_FakturId DEFAULT (''),
 	FakturCode VARCHAR(26) NOT NULL CONSTRAINT DF_BTR_PackingOrder_FakturCode DEFAULT (''),
 	FakturDate DATETIME NOT NULL CONSTRAINT DF_BTR_PackingOrder_FakturDate DEFAULT ('3000-01-01'),
 	AdminName VARCHAR(100) NOT NULL CONSTRAINT DF_BTR_PackingOrder_AdminName DEFAULT (''),
+
+	UploadTimestamp DATETIME NOT NULL CONSTRAINT DF_BTR_PackingOrder_UploadTimestamp DEFAULT('3000-01-01'),
 
 	CONSTRAINT PK_BTRG_PackingOrder PRIMARY KEY CLUSTERED (PackingOrderId)
 )

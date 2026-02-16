@@ -11,6 +11,8 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
         public string BrgId { get; set; }
         public string BrgCode { get; set; }
         public string BrgName { get; set; }
+        public string KategoriName { get; set; }
+        public string SupplierName { get; set; }
 
         // Flattened QtyType properties (QtyBesar)
         public decimal QtyBesar { get; set; }
@@ -31,6 +33,8 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
                 BrgId = model.Brg.BrgId,
                 BrgCode = model.Brg.BrgCode,
                 BrgName = model.Brg.BrgName,
+                KategoriName = model.Brg.KategoriName,
+                SupplierName = model.Brg.SupplierName,
                 QtyBesar = model.QtyBesar.Qty,
                 SatBesar = model.QtyBesar.Satuan,
                 QtyKecil = model.QtyKecil.Qty,
@@ -43,7 +47,7 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
 
         public PackingOrderItemModel ToModel()
         {
-            var brg = new BrgReff(BrgId, BrgCode, BrgName);
+            var brg = new BrgReff(BrgId, BrgCode, BrgName, KategoriName, SupplierName);
             var qtyBesar = new QtyType(QtyBesar, SatBesar);
             var qtyKecil = new QtyType(QtyKecil, SatKecil);
 

@@ -5,6 +5,7 @@ using btr.nuna.Domain;
 using btr.nuna.Infrastructure;
 using Dapper;
 using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -37,12 +38,12 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
                     PackingOrderId, PackingOrderDate,
                     CustomerId, CustomerCode, CustomerName, Alamat, NoTelp,
                     Latitude, Longitude, Accuracy,
-                    FakturId, FakturCode, FakturDate, AdminName)
+                    FakturId, FakturCode, FakturDate, AdminName, UploadTimestamp)
                 VALUES(
                     @PackingOrderId, @PackingOrderDate,
                     @CustomerId, @CustomerCode, @CustomerName, @Alamat, @NoTelp,
                     @Latitude, @Longitude, @Accuracy,
-                    @FakturId, @FakturCode, @FakturDate, @AdminName)
+                    @FakturId, @FakturCode, @FakturDate, @AdminName, @UploadTimestamp)
                 ";
 
             var dp = new DynamicParameters();
@@ -55,14 +56,15 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
             dp.AddParam("@Alamat", dto.Alamat, SqlDbType.VarChar);
             dp.AddParam("@NoTelp", dto.NoTelp, SqlDbType.VarChar);
 
+            dp.AddParam("@Latitude", dto.Latitude, SqlDbType.Float);
+            dp.AddParam("@Longitude", dto.Longitude, SqlDbType.Float);
+            dp.AddParam("@Accuracy", dto.Accuracy, SqlDbType.Float);
+
             dp.AddParam("@FakturId", dto.FakturId, SqlDbType.VarChar);
             dp.AddParam("@FakturCode", dto.FakturCode, SqlDbType.VarChar);
             dp.AddParam("@FakturDate", dto.FakturDate, SqlDbType.DateTime);
             dp.AddParam("@AdminName", dto.AdminName, SqlDbType.VarChar);
-
-            dp.AddParam("@Latitude", dto.Latitude, SqlDbType.Decimal);
-            dp.AddParam("@Longitude", dto.Longitude, SqlDbType.Decimal);
-            dp.AddParam("@Accuracy", dto.Accuracy, SqlDbType.Int);
+            dp.AddParam("@UploadTimestamp", new DateTime(3000,1,1), SqlDbType.DateTime);
 
             var connStr = ConnStringHelper.Get(_opt);
             using (var conn = new SqlConnection(connStr))
@@ -90,7 +92,8 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
                     FakturId = @FakturId,
                     FakturCode = @FakturCode,
                     FakturDate = @FakturDate,
-                    AdminName = @AdminName
+                    AdminName = @AdminName,
+                    UploadTimestamp = @UploadTimestamp
                 WHERE
                     PackingOrderId = @PackingOrderId
                 ";
@@ -105,14 +108,15 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
             dp.AddParam("@Alamat", dto.Alamat, SqlDbType.VarChar);
             dp.AddParam("@NoTelp", dto.NoTelp, SqlDbType.VarChar);
 
+            dp.AddParam("@Latitude", dto.Latitude, SqlDbType.Float);
+            dp.AddParam("@Longitude", dto.Longitude, SqlDbType.Float);
+            dp.AddParam("@Accuracy", dto.Accuracy, SqlDbType.Float);
+
             dp.AddParam("@FakturId", dto.FakturId, SqlDbType.VarChar);
             dp.AddParam("@FakturCode", dto.FakturCode, SqlDbType.VarChar);
             dp.AddParam("@FakturDate", dto.FakturDate, SqlDbType.DateTime);
             dp.AddParam("@AdminName", dto.AdminName, SqlDbType.VarChar);
-
-            dp.AddParam("@Latitude", dto.Latitude, SqlDbType.Decimal);
-            dp.AddParam("@Longitude", dto.Longitude, SqlDbType.Decimal);
-            dp.AddParam("@Accuracy", dto.Accuracy, SqlDbType.Int);
+            dp.AddParam("@UploadTimestamp", new DateTime(3000, 1, 1), SqlDbType.DateTime);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {

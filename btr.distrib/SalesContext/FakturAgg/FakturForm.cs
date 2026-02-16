@@ -5,6 +5,7 @@ using btr.application.InventoryContext.DriverAgg;
 using btr.application.InventoryContext.PackingOrderFeature;
 using btr.application.InventoryContext.WarehouseAgg;
 using btr.application.SalesContext.CustomerAgg.Contracts;
+using btr.application.SalesContext.FakturAgg.Contracts;
 using btr.application.SalesContext.FakturAgg.UseCases;
 using btr.application.SalesContext.FakturAgg.Workers;
 using btr.application.SalesContext.OrderFeature;
@@ -76,6 +77,7 @@ namespace btr.distrib.SalesContext.FakturAgg
         private readonly IParamSistemDal _paramSistemDal;
         private readonly IPiutangDal _piutangDal;
         private readonly IDepoDal _depoDal;
+        private readonly IFakturItemDal _fakturItemDal;
 
         private readonly IPackingOrderRepo _packingOrderRepo;
 
@@ -109,7 +111,8 @@ namespace btr.distrib.SalesContext.FakturAgg
             IOrderBuilder orderBuilder,
             IPiutangDal piutangDal,
             IPackingOrderRepo packingOrderRepo,
-            IDepoDal depoDal)
+            IDepoDal depoDal,
+            IFakturItemDal fakturItemDal)
         {
             InitializeComponent();
             _warehouseBrowser = warehouseBrowser;
@@ -147,6 +150,7 @@ namespace btr.distrib.SalesContext.FakturAgg
             InitTextBox();
             ClearForm();
             _depoDal = depoDal;
+            _fakturItemDal = fakturItemDal;
         }
 
         private void InitParamSistem()
@@ -1036,28 +1040,13 @@ namespace btr.distrib.SalesContext.FakturAgg
             if (faktur is null)
                 return;
             var packingOrderMayBe = _packingOrderRepo.LoadEntity(faktur);
-            var brgDepoDict = CreateBrgDepoDict(faktur.ListItem);
+            var listBrgDepo = _fakturItemDal.ListBrgDepo(faktur);
             var packingOrder = packingOrderMayBe
                 .Match(
-                    onSome: x => PackingOrderModel.UpdateFromFaktur(x, faktur, customer, brgDepoDict),
-                    onNone: () => PackingOrderModel.CreateFromFaktur(faktur, customer, brgDepoDict)
+                    onSome: x => PackingOrderModel.UpdateFromFaktur(x, faktur, customer, listBrgDepo),
+                    onNone: () => PackingOrderModel.CreateFromFaktur(faktur, customer, listBrgDepo)
                 );
             _packingOrderRepo.SaveChanges(packingOrder);
-        }
-
-        private Dictionary<string, DepoType> CreateBrgDepoDict(IEnumerable<FakturItemModel> listBrg)
-        {
-            var dict = new Dictionary<string, DepoType>();
-            foreach (var item in listBrg)
-            {
-                if (dict.ContainsKey(item.BrgId))
-                    continue;
-                var depo = _depoDal.GetData(item);
-                if (depo is null)
-                    continue;
-                dict.Add(item.BrgId, depo);
-            }
-            return dict;
         }
 
         private void PrintFakturRdlc(FakturPrintOutDto faktur)

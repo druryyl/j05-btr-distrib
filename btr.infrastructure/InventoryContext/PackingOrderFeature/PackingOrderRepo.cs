@@ -12,15 +12,15 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
     {
         private readonly IPackingOrderDal _packingOrderDal;
         private readonly IPackingOrderItemDal _packingOrderItemDal;
-        private readonly IPackingOrderDepoDal _packingOrderDeporDal;
+        private readonly IPackingOrderDepoDal _packingOrderDepoDal;
 
         public PackingOrderRepo(IPackingOrderDal packingOrderDal,
             IPackingOrderItemDal packingOrderItemDal,
-            IPackingOrderDepoDal packingOrdeDeporDal)
+            IPackingOrderDepoDal packingOrdeDepoDal)
         {
             _packingOrderDal = packingOrderDal;
             _packingOrderItemDal = packingOrderItemDal;
-            _packingOrderDeporDal = packingOrdeDeporDal;
+            _packingOrderDepoDal = packingOrdeDepoDal;
         }
 
 
@@ -36,8 +36,8 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
                 .Select(x => PackingOrderItemDto.FromModel(x, model.PackingOrderId))
                 .ToList());
 
-            _packingOrderDeporDal.Delete(model);
-            _packingOrderDeporDal.Insert(model.ListDepo
+            _packingOrderDepoDal.Delete(model);
+            _packingOrderDepoDal.Insert(model.ListDepo
                 .Select(x => PackingOrderDepoDto.FromModel(x, model.PackingOrderId))
                 .ToList());
         }
@@ -46,7 +46,7 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
         {
             _packingOrderDal.Delete(key);
             _packingOrderItemDal.Delete(key);
-            _packingOrderDeporDal.Delete(key);
+            _packingOrderDepoDal.Delete(key);
         }
 
         public MayBe<PackingOrderModel> LoadEntity(IPackingOrderKey key)
@@ -57,7 +57,7 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
                 .Select(x => x.ToModel())
                 .ToList();
 
-            var listDepo = _packingOrderDeporDal.ListData(key).SafeToList();
+            var listDepo = _packingOrderDepoDal.ListData(key).SafeToList();
             var listDepoModel = listDepo
                 .Select(x => x.ToModel())
                 .ToList();

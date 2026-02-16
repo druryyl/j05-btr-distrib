@@ -14,4 +14,5 @@ namespace btr.application.BrgContext.BrgAgg
         IListData<BrgModel, IKategoriKey>
     {
     }
+
 }

@@ -2,6 +2,7 @@
 (
 	PackingOrderId VARCHAR(26) NOT NULL CONSTRAINT DF_BTR_PackingOrderDepo_PackingOrderId DEFAULT(''),
 	DepoId VARCHAR(3) NOT NULL CONSTRAINT DF_BTR_PackingOrderDepo_DepoId DEFAULT((0)),
+	UploadTimestamp DATETIME NOT NULL CONSTRAINT DF_BTR_PackingOrderDepo_UploadTimestamp DEFAULT('3000-01-01'),
 
 	CONSTRAINT PK_BTR_PackingOrderDepo PRIMARY KEY CLUSTERED (PackingOrderId, DepoId)
 )

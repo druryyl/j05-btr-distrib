@@ -36,6 +36,8 @@ namespace BtrGudang.Infrastructure.PackingOrderFeature
                 bcp.AddMap("BrgId","BrgId");
                 bcp.AddMap("BrgCode","BrgCode");
                 bcp.AddMap("BrgName","BrgName");
+                bcp.AddMap("KategoriName", "KategoriName");
+                bcp.AddMap("SupplierName", "SupplierName");
                 bcp.AddMap("QtyBesar", "QtyBesar");
                 bcp.AddMap("SatBesar", "SatBesar");
                 bcp.AddMap("QtyKecil", "QtyKecil");
@@ -70,7 +72,7 @@ namespace BtrGudang.Infrastructure.PackingOrderFeature
             const string sql = @"
                 SELECT
                     aa.PackingOrderId, aa.NoUrut, 
-                    aa.BrgId, aa.BrgCode, aa.BrgName,
+                    aa.BrgId, aa.BrgCode, aa.BrgName, aa.KategoriName, aa.SupplierName,
                     aa.QtyBesar, aa.SatBesar,
                     aa.QtyKecil, aa.SatKecil,
                     aa.DepoId, 

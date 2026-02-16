@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using btr.domain.BrgContext.BrgAgg;
+using btr.domain.InventoryContext.PackingOrderFeature;
 using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.FakturAgg;
 using btr.nuna.Domain;
@@ -12,6 +14,7 @@ namespace btr.application.SalesContext.FakturAgg.Contracts
         IDelete<IFakturKey>,
         IListData<FakturItemModel, IFakturKey>
     {
+        IEnumerable<FakturItemCatSupDepoView> ListBrgDepo(IFakturKey faktur);
     }
 
     public interface IFakturItemViewDal :
@@ -26,4 +29,6 @@ namespace btr.application.SalesContext.FakturAgg.Contracts
         public string BrgId { get; set; }
         public decimal HrgSat { get; set; }
     }
+
+
 }
