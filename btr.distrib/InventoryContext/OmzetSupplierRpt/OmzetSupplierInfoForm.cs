@@ -234,7 +234,7 @@ namespace btr.distrib.InventoryContext.OmzetSupplierRpt
             InfoGrid.TableDescriptor.SummaryRows.Add(sumRowDescriptor);
 
             InfoGrid.Refresh();
-            ProsesHarian();
+            //ProsesHarian();
         }
 
         private void InitGridBulanan()
@@ -268,7 +268,7 @@ namespace btr.distrib.InventoryContext.OmzetSupplierRpt
             InfoGridBulanan.TableDescriptor.SummaryRows.Add(sumRowDescriptor);
 
             InfoGridBulanan.Refresh();
-            ProsesBulanan();
+            //ProsesBulanan();
         }
 
         private void ProsesButton_Click(object sender, EventArgs e)

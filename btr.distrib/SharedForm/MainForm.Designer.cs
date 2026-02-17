@@ -40,7 +40,7 @@
             this.OutletButton = new System.Windows.Forms.RibbonButton();
             this.SalesPersonButton = new System.Windows.Forms.RibbonButton();
             this.WilayahButton = new System.Windows.Forms.RibbonButton();
-            this.RuteButton = new System.Windows.Forms.RibbonButton();
+            this.SM4RuteButton = new System.Windows.Forms.RibbonButton();
             this.SalesInfoPanel = new System.Windows.Forms.RibbonPanel();
             this.ribbonButton2 = new System.Windows.Forms.RibbonButton();
             this.SF1FakturInfoMenu = new System.Windows.Forms.RibbonButton();
@@ -57,6 +57,8 @@
             this.RO1CheckInListMenu = new System.Windows.Forms.RibbonButton();
             this.RO2SalesOmzetMenu = new System.Windows.Forms.RibbonButton();
             this.RO3EffectiveCallMenu = new System.Windows.Forms.RibbonButton();
+            this.ribbonButton4 = new System.Windows.Forms.RibbonButton();
+            this.RO4CoordinateCoverageMenu = new System.Windows.Forms.RibbonButton();
             this.PurchaseTab = new System.Windows.Forms.RibbonTab();
             this.PurchaseOrderRibbonPanel = new System.Windows.Forms.RibbonPanel();
             this.InvoiceButton = new System.Windows.Forms.RibbonButton();
@@ -64,11 +66,11 @@
             this.PT3ReturBeliMenu = new System.Windows.Forms.RibbonButton();
             this.InvoiceRibbonPanel = new System.Windows.Forms.RibbonPanel();
             this.P01InvoiceInfoButton = new System.Windows.Forms.RibbonButton();
-            this.P2InvoiceBrgInfoButton = new System.Windows.Forms.RibbonButton();
-            this.P3InvoiceHarianInfoButton = new System.Windows.Forms.RibbonButton();
+            this.PF2InvoiceBrgInfoButton = new System.Windows.Forms.RibbonButton();
+            this.PF3InvoiceHarianInfoButton = new System.Windows.Forms.RibbonButton();
             this.PF4ReturBeliDetil = new System.Windows.Forms.RibbonButton();
             this.MasterPurchaseRibbonPanel = new System.Windows.Forms.RibbonPanel();
-            this.SupplierButton = new System.Windows.Forms.RibbonButton();
+            this.PM1SupplierButton = new System.Windows.Forms.RibbonButton();
             this.InventoryTab = new System.Windows.Forms.RibbonTab();
             this.InventoryTrsPanel = new System.Windows.Forms.RibbonPanel();
             this.IT1OpnameButton = new System.Windows.Forms.RibbonButton();
@@ -84,10 +86,10 @@
             this.IF7StokOpnameButton = new System.Windows.Forms.RibbonButton();
             this.IF8KartuStokSummary = new System.Windows.Forms.RibbonButton();
             this.InventoryMasterPanel = new System.Windows.Forms.RibbonPanel();
-            this.BrgButton = new System.Windows.Forms.RibbonButton();
-            this.WarehouseButton = new System.Windows.Forms.RibbonButton();
-            this.KategoriAButton = new System.Windows.Forms.RibbonButton();
-            this.DriverButton = new System.Windows.Forms.RibbonButton();
+            this.IM1BrgButton = new System.Windows.Forms.RibbonButton();
+            this.IM2WarehouseButton = new System.Windows.Forms.RibbonButton();
+            this.IM3KategoriAButton = new System.Windows.Forms.RibbonButton();
+            this.IM4DriverButton = new System.Windows.Forms.RibbonButton();
             this.FinanceTab = new System.Windows.Forms.RibbonTab();
             this.ribbonPanel1 = new System.Windows.Forms.RibbonPanel();
             this.FT2TagihanSalesButton = new System.Windows.Forms.RibbonButton();
@@ -119,8 +121,6 @@
             this.AppStatus = new System.Windows.Forms.StatusStrip();
             this.LoginStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ServerDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ribbonButton4 = new System.Windows.Forms.RibbonButton();
-            this.RO4CoordinateCoverageMenu = new System.Windows.Forms.RibbonButton();
             this.AppStatus.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -213,7 +213,7 @@
             this.MasterSalesPanel.Items.Add(this.OutletButton);
             this.MasterSalesPanel.Items.Add(this.SalesPersonButton);
             this.MasterSalesPanel.Items.Add(this.WilayahButton);
-            this.MasterSalesPanel.Items.Add(this.RuteButton);
+            this.MasterSalesPanel.Items.Add(this.SM4RuteButton);
             this.MasterSalesPanel.Name = "MasterSalesPanel";
             this.MasterSalesPanel.Text = "";
             // 
@@ -244,14 +244,14 @@
             this.WilayahButton.Text = "SM3-Wilayah";
             this.WilayahButton.Click += new System.EventHandler(this.SM3WilayahButton_Click);
             // 
-            // RuteButton
+            // SM4RuteButton
             // 
-            this.RuteButton.Image = global::btr.distrib.Properties.Resources.icons8_route_32;
-            this.RuteButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_route_32;
-            this.RuteButton.Name = "RuteButton";
-            this.RuteButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("RuteButton.SmallImage")));
-            this.RuteButton.Text = "SM4-Rute";
-            this.RuteButton.Click += new System.EventHandler(this.RuteButton_Click);
+            this.SM4RuteButton.Image = global::btr.distrib.Properties.Resources.icons8_route_32;
+            this.SM4RuteButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_route_32;
+            this.SM4RuteButton.Name = "SM4RuteButton";
+            this.SM4RuteButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("SM4RuteButton.SmallImage")));
+            this.SM4RuteButton.Text = "SM4-Rute";
+            this.SM4RuteButton.Click += new System.EventHandler(this.SM4RuteButton_Click);
             // 
             // SalesInfoPanel
             // 
@@ -411,6 +411,24 @@
             this.RO3EffectiveCallMenu.Text = "RO3-Effective Call";
             this.RO3EffectiveCallMenu.Click += new System.EventHandler(this.RO3EffectiveCallMenu_Click);
             // 
+            // ribbonButton4
+            // 
+            this.ribbonButton4.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
+            this.ribbonButton4.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton4.Image")));
+            this.ribbonButton4.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton4.LargeImage")));
+            this.ribbonButton4.Name = "ribbonButton4";
+            this.ribbonButton4.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton4.SmallImage")));
+            // 
+            // RO4CoordinateCoverageMenu
+            // 
+            this.RO4CoordinateCoverageMenu.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
+            this.RO4CoordinateCoverageMenu.Image = ((System.Drawing.Image)(resources.GetObject("RO4CoordinateCoverageMenu.Image")));
+            this.RO4CoordinateCoverageMenu.LargeImage = ((System.Drawing.Image)(resources.GetObject("RO4CoordinateCoverageMenu.LargeImage")));
+            this.RO4CoordinateCoverageMenu.Name = "RO4CoordinateCoverageMenu";
+            this.RO4CoordinateCoverageMenu.SmallImage = ((System.Drawing.Image)(resources.GetObject("RO4CoordinateCoverageMenu.SmallImage")));
+            this.RO4CoordinateCoverageMenu.Text = "RO4-Coordinate Coverage";
+            this.RO4CoordinateCoverageMenu.Click += new System.EventHandler(this.RO4CoordinateCoverageMenu_Click);
+            // 
             // PurchaseTab
             // 
             this.PurchaseTab.Name = "PurchaseTab";
@@ -457,8 +475,8 @@
             // InvoiceRibbonPanel
             // 
             this.InvoiceRibbonPanel.Items.Add(this.P01InvoiceInfoButton);
-            this.InvoiceRibbonPanel.Items.Add(this.P2InvoiceBrgInfoButton);
-            this.InvoiceRibbonPanel.Items.Add(this.P3InvoiceHarianInfoButton);
+            this.InvoiceRibbonPanel.Items.Add(this.PF2InvoiceBrgInfoButton);
+            this.InvoiceRibbonPanel.Items.Add(this.PF3InvoiceHarianInfoButton);
             this.InvoiceRibbonPanel.Items.Add(this.PF4ReturBeliDetil);
             this.InvoiceRibbonPanel.Name = "InvoiceRibbonPanel";
             this.InvoiceRibbonPanel.Text = "Reporting";
@@ -470,25 +488,25 @@
             this.P01InvoiceInfoButton.Name = "P01InvoiceInfoButton";
             this.P01InvoiceInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("P01InvoiceInfoButton.SmallImage")));
             this.P01InvoiceInfoButton.Text = "PF1-Invoice";
-            this.P01InvoiceInfoButton.Click += new System.EventHandler(this.P1InvoiceInfoButton_Click);
+            this.P01InvoiceInfoButton.Click += new System.EventHandler(this.PF1InvoiceInfoButton_Click);
             // 
-            // P2InvoiceBrgInfoButton
+            // PF2InvoiceBrgInfoButton
             // 
-            this.P2InvoiceBrgInfoButton.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
-            this.P2InvoiceBrgInfoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
-            this.P2InvoiceBrgInfoButton.Name = "P2InvoiceBrgInfoButton";
-            this.P2InvoiceBrgInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("P2InvoiceBrgInfoButton.SmallImage")));
-            this.P2InvoiceBrgInfoButton.Text = "PF2-Invoice Brg Info";
-            this.P2InvoiceBrgInfoButton.Click += new System.EventHandler(this.P2InvoiceBrgInfoButton_Click);
+            this.PF2InvoiceBrgInfoButton.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.PF2InvoiceBrgInfoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.PF2InvoiceBrgInfoButton.Name = "PF2InvoiceBrgInfoButton";
+            this.PF2InvoiceBrgInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("PF2InvoiceBrgInfoButton.SmallImage")));
+            this.PF2InvoiceBrgInfoButton.Text = "PF2-Invoice Brg Info";
+            this.PF2InvoiceBrgInfoButton.Click += new System.EventHandler(this.PF2InvoiceBrgInfoButton_Click);
             // 
-            // P3InvoiceHarianInfoButton
+            // PF3InvoiceHarianInfoButton
             // 
-            this.P3InvoiceHarianInfoButton.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
-            this.P3InvoiceHarianInfoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
-            this.P3InvoiceHarianInfoButton.Name = "P3InvoiceHarianInfoButton";
-            this.P3InvoiceHarianInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("P3InvoiceHarianInfoButton.SmallImage")));
-            this.P3InvoiceHarianInfoButton.Text = "PF3-Invoice Harian";
-            this.P3InvoiceHarianInfoButton.Click += new System.EventHandler(this.P3InvoiceHarianButton_Click);
+            this.PF3InvoiceHarianInfoButton.Image = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.PF3InvoiceHarianInfoButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_day_view;
+            this.PF3InvoiceHarianInfoButton.Name = "PF3InvoiceHarianInfoButton";
+            this.PF3InvoiceHarianInfoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("PF3InvoiceHarianInfoButton.SmallImage")));
+            this.PF3InvoiceHarianInfoButton.Text = "PF3-Invoice Harian";
+            this.PF3InvoiceHarianInfoButton.Click += new System.EventHandler(this.PF3InvoiceHarianButton_Click);
             // 
             // PF4ReturBeliDetil
             // 
@@ -501,18 +519,18 @@
             // 
             // MasterPurchaseRibbonPanel
             // 
-            this.MasterPurchaseRibbonPanel.Items.Add(this.SupplierButton);
+            this.MasterPurchaseRibbonPanel.Items.Add(this.PM1SupplierButton);
             this.MasterPurchaseRibbonPanel.Name = "MasterPurchaseRibbonPanel";
             this.MasterPurchaseRibbonPanel.Text = "Master";
             // 
-            // SupplierButton
+            // PM1SupplierButton
             // 
-            this.SupplierButton.Image = global::btr.distrib.Properties.Resources.icons8_factory;
-            this.SupplierButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_factory;
-            this.SupplierButton.Name = "SupplierButton";
-            this.SupplierButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("SupplierButton.SmallImage")));
-            this.SupplierButton.Text = "PM1-Supplier";
-            this.SupplierButton.Click += new System.EventHandler(this.PM1SupplierButton_Click);
+            this.PM1SupplierButton.Image = global::btr.distrib.Properties.Resources.icons8_factory;
+            this.PM1SupplierButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_factory;
+            this.PM1SupplierButton.Name = "PM1SupplierButton";
+            this.PM1SupplierButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("PM1SupplierButton.SmallImage")));
+            this.PM1SupplierButton.Text = "PM1-Supplier";
+            this.PM1SupplierButton.Click += new System.EventHandler(this.PM1SupplierButton_Click);
             // 
             // InventoryTab
             // 
@@ -630,7 +648,7 @@
             this.IF7StokOpnameButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_test_passed_32;
             this.IF7StokOpnameButton.Name = "IF7StokOpnameButton";
             this.IF7StokOpnameButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IF7StokOpnameButton.SmallImage")));
-            this.IF7StokOpnameButton.Text = "IF6-Stok Opname";
+            this.IF7StokOpnameButton.Text = "IF7-Stok Opname";
             this.IF7StokOpnameButton.Click += new System.EventHandler(this.IF7StokOpnameButton_Click);
             // 
             // IF8KartuStokSummary
@@ -644,48 +662,48 @@
             // 
             // InventoryMasterPanel
             // 
-            this.InventoryMasterPanel.Items.Add(this.BrgButton);
-            this.InventoryMasterPanel.Items.Add(this.WarehouseButton);
-            this.InventoryMasterPanel.Items.Add(this.KategoriAButton);
-            this.InventoryMasterPanel.Items.Add(this.DriverButton);
+            this.InventoryMasterPanel.Items.Add(this.IM1BrgButton);
+            this.InventoryMasterPanel.Items.Add(this.IM2WarehouseButton);
+            this.InventoryMasterPanel.Items.Add(this.IM3KategoriAButton);
+            this.InventoryMasterPanel.Items.Add(this.IM4DriverButton);
             this.InventoryMasterPanel.Name = "InventoryMasterPanel";
             this.InventoryMasterPanel.Text = "Master Data";
             // 
-            // BrgButton
+            // IM1BrgButton
             // 
-            this.BrgButton.Image = global::btr.distrib.Properties.Resources.icons8_ingredients;
-            this.BrgButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_ingredients;
-            this.BrgButton.Name = "BrgButton";
-            this.BrgButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("BrgButton.SmallImage")));
-            this.BrgButton.Text = "IM1-Barang";
-            this.BrgButton.Click += new System.EventHandler(this.IM1BrgButton_Click);
+            this.IM1BrgButton.Image = global::btr.distrib.Properties.Resources.icons8_ingredients;
+            this.IM1BrgButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_ingredients;
+            this.IM1BrgButton.Name = "IM1BrgButton";
+            this.IM1BrgButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IM1BrgButton.SmallImage")));
+            this.IM1BrgButton.Text = "IM1-Barang";
+            this.IM1BrgButton.Click += new System.EventHandler(this.IM1BrgButton_Click);
             // 
-            // WarehouseButton
+            // IM2WarehouseButton
             // 
-            this.WarehouseButton.Image = global::btr.distrib.Properties.Resources.icons8_warehouse;
-            this.WarehouseButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_warehouse;
-            this.WarehouseButton.Name = "WarehouseButton";
-            this.WarehouseButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("WarehouseButton.SmallImage")));
-            this.WarehouseButton.Text = "IM2-Gudang";
-            this.WarehouseButton.Click += new System.EventHandler(this.IM2WarehouseButton_Click);
+            this.IM2WarehouseButton.Image = global::btr.distrib.Properties.Resources.icons8_warehouse;
+            this.IM2WarehouseButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_warehouse;
+            this.IM2WarehouseButton.Name = "IM2WarehouseButton";
+            this.IM2WarehouseButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IM2WarehouseButton.SmallImage")));
+            this.IM2WarehouseButton.Text = "IM2-Gudang";
+            this.IM2WarehouseButton.Click += new System.EventHandler(this.IM2WarehouseButton_Click);
             // 
-            // KategoriAButton
+            // IM3KategoriAButton
             // 
-            this.KategoriAButton.Image = global::btr.distrib.Properties.Resources.icons8_pipe_organ_32;
-            this.KategoriAButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_pipe_organ_32;
-            this.KategoriAButton.Name = "KategoriAButton";
-            this.KategoriAButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("KategoriAButton.SmallImage")));
-            this.KategoriAButton.Text = "IM3-Kategori";
-            this.KategoriAButton.Click += new System.EventHandler(this.IM3KategoriButton_Click);
+            this.IM3KategoriAButton.Image = global::btr.distrib.Properties.Resources.icons8_pipe_organ_32;
+            this.IM3KategoriAButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_pipe_organ_32;
+            this.IM3KategoriAButton.Name = "IM3KategoriAButton";
+            this.IM3KategoriAButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IM3KategoriAButton.SmallImage")));
+            this.IM3KategoriAButton.Text = "IM3-Kategori";
+            this.IM3KategoriAButton.Click += new System.EventHandler(this.IM3KategoriButton_Click);
             // 
-            // DriverButton
+            // IM4DriverButton
             // 
-            this.DriverButton.Image = global::btr.distrib.Properties.Resources.icons8_user_account_32;
-            this.DriverButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_user_account_32;
-            this.DriverButton.Name = "DriverButton";
-            this.DriverButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("DriverButton.SmallImage")));
-            this.DriverButton.Text = "IM4-Driver";
-            this.DriverButton.Click += new System.EventHandler(this.DriverButton_Click);
+            this.IM4DriverButton.Image = global::btr.distrib.Properties.Resources.icons8_user_account_32;
+            this.IM4DriverButton.LargeImage = global::btr.distrib.Properties.Resources.icons8_user_account_32;
+            this.IM4DriverButton.Name = "IM4DriverButton";
+            this.IM4DriverButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IM4DriverButton.SmallImage")));
+            this.IM4DriverButton.Text = "IM4-Driver";
+            this.IM4DriverButton.Click += new System.EventHandler(this.IM4DriverButton_Click);
             // 
             // FinanceTab
             // 
@@ -820,7 +838,7 @@
             this.RT1ReturJualButton.Name = "RT1ReturJualButton";
             this.RT1ReturJualButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("RT1ReturJualButton.SmallImage")));
             this.RT1ReturJualButton.Text = "RT1-Retur Jual";
-            this.RT1ReturJualButton.Click += new System.EventHandler(this.FT3ReturJualButton_Click);
+            this.RT1ReturJualButton.Click += new System.EventHandler(this.RT1ReturJualButton_Click);
             // 
             // RT2PostingRetur
             // 
@@ -946,24 +964,6 @@
             this.ServerDbStatus.Size = new System.Drawing.Size(54, 17);
             this.ServerDbStatus.Text = "ServerDb";
             // 
-            // ribbonButton4
-            // 
-            this.ribbonButton4.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
-            this.ribbonButton4.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton4.Image")));
-            this.ribbonButton4.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton4.LargeImage")));
-            this.ribbonButton4.Name = "ribbonButton4";
-            this.ribbonButton4.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton4.SmallImage")));
-            // 
-            // RO4CoordinateCoverageMenu
-            // 
-            this.RO4CoordinateCoverageMenu.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
-            this.RO4CoordinateCoverageMenu.Image = ((System.Drawing.Image)(resources.GetObject("RO4CoordinateCoverageMenu.Image")));
-            this.RO4CoordinateCoverageMenu.LargeImage = ((System.Drawing.Image)(resources.GetObject("RO4CoordinateCoverageMenu.LargeImage")));
-            this.RO4CoordinateCoverageMenu.Name = "RO4CoordinateCoverageMenu";
-            this.RO4CoordinateCoverageMenu.SmallImage = ((System.Drawing.Image)(resources.GetObject("RO4CoordinateCoverageMenu.SmallImage")));
-            this.RO4CoordinateCoverageMenu.Text = "RO4-Coordinate Coverage";
-            this.RO4CoordinateCoverageMenu.Click += new System.EventHandler(this.RO4CoordinateCoverageMenu_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1012,9 +1012,9 @@
         private System.Windows.Forms.RibbonButton OutletButton;
         private System.Windows.Forms.RibbonButton SalesPersonButton;
         private System.Windows.Forms.RibbonButton WilayahButton;
-        private System.Windows.Forms.RibbonButton SupplierButton;
-        private System.Windows.Forms.RibbonButton BrgButton;
-        private System.Windows.Forms.RibbonButton WarehouseButton;
+        private System.Windows.Forms.RibbonButton PM1SupplierButton;
+        private System.Windows.Forms.RibbonButton IM1BrgButton;
+        private System.Windows.Forms.RibbonButton IM2WarehouseButton;
         private System.Windows.Forms.RibbonButton IF1StokBalanceButton;
         private System.Windows.Forms.RibbonButton AboutButton;
         private System.Windows.Forms.RibbonButton UserButton;
@@ -1031,14 +1031,14 @@
         private System.Windows.Forms.RibbonButton FT1LunasPiutangButton;
         private System.Windows.Forms.RibbonButton IF4StokPerSupplierButton;
         private System.Windows.Forms.RibbonButton P01InvoiceInfoButton;
-        private System.Windows.Forms.RibbonButton P2InvoiceBrgInfoButton;
-        private System.Windows.Forms.RibbonButton P3InvoiceHarianInfoButton;
+        private System.Windows.Forms.RibbonButton PF2InvoiceBrgInfoButton;
+        private System.Windows.Forms.RibbonButton PF3InvoiceHarianInfoButton;
         private System.Windows.Forms.RibbonPanel SalesInfoPanel;
         //private System.Windows.Forms.RibbonPanel TaxTransactionPanel;
         private System.Windows.Forms.RibbonPanel FinanceInfoTab;
         private System.Windows.Forms.RibbonButton FF1PiutangSalesWilayahButton;
         private System.Windows.Forms.RibbonButton FF2PenerimaanSalesButton;
-        private System.Windows.Forms.RibbonButton KategoriAButton;
+        private System.Windows.Forms.RibbonButton IM3KategoriAButton;
         private System.Windows.Forms.RibbonButton ribbonButton1;
         private System.Windows.Forms.RibbonTab ReturTab;
         private System.Windows.Forms.RibbonPanel ribbonPanel3;
@@ -1046,7 +1046,7 @@
         private System.Windows.Forms.RibbonPanel ribbonPanel4;
         private System.Windows.Forms.RibbonButton RF1ReturJualInfo;
         private System.Windows.Forms.RibbonButton RT2PostingRetur;
-        private System.Windows.Forms.RibbonButton DriverButton;
+        private System.Windows.Forms.RibbonButton IM4DriverButton;
         private System.Windows.Forms.RibbonButton FT3FpKeluaranButton;
         private System.Windows.Forms.RibbonButton IF5StokPeriodikButton;
         private System.Windows.Forms.RibbonButton PT2PostingStok;
@@ -1055,7 +1055,7 @@
         private System.Windows.Forms.RibbonButton IF7StokOpnameButton;
         private System.Windows.Forms.RibbonButton FF3FpKeluaranButton;
         private System.Windows.Forms.RibbonButton RF2ReturBrgInfoButton;
-        private System.Windows.Forms.RibbonButton RuteButton;
+        private System.Windows.Forms.RibbonButton SM4RuteButton;
         private System.Windows.Forms.RibbonButton IF8KartuStokSummary;
         private System.Windows.Forms.RibbonButton FF4PelunasanInfoButton;
         private System.Windows.Forms.RibbonButton ribbonButton2;

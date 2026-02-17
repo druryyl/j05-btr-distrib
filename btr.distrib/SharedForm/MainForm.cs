@@ -95,6 +95,8 @@ namespace btr.distrib.SharedForm
             return false;
         }
 
+        #region SALES
+        //      transaction
         public void ST1FakturButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<FakturForm>())
@@ -114,16 +116,62 @@ namespace btr.distrib.SharedForm
             form.MdiParent = this;
             form.Show();
         }
-        private void ST3FakturPajakButton_Click(object sender, EventArgs e)
+        private void ST3SalesReplacementMenu_Click(object sender, EventArgs e)
         {
-            if (BringMdiChildToFrontIfLoaded<AlokasiFpForm>())
+            if (BringMdiChildToFrontIfLoaded<SalesReplacementForm>())
                 return;
-            var form = ThisServicesProvider.GetRequiredService<AlokasiFpForm>();
+            var form = ThisServicesProvider.GetRequiredService<SalesReplacementForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
         }
-
+        private void ST4OrderMenu_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<ListOrderForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<ListOrderForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        //      master data
+        private void SM1CustomerButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<CustomerForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<CustomerForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        private void SM2SalesPersonButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<SalesPersonForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<SalesPersonForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        private void SM3WilayahButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<WilayahForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<WilayahForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        private void SM4RuteButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<SalesRuteForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<SalesRuteForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        //      sales reporting
         private void SF1FakturInfoButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<FakturInfoForm>())
@@ -160,313 +208,6 @@ namespace btr.distrib.SharedForm
             form.MdiParent = this;
             form.Show();
         }
-
-        private void SM1CustomerButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<CustomerForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<CustomerForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-        private void SM2SalesPersonButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<SalesPersonForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<SalesPersonForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-        private void SM3WilayahButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<WilayahForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<WilayahForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void IM1BrgButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<BrgForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<BrgForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void PM1SupplierButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<SupplierForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<SupplierForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void IM3KategoriButton_Click(object sender, EventArgs e)
-        {if (BringMdiChildToFrontIfLoaded<KategoriForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<KategoriForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void IM2WarehouseButton_Click(object sender, EventArgs e)
-        {if (BringMdiChildToFrontIfLoaded<WarehouseForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<WarehouseForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        //private void IT2PrintButton_Click(object sender, EventArgs e)
-        //{if (BringMdiChildToFrontIfLoaded<PrintManagerForm>())
-        //        return;
-        //    var form = ThisServicesProvider.GetRequiredService<PrintManagerForm>();
-        //    form.StartPosition = FormStartPosition.CenterScreen;
-        //    form.MdiParent = this;
-        //    form.Show();
-        //}
-
-        private void AboutButton_Click(object sender, EventArgs e)
-        {
-            var form = ThisServicesProvider.GetRequiredService<AboutForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.ShowDialog();
-        }
-
-        private void UserButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<UserForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<UserForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void IT1OpnameButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<StokOpForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<StokOpForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-
-        private void IT3PackingButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<Packing2Form>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<Packing2Form>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void IF1StokBalanceButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<StokBalanceInfo2Form>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<StokBalanceInfo2Form>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void PT1InvoiceButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<InvoiceForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<InvoiceForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void IT4MutasiButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<MutasiForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<MutasiForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void InvoiceReportButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<CustomerChartRpt>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<CustomerChartRpt>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void ImportExcelOpnameButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<ImportOpnameForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<ImportOpnameForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void FT1LunasPiutangButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<LunasPiutang2Form>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<LunasPiutang2Form>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-
-        private void RT15ReturJualButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<ReturJualForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<ReturJualForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void FT3ReturJualButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<ReturJualForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<ReturJualForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void P1InvoiceInfoButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<InvoiceInfoForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<InvoiceInfoForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void P2InvoiceBrgInfoButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<InvoiceBrgInfoForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<InvoiceBrgInfoForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void IF3OmzetPerSupplierButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<OmzetSupplierInfoForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<OmzetSupplierInfoForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void ParamSistemButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<ParamSistemForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<ParamSistemForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void IF2KartuStokButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<KartuStokInfoForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<KartuStokInfoForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void FF1PiutangSalesWilayahButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<PiutangSalesWilayahForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<PiutangSalesWilayahForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void FF2PenerimaanSalesButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<PenerimaanPelunasanSalesForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<PenerimaanPelunasanSalesForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void SF7OmzetSupplierButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<OmzetSupplierInfoForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<OmzetSupplierInfoForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-
-        private void P3InvoiceHarianButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<InvoiceHarianDetilForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<InvoiceHarianDetilForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-
-        private void FT2TagihanSalesButton_Click_1(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<TagihanForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<TagihanForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void IT6Adjustment_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<AdjustmentForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<AdjustmentForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
         private void SF5FakturPajakButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<FakturPajakInfoForm>())
@@ -476,7 +217,6 @@ namespace btr.distrib.SharedForm
             form.MdiParent = this;
             form.Show();
         }
-
         private void SF6FakturCashButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<FakturCashInfoForm>())
@@ -486,7 +226,193 @@ namespace btr.distrib.SharedForm
             form.MdiParent = this;
             form.Show();
         }
+        private void SF7OmzetSupplierButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<OmzetSupplierInfoForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<OmzetSupplierInfoForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        private void SF8DriverFaktur_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<DriverFakturInfoForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<DriverFakturInfoForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        //      order reporting
+        private void RO1CheckInListMenu_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<CheckInInfoForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<CheckInInfoForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        private void RO2SalesOmzetMenu_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<SalesOmzetInfoForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<SalesOmzetInfoForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        private void RO3EffectiveCallMenu_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<EffectiveCallInfoForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<EffectiveCallInfoForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        private void RO4CoordinateCoverageMenu_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<LocationCoverageInfoForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<LocationCoverageInfoForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        #endregion
 
+        #region PURCHASE
+        //      transaction
+        private void PT1InvoiceButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<InvoiceForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<InvoiceForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        private void PT2PostingStok_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<PostingStokForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<PostingStokForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        private void PT3ReturBeliMenu_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<ReturBeliForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<ReturBeliForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        //      reporting
+        private void PF1InvoiceInfoButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<InvoiceInfoForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<InvoiceInfoForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        private void PF2InvoiceBrgInfoButton_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void PF3InvoiceHarianButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<InvoiceHarianDetilForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<InvoiceHarianDetilForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        private void PF4ReturBeliDetil_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<ReturBeliBrgInfoForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<ReturBeliBrgInfoForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        //      master data
+        private void PM1SupplierButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<SupplierForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<SupplierForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        #endregion
+
+        #region INVENTORY
+        //      transaction
+        private void IT1OpnameButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<StokOpForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<StokOpForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        private void IT3PackingButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<Packing2Form>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<Packing2Form>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        private void IT4MutasiButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<MutasiForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<MutasiForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        private void IT6Adjustment_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<AdjustmentForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<AdjustmentForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        //      reporting
+        private void IF1StokBalanceButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<StokBalanceInfo2Form>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<StokBalanceInfo2Form>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        private void IF2KartuStokButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<KartuStokInfoForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<KartuStokInfoForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
         private void IF4StokPerSupplierButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<StokBrgSupplierForm>())
@@ -496,28 +422,178 @@ namespace btr.distrib.SharedForm
             form.MdiParent = this;
             form.Show();
         }
-
-        private void RF1ReturJualInfo_Click(object sender, EventArgs e)
+        private void IF5StokPeriodikButton_Click(object sender, EventArgs e)
         {
-            if (BringMdiChildToFrontIfLoaded<ReturJualReportForm>())
+            if (BringMdiChildToFrontIfLoaded<StokPeriodikForm>())
                 return;
-            var form = ThisServicesProvider.GetRequiredService<ReturJualReportForm>();
+            var form = ThisServicesProvider.GetRequiredService<StokPeriodikForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
         }
-
-        private void RF2ReturBrgInfoButton_Click(object sender, EventArgs e)
+        private void IF6StokMutasiButton_Click(object sender, EventArgs e)
         {
-            if (BringMdiChildToFrontIfLoaded<ReturJualBrgReportForm>())
+            if (BringMdiChildToFrontIfLoaded<MutasiInfoForm>())
                 return;
-            var form = ThisServicesProvider.GetRequiredService<ReturJualBrgReportForm>();
+            var form = ThisServicesProvider.GetRequiredService<MutasiInfoForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
         }
+        private void IF7StokOpnameButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<StokOpInfoForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<StokOpInfoForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        private void IF8KartuStokSummary_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<KartuStokSummaryForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<KartuStokSummaryForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        //      master data
+        private void IM1BrgButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<BrgForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<BrgForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        private void IM2WarehouseButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<WarehouseForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<WarehouseForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        private void IM3KategoriButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<KategoriForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<KategoriForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        private void IM4DriverButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<DriverForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<DriverForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        #endregion
 
+        #region FINANCE
+        //      transcation
+        private void FT1LunasPiutangButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<LunasPiutang2Form>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<LunasPiutang2Form>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        private void FT2TagihanSalesButton_Click_1(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<TagihanForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<TagihanForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        private void FT3FpKeluaranButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<FpKeluaranForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<FpKeluaranForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        private void FT4TandaTerimaButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<TandaTerimaTagihanForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<TandaTerimaTagihanForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        private void FT5PiutangTracker_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<PiutangTrackerForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<PiutangTrackerForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        //      reporting
+        private void FF1PiutangSalesWilayahButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<PiutangSalesWilayahForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<PiutangSalesWilayahForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        private void FF2PenerimaanSalesButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<PenerimaanPelunasanSalesForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<PenerimaanPelunasanSalesForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        private void FF3FpKeluaranButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<FpKeluaranInfoForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<FpKeluaranInfoForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        private void FF4PelunasanInfoButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<PelunasanInfoForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<PelunasanInfoForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
+        #endregion
 
+        #region RETUR JUAL
+        //      transaction
+        private void RT1ReturJualButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<ReturJualForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<ReturJualForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
         private void RT2PostingRetur_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<ReturBalanceForm>())
@@ -528,157 +604,25 @@ namespace btr.distrib.SharedForm
             form.Show();
 
         }
-
-        private void SF8DriverFaktur_Click(object sender, EventArgs e)
+        //      reporting
+        private void RF1ReturJualInfo_Click(object sender, EventArgs e)
         {
-            if (BringMdiChildToFrontIfLoaded<DriverFakturInfoForm>())
+            if (BringMdiChildToFrontIfLoaded<ReturJualReportForm>())
                 return;
-            var form = ThisServicesProvider.GetRequiredService<DriverFakturInfoForm>();
+            var form = ThisServicesProvider.GetRequiredService<ReturJualReportForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
         }
-
-        private void DriverButton_Click(object sender, EventArgs e)
+        private void RF2ReturBrgInfoButton_Click(object sender, EventArgs e)
         {
-            if (BringMdiChildToFrontIfLoaded<DriverForm>())
+            if (BringMdiChildToFrontIfLoaded<ReturJualBrgReportForm>())
                 return;
-            var form = ThisServicesProvider.GetRequiredService<DriverForm>();
+            var form = ThisServicesProvider.GetRequiredService<ReturJualBrgReportForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
         }
-
-        private void FT3FpKeluaranButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<FpKeluaranForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<FpKeluaranForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void IF5StokPeriodikButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<StokPeriodikForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<StokPeriodikForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void PT2PostingStok_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<PostingStokForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<PostingStokForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void IF6StokMutasiButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<MutasiInfoForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<MutasiInfoForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void FF3FpKeluaranButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<FpKeluaranInfoForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<FpKeluaranInfoForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void RuteButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<SalesRuteForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<SalesRuteForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void IF8KartuStokSummary_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<KartuStokSummaryForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<KartuStokSummaryForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void FF4PelunasanInfoButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<PelunasanInfoForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<PelunasanInfoForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void IF7StokOpnameButton_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<StokOpInfoForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<StokOpInfoForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void ST3SalesReplacementMenu_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<SalesReplacementForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<SalesReplacementForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void PT3ReturBeliMenu_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<ReturBeliForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<ReturBeliForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void PF4ReturBeliDetil_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<ReturBeliBrgInfoForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<ReturBeliBrgInfoForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void ST4OrderMenu_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<ListOrderForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<ListOrderForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
         private void RF3ReturJualPerSupplierInfoButton_Click(object sender, EventArgs e)
         {
             if (BringMdiChildToFrontIfLoaded<ReturJualPerSupplierReportForm>())
@@ -686,67 +630,52 @@ namespace btr.distrib.SharedForm
             var form = ThisServicesProvider.GetRequiredService<ReturJualPerSupplierReportForm>();
             form.MdiParent = this;
             form.StartPosition = FormStartPosition.CenterScreen;
-            form.Show(); 
+            form.Show();
         }
+        #endregion
 
-        private void FT4TandaTerimaButton_Click(object sender, EventArgs e)
+        #region OTHERS
+        private void UserButton_Click(object sender, EventArgs e)
         {
-            if (BringMdiChildToFrontIfLoaded<TandaTerimaTagihanForm>())
+            if (BringMdiChildToFrontIfLoaded<UserForm>())
                 return;
-            var form = ThisServicesProvider.GetRequiredService<TandaTerimaTagihanForm>();
+            var form = ThisServicesProvider.GetRequiredService<UserForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
         }
-
-        private void FT5PiutangTracker_Click(object sender, EventArgs e)
+        private void ParamSistemButton_Click(object sender, EventArgs e)
         {
-            if (BringMdiChildToFrontIfLoaded<PiutangTrackerForm>())
+            if (BringMdiChildToFrontIfLoaded<ParamSistemForm>())
                 return;
-            var form = ThisServicesProvider.GetRequiredService<PiutangTrackerForm>();
+            var form = ThisServicesProvider.GetRequiredService<ParamSistemForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
         }
-
-        private void RO1CheckInListMenu_Click(object sender, EventArgs e)
+        private void AboutButton_Click(object sender, EventArgs e)
         {
-            if (BringMdiChildToFrontIfLoaded<CheckInInfoForm>())
+            var menuStr = string.Empty;
+            foreach (var item in this.ribbon1.Controls)
+            {
+                if (item is RibbonButton ribBut)
+                    menuStr += $"\n{ribBut.Name}";
+            }
+            MessageBox.Show(menuStr);
+            var form = ThisServicesProvider.GetRequiredService<AboutForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.ShowDialog();
+        }
+        private void ImportExcelOpnameButton_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<ImportOpnameForm>())
                 return;
-            var form = ThisServicesProvider.GetRequiredService<CheckInInfoForm>();
+            var form = ThisServicesProvider.GetRequiredService<ImportOpnameForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MdiParent = this;
             form.Show();
         }
+        #endregion
 
-        private void RO2SalesOmzetMenu_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<SalesOmzetInfoForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<SalesOmzetInfoForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void RO3EffectiveCallMenu_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<EffectiveCallInfoForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<EffectiveCallInfoForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
-
-        private void RO4CoordinateCoverageMenu_Click(object sender, EventArgs e)
-        {
-            if (BringMdiChildToFrontIfLoaded<LocationCoverageInfoForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<LocationCoverageInfoForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
-        }
     }
 }
