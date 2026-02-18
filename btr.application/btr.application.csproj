@@ -331,6 +331,7 @@
     <Compile Include="SupportContext\ParamSistemAgg\IParamSistemDal.cs" />
     <Compile Include="SupportContext\ParamUserAgg\IParamUserDal.cs" />
     <Compile Include="SupportContext\PlaygroundAgg\IImportOpnameDal.cs" />
+    <Compile Include="SupportContext\RoleFeature\IRoleDal.cs" />
     <Compile Include="SupportContext\TglJamAgg\ITglJamDal.cs" />
     <Compile Include="SupportContext\UserAgg\IUserDal.cs" />
     <Compile Include="SupportContext\UserAgg\UserBuilder.cs" />

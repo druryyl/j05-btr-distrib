@@ -1,58 +1,60 @@
-﻿using btr.distrib.InventoryContext.BrgAgg;
+﻿using btr.distrib.FinanceContext;
+using btr.distrib.FinanceContext.FpKeluaranAgg;
+using btr.distrib.FinanceContext.LunasPiutangAgg;
+using btr.distrib.FinanceContext.PenerimaanPelunasanSalesRpt;
+using btr.distrib.FinanceContext.PiutangSalesWilayahRpt;
+using btr.distrib.FinanceContext.ReturBalanceAgg;
+using btr.distrib.FinanceContext.TagihanAgg;
+using btr.distrib.InventoryContext.AdjustmentAgg;
+using btr.distrib.InventoryContext.BrgAgg;
+using btr.distrib.InventoryContext.DriverAgg;
+using btr.distrib.InventoryContext.ImportOpnameAgg;
+using btr.distrib.InventoryContext.KartuStokRpt;
 using btr.distrib.InventoryContext.KategoriAgg;
+using btr.distrib.InventoryContext.MutasiAgg;
+using btr.distrib.InventoryContext.MutasiRpt;
+using btr.distrib.InventoryContext.OmzetSupplierRpt;
 using btr.distrib.InventoryContext.OpnameAgg;
 using btr.distrib.InventoryContext.PackingAgg;
+using btr.distrib.InventoryContext.ReturJualAgg;
+using btr.distrib.InventoryContext.ReturJualRpt;
+using btr.distrib.InventoryContext.StokBalanceRpt;
+using btr.distrib.InventoryContext.StokBrgSupplierRpt;
+using btr.distrib.InventoryContext.StokPeriodikRpt;
 using btr.distrib.InventoryContext.WarehouseAgg;
+using btr.distrib.PurchaseContext.InvoiceAgg;
+using btr.distrib.PurchaseContext.InvoiceHarianDetilRpt;
+using btr.distrib.PurchaseContext.InvoiceInfo;
+using btr.distrib.PurchaseContext.PostingStokAgg;
+using btr.distrib.PurchaseContext.ReturBeliFeature;
+using btr.distrib.PurchaseContext.ReturBeliInfo;
 using btr.distrib.PurchaseContext.SupplierAgg;
+using btr.distrib.ReportingContext;
+using btr.distrib.SalesContext.AlokasiFpAgg;
 using btr.distrib.SalesContext.CustomerAgg;
+using btr.distrib.SalesContext.DriverFakturRpt;
 using btr.distrib.SalesContext.FakturAgg;
+using btr.distrib.SalesContext.FakturCashRpt;
 using btr.distrib.SalesContext.FakturControlAgg;
+using btr.distrib.SalesContext.FakturInfoRpt;
+using btr.distrib.SalesContext.FakturPajakRpt;
+using btr.distrib.SalesContext.FakturPerCustomerRpt;
+using btr.distrib.SalesContext.FakturPerSupplierRpt;
+using btr.distrib.SalesContext.LocationFeature;
+using btr.distrib.SalesContext.OrderFeature;
 using btr.distrib.SalesContext.SalesPersonAgg;
+using btr.distrib.SalesContext.SalesReplacementFeat;
 using btr.distrib.SalesContext.WilayahAgg;
 using btr.domain.SupportContext.UserAgg;
 using btr.infrastructure.Helpers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using btr.distrib.SalesContext.AlokasiFpAgg;
-using btr.distrib.PurchaseContext.InvoiceAgg;
-using btr.distrib.InventoryContext.MutasiAgg;
-using btr.distrib.ReportingContext;
-using btr.distrib.InventoryContext.ImportOpnameAgg;
-using btr.distrib.FinanceContext.LunasPiutangAgg;
-using btr.distrib.InventoryContext.StokBalanceRpt;
-using btr.distrib.SalesContext.FakturInfoRpt;
-using btr.distrib.InventoryContext.ReturJualAgg;
-using btr.distrib.InventoryContext.OmzetSupplierRpt;
-using btr.distrib.PurchaseContext.InvoiceInfo;
-using btr.distrib.InventoryContext.KartuStokRpt;
-using btr.distrib.FinanceContext.PiutangSalesWilayahRpt;
-using btr.distrib.FinanceContext.PenerimaanPelunasanSalesRpt;
-using btr.distrib.InventoryContext.StokBrgSupplierRpt;
-using btr.distrib.SalesContext.FakturPerSupplierRpt;
-using btr.distrib.SalesContext.FakturPerCustomerRpt;
-using btr.distrib.FinanceContext.TagihanAgg;
-using btr.distrib.PurchaseContext.InvoiceHarianDetilRpt;
-using btr.distrib.InventoryContext.AdjustmentAgg;
-using btr.distrib.SalesContext.FakturPajakRpt;
-using btr.distrib.SalesContext.FakturCashRpt;
-using btr.distrib.InventoryContext.ReturJualRpt;
-using btr.distrib.FinanceContext.ReturBalanceAgg;
-using btr.distrib.SalesContext.DriverFakturRpt;
-using btr.distrib.InventoryContext.DriverAgg;
-using btr.distrib.FinanceContext.FpKeluaranAgg;
-using btr.distrib.InventoryContext.StokPeriodikRpt;
-using btr.distrib.PurchaseContext.PostingStokAgg;
-using btr.distrib.InventoryContext.MutasiRpt;
-using btr.distrib.FinanceContext;
-using btr.distrib.SalesContext.SalesReplacementFeat;
-using btr.distrib.PurchaseContext.ReturBeliFeature;
-using btr.distrib.PurchaseContext.ReturBeliInfo;
-using btr.distrib.SalesContext.OrderFeature;
-using btr.distrib.SalesContext.LocationFeature;
 
 namespace btr.distrib.SharedForm
 {
@@ -668,14 +670,58 @@ namespace btr.distrib.SharedForm
         }
         private void ImportExcelOpnameButton_Click(object sender, EventArgs e)
         {
-            if (BringMdiChildToFrontIfLoaded<ImportOpnameForm>())
-                return;
-            var form = ThisServicesProvider.GetRequiredService<ImportOpnameForm>();
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MdiParent = this;
-            form.Show();
+            DumpRibbonMenuNames();
+            //if (BringMdiChildToFrontIfLoaded<ImportOpnameForm>())
+            //    return;
+            //var form = ThisServicesProvider.GetRequiredService<ImportOpnameForm>();
+            //form.StartPosition = FormStartPosition.CenterScreen;
+            //form.MdiParent = this;
+            //form.Show();
         }
         #endregion
 
+        private IEnumerable<System.Windows.Forms.RibbonButton> GetAllRibbonButtons()
+        {
+            var result = new List<System.Windows.Forms.RibbonButton>();
+            foreach (System.Windows.Forms.RibbonTab tab in this.ribbon1.Tabs)
+            {
+                foreach (System.Windows.Forms.RibbonPanel panel in tab.Panels)
+                {
+                    foreach (var item in panel.Items)
+                        CollectRibbonButtons(item, result);
+                }
+            }
+            return result;
+        }
+
+        private void CollectRibbonButtons(object item, List<System.Windows.Forms.RibbonButton> acc)
+        {
+            if (item is System.Windows.Forms.RibbonButton btn)
+            {
+                if (btn.Style == RibbonButtonStyle.Normal)
+                    acc.Add(btn);
+
+                if (btn.DropDownItems != null)
+                {
+                    foreach (var di in btn.DropDownItems)
+                        CollectRibbonButtons(di, acc);
+                }
+            }
+            else if (item is System.Windows.Forms.RibbonPanel panel)
+            {
+                foreach (var sub in panel.Items)
+                    CollectRibbonButtons(sub, acc);
+            }
+            // ignore separators or other item types
+        }
+
+        // example usage: call after InitializeComponent()
+        private void DumpRibbonMenuNames()
+        {
+            var buttons = GetAllRibbonButtons();
+            var lines = buttons.Select(b => $"{b.Name,-31} | {b.Text}"); // | Visible={b.Visible} | Enabled={b.Enabled}");
+            Debug.WriteLine(string.Join("\n", lines));
+            //MessageBox.Show(string.Join("\n", lines));
+        }
     }
 }

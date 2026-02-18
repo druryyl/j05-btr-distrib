@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.RoleComboBox = new System.Windows.Forms.ComboBox();
             this.Password2Text = new System.Windows.Forms.TextBox();
             this.PasswordText = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -50,7 +52,10 @@
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.RoleComboBox);
             this.panel1.Controls.Add(this.Password2Text);
             this.panel1.Controls.Add(this.PasswordText);
             this.panel1.Controls.Add(this.label3);
@@ -60,8 +65,26 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(319, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(190, 200);
+            this.panel1.Size = new System.Drawing.Size(190, 284);
             this.panel1.TabIndex = 0;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(15, 170);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(30, 13);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Role";
+            // 
+            // RoleComboBox
+            // 
+            this.RoleComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.RoleComboBox.FormattingEnabled = true;
+            this.RoleComboBox.Location = new System.Drawing.Point(18, 186);
+            this.RoleComboBox.Name = "RoleComboBox";
+            this.RoleComboBox.Size = new System.Drawing.Size(154, 21);
+            this.RoleComboBox.TabIndex = 7;
             // 
             // Password2Text
             // 
@@ -122,11 +145,12 @@
             // 
             // panel2
             // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.Gainsboro;
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.PrefixText);
             this.panel2.Controls.Add(this.label6);
-            this.panel2.Location = new System.Drawing.Point(319, 218);
+            this.panel2.Location = new System.Drawing.Point(319, 302);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(190, 115);
             this.panel2.TabIndex = 1;
@@ -164,7 +188,8 @@
             // 
             // SaveButton
             // 
-            this.SaveButton.Location = new System.Drawing.Point(434, 339);
+            this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.SaveButton.Location = new System.Drawing.Point(434, 423);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
             this.SaveButton.TabIndex = 2;
@@ -173,15 +198,19 @@
             // 
             // ListGrid
             // 
+            this.ListGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ListGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ListGrid.Location = new System.Drawing.Point(12, 12);
             this.ListGrid.Name = "ListGrid";
-            this.ListGrid.Size = new System.Drawing.Size(301, 321);
+            this.ListGrid.Size = new System.Drawing.Size(301, 405);
             this.ListGrid.TabIndex = 3;
             // 
             // NewButton
             // 
-            this.NewButton.Location = new System.Drawing.Point(319, 339);
+            this.NewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.NewButton.Location = new System.Drawing.Point(353, 423);
             this.NewButton.Name = "NewButton";
             this.NewButton.Size = new System.Drawing.Size(75, 23);
             this.NewButton.TabIndex = 4;
@@ -193,7 +222,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.RosyBrown;
-            this.ClientSize = new System.Drawing.Size(521, 374);
+            this.ClientSize = new System.Drawing.Size(521, 458);
             this.Controls.Add(this.NewButton);
             this.Controls.Add(this.ListGrid);
             this.Controls.Add(this.SaveButton);
@@ -228,5 +257,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DataGridView ListGrid;
         private System.Windows.Forms.Button NewButton;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox RoleComboBox;
     }
 }

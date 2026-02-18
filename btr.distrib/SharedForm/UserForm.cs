@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using btr.application.SupportContext.RoleFeature;
 using btr.application.SupportContext.UserAgg;
 using btr.distrib.Helpers;
+using btr.domain.SupportContext.RoleFeature;
 using btr.domain.SupportContext.UserAgg;
 using Polly;
 
@@ -17,13 +19,15 @@ namespace btr.distrib.SharedForm
 
         private readonly IUserBuilder _userBuilder;
         private readonly IUserWriter _userWriter;
+        private readonly IRoleRepo _roleRepo;
 
         private IEnumerable<UserFormGridDto> _listUser;
 
         public UserForm(IUserDal userDal,
             IUserBuilder userBuilder,
             IUserWriter userWriter
-            )
+,
+            IRoleRepo roleRepo)
         {
             InitializeComponent();
 
@@ -31,10 +35,20 @@ namespace btr.distrib.SharedForm
 
             _userBuilder = userBuilder;
             _userWriter = userWriter;
+            _roleRepo = roleRepo;
+            label4.Text = $"{PrefixText.Text}{TahunBulanHex()}-0001";
 
             RegisterEventHandler();
             InitGrid();
-            label4.Text = $"{PrefixText.Text}{TahunBulanHex()}-0001";
+            InitComboBox();
+        }
+
+        private void InitComboBox()
+        {
+            var listRole = _roleRepo.ListRole()?.ToList() ?? new List<RoleType>();
+            RoleComboBox.DataSource = listRole;
+            RoleComboBox.ValueMember = "RoleId";
+            RoleComboBox.DisplayMember = "RoleName";
         }
 
         private void RegisterEventHandler()
@@ -95,13 +109,15 @@ namespace btr.distrib.SharedForm
 
             _listUser = listUser
                 .Select(x => new UserFormGridDto(x.UserId,
-                    x.UserName, x.Prefix)).ToList();
+                    x.UserName, x.Prefix, x.RoleName)).ToList();
             ListGrid.DataSource = _listUser;
 
             ListGrid.Columns.SetDefaultCellStyle(Color.MintCream);
             ListGrid.Columns.GetCol("Id").Width = 50;
             ListGrid.Columns.GetCol("Name").Width = 100;
             ListGrid.Columns.GetCol("Prefix").Width = 50;
+            ListGrid.Columns.GetCol("Role").Width = 200;
+
         }
         #endregion
 
@@ -126,12 +142,14 @@ namespace btr.distrib.SharedForm
             UserIdText.Text = user.UserId;
             UserNameText.Text = user.UserName;
             PrefixText.Text = user.Prefix;
+            RoleComboBox.SelectedValue = user.RoleId;
         }
 
         private void ClearForm()
         {
             UserIdText.Clear();
             UserNameText.Clear();
+            RoleComboBox.SelectedIndex = 0;
         }
         #endregion
 
@@ -157,6 +175,7 @@ namespace btr.distrib.SharedForm
                 .UserName(UserNameText.Text)
                 .Prefix(PrefixText.Text)
                 .Build();
+            user.RoleId = RoleComboBox.SelectedValue.ToString();
 
             if (PasswordText.Text.Length > 0)
             {
@@ -174,14 +193,17 @@ namespace btr.distrib.SharedForm
     }
     public class UserFormGridDto
     {
-        public UserFormGridDto(string id, string name, string prefix)
+        public UserFormGridDto(string id, string name, string prefix, string role)
         {
             Id = id;
             Name = name;
-            Prefix = prefix;    
+            Prefix = prefix;
+            Role = role;
+
         }
         public string Id { get; }
         public string Name { get; }
         public string Prefix { get; }
+        public string Role { get; }
     }
 }

@@ -141,8 +141,12 @@
     <Build Include="PackingOrderModel\BTR_PackingOrderItem.sql" />
     <Build Include="Tables\InventoryContext\BTR_Depo.sql" />
     <Build Include="PackingOrderModel\BTR_PackingOrderDepo.sql" />
+    <Build Include="Tables\Helper\BTR_Menu.sql" />
+    <Build Include="Tables\Helper\BTR_Role.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Tables\SalesContext\BTR_HariRuteDataSeed.sql" />
+    <None Include="DataSeeds\BTR_Menu.dataseed.sql" />
+    <None Include="DataSeeds\BTR_Role.dataseed.sql" />
   </ItemGroup>
 </Project>

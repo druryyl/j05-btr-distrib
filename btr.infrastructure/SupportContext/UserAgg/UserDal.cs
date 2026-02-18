@@ -23,15 +23,16 @@ namespace btr.infrastructure.SupportContext.UserAgg
         {
             const string sql = @"
             INSERT INTO BTR_User(
-                UserId, UserName, Password, Prefix)
+                UserId, UserName, Password, Prefix, RoleId)
             VALUES (
-                @UserId, @UserName, @Password, @Prefix)";
+                @UserId, @UserName, @Password, @Prefix, RoleId)";
 
             var dp = new DynamicParameters();
             dp.AddParam("@UserId", model.UserId, SqlDbType.VarChar);
             dp.AddParam("@UserName", model.UserName, SqlDbType.VarChar);
             dp.AddParam("@Password", model.Password, SqlDbType.VarChar);
             dp.AddParam("@Prefix", model.Prefix, SqlDbType.VarChar);
+            dp.AddParam("@RoleId", model.RoleId, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -47,7 +48,8 @@ namespace btr.infrastructure.SupportContext.UserAgg
             SET
                 UserName = @UserName,
                 Password = @Password,
-                Prefix = @Prefix
+                Prefix = @Prefix,
+                RoleId = @RoleId
             WHERE
                 UserId = @UserId ";
 
@@ -56,6 +58,7 @@ namespace btr.infrastructure.SupportContext.UserAgg
             dp.AddParam("@UserName", model.UserName, SqlDbType.VarChar);
             dp.AddParam("@Password", model.Password, SqlDbType.VarChar);
             dp.AddParam("@Prefix", model.Prefix, SqlDbType.VarChar);
+            dp.AddParam("@RoleId", model.RoleId, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -83,12 +86,14 @@ namespace btr.infrastructure.SupportContext.UserAgg
         public UserModel GetData(IUserKey key)
         {
             const string sql = @"
-            SELECT
-                UserId, UserName, Password, Prefix
-            FROM
-                BTR_User
-            WHERE
-                UserId = @UserId ";
+                SELECT
+                    aa.UserId, aa.UserName, aa.Password, aa.Prefix, aa.RoleId,
+                    ISNULL(bb.RoleName, '') AS RoleName
+                FROM
+                    BTR_User aa
+                    LEFT JOIN BTR_Role bb ON aa.RoleId = bb.RoleId
+                WHERE
+                    aa.UserId = @UserId ";
 
             var dp = new DynamicParameters();
             dp.AddParam("@UserId", key.UserId, SqlDbType.VarChar);
@@ -102,10 +107,12 @@ namespace btr.infrastructure.SupportContext.UserAgg
         public IEnumerable<UserModel> ListData()
         {
             const string sql = @"
-            SELECT
-                UserId, UserName, Password, Prefix
-            FROM
-                BTR_User";
+                SELECT
+                    aa.UserId, aa.UserName, aa.Password, aa.Prefix, aa.RoleId,
+                    ISNULL(bb.RoleName, '') AS RoleName
+                FROM
+                    BTR_User aa
+                    LEFT JOIN BTR_Role bb ON aa.RoleId = bb.RoleId ";
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
