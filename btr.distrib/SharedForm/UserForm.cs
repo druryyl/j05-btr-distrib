@@ -8,6 +8,7 @@ using btr.application.SupportContext.UserAgg;
 using btr.distrib.Helpers;
 using btr.domain.SupportContext.RoleFeature;
 using btr.domain.SupportContext.UserAgg;
+using btr.nuna.Domain;
 using Polly;
 
 namespace btr.distrib.SharedForm
@@ -45,7 +46,7 @@ namespace btr.distrib.SharedForm
 
         private void InitComboBox()
         {
-            var listRole = _roleRepo.ListRole()?.ToList() ?? new List<RoleType>();
+            var listRole = _roleRepo.ListRole()?.ToList() ?? new List<RoleView>();
             RoleComboBox.DataSource = listRole;
             RoleComboBox.ValueMember = "RoleId";
             RoleComboBox.DisplayMember = "RoleName";
@@ -134,11 +135,14 @@ namespace btr.distrib.SharedForm
                 .Load(new UserModel(textbox.Text))
                 .Build());
 
+            user.RemoveNull();
             ShowData(user);
         }
 
         private void ShowData(UserModel user)
         {
+            if (user is null)
+                return;
             UserIdText.Text = user.UserId;
             UserNameText.Text = user.UserName;
             PrefixText.Text = user.Prefix;

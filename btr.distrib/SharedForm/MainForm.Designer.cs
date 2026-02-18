@@ -114,6 +114,7 @@
             this.DeliveryPanel = new System.Windows.Forms.RibbonPanel();
             this.XX1UserMenu = new System.Windows.Forms.RibbonButton();
             this.XX2ParameterSistemMenu = new System.Windows.Forms.RibbonButton();
+            this.XX4RoleMenu = new System.Windows.Forms.RibbonButton();
             this.ReceivingPanel = new System.Windows.Forms.RibbonPanel();
             this.XX3AboutMenu = new System.Windows.Forms.RibbonButton();
             this.ImportOpnameButton = new System.Windows.Forms.RibbonButton();
@@ -885,6 +886,7 @@
             // 
             this.DeliveryPanel.Items.Add(this.XX1UserMenu);
             this.DeliveryPanel.Items.Add(this.XX2ParameterSistemMenu);
+            this.DeliveryPanel.Items.Add(this.XX4RoleMenu);
             this.DeliveryPanel.Name = "DeliveryPanel";
             this.DeliveryPanel.Text = "";
             // 
@@ -905,6 +907,15 @@
             this.XX2ParameterSistemMenu.SmallImage = ((System.Drawing.Image)(resources.GetObject("XX2ParameterSistemMenu.SmallImage")));
             this.XX2ParameterSistemMenu.Text = "XX2-Parameter Sistem";
             this.XX2ParameterSistemMenu.Click += new System.EventHandler(this.ParamSistemButton_Click);
+            // 
+            // XX4RoleMenu
+            // 
+            this.XX4RoleMenu.Image = global::btr.distrib.Properties.Resources.icons8_password_32;
+            this.XX4RoleMenu.LargeImage = global::btr.distrib.Properties.Resources.icons8_password_32;
+            this.XX4RoleMenu.Name = "XX4RoleMenu";
+            this.XX4RoleMenu.SmallImage = ((System.Drawing.Image)(resources.GetObject("XX4RoleMenu.SmallImage")));
+            this.XX4RoleMenu.Text = "XX4-Role";
+            this.XX4RoleMenu.Click += new System.EventHandler(this.XX4RoleMenu_Click);
             // 
             // ReceivingPanel
             // 
@@ -1072,5 +1083,6 @@
         private System.Windows.Forms.RibbonButton RO2SalesOmzetMenu;
         private System.Windows.Forms.RibbonButton RO3EffectiveCallMenu;
         private System.Windows.Forms.RibbonButton RO4CoordinateCoverageMenu;
+        private System.Windows.Forms.RibbonButton XX4RoleMenu;
     }
 }

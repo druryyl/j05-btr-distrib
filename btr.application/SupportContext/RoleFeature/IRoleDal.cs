@@ -17,6 +17,18 @@ namespace btr.application.SupportContext.RoleFeature
         IDeleteEntity<IRoleKey>,
         ILoadEntity<RoleType, IRoleKey>
     {
-        IEnumerable<RoleType> ListRole();
+        IEnumerable<RoleView> ListRole();
     }
+    public class RoleView
+    {
+        public RoleView(string roleId, string roleName)
+        {
+            RoleId = roleId;
+            RoleName = roleName;
+        }
+
+        public string RoleId { get; set; }
+        public string RoleName { get; set; }
+    }
+
 }

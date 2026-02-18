@@ -1,4 +1,6 @@
-﻿using btr.distrib.FinanceContext;
+﻿using btr.application.SupportContext.RoleFeature;
+using btr.application.SupportContext.UserAgg;
+using btr.distrib.FinanceContext;
 using btr.distrib.FinanceContext.FpKeluaranAgg;
 using btr.distrib.FinanceContext.LunasPiutangAgg;
 using btr.distrib.FinanceContext.PenerimaanPelunasanSalesRpt;
@@ -45,6 +47,7 @@ using btr.distrib.SalesContext.OrderFeature;
 using btr.distrib.SalesContext.SalesPersonAgg;
 using btr.distrib.SalesContext.SalesReplacementFeat;
 using btr.distrib.SalesContext.WilayahAgg;
+using btr.domain.SupportContext.RoleFeature;
 using btr.domain.SupportContext.UserAgg;
 using btr.infrastructure.Helpers;
 using Microsoft.Extensions.DependencyInjection;
@@ -60,6 +63,9 @@ namespace btr.distrib.SharedForm
 {
     public partial class MainForm : Form
     {
+        private readonly IUserDal _userDal;
+        private readonly IRoleRepo _roleRepo;
+
         public ServiceProvider ThisServicesProvider { get; private set; }
         public IUserKey UserId { get; private set; }
 
@@ -71,10 +77,11 @@ namespace btr.distrib.SharedForm
                 mdi.BackColor = Color.White;
             
             ThisServicesProvider = servicesCollection.BuildServiceProvider();
-            
+            _userDal = ThisServicesProvider.GetRequiredService<IUserDal>();
+            _roleRepo = ThisServicesProvider.GetRequiredService<IRoleRepo>();
         }
 
-        public void SetUser(string user)
+        public void ShowCurrentUserInStatusStrip(string user)
         {
             var dbOpt =  ThisServicesProvider.GetRequiredService<IOptions<DatabaseOptions>>();
             var server = ConnStringHelper.Server;
@@ -83,7 +90,40 @@ namespace btr.distrib.SharedForm
             ServerDbStatus.Text = $@"Connected Database: {db}@{server}";
             UserId = new UserModel(user);
             if (dbOpt.Value.ServerName == "JUDE7")
-                this.BackgroundImage = null;
+                BackgroundImage = null;
+
+            SetupUserMenu();
+        }
+
+        private void SetupUserMenu()
+        {
+            if (UserId.UserId.ToLower() == "yudis")
+                return;
+            var user = _userDal.GetData(UserId);
+            if (user is null)
+                return;
+            var role = _roleRepo.LoadEntity(user).GetValueOrThrow("Akses not found");
+            if (role.RoleId == "SYSAD")
+                return;
+
+            var allMenu = GetAllRibbonButtons();
+            allMenu.Select(x => x.Enabled = false).ToList();
+
+            // allowed names from role.ListMenu (MenuName)
+            var allowed = new HashSet<string>(
+                (role.ListMenu ?? Enumerable.Empty<MenuType>())
+                    .Select(m => m.MenuName?.Trim()),
+                StringComparer.OrdinalIgnoreCase);
+
+            // enable buttons when either designer Name or visible Text matches the MenuName
+            foreach (var btn in allMenu)
+            {
+                if (allowed.Contains(btn.Name) || allowed.Contains(btn.Text))
+                {
+                    btn.Enabled = true;
+                    btn.Visible = true; // optional: make visible when allowed
+                }
+            }
         }
 
         private bool BringMdiChildToFrontIfLoaded<T>() where T : Form
@@ -678,8 +718,18 @@ namespace btr.distrib.SharedForm
             //form.MdiParent = this;
             //form.Show();
         }
+        private void XX4RoleMenu_Click(object sender, EventArgs e)
+        {
+            if (BringMdiChildToFrontIfLoaded<RoleForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<RoleForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
+        }
         #endregion
 
+        #region HELPER-LIST-ALL-MENU
         private IEnumerable<System.Windows.Forms.RibbonButton> GetAllRibbonButtons()
         {
             var result = new List<System.Windows.Forms.RibbonButton>();
@@ -723,5 +773,6 @@ namespace btr.distrib.SharedForm
             Debug.WriteLine(string.Join("\n", lines));
             //MessageBox.Show(string.Join("\n", lines));
         }
+        #endregion
     }
 }

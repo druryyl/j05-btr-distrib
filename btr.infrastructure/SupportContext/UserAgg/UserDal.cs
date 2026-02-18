@@ -25,7 +25,7 @@ namespace btr.infrastructure.SupportContext.UserAgg
             INSERT INTO BTR_User(
                 UserId, UserName, Password, Prefix, RoleId)
             VALUES (
-                @UserId, @UserName, @Password, @Prefix, RoleId)";
+                @UserId, @UserName, @Password, @Prefix, @RoleId)";
 
             var dp = new DynamicParameters();
             dp.AddParam("@UserId", model.UserId, SqlDbType.VarChar);

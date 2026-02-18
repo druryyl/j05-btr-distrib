@@ -127,9 +127,9 @@ namespace btr.infrastructure.SupportContext.RoleFeature
         public string RoleId { get; set; }
         public string RoleName { get; set; }
 
-        public RoleType ToModel()
+        public RoleType ToModel(IEnumerable<MenuType> listMenu)
         {
-            var result = new RoleType(RoleId, RoleName);
+            var result = new RoleType(RoleId, RoleName, listMenu);
             return result;
         }
         public static RoleDto FromModel(RoleType model)

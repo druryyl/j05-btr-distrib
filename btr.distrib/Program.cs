@@ -82,7 +82,7 @@ namespace btr.distrib
         private static Form GetMainForm(ServiceCollection services, string user)
         {
             var form = new MainForm(services);
-            form.SetUser(user);
+            form.ShowCurrentUserInStatusStrip(user);
 
             return form;
         }

@@ -1,6 +1,8 @@
-﻿namespace btr.domain.SupportContext.UserAgg
+﻿using btr.domain.SupportContext.RoleFeature;
+
+namespace btr.domain.SupportContext.UserAgg
 {
-    public class UserModel : IUserKey
+    public class UserModel : IUserKey, IRoleKey
     {
         public UserModel()
         {

@@ -63,7 +63,7 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.UserIdText);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(319, 12);
+            this.panel1.Location = new System.Drawing.Point(458, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(190, 284);
             this.panel1.TabIndex = 0;
@@ -150,7 +150,7 @@
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.PrefixText);
             this.panel2.Controls.Add(this.label6);
-            this.panel2.Location = new System.Drawing.Point(319, 302);
+            this.panel2.Location = new System.Drawing.Point(458, 302);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(190, 115);
             this.panel2.TabIndex = 1;
@@ -189,7 +189,7 @@
             // SaveButton
             // 
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveButton.Location = new System.Drawing.Point(434, 423);
+            this.SaveButton.Location = new System.Drawing.Point(573, 423);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
             this.SaveButton.TabIndex = 2;
@@ -204,13 +204,13 @@
             this.ListGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ListGrid.Location = new System.Drawing.Point(12, 12);
             this.ListGrid.Name = "ListGrid";
-            this.ListGrid.Size = new System.Drawing.Size(301, 405);
+            this.ListGrid.Size = new System.Drawing.Size(440, 405);
             this.ListGrid.TabIndex = 3;
             // 
             // NewButton
             // 
             this.NewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.NewButton.Location = new System.Drawing.Point(353, 423);
+            this.NewButton.Location = new System.Drawing.Point(492, 423);
             this.NewButton.Name = "NewButton";
             this.NewButton.Size = new System.Drawing.Size(75, 23);
             this.NewButton.TabIndex = 4;
@@ -222,7 +222,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.RosyBrown;
-            this.ClientSize = new System.Drawing.Size(521, 458);
+            this.ClientSize = new System.Drawing.Size(660, 458);
             this.Controls.Add(this.NewButton);
             this.Controls.Add(this.ListGrid);
             this.Controls.Add(this.SaveButton);

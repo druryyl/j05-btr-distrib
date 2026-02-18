@@ -194,7 +194,11 @@
     <Compile Include="SupportContext\ParamSistemAgg\ParamSistemDal.cs" />
     <Compile Include="SupportContext\ParamUserAgg\ParamUserDal.cs" />
     <Compile Include="SupportContext\PlaygroundAgg\ImportOpnameDal.cs" />
+    <Compile Include="SupportContext\RoleFeature\MenuDal.cs" />
+    <Compile Include="SupportContext\RoleFeature\MenuDto.cs" />
+    <Compile Include="SupportContext\RoleFeature\MenuRepo.cs" />
     <Compile Include="SupportContext\RoleFeature\RoleDal.cs" />
+    <Compile Include="SupportContext\RoleFeature\RoleMenuDal.cs" />
     <Compile Include="SupportContext\RoleFeature\RoleRepo.cs" />
     <Compile Include="SupportContext\TglJamAgg\TglJamDal.cs" />
     <Compile Include="SupportContext\UserAgg\UserDal.cs" />
