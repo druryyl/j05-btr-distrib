@@ -27,6 +27,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Printing;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -93,11 +94,11 @@ namespace btr.distrib.PurchaseContext.ReturBeliFeature
         {
             var paramKey = new ParamSistemModel("SISTEM_PPN_PROSEN");
             var paramPpn = _paramSistemDal.GetData(paramKey).ParamValue ?? "0";
-            _ppnProsen = Convert.ToDecimal(paramPpn);
+            _ppnProsen = Convert.ToDecimal(paramPpn, CultureInfo.InvariantCulture);
 
             paramKey = new ParamSistemModel("SISTEM_DPP_PROSEN");
             var paramDpp = _paramSistemDal.GetData(paramKey).ParamValue ?? "0";
-            _dppProsen = Convert.ToDecimal(paramDpp);
+            _dppProsen = Convert.ToDecimal(paramDpp, CultureInfo.InvariantCulture);
         }
 
         private void RegisterEventHandler()

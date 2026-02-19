@@ -82,6 +82,6 @@ namespace btr.domain.SalesContext.FakturAgg
         public List<FakturItemModel> ListItemKlaim { get; set; }
 
         public FakturReff ToReff()
-            => new FakturReff(FakturId, FakturCode, FakturDate, UserId);
+            => new FakturReff(FakturId, FakturCode, FakturDate, UserId, GrandTotal);
     }
 }

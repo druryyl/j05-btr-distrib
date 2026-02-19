@@ -165,6 +165,7 @@ namespace btr.distrib.PurchaseContext.SupplierAgg
 
         private void InitGrid()
         {
+            ListGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
             var listSupplier = _supplierDal.ListData()?.ToList()
                 ?? new List<SupplierModel>();
 
@@ -179,8 +180,11 @@ namespace btr.distrib.PurchaseContext.SupplierAgg
             ListGrid.Columns.SetDefaultCellStyle(Color.MistyRose);
             ListGrid.Columns.GetCol("Id").Width = 50;
             ListGrid.Columns.GetCol("Code").Width = 50;
-            ListGrid.Columns.GetCol("Name").Width = 200;
+            ListGrid.Columns.GetCol("Name").Width = 250;
+            //ListGrid.Columns.GetCol("Name").DefaultCellStyle.Font = new Font("Arial", 8.25f);
+
             ListGrid.Columns.GetCol("Alamat").Width = 250;
+            ListGrid.Columns.GetCol("Alamat").DefaultCellStyle.Font = new Font("Arial", 8.25f);
             ListGrid.Columns.GetCol("Depo").Width = 100;
         }
 

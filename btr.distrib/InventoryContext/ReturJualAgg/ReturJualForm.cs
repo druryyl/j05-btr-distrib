@@ -1,36 +1,37 @@
 ﻿using btr.application.InventoryContext.DriverAgg;
+using btr.application.InventoryContext.ReturJualAgg.Contracts;
+using btr.application.InventoryContext.ReturJualAgg.Workers;
+using btr.application.InventoryContext.StokAgg;
+using btr.application.InventoryContext.StokAgg.GenStokUseCase;
 using btr.application.InventoryContext.WarehouseAgg;
 using btr.application.SalesContext.CustomerAgg.Contracts;
 using btr.application.SalesContext.SalesPersonAgg.Contracts;
+using btr.application.SupportContext.ParamSistemAgg;
 using btr.distrib.Browsers;
+using btr.distrib.Helpers;
+using btr.distrib.SalesContext.FakturAgg;
+using btr.distrib.SharedForm;
 using btr.domain.InventoryContext.DriverAgg;
+using btr.domain.InventoryContext.ReturJualAgg;
+using btr.domain.InventoryContext.StokAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.SalesPersonAgg;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using btr.application.InventoryContext.ReturJualAgg.Workers;
-using btr.application.InventoryContext.StokAgg.GenStokUseCase;
-using btr.distrib.Helpers;
-using btr.domain.InventoryContext.ReturJualAgg;
+using btr.domain.SupportContext.ParamSistemAgg;
+using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Application;
 using btr.nuna.Domain;
 using JetBrains.Annotations;
 using Mapster;
-using Polly;
-using btr.domain.SupportContext.UserAgg;
-using btr.distrib.SharedForm;
-using btr.distrib.SalesContext.FakturAgg;
-using btr.application.SupportContext.ParamSistemAgg;
-using btr.domain.SupportContext.ParamSistemAgg;
 using Microsoft.Reporting.WinForms;
-using btr.application.InventoryContext.StokAgg;
-using btr.domain.InventoryContext.StokAgg;
-using btr.application.InventoryContext.ReturJualAgg.Contracts;
+using Polly;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Globalization;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace btr.distrib.InventoryContext.ReturJualAgg
 {
@@ -112,7 +113,7 @@ namespace btr.distrib.InventoryContext.ReturJualAgg
         {
             var paramKey = new ParamSistemModel("SISTEM_PPN_PROSEN");
             var paramPpn = _paramSistemDal.GetData(paramKey).ParamValue ?? "0";
-            _ppnProsen = Convert.ToDecimal(paramPpn);
+            _ppnProsen = Convert.ToDecimal(paramPpn, CultureInfo.InvariantCulture);
         }
 
         private void RegisterEventHandler()

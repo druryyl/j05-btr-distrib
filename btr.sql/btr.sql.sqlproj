@@ -65,6 +65,7 @@
     <Folder Include="Tables\Finance" />
     <Folder Include="Tables\InventoryContext\" />
     <Folder Include="PackingOrderModel" />
+    <Folder Include="Snapshots" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="DataSeeds\SpecialWarehouse.sql" />

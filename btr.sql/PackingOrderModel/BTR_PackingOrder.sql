@@ -19,6 +19,10 @@
 
 	UploadTimestamp DATETIME NOT NULL CONSTRAINT DF_BTR_PackingOrder_UploadTimestamp DEFAULT('3000-01-01'),
 
+	DriverId VARCHAR(5) NOT NULL CONSTRAINT DF_BTR_PackingOrder_DriverId DEFAULT(''),
+	DriverName VARCHAR(20) NOT NULL CONSTRAINT DF_BTR_PackingOrder_DriverName DEFAULT(''),
+	GrandTotal DECIMAL(18,2) NOT NULL CONSTRAINT DF_BTR_PackingOrder_GrandTotal DEFAULT(0),
+
 	CONSTRAINT PK_BTRG_PackingOrder PRIMARY KEY CLUSTERED (PackingOrderId)
 )
 GO

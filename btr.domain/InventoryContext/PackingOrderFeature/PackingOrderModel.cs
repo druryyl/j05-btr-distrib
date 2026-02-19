@@ -21,6 +21,7 @@ namespace btr.domain.InventoryContext.PackingOrderFeature
             CustomerReff customer,
             LocationReff location,
             FakturReff faktur,
+            DriverReff driver,
             IEnumerable<PackingOrderItemModel> listItem,
             IEnumerable<DepoType> listDepo)
         {
@@ -29,6 +30,7 @@ namespace btr.domain.InventoryContext.PackingOrderFeature
             Customer = customer;
             Location = location;
             Faktur = faktur;
+            Driver = driver;
             _listItem = listItem.ToList();
             _listDepo = listDepo.ToList();
         }
@@ -43,7 +45,8 @@ namespace btr.domain.InventoryContext.PackingOrderFeature
                 customer.Latitude, 
                 customer.Longitude, 
                 customer.Accuracy);
-            var fakturReff = new FakturReff(faktur.FakturId, faktur.FakturCode, faktur.FakturDate, faktur.UserId);
+            var fakturReff = new FakturReff(faktur.FakturId, faktur.FakturCode, faktur.FakturDate, faktur.UserId, faktur.GrandTotal);
+            var driverReff = new DriverReff(faktur.DriverId, faktur.DriverName);
             var listBrg = faktur.ListItem.Select((x,idx) =>
             {
                 var depoView = listBrgDepo.FirstOrDefault(y => y.BrgId == x.BrgId) ?? FakturItemCatSupDepoView.Default;
@@ -58,7 +61,7 @@ namespace btr.domain.InventoryContext.PackingOrderFeature
                 .GroupBy(x => new { x.DepoId, x.DepoName })
                 .Select(g => new DepoType(g.Key.DepoId, g.Key.DepoName))
                 .ToList();
-            var result = new PackingOrderModel(newId, DateTime.Now, customerReff, location, fakturReff, listBrg, listDepo);
+            var result = new PackingOrderModel(newId, DateTime.Now, customerReff, location, fakturReff, driverReff, listBrg, listDepo);
             return result;
         }
 
@@ -79,6 +82,7 @@ namespace btr.domain.InventoryContext.PackingOrderFeature
             CustomerReff.Default,
             LocationReff.Default,
             FakturReff.Default,
+            DriverReff.Default,
             Enumerable.Empty<PackingOrderItemModel>(),
             Enumerable.Empty<DepoType>());
 
@@ -95,6 +99,7 @@ namespace btr.domain.InventoryContext.PackingOrderFeature
         public CustomerReff Customer { get; private set; }
         public FakturReff Faktur { get; private set; }
         public LocationReff Location { get; private set; }
+        public DriverReff Driver { get; private set; }
         public IEnumerable<PackingOrderItemModel> ListItem => _listItem;
         public IEnumerable<DepoType> ListDepo => _listDepo;
 

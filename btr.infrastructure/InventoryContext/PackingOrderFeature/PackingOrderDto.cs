@@ -2,6 +2,7 @@
 using btr.domain.InventoryContext.WarehouseAgg;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 
 namespace btr.infrastructure.InventoryContext.PackingOrderFeature
@@ -23,11 +24,15 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
         public string FakturCode { get; set; }
         public DateTime FakturDate { get; set; }
         public string AdminName { get; set; }
+        public decimal GrandTotal { get; set; }
 
         // Flattened LocationType properties
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public double Accuracy { get; set; }
+
+        public string DriverId { get; set; }
+        public string DriverName { get; set; }
 
         public static PackingOrderDto FromModel(PackingOrderModel model)
         {
@@ -35,7 +40,7 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
             {
                 PackingOrderId = model.PackingOrderId,
                 PackingOrderDate = model.PackingOrderDate,
-                
+
                 CustomerId = model.Customer.CustomerId,
                 CustomerCode = model.Customer.CustomerCode,
                 CustomerName = model.Customer.CustomerName,
@@ -49,6 +54,10 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
                 FakturCode = model.Faktur.FakturCode,
                 FakturDate = model.Faktur.FakturDate,
                 AdminName = model.Faktur.AdminName,
+                GrandTotal = model.Faktur.GrandTotal,
+
+                DriverId = model.Driver.DriverId,
+                DriverName = model.Driver.DriverName
             };
         }
 
@@ -58,15 +67,17 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
             var customer = new CustomerReff(
                 CustomerId, CustomerCode, CustomerName, Alamat, NoTelp);
             var faktur = new FakturReff(
-                FakturId, FakturCode, FakturDate, AdminName);
+                FakturId, FakturCode, FakturDate, AdminName, GrandTotal);
             var location = new LocationReff(
                 Latitude, Longitude, Accuracy);
+            var driver = new DriverReff(DriverId, DriverName);
             return new PackingOrderModel(
                 PackingOrderId,
                 PackingOrderDate,
                 customer,
                 location,
                 faktur,
+                driver,
                 listItem,
                 listDepo);
         }

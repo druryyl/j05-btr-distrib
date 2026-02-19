@@ -58,6 +58,8 @@
             this.Alamat2Text = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
+            this.DepoCombo = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.KeywordText = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -67,8 +69,6 @@
             this.SupplierNameText = new System.Windows.Forms.TextBox();
             this.SupplierButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.DepoCombo = new System.Windows.Forms.ComboBox();
-            this.label9 = new System.Windows.Forms.Label();
             this.MainTab.SuspendLayout();
             this.ListPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ListGrid)).BeginInit();
@@ -81,12 +81,15 @@
             // 
             // MainTab
             // 
+            this.MainTab.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.MainTab.Controls.Add(this.ListPage);
             this.MainTab.Controls.Add(this.DetilPage);
             this.MainTab.Location = new System.Drawing.Point(6, 6);
             this.MainTab.Name = "MainTab";
             this.MainTab.SelectedIndex = 0;
-            this.MainTab.Size = new System.Drawing.Size(718, 463);
+            this.MainTab.Size = new System.Drawing.Size(782, 465);
             this.MainTab.TabIndex = 52;
             // 
             // ListPage
@@ -98,7 +101,7 @@
             this.ListPage.Location = new System.Drawing.Point(4, 22);
             this.ListPage.Name = "ListPage";
             this.ListPage.Padding = new System.Windows.Forms.Padding(3);
-            this.ListPage.Size = new System.Drawing.Size(710, 437);
+            this.ListPage.Size = new System.Drawing.Size(774, 439);
             this.ListPage.TabIndex = 1;
             this.ListPage.Text = "List";
             this.ListPage.UseVisualStyleBackColor = true;
@@ -106,7 +109,7 @@
             // ExcelButton
             // 
             this.ExcelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ExcelButton.Location = new System.Drawing.Point(637, 408);
+            this.ExcelButton.Location = new System.Drawing.Point(701, 410);
             this.ExcelButton.Name = "ExcelButton";
             this.ExcelButton.Size = new System.Drawing.Size(67, 23);
             this.ExcelButton.TabIndex = 4;
@@ -116,7 +119,7 @@
             // SearchButton
             // 
             this.SearchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SearchButton.Location = new System.Drawing.Point(556, 408);
+            this.SearchButton.Location = new System.Drawing.Point(620, 410);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(75, 23);
             this.SearchButton.TabIndex = 3;
@@ -127,9 +130,9 @@
             // 
             this.SearchText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.SearchText.Location = new System.Drawing.Point(6, 409);
+            this.SearchText.Location = new System.Drawing.Point(6, 411);
             this.SearchText.Name = "SearchText";
-            this.SearchText.Size = new System.Drawing.Size(544, 22);
+            this.SearchText.Size = new System.Drawing.Size(608, 22);
             this.SearchText.TabIndex = 2;
             // 
             // ListGrid
@@ -140,7 +143,7 @@
             this.ListGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ListGrid.Location = new System.Drawing.Point(6, 9);
             this.ListGrid.Name = "ListGrid";
-            this.ListGrid.Size = new System.Drawing.Size(698, 392);
+            this.ListGrid.Size = new System.Drawing.Size(762, 394);
             this.ListGrid.TabIndex = 1;
             // 
             // DetilPage
@@ -154,7 +157,7 @@
             this.DetilPage.Location = new System.Drawing.Point(4, 22);
             this.DetilPage.Name = "DetilPage";
             this.DetilPage.Padding = new System.Windows.Forms.Padding(3);
-            this.DetilPage.Size = new System.Drawing.Size(710, 437);
+            this.DetilPage.Size = new System.Drawing.Size(719, 451);
             this.DetilPage.TabIndex = 0;
             this.DetilPage.Text = "Detail";
             // 
@@ -169,6 +172,7 @@
             // 
             // SaveButton
             // 
+            this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.SaveButton.Location = new System.Drawing.Point(629, 408);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
@@ -178,6 +182,9 @@
             // 
             // panel4
             // 
+            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel4.BackColor = System.Drawing.Color.MistyRose;
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel4.Controls.Add(this.label7);
@@ -202,6 +209,8 @@
             // 
             // textBox1
             // 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.Location = new System.Drawing.Point(13, 108);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(205, 22);
@@ -218,6 +227,8 @@
             // 
             // NoFaxText
             // 
+            this.NoFaxText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.NoFaxText.Location = new System.Drawing.Point(12, 67);
             this.NoFaxText.Name = "NoFaxText";
             this.NoFaxText.Size = new System.Drawing.Size(205, 22);
@@ -234,6 +245,8 @@
             // 
             // NoTelponText
             // 
+            this.NoTelponText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.NoTelponText.Location = new System.Drawing.Point(12, 26);
             this.NoTelponText.Name = "NoTelponText";
             this.NoTelponText.Size = new System.Drawing.Size(205, 22);
@@ -241,6 +254,8 @@
             // 
             // panel3
             // 
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BackColor = System.Drawing.Color.MistyRose;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.label10);
@@ -287,6 +302,8 @@
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.MistyRose;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.label4);
@@ -312,6 +329,8 @@
             // 
             // KodePosText
             // 
+            this.KodePosText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.KodePosText.Location = new System.Drawing.Point(12, 135);
             this.KodePosText.Name = "KodePosText";
             this.KodePosText.Size = new System.Drawing.Size(205, 22);
@@ -328,6 +347,8 @@
             // 
             // KotaText
             // 
+            this.KotaText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.KotaText.Location = new System.Drawing.Point(12, 94);
             this.KotaText.Name = "KotaText";
             this.KotaText.Size = new System.Drawing.Size(205, 22);
@@ -335,6 +356,8 @@
             // 
             // Alamat1Text
             // 
+            this.Alamat1Text.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Alamat1Text.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Alamat1Text.Location = new System.Drawing.Point(12, 25);
             this.Alamat1Text.Name = "Alamat1Text";
@@ -343,6 +366,8 @@
             // 
             // Alamat2Text
             // 
+            this.Alamat2Text.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Alamat2Text.Location = new System.Drawing.Point(12, 53);
             this.Alamat2Text.Name = "Alamat2Text";
             this.Alamat2Text.Size = new System.Drawing.Size(205, 22);
@@ -359,6 +384,8 @@
             // 
             // panel2
             // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.panel2.BackColor = System.Drawing.Color.MistyRose;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.label9);
@@ -376,6 +403,23 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(228, 396);
             this.panel2.TabIndex = 51;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(12, 195);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(96, 13);
+            this.label9.TabIndex = 15;
+            this.label9.Text = "Depo Lokasi Stok";
+            // 
+            // DepoCombo
+            // 
+            this.DepoCombo.FormattingEnabled = true;
+            this.DepoCombo.Location = new System.Drawing.Point(12, 211);
+            this.DepoCombo.Name = "DepoCombo";
+            this.DepoCombo.Size = new System.Drawing.Size(205, 21);
+            this.DepoCombo.TabIndex = 10;
             // 
             // label8
             // 
@@ -451,29 +495,12 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Suppier ID";
             // 
-            // DepoCombo
-            // 
-            this.DepoCombo.FormattingEnabled = true;
-            this.DepoCombo.Location = new System.Drawing.Point(12, 211);
-            this.DepoCombo.Name = "DepoCombo";
-            this.DepoCombo.Size = new System.Drawing.Size(205, 21);
-            this.DepoCombo.TabIndex = 10;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 195);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(96, 13);
-            this.label9.TabIndex = 15;
-            this.label9.Text = "Depo Lokasi Stok";
-            // 
             // SupplierForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.RosyBrown;
-            this.ClientSize = new System.Drawing.Size(729, 474);
+            this.ClientSize = new System.Drawing.Size(793, 476);
             this.Controls.Add(this.MainTab);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "SupplierForm";

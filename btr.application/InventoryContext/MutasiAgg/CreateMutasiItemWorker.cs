@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using btr.application.BrgContext.BrgAgg;
+﻿using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.StokBalanceAgg;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.MutasiAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SalesContext.FakturAgg;
 using btr.nuna.Application;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 namespace btr.application.InventoryContext.MutasiAgg
 {
@@ -202,7 +203,7 @@ namespace btr.application.InventoryContext.MutasiAgg
             var x = 0;
             foreach (var item in resultStr.TakeWhile(item => x < result.Count))
             {
-                if (decimal.TryParse(item, out var temp))
+                if (decimal.TryParse(item, NumberStyles.Any, CultureInfo.InvariantCulture, out var temp))
                     result[x] = temp;
                 x++;
             }

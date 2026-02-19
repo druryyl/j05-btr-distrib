@@ -1,33 +1,34 @@
 ﻿using btr.application.BrgContext.BrgAgg;
+using btr.application.InventoryContext.StokAgg.GenStokUseCase;
 using btr.application.InventoryContext.WarehouseAgg;
+using btr.application.PurchaseContext.InvoiceAgg;
 using btr.application.PurchaseContext.SupplierAgg.Contracts;
+using btr.application.SupportContext.ParamSistemAgg;
 using btr.application.SupportContext.TglJamAgg;
+using btr.application.SupportContext.UserAgg;
 using btr.distrib.Browsers;
 using btr.distrib.Helpers;
+using btr.distrib.PrintDocs;
+using btr.distrib.SalesContext.FakturAgg;
 using btr.distrib.SharedForm;
 using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.PurchaseContext.InvoiceAgg;
 using btr.domain.PurchaseContext.SupplierAgg;
+using btr.domain.SupportContext.ParamSistemAgg;
+using btr.domain.SupportContext.UserAgg;
 using btr.nuna.Domain;
 using Mapster;
+using Microsoft.Reporting.WinForms;
 using Polly;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Printing;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using btr.application.InventoryContext.StokAgg.GenStokUseCase;
-using btr.application.PurchaseContext.InvoiceAgg;
-using btr.distrib.PrintDocs;
-using btr.application.SupportContext.ParamSistemAgg;
-using btr.domain.SupportContext.ParamSistemAgg;
-using btr.distrib.SalesContext.FakturAgg;
-using Microsoft.Reporting.WinForms;
-using btr.application.SupportContext.UserAgg;
-using btr.domain.SupportContext.UserAgg;
 
 namespace btr.distrib.PurchaseContext.InvoiceAgg
 {
@@ -107,11 +108,11 @@ namespace btr.distrib.PurchaseContext.InvoiceAgg
         {
             var paramKey = new ParamSistemModel("SISTEM_PPN_PROSEN");
             var paramPpn = _paramSistemDal.GetData(paramKey).ParamValue ?? "0";
-            _ppnProsen = Convert.ToDecimal(paramPpn);
+            _ppnProsen = Convert.ToDecimal(paramPpn, CultureInfo.InvariantCulture);
 
             paramKey = new ParamSistemModel("SISTEM_DPP_PROSEN");
             var paramDpp = _paramSistemDal.GetData(paramKey).ParamValue ?? "0";
-            _dppProsen = Convert.ToDecimal(paramDpp);
+            _dppProsen = Convert.ToDecimal(paramDpp, CultureInfo.InvariantCulture);
         }
 
         private void RegisterEventHandler()
