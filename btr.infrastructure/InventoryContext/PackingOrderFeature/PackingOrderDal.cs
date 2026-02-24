@@ -39,13 +39,13 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
                     CustomerId, CustomerCode, CustomerName, Alamat, NoTelp,
                     Latitude, Longitude, Accuracy,
                     FakturId, FakturCode, FakturDate, AdminName, GrandTotal,
-                    DriverId, DriverName, UploadTimestamp)
+                    DriverId, DriverName, UploadTimestamp, Note)
                 VALUES(
                     @PackingOrderId, @PackingOrderDate,
                     @CustomerId, @CustomerCode, @CustomerName, @Alamat, @NoTelp,
                     @Latitude, @Longitude, @Accuracy,
                     @FakturId, @FakturCode, @FakturDate, @AdminName, @GrandTotal,
-                    @DriverId, @DriverName, @UploadTimestamp)
+                    @DriverId, @DriverName, @UploadTimestamp, @Note)
                 ";
 
             var dp = new DynamicParameters();
@@ -72,6 +72,8 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
             dp.AddParam("@DriverName", dto.DriverName, SqlDbType.VarChar);
 
             dp.AddParam("@UploadTimestamp", new DateTime(3000,1,1), SqlDbType.DateTime);
+            dp.AddParam("@Note", dto.Note, SqlDbType.VarChar);
+
 
             var connStr = ConnStringHelper.Get(_opt);
             using (var conn = new SqlConnection(connStr))
@@ -104,7 +106,8 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
                     
                     DriverId = @DriverId,
                     DriverName = @DriverName,
-                    UploadTimestamp = @UploadTimestamp
+                    UploadTimestamp = @UploadTimestamp,
+                    Note = @Note
                 WHERE
                     PackingOrderId = @PackingOrderId
                 ";
@@ -132,6 +135,7 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
             dp.AddParam("@DriverId", dto.DriverId, SqlDbType.VarChar);
             dp.AddParam("@DriverName", dto.DriverName, SqlDbType.VarChar);
             dp.AddParam("@UploadTimestamp", new DateTime(3000, 1, 1), SqlDbType.DateTime);
+            dp.AddParam("@Note", dto.Note, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -163,7 +167,7 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
                     CustomerId, CustomerCode, CustomerName, Alamat, NoTelp,
                     Latitude, Longitude, Accuracy,
                     FakturId, FakturCode, FakturDate, AdminName, GrandTotal,
-                    DriverId, DriverName, UploadTimestamp
+                    DriverId, DriverName, UploadTimestamp, Note
                     
                 FROM BTR_PackingOrder
                 WHERE PackingOrderId = @PackingOrderId
@@ -186,7 +190,7 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
                     CustomerId, CustomerCode, CustomerName, Alamat, NoTelp,
                     Latitude, Longitude, Accuracy,
                     FakturId, FakturCode, FakturDate, AdminName, GrandTotal,
-                    DriverId, DriverName, UploadTimestamp
+                    DriverId, DriverName, UploadTimestamp, Note
                 FROM BTR_PackingOrder
                 WHERE PackingOrderDate BETWEEN @Tgl1 AND @Tgl2
                 ";
@@ -209,7 +213,7 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
                     CustomerId, CustomerCode, CustomerName, Alamat, NoTelp,
                     Latitude, Longitude, Accuracy,
                     FakturId, FakturCode, FakturDate, AdminName, GrandTotal,
-                    DriverId, DriverName, UploadTimestamp
+                    DriverId, DriverName, UploadTimestamp, Note
                 FROM BTR_PackingOrder
                 WHERE FakturId = @FakturId
                 ";

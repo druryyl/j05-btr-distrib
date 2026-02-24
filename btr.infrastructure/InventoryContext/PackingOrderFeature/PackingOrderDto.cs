@@ -33,6 +33,7 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
 
         public string DriverId { get; set; }
         public string DriverName { get; set; }
+        public string Note { get; set; }
 
         public static PackingOrderDto FromModel(PackingOrderModel model)
         {
@@ -57,7 +58,9 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
                 GrandTotal = model.Faktur.GrandTotal,
 
                 DriverId = model.Driver.DriverId,
-                DriverName = model.Driver.DriverName
+                DriverName = model.Driver.DriverName,
+
+                Note = model.Note
             };
         }
 
@@ -78,6 +81,7 @@ namespace btr.infrastructure.InventoryContext.PackingOrderFeature
                 location,
                 faktur,
                 driver,
+                Note,
                 listItem,
                 listDepo);
         }

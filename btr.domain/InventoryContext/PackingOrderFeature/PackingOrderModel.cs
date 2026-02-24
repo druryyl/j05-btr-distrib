@@ -22,6 +22,7 @@ namespace btr.domain.InventoryContext.PackingOrderFeature
             LocationReff location,
             FakturReff faktur,
             DriverReff driver,
+            string note,
             IEnumerable<PackingOrderItemModel> listItem,
             IEnumerable<DepoType> listDepo)
         {
@@ -31,6 +32,7 @@ namespace btr.domain.InventoryContext.PackingOrderFeature
             Location = location;
             Faktur = faktur;
             Driver = driver;
+            Note = note;
             _listItem = listItem.ToList();
             _listDepo = listDepo.ToList();
         }
@@ -61,7 +63,7 @@ namespace btr.domain.InventoryContext.PackingOrderFeature
                 .GroupBy(x => new { x.DepoId, x.DepoName })
                 .Select(g => new DepoType(g.Key.DepoId, g.Key.DepoName))
                 .ToList();
-            var result = new PackingOrderModel(newId, DateTime.Now, customerReff, location, fakturReff, driverReff, listBrg, listDepo);
+            var result = new PackingOrderModel(newId, DateTime.Now, customerReff, location, fakturReff, driverReff, faktur.Note, listBrg, listDepo);
             return result;
         }
 
@@ -83,6 +85,7 @@ namespace btr.domain.InventoryContext.PackingOrderFeature
             LocationReff.Default,
             FakturReff.Default,
             DriverReff.Default,
+            "-",
             Enumerable.Empty<PackingOrderItemModel>(),
             Enumerable.Empty<DepoType>());
 
@@ -100,6 +103,8 @@ namespace btr.domain.InventoryContext.PackingOrderFeature
         public FakturReff Faktur { get; private set; }
         public LocationReff Location { get; private set; }
         public DriverReff Driver { get; private set; }
+        public string Note { get; private set; }
+
         public IEnumerable<PackingOrderItemModel> ListItem => _listItem;
         public IEnumerable<DepoType> ListDepo => _listDepo;
 
