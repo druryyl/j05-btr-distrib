@@ -45,6 +45,7 @@
             this.SaveButton = new System.Windows.Forms.Button();
             this.ListGrid = new System.Windows.Forms.DataGridView();
             this.NewButton = new System.Windows.Forms.Button();
+            this.DeleteButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ListGrid)).BeginInit();
@@ -210,12 +211,22 @@
             // NewButton
             // 
             this.NewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.NewButton.Location = new System.Drawing.Point(492, 423);
+            this.NewButton.Location = new System.Drawing.Point(411, 423);
             this.NewButton.Name = "NewButton";
             this.NewButton.Size = new System.Drawing.Size(75, 23);
             this.NewButton.TabIndex = 4;
             this.NewButton.Text = "New";
             this.NewButton.UseVisualStyleBackColor = true;
+            // 
+            // DeleteButton
+            // 
+            this.DeleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.DeleteButton.Location = new System.Drawing.Point(492, 423);
+            this.DeleteButton.Name = "DeleteButton";
+            this.DeleteButton.Size = new System.Drawing.Size(75, 23);
+            this.DeleteButton.TabIndex = 5;
+            this.DeleteButton.Text = "Delete";
+            this.DeleteButton.UseVisualStyleBackColor = true;
             // 
             // UserForm
             // 
@@ -223,6 +234,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.RosyBrown;
             this.ClientSize = new System.Drawing.Size(660, 458);
+            this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.NewButton);
             this.Controls.Add(this.ListGrid);
             this.Controls.Add(this.SaveButton);
@@ -259,5 +271,6 @@
         private System.Windows.Forms.Button NewButton;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox RoleComboBox;
+        private System.Windows.Forms.Button DeleteButton;
     }
 }

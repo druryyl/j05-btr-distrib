@@ -251,6 +251,7 @@ namespace btr.distrib.SalesContext.CustomerAgg
             CustGrid.Columns.GetCol("CreditBalance").Width = 100;
             CustGrid.Columns.GetCol("Npwp").Width = 100;
             CustGrid.Columns.GetCol("NamaWp").Width = 150;
+            CustGrid.SetAlternatingRowColors();
         }
 
         private void FilterCustGrid(string keyword)

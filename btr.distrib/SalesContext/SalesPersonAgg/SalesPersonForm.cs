@@ -181,6 +181,7 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
             ListGrid.Columns.GetCol("Name").Width = 100;
             ListGrid.Columns.GetCol("Wilayah").Width = 100;
             ListGrid.Columns.GetCol("Email").Width = 120;
+            ListGrid.SetAlternatingRowColors();
         }
 
         private void FilterListGrid(string keyword)

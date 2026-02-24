@@ -37,7 +37,7 @@ namespace btr.distrib.SharedForm
             _userBuilder = userBuilder;
             _userWriter = userWriter;
             _roleRepo = roleRepo;
-            label4.Text = $"{PrefixText.Text}{TahunBulanHex()}-0001";
+            label4.Text = $"{PrefixText.Text}{DateTime.Now:yy}00001";
 
             RegisterEventHandler();
             InitGrid();
@@ -61,35 +61,26 @@ namespace btr.distrib.SharedForm
             ListGrid.CellDoubleClick += ListGrid_CellDoubleClick;
 
             NewButton.Click += NewButton_Click;
+            DeleteButton.Click += DeleteButton_Click;
+            ListGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            var userName = UserIdText.Text;
+            if (userName.Trim() == string.Empty)
+                return;
+
+            if (MessageBox.Show($"Hapus user {userName}?", "Hapus", MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
+            _userDal.Delete(new UserModel(userName));
+            ClearForm();
+            InitGrid();
         }
 
         private void PrefixText_Validated(object sender, EventArgs e)
         {
-            label4.Text = $"{PrefixText.Text}{TahunBulanHex()}-0001";
-        }
-
-        private string TahunBulanHex()
-        {
-            var tahun = DateTime.Now.ToString("yy");
-            var bulan = DateTime.Now.Month;
-            string bulanHex;
-            switch (bulan)
-            {
-                case 10:
-                    bulanHex = "A";
-                    break;
-                case 11:
-                    bulanHex = "B";
-                    break;
-                case 12:
-                    bulanHex = "C";
-                    break;
-                default:
-                    bulanHex = bulan.ToString();
-                    break;
-
-            }
-            return $"{tahun}{bulanHex}";
+            label4.Text = $"{PrefixText.Text}{DateTime.Now:yy}00001";
         }
 
         #region GRID-CUSTOMER
@@ -118,6 +109,8 @@ namespace btr.distrib.SharedForm
             ListGrid.Columns.GetCol("Name").Width = 100;
             ListGrid.Columns.GetCol("Prefix").Width = 50;
             ListGrid.Columns.GetCol("Role").Width = 200;
+
+            ListGrid.SetAlternatingRowColors();
 
         }
         #endregion

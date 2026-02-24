@@ -533,6 +533,8 @@ namespace btr.distrib.InventoryContext.BrgAgg
             if (BrgGrid.Rows.Count == 0)
                 return;
             BrgGrid.FirstDisplayedScrollingRowIndex = BrgGrid.Rows.Count - 1;
+            BrgGrid.SetAlternatingRowColors();
+            BrgGrid.RowPostPaint += DataGridViewExtensions.DataGridView_RowPostPaint;
         }
         #endregion
         
