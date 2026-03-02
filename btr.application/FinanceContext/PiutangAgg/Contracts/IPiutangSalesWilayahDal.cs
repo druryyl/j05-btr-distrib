@@ -18,8 +18,9 @@ namespace btr.application.FinanceContext.PiutangAgg.Contracts
         public string WilayahName { get; set; }
         public string FakturCode { get; set; }
         public DateTime FakturDate { get; set; }
-
+        public string CustomerCode { get; set; }
         public string CustomerName { get; set; }
+        public string Alamat { get; set; }
         public DateTime JatuhTempo { get; set; }
 
         public decimal TotalJual { get; set; }

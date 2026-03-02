@@ -2,15 +2,10 @@
 using btr.infrastructure.Helpers;
 using Dapper;
 using Microsoft.Extensions.Options;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using btr.nuna.Infrastructure;
-using Dapper;
 using btr.application.SalesContext.CheckInFeature;
 using btr.nuna.Domain;
 

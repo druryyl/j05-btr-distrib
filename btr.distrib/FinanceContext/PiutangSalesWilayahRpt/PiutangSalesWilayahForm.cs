@@ -27,7 +27,13 @@ namespace btr.distrib.FinanceContext.PiutangSalesWilayahRpt
             ProsesButton.Click += ProsesButton_Click;
             ExcelButton.Click += ExcelButton_Click;
             ExcelFlatButton.Click += ExcelButtonFlat_Click;
+            ShowLunasCheckBox.CheckedChanged += ShowLunasCheckBox_CheckedChanged;
             InitGrid();
+        }
+
+        private void ShowLunasCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            FilterSisaTagihan();
         }
 
         private void ExcelButtonFlat_Click(object sender, EventArgs e)
@@ -189,6 +195,25 @@ namespace btr.distrib.FinanceContext.PiutangSalesWilayahRpt
             var listFaktur = _piutangSalesWilayahDal.ListData(periode)?.ToList() ?? new List<PiutangSalesWilayahDto>();
             _dataSource = listFaktur;
             InfoGrid.DataSource = listFaktur;
+            FilterSisaTagihan();
+        }
+
+        private void FilterSisaTagihan()
+        {
+            FilterCondition condition = new FilterCondition(FilterCompareOperator.GreaterThan, 1);
+            RecordFilterDescriptor kurangBayarFilterDescriptor = new RecordFilterDescriptor("KurangBayar", condition);
+
+            if (!ShowLunasCheckBox.Checked)
+            {
+                InfoGrid.TableDescriptor.RecordFilters.Clear();
+                InfoGrid.TableDescriptor.RecordFilters.Add(kurangBayarFilterDescriptor);
+            }
+            else
+            {
+                InfoGrid.TableDescriptor.RecordFilters.Clear();
+            }
+            InfoGrid.Refresh();
+
         }
 
         private void ExcelButton_Click(object sender, EventArgs e)
@@ -237,7 +262,9 @@ namespace btr.distrib.FinanceContext.PiutangSalesWilayahRpt
                                 {
                                     FakturCode = z.FakturCode,
                                     FakturDate = z.FakturDate,
+                                    CustomerCode = z.CustomerCode,
                                     CustomerName = z.CustomerName,
+                                    Alamat = z.Alamat,
                                     JatuhTempo = z.JatuhTempo,
                                     TotalJual = z.TotalJual,
                                     BayarTunai = z.BayarTunai,
@@ -414,7 +441,9 @@ namespace btr.distrib.FinanceContext.PiutangSalesWilayahRpt
     {
         public string FakturCode { get; set; }
         public DateTime FakturDate { get; set; }
+        public string CustomerCode { get; set; }
         public string CustomerName { get; set; }
+        public string Alamat { get; set; }
         public DateTime JatuhTempo { get; set; }
         public decimal TotalJual { get; set; }
         public decimal BayarTunai { get; set; }

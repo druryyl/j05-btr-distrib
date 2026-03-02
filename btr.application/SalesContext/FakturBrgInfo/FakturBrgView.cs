@@ -10,6 +10,7 @@ namespace btr.application.SalesContext.FakturBrgInfo
         public DateTime JatuhTempo { get; set; }
         public string CustomerCode { get; set; }
         public string CustomerName { get; set; }
+        public string SalesPerson { get; set; }
         public string KlasifikasiName { get; set; }
         public string WilayahName { get; set; }
         public string BrgName { get; set; }

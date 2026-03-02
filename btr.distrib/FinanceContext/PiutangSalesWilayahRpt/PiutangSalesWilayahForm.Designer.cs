@@ -29,12 +29,13 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ExcelFlatButton = new System.Windows.Forms.Button();
             this.Faktur2Date = new System.Windows.Forms.DateTimePicker();
             this.Faktur1Date = new System.Windows.Forms.DateTimePicker();
             this.ExcelButton = new System.Windows.Forms.Button();
             this.ProsesButton = new System.Windows.Forms.Button();
             this.InfoGrid = new Syncfusion.Windows.Forms.Grid.Grouping.GridGroupingControl();
-            this.ExcelFlatButton = new System.Windows.Forms.Button();
+            this.ShowLunasCheckBox = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InfoGrid)).BeginInit();
             this.SuspendLayout();
@@ -44,6 +45,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.PowderBlue;
+            this.panel1.Controls.Add(this.ShowLunasCheckBox);
             this.panel1.Controls.Add(this.ExcelFlatButton);
             this.panel1.Controls.Add(this.Faktur2Date);
             this.panel1.Controls.Add(this.Faktur1Date);
@@ -54,6 +56,15 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(787, 34);
             this.panel1.TabIndex = 4;
+            // 
+            // ExcelFlatButton
+            // 
+            this.ExcelFlatButton.Location = new System.Drawing.Point(493, 6);
+            this.ExcelFlatButton.Name = "ExcelFlatButton";
+            this.ExcelFlatButton.Size = new System.Drawing.Size(99, 23);
+            this.ExcelFlatButton.TabIndex = 7;
+            this.ExcelFlatButton.Text = "Excel Flat";
+            this.ExcelFlatButton.UseVisualStyleBackColor = true;
             // 
             // Faktur2Date
             // 
@@ -75,9 +86,9 @@
             // 
             // ExcelButton
             // 
-            this.ExcelButton.Location = new System.Drawing.Point(408, 5);
+            this.ExcelButton.Location = new System.Drawing.Point(388, 5);
             this.ExcelButton.Name = "ExcelButton";
-            this.ExcelButton.Size = new System.Drawing.Size(119, 23);
+            this.ExcelButton.Size = new System.Drawing.Size(99, 23);
             this.ExcelButton.TabIndex = 4;
             this.ExcelButton.Text = "Excel";
             this.ExcelButton.UseVisualStyleBackColor = true;
@@ -86,7 +97,7 @@
             // 
             this.ProsesButton.Location = new System.Drawing.Point(283, 5);
             this.ProsesButton.Name = "ProsesButton";
-            this.ProsesButton.Size = new System.Drawing.Size(119, 23);
+            this.ProsesButton.Size = new System.Drawing.Size(99, 23);
             this.ProsesButton.TabIndex = 2;
             this.ProsesButton.Text = "Proses";
             this.ProsesButton.UseVisualStyleBackColor = true;
@@ -108,14 +119,17 @@
             this.InfoGrid.UseRightToLeftCompatibleTextBox = true;
             this.InfoGrid.VersionInfo = "22.1460.34";
             // 
-            // ExcelFlatButton
+            // ShowLunasCheckBox
             // 
-            this.ExcelFlatButton.Location = new System.Drawing.Point(533, 6);
-            this.ExcelFlatButton.Name = "ExcelFlatButton";
-            this.ExcelFlatButton.Size = new System.Drawing.Size(119, 23);
-            this.ExcelFlatButton.TabIndex = 7;
-            this.ExcelFlatButton.Text = "Excel Flat";
-            this.ExcelFlatButton.UseVisualStyleBackColor = true;
+            this.ShowLunasCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ShowLunasCheckBox.AutoSize = true;
+            this.ShowLunasCheckBox.Location = new System.Drawing.Point(635, 9);
+            this.ShowLunasCheckBox.Name = "ShowLunasCheckBox";
+            this.ShowLunasCheckBox.Size = new System.Drawing.Size(146, 17);
+            this.ShowLunasCheckBox.TabIndex = 8;
+            this.ShowLunasCheckBox.Text = "Tampilkan Sudah Lunas";
+            this.ShowLunasCheckBox.UseVisualStyleBackColor = true;
             // 
             // PiutangSalesWilayahForm
             // 
@@ -129,6 +143,7 @@
             this.Name = "PiutangSalesWilayahForm";
             this.Text = "PiutangSalesWilayahForm";
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InfoGrid)).EndInit();
             this.ResumeLayout(false);
 
@@ -143,5 +158,6 @@
         private System.Windows.Forms.DateTimePicker Faktur2Date;
         private System.Windows.Forms.DateTimePicker Faktur1Date;
         private System.Windows.Forms.Button ExcelFlatButton;
+        private System.Windows.Forms.CheckBox ShowLunasCheckBox;
     }
 }

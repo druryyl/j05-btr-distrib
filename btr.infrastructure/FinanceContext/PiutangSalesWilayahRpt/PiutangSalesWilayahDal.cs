@@ -4,13 +4,9 @@ using btr.nuna.Domain;
 using btr.nuna.Infrastructure;
 using Dapper;
 using Microsoft.Extensions.Options;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace btr.infrastructure.FinanceContext.PiutangSalesWilayahRpt
 {
@@ -31,6 +27,8 @@ namespace btr.infrastructure.FinanceContext.PiutangSalesWilayahRpt
                 ISNULL(dd.WilayahName, '') AS WilayahName,
                 ISNULL(bb.FakturCode, '') AS FakturCode,
                 ISNULL(bb.FakturDate, '3000-01-01') AS FakturDate,
+                ISNULL(ee.CustomerCode, '') AS CustomerCode,
+                ISNULL(ee.Address1, '') AS Alamat, 
                 ISNULL(ee.CustomerName, '') AS CustomerName,
                 ISNULL(aa.DueDate, '3000-01-01') AS JatuhTempo,
                 ISNULL(aa.Total, 0) AS TotalJual,

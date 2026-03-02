@@ -66,31 +66,31 @@ namespace btr.distrib.Helpers
             e.Graphics.DrawString(rowIdx, new Font("Lucida Console", 8.25f), SystemBrushes.ControlText, headerBounds, centerFormat);
         }
         public static void SetAlternatingRowColors(
-    this DataGridView dataGridView,
-    Color? evenRowColor = null,
-    Color? oddRowColor = null,
-    Color? textColor = null,
-    Color? selectionBackColor = null,
-    Color? selectionTextColor = null)
+            this DataGridView dataGridView,
+            Color? evenRowColor = null,
+            Color? oddRowColor = null,
+            Color? textColor = null,
+            Color? selectionBackColor = null,
+            Color? selectionTextColor = null)
         {
-            // Set default colors if not provided
-            Color evenColor = evenRowColor ?? Color.White;
-            Color oddColor = oddRowColor ?? Color.LightGray;
-            Color text = textColor ?? Color.Black;
-            Color selBackColor = selectionBackColor ?? Color.LightBlue;
-            Color selTextColor = selectionTextColor ?? Color.Black;
+            //// Set default colors if not provided
+            //Color evenColor = evenRowColor ?? Color.White;
+            //Color oddColor = oddRowColor ?? Color.LightGray;
+            //Color text = textColor ?? Color.Black;
+            //Color selBackColor = selectionBackColor ?? Color.LightBlue;
+            //Color selTextColor = selectionTextColor ?? Color.Black;
 
-            // Configure even rows (default style)
-            dataGridView.RowsDefaultCellStyle.BackColor = evenColor;
-            dataGridView.RowsDefaultCellStyle.ForeColor = text;
-            dataGridView.RowsDefaultCellStyle.SelectionBackColor = selBackColor;
-            dataGridView.RowsDefaultCellStyle.SelectionForeColor = selTextColor;
+            //// Configure even rows (default style)
+            //dataGridView.RowsDefaultCellStyle.BackColor = evenColor;
+            //dataGridView.RowsDefaultCellStyle.ForeColor = text;
+            //dataGridView.RowsDefaultCellStyle.SelectionBackColor = selBackColor;
+            //dataGridView.RowsDefaultCellStyle.SelectionForeColor = selTextColor;
 
-            // Configure odd rows (alternating style)
-            dataGridView.AlternatingRowsDefaultCellStyle.BackColor = oddColor;
-            dataGridView.AlternatingRowsDefaultCellStyle.ForeColor = text;
-            dataGridView.AlternatingRowsDefaultCellStyle.SelectionBackColor = selBackColor;
-            dataGridView.AlternatingRowsDefaultCellStyle.SelectionForeColor = selTextColor;
+            //// Configure odd rows (alternating style)
+            //dataGridView.AlternatingRowsDefaultCellStyle.BackColor = oddColor;
+            //dataGridView.AlternatingRowsDefaultCellStyle.ForeColor = text;
+            //dataGridView.AlternatingRowsDefaultCellStyle.SelectionBackColor = selBackColor;
+            //dataGridView.AlternatingRowsDefaultCellStyle.SelectionForeColor = selTextColor;
         }
 
         /// <summary>

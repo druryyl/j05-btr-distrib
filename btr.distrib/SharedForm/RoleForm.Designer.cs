@@ -36,6 +36,7 @@
             this.MenuGrid = new System.Windows.Forms.DataGridView();
             this.SaveButton = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.DeleteButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MenuGrid)).BeginInit();
             this.SuspendLayout();
@@ -126,12 +127,25 @@
             this.button3.Text = "Exit";
             this.button3.UseVisualStyleBackColor = false;
             // 
+            // DeleteButton
+            // 
+            this.DeleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.DeleteButton.BackColor = System.Drawing.Color.Gainsboro;
+            this.DeleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DeleteButton.Location = new System.Drawing.Point(308, 504);
+            this.DeleteButton.Name = "DeleteButton";
+            this.DeleteButton.Size = new System.Drawing.Size(101, 23);
+            this.DeleteButton.TabIndex = 5;
+            this.DeleteButton.Text = "Delete";
+            this.DeleteButton.UseVisualStyleBackColor = false;
+            // 
             // RoleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.RosyBrown;
             this.ClientSize = new System.Drawing.Size(635, 539);
+            this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.MenuGrid);
@@ -156,5 +170,6 @@
         private System.Windows.Forms.DataGridView MenuGrid;
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button DeleteButton;
     }
 }
