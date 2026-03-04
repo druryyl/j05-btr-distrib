@@ -130,7 +130,7 @@ namespace btr.application.InventoryContext.StokAgg
             _agg.Qty = _agg.ListMutasi.Sum(x => x.QtyIn -  x.QtyOut);
             return this;
         }
-
+     
         public IStokBuilder Attach(StokModel stok)
         {
             _agg = stok;

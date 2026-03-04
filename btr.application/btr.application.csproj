@@ -193,6 +193,7 @@
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\RemoveEditInvoiceWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\RemovePriorityStokWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\GenStokUseCase\RemoveRollbackStokWorker.cs" />
+    <Compile Include="InventoryContext\StokAgg\GenStokUseCase\RollBackInOutStokWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\IGetStokBalanceHealthWorker.cs" />
     <Compile Include="InventoryContext\StokAgg\IStokDal.cs" />
     <Compile Include="InventoryContext\StokAgg\IStokMutasiDal.cs" />

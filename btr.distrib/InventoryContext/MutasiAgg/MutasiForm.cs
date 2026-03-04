@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using btr.application.BrgContext.BrgAgg;
 using btr.application.InventoryContext.MutasiAgg;
+using btr.application.InventoryContext.StokAgg.GenStokUseCase;
 using btr.application.InventoryContext.WarehouseAgg;
 using btr.application.SupportContext.ParamSistemAgg;
 using btr.application.SupportContext.TglJamAgg;
@@ -17,6 +18,8 @@ using btr.domain.BrgContext.BrgAgg;
 using btr.domain.InventoryContext.MutasiAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SupportContext.ParamSistemAgg;
+using btr.domain.SupportContext.UserAgg;
+using btr.nuna.Application;
 using btr.nuna.Domain;
 using Mapster;
 using Microsoft.Reporting.WinForms;
@@ -40,6 +43,8 @@ namespace btr.distrib.InventoryContext.MutasiAgg
 
         private readonly IBrgBuilder _brgBuilder;
         private readonly IMutasiBuilder _mutasiBuilder;
+        private readonly IGenStokMutasiWorker _genStokMutasiWorker;
+        private readonly IMutasiWriter _mutasiWriter;
 
         private readonly BindingList<MutasiItemDto> _listItem = new BindingList<MutasiItemDto>();
         private const string JNS_MUTASI_KELUAR = "Mutasi Keluar";
@@ -58,7 +63,9 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             IMutasiBuilder mutasiBuilder,
             ITglJamDal dateTime,
             IBrowser<MutasiBrowserView> mutasiBrowser,
-            IParamSistemDal paramSistemDal)
+            IParamSistemDal paramSistemDal,
+            IGenStokMutasiWorker genStokMutasiWorker,
+            IMutasiWriter mutasiWriter)
         {
             InitializeComponent();
 
@@ -74,6 +81,8 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             _dateTime = dateTime;
             _mutasiBrowser = mutasiBrowser;
             _paramSistemDal = paramSistemDal;
+            _genStokMutasiWorker = genStokMutasiWorker;
+            _mutasiWriter = mutasiWriter;
 
             RegisterEventHandler();
             InitGrid();
@@ -106,6 +115,37 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             SaveButton.Click += SaveButton_Click;
             NewButton.Click += NewButton_Click;
             PrintButton.Click += PrintButton_Click;
+            DeleteButton.Click += DeleteButton_Click;
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            if (MutasiIdText.Text == string.Empty)
+                return;
+            if (MessageBox.Show("Yakin ingin menghapus data?", "Konfirmasi", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                Delete(MutasiIdText.Text);
+        }
+
+        private void Delete(string mutasiId)
+        {
+            var mutasi = _mutasiBuilder
+                .Load(new MutasiModel(mutasiId))
+                .Build();
+            var mainform = (MainForm)Parent.Parent;
+            var userKey = UserModel.Key(mainform.UserId.UserId);
+
+            using (var trans = TransHelper.NewScope())
+            {
+                //  void transaction layer
+                mutasi.VoidDate = DateTime.Now;
+                mutasi.UserIdVoid = userKey.UserId;
+                //  
+                _ = _mutasiWriter.Save(mutasi);
+                var genStokReq = new GenStokMutasiRequest(mutasi.MutasiId);
+                _genStokMutasiWorker.ExecuteVoid(genStokReq);
+                trans.Complete();
+            }
+            ClearForm();
         }
 
         private void PrintButton_Click(object sender, EventArgs e)
@@ -129,8 +169,14 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             _mutasiBrowser.Filter.Date = new Periode(_dateTime.Now);
 
             MutasiIdText.Text = _mutasiBrowser.Browse(MutasiIdText.Text);
-            LoadMutasi();
+            var isVoid = LoadMutasi();
+            if (isVoid)
+            {
+                MessageBox.Show("Mutasi sudah void, tidak bisa diubah");
+                SaveButton.Enabled = false;
+            }
         }
+
         private bool LoadMutasi()
         {
             var textbox = MutasiIdText;
@@ -144,8 +190,12 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             var mutasi = policy.Execute(() => _mutasiBuilder
                 .Load(new MutasiModel(textbox.Text))
                 .Build());
+            
             if (mutasi is null)
                 return false;
+            
+            if (mutasi.IsVoid)
+                return true;
 
             mutasi.RemoveNull();
             MutasiDateText.Value = mutasi.MutasiDate;
@@ -180,7 +230,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             else
                 ShowAsActive();
             CalcTotal();
-            return true;
+            return false;
         }
 
         #region WAREHOUSE
@@ -513,6 +563,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             WarehouseIdText.Text = string.Empty;
             WarehouseNameText.Text = string.Empty;
             KeteranganText.Text = string.Empty;
+            SaveButton.Enabled = true;
 
             TotalText.Value= 0;
 

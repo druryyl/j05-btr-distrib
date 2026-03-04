@@ -54,6 +54,7 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             this.NewButton = new System.Windows.Forms.Button();
             this.TotalText = new System.Windows.Forms.NumericUpDown();
             this.PrintButton = new System.Windows.Forms.Button();
+            this.DeleteButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MutasiItemGrid)).BeginInit();
             this.panel2.SuspendLayout();
@@ -325,12 +326,25 @@ namespace btr.distrib.InventoryContext.MutasiAgg
             this.PrintButton.Text = "Print";
             this.PrintButton.UseVisualStyleBackColor = false;
             // 
+            // DeleteButton
+            // 
+            this.DeleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.DeleteButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(236)))), ((int)(((byte)(213)))));
+            this.DeleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DeleteButton.Location = new System.Drawing.Point(638, 449);
+            this.DeleteButton.Name = "DeleteButton";
+            this.DeleteButton.Size = new System.Drawing.Size(75, 23);
+            this.DeleteButton.TabIndex = 10;
+            this.DeleteButton.Text = "Delete";
+            this.DeleteButton.UseVisualStyleBackColor = false;
+            // 
             // MutasiForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(164)))), ((int)(((byte)(180)))), ((int)(((byte)(101)))));
             this.ClientSize = new System.Drawing.Size(800, 480);
+            this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.PrintButton);
             this.Controls.Add(this.TotalText);
             this.Controls.Add(this.NewButton);
@@ -383,5 +397,6 @@ namespace btr.distrib.InventoryContext.MutasiAgg
         private DateTimePicker KlaimDateText;
         private Label label3;
         private Button PrintButton;
+        private Button DeleteButton;
     }
 }

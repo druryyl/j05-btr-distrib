@@ -14,8 +14,9 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
 
     public interface IGenStokMutasiWorker : INunaServiceVoid<GenStokMutasiRequest>
     {
+        void ExecuteVoid(GenStokMutasiRequest req);
     }
-    
+
     public class GenStokMutasiWorker : IGenStokMutasiWorker
     {
         private readonly IMutasiBuilder _mutasiBuilder;
@@ -47,17 +48,21 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                 GenMutasiKlaimSupplier(req);
         }
 
+        public void ExecuteVoid(GenStokMutasiRequest req)
+        {
+            var mutasi = _mutasiBuilder.Load(req).Build();
+            if (mutasi.JenisMutasi == JenisMutasiEnum.MutasiKeluar)
+                GenMutasiKeluarVoid(req);
+            else if (mutasi.JenisMutasi == JenisMutasiEnum.MutasiMasuk)
+                GenMutasiMasukVoid(req);
+            else
+                GenMutasiKlaimSupplierVoid(req);
+        }
+
         private void GenMutasiKeluar(GenStokMutasiRequest req)
         {
-            var mutasiOri = _mutasiBuilder.Load(req).Build();
-            //  nnt buatkan balikannya dulu
-            //      void mutasi keluar-nya
-            var rollbackReq = new RollBackStokRequest(req.MutasiId);
-            _rollBackStok.Execute(rollbackReq);
-            //      void mutasi masuk-nya
-            var removeRollbackReq = new RemoveRollbackRequest(req.MutasiId, "MUTASI-MASUK-VOID", mutasiOri.MutasiDate);
-            _removeRollbackStokWorker.Execute(removeRollbackReq);
-            
+            GenMutasiKeluarVoid(req);
+
             var mutasi = _mutasiBuilder.Load(req).Build();
             foreach (var item in mutasi.ListItem)
             {
@@ -83,10 +88,20 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
             }
         }
 
-        private void GenMutasiKlaimSupplier(GenStokMutasiRequest req)
+        private void GenMutasiKeluarVoid(GenStokMutasiRequest req)
         {
+            var mutasiOri = _mutasiBuilder.Load(req).Build();
+            //      void mutasi keluar-nya
             var rollbackReq = new RollBackStokRequest(req.MutasiId);
             _rollBackStok.Execute(rollbackReq);
+            //      void mutasi masuk-nya
+            var removeRollbackReq = new RemoveRollbackRequest(req.MutasiId, "MUTASI-KELUAR-VOID", mutasiOri.MutasiDate);
+            _removeRollbackStokWorker.Execute(removeRollbackReq);
+        }
+
+        private void GenMutasiKlaimSupplier(GenStokMutasiRequest req)
+        {
+            GenMutasiKlaimSupplierVoid(req);
 
             var mutasi = _mutasiBuilder.Load(req).Build();
             foreach (var item in mutasi.ListItem)
@@ -103,9 +118,18 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                     mutasi.MutasiDate));
             }
         }
+        
+        private void GenMutasiKlaimSupplierVoid(GenStokMutasiRequest req)
+        {
+            var rollbackReq = new RollBackStokRequest(req.MutasiId);
+            _rollBackStok.Execute(rollbackReq);
+        }
 
         private void GenMutasiMasuk(GenStokMutasiRequest req)
         {
+            //  rollback dulu mutasi masuk-nya
+            GenMutasiMasukVoid(req);
+
             //  nnt buatkan balikannya dulu
             var mutasi = _mutasiBuilder.Load(req).Build();
             foreach (var item in mutasi.ListItem)
@@ -129,5 +153,17 @@ namespace btr.application.InventoryContext.StokAgg.GenStokUseCase
                     "MUTASI-MASUK", mutasi.Keterangan, mutasi.MutasiDate));
             }
         }
+
+        private void GenMutasiMasukVoid(GenStokMutasiRequest req)
+        {
+            var mutasiOri = _mutasiBuilder.Load(req).Build();
+            //      void mutasi masuk-nya
+            var removeRollbackReq = new RemoveRollbackRequest(req.MutasiId, "MUTASI-MASUK-VOID", mutasiOri.MutasiDate);
+            _removeRollbackStokWorker.Execute(removeRollbackReq);
+            //      void mutasi keluar-nya
+            var rollbackReq = new RollBackStokRequest(req.MutasiId);
+            _rollBackStok.Execute(rollbackReq);
+        }
+
     }
 }
