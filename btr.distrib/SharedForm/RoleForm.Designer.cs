@@ -35,7 +35,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.MenuGrid = new System.Windows.Forms.DataGridView();
             this.SaveButton = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.ExitButton = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MenuGrid)).BeginInit();
@@ -115,17 +115,17 @@
             this.SaveButton.Text = "Save";
             this.SaveButton.UseVisualStyleBackColor = false;
             // 
-            // button3
+            // ExitButton
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.BackColor = System.Drawing.Color.Gainsboro;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(522, 504);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(101, 23);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "Exit";
-            this.button3.UseVisualStyleBackColor = false;
+            this.ExitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ExitButton.BackColor = System.Drawing.Color.Gainsboro;
+            this.ExitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ExitButton.Location = new System.Drawing.Point(522, 504);
+            this.ExitButton.Name = "ExitButton";
+            this.ExitButton.Size = new System.Drawing.Size(101, 23);
+            this.ExitButton.TabIndex = 4;
+            this.ExitButton.Text = "Exit";
+            this.ExitButton.UseVisualStyleBackColor = false;
             // 
             // DeleteButton
             // 
@@ -146,7 +146,7 @@
             this.BackColor = System.Drawing.Color.RosyBrown;
             this.ClientSize = new System.Drawing.Size(635, 539);
             this.Controls.Add(this.DeleteButton);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.ExitButton);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.MenuGrid);
             this.Controls.Add(this.panel1);
@@ -169,7 +169,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView MenuGrid;
         private System.Windows.Forms.Button SaveButton;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button ExitButton;
         private System.Windows.Forms.Button DeleteButton;
     }
 }

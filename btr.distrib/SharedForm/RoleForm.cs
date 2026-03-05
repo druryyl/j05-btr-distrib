@@ -50,6 +50,7 @@ namespace btr.distrib.SharedForm
             RoleListButton.Click += RoleListButton_Click;
             RoleIdTextBox.Validated += RoleIdTextBox_Validated;
             SaveButton.Click += (s, e) => SaveRole();
+            ExitButton.Click += (s, e) => Close();
         }
 
         private void SaveRole()
@@ -58,7 +59,10 @@ namespace btr.distrib.SharedForm
             RoleType role = null;
             var roleMaybe = _roleRepo.LoadEntity(key);
             if (roleMaybe.HasValue)
-                role = roleMaybe.Value;
+            {
+                var roleTemp = roleMaybe.Value;
+                role = new RoleType(roleTemp.RoleId, RoleNameTextBox.Text, roleTemp.ListMenu);
+            }
             else
                 role = RoleType.Create(RoleIdTextBox.Text, RoleNameTextBox.Text);
 
@@ -165,6 +169,7 @@ namespace btr.distrib.SharedForm
                     row.DefaultCellStyle.BackColor = Color.White;
             }
         }
+
         private void MenuGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var grid = (DataGridView)sender;
