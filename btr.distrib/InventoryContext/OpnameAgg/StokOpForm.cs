@@ -64,11 +64,16 @@ namespace btr.distrib.InventoryContext.OpnameAgg
             {
                 DataSource = _listItem
             };
-            
+
+            // Recalculate totals when list or items change
+            _listItem.ListChanged += (s, e) => UpdateTotals();
+
             RegisterEventHandler(); 
             InitKetegoriCombo();
             InitWarehouseCombo();
             InitGrid();
+
+            UpdateTotals();
         }
 
         private void RegisterEventHandler()
@@ -323,6 +328,10 @@ namespace btr.distrib.InventoryContext.OpnameAgg
 
                 BrgGrid.EndEdit();
                 BrgGrid.Refresh();
+
+                // UpdateTotals will be called via BindingList.ListChanged if item notifies property changes.
+                // Ensure a refresh here as fallback.
+                UpdateTotals();
             }
         }
 
@@ -381,6 +390,33 @@ namespace btr.distrib.InventoryContext.OpnameAgg
             _bindingSource.DataSource = _listItem;
             BrgGrid.DataSource = _bindingSource;
             BrgGrid.Refresh();
+
+            // re-subscribe to list changes
+            _listItem.ListChanged += (s, e) => UpdateTotals();
+
+            UpdateTotals();
+        }
+
+        private void UpdateTotals()
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke((Action)UpdateTotals);
+                return;
+            }
+
+            decimal totalAwal =0m, totalOpname =0m, totalAdjust =0m;
+            if (_listItem != null && _listItem.Count >0)
+            {
+                totalAwal = _listItem.Sum(x => x.HppAwal);
+                totalOpname = _listItem.Sum(x => x.HppOpname);
+                totalAdjust = _listItem.Sum(x => x.HppAdjust);
+            }
+
+            TotalAwalText.Text = totalAwal.ToString("N0");
+            TotalOpnameText.Text = totalOpname.ToString("N0");
+            // Designer has TotalAdjustText control
+            TotalAdjustText.Text = totalAdjust.ToString("N0");
         }
 
         private IEnumerable<StokOpItem> GenListBrg()
@@ -558,37 +594,91 @@ namespace btr.distrib.InventoryContext.OpnameAgg
     }
 
     [PublicAPI]
-    public class StokOpItem
+    public class StokOpItem : INotifyPropertyChanged
     {
-        public string BrgId { get;  set; }
-        public string BrgCode { get;  set; }
-        public string BrgName { get;  set; }
+        private string _brgId;
+        private string _brgCode;
+        private string _brgName;
 
-        public int QtyBesarAwal { get;  set; }
-        public int QtyKecilAwal { get;  set; }
-        public int QtyPcsAwal { get;  set; }
-        
-        public int QtyBesarAdjust { get;  set; }
-        public int QtyKecilAdjust { get;  set; }
-        public int QtyPcsAdjust { get; set; }
-        
-        public int QtyBesarOpname { get; set; }
-        public int QtyKecilOpname { get; set; }
-        public int QtyPcsOpname { get; set; }
-        public string QtyOpnameInputStr { get; set; }
-        
-        public string StokOpId { get; set; }
-        public int Conversion { get; set; }
+        private int _qtyBesarAwal;
+        private int _qtyKecilAwal;
+        private int _qtyPcsAwal;
 
-        public decimal HppSatuan { get; set; }
-        
-        
-        
+        private int _qtyBesarAdjust;
+        private int _qtyKecilAdjust;
+        private int _qtyPcsAdjust;
 
-        public decimal HppAwal {  get => HppSatuan * QtyPcsAwal; }
-        public decimal HppOpname { get => HppSatuan * QtyPcsOpname; }
-        public decimal HppAdjust {  get => HppSatuan * QtyPcsAdjust; }
+        private int _qtyBesarOpname;
+        private int _qtyKecilOpname;
+        private int _qtyPcsOpname;
+        private string _qtyOpnameInputStr;
 
+        private string _stokOpId;
+        private int _conversion =1;
+        private decimal _hppSatuan;
+
+        public string BrgId { get => _brgId; set { _brgId = value; OnPropertyChanged(nameof(BrgId)); } }
+        public string BrgCode { get => _brgCode; set { _brgCode = value; OnPropertyChanged(nameof(BrgCode)); } }
+        public string BrgName { get => _brgName; set { _brgName = value; OnPropertyChanged(nameof(BrgName)); } }
+
+        public int Conversion { get => _conversion; set { _conversion = value; RecalcAllQtyPcs(); OnPropertyChanged(nameof(Conversion)); } }
+
+        public int QtyBesarAwal { get => _qtyBesarAwal; set { _qtyBesarAwal = value; RecalcQtyPcsAwal(); OnPropertyChanged(nameof(QtyBesarAwal)); } }
+        public int QtyKecilAwal { get => _qtyKecilAwal; set { _qtyKecilAwal = value; RecalcQtyPcsAwal(); OnPropertyChanged(nameof(QtyKecilAwal)); } }
+        public int QtyPcsAwal { get => _qtyPcsAwal; set { _qtyPcsAwal = value; OnPropertyChanged(nameof(QtyPcsAwal)); OnPropertyChanged(nameof(HppAwal)); } }
+
+        public int QtyBesarAdjust { get => _qtyBesarAdjust; set { _qtyBesarAdjust = value; RecalcQtyPcsAdjust(); OnPropertyChanged(nameof(QtyBesarAdjust)); } }
+        public int QtyKecilAdjust { get => _qtyKecilAdjust; set { _qtyKecilAdjust = value; RecalcQtyPcsAdjust(); OnPropertyChanged(nameof(QtyKecilAdjust)); } }
+        public int QtyPcsAdjust { get => _qtyPcsAdjust; set { _qtyPcsAdjust = value; OnPropertyChanged(nameof(QtyPcsAdjust)); OnPropertyChanged(nameof(HppAdjust)); } }
+
+        public int QtyBesarOpname { get => _qtyBesarOpname; set { _qtyBesarOpname = value; RecalcQtyPcsOpname(); OnPropertyChanged(nameof(QtyBesarOpname)); } }
+        public int QtyKecilOpname { get => _qtyKecilOpname; set { _qtyKecilOpname = value; RecalcQtyPcsOpname(); OnPropertyChanged(nameof(QtyKecilOpname)); } }
+        public int QtyPcsOpname { get => _qtyPcsOpname; set { _qtyPcsOpname = value; OnPropertyChanged(nameof(QtyPcsOpname)); OnPropertyChanged(nameof(HppOpname)); } }
+
+        public string QtyOpnameInputStr { get => _qtyOpnameInputStr; set { _qtyOpnameInputStr = value; OnPropertyChanged(nameof(QtyOpnameInputStr)); } }
+
+        public string StokOpId { get => _stokOpId; set { _stokOpId = value; OnPropertyChanged(nameof(StokOpId)); } }
+
+        public decimal HppSatuan { get => _hppSatuan; set { _hppSatuan = value; OnPropertyChanged(nameof(HppSatuan)); OnPropertyChanged(nameof(HppAwal)); OnPropertyChanged(nameof(HppAdjust)); OnPropertyChanged(nameof(HppOpname)); } }
+
+        // computed properties
+        public decimal HppAwal { get { return HppSatuan * QtyPcsAwal; } }
+        public decimal HppOpname { get { return HppSatuan * QtyPcsOpname; } }
+        public decimal HppAdjust { get { return HppSatuan * QtyPcsAdjust; } }
+
+        private void RecalcQtyPcsAwal()
+        {
+            _qtyPcsAwal = (_qtyBesarAwal * _conversion) + _qtyKecilAwal;
+            OnPropertyChanged(nameof(QtyPcsAwal));
+            OnPropertyChanged(nameof(HppAwal));
+        }
+
+        private void RecalcQtyPcsAdjust()
+        {
+            _qtyPcsAdjust = (_qtyBesarAdjust * _conversion) + _qtyKecilAdjust;
+            OnPropertyChanged(nameof(QtyPcsAdjust));
+            OnPropertyChanged(nameof(HppAdjust));
+        }
+
+        private void RecalcQtyPcsOpname()
+        {
+            _qtyPcsOpname = (_qtyBesarOpname * _conversion) + _qtyKecilOpname;
+            OnPropertyChanged(nameof(QtyPcsOpname));
+            OnPropertyChanged(nameof(HppOpname));
+        }
+
+        private void RecalcAllQtyPcs()
+        {
+            RecalcQtyPcsAwal();
+            RecalcQtyPcsAdjust();
+            RecalcQtyPcsOpname();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 
 }
