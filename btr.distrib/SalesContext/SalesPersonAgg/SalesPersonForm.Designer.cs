@@ -49,6 +49,8 @@
             this.NewButton = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
             this.ExcelButton = new System.Windows.Forms.Button();
+            this.SegmentComboBox = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ListGrid)).BeginInit();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -67,12 +69,14 @@
             // SearchButton
             // 
             this.SearchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.SearchButton.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.SearchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SearchButton.Location = new System.Drawing.Point(161, 342);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(75, 23);
             this.SearchButton.TabIndex = 4;
             this.SearchButton.Text = "Search";
-            this.SearchButton.UseVisualStyleBackColor = true;
+            this.SearchButton.UseVisualStyleBackColor = false;
             // 
             // SearchText
             // 
@@ -88,6 +92,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.AliceBlue;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.SegmentComboBox);
             this.panel2.Controls.Add(this.EmailLabel);
             this.panel2.Controls.Add(this.EmailText);
             this.panel2.Controls.Add(this.WilayahIdText);
@@ -118,6 +124,7 @@
             // 
             // EmailText
             // 
+            this.EmailText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.EmailText.Location = new System.Drawing.Point(12, 215);
             this.EmailText.Name = "EmailText";
             this.EmailText.Size = new System.Drawing.Size(205, 22);
@@ -125,28 +132,32 @@
             // 
             // WilayahIdText
             // 
+            this.WilayahIdText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.WilayahIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WilayahIdText.Location = new System.Drawing.Point(15, 146);
+            this.WilayahIdText.Location = new System.Drawing.Point(12, 146);
             this.WilayahIdText.Name = "WilayahIdText";
             this.WilayahIdText.Size = new System.Drawing.Size(171, 22);
             this.WilayahIdText.TabIndex = 10;
             // 
             // WilayahNameText
             // 
-            this.WilayahNameText.Location = new System.Drawing.Point(15, 174);
+            this.WilayahNameText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.WilayahNameText.Location = new System.Drawing.Point(12, 174);
             this.WilayahNameText.Name = "WilayahNameText";
             this.WilayahNameText.ReadOnly = true;
-            this.WilayahNameText.Size = new System.Drawing.Size(199, 22);
+            this.WilayahNameText.Size = new System.Drawing.Size(205, 22);
             this.WilayahNameText.TabIndex = 12;
             // 
             // WilayahButton
             // 
-            this.WilayahButton.Location = new System.Drawing.Point(192, 145);
+            this.WilayahButton.BackColor = System.Drawing.Color.LightBlue;
+            this.WilayahButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.WilayahButton.Location = new System.Drawing.Point(189, 145);
             this.WilayahButton.Name = "WilayahButton";
             this.WilayahButton.Size = new System.Drawing.Size(28, 23);
             this.WilayahButton.TabIndex = 11;
             this.WilayahButton.Text = "...";
-            this.WilayahButton.UseVisualStyleBackColor = true;
+            this.WilayahButton.UseVisualStyleBackColor = false;
             // 
             // label7
             // 
@@ -160,9 +171,10 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(15, 307);
+            this.checkBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBox1.Location = new System.Drawing.Point(3, 307);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(61, 17);
+            this.checkBox1.Size = new System.Drawing.Size(58, 17);
             this.checkBox1.TabIndex = 12;
             this.checkBox1.Text = "Resign";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -178,6 +190,7 @@
             // 
             // SalesPersonCodeText
             // 
+            this.SalesPersonCodeText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.SalesPersonCodeText.Location = new System.Drawing.Point(12, 107);
             this.SalesPersonCodeText.Name = "SalesPersonCodeText";
             this.SalesPersonCodeText.Size = new System.Drawing.Size(205, 22);
@@ -194,14 +207,16 @@
             // 
             // SalesPersonIdText
             // 
+            this.SalesPersonIdText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.SalesPersonIdText.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SalesPersonIdText.Location = new System.Drawing.Point(12, 25);
             this.SalesPersonIdText.Name = "SalesPersonIdText";
-            this.SalesPersonIdText.Size = new System.Drawing.Size(177, 22);
+            this.SalesPersonIdText.Size = new System.Drawing.Size(171, 22);
             this.SalesPersonIdText.TabIndex = 6;
             // 
             // SalesPersonNameText
             // 
+            this.SalesPersonNameText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.SalesPersonNameText.Location = new System.Drawing.Point(12, 66);
             this.SalesPersonNameText.Name = "SalesPersonNameText";
             this.SalesPersonNameText.Size = new System.Drawing.Size(205, 22);
@@ -209,12 +224,14 @@
             // 
             // SalesPersonButton
             // 
-            this.SalesPersonButton.Location = new System.Drawing.Point(195, 25);
+            this.SalesPersonButton.BackColor = System.Drawing.Color.LightBlue;
+            this.SalesPersonButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SalesPersonButton.Location = new System.Drawing.Point(189, 25);
             this.SalesPersonButton.Name = "SalesPersonButton";
             this.SalesPersonButton.Size = new System.Drawing.Size(28, 23);
             this.SalesPersonButton.TabIndex = 7;
             this.SalesPersonButton.Text = "...";
-            this.SalesPersonButton.UseVisualStyleBackColor = true;
+            this.SalesPersonButton.UseVisualStyleBackColor = false;
             // 
             // label6
             // 
@@ -228,32 +245,55 @@
             // NewButton
             // 
             this.NewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.NewButton.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.NewButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.NewButton.Location = new System.Drawing.Point(435, 341);
             this.NewButton.Name = "NewButton";
             this.NewButton.Size = new System.Drawing.Size(75, 23);
             this.NewButton.TabIndex = 14;
             this.NewButton.Text = "New";
-            this.NewButton.UseVisualStyleBackColor = true;
+            this.NewButton.UseVisualStyleBackColor = false;
             // 
             // SaveButton
             // 
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.SaveButton.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SaveButton.Location = new System.Drawing.Point(516, 341);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
             this.SaveButton.TabIndex = 13;
             this.SaveButton.Text = "Save";
-            this.SaveButton.UseVisualStyleBackColor = true;
+            this.SaveButton.UseVisualStyleBackColor = false;
             // 
             // ExcelButton
             // 
             this.ExcelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ExcelButton.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.ExcelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ExcelButton.Location = new System.Drawing.Point(242, 342);
             this.ExcelButton.Name = "ExcelButton";
             this.ExcelButton.Size = new System.Drawing.Size(61, 23);
             this.ExcelButton.TabIndex = 49;
             this.ExcelButton.Text = "Excel";
-            this.ExcelButton.UseVisualStyleBackColor = true;
+            this.ExcelButton.UseVisualStyleBackColor = false;
+            // 
+            // SegmentComboBox
+            // 
+            this.SegmentComboBox.FormattingEnabled = true;
+            this.SegmentComboBox.Location = new System.Drawing.Point(12, 256);
+            this.SegmentComboBox.Name = "SegmentComboBox";
+            this.SegmentComboBox.Size = new System.Drawing.Size(205, 21);
+            this.SegmentComboBox.TabIndex = 60;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 240);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(48, 13);
+            this.label1.TabIndex = 61;
+            this.label1.Text = "Segmen";
             // 
             // SalesPersonForm
             // 
@@ -302,5 +342,7 @@
         private System.Windows.Forms.Button ExcelButton;
         private System.Windows.Forms.Label EmailLabel;
         private System.Windows.Forms.TextBox EmailText;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox SegmentComboBox;
     }
 }

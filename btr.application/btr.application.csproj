@@ -300,6 +300,7 @@
     <Compile Include="SalesContext\AlokasiFpAgg\IAlokasiFpDal.cs" />
     <Compile Include="SalesContext\AlokasiFpAgg\AlokasiFpBuilder.cs" />
     <Compile Include="SalesContext\AlokasiFpAgg\AlokasiFpWriter.cs" />
+    <Compile Include="SalesContext\KlasifikasiAgg\ISegmentRepo.cs" />
     <Compile Include="SalesContext\OmzetSupplierInfo\IOmzetSupplierViewDal.cs" />
     <Compile Include="SalesContext\OmzetSupplierInfo\OmzetSupplierView.cs" />
     <Compile Include="SalesContext\HariRuteAgg\IHariRuteDal.cs" />

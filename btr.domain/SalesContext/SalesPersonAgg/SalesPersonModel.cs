@@ -15,5 +15,7 @@ namespace btr.domain.SalesContext.SalesPersonAgg
         public string WilayahId { get; set; }
         public string WilayahName { get; set; }
         public string Email { get; set; }
+        public string SegmentId { get; set; }
+        public string SegmentName { get; set; }
     }
 }

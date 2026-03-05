@@ -814,6 +814,9 @@
       <DependentUpon>BrowserForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Browsers\IBrowser.cs" />
+    <Compile Include="SharedForm\ChartHelper.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="SharedForm\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>

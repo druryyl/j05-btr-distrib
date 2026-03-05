@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Microsoft.Extensions.Options;
+using Microsoft.Win32;
 
 namespace btr.infrastructure.Helpers
 {
@@ -11,28 +12,50 @@ namespace btr.infrastructure.Helpers
         public static string Get(DatabaseOptions options)
         {
             if (_connString.Length == 0)
-                _connString = Generate(options.ServerName, options.DbName);
+                _connString = Generate(options.ServerName, options.DbName, options.IsTest);
 
             return _connString;
         }
+        
+        public static IOptions<DatabaseOptions> GetTestOptions()
+        {
+            return Options.Create(new DatabaseOptions
+            {
+                ServerName = "JUDE7",
+                DbName = "devTest",
+                IsTest = true
+            });
+        }
 
-        private static string Generate(string server, string db)
+        private static string Generate(string server, string db, bool isTest)
         {
             const string uid = "btrLogin";
             const string pass = "btr123!";
 
-            //  read from registry first
-            (Server, Database) = ReadFromRegistry();
+            string resolvedServer;
+            string resolvedDatabase;
 
-            if (Server == string.Empty)
-                Server = server;
-            if (Database == string.Empty)
-                Database = db;
+            if (isTest)
+            {
+                // for test use provided values directly
+                resolvedServer = server ?? string.Empty;
+                resolvedDatabase = db ?? string.Empty;
+            }
+            else
+            {
+                // try to read saved values from registry; fall back to provided values
+                var (regServer, regDb) = ReadFromRegistry();
+                resolvedServer = string.IsNullOrEmpty(regServer) ? (server ?? string.Empty) : regServer;
+                resolvedDatabase = string.IsNullOrEmpty(regDb) ? (db ?? string.Empty) : regDb;
 
-            SaveToRegistry(Server, Database);
+                // persist resolved values so next run can reuse them
+                SaveToRegistry(resolvedServer, resolvedDatabase);
+            }
 
-            var result = $"Server={Server};Database={Database};User Id={uid};Password={pass};TrustServerCertificate=True";
-            return result;
+            Server = resolvedServer;
+            Database = resolvedDatabase;
+
+            return $"Server={Server};Database={Database};User Id={uid};Password={pass};TrustServerCertificate=True";
         }
 
         private static void SaveToRegistry(string server, string db)

@@ -23,9 +23,9 @@ namespace btr.infrastructure.SalesContext.SalesPersonAgg
         {
             const string sql = @"
             INSERT INTO BTR_SalesPerson(
-                SalesPersonId, SalesPersonCode, SalesPersonName, WilayahId, Email)
+                SalesPersonId, SalesPersonCode, SalesPersonName, WilayahId, Email, SegmentId)
             VALUES (
-                @SalesPersonId, @SalesPersonCode, @SalesPersonName, @WilayahId, @Email)";
+                @SalesPersonId, @SalesPersonCode, @SalesPersonName, @WilayahId, @Email, @SegmentId)";
 
             var dp = new DynamicParameters();
             dp.AddParam("@SalesPersonId", model.SalesPersonId, SqlDbType.VarChar);
@@ -33,6 +33,7 @@ namespace btr.infrastructure.SalesContext.SalesPersonAgg
             dp.AddParam("@SalesPersonName", model.SalesPersonName, SqlDbType.VarChar);
             dp.AddParam("@WilayahId", model.WilayahId, SqlDbType.VarChar);
             dp.AddParam("@EMail", model.Email, SqlDbType.VarChar);
+            dp.AddParam("@SegmentId", model.SegmentId, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -49,7 +50,8 @@ namespace btr.infrastructure.SalesContext.SalesPersonAgg
                 SalesPersonName = @SalesPersonName,
                 SalesPersonCode = @SalesPersonCode,
                 WilayahId = @WilayahId,
-                Email = @Email
+                Email = @Email,
+                SegmentId = @SegmentId
             WHERE
                 SalesPersonId = @SalesPersonId ";
 
@@ -59,6 +61,7 @@ namespace btr.infrastructure.SalesContext.SalesPersonAgg
             dp.AddParam("@SalesPersonName", model.SalesPersonName, SqlDbType.VarChar);
             dp.AddParam("@WilayahId", model.WilayahId, SqlDbType.VarChar);
             dp.AddParam("@EMail", model.Email, SqlDbType.VarChar);
+            dp.AddParam("@SegmentId", model.SegmentId, SqlDbType.VarChar);
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {
@@ -89,10 +92,13 @@ namespace btr.infrastructure.SalesContext.SalesPersonAgg
             SELECT
                 aa.SalesPersonId, aa.SalesPersonName, 
                 aa.SalesPersonCode, aa.WilayahId, aa.Email,
-                ISNULL(bb.WilayahName, '') AS WilayahName
+                aa.SegmentId,
+                ISNULL(bb.WilayahName, '') AS WilayahName,
+                ISNULL(cc.SegmentName, '') AS SegmentName
             FROM
                 BTR_SalesPerson aa
                 LEFT JOIN BTR_Wilayah bb ON aa.WilayahId = bb.WilayahId
+                LEFT JOIN BTR_Segment cc ON aa.SegmentId = cc.SegmentId
             WHERE
                 SalesPersonId = @SalesPersonId ";
 
@@ -111,10 +117,13 @@ namespace btr.infrastructure.SalesContext.SalesPersonAgg
             SELECT
                 aa.SalesPersonId, aa.SalesPersonName, 
                 aa.SalesPersonCode, aa.WilayahId, aa.Email,
-                ISNULL(bb.WilayahName, '') AS WilayahName
+                aa.SegmentId,
+                ISNULL(bb.WilayahName, '') AS WilayahName,
+                ISNULL(cc.SegmentName, '') AS SegmentName
             FROM
                 BTR_SalesPerson aa
-                LEFT JOIN BTR_Wilayah bb ON aa.WilayahId = bb.WilayahId ";
+                LEFT JOIN BTR_Wilayah bb ON aa.WilayahId = bb.WilayahId
+                LEFT JOIN BTR_Segment cc ON aa.SegmentId = cc.SegmentId  ";
 
             using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
             {

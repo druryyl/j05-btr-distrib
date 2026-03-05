@@ -145,6 +145,7 @@
     <Build Include="Tables\Helper\BTR_Menu.sql" />
     <Build Include="Tables\Helper\BTR_Role.sql" />
     <Build Include="Tables\Helper\BTR_RoleMenu.sql" />
+    <Build Include="Tables\SalesContext\BTR_Segment.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Tables\SalesContext\BTR_HariRuteDataSeed.sql" />

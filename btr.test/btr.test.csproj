@@ -124,6 +124,8 @@
     <Compile Include="Helpers\AppSettingsHelper.cs" />
     <Compile Include="Helpers\CodingPlayground.cs" />
     <Compile Include="SalesContext\NumericHelperTest.cs" />
+    <Compile Include="SalesContext\SalesPersonDalTest.cs" />
+    <Compile Include="SalesContext\SegmentDalTest.cs" />
     <Compile Include="Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

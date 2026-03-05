@@ -180,6 +180,8 @@
     <Compile Include="SalesContext\FakturPerSupplierRpt\FakturPerSupplierDal.cs" />
     <Compile Include="SalesContext\HariRuteAgg\HariRuteDal.cs" />
     <Compile Include="SalesContext\KlasifikasiAgg\KlasifikasiDal.cs" />
+    <Compile Include="SalesContext\KlasifikasiAgg\SegmentDal.cs" />
+    <Compile Include="SalesContext\KlasifikasiAgg\SegmentRepo.cs" />
     <Compile Include="SalesContext\OrderFeature\OrderDal.cs" />
     <Compile Include="SalesContext\OrderFeature\OrderItemDal.cs" />
     <Compile Include="SalesContext\OrderMapFeature\OrderMapDal.cs" />

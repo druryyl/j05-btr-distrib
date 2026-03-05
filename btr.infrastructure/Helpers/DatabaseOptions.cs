@@ -12,5 +12,6 @@
 
         public string ServerName { get; set; }
         public string DbName { get; set; }
+        public bool IsTest { get; set; }
     }
 }

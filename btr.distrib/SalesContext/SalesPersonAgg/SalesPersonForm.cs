@@ -1,19 +1,23 @@
-﻿using btr.application.SalesContext.SalesPersonAgg.Contracts;
+﻿using btr.application.SalesContext.KlasifikasiAgg;
+using btr.application.SalesContext.SalesPersonAgg.Contracts;
 using btr.application.SalesContext.SalesPersonAgg.Workers;
 using btr.application.SalesContext.WilayahAgg;
 using btr.distrib.Browsers;
 using btr.distrib.Helpers;
+using btr.distrib.InventoryContext.BrgAgg;
+using btr.distrib.SharedForm;
+using btr.domain.BrgContext.BrgAgg;
+using btr.domain.SalesContext.KlasifikasiAgg;
 using btr.domain.SalesContext.SalesPersonAgg;
+using btr.domain.SalesContext.WilayahAgg;
 using btr.nuna.Domain;
+using ClosedXML.Excel;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using btr.domain.SalesContext.WilayahAgg;
-using btr.distrib.InventoryContext.BrgAgg;
-using btr.domain.BrgContext.BrgAgg;
-using ClosedXML.Excel;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace btr.distrib.SalesContext.SalesPersonAgg
 {
@@ -27,7 +31,7 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
 
         private readonly ISalesPersonBuilder _salesPersonBuilder;
         private readonly ISalesPersonWriter _salesPersonWriter;
-
+        private readonly ISegmentRepo segmentRepo;
         private IEnumerable<SalesPersonFormGridDto> _listSalesPerson;
 
         public SalesPersonForm(ISalesPersonDal salesPersonDal,
@@ -35,7 +39,8 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
             IBrowser<SalesPersonBrowserView> salesPersonBrowser,
             IBrowser<WilayahBrowserView> wilayahBrowser,
             ISalesPersonBuilder salesPersonBuilder,
-            ISalesPersonWriter salesPersonWriter)
+            ISalesPersonWriter salesPersonWriter,
+            ISegmentRepo segmentRepo)
         {
             InitializeComponent();
 
@@ -47,9 +52,20 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
 
             _salesPersonBuilder = salesPersonBuilder;
             _salesPersonWriter = salesPersonWriter;
+            this.segmentRepo = segmentRepo;
 
             RegisterEventHandler();
             InitGrid();
+            InitComboBox();
+        }
+
+        private void InitComboBox()
+        {
+            var listSegment = segmentRepo.ListData()?.ToList()
+                ?? new List<SegmentType>();
+            SegmentComboBox.DataSource = listSegment;
+            SegmentComboBox.DisplayMember = "SegmentName";
+            SegmentComboBox.ValueMember = "SegmentId";
         }
 
         private void RegisterEventHandler()
@@ -150,6 +166,29 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
         private void SearchButton_Click(object sender, EventArgs e)
         {
             FilterListGrid(SearchText.Text);
+            /*
+            // Create sample data
+            var salesData = new List<SalesData>
+            {
+                new SalesData("Electronics", 45000.50, 120),
+                new SalesData("Clothing", 28000.75, 350),
+                new SalesData("Food", 52000.00, 800),
+                new SalesData("Books", 12000.25, 200),
+                new SalesData("Sports", 35000.80, 150),
+                new SalesData("Home & Garden", 41000.00, 180)
+            };
+
+            // Example 1: Basic usage with Revenue
+            var chartForm = new ChartForm<SalesData>(
+                salesData,
+                data => data.Category,      // X-axis: Category name
+                data => data.Revenue,       // Y-axis: Revenue value
+                "Sales Revenue by Category",
+                SeriesChartType.Column,
+                ChartTheme.Vibrant
+            );
+            chartForm.ShowDialog();
+            */
         }
 
         private void ListGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -172,7 +211,8 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
                     x.SalesPersonCode,
                     x.SalesPersonName,
                     x.WilayahName,
-                    x.Email)).ToList();
+                    x.Email,
+                    x.SegmentName)).ToList();
             ListGrid.DataSource = _listSalesPerson;
 
             ListGrid.Columns.SetDefaultCellStyle(Color.PowderBlue);
@@ -227,6 +267,7 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
             WilayahIdText.Text = salesPerson.WilayahId;
             WilayahNameText.Text = salesPerson.WilayahName;
             EmailText.Text = salesPerson.Email;
+            SegmentComboBox.SelectedValue = salesPerson.SegmentId;
         }
 
         private void ClearForm()
@@ -237,6 +278,7 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
             WilayahIdText.Clear();
             WilayahNameText.Clear();
             EmailText.Clear();
+            SegmentComboBox.SelectedIndex = -1;
         }
         #endregion
 
@@ -263,6 +305,7 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
                 .Wilayah(new WilayahModel(WilayahIdText.Text))
                 .Email(EmailText.Text)
                 .Build();
+            salesPerson.SegmentId = SegmentComboBox.SelectedValue?.ToString();
 
             _salesPersonWriter.Save(ref salesPerson);
             ClearForm();
@@ -272,18 +315,34 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
     }
     public class SalesPersonFormGridDto
     {
-        public SalesPersonFormGridDto(string id, string code, string name, string wilayah, string email)
+        public SalesPersonFormGridDto(string id, string code, string name, 
+            string wilayah, string email, string segment)
         {
             Id = id;
             Code = code;
             Name = name;
             Wilayah = wilayah;
             Email = email;
+            Segment = segment;
         }
         public string Id { get; }
         public string Code { get; }
         public string Name { get; }
         public string Wilayah { get; }
         public string Email { get; }
+        public string Segment { get; }
+    }
+    public class SalesData
+    {
+        public string Category { get; set; }
+        public double Revenue { get; set; }
+        public int UnitsSold { get; set; }
+
+        public SalesData(string category, double revenue, int unitsSold)
+        {
+            Category = category;
+            Revenue = revenue;
+            UnitsSold = unitsSold;
         }
+    }
 }
