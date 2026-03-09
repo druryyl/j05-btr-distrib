@@ -147,6 +147,26 @@ namespace btr.distrib.InventoryContext.OpnameAgg
             InfoGrid.TableDescriptor.Columns[nameof(StokOpInfoView.NilaiAdjust)].Appearance.AnyRecordFieldCell.Format = "#,##.00";
             InfoGrid.TableDescriptor.Columns[nameof(StokOpInfoView.NilaiOpname)].Appearance.AnyRecordFieldCell.Format = "#,##.00";
 
+            var sumAwal = new GridSummaryColumnDescriptor("NilaiAwal", SummaryType.DoubleAggregate, "NilaiAwal", "{Sum}");
+            sumAwal.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
+            sumAwal.Appearance.AnySummaryCell.Format = "N0";
+            sumAwal.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
+
+            var sumAdjust = new GridSummaryColumnDescriptor("NilaiAdjust", SummaryType.DoubleAggregate, "NilaiAdjust", "{Sum}");
+            sumAdjust.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
+            sumAdjust.Appearance.AnySummaryCell.Format = "N0";
+            sumAdjust.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
+
+            var sumOpname = new GridSummaryColumnDescriptor("NilaiOpname", SummaryType.DoubleAggregate, "NilaiOpname", "{Sum}");
+            sumOpname.Appearance.AnySummaryCell.Interior = new BrushInfo(Color.LightYellow);
+            sumOpname.Appearance.AnySummaryCell.Format = "N0";
+            sumOpname.Appearance.AnySummaryCell.HorizontalAlignment = GridHorizontalAlignment.Right;
+
+            var sumRowDescriptor = new GridSummaryRowDescriptor();
+            sumRowDescriptor.SummaryColumns.AddRange(new[] { sumAwal, sumAdjust, sumOpname});
+            InfoGrid.TableDescriptor.SummaryRows.Add(sumRowDescriptor);
+
+
             //  set all numeric columns width to 50
             InfoGrid.TableDescriptor.Columns[nameof(StokOpInfoView.QtyBesarAwal)].Width = 50;
             InfoGrid.TableDescriptor.Columns[nameof(StokOpInfoView.QtyKecilAwal)].Width = 50;

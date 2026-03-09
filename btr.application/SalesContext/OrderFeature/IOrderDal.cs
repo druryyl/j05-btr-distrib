@@ -25,19 +25,22 @@ namespace btr.application.SalesContext.OrderFeature
 
     public class OrderSummaryDto
     {
-        public OrderSummaryDto(string orderDate, string userEmail, int orderCount, int orderItemCount, decimal totalAmountSum)
+        public OrderSummaryDto(string orderDate, string sales, int outlet, 
+            int order, int item, decimal total)
         {
             OrderDate = orderDate;
-            UserEmail = userEmail;
-            OrderCount = orderCount;
-            OrderItemCount = orderItemCount;
-            TotalAmountSum = totalAmountSum;
+            Sales = sales;
+            Outlet = outlet;
+            Order = order;
+            Item = item;
+            Total = total;
         }
         public string OrderDate { get; private set; }
-        public string UserEmail { get; private set; }
-        public int OrderCount { get; private set; }
-        public int OrderItemCount { get; private set; }
-        public decimal TotalAmountSum { get; private set; }
+        public string Sales { get; private set; }
+        public int Outlet { get; private set; }
+        public int Order { get; private set; }
+        public int Item { get; private set; }
+        public decimal Total { get; private set; }
     }
 
 }

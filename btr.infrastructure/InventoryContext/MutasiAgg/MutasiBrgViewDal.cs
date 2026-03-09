@@ -48,7 +48,8 @@ namespace btr.infrastructure.InventoryContext.MutasiAgg
                     LEFT JOIN BTR_Supplier dd ON cc.SupplierId = dd.SupplierId
                     LEFT JOIN BTR_Kategori ee ON cc.KategoriId = ee.KategoriId
                 WHERE
-                    aa.MutasiDate BETWEEN @Tgl1 AND @Tgl2 ";
+                    MutasiDate BETWEEN @Tgl1 AND @Tgl2 
+                    AND aa.VoidDate = '3000-01-01 00:00:00'";
 
             var dp = new DynamicParameters();
             dp.AddParam("@Tgl1", filter.Tgl1, SqlDbType.DateTime);

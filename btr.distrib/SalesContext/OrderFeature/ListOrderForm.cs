@@ -406,7 +406,7 @@ namespace btr.distrib.SalesContext.OrderFeature
                 // Create header row
                 var headers = new[]
                 {
-            "No", "Order Date", "User Email", "Order Count", "Item Count", "Total Amount"
+            "No", "Order Date", "Sales", "Order Count", "Item Count", "Total Amount"
         };
 
                 for (int i = 0; i < headers.Length; i++)
@@ -422,10 +422,10 @@ namespace btr.distrib.SalesContext.OrderFeature
 
                     ws.Cell(row, 1).Value = i + 1; // No
                     ws.Cell(row, 2).Value = summary.OrderDate;
-                    ws.Cell(row, 3).Value = summary.UserEmail;
-                    ws.Cell(row, 4).Value = summary.OrderCount;
-                    ws.Cell(row, 5).Value = summary.OrderItemCount;
-                    ws.Cell(row, 6).Value = summary.TotalAmountSum;
+                    ws.Cell(row, 3).Value = summary.Sales;
+                    ws.Cell(row, 4).Value = summary.Order;
+                    ws.Cell(row, 5).Value = summary.Item;
+                    ws.Cell(row, 6).Value = summary.Total;
                 }
 
                 // Format header row

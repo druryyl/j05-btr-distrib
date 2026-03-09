@@ -185,8 +185,10 @@ namespace btr.infrastructure.SalesContext.OrderFeature
         {
             const string sql = @"
             SELECT
-                aa.OrderDate, aa.UserEmail, COUNT(aa.OrderId) AS OrderCount, 
-                SUM(bb.ItemCount) OrderItemCount, SUM(aa.TotalAmount) TotalAmountSum
+                aa.OrderDate, aa.SalesName AS Sales, 
+                COUNT(DISTINCT aa.CustomerId) Outlet,
+                COUNT(aa.OrderId) AS [Order], 
+                SUM(bb.ItemCount) Item, SUM(aa.TotalAmount) Total
             FROM
                 BTR_Order aa
                 LEFT JOIN (
@@ -196,9 +198,9 @@ namespace btr.infrastructure.SalesContext.OrderFeature
             WHERE 
                 OrderDate BETWEEN @Tgl1 AND @Tgl2
             GROUP BY
-                aa.OrderDate, aa.UserEmail
+                aa.OrderDate, aa.SalesName
             ORDER BY
-                aa.OrderDate, aa.UserEmail";
+                aa.OrderDate, aa.SalesName";
 
             var dp = new DynamicParameters();
             dp.AddParam("@Tgl1", periode.Tgl1.ToString("yyyy-MM-dd"), SqlDbType.VarChar);

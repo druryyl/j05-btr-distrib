@@ -150,7 +150,8 @@ namespace btr.infrastructure.InventoryContext.MutasiAgg
                     BTR_Mutasi aa
                     LEFT JOIN BTR_Warehouse bb ON aa.WarehouseId = bb.WarehouseId
                 WHERE
-                    MutasiDate BETWEEN @Tgl1 AND @Tgl2 ";
+                    MutasiDate BETWEEN @Tgl1 AND @Tgl2 
+                    AND aa.VoidDate = '3000-01-01 00:00:00'";
 
             var dp = new DynamicParameters();
             dp.AddParam("@Tgl1", filter.Tgl1, SqlDbType.DateTime); 
