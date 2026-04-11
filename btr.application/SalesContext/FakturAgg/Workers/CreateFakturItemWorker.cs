@@ -19,7 +19,8 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             decimal dppProsen,
             decimal ppnProsen, 
             string hargaTypeId,
-            string warehouseId) 
+            string warehouseId,
+            bool isRefreshHrg) 
         {
             BrgId = brgId;
             QtyInputStr = qtyInputStr;
@@ -29,6 +30,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             PpnProsen = ppnProsen;
             HargaTypeId = hargaTypeId;
             WarehouseId = warehouseId;
+            IsRefreshHrg = isRefreshHrg;
         }
         public string BrgId { get; set; }
         public string QtyInputStr { get; set; }
@@ -38,6 +40,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         public decimal PpnProsen { get; set; }
         public string HargaTypeId { get; set; }
         public string WarehouseId { get; set; }
+        public bool IsRefreshHrg { get; set; }
     }
 
     public interface ICreateFakturItemWorker : INunaService<FakturItemModel, CreateFakturItemRequest>
@@ -86,17 +89,21 @@ namespace btr.application.SalesContext.FakturAgg.Workers
             //  3. dari master barang
             var pembagi = item.Conversion == 0 ? 1 : item.Conversion;
 
-            #region JIKA ADA INPUT HARGA MANUAL, PAKE CODE INI
-            //item.HrgSatKecil = hrgs[1] != 0
-            //    ? hrgs[1]
-            //    : hrgs[0] != 0
-            //        ? hrgs[0] / pembagi : 0M;
-            //item.HrgSatKecil = item.HrgSatKecil == 0
-            //    ? brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == req.HargaTypeId)?.Harga ?? 0M
-            //    : item.HrgSatKecil ;
-            #endregion
+            if (req.IsRefreshHrg == false)
+            {
+                #region JIKA ADA INPUT HARGA MANUAL, PAKE CODE INI
+                item.HrgSatKecil = hrgs[1] != 0
+                    ? hrgs[1]
+                    : hrgs[0] != 0
+                        ? hrgs[0] / pembagi : 0M;
+                item.HrgSatKecil = item.HrgSatKecil == 0
+                    ? brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == req.HargaTypeId)?.Harga ?? 0M
+                    : item.HrgSatKecil;
+                #endregion
+            }
+            else
+                item.HrgSatKecil = brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == req.HargaTypeId)?.Harga ?? 0M;
 
-            item.HrgSatKecil = brg.ListHarga.FirstOrDefault(x => x.HargaTypeId == req.HargaTypeId)?.Harga ?? 0M;
             item.HrgSatBesar = item.HrgSatKecil * item.Conversion;
             item.HrgInputStr = $"{item.HrgSatBesar:N0}; {item.HrgSatKecil:N2}";
 

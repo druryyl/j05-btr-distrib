@@ -738,6 +738,12 @@ namespace btr.distrib.SalesContext.FakturAgg
                 return;
             }
 
+            var isRefreshHrg = true;
+            if (FakturIdText.Text.Length > 0)
+            {
+                isRefreshHrg = false;
+            }
+
             var req = new CreateFakturItemRequest(
                 _listItem[rowIndex].BrgId,
                 _listItem[rowIndex].QtyInputStr,
@@ -746,7 +752,8 @@ namespace btr.distrib.SalesContext.FakturAgg
                 _listItem[rowIndex].DppProsen == 0 ? _dppProsen : _listItem[rowIndex].DppProsen,
                 _listItem[rowIndex].PpnProsen == 0 ? _ppnProsen : _listItem[rowIndex].PpnProsen,
                 _tipeHarga,
-                WarehouseIdText.Text);
+                WarehouseIdText.Text,
+                isRefreshHrg);
             var item = _createItemWorker.Execute(req);
             _listItem[rowIndex] = item.Adapt<FakturItemDto>();
 

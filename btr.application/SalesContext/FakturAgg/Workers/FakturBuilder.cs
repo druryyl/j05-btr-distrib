@@ -39,8 +39,8 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         IFakturBuilder TermOfPayment(TermOfPaymentEnum termOfPayment);
         IFakturBuilder DueDate(DateTime dueDate);
 
-        IFakturBuilder AddItem(IBrgKey brgKey, string stokHrgStr, string qtyString, string hrgInputStr, string discountString, decimal dppProsen, decimal ppnProsen);
-        IFakturBuilder AddItemKlaim(IBrgKey brgKey, string stokHrgStr, string qtyString, string hrgInputStr, string discountString, decimal dppProsen, decimal ppnProsen);
+        IFakturBuilder AddItem(IBrgKey brgKey, string stokHrgStr, string qtyString, string hrgInputStr, string discountString, decimal dppProsen, decimal ppnProsen, bool isRefreshHrg);
+        IFakturBuilder AddItemKlaim(IBrgKey brgKey, string stokHrgStr, string qtyString, string hrgInputStr, string discountString, decimal dppProsen, decimal ppnProsen, bool isRefreshHrg);
         IFakturBuilder ClearItem();
 
         IFakturBuilder FakturPajak(string noSeriFakturPajak);
@@ -250,12 +250,11 @@ namespace btr.application.SalesContext.FakturAgg.Workers
 
         #region GRID
         public IFakturBuilder AddItem(IBrgKey brgKey, string stokHrgStr, string qtyInputStr, string hrgInputStr,
-            string discInputStr, decimal dppProsen, decimal ppnProsen)
+            string discInputStr, decimal dppProsen, decimal ppnProsen, bool isRefreshHrg)
         {
             var item = _createFakturItemWorker.Execute(
                 new CreateFakturItemRequest(brgKey.BrgId, qtyInputStr, discInputStr, hrgInputStr, 
-                dppProsen, ppnProsen, _aggRoot.HargaTypeId, _aggRoot.WarehouseId));
-
+                dppProsen, ppnProsen, _aggRoot.HargaTypeId, _aggRoot.WarehouseId, isRefreshHrg));
             var noUrutMax = _aggRoot.ListItem
                 .DefaultIfEmpty(new FakturItemModel() { NoUrut = 0 })
                 .Max(x => x.NoUrut);
@@ -266,12 +265,11 @@ namespace btr.application.SalesContext.FakturAgg.Workers
         }
 
         public IFakturBuilder AddItemKlaim(IBrgKey brgKey, string stokHrgStr, string qtyInputStr, string hrgInputStr,
-            string discInputStr, decimal dppProsen, decimal ppnProsen)
+            string discInputStr, decimal dppProsen, decimal ppnProsen, bool isRefreshHrg)
         {
             var item = _createFakturItemWorker.Execute(
                 new CreateFakturItemRequest(brgKey.BrgId, qtyInputStr, discInputStr, hrgInputStr,
-                dppProsen, ppnProsen, _aggRoot.HargaTypeId, _aggRoot.WarehouseId));
-
+                dppProsen, ppnProsen, _aggRoot.HargaTypeId, _aggRoot.WarehouseId, isRefreshHrg));
             var noUrutMax = _aggRoot.ListItemKlaim
                 .DefaultIfEmpty(new FakturItemModel() { NoUrut = 0 })
                 .Max(x => x.NoUrut);

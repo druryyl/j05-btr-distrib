@@ -197,7 +197,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
             {
                 result = _fakturBuilder
                     .Attach(result)
-                    .AddItem(item, item.StokHarga, item.QtyString, item.HrgString, item.DiscountString, item.DppProsen, item.PpnProsen)
+                    .AddItem(item, item.StokHarga, item.QtyString, item.HrgString, item.DiscountString, item.DppProsen, item.PpnProsen, false)
                     .Build();
             }
 
@@ -205,7 +205,7 @@ namespace btr.application.SalesContext.FakturAgg.UseCases
             {
                 result = _fakturBuilder
                     .Attach(result)
-                    .AddItemKlaim(item, item.StokHarga, item.QtyString, item.HrgString, item.DiscountString, item.DppProsen, item.PpnProsen)
+                    .AddItemKlaim(item, item.StokHarga, item.QtyString, item.HrgString, item.DiscountString, item.DppProsen, item.PpnProsen, false)
                     .Build();
             }
 

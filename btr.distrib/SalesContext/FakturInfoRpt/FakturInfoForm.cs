@@ -68,47 +68,60 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
                     var faktur = listToExcel.FirstOrDefault(x => x.FakturId == fakturId);
                     excelDs.Add(faktur);
                 }
+                // insert table starting at row 3 so we can add two title rows above
                 wb.AddWorksheet("Faktu-Info")
-                    .Cell($"B1")
+                    .Cell($"B3")
                     .InsertTable(excelDs, false);
 
                 var ws = wb.Worksheets.First();
-                //  set border and font
-                ws.Range(ws.Cell($"A{1}"), ws.Cell($"Q{excelDs.Count + 1}")).Style
-                    .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
-                    .Border.SetInsideBorder(XLBorderStyleValues.Hair);
-                ws.Range(ws.Cell($"A{1}"), ws.Cell($"Q{excelDs.Count + 1}")).Style
-                    .Font.SetFontName("Lucida Console")
-                    .Font.SetFontSize(9);
+
+                // add titles in first and second row
+                ws.Cell($"A1").Value = "INFO FAKTUR JUAL";
+                ws.Cell($"A2").Value = $"Periode : {Tgl1Date.Value:dd-MM-yyyy} s/d {Tgl2Date.Value:dd-MM-yyyy}";
+
+                // merge first 5 columns for the two title rows
+                ws.Range("A1:E1").Merge();
+                ws.Range("A2:E2").Merge();
+
+                // style titles: first title bold and larger font, center align both rows
+                ws.Range("A1:E1").Style.Font.SetBold();
+                ws.Range("A1:E1").Style.Font.SetFontSize(14);
+                ws.Range("A1:E2").Style.Alignment.Horizontal = ClosedXML.Excel.XLAlignmentHorizontalValues.Left;
+                ws.Range("A1:E2").Style.Alignment.Vertical = ClosedXML.Excel.XLAlignmentVerticalValues.Center;
+
+                //  set border and font (adjusted for two title rows)
+                //ws.Range(ws.Cell($"A{1}"), ws.Cell($"Q{excelDs.Count + 3}")).Style
+                //    .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
+                //    .Border.SetInsideBorder(XLBorderStyleValues.Hair);
+                //ws.Range(ws.Cell($"A{1}"), ws.Cell($"Q{excelDs.Count + 3}")).Style
+                //    .Font.SetFontName("Lucida Console")
+                //    .Font.SetFontSize(9);
 
                 //  hide columns O
                 ws.Columns("P").Hide();
-                //  replace column P with empty space if its value is FALSE
 
-                //  set format number for column K, L, M, N to N0
-                ws.Range(ws.Cell($"K{2}"), ws.Cell($"QP{excelDs.Count + 1}"))
+                //  set format number for column K, L, M, N to N0 (adjusted rows)
+                ws.Range(ws.Cell($"K{4}"), ws.Cell($"QP{excelDs.Count + 3}"))
                     .Style.NumberFormat.Format = "#,##";
-                ws.Range(ws.Cell($"A{2}"), ws.Cell($"A{excelDs.Count + 1}"))
+                ws.Range(ws.Cell($"A{4}"), ws.Cell($"A{excelDs.Count + 3}"))
                     .Style.NumberFormat.Format = "#,##";
-                ws.Range(ws.Cell($"D{2}"), ws.Cell($"D{excelDs.Count + 1}"))
+                ws.Range(ws.Cell($"D{4}"), ws.Cell($"D{excelDs.Count + 3}"))
                     .Style.NumberFormat.Format = "dd-MMM-yyyy";
 
-                //  add rownumbering
-                ws.Cell($"A1").Value = "No";
+                //  add rownumbering (header is now at row 3)
+                ws.Cell($"A3").Value = "No";
                 for (var i = 0; i < excelDs.Count; i++)
-                    ws.Cell($"A{i + 2}").Value = i + 1;
+                    ws.Cell($"A{i + 4}").Value = i + 1;
 
-                //  replace status FALSE dengan string kosong
+                //  replace status FALSE dengan string kosong (data rows start at row 4)
                 for (var i = 0; i < excelDs.Count; i++)
-                    if (ws.Cell($"Q{i + 2}").Value.ToString() == "FALSE")
-                        ws.Cell($"Q{i + 2}").Value = "";
+                    if (ws.Cell($"Q{i + 4}").Value.ToString() == "FALSE")
+                        ws.Cell($"Q{i + 4}").Value = "";
 
                 //  replace status TRUE dengan string "YA""
                 for (var i = 0; i < excelDs.Count; i++)
-                    if (ws.Cell($"Q{i + 2}").Value.ToString() == "TRUE")
-                        ws.Cell($"Q{i + 2}").Value = "YA";
-
-
+                    if (ws.Cell($"Q{i + 4}").Value.ToString() == "TRUE")
+                        ws.Cell($"Q{i + 4}").Value = "YA";
 
                 ws.Columns().AdjustToContents();
                 wb.SaveAs(filePath);
