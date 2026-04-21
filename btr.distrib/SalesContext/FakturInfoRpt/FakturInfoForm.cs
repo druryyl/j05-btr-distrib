@@ -86,26 +86,43 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
                 // style titles: first title bold and larger font, center align both rows
                 ws.Range("A1:E1").Style.Font.SetBold();
                 ws.Range("A1:E1").Style.Font.SetFontSize(14);
-                ws.Range("A1:E2").Style.Alignment.Horizontal = ClosedXML.Excel.XLAlignmentHorizontalValues.Left;
-                ws.Range("A1:E2").Style.Alignment.Vertical = ClosedXML.Excel.XLAlignmentVerticalValues.Center;
+                ws.Range("A1:E2").Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
+                ws.Range("A1:E2").Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+
+                // get the full table range including the 'No' column 'A'
+                var lastCol = ws.LastColumnUsed().ColumnNumber();
+                var tableRange = ws.Range(3, 1, excelDs.Count + 3, lastCol);
+                var headerRange = ws.Range(3, 1, 3, lastCol);
+                var dataRange = ws.Range(4, 1, excelDs.Count + 3, lastCol);
 
                 //  set border and font (adjusted for two title rows)
-                //ws.Range(ws.Cell($"A{1}"), ws.Cell($"Q{excelDs.Count + 3}")).Style
-                //    .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
-                //    .Border.SetInsideBorder(XLBorderStyleValues.Hair);
-                //ws.Range(ws.Cell($"A{1}"), ws.Cell($"Q{excelDs.Count + 3}")).Style
-                //    .Font.SetFontName("Lucida Console")
-                //    .Font.SetFontSize(9);
+                tableRange.Style.Border.SetOutsideBorder(XLBorderStyleValues.Medium);
+                tableRange.Style.Border.SetInsideBorder(XLBorderStyleValues.Thin);
+                tableRange.Style.Border.SetOutsideBorderColor(XLColor.Gray);
+                tableRange.Style.Border.SetInsideBorderColor(XLColor.LightGray);
 
-                //  hide columns O
-                ws.Columns("P").Hide();
+                tableRange.Style.Font.SetFontName("Calibri");
+                tableRange.Style.Font.SetFontSize(10);
+                ws.Range($"C1:F{excelDs.Count+3}").Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                ws.Range($"S1:S{excelDs.Count + 3}").Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
 
-                //  set format number for column K, L, M, N to N0 (adjusted rows)
-                ws.Range(ws.Cell($"K{4}"), ws.Cell($"QP{excelDs.Count + 3}"))
-                    .Style.NumberFormat.Format = "#,##";
+                // style header row
+                headerRange.Style.Font.SetBold();
+                headerRange.Style.Fill.SetBackgroundColor(XLColor.FromArgb(178,178,178));
+                headerRange.Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                headerRange.Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center);
+
+                //  hide columns O (P in closedxml 1-based index)
+                ws.Column("R").Hide();
+
+                //  set format number
+                ws.Range(ws.Cell($"N{4}"), ws.Cell($"Q{excelDs.Count + 3}"))
+                    .Style.NumberFormat.Format = "#,##0";
                 ws.Range(ws.Cell($"A{4}"), ws.Cell($"A{excelDs.Count + 3}"))
-                    .Style.NumberFormat.Format = "#,##";
+                    .Style.NumberFormat.Format = "#,##0";
                 ws.Range(ws.Cell($"D{4}"), ws.Cell($"D{excelDs.Count + 3}"))
+                    .Style.NumberFormat.Format = "dd-MMM-yyyy";
+                ws.Range(ws.Cell($"E{4}"), ws.Cell($"E{excelDs.Count + 3}"))
                     .Style.NumberFormat.Format = "dd-MMM-yyyy";
 
                 //  add rownumbering (header is now at row 3)
@@ -113,17 +130,17 @@ namespace btr.distrib.SalesContext.FakturInfoRpt
                 for (var i = 0; i < excelDs.Count; i++)
                     ws.Cell($"A{i + 4}").Value = i + 1;
 
-                //  replace status FALSE dengan string kosong (data rows start at row 4)
-                for (var i = 0; i < excelDs.Count; i++)
-                    if (ws.Cell($"Q{i + 4}").Value.ToString() == "FALSE")
-                        ws.Cell($"Q{i + 4}").Value = "";
-
                 //  replace status TRUE dengan string "YA""
                 for (var i = 0; i < excelDs.Count; i++)
-                    if (ws.Cell($"Q{i + 4}").Value.ToString() == "TRUE")
-                        ws.Cell($"Q{i + 4}").Value = "YA";
-
+                {
+                    var cellValue = ws.Cell($"S{i + 4}").Value.ToString();
+                    if (cellValue == "TRUE")
+                        ws.Cell($"S{i + 4}").Value = "YA";
+                    else
+                        ws.Cell($"S{i + 4}").Value = "";
+                }
                 ws.Columns().AdjustToContents();
+                tableRange.Style.Font.SetFontSize(10);
                 wb.SaveAs(filePath);
             }
             System.Diagnostics.Process.Start(filePath);
