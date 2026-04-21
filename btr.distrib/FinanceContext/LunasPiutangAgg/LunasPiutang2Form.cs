@@ -43,6 +43,7 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
         private readonly ITglJamDal _dateTime;
         private readonly ISalesRuteBuilder _salesRuteBuilder;
         private readonly ISalesPersonDal _salesPersonDal;
+        private readonly ITagihanBuilder _tagihanBuilder;
 
         private readonly BindingList<LunasPiutangTagihanViewDto> _listTagihan;
         private readonly BindingSource _tagihanBindingSource;
@@ -60,7 +61,8 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             IFakturPotBalanceWriter fakturPotBalanceWriter,
             ITglJamDal dateTime,
             ISalesRuteBuilder salesRuteBuilder,
-            ISalesPersonDal salesPersonDal)
+            ISalesPersonDal salesPersonDal,
+            ITagihanBuilder tagihanBuilder)
         {
             InitializeComponent();
 
@@ -75,6 +77,7 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
             _salesRuteBuilder = salesRuteBuilder;
             _dateTime = dateTime;
             _salesPersonDal = salesPersonDal;
+            _tagihanBuilder = tagihanBuilder;
 
             _listTagihan = new BindingList<LunasPiutangTagihanViewDto>();
             _tagihanBindingSource = new BindingSource(_listTagihan, null);
@@ -605,8 +608,23 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
         {
             if (SalesCombo.SelectedValue is null)
                 return;
-            var sales = new SalesPersonModel(SalesCombo.SelectedValue.ToString());
+
             var listAllTagihan = new List<TandaTerimaTagihanViewDto>();
+            var loadByTagihanId = false;
+            if (SearchText.Text.Length >= 4)
+                if (SearchText.Text.Substring(0, 4) == "TAGH")
+                {
+                    var tagihanKey = new TagihanModel(SearchText.Text);
+                    var tagihan = _tagihanBuilder.Load(tagihanKey).Build();
+                    listAllTagihan = ListTagihanTrsTagihan(tagihanKey);
+                    Tgl1DatePicker.Value = tagihan.ListFaktur.OrderBy(x => x.FakturDate).FirstOrDefault()?.FakturDate ?? DateTime.Now;
+                    Tgl2DatePicker.Value = tagihan.ListFaktur.OrderByDescending(x => x.FakturDate).FirstOrDefault()?.FakturDate ?? DateTime.Now;
+                    SalesCombo.SelectedValue = tagihan.SalesPersonId;
+                    loadByTagihanId = true;
+                }
+            
+
+            var sales = new SalesPersonModel(SalesCombo.SelectedValue.ToString());
             var periode = new Periode(Tgl1DatePicker.Value, Tgl2DatePicker.Value);
             var listCustomer = ListCustomerByRute(sales, GetSelectedHari());
             if (listCustomer.Count() > 0)
@@ -623,7 +641,9 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
                 }
             else
             {
-                listAllTagihan = ListTagihanPerSales(sales, periode);
+                if (!loadByTagihanId)
+                    listAllTagihan = ListTagihanPerSales(sales, periode);
+
                 if (!IgnoreTTCheckBox.Checked)
                     listAllTagihan.RemoveAll(x => x.IsTandaTerima == false);
                 listAllTagihan.RemoveAll(x => x.IsTagihUlang);
@@ -634,16 +654,19 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
                 var search = SearchText.Text.Trim().ToLower();
                 listAllTagihan.RemoveAll(x => !(x.FakturCode.ToLower().Contains(search)
                     || x.CustomerName.ToLower().Contains(search)
-                    || x.Alamat.ToLower().Contains(search)));
+                    || x.Alamat.ToLower().Contains(search)
+                    || x.TagihanId.ToLower().Contains(search)
+                    ));
             }
 
             _listTagihan.Clear();
-            foreach (var item in listAllTagihan.OrderBy(x => x.CustomerName).ThenBy(x => x.FakturCode))
+            foreach (var item in listAllTagihan) //.OrderBy(x => x.CustomerName).ThenBy(x => x.FakturCode))
             {
                 _listTagihan.Add(new LunasPiutangTagihanViewDto(item));
             }
-
         }
+
+
         private IEnumerable<string> GetSelectedHari()
         {
             var listHari = new List<string>();
@@ -721,6 +744,12 @@ namespace btr.distrib.FinanceContext.LunasPiutangAgg
                 .ToList();
             return result;
         }
+        private List<TandaTerimaTagihanViewDto> ListTagihanTrsTagihan(ITagihanKey tagihanKey)
+        {
+            var listTagihan = _tagihanFakturDal.ListDataByTagihan(tagihanKey)?.ToList() ?? new List<TandaTerimaTagihanViewDto>();
+            return listTagihan;
+        }
+
         #endregion
 
         #region SALES-COMBO

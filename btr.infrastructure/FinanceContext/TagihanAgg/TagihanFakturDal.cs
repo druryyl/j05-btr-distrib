@@ -167,6 +167,45 @@ namespace btr.infrastructure.FinanceContext.TagihanAgg
             }
         }
 
+        public IEnumerable<TandaTerimaTagihanViewDto> ListDataByTagihan(ITagihanKey tagihanKey)
+        {
+            const string sql = @"
+                SELECT  
+                    aa.TagihanId, aa.FakturId, 
+                    aa.CustomerId, aa.NilaiTotal, aa.NilaiTerbayar, aa.NilaiTagih,
+                    aa.IsTandaTerima, aa.Keterangan, aa.TandaTerimaDate, 
+                    aa.IsTagihUlang,
+                    ISNULL(bb.FakturCode, '') AS FakturCode,
+                    ISNULL(bb.FakturDate, '3000-01-01') AS FakturDate,
+                    ISNULL(bb.SalesPersonId, '') AS SalesPersonId,      
+                    ISNULL(cc.CustomerName, '') CustomerName, 
+                    ISNULL(cc.Address1, '') Alamat,
+                    ISNULL(dd.SalesPersonName, '') AS SalesPersonName,
+                    ISNULL(ee.Nilai, 0) AS NilaiPelunasan
+                FROM
+                    BTR_TagihanFaktur aa
+                    LEFT JOIN BTR_Faktur bb ON aa.FakturId = bb.FakturId
+                    LEFT JOIN BTR_Customer cc ON bb.CustomerId = cc.CustomerId
+                    LEFT JOIN BTR_SalesPerson dd ON bb.SalesPersonId = dd.SalesPersonId
+                    LEFT JOIN BTR_PiutangLunas ee ON aa.TagihanId = ee.TagihanId AND aa.FakturId = ee.PiutangId
+                WHERE
+                    aa.TagihanId = @TagihanId
+                ORDER BY
+                    aa.TagihanId, aa.NoUrut";
+
+            // parameter
+            var dp = new DynamicParameters();
+            dp.AddParam("@TagihanId", tagihanKey.TagihanId, SqlDbType.VarChar);
+
+
+            //  execute query
+            using (var conn = new SqlConnection(ConnStringHelper.Get(_opt)))
+            {
+                return conn.Read<TandaTerimaTagihanViewDto>(sql, dp);
+            }
+        }
+
+
         public IEnumerable<TagihanFakturModel> ListDataByFaktur(IFakturKey fakturKey)
         {
             const string sql = @"

@@ -25,6 +25,7 @@ namespace btr.application.FinanceContext.TagihanAgg
         IListData<TandaTerimaTagihanViewDto, Periode>
     {
         IEnumerable<TagihanFakturModel> ListDataByFaktur(IFakturKey fakturKey);
+        IEnumerable<TandaTerimaTagihanViewDto> ListDataByTagihan(ITagihanKey tagihanKey);
         void Update(TagihanFakturModel model, ITagihanKey tagihan, IFakturKey faktur);
     }
 
