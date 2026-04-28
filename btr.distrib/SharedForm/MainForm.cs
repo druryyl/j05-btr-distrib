@@ -366,7 +366,12 @@ namespace btr.distrib.SharedForm
         }
         private void PF2InvoiceBrgInfoButton_Click(object sender, EventArgs e)
         {
-
+            if (BringMdiChildToFrontIfLoaded<InvoiceBrgInfoForm>())
+                return;
+            var form = ThisServicesProvider.GetRequiredService<InvoiceBrgInfoForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MdiParent = this;
+            form.Show();
         }
         private void PF3InvoiceHarianButton_Click(object sender, EventArgs e)
         {

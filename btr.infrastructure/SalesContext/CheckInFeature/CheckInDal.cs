@@ -133,12 +133,14 @@ namespace btr.infrastructure.SalesContext.CheckInFeature
         {
             const string sql = @"
             SELECT
-                CheckInId, CheckInDate, CheckInTime, UserEmail, 
-                CheckInLatitude, CheckInLongitude, Accuracy,
-                CustomerId, CustomerCode, CustomerName, CustomerAddress,
-                CustomerLatitude, CustomerLongitude, StatusSync
+                aa.CheckInId, aa.CheckInDate, aa.CheckInTime, aa.UserEmail, 
+                ISNULL(bb.SalesPersonName, '-') AS SalesName,
+                aa.CheckInLatitude, aa.CheckInLongitude, aa.Accuracy,
+                aa.CustomerId, aa.CustomerCode, aa.CustomerName, aa.CustomerAddress,
+                aa.CustomerLatitude, aa.CustomerLongitude, aa.StatusSync
             FROM
-                BTR_CheckIn
+                BTR_CheckIn aa
+                LEFT JOIN BTR_SalesPerson bb ON aa.UserEmail = bb.Email
             WHERE
                 CheckInId = @CheckInId";
 
@@ -155,12 +157,14 @@ namespace btr.infrastructure.SalesContext.CheckInFeature
         {
             const string sql = @"
             SELECT
-                CheckInId, CheckInDate, CheckInTime, UserEmail, 
-                CheckInLatitude, CheckInLongitude, Accuracy,
-                CustomerId, CustomerCode, CustomerName, CustomerAddress,
-                CustomerLatitude, CustomerLongitude, StatusSync
+                aa.CheckInId, aa.CheckInDate, aa.CheckInTime, aa.UserEmail, 
+                ISNULL(bb.SalesPersonName, '-') AS SalesName,
+                aa.CheckInLatitude, aa.CheckInLongitude, aa.Accuracy,
+                aa.CustomerId, aa.CustomerCode, aa.CustomerName, aa.CustomerAddress,
+                aa.CustomerLatitude, aa.CustomerLongitude, aa.StatusSync
             FROM
-                BTR_CheckIn
+                BTR_CheckIn aa
+                LEFT JOIN BTR_SalesPerson bb ON aa.UserEmail = bb.Email
             WHERE
                 CheckInDate BETWEEN @Tgl1 AND @Tgl2";
 

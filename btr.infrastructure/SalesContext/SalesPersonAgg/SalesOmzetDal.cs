@@ -21,31 +21,59 @@ namespace btr.infrastructure.SalesContext.SalesPersonAgg
         public IEnumerable<SalesOmzetView> ListData(Periode filter)
         {
             const string sql = @"
+                ;WITH OrdersInRange AS (
+                    SELECT o.OrderId, o.OrderDate, o.UserEmail, o.CustomerName, o.CustomerId,
+                            SUM(oi.LineTotal) AS OrderTotal
+                    FROM BTR_Order o
+                    LEFT JOIN BTR_OrderItem oi ON o.OrderId = oi.OrderId
+                    WHERE o.OrderDate BETWEEN @Tgl1 AND @Tgl2
+                    GROUP BY o.OrderId, o.OrderDate, o.UserEmail, o.CustomerName, o.CustomerId
+                ),
+                FaktursInRange AS (
+                    SELECT f.FakturId, f.FakturCode, f.FakturDate, f.OrderId, f.GrandTotal, f.SalesPersonId, f.CustomerId
+                    FROM BTR_Faktur f
+                    WHERE f.FakturDate BETWEEN @Tgl1 AND @Tgl2
+                )
+
+                -- Rows driven by orders in the date range (attach faktur if present)
                 SELECT 
-                    ISNULL(aa.OrderId, '') OrderId, 
-                    CAST(ISNULL(aa.OrderDate, '3000-01-01') AS DATETIME) OrderDate, 
-                    ISNULL(aa.OrderTotal, 0) OrderTotal,
-                    ISNULL(bb.FakturCode, '') FakturCode, ISNULL(bb.FakturDate, '3000-01-01') FakturDate, 
-                    ISNULL(aa.CustomerName, ee.CustomerName) AS CustomerName,
-                    ISNULL(bb.GrandTotal,0) FakturTotal,
-                    ISNULL(cc.StatusDate, '3000-01-01') AS OmzetDate,
-                    ISNULL(dd.SalesPersonName, aa.UserEmail) AS SalesPersonName
-                FROM
-                    (
-                        SELECT aa.OrderId, aa.OrderDate, aa.UserEmail, 
-                                aa.CustomerName,
-                                SUM(bb.LineTotal) OrderTotal
-                        FROM BTR_Order aa
-                        LEFT JOIN BTR_OrderItem bb ON aa.OrderId = bb.OrderId
-                        GROUP BY aa.OrderId, aa.OrderDate, aa.UserEmail, aa.CustomerName
-                    ) aa
-                    FULL JOIN BTR_Faktur bb ON aa.OrderId = bb.OrderId 
-                    LEFT JOIN BTR_FakturControlStatus cc ON bb.FakturId = cc.FakturId AND StatusFaktur = 2
-                    LEFT JOIN BTR_SalesPerson dd ON bb.SalesPersonId = dd.SalesPersonId
-                    LEFT JOIN BTR_Customer ee ON bb.CustomerId = ee.CustomerId
-                WHERE
-                    bb.FakturDate BETWEEN @Tgl1 AND @Tgl2
-                    OR aa.OrderDate BETWEEN @Tgl1 AND @Tgl2";
+                    ISNULL(o.OrderId, '') AS OrderId,
+                    ISNULL(o.OrderDate, '3000-01-01') AS OrderDate,
+                    ISNULL(o.OrderTotal, 0) AS OrderTotal,
+                    ISNULL(f.FakturCode, '') AS FakturCode,
+                    ISNULL(f.FakturDate, '3000-01-01') AS FakturDate,
+                    ISNULL(o.CustomerName, c.CustomerName) AS CustomerName,
+                    ISNULL(c.CustomerCode, '') AS Code,
+                    ISNULL(c.Address1, '') AS Alamat,
+                    ISNULL(f.GrandTotal, 0) AS FakturTotal,
+                    ISNULL(scs.StatusDate, '3000-01-01') AS OmzetDate,
+                    ISNULL(sp.SalesPersonName, o.UserEmail) AS SalesPersonName
+                FROM OrdersInRange o
+                LEFT JOIN FaktursInRange f ON o.OrderId = f.OrderId
+                LEFT JOIN BTR_FakturControlStatus scs ON f.FakturId = scs.FakturId AND scs.StatusFaktur = 2
+                LEFT JOIN BTR_SalesPerson sp ON f.SalesPersonId = sp.SalesPersonId
+                LEFT JOIN BTR_Customer c ON o.CustomerId = c.CustomerId
+
+                UNION ALL
+
+                -- Faktur-driven rows where the matching order was NOT in the orders result set
+                SELECT 
+                    ISNULL(f.OrderId, '') AS OrderId,
+                    CAST('3000-01-01' AS DATETIME) AS OrderDate,
+                    0 AS OrderTotal,
+                    ISNULL(f.FakturCode, '') AS FakturCode,
+                    ISNULL(f.FakturDate, '3000-01-01') AS FakturDate,
+                    ISNULL(c.CustomerName, '') AS CustomerName,
+                    ISNULL(c.CustomerCode, '') AS Code,
+                    ISNULL(c.Address1, '') AS Alamat,
+                    ISNULL(f.GrandTotal, 0) AS FakturTotal,
+                    ISNULL(scs.StatusDate, '3000-01-01') AS OmzetDate,
+                    ISNULL(sp.SalesPersonName, '') AS SalesPersonName
+                FROM FaktursInRange f
+                LEFT JOIN BTR_FakturControlStatus scs ON f.FakturId = scs.FakturId AND scs.StatusFaktur = 2
+                LEFT JOIN BTR_SalesPerson sp ON f.SalesPersonId = sp.SalesPersonId
+                LEFT JOIN BTR_Customer c ON f.CustomerId = c.CustomerId
+                WHERE f.OrderId NOT IN (SELECT OrderId FROM OrdersInRange)";
 
             var dp = new DynamicParameters();
             dp.AddParam("@Tgl1", filter.Tgl1, System.Data.SqlDbType.DateTime);

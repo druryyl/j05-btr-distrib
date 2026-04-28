@@ -21,6 +21,8 @@ namespace btr.application.SalesContext.OrderFeature
         public string FakturCode { get; set; }
         public DateTime FakturDate { get; set; }
         public string CustomerName { get; set; }
+        public string Code { get; set; }
+        public string Alamat { get; set; }
         public decimal FakturTotal { get; set; }
         public DateTime OmzetDate { get; set; }
         public string SalesPersonName { get; set; }

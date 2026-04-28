@@ -17,6 +17,7 @@ namespace btr.domain.SalesContext.CheckInFeature
             string checkInDate,        // yyyy-MM-dd
             string checkInTime,        // HH:mm:ss
             string userEmail,
+            string salesName,
             double checkInLatitude,
             double checkInLongitude,
             float accuracy,
@@ -32,6 +33,7 @@ namespace btr.domain.SalesContext.CheckInFeature
             CheckInDate = checkInDate;
             CheckInTime = checkInTime;
             UserEmail = userEmail;
+            SalesName = salesName;
             CheckInLatitude = checkInLatitude;
             CheckInLongitude = checkInLongitude;
             Accuracy = accuracy;
@@ -48,6 +50,7 @@ namespace btr.domain.SalesContext.CheckInFeature
         public string CheckInDate { get; set; }        // yyyy-MM-dd
         public string CheckInTime { get; set; }        // HH:mm:ss
         public string UserEmail { get; set; }
+        public string SalesName { get; set; }
         public double CheckInLatitude { get; set; }
         public double CheckInLongitude { get; set; }
         public float Accuracy { get; set; }

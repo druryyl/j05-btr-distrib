@@ -212,7 +212,7 @@ namespace btr.distrib.SalesContext.LocationFeature
             var visibleColumns = InfoGrid.TableDescriptor.VisibleColumns;
             var desiredOrder = new List<string>
             {
-                "CheckInId", "CheckInDate", "CheckInTime", "UserEmail", "CheckInLoc",
+                "CheckInId", "CheckInDate", "CheckInTime", "UserEmail", "SalesName", "CheckInLoc",
                 "CustomerCode", "CustomerName", "CustomerAddress", "CustomerLoc", "Distance"
             };
 
@@ -309,6 +309,7 @@ namespace btr.distrib.SalesContext.LocationFeature
             CheckInDate = model.CheckInDate;
             CheckInTime = model.CheckInTime;
             UserEmail = model.UserEmail;
+            SalesName = model.SalesName;
             CheckInLatitude = model.CheckInLatitude;
             CheckInLongitude = model.CheckInLongitude;
             Accuracy = model.Accuracy;
@@ -323,6 +324,7 @@ namespace btr.distrib.SalesContext.LocationFeature
         public string CheckInDate { get; set; }        // yyyy-MM-dd
         public string CheckInTime { get; set; }        // HH:mm:ss
         public string UserEmail { get; set; }
+        public string SalesName { get; set; }
         public string CheckInLoc => $"{CheckInLatitude}, {CheckInLongitude}";
         public double CheckInLatitude { get; set; }
         public double CheckInLongitude { get; set; }

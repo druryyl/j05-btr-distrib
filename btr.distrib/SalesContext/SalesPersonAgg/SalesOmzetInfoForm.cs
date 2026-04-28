@@ -190,7 +190,7 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
             InfoGrid.TableDescriptor.Appearance.AnyRecordFieldCell.WrapText = false;
 
             InfoGrid.Refresh();
-            Proses();
+            //Proses();
         }
 
         private void ProsesButton_Click(object sender, EventArgs e)
