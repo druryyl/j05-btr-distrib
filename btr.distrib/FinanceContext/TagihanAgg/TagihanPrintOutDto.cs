@@ -15,7 +15,7 @@ namespace btr.distrib.FinanceContext.TagihanAgg
         {
             Sales = $"SALES: {tagihan.SalesPersonName}";
             Tgl = $"Tanggal: {hari[(int)tagihan.TagihanDate.DayOfWeek]}, {tagihan.TagihanDate:dd-MMM-yyyy}";
-
+            TagihanId = tagihan.TagihanId;
             ListItem = new List<TagihanPrintOutItemDto>();
             decimal totalTagihan = 0;
             decimal totalTerbayar = 0;
@@ -43,6 +43,7 @@ namespace btr.distrib.FinanceContext.TagihanAgg
             TotalSisa = $"{totalSisa:N0}";
 
         }
+        public string TagihanId { get; set; }
         public string Sales { get; set; }
         public string Tgl { get; set; }
         public string TotalTagihan { get; set; }

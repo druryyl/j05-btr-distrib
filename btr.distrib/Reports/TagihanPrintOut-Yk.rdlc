@@ -1157,13 +1157,13 @@
               <TextRun>
                 <Value>=First(Fields!Tgl.Value, "TagihanDataset")</Value>
                 <Style>
-                  <FontFamily>Segoe UI</FontFamily>
+                  <FontFamily>Courier New</FontFamily>
                   <FontSize>9pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
             <Style>
-              <TextAlign>Center</TextAlign>
+              <TextAlign>Right</TextAlign>
             </Style>
           </Paragraph>
         </Paragraphs>
@@ -1173,7 +1173,7 @@
         <ZIndex>7</ZIndex>
         <Style>
           <Border>
-            <Style>Solid</Style>
+            <Style>None</Style>
           </Border>
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -1388,6 +1388,41 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
+      <Textbox Name="SalesText2">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!TagihanId.Value, "TagihanDataset")</Value>
+                <Style>
+                  <FontFamily>Courier New</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <Top>0.23958in</Top>
+        <Left>8.85764in</Left>
+        <Height>0.23958in</Height>
+        <Width>1.52709in</Width>
+        <ZIndex>14</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <VerticalAlign>Middle</VerticalAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
     </ReportItems>
     <Height>2.23262in</Height>
     <Style />
@@ -1428,6 +1463,10 @@
           <DataField>Sales</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="TagihanId">
+          <DataField>TagihanId</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="Tgl">
           <DataField>Tgl</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -1448,7 +1487,7 @@
       <rd:DataSetInfo>
         <rd:DataSetName>btr.distrib.FinanceContext.TagihanAgg</rd:DataSetName>
         <rd:TableName>TagihanPrintOutDto</rd:TableName>
-        <rd:ObjectDataSourceType>btr.distrib.FinanceContext.TagihanAgg.TagihanPrintOutDto, btr.distrib, Version=1.0.0.12, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+        <rd:ObjectDataSourceType>btr.distrib.FinanceContext.TagihanAgg.TagihanPrintOutDto, btr.distrib, Version=3.3.0.352, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
     <DataSet Name="TagihanItemDataset">

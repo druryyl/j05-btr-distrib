@@ -98,38 +98,48 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
                     ws.Cell($"L{row}").Value = omzet.OmzetDate;
                     ws.Cell($"M{row}").Value = status;
 
-                    // Apply conditional formatting to Excel rows
-                    var rowRange = ws.Range(ws.Cell($"A{row}"), ws.Cell($"M{row}"));
+                    // Apply conditional formatting only to Status column (M)
                     Color bgColor = GetStatusColor(status);
-                    rowRange.Style.Fill.BackgroundColor = XLColor.FromColor(bgColor);
+                    ws.Cell($"M{row}").Style.Fill.BackgroundColor = XLColor.FromColor(bgColor);
                 }
 
-                // Apply styling to the entire data range
-                var dataRange = ws.Range(ws.Cell($"A1"), ws.Cell($"J{listToExcel.Count + 1}"));
-                dataRange.Style
+                var lastRow = listToExcel.Count + 1;
+
+                // Ensure border covers all used columns (A..M)
+                var fullRange = ws.Range(ws.Cell($"A1"), ws.Cell($"M{lastRow}"));
+                fullRange.Style
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
-                    .Border.SetInsideBorder(XLBorderStyleValues.Hair)
-                    .Font.SetFontName("Lucida Console")
-                    .Font.SetFontSize(9);
+                    .Border.SetInsideBorder(XLBorderStyleValues.Hair);
 
-                // Format header row
-                var headerRange = ws.Range(ws.Cell($"A1"), ws.Cell($"J1"));
-                headerRange.Style
-                    .Font.Bold = true;
+                // Set fonts: default non-numeric to Segoe UI
+                fullRange.Style.Font.FontName = "Segoe UI";
+                fullRange.Style.Font.FontSize = 9;
 
-                // Format numeric columns
-                var orderTotalRange = ws.Range(ws.Cell($"D2"), ws.Cell($"D{listToExcel.Count + 1}"));
-                var fakturTotalRange = ws.Range(ws.Cell($"G2"), ws.Cell($"G{listToExcel.Count + 1}"));
+                // Header styling
+                var headerRange = ws.Range(ws.Cell($"A1"), ws.Cell($"M1"));
+                headerRange.Style.Font.Bold = true;
+                headerRange.Style.Font.FontName = "Segoe UI";
+
+                // Format numeric columns to monospace and numeric format
+                var noRange = ws.Range(ws.Cell($"A2"), ws.Cell($"A{lastRow}"));
+                var orderTotalRange = ws.Range(ws.Cell($"E2"), ws.Cell($"E{lastRow}"));
+                var fakturTotalRange = ws.Range(ws.Cell($"K2"), ws.Cell($"K{lastRow}"));
+
+                noRange.Style.Font.FontName = "Lucida Console";
+                orderTotalRange.Style.Font.FontName = "Lucida Console";
+                fakturTotalRange.Style.Font.FontName = "Lucida Console";
+
                 orderTotalRange.Style.NumberFormat.Format = "#,##0";
                 fakturTotalRange.Style.NumberFormat.Format = "#,##0";
 
-                // Format date columns
-                var dateRange = ws.Range(ws.Cell($"C2"), ws.Cell($"C{listToExcel.Count + 1}"));
-                var fakturDateRange = ws.Range(ws.Cell($"F2"), ws.Cell($"F{listToExcel.Count + 1}"));
-                var omzetDateRange = ws.Range(ws.Cell($"H2"), ws.Cell($"H{listToExcel.Count + 1}"));
-                dateRange.Style.NumberFormat.Format = "dd-MMM-yyyy";
-                fakturDateRange.Style.NumberFormat.Format = "dd-MMM-yyyy";
-                omzetDateRange.Style.NumberFormat.Format = "dd-MMM-yyyy";
+                // Format date columns to dd-MM-yyyy
+                var orderDateRange = ws.Range(ws.Cell($"D2"), ws.Cell($"D{lastRow}"));
+                var fakturDateRange = ws.Range(ws.Cell($"G2"), ws.Cell($"G{lastRow}"));
+                var omzetDateRange = ws.Range(ws.Cell($"L2"), ws.Cell($"L{lastRow}"));
+
+                orderDateRange.Style.NumberFormat.Format = "dd-MM-yyyy";
+                fakturDateRange.Style.NumberFormat.Format = "dd-MM-yyyy";
+                omzetDateRange.Style.NumberFormat.Format = "dd-MM-yyyy";
 
                 // Auto-fit all columns
                 ws.Columns().AdjustToContents();
