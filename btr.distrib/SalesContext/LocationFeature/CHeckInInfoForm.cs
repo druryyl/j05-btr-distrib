@@ -64,12 +64,13 @@ namespace btr.distrib.SalesContext.LocationFeature
                 ws.Cell("C1").Value = "Date";
                 ws.Cell("D1").Value = "Time";
                 ws.Cell("E1").Value = "User Email";
-                ws.Cell("F1").Value = "CheckIn Location";
-                ws.Cell("G1").Value = "Customer Code";
-                ws.Cell("H1").Value = "Customer Name";
-                ws.Cell("I1").Value = "Customer Address";
-                ws.Cell("J1").Value = "Customer Location";
-                ws.Cell("K1").Value = "Distance (m)";
+                ws.Cell("F1").Value = "Sales Name";
+                ws.Cell("G1").Value = "CheckIn Location";
+                ws.Cell("H1").Value = "Customer Code";
+                ws.Cell("I1").Value = "Customer Name";
+                ws.Cell("J1").Value = "Customer Address";
+                ws.Cell("K1").Value = "Customer Location";
+                ws.Cell("L1").Value = "Distance (m)";
 
                 // Fill data rows
                 for (var i = 0; i < listToExcel.Count; i++)
@@ -82,16 +83,17 @@ namespace btr.distrib.SalesContext.LocationFeature
                     ws.Cell($"C{row}").Value = checkIn.CheckInDate;
                     ws.Cell($"D{row}").Value = checkIn.CheckInTime;
                     ws.Cell($"E{row}").Value = checkIn.UserEmail;
-                    ws.Cell($"F{row}").Value = checkIn.CheckInLoc;
-                    ws.Cell($"G{row}").Value = checkIn.CustomerCode;
-                    ws.Cell($"H{row}").Value = checkIn.CustomerName;
-                    ws.Cell($"I{row}").Value = checkIn.CustomerAddress;
-                    ws.Cell($"J{row}").Value = checkIn.CustomerLoc;
-                    ws.Cell($"K{row}").Value = Math.Round(checkIn.Distance, 2);
+                    ws.Cell($"F{row}").Value = checkIn.SalesName;
+                    ws.Cell($"G{row}").Value = checkIn.CheckInLoc;
+                    ws.Cell($"H{row}").Value = checkIn.CustomerCode;
+                    ws.Cell($"I{row}").Value = checkIn.CustomerName;
+                    ws.Cell($"J{row}").Value = checkIn.CustomerAddress;
+                    ws.Cell($"K{row}").Value = checkIn.CustomerLoc;
+                    ws.Cell($"L{row}").Value = Math.Round(checkIn.Distance, 2);
                 }
 
                 // Apply styling to the entire data range
-                var dataRange = ws.Range(ws.Cell($"A1"), ws.Cell($"K{listToExcel.Count + 1}"));
+                var dataRange = ws.Range(ws.Cell($"A1"), ws.Cell($"L{listToExcel.Count + 1}"));
                 dataRange.Style
                     .Border.SetOutsideBorder(XLBorderStyleValues.Medium)
                     .Border.SetInsideBorder(XLBorderStyleValues.Hair)
@@ -99,12 +101,12 @@ namespace btr.distrib.SalesContext.LocationFeature
                     .Font.SetFontSize(9);
 
                 // Format header row
-                var headerRange = ws.Range(ws.Cell($"A1"), ws.Cell($"K1"));
+                var headerRange = ws.Range(ws.Cell($"A1"), ws.Cell($"L1"));
                 headerRange.Style
                     .Font.Bold = true;
 
                 // Format distance column
-                var distanceRange = ws.Range(ws.Cell($"K2"), ws.Cell($"K{listToExcel.Count + 1}"));
+                var distanceRange = ws.Range(ws.Cell($"L2"), ws.Cell($"L{listToExcel.Count + 1}"));
                 distanceRange.Style.NumberFormat.Format = "#,##0.00";
 
                 // Apply color coding based on distance (optional)
@@ -116,15 +118,15 @@ namespace btr.distrib.SalesContext.LocationFeature
 
                     if (distance <= 50)
                     {
-                        ws.Cell($"K{row}").Style.Fill.BackgroundColor = XLColor.LightGreen;
+                        ws.Cell($"L{row}").Style.Fill.BackgroundColor = XLColor.LightGreen;
                     }
                     else if (distance <= 100)
                     {
-                        ws.Cell($"K{row}").Style.Fill.BackgroundColor = XLColor.LightYellow;
+                        ws.Cell($"L{row}").Style.Fill.BackgroundColor = XLColor.LightYellow;
                     }
                     else
                     {
-                        ws.Cell($"K{row}").Style.Fill.BackgroundColor = XLColor.LightCoral;
+                        ws.Cell($"L{row}").Style.Fill.BackgroundColor = XLColor.LightCoral;
                     }
                 }
 

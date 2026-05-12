@@ -405,9 +405,7 @@ namespace btr.distrib.SalesContext.OrderFeature
 
                 // Create header row
                 var headers = new[]
-                {
-            "No", "Order Date", "Sales", "Order Count", "Item Count", "Total Amount"
-        };
+                    { "No", "Order Date", "Sales", "Outlet", "Order Count", "Item Count", "Total Amount"};
 
                 for (int i = 0; i < headers.Length; i++)
                 {
@@ -423,14 +421,15 @@ namespace btr.distrib.SalesContext.OrderFeature
                     ws.Cell(row, 1).Value = i + 1; // No
                     ws.Cell(row, 2).Value = summary.OrderDate;
                     ws.Cell(row, 3).Value = summary.Sales;
-                    ws.Cell(row, 4).Value = summary.Order;
-                    ws.Cell(row, 5).Value = summary.Item;
-                    ws.Cell(row, 6).Value = summary.Total;
+                    ws.Cell(row, 4).Value = summary.Outlet;
+                    ws.Cell(row, 5).Value = summary.Order;
+                    ws.Cell(row, 6).Value = summary.Item;
+                    ws.Cell(row, 7).Value = summary.Total;
                 }
 
                 // Format header row
-                var headerRange = ws.Range($"A1:F{orderSummaryList.Count + 1}");
-                var headerRow = ws.Range("A1:F1");
+                var headerRange = ws.Range($"A1:G{orderSummaryList.Count + 1}");
+                var headerRow = ws.Range("A1:G1");
 
                 // Header styling
                 headerRow.Style.Border.BottomBorder = XLBorderStyleValues.Thin;
@@ -438,8 +437,8 @@ namespace btr.distrib.SalesContext.OrderFeature
                 headerRow.Style.Fill.BackgroundColor = XLColor.LightBlue;
 
                 // Table border styling
-                ws.Range($"A2:F{orderSummaryList.Count + 1}").Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
-                ws.Range($"A1:F{orderSummaryList.Count + 1}").Style.Border.InsideBorder = XLBorderStyleValues.Hair;
+                ws.Range($"A2:G{orderSummaryList.Count + 1}").Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                ws.Range($"A1:G{orderSummaryList.Count + 1}").Style.Border.InsideBorder = XLBorderStyleValues.Hair;
 
                 // Font styling
                 headerRange.Style.Font.SetFontName("Lucida Console");
