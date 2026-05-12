@@ -15,6 +15,7 @@ namespace btr.application.SalesContext.OrderFeature
 
     public class SalesOmzetView
     {
+        public string SalesPersonName { get; set; }
         public string OrderId { get;set ; }
         public DateTime OrderDate { get; set; }
         public decimal OrderTotal { get; set; }
@@ -25,6 +26,5 @@ namespace btr.application.SalesContext.OrderFeature
         public string Alamat { get; set; }
         public decimal FakturTotal { get; set; }
         public DateTime OmzetDate { get; set; }
-        public string SalesPersonName { get; set; }
     }
 }

@@ -63,14 +63,17 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
                 // Create header row
                 ws.Cell("A1").Value = "No";
                 ws.Cell("B1").Value = "Sales Name";
-                ws.Cell("C1").Value = "Order Date";
-                ws.Cell("D1").Value = "Order Total";
-                ws.Cell("E1").Value = "Invoice Code";
-                ws.Cell("F1").Value = "Invoice Date";
-                ws.Cell("G1").Value = "Invoice Total";
-                ws.Cell("H1").Value = "Omzet Date";
-                ws.Cell("I1").Value = "Order ID";
-                ws.Cell("J1").Value = "Status";
+                ws.Cell("C1").Value = "Order ID";
+                ws.Cell("D1").Value = "Order Date";
+                ws.Cell("E1").Value = "Order Total";
+                ws.Cell("F1").Value = "Faktur Code";
+                ws.Cell("G1").Value = "Faktur Date";
+                ws.Cell("H1").Value = "Customer Name";
+                ws.Cell("I1").Value = "Cust.Code";
+                ws.Cell("J1").Value = "Alamat";
+                ws.Cell("K1").Value = "Faktur Total";
+                ws.Cell("L1").Value = "Omzet Date";
+                ws.Cell("M1").Value = "Status";
 
                 // Fill data rows
                 for (var i = 0; i < listToExcel.Count; i++)
@@ -83,17 +86,20 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
 
                     ws.Cell($"A{row}").Value = i + 1;
                     ws.Cell($"B{row}").Value = omzet.SalesPersonName;
-                    ws.Cell($"C{row}").Value = omzet.OrderDate;
-                    ws.Cell($"D{row}").Value = omzet.OrderTotal;
-                    ws.Cell($"E{row}").Value = omzet.FakturCode;
-                    ws.Cell($"F{row}").Value = omzet.FakturDate;
-                    ws.Cell($"G{row}").Value = omzet.FakturTotal;
-                    ws.Cell($"H{row}").Value = omzet.OmzetDate;
-                    ws.Cell($"I{row}").Value = omzet.OrderId;
-                    ws.Cell($"J{row}").Value = status;
+                    ws.Cell($"C{row}").Value = omzet.OrderId;
+                    ws.Cell($"D{row}").Value = omzet.OrderDate;
+                    ws.Cell($"E{row}").Value = omzet.OrderTotal;
+                    ws.Cell($"F{row}").Value = omzet.FakturCode;
+                    ws.Cell($"G{row}").Value = omzet.FakturDate;
+                    ws.Cell($"H{row}").Value = omzet.CustomerName;
+                    ws.Cell($"I{row}").Value = omzet.Code;
+                    ws.Cell($"J{row}").Value = omzet.Alamat;
+                    ws.Cell($"K{row}").Value = omzet.FakturTotal;
+                    ws.Cell($"L{row}").Value = omzet.OmzetDate;
+                    ws.Cell($"M{row}").Value = status;
 
                     // Apply conditional formatting to Excel rows
-                    var rowRange = ws.Range(ws.Cell($"A{row}"), ws.Cell($"J{row}"));
+                    var rowRange = ws.Range(ws.Cell($"A{row}"), ws.Cell($"M{row}"));
                     Color bgColor = GetStatusColor(status);
                     rowRange.Style.Fill.BackgroundColor = XLColor.FromColor(bgColor);
                 }
@@ -262,11 +268,11 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
             switch (status)
             {
                 case "Outstanding Order":
-                    return Color.LightCoral;  // Red-ish for outstanding
+                    return Color.MistyRose;  // Red-ish for outstanding
                 case "Completed Order":
-                    return Color.LightGreen;  // Green for completed
+                    return Color.PaleGreen;  // Green for completed
                 case "Direct Sales":
-                    return Color.LightSkyBlue;  // Blue for direct sales
+                    return Color.PowderBlue;  // Blue for direct sales
                 default:
                     return Color.White;
             }
@@ -275,34 +281,6 @@ namespace btr.distrib.SalesContext.SalesPersonAgg
         // Conditional formatting for grid rows
         private void InfoGrid_QueryCellStyleInfo(object sender, GridTableCellStyleInfoEventArgs e)
         {
-            //// Apply conditional formatting to record rows only
-            //if (e.TableCellIdentity.TableCellType == GridTableCellType.RecordFieldCell ||
-            //    e.TableCellIdentity.TableCellType == GridTableCellType.AlternateRecordFieldCell)
-            //{
-            //    // Get the record from the table
-            //    var table = e.TableCellIdentity.Table;
-            //    var recordIndex = e.TableCellIdentity.RowIndex;
-
-            //    if (table != null && table.Records != null && recordIndex > 0 && recordIndex <= table.Records.Count)
-            //    {
-            //        var record = table.Records[recordIndex - 1];
-            //        if (record != null)
-            //        {
-            //            var data = record.GetData() as SalesOmzetView;
-            //            if (data != null)
-            //            {
-            //                // Get status based on business logic
-            //                string status = GetOrderStatus(data.OrderId, data.FakturCode);
-            //                Color bgColor = GetStatusColor(status);
-
-            //                // Apply background color
-            //                e.Style.BackColor = bgColor;
-            //            }
-            //        }
-            //    }
-            //}
-
-            // Style grouping headers
             if (e.TableCellIdentity.TableCellType == GridTableCellType.GroupCaptionCell)
             {
                 e.Style.Themed = false;
